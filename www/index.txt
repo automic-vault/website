@@ -1,60 +1,36 @@
-Secure the tools you brew install.
+Let agents use tools, not your raw secrets.
 
-A new kind of package manager for a new kind of threat model
+Automic Vault is a local macOS security layer for AI coding agents. It keeps
+credentials out of model context and plaintext files, asks before risky tool
+actions, and installs packages in roots agents cannot quietly rewrite.
 
-Automic Vault secures Homebrew tools, CLI secrets, and command approval gates
-locally on your Mac before AI agents use them.
+What changes:
+- Secrets become tool-bound: approved command-line tools can use the
+  credentials they own without exposing raw values to agents or unrelated
+  processes.
+- Risky actions ask at execution: publishing, token reveal, and cloud mutations
+  can require approval where the command actually runs.
+- Packages install into owned roots: agent-used tools stay predictable instead
+  of drifting through ambient user-writable paths.
 
-The same risk shows up across CLIs, SDKs, package managers, and MCP servers:
-tokens sit in files an agent or malware can read. Automic Vault keeps watching
-after setup, so new installs and stale tool config do not stay quiet.
-
-Secret exposure examples:
-- gh auth token: prints a GitHub bearer token that an agent, script, or
-  compromised tool can copy into API calls.
-- cat ~/.aws/credentials: turns a readable dotfile into cloud account access.
-- printf 'protocol=https\nhost=github.com\n\n' | git credential fill: asks the
-  local credential helper to reveal repository credentials, even when there is
-  no obvious token file.
-
-Founder context:
-I built Homebrew. It was designed before AI agents existed.
-Install with Homebrew. Secure with Automic Vault.
-Stop agents, malware, and compromised tools from accessing secrets or
-performing sensitive actions without approval.
-- Max Howell, Creator of Homebrew
+Key workflows:
+- Move .env, shell profile, .npmrc, .netrc, GitHub CLI, AWS, and MCP
+  credentials out of agent-readable plaintext.
+- Inject approved secrets only into trusted tools.
+- Scan local files before an agent run.
+- Trace shell installers before an agent or developer runs them.
+- Install and browse package coverage through Nucleus and the package catalog.
 
 Key pages:
 - Documentation: https://www.automicvault.com/docs/
 - Security: https://www.automicvault.com/security/
 - Security Methods and Gaps: https://www.automicvault.com/security/whitepaper/
-- Blog: https://www.automicvault.com/blog/
-- Agent Pack: https://www.automicvault.com/blog/agent-pack/
-- UNIX++ Pack: https://www.automicvault.com/blog/unix-plus-plus/
-- The Agentic Toolkit: https://www.automicvault.com/blog/agentic-toolkit/
 - Pricing: https://www.automicvault.com/pricing/
-- security.txt: https://www.automicvault.com/.well-known/security.txt
+- AI agent secret scanner: https://www.automicvault.com/secret-scanner-for-ai-agents/
+- AI agent approval gates: https://www.automicvault.com/ai-agent-approval-gates/
+- Package catalog: https://www.automicvault.com/pkg/
+- Blog: https://www.automicvault.com/blog/
 - llms.txt: https://www.automicvault.com/llms.txt
 - llms-full.txt: https://www.automicvault.com/llms-full.txt
 
 Automic Vault is free open-source software under the Apache License 2.0.
-
-Blog:
-Agent Pack is an installable pack of 10 agent CLIs and coding assistants for
-terminal-native planning, editing, review, model routing, and usage inspection.
-UNIX++ Pack is an installable pack of 23 modern command line replacements and
-operators for search, file inspection, process monitoring, data wrangling,
-HTTP/DNS work, and file watching.
-The Agentic Toolkit is an installable pack of 26 Homebrew packages for media
-processing, image manipulation, runtimes, search, shell, build, OCR, metadata,
-and document conversion.
-- Agent Pack: https://www.automicvault.com/blog/agent-pack/
-- UNIX++ Pack: https://www.automicvault.com/blog/unix-plus-plus/
-- The Agentic Toolkit: https://www.automicvault.com/blog/agentic-toolkit/
-- Preventing the Nx Console extension compromise: https://www.automicvault.com/blog/prevent-nx-console-vscode-compromise/
-- Preventing the GitHub employee device breach: https://www.automicvault.com/blog/prevent-github-vscode-extension-breach/
-- Preventing the durabletask PyPI compromise: https://www.automicvault.com/blog/prevent-durabletask-pypi-compromise/
-- Preventing the TanStack npm credential theft: https://www.automicvault.com/blog/prevent-tanstack-npm-compromise/
-- Preventing the node-ipc npm backdoor: https://www.automicvault.com/blog/prevent-node-ipc-npm-backdoor/
-- Preventing the Bitwarden CLI npm compromise: https://www.automicvault.com/blog/prevent-bitwarden-cli-npm-compromise/
-- Preventing the LiteLLM PyPI compromise: https://www.automicvault.com/blog/prevent-litellm-pypi-compromise/
