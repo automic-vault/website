@@ -3,53 +3,114 @@
   "category": "AI agent security",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "description": "Automic Vault is a local macOS security layer for AI coding agents. It keeps credentials out of model context and plaintext files, asks before risky tool actions, and installs packages in roots agents cannot quietly rewrite.",
-  "headline": "Let agents use tools, not your raw secrets.",
-  "positioning": "Local macOS runtime security for AI coding agents.",
+  "description": "Automic Vault secures Homebrew tools, CLI secrets, and command approval gates locally on your Mac before AI agents use them.",
+  "short_description": "Automic Vault secures Homebrew tools, CLI secrets, and command approval gates locally on your Mac before AI agents use them.",
+  "full_description": "Automic Vault secures Homebrew tools, CLI secrets, and command approval gates locally on your Mac before AI agents use them. It finds exposed tool state, moves supported credentials out of plaintext files, injects approved secrets only into trusted tools, and asks before risky commands publish, mutate infrastructure, reveal tokens, or use protected credentials.",
+  "positioning": "A new kind of package manager for a new kind of threat model",
+  "exposure_examples": [
+    {
+      "command": "gh auth token",
+      "summary": "Prints a GitHub bearer token that an agent, script, or compromised tool can copy into API calls."
+    },
+    {
+      "command": "cat ~/.aws/credentials",
+      "summary": "Turns a readable dotfile into cloud account access."
+    },
+    {
+      "command": "printf 'protocol=https\\nhost=github.com\\n\\n' | git credential fill",
+      "summary": "Asks the local credential helper to reveal repository credentials, even when there is no obvious token file."
+    }
+  ],
+  "founder_context": "From the creator of Homebrew, Automic Vault applies Max Howell's package-management background to local package roots, command stubs, and tool execution boundaries for AI agents on macOS.",
   "url": "https://www.automicvault.com/",
   "source": "https://github.com/automic-vault/automic-vault",
   "pricing": "Free open-source software",
   "pricing_url": "https://www.automicvault.com/pricing/",
   "docs": "https://www.automicvault.com/docs/",
-  "package_catalog": "https://www.automicvault.com/pkg/",
-  "security": "https://www.automicvault.com/security/",
   "security_whitepaper": "https://www.automicvault.com/security/whitepaper/",
   "blog": "https://www.automicvault.com/blog/",
+  "latest_blog_post": {
+    "title": "Agent Pack",
+    "url": "https://www.automicvault.com/blog/agent-pack/",
+    "description": "Agent CLIs and coding assistants for terminal-native planning, editing, review, model routing, and usage inspection."
+  },
+  "blog_posts": [
+    {
+      "title": "Agent Pack",
+      "url": "https://www.automicvault.com/blog/agent-pack/",
+      "description": "Agent CLIs and coding assistants for terminal-native planning, editing, review, model routing, and usage inspection.",
+      "date_published": "2026-06-04"
+    },
+    {
+      "title": "UNIX++ Pack",
+      "url": "https://www.automicvault.com/blog/unix-plus-plus/",
+      "description": "Modern UNIX command line replacements and operators for search, file inspection, process monitoring, data wrangling, and HTTP/DNS work.",
+      "date_published": "2026-06-04"
+    },
+    {
+      "title": "The Agentic Toolkit",
+      "url": "https://www.automicvault.com/blog/agentic-toolkit/",
+      "description": "An installable pack of 26 Homebrew packages for media, images, runtimes, search, shell, build, OCR, metadata, and document conversion.",
+      "date_published": "2026-06-02"
+    },
+    {
+      "title": "How Automic Vault Would Have Prevented the Nx Console VS Code Extension Compromise",
+      "url": "https://www.automicvault.com/blog/prevent-nx-console-vscode-compromise/",
+      "description": "Nx Console 18.95.0 stole local developer credentials from editor sessions. Automic Vault would have stopped the local secret access.",
+      "date_published": "2026-05-21"
+    },
+    {
+      "title": "How Automic Vault Would Have Prevented the GitHub Employee Device Breach",
+      "url": "https://www.automicvault.com/blog/prevent-github-vscode-extension-breach/",
+      "description": "A poisoned VS Code extension reached a GitHub employee device. Automic Vault would have prevented local credentials from becoming repository access.",
+      "date_published": "2026-05-21"
+    },
+    {
+      "title": "How Automic Vault Would Have Prevented the durabletask PyPI Compromise",
+      "url": "https://www.automicvault.com/blog/prevent-durabletask-pypi-compromise/",
+      "description": "Malicious durabletask PyPI releases fetched rope.pyz and stole cloud and developer secrets. Automic Vault would have blocked the local theft path.",
+      "date_published": "2026-05-20"
+    },
+    {
+      "title": "How Automic Vault Would Have Prevented the TanStack npm Credential Theft",
+      "url": "https://www.automicvault.com/blog/prevent-tanstack-npm-compromise/",
+      "description": "TanStack packages were poisoned through trusted publishing, then stole local secrets. Automic Vault would have prevented the endpoint theft.",
+      "date_published": "2026-05-15"
+    },
+    {
+      "title": "How Automic Vault Would Have Prevented the node-ipc npm Backdoor",
+      "url": "https://www.automicvault.com/blog/prevent-node-ipc-npm-backdoor/",
+      "description": "The node-ipc backdoor ran on module load and exfiltrated secrets over DNS. Automic Vault would have prevented useful credential theft.",
+      "date_published": "2026-05-15"
+    },
+    {
+      "title": "How Automic Vault Would Have Prevented the Bitwarden CLI npm Compromise",
+      "url": "https://www.automicvault.com/blog/prevent-bitwarden-cli-npm-compromise/",
+      "description": "The compromised Bitwarden CLI npm package used install-time code to steal developer secrets. Automic Vault would have stopped the local theft.",
+      "date_published": "2026-04-23"
+    },
+    {
+      "title": "How Automic Vault Would Have Prevented the LiteLLM PyPI Compromise",
+      "url": "https://www.automicvault.com/blog/prevent-litellm-pypi-compromise/",
+      "description": "LiteLLM 1.82.7 and 1.82.8 stole local credentials. Automic Vault would have prevented the workstation credential theft phase.",
+      "date_published": "2026-03-25"
+    }
+  ],
+  "security": "https://www.automicvault.com/security/",
+  "security_methods_and_gaps": {
+    "title": "Automic Vault Security Methods and Gaps",
+    "url": "https://www.automicvault.com/security/whitepaper/",
+    "description": "A candid white paper on Automic Vault controls, caveats, holes, successes, and hardening work."
+  },
   "security_txt": "https://www.automicvault.com/.well-known/security.txt",
   "llms_txt": "https://www.automicvault.com/llms.txt",
   "llms_full_txt": "https://www.automicvault.com/llms-full.txt",
-  "what_changes": [
-    "Secrets become tool-bound so approved command-line tools can use credentials without exposing raw values to agents or unrelated processes.",
-    "Risky actions ask at execution, including publishing, token reveal, and cloud mutations.",
-    "Packages install into owned roots so agent-used tools stay predictable instead of drifting through ambient user-writable paths."
-  ],
-  "workflows": [
-    "Move .env, shell profile, .npmrc, .netrc, GitHub CLI, AWS, and MCP credentials out of agent-readable plaintext.",
-    "Inject approved secrets only into trusted tools.",
-    "Scan local files before an agent run.",
-    "Trace shell installers before an agent or developer runs them.",
-    "Install and browse package coverage through Nucleus and the package catalog."
-  ],
-  "important_pages": [
-    {
-      "title": "Documentation",
-      "url": "https://www.automicvault.com/docs/"
-    },
-    {
-      "title": "AI agent secret scanner",
-      "url": "https://www.automicvault.com/secret-scanner-for-ai-agents/"
-    },
-    {
-      "title": "AI agent approval gates",
-      "url": "https://www.automicvault.com/ai-agent-approval-gates/"
-    },
-    {
-      "title": "Package catalog",
-      "url": "https://www.automicvault.com/pkg/"
-    },
-    {
-      "title": "Security",
-      "url": "https://www.automicvault.com/security/"
-    }
+  "use_cases": [
+    "Find plaintext credentials in local dev-tool files such as .env, .netrc, .npmrc, GitHub CLI config, AWS credentials, and MCP config.",
+    "Harden supported Homebrew, npm, and PyPI tools so secrets are exposed only to approved executables at runtime.",
+    "Expose credentials through native helper protocols such as AWS credential_process, Kubernetes ExecCredential, Cargo credential providers, Docker-compatible registry helpers, and WakaTime api_key_vault_cmd.",
+    "Ask before sensitive commands publish packages, change cloud state, reveal tokens, or run sensitive developer tools.",
+    "Keep watching new installs, stale tools, and local config for hazards.",
+    "Trace shell installers before an agent or developer runs them."
   ]
 }
