@@ -1,0 +1,8 @@
+.envrc
+.DS_Store
+*/.DS_Store
+/cache/
+/dist/
+/website-inputs*.json
+/www/llms-full.txt
+__pycache__
