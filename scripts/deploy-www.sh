@@ -838,7 +838,7 @@ ensure_cache_policy() {
     --arg name "${cache_policy_name}" \
     '{
       Name: $name,
-      Comment: "Static site cache policy with Gzip, Brotli, and viewer protocol for canonical redirects",
+      Comment: "Static site cache policy with Gzip, Brotli, viewer protocol, and asset version query strings",
       DefaultTTL: 86400,
       MaxTTL: 31536000,
       MinTTL: 0,
@@ -856,7 +856,7 @@ ensure_cache_policy() {
           CookieBehavior: "none"
         },
         QueryStringsConfig: {
-          QueryStringBehavior: "none"
+          QueryStringBehavior: "all"
         }
       }
     }' >"${policy_file}"
