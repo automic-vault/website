@@ -3131,6 +3131,12 @@ h1 code {
     grid-template-columns: 1fr;
   }
 
+  .harden-section .terminal-story,
+  .immutable-section .terminal-story {
+    grid-template-columns: 1fr;
+    row-gap: clamp(12px, 3vw, 18px);
+  }
+
   .app-terminal-grid .terminal-card:first-child {
     grid-row: auto;
   }
@@ -3175,7 +3181,9 @@ h1 code {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px 18px;
+    justify-self: stretch;
     align-self: start;
+    width: 100%;
     min-height: 0;
     padding-top: 0;
   }
@@ -3187,6 +3195,10 @@ h1 code {
     right: auto;
     text-align: left;
     text-wrap: auto;
+  }
+
+  .terminal-notes p:nth-child(n) {
+    top: auto;
   }
 
   .package-hardening-radar {
@@ -3300,6 +3312,14 @@ h1 code {
     font-size: 0.74rem;
   }
 
+  .harden-section .terminal-card pre,
+  .immutable-section .terminal-card pre,
+  .dotenv-section .terminal-card pre {
+    font-size: clamp(0.72rem, 3.2vw, 0.88rem);
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+
   .package-hardening-radar .radar-feed {
     min-height: 0;
   }
@@ -3335,8 +3355,18 @@ h1 code {
     font-size: 0.68rem;
   }
 
+  .harden-section .terminal-card pre,
+  .immutable-section .terminal-card pre,
+  .dotenv-section .terminal-card pre {
+    font-size: clamp(0.64rem, 3vw, 0.74rem);
+  }
+
   .terminal-notes {
     grid-template-columns: 1fr;
+  }
+
+  .package-hardening-radar {
+    margin-inline: -18px;
   }
 
 }
