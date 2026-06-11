@@ -2,10 +2,10 @@
 
 Static website repository for <https://www.automicvault.com/>.
 
-The product repository still owns package catalog rendering, `/db.json`,
-release artifacts, and scanner publishing. This repo owns static pages, assets,
-static localization, and S3/CloudFront configuration for the default static
-origin.
+The product repository still owns release artifacts and scanner publishing.
+`~/src/av.db` owns package database generation and `/db.json` export artifacts.
+This repo owns static pages, assets, static localization, S3/CloudFront
+configuration, and the Atlas `av-web` package-origin service.
 
 ## Inputs
 
@@ -35,3 +35,19 @@ scripts/deploy-www.sh --inputs /tmp/website-inputs.json
 
 Use `--static-only` to skip CloudFront and certificate configuration. The deploy
 script excludes package-origin routes and product-owned release artifacts.
+
+## Package Origin
+
+Build the private package SQLite artifact in `av.db`:
+
+```sh
+python3 ../av.db/scripts/hourly-maintenance.py --no-commit
+```
+
+Deploy the Atlas package origin from this repo:
+
+```sh
+scripts/deploy-pkg-origin.sh --skip-refresh --skip-sqlite
+```
+
+`AV_WEB_SQLITE_PATH` defaults to `../av.db/cache/pkg.sqlite`.
