@@ -146,7 +146,8 @@ for tool in "${required_tools[@]}"; do
   }
 done
 
-WWW_PKG_ORIGIN_HEADER_NAME="${WWW_PKG_ORIGIN_HEADER_NAME:-X-Automic-Vault-Origin}"
+WWW_PKG_ORIGIN_HEADER_NAME="${WWW_PKG_ORIGIN_HEADER_NAME:-${AV_WEB_ORIGIN_HEADER:-X-Automic-Vault-Origin}}"
+WWW_PKG_ORIGIN_HEADER_VALUE="${WWW_PKG_ORIGIN_HEADER_VALUE:-${AV_WEB_ORIGIN_SECRET:-}}"
 WWW_EMERGENCY_INVALIDATE="${WWW_EMERGENCY_INVALIDATE:-false}"
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -171,6 +172,13 @@ fi
 if [[ "${prepare_only}" != true ]]; then
   require_env AWS_REGION
   require_env WWW_DOMAIN
+
+  if [[ -n "${AV_WEB_ORIGIN_HEADER:-}" && "${WWW_PKG_ORIGIN_HEADER_NAME}" != "${AV_WEB_ORIGIN_HEADER}" ]]; then
+    die "WWW_PKG_ORIGIN_HEADER_NAME must match AV_WEB_ORIGIN_HEADER."
+  fi
+  if [[ -n "${AV_WEB_ORIGIN_SECRET:-}" && "${WWW_PKG_ORIGIN_HEADER_VALUE}" != "${AV_WEB_ORIGIN_SECRET}" ]]; then
+    die "WWW_PKG_ORIGIN_HEADER_VALUE must match AV_WEB_ORIGIN_SECRET."
+  fi
 
   export WWW_WWW_DOMAIN="${WWW_WWW_DOMAIN:-www.${WWW_DOMAIN}}"
   export WWW_CANONICAL_HOST="${WWW_CANONICAL_HOST:-${WWW_WWW_DOMAIN}}"
@@ -634,6 +642,17 @@ function handler(event) {
     return appendQueryString("https://" + canonicalHost + uri);
   }
 
+  function isPackageOriginPath(uri) {
+    var prefixes = ["/pkg", "/de/pkg", "/fr/pkg", "/ja/pkg", "/zh-hans/pkg"];
+    for (var i = 0; i < prefixes.length; i++) {
+      var prefix = prefixes[i];
+      if (uri === prefix || uri.indexOf(prefix + "/") === 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   if (request.uri === "/av.dmg") {
     return {
       statusCode: 301,
@@ -651,6 +670,9 @@ function handler(event) {
         location: { value: canonicalLocation(request.uri) }
       }
     };
+  }
+  if (isPackageOriginPath(request.uri)) {
+    return request;
   }
   if (request.uri === "/install.sh" || request.uri === "/scanner.sh" || request.uri === "/scanner.gz") {
     return request;
@@ -1048,10 +1070,10 @@ build_distribution_config() {
     --arg domain_b "${WWW_WWW_DOMAIN}" \
     --arg price_class "${WWW_CLOUDFRONT_PRICE_CLASS}" \
     '
-    def behavior($pattern; $policy):
-      {
-        PathPattern: $pattern,
-        TargetOriginId: $pkg_origin_id,
+      def behavior($pattern; $policy):
+        {
+          PathPattern: $pattern,
+          TargetOriginId: $pkg_origin_id,
         ViewerProtocolPolicy: "allow-all",
         AllowedMethods: {
           Quantity: 2,
@@ -1082,10 +1104,28 @@ build_distribution_config() {
             EventType: "viewer-request",
             FunctionARN: $function_arn
           }]
-        },
-        FieldLevelEncryptionId: ""
-      };
-    {
+          },
+          FieldLevelEncryptionId: ""
+        };
+      def pkg_behaviors:
+        [
+          behavior("/pkg/search.json"; $pkg_search_cache_policy_id),
+          behavior("/de/pkg/search.json"; $pkg_search_cache_policy_id),
+          behavior("/fr/pkg/search.json"; $pkg_search_cache_policy_id),
+          behavior("/ja/pkg/search.json"; $pkg_search_cache_policy_id),
+          behavior("/zh-hans/pkg/search.json"; $pkg_search_cache_policy_id),
+          behavior("/pkg"; $pkg_cache_policy_id),
+          behavior("/pkg/*"; $pkg_cache_policy_id),
+          behavior("/de/pkg"; $pkg_cache_policy_id),
+          behavior("/de/pkg/*"; $pkg_cache_policy_id),
+          behavior("/fr/pkg"; $pkg_cache_policy_id),
+          behavior("/fr/pkg/*"; $pkg_cache_policy_id),
+          behavior("/ja/pkg"; $pkg_cache_policy_id),
+          behavior("/ja/pkg/*"; $pkg_cache_policy_id),
+          behavior("/zh-hans/pkg"; $pkg_cache_policy_id),
+          behavior("/zh-hans/pkg/*"; $pkg_cache_policy_id)
+        ];
+      {
       CallerReference: $caller_reference,
       Comment: $comment,
       Enabled: true,
@@ -1162,19 +1202,11 @@ build_distribution_config() {
           }]
         },
         FieldLevelEncryptionId: ""
-      },
-      CacheBehaviors: {
-        Quantity: 7,
-        Items: [
-          behavior("pkg/search.json"; $pkg_search_cache_policy_id),
-          behavior("*/pkg/search.json"; $pkg_search_cache_policy_id),
-          behavior("pkg*"; $pkg_cache_policy_id),
-          behavior("de/pkg*"; $pkg_cache_policy_id),
-          behavior("fr/pkg*"; $pkg_cache_policy_id),
-          behavior("ja/pkg*"; $pkg_cache_policy_id),
-          behavior("zh-hans/pkg*"; $pkg_cache_policy_id)
-        ]
-      },
+        },
+        CacheBehaviors: {
+          Quantity: (pkg_behaviors | length),
+          Items: pkg_behaviors
+        },
       CustomErrorResponses: {
         Quantity: 1,
         Items: [{
@@ -1239,10 +1271,10 @@ upsert_distribution() {
       --arg domain_b "${WWW_WWW_DOMAIN}" \
       --arg price_class "${WWW_CLOUDFRONT_PRICE_CLASS}" \
       '
-      def behavior($pattern; $policy):
-        {
-          PathPattern: $pattern,
-          TargetOriginId: $pkg_origin_id,
+        def behavior($pattern; $policy):
+          {
+            PathPattern: $pattern,
+            TargetOriginId: $pkg_origin_id,
           ViewerProtocolPolicy: "allow-all",
           AllowedMethods: {
             Quantity: 2,
@@ -1273,10 +1305,28 @@ upsert_distribution() {
               EventType: "viewer-request",
               FunctionARN: $function_arn
             }]
-          },
-          FieldLevelEncryptionId: ""
-        };
-      .DistributionConfig.Comment = $comment
+            },
+            FieldLevelEncryptionId: ""
+          };
+        def pkg_behaviors:
+          [
+            behavior("/pkg/search.json"; $pkg_search_cache_policy_id),
+            behavior("/de/pkg/search.json"; $pkg_search_cache_policy_id),
+            behavior("/fr/pkg/search.json"; $pkg_search_cache_policy_id),
+            behavior("/ja/pkg/search.json"; $pkg_search_cache_policy_id),
+            behavior("/zh-hans/pkg/search.json"; $pkg_search_cache_policy_id),
+            behavior("/pkg"; $pkg_cache_policy_id),
+            behavior("/pkg/*"; $pkg_cache_policy_id),
+            behavior("/de/pkg"; $pkg_cache_policy_id),
+            behavior("/de/pkg/*"; $pkg_cache_policy_id),
+            behavior("/fr/pkg"; $pkg_cache_policy_id),
+            behavior("/fr/pkg/*"; $pkg_cache_policy_id),
+            behavior("/ja/pkg"; $pkg_cache_policy_id),
+            behavior("/ja/pkg/*"; $pkg_cache_policy_id),
+            behavior("/zh-hans/pkg"; $pkg_cache_policy_id),
+            behavior("/zh-hans/pkg/*"; $pkg_cache_policy_id)
+          ];
+        .DistributionConfig.Comment = $comment
       | .DistributionConfig.DefaultRootObject = "index.html"
       | .DistributionConfig.Enabled = true
       | .DistributionConfig.PriceClass = $price_class
@@ -1354,18 +1404,10 @@ upsert_distribution() {
           .DistributionConfig.DefaultCacheBehavior.DefaultTTL,
           .DistributionConfig.DefaultCacheBehavior.MaxTTL
         )
-      | .DistributionConfig.CacheBehaviors = {
-          Quantity: 7,
-          Items: [
-            behavior("pkg/search.json"; $pkg_search_cache_policy_id),
-            behavior("*/pkg/search.json"; $pkg_search_cache_policy_id),
-            behavior("pkg*"; $pkg_cache_policy_id),
-            behavior("de/pkg*"; $pkg_cache_policy_id),
-            behavior("fr/pkg*"; $pkg_cache_policy_id),
-            behavior("ja/pkg*"; $pkg_cache_policy_id),
-            behavior("zh-hans/pkg*"; $pkg_cache_policy_id)
-          ]
-        }
+        | .DistributionConfig.CacheBehaviors = {
+            Quantity: (pkg_behaviors | length),
+            Items: pkg_behaviors
+          }
       | .DistributionConfig.CustomErrorResponses = {
           Quantity: 1,
           Items: [{
@@ -1533,6 +1575,30 @@ ensure_package_origin_prefixes_absent() {
   log_ok "Package-origin prefixes are absent from S3"
 }
 
+invalidate_package_origin_paths() {
+  local distribution_id="$1"
+  local invalidation_id
+
+  log_step "Invalidating package-origin CloudFront paths"
+  invalidation_id="$(
+    aws cloudfront create-invalidation \
+      --distribution-id "${distribution_id}" \
+      --paths \
+        '/pkg' '/pkg/*' \
+        '/de/pkg' '/de/pkg/*' \
+        '/fr/pkg' '/fr/pkg/*' \
+        '/ja/pkg' '/ja/pkg/*' \
+        '/zh-hans/pkg' '/zh-hans/pkg/*' \
+        '/pagefind' '/pagefind/*' \
+      --query 'Invalidation.Id' \
+      --output text
+  )"
+  aws cloudfront wait invalidation-completed \
+    --distribution-id "${distribution_id}" \
+    --id "${invalidation_id}"
+  log_ok "Package-origin invalidation completed"
+}
+
 ensure_certificate_issued() {
   local status
   log_step "Checking ACM certificate"
@@ -1622,7 +1688,7 @@ if [[ "${WWW_EMERGENCY_INVALIDATE}" == "true" ]]; then
     --paths '/*' >/dev/null
   log_ok "Emergency invalidation submitted"
 else
-  log_ok "Skipped CloudFront invalidation; package origin cache refreshes daily"
+  invalidate_package_origin_paths "${distribution_id}"
 fi
 
 distribution_domain="$(
