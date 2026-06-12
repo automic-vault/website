@@ -1133,21 +1133,21 @@ build_distribution_config() {
         };
       def pkg_behaviors:
         [
-          behavior("/pkg/search.json"; $pkg_search_cache_policy_id),
-          behavior("/de/pkg/search.json"; $pkg_search_cache_policy_id),
-          behavior("/fr/pkg/search.json"; $pkg_search_cache_policy_id),
-          behavior("/ja/pkg/search.json"; $pkg_search_cache_policy_id),
-          behavior("/zh-hans/pkg/search.json"; $pkg_search_cache_policy_id),
-          behavior("/pkg"; $pkg_cache_policy_id),
-          behavior("/pkg/*"; $pkg_cache_policy_id),
-          behavior("/de/pkg"; $pkg_cache_policy_id),
-          behavior("/de/pkg/*"; $pkg_cache_policy_id),
-          behavior("/fr/pkg"; $pkg_cache_policy_id),
-          behavior("/fr/pkg/*"; $pkg_cache_policy_id),
-          behavior("/ja/pkg"; $pkg_cache_policy_id),
-          behavior("/ja/pkg/*"; $pkg_cache_policy_id),
-          behavior("/zh-hans/pkg"; $pkg_cache_policy_id),
-          behavior("/zh-hans/pkg/*"; $pkg_cache_policy_id)
+          behavior("pkg/search.json"; $pkg_search_cache_policy_id),
+          behavior("de/pkg/search.json"; $pkg_search_cache_policy_id),
+          behavior("fr/pkg/search.json"; $pkg_search_cache_policy_id),
+          behavior("ja/pkg/search.json"; $pkg_search_cache_policy_id),
+          behavior("zh-hans/pkg/search.json"; $pkg_search_cache_policy_id),
+          behavior("pkg"; $pkg_cache_policy_id),
+          behavior("pkg/*"; $pkg_cache_policy_id),
+          behavior("de/pkg"; $pkg_cache_policy_id),
+          behavior("de/pkg/*"; $pkg_cache_policy_id),
+          behavior("fr/pkg"; $pkg_cache_policy_id),
+          behavior("fr/pkg/*"; $pkg_cache_policy_id),
+          behavior("ja/pkg"; $pkg_cache_policy_id),
+          behavior("ja/pkg/*"; $pkg_cache_policy_id),
+          behavior("zh-hans/pkg"; $pkg_cache_policy_id),
+          behavior("zh-hans/pkg/*"; $pkg_cache_policy_id)
         ];
       {
       CallerReference: $caller_reference,
@@ -1334,21 +1334,21 @@ upsert_distribution() {
           };
         def pkg_behaviors:
           [
-            behavior("/pkg/search.json"; $pkg_search_cache_policy_id),
-            behavior("/de/pkg/search.json"; $pkg_search_cache_policy_id),
-            behavior("/fr/pkg/search.json"; $pkg_search_cache_policy_id),
-            behavior("/ja/pkg/search.json"; $pkg_search_cache_policy_id),
-            behavior("/zh-hans/pkg/search.json"; $pkg_search_cache_policy_id),
-            behavior("/pkg"; $pkg_cache_policy_id),
-            behavior("/pkg/*"; $pkg_cache_policy_id),
-            behavior("/de/pkg"; $pkg_cache_policy_id),
-            behavior("/de/pkg/*"; $pkg_cache_policy_id),
-            behavior("/fr/pkg"; $pkg_cache_policy_id),
-            behavior("/fr/pkg/*"; $pkg_cache_policy_id),
-            behavior("/ja/pkg"; $pkg_cache_policy_id),
-            behavior("/ja/pkg/*"; $pkg_cache_policy_id),
-            behavior("/zh-hans/pkg"; $pkg_cache_policy_id),
-            behavior("/zh-hans/pkg/*"; $pkg_cache_policy_id)
+            behavior("pkg/search.json"; $pkg_search_cache_policy_id),
+            behavior("de/pkg/search.json"; $pkg_search_cache_policy_id),
+            behavior("fr/pkg/search.json"; $pkg_search_cache_policy_id),
+            behavior("ja/pkg/search.json"; $pkg_search_cache_policy_id),
+            behavior("zh-hans/pkg/search.json"; $pkg_search_cache_policy_id),
+            behavior("pkg"; $pkg_cache_policy_id),
+            behavior("pkg/*"; $pkg_cache_policy_id),
+            behavior("de/pkg"; $pkg_cache_policy_id),
+            behavior("de/pkg/*"; $pkg_cache_policy_id),
+            behavior("fr/pkg"; $pkg_cache_policy_id),
+            behavior("fr/pkg/*"; $pkg_cache_policy_id),
+            behavior("ja/pkg"; $pkg_cache_policy_id),
+            behavior("ja/pkg/*"; $pkg_cache_policy_id),
+            behavior("zh-hans/pkg"; $pkg_cache_policy_id),
+            behavior("zh-hans/pkg/*"; $pkg_cache_policy_id)
           ];
         .DistributionConfig.Comment = $comment
       | .DistributionConfig.DefaultRootObject = "index.html"
