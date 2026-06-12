@@ -38,9 +38,10 @@ delete or overwrite them.
 
 ## Deployment Safety
 
-Run static deploys through `scripts/deploy-www.sh` with product inputs exported
-from the product repository. Use `--prepare-only` before mutating S3 or
-CloudFront.
+Run static deploys through `scripts/deploy-www.sh`. It generates deploy-time
+product inputs from `AUTOMIC_VAULT_REPO_PATH` or the default
+`../automic-vault` checkout without writing a JSON artifact. Use
+`--prepare-only` before mutating S3 or CloudFront.
 
 This `AGENTS.md` file is local repository guidance only. It must not be synced
 or uploaded to S3.
