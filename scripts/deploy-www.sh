@@ -136,12 +136,26 @@ require_env() {
   fi
 }
 
+verify_pkg_origin_secret() {
+  local probe_url
+  probe_url="https://${WWW_PKG_ORIGIN_DOMAIN}/pkg/search.json"
+
+  log_step "Checking package origin shared secret"
+  if ! curl --fail --silent --show-error --max-time 15 \
+    --output /dev/null \
+    --header "${WWW_PKG_ORIGIN_HEADER_NAME}: ${WWW_PKG_ORIGIN_HEADER_VALUE}" \
+    "${probe_url}"; then
+    die "Package origin rejected WWW_PKG_ORIGIN_HEADER_VALUE at ${WWW_PKG_ORIGIN_DOMAIN}. Deploy the Atlas package origin with matching AV_WEB_ORIGIN_SECRET before running deploy-www.sh."
+  fi
+  log_ok "Package origin accepted CloudFront header"
+}
+
 required_tools=(node python3)
 if [[ "${prepare_only}" != true ]]; then
   required_tools+=(aws)
 fi
 if [[ "${prepare_only}" != true && "${static_only}" != true ]]; then
-  required_tools+=(jq)
+  required_tools+=(curl jq)
 fi
 
 for tool in "${required_tools[@]}"; do
@@ -202,6 +216,7 @@ if [[ "${prepare_only}" != true ]]; then
     do
       require_env "${env_name}"
     done
+    verify_pkg_origin_secret
   fi
 
   origin_domain="${WWW_BUCKET}.s3.${AWS_REGION}.amazonaws.com"
