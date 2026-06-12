@@ -27,6 +27,9 @@ load_environment() {
       set +a
     fi
   done
+
+  export AV_WEB_ORIGIN_HEADER="${AV_WEB_ORIGIN_HEADER:-${WWW_PKG_ORIGIN_HEADER_NAME:-}}"
+  export AV_WEB_ORIGIN_SECRET="${AV_WEB_ORIGIN_SECRET:-${WWW_PKG_ORIGIN_HEADER_VALUE:-}}"
 }
 
 write_status() {
