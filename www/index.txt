@@ -1,13 +1,34 @@
+Don't get owned by your own tools.
+
 Secure the tools you brew install.
 
-A new kind of package manager for a new kind of threat model
+From the creator of Homebrew, Automic Vault detects secret exposure, hardens
+packages that work with secrets, encrypts .env files, and monitors the tools
+you install with Homebrew, npm, pip, and curl one-liners.
 
-Automic Vault secures Homebrew tools, CLI secrets, and command approval gates
-locally on your Mac before AI agents use them.
+Detect:
+Detect secret exposure in your stack before the next supply chain attack bites
+you. Automic Vault surfaces package-owned tokens, credential files, helper
+leaks, and agent-readable config while the tools are still local to your Mac.
 
-The same risk shows up across CLIs, SDKs, package managers, and MCP servers:
-tokens sit in files an agent or malware can read. Automic Vault keeps watching
-after setup, so new installs and stale tool config do not stay quiet.
+Harden:
+Automic Vault patches packages that work with secrets to keep those secrets
+away from malware and agents. Supported tools get a Keychain-backed helper
+path, so the command can run without leaving reusable credentials in files any
+local process can read.
+
+Stop agents from modifying themselves by installing packages immutably. Automic
+Vault puts tools in sealed roots and exposes a controlled av shim on PATH:
+agents can run the tool, but changing the tool routes through an approved
+update.
+
+Automic Vault provides dotenvx-compatible .env file encryption with the private
+key securely stored in the AV Keychain.
+
+Monitor:
+Be notified as soon as the situation changes. Keep installing with Homebrew,
+npm, pip, and curl one-liners and rest assured Automic Vault will let you know
+when you're in trouble.
 
 Secret exposure examples:
 - gh auth token: prints a GitHub bearer token that an agent, script, or
@@ -17,12 +38,15 @@ Secret exposure examples:
   local credential helper to reveal repository credentials, even when there is
   no obvious token file.
 
-Founder context:
-I built Homebrew. It was designed before AI agents existed.
-Install with Homebrew. Secure with Automic Vault.
-Stop agents, malware, and compromised tools from accessing secrets or
-performing sensitive actions without approval.
-- Max Howell, Creator of Homebrew
+Built by Max Howell:
+Max Howell created Homebrew. Automic Vault comes from the same operating
+reality: developers install a lot of tools, those tools hold real authority,
+and the endpoint needs a boundary before agents or compromised packages can
+turn local secrets into access.
+
+Endorsement:
+we needed this yesterday but i'll take it now
+- Hira, @Hiraweb3
 
 Key pages:
 - Documentation: https://www.automicvault.com/docs/

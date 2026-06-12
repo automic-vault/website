@@ -2,7 +2,7 @@ const toggle = document.querySelector(".nav-toggle");
 const nav = document.querySelector(".nav");
 const scrollMeter = document.querySelector(".scroll-meter span");
 const securedFeed = document.querySelector("[data-secured-feed]");
-const toolFlipWord = document.querySelector("[data-tool-flip]");
+const toolFlipWords = Array.from(document.querySelectorAll("[data-tool-flip]"));
 
 const securedPackages = [
   ["gh", "GitHub tokens saved in Keychain and injected only for gh commands", "accent-green", "/pkg/brew/gh/"],
@@ -74,8 +74,8 @@ if (scrollMeter) {
   window.addEventListener("resize", scheduleScrollMeterUpdate);
 }
 
-if (toolFlipWord) {
-  const toolWords = ["brew install", "npm install", "pip install", "cargo install", "pnpm install", "uv install"];
+if (toolFlipWords.length > 0) {
+  const toolWords = ["brew install", "npm install", "pip install", "curl | sh", "pnpm install", "uv install"];
   const motionAllowed = window.matchMedia("(prefers-reduced-motion: no-preference)");
   const flipDuration = 640;
   const flipInterval = 1900;
@@ -85,17 +85,26 @@ if (toolFlipWord) {
   if (motionAllowed.matches) {
     const flipToNextTool = () => {
       toolCursor = (toolCursor + 1) % toolWords.length;
-      toolFlipWord.classList.remove("is-flipping");
+      toolFlipWords.forEach((toolFlipWord) => {
+        toolFlipWord.classList.remove("is-flipping");
+      });
+
       window.requestAnimationFrame(() => {
-        toolFlipWord.classList.add("is-flipping");
+        toolFlipWords.forEach((toolFlipWord) => {
+          toolFlipWord.classList.add("is-flipping");
+        });
       });
 
       window.setTimeout(() => {
-        toolFlipWord.textContent = toolWords[toolCursor];
+        toolFlipWords.forEach((toolFlipWord) => {
+          toolFlipWord.textContent = toolWords[toolCursor];
+        });
       }, flipDuration / 2);
 
       window.setTimeout(() => {
-        toolFlipWord.classList.remove("is-flipping");
+        toolFlipWords.forEach((toolFlipWord) => {
+          toolFlipWord.classList.remove("is-flipping");
+        });
       }, flipDuration);
     };
 
@@ -128,7 +137,9 @@ if (toolFlipWord) {
         }
       }, { threshold: 0.35 });
 
-      observer.observe(toolFlipWord);
+      toolFlipWords.forEach((toolFlipWord) => {
+        observer.observe(toolFlipWord);
+      });
     } else {
       window.setTimeout(startToolFlip, visibleDelay);
     }

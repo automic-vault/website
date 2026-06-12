@@ -3,10 +3,10 @@
   "category": "AI agent security",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "description": "Automic Vault secures Homebrew tools, CLI secrets, and command approval gates locally on your Mac before AI agents use them.",
-  "short_description": "Automic Vault secures Homebrew tools, CLI secrets, and command approval gates locally on your Mac before AI agents use them.",
-  "full_description": "Automic Vault secures Homebrew tools, CLI secrets, and command approval gates locally on your Mac before AI agents use them. It finds exposed tool state, moves supported credentials out of plaintext files, injects approved secrets only into trusted tools, and asks before risky commands publish, mutate infrastructure, reveal tokens, or use protected credentials.",
-  "positioning": "A new kind of package manager for a new kind of threat model",
+  "description": "Automic Vault detects secret exposure, hardens packages that work with secrets, encrypts .env files, and monitors the tools you install with Homebrew, npm, pip, and curl one-liners.",
+  "short_description": "Don't get owned by your own tools.",
+  "full_description": "From the creator of Homebrew, Automic Vault detects secret exposure before supply chain attacks turn local files into access, patches packages that work with secrets, installs tools immutably, provides dotenvx-compatible .env encryption with the private key stored in the AV Keychain, and monitors new installs and stale tool config for hazards.",
+  "positioning": "Don't get owned by your own tools",
   "exposure_examples": [
     {
       "command": "gh auth token",
@@ -21,7 +21,13 @@
       "summary": "Asks the local credential helper to reveal repository credentials, even when there is no obvious token file."
     }
   ],
-  "founder_context": "From the creator of Homebrew, Automic Vault applies Max Howell's package-management background to local package roots, command stubs, and tool execution boundaries for AI agents on macOS.",
+  "founder_context": "Max Howell created Homebrew. Automic Vault applies that package-management background to local package roots, command stubs, secret helpers, and monitoring boundaries for AI agents on macOS.",
+  "endorsement": {
+    "quote": "we needed this yesterday but i'll take it now",
+    "author": "Hira",
+    "handle": "@Hiraweb3",
+    "url": "https://x.com/Hiraweb3/status/2059662670006038857?s=20"
+  },
   "url": "https://www.automicvault.com/",
   "source": "https://github.com/automic-vault/automic-vault",
   "pricing": "Free open-source software",
@@ -106,11 +112,11 @@
   "llms_txt": "https://www.automicvault.com/llms.txt",
   "llms_full_txt": "https://www.automicvault.com/llms-full.txt",
   "use_cases": [
-    "Find plaintext credentials in local dev-tool files such as .env, .netrc, .npmrc, GitHub CLI config, AWS credentials, and MCP config.",
-    "Harden supported Homebrew, npm, and PyPI tools so secrets are exposed only to approved executables at runtime.",
+    "Detect secret exposure in local dev-tool files such as .env, .netrc, .npmrc, GitHub CLI config, AWS credentials, and MCP config before a supply chain attack can use it.",
+    "Harden packages that work with secrets so supported credentials are exposed only to approved executables at runtime.",
     "Expose credentials through native helper protocols such as AWS credential_process, Kubernetes ExecCredential, Cargo credential providers, Docker-compatible registry helpers, and WakaTime api_key_vault_cmd.",
-    "Ask before sensitive commands publish packages, change cloud state, reveal tokens, or run sensitive developer tools.",
-    "Keep watching new installs, stale tools, and local config for hazards.",
-    "Trace shell installers before an agent or developer runs them."
+    "Install packages immutably so agents can run tools without rewriting or patching their own install roots.",
+    "Encrypt dotenvx-compatible .env files while keeping the private key in the AV Keychain.",
+    "Monitor Homebrew, npm, pip, and curl one-liner workflows for new hazards as the local stack changes."
   ]
 }
