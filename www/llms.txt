@@ -43,8 +43,9 @@ and local config for hazards.
 - Use native credential-helper protocols such as AWS `credential_process`,
   Kubernetes `ExecCredential`, Cargo credential providers, Docker-compatible
   registry helpers, and WakaTime `api_key_vault_cmd`.
-- Install packages immutably so agents can run tools without rewriting or
-  patching their own install roots.
+- Install packages immutably so agents can run tools without rewriting
+  themselves, and so agents or malware cannot modify vital tools in the local
+  stack.
 - Encrypt dotenvx-compatible `.env` files while keeping the private key in the
   AV Keychain.
 - Monitor Homebrew, npm, pip, and curl one-liner workflows for new hazards as

@@ -363,19 +363,21 @@ credential_process = /usr/local/bin/av credential-helper aws
       <section class="feature-section immutable-section" id="immutable" aria-labelledby="immutable-title">
         <div class="feature-copy">
           <p class="eyebrow">02.2 &middot; HARDEN</p>
-          <h2 id="immutable-title">Stop agents from modifying themselves.</h2>
+          <h2 id="immutable-title">Stop agents and malware from rewriting your tools.</h2>
           <p>
             Stop agents from modifying themselves by installing packages
-            immutably. Automic Vault puts tools in sealed roots and exposes a
+            immutably, and stop agents or malware from modifying vital tools in
+            your stack. Automic Vault puts tools in sealed roots and exposes a
             controlled <code>av</code> shim on <code>PATH</code>: agents can run
-            the tool, but changing the tool routes through an approved update.
+            the tool, but changing the tool itself routes through an approved
+            update.
           </p>
         </div>
 
         <figure class="app-visual landing-visual">
           <img
             src="./assets/landing/immutable-package-root.webp"
-            alt="Automic Vault immutable package root preventing an agent from rewriting its own installed tool"
+            alt="Automic Vault immutable package root preventing agents or malware from rewriting installed tools"
             width="1672"
             height="941"
             loading="lazy"

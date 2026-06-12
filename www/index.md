@@ -21,9 +21,10 @@ away from malware and agents. Supported tools get a Keychain-backed helper
 path, so the command can run without leaving reusable credentials in files any
 local process can read.
 
-Stop agents from modifying themselves by installing packages immutably. Automic
-Vault puts tools in sealed roots and exposes a controlled `av` shim on `PATH`:
-agents can run the tool, but changing the tool routes through an approved
+Stop agents from modifying themselves by installing packages immutably, and
+stop agents or malware from modifying vital tools in your stack. Automic Vault
+puts tools in sealed roots and exposes a controlled `av` shim on `PATH`: agents
+can run the tool, but changing the tool itself routes through an approved
 update.
 
 Automic Vault provides dotenvx-compatible `.env` file encryption with the
