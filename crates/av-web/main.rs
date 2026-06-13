@@ -1255,7 +1255,7 @@ fn render_package_page(package: &PackageRow, locale: &Locale, generated_at: &str
     let title = format!("{install_heading} | Automic Vault");
     let description = meta_description(package);
     let updated = first_non_empty(&[
-        full_str(package, "lastVerified"),
+        display_last_verified(package),
         package.last_updated_at.clone(),
     ])
     .map(|value| fmt_date(&value))
@@ -1332,7 +1332,7 @@ fn render_package_markdown(package: &PackageRow, locale: &Locale, generated_at: 
         ("Package key", package.package_key.clone()),
         ("Package manager", package.provider_label.clone()),
         ("Package manager URL", package.package_manager_url.clone()),
-        ("Version", package.version.clone()),
+        ("Version", authoritative_package_version(package)),
         ("Source summary", package.summary.clone()),
         ("Homepage", package.homepage.clone()),
         ("Repository", package.repository.clone()),
@@ -1341,7 +1341,7 @@ fn render_package_markdown(package: &PackageRow, locale: &Locale, generated_at: 
         ("Source archive", full_str(package, "sourceArchive")),
         ("Issue tracker", full_str(package, "issueTracker")),
         ("Published", full_str(package, "publishedAt")),
-        ("Last verified", full_str(package, "lastVerified")),
+        ("Last verified", display_last_verified(package)),
         ("Last updated", package.last_updated_at.clone()),
         ("Generated", generated_at.to_string()),
     ] {
@@ -2299,11 +2299,34 @@ fn render_freshness(package: &PackageRow, generated_at: &str, locale: &Locale) -
     )
 }
 
+fn authoritative_package_version(package: &PackageRow) -> String {
+    full_value(package, "versionFreshness")
+        .and_then(|value| value.get("packageManager"))
+        .and_then(|value| value_str_key(value, "version"))
+        .filter(|value| !value.is_empty())
+        .unwrap_or_else(|| package.version.clone())
+}
+
+fn display_last_verified(package: &PackageRow) -> String {
+    let verified = full_str(package, "lastVerified");
+    if verified.is_empty() {
+        return String::new();
+    }
+    let authoritative = authoritative_package_version(package);
+    if !package.version.is_empty()
+        && !authoritative.is_empty()
+        && package.version != authoritative
+    {
+        return String::new();
+    }
+    verified
+}
+
 fn render_install_metadata(package: &PackageRow, locale: &Locale) -> String {
     let mut rows = Vec::new();
     for (label, value) in [
         ("Package key", package.package_key.clone()),
-        ("Version", package.version.clone()),
+        ("Version", authoritative_package_version(package)),
         ("Package manager", package.provider_label.clone()),
         ("Package manager page", package.package_manager_url.clone()),
         ("Homepage", package.homepage.clone()),
@@ -2313,7 +2336,7 @@ fn render_install_metadata(package: &PackageRow, locale: &Locale) -> String {
         ("Source archive", full_str(package, "sourceArchive")),
         ("Issue tracker", full_str(package, "issueTracker")),
         ("Last updated", package.last_updated_at.clone()),
-        ("Last verified", full_str(package, "lastVerified")),
+        ("Last verified", display_last_verified(package)),
         ("Published", full_str(package, "publishedAt")),
         ("Pulse", full_str(package, "pulseKind")),
         ("SHA-256", full_str(package, "sha256")),
@@ -2936,8 +2959,9 @@ fn hub_package_row(package: &PackageRow, reason: &str, locale: &Locale) -> Strin
             )],
         ));
     }
-    if !package.version.is_empty() {
-        signals.push(format!("v{}", package.version));
+    let version = authoritative_package_version(package);
+    if !version.is_empty() {
+        signals.push(format!("v{}", version));
     }
     let reason = if reason.trim().is_empty() {
         hub_package_reason(package, locale)
@@ -3202,7 +3226,7 @@ fn hero_sentence(package: &PackageRow) -> String {
     let summary = normalize_space(&package.summary);
     if !summary.is_empty() && !package.install_command.is_empty() {
         let verified = first_non_empty(&[
-            full_str(package, "lastVerified"),
+            display_last_verified(package),
             package.last_updated_at.clone(),
         ])
         .map(|value| fmt_date(&value))
@@ -3217,7 +3241,7 @@ fn hero_sentence(package: &PackageRow) -> String {
         return format!(
             "{} Version {} via {}; verified {}.{}",
             sentence_text(&summary),
-            empty_as_unknown(&package.version),
+            empty_as_unknown(&authoritative_package_version(package)),
             package.provider_label,
             verified,
             alternate
@@ -3384,8 +3408,9 @@ fn package_facts(package: &PackageRow, locale: &Locale) -> String {
         &tx(locale, "manager", "manager"),
         &package.provider_label,
     )];
-    if !package.version.is_empty() {
-        facts.push(metric(&tx(locale, "version", "version"), &package.version));
+    let version = authoritative_package_version(package);
+    if !version.is_empty() {
+        facts.push(metric(&tx(locale, "version", "version"), &version));
     }
     if !package.license.is_empty() {
         facts.push(metric(&tx(locale, "license", "license"), &package.license));
@@ -3433,8 +3458,7 @@ fn package_facts(package: &PackageRow, locale: &Locale) -> String {
             ));
         }
     }
-    if let Some(verified) = full_opt_str(package, "lastVerified").filter(|value| !value.is_empty())
-    {
+    if let Some(verified) = Some(display_last_verified(package)).filter(|value| !value.is_empty()) {
         facts.push(metric(
             &tx(locale, "verified", "verified"),
             &fmt_date(&verified),
@@ -3929,8 +3953,9 @@ fn schema_for_package(
         if !package.homepage.is_empty() {
             object.insert("sameAs".to_string(), json!(package.homepage));
         }
-        if !package.version.is_empty() {
-            object.insert("softwareVersion".to_string(), json!(package.version));
+        let version = authoritative_package_version(package);
+        if !version.is_empty() {
+            object.insert("softwareVersion".to_string(), json!(version));
         }
         if !package.license.is_empty() {
             object.insert("license".to_string(), json!(package.license));
@@ -5851,6 +5876,22 @@ mod tests {
         let mut summary_only = bare.clone();
         summary_only.summary = "Sparse summary without an install command".to_string();
         assert!(hero_sentence(&summary_only).contains("Nucleus can resolve"));
+
+        let mut version_mismatch = sparse.clone();
+        version_mismatch.summary = "Sparse summary for version reconciliation.".to_string();
+        version_mismatch.install_command = "sudo av install sparse".to_string();
+        version_mismatch.version = "2.0.0".to_string();
+        version_mismatch.data.full = serde_json::json!({
+            "versionFreshness": {
+                "packageManager": {"version": "2.1.0"}
+            },
+            "lastVerified": "2026-05-23"
+        });
+        let mismatch_html =
+            render_package_page(&version_mismatch, &LOCALES[0], "2026-06-07T00:00:00Z");
+        assert!(mismatch_html.contains("Version 2.1.0 via Homebrew; verified 2026-06-04."));
+        assert!(!mismatch_html.contains("verified 2026-05-23"));
+        assert!(mismatch_html.contains(r#""softwareVersion": "2.1.0""#));
 
         let mut dependency_fallback = sparse.clone();
         dependency_fallback.data.full = serde_json::json!({"dependencies": ["zlib"]});
