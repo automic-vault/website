@@ -2391,6 +2391,15 @@ h1 code {
   color: var(--green);
 }
 
+html[lang="en"] .poster-hero h1 {
+  max-width: min(100%, 17.1ch);
+  font-size: clamp(4.8rem, 6.9vw, 8.3rem);
+}
+
+html[lang="en"] .poster-hero .hero-title-emphasis {
+  white-space: nowrap;
+}
+
 .poster-lede {
   max-width: 33em;
   margin-top: 12px;
@@ -3222,6 +3231,15 @@ h1 code {
     max-width: 100%;
     font-size: clamp(2.55rem, 11.2vw, 4.65rem);
     line-height: 0.92;
+  }
+
+  html[lang="en"] .poster-hero h1 {
+    max-width: 100%;
+    font-size: clamp(2.55rem, 11.2vw, 4.65rem);
+  }
+
+  html[lang="en"] .poster-hero .hero-title-emphasis {
+    white-space: normal;
   }
 
   .poster-lede {
