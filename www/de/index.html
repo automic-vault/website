@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automic Vault | Lass dich nicht von deinen eigenen Tools übernehmen</title>
-  <meta name="description" content="Automic Vault erkennt Secret-Exposure, härtet Pakete mit Secrets, verschlüsselt .env-Dateien und überwacht die Tools, die du mit Homebrew, npm, pip und curl installierst.">
+  <title>Automic Vault | Pakete, .env-Dateien und Mac-Installationen härten</title>
+  <meta name="description" content="Agents und Malware sind nur einen Befehl davon entfernt, deine Secrets zu stehlen. Automic Vault verschlüsselt Secrets, versiegelt Tools und erzwingt Freigabe dort, wo deine Credentials offenliegen.">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Automic Vault | Lass dich nicht von deinen eigenen Tools übernehmen">
-  <meta property="og:description" content="Automic Vault erkennt Secret-Exposure, härtet Pakete mit Secrets, verschlüsselt .env-Dateien und überwacht die Tools, die du mit Homebrew, npm, pip und curl installierst.">
+  <meta property="og:title" content="Automic Vault | Pakete, .env-Dateien und Mac-Installationen härten">
+  <meta property="og:description" content="Agents und Malware sind nur einen Befehl davon entfernt, deine Secrets zu stehlen. Automic Vault verschlüsselt Secrets, versiegelt Tools und erzwingt Freigabe dort, wo deine Credentials offenliegen.">
   <meta property="og:url" content="https://www.automicvault.com/de/">
   <meta property="og:image" content="https://www.automicvault.com/assets/app-hazard-journey.webp">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Automic Vault | Lass dich nicht von deinen eigenen Tools übernehmen">
-  <meta name="twitter:description" content="Automic Vault erkennt Secret-Exposure, härtet Pakete mit Secrets, verschlüsselt .env-Dateien und überwacht die Tools, die du mit Homebrew, npm, pip und curl installierst.">
+  <meta name="twitter:title" content="Automic Vault | Pakete, .env-Dateien und Mac-Installationen härten">
+  <meta name="twitter:description" content="Agents und Malware sind nur einen Befehl davon entfernt, deine Secrets zu stehlen. Automic Vault verschlüsselt Secrets, versiegelt Tools und erzwingt Freigabe dort, wo deine Credentials offenliegen.">
   <meta name="twitter:image" content="https://www.automicvault.com/assets/app-hazard-journey.webp">
   <link rel="canonical" href="https://www.automicvault.com/de/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -29,15 +29,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=87">
+  <link rel="stylesheet" href="/styles.css?v=75">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/de/",
-    "name": "Automic Vault | Lass dich nicht von deinen eigenen Tools übernehmen",
-    "headline": "Lass dich nicht von deinen eigenen Tools übernehmen",
-    "description": "Automic Vault erkennt Secret-Exposure, härtet Pakete mit Secrets, verschlüsselt .env-Dateien und überwacht die Tools, die du mit Homebrew, npm, pip und curl installierst.",
+    "name": "Automic Vault | Pakete, .env-Dateien und Mac-Installationen härten",
+    "headline": "Härtet deinen Mac, bevor der Agent läuft.",
+    "description": "Agents und Malware sind nur einen Befehl davon entfernt, deine Secrets zu stehlen. Automic Vault verschlüsselt Secrets, versiegelt Tools und erzwingt Freigabe dort, wo deine Credentials offenliegen.",
     "inLanguage": "de",
     "image": "https://www.automicvault.com/assets/app-hazard-journey.webp",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
@@ -66,86 +66,34 @@
     <main class="landing-main">
       <section class="poster-hero" aria-labelledby="hero-title">
         <div class="poster-hero-copy">
-          <p class="eyebrow">VOM HOMEBREW-ERFINDER</p>
-          <h1 id="hero-title">
-            <span class="hero-title-line">Lass dich nicht</span>
-            <span class="hero-title-emphasis">von deinen Tools übernehmen</span>
-          </h1>
-          <p class="hero-tagline">Sichere die Tools, die du mit brew installierst</p>
-          <p class="poster-lede">
-            Installiere weiter mit den Paketmanagern und One-Linern, denen du
-            schon vertraust. Automic Vault erkennt offengelegte Secrets, härtet
-            die Tools, die sie benutzen, und warnt dich, wenn sich dein Stack
-            unter deinen Füßen verändert.
-          </p>
+          <p class="eyebrow">Vom Homebrew-Erfinder</p>
+          <h1 id="hero-title">Härtet deinen Mac, bevor der Agent läuft.</h1>
+          <p class="poster-lede">Auf deinem Mac liegen Klartext-Keys, die ein Agent lesen, leaken oder Malware übergeben kann. Automic Vault härtet die Schicht, die deine Credentials schützt: verschlüsselte Secrets, versiegelte Tools und Freigabe vor der Ausführung.</p>
         </div>
-
-        <aside class="poster-scan" aria-label="Automic Vault Schnellscan">
-          <p class="poster-scan-label">Schnellscan</p>
-          <ul>
-            <li>
-              <strong>Exposure erkennen</strong>
-              <span>Finde agent-lesbare Credentials, bevor ein Supply-Chain-Kompromiss daraus Zugriff macht.</span>
-            </li>
-            <li>
-              <strong>Tools härten</strong>
-              <span>Patche Pakete, verschiebe Secrets in den Keychain und halte Installationen unveränderlich.</span>
-            </li>
-            <li>
-              <strong>Drift überwachen</strong>
-              <span>Nutze Homebrew, npm, pip und curl weiter, während Automic Vault nach neuem Ärger Ausschau hält.</span>
-            </li>
-          </ul>
-        </aside>
 
         <div class="poster-hero-foot">
           <div class="hero-actions">
-            <a class="button primary" href="/Automic Vault.dmg">Automic Vault herunterladen</a>
-            <a class="button secondary" href="/de/secret-scanner-for-ai-agents/">Exposure erkennen</a>
+            <a class="button primary" href="/Automic Vault.dmg">av.dmg herunterladen</a>
+            <a class="button secondary" href="/de/secret-scanner-for-ai-agents/">Scanner starten</a>
             <a class="button text" href="https://github.com/automic-vault/automic-vault">Quellcode ansehen</a>
           </div>
         </div>
       </section>
 
-      <section class="feature-section app-section detect-section" id="detect" aria-labelledby="detect-title">
-        <div class="feature-copy">
-          <p class="eyebrow">01 &middot; DETECT</p>
-          <h2 id="detect-title">Ein kompromittiertes Paket muss nur eine Datei lesen. Wie viele hast du?</h2>
-          <p class="section-subtitle">Die größten Supply-Chain-Angriffe 2026 begannen nicht in Produktion. Sie begannen auf Entwickler-Laptops.</p>
-          <p>
-            Erkenne Secret-Exposure in deinem Stack, bevor der nächste
-            Supply-Chain-Angriff zubeißt. Automic Vault zeigt Paket-Tokens,
-            Credential-Dateien, Helper-Leaks und agent-lesbare Konfiguration,
-            solange die Tools noch lokal auf deinem Mac sind.
-          </p>
-        </div>
-
-        <figure class="app-visual landing-visual">
-          <img src="/assets/landing/detect-gh-hazard.webp" alt="Automic Vault zeigt eine GitHub-CLI-Token-Exposure für gh" width="1672" height="941" loading="lazy" decoding="async">
-        </figure>
-      </section>
-
       <section class="feature-section harden-section" id="harden" aria-labelledby="harden-title">
         <div class="feature-copy">
-          <p class="eyebrow">02.1 &middot; HARDEN (Secrets)</p>
-          <h2 id="harden-title">Von der Platte. In den Keychain.</h2>
-          <p class="section-subtitle">Ein Befehl verschiebt Klartext-Credentials außer Reichweite von Agents und Malware.</p>
-          <p>
-            Automic Vault patcht Pakete, die mit Secrets arbeiten, damit diese
-            Secrets von Malware und Agents fernbleiben. Unterstützte Tools
-            bekommen einen Keychain-gestützten Helper-Pfad, damit der Befehl
-            laufen kann, ohne wiederverwendbare Credentials in Dateien zu
-            hinterlassen, die jeder lokale Prozess lesen kann.
-          </p>
+          <p class="eyebrow">01 &middot; Harden</p>
+          <h2 id="harden-title">Lass Klartext-Secrets aus Paketen verschwinden.</h2>
+          <p>Automic Vault findet Credentials, die CLIs in Dotfiles ablegen, verschiebt unterstützte Secrets in den Keychain und hinterlässt jedem Tool einen Laufzeit-Helper, den der Agent nutzen kann, ohne das Secret zu lesen.</p>
         </div>
 
-        <div class="terminal-story" aria-label="Terminal-Beispiele für Paket-Härtung">
-          <aside class="terminal-notes" aria-label="Was dieses Terminal zeigt">
+        <div class="terminal-story" aria-label="Terminal examples for package hardening">
+          <aside class="terminal-notes" aria-label="What this terminal demonstrates">
             <p>Installiere Tools wie immer</p>
             <p>Erkenne Secret-Exposure</p>
             <p>Klartext-Secrets sind leider üblich in Open Source</p>
-            <p><code>av harden</code> verschiebt Keys in den Keychain und schreibt den Helper um</p>
-            <p><code>credential_process</code> lässt <code>aws</code> Keys erhalten, ohne sie Agents oder Malware offenzulegen</p>
+            <p>av harden verschiebt Keys in den Keychain und schreibt den Helper um</p>
+            <p>credential_process gibt aws Keys, ohne sie Agents oder Malware offenzulegen</p>
           </aside>
           <figure class="terminal-card terminal-card-green">
             <figcaption>Harden package-owned secrets</figcaption>
@@ -174,7 +122,7 @@ credential_process = /usr/local/bin/av credential-helper aws
           </figure>
         </div>
 
-        <div class="package-hardening-radar secured-radar" aria-label="Pakete, die Automic Vault härtet">
+        <div class="package-hardening-radar secured-radar" aria-label="Packages Automic Vault hardens">
           <div class="radar-copy">
             <span>Package hardening feed</span>
             <strong>Bekannte Tools, sichtbare Kontrollen.</strong>
@@ -192,25 +140,12 @@ credential_process = /usr/local/bin/av credential-helper aws
 
       <section class="feature-section immutable-section" id="immutable" aria-labelledby="immutable-title">
         <div class="feature-copy">
-          <p class="eyebrow">02.2 &middot; HARDEN (Unveränderlichkeit)</p>
-          <h2 id="immutable-title">Agents dürfen deine Tools ausführen. Nicht umschreiben.</h2>
-          <p class="section-subtitle">Versiegelte Installationen. Kontrollierte Updates. Ohne dich ändert sich nichts.</p>
-          <p>
-            Stoppe Agents dabei, sich selbst zu verändern, indem du Pakete
-            unveränderlich installierst, und stoppe Agents oder Malware dabei,
-            wichtige Tools in deinem Stack zu verändern. Automic Vault legt Tools
-            in versiegelte Roots und setzt einen kontrollierten <code>av</code>-Shim
-            auf <code>PATH</code>: Agents können das Tool ausführen, aber Änderungen
-            am Tool selbst laufen über ein genehmigtes Update.
-          </p>
+          <p class="eyebrow">02 &middot; Harden</p>
+          <h2 id="immutable-title">Mache Pakete nach der Installation unveränderlich.</h2>
+          <p>Automic Vault installiert Tools aus Homebrew, npm oder PyPI in versiegelte Roots und setzt einen av-Shim auf PATH. Agents können das Tool ausführen; Änderungen am Tool selbst laufen über ein genehmigtes Update.</p>
         </div>
-
-        <figure class="app-visual landing-visual">
-          <img src="/assets/landing/immutable-package-root.webp" alt="Automic Vault verhindert mit einem unveränderlichen Paket-Root, dass Agents oder Malware installierte Tools umschreiben" width="1672" height="941" loading="lazy" decoding="async">
-        </figure>
-
-        <div class="terminal-story" aria-label="Terminal-Beispiel für unveränderliche Paket-Roots">
-          <aside class="terminal-notes immutable-terminal-notes" aria-label="Was dieses Terminal zeigt">
+        <div class="terminal-story" aria-label="Terminal example for immutable package roots">
+          <aside class="terminal-notes immutable-terminal-notes" aria-label="What this terminal demonstrates">
             <p>Agent kann sich nicht selbst ändern</p>
           </aside>
           <figure class="terminal-card terminal-card-blue" aria-label="Agent cannot modify itself">
@@ -228,19 +163,11 @@ permission denied</code></pre>
 
       <section class="feature-section dotenv-section" id="dotenv" aria-labelledby="dotenv-title">
         <div class="feature-copy">
-          <p class="eyebrow">02.3 &middot; HARDEN (.env)</p>
-          <h2 id="dotenv-title"><code>.env</code> verschlüsseln. Nichts kaputtmachen.</h2>
-          <p class="section-subtitle">Keys bleiben im Keychain. Dein Workflow bleibt genau gleich.</p>
-          <p>
-            dotenvx-kompatible <code>.env</code>-Dateiverschlüsselung mit dem
-            privaten Key sicher im AV Keychain. <code>av dotenv</code> schreibt
-            <a href="https://dotenvx.com/" target="_blank" rel="noopener noreferrer">dotenvx</a>-kompatible
-            <code>encrypted:</code>-Werte; genehmigte Shell-Hooks entschlüsseln
-            nur für den Befehl, der sie angefordert hat.
-          </p>
+          <p class="eyebrow">03 &middot; Securing .env files</p>
+          <h2 id="dotenv-title">.env bleibt im Workflow, nicht im Agent-Kontext.</h2>
+          <p>av dotenv schreibt dotenvx-kompatible encrypted:-Werte, während der private Key im Automic-Vault-Keychain bleibt. Direnv-artige Hooks laden nur genehmigte Keys in die Shell oder den Befehl, der sie angefordert hat.</p>
         </div>
-
-        <div class="dotenv-terminal-layout" aria-label="Terminal-Beispiele für verschlüsselte dotenv-Dateien">
+        <div class="dotenv-terminal-layout" aria-label="Terminal examples for encrypted dotenv files">
           <figure class="terminal-card terminal-card-green dotenv-terminal-single">
             <figcaption>Encrypted .env with direnv-style loading</figcaption>
             <pre><code><span class="prompt">$</span> cd ~/work/billing-api
@@ -284,42 +211,30 @@ av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
         </div>
       </section>
 
-      <section class="feature-section app-section monitor-section" id="monitor" aria-labelledby="monitor-title">
+      <section class="feature-section app-section detect-section" id="detect" aria-labelledby="detect-title">
         <div class="feature-copy">
-          <p class="eyebrow">03 &middot; MONITOR</p>
-          <h2 id="monitor-title">Kein Einmal-Scan. Laufende Erkennung.</h2>
-          <p class="section-subtitle">Homebrew, npm, pip, curl — nutze alles weiter. Wir melden, wenn etwas nicht stimmt.</p>
-          <p>
-            Werde benachrichtigt, sobald sich die Lage ändert. Installiere
-            weiter mit Homebrew, npm, pip und curl-One-Linern und verlass dich
-            darauf, dass Automic Vault dich wissen lässt, wenn du in Schwierigkeiten bist.
-          </p>
+          <p class="eyebrow">04 &middot; Detect</p>
+          <h2 id="detect-title">Erkenne neue Risiken, während dein Mac sich weiter verändert.</h2>
+          <p>Automic Vault.app läuft im Hintergrund, während du Tools installierst, Projekte bearbeitest und versehentlich neue Secrets offenlegst. Neue Paket-Hazards werden sofort gemeldet, und unterstützte Klartext-Secrets werden direkt verschlüsselt.</p>
           <ul class="app-feature-list">
-            <li><strong>Multi-Source-Pakete.</strong> Installiere und härte Tools aus Homebrew, npm und PyPI, inklusive curl-Installer-Tracing im selben Workflow.</li>
+            <li><strong>Multi-Source-Pakete.</strong> Installiere und härte Tools aus Homebrew, npm und PyPI; weitere Quellen folgen.</li>
             <li><strong>Touch-ID-Installationen.</strong> Genehmige privilegierte Installationen und Updates, ohne das Terminal zu verlassen.</li>
             <li><strong>Auto-Updates.</strong> Halte App und Paketregeln im Hintergrund aktuell.</li>
             <li><strong>GUI-Suche und Discovery.</strong> Durchsuche Pakete, Homepages, Versionen, Hazards und Security Notes.</li>
             <li><strong>Benachrichtigungen.</strong> Erfahre, wenn neue Schwachstellen oder offengelegte Secrets erscheinen.</li>
           </ul>
         </div>
-
         <figure class="app-visual">
-          <img src="/assets/app-hazard-journey.webp" alt="Automic Vault App zeigt eine Klartext-Credential-Hazard neben einer Paket-Homepage" width="1672" height="941" loading="lazy" decoding="async">
+          <img src="/assets/app-hazard-journey.webp" alt="Automic Vault app" width="1672" height="941" loading="lazy" decoding="async">
         </figure>
       </section>
 
       <section class="feature-section endorsement-section" id="endorsements" aria-labelledby="endorsements-title">
         <div class="feature-copy">
-          <p class="eyebrow">Gebaut von Max Howell</p>
-          <h2 id="endorsements-title">Homebrew brachte der Welt das Installieren bei. Das kommt als Nächstes.</h2>
-          <p>
-            Max Howell hat Homebrew erstellt. Automic Vault kommt aus derselben
-            Betriebsrealität: Entwickler installieren viele Tools, diese Tools
-            haben echte Autorität, und der Endpoint braucht eine Grenze, bevor
-            Agents oder kompromittierte Pakete lokale Secrets in Zugriff verwandeln.
-          </p>
+          <p class="eyebrow">05 · Feldnotiz</p>
+          <h2 id="endorsements-title">Die richtige Grenze fühlt sich überfällig an.</h2>
+          <p>Das erste nützliche Signal war keine Metrik und kein Launch-Post. Es war das Gefühl, dass lokale Agent-Sicherheit längst Teil der Toolchain sein sollte.</p>
         </div>
-
         <a class="tweet-endorsement" href="https://x.com/Hiraweb3/status/2059662670006038857?s=20" target="_blank" rel="noopener noreferrer">
           <div class="tweet-endorsement-person">
             <img src="/assets/hira-avatar.webp" alt="Hira avatar" width="160" height="160" loading="lazy" decoding="async">
@@ -331,9 +246,12 @@ av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
 
       <section class="closing-cta" aria-labelledby="final-title">
         <p class="eyebrow">Kostenlos und Open Source</p>
-        <h2 id="final-title">Kostenlos, Open Source und passt auf dich auf.</h2>
+        <h2 id="final-title" aria-label="Sichere die Tools, die du mit brew, npm, pip, cargo, pnpm und uv installierst.">
+          Sichere die Tools
+          <span class="tool-command-line">die du <span class="tool-flip" aria-hidden="true"><span class="tool-flip-word" data-tool-flip>brew install</span></span></span>
+        </h2>
         <div>
-          <a class="button primary" href="/Automic Vault.dmg">Automic Vault herunterladen</a>
+          <a class="button primary" href="/Automic Vault.dmg">Herunterladen</a>
           <a class="button secondary" href="/de/docs/">Doku lesen</a>
           <a class="button text" href="/de/pkg/">Pakete ansehen</a>
         </div>
@@ -362,7 +280,7 @@ av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
     </footer>
   </div>
 
-  <script src="/app.js?v=23"></script>
+  <script src="/app.js?v=21"></script>
   <nav class="language-links" aria-label="Sprachversionen"><a href="/" lang="en">English</a> <a href="/ja/" lang="ja">日本語</a> <a href="/de/" lang="de">Deutsch</a> <a href="/fr/" lang="fr">Français</a> <a href="/zh-hans/" lang="zh-Hans">简体中文</a></nav>
   <script src="/i18n.js" defer></script>
 </body>
