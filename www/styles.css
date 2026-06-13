@@ -2680,9 +2680,9 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   max-width: 44rem;
   margin-top: clamp(2px, 0.55vw, 8px);
   padding-left: clamp(14px, 1.7vw, 22px);
-  color: oklch(82% 0.014 82);
+  color: oklch(91% 0.014 82);
   font-size: clamp(1.24rem, 1.9vw, 1.86rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.12;
   text-wrap: balance;
 }
