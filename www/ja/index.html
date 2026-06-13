@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automic Vault | パッケージ、.env、Mac インストールを堅牢化</title>
-  <meta name="description" content="エージェントやマルウェアは、あと 1 コマンドであなたのシークレットを盗めます。Automic Vault はシークレットを暗号化し、ツールを封印し、認証情報が露出する層で承認を強制します。">
+  <title>Automic Vault | 自分のツールに乗っ取られないために</title>
+  <meta name="description" content="Automic Vault はシークレット露出を検出し、シークレットを扱うパッケージを堅牢化し、.env ファイルを暗号化し、Homebrew、npm、pip、curl で入れたツールを監視します。">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Automic Vault | パッケージ、.env、Mac インストールを堅牢化">
-  <meta property="og:description" content="エージェントやマルウェアは、あと 1 コマンドであなたのシークレットを盗めます。Automic Vault はシークレットを暗号化し、ツールを封印し、認証情報が露出する層で承認を強制します。">
+  <meta property="og:title" content="Automic Vault | 自分のツールに乗っ取られないために">
+  <meta property="og:description" content="Automic Vault はシークレット露出を検出し、シークレットを扱うパッケージを堅牢化し、.env ファイルを暗号化し、Homebrew、npm、pip、curl で入れたツールを監視します。">
   <meta property="og:url" content="https://www.automicvault.com/ja/">
   <meta property="og:image" content="https://www.automicvault.com/assets/app-hazard-journey.webp">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Automic Vault | パッケージ、.env、Mac インストールを堅牢化">
-  <meta name="twitter:description" content="エージェントやマルウェアは、あと 1 コマンドであなたのシークレットを盗めます。Automic Vault はシークレットを暗号化し、ツールを封印し、認証情報が露出する層で承認を強制します。">
+  <meta name="twitter:title" content="Automic Vault | 自分のツールに乗っ取られないために">
+  <meta name="twitter:description" content="Automic Vault はシークレット露出を検出し、シークレットを扱うパッケージを堅牢化し、.env ファイルを暗号化し、Homebrew、npm、pip、curl で入れたツールを監視します。">
   <meta name="twitter:image" content="https://www.automicvault.com/assets/app-hazard-journey.webp">
   <link rel="canonical" href="https://www.automicvault.com/ja/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -29,15 +29,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=75">
+  <link rel="stylesheet" href="/styles.css?v=86">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/ja/",
-    "name": "Automic Vault | パッケージ、.env、Mac インストールを堅牢化",
-    "headline": "エージェントが動く前に Mac を堅牢化。",
-    "description": "エージェントやマルウェアは、あと 1 コマンドであなたのシークレットを盗めます。Automic Vault はシークレットを暗号化し、ツールを封印し、認証情報が露出する層で承認を強制します。",
+    "name": "Automic Vault | 自分のツールに乗っ取られないために",
+    "headline": "自分のツールに乗っ取られないために",
+    "description": "Automic Vault はシークレット露出を検出し、シークレットを扱うパッケージを堅牢化し、.env ファイルを暗号化し、Homebrew、npm、pip、curl で入れたツールを監視します。",
     "inLanguage": "ja",
     "image": "https://www.automicvault.com/assets/app-hazard-journey.webp",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
@@ -66,34 +66,89 @@
     <main class="landing-main">
       <section class="poster-hero" aria-labelledby="hero-title">
         <div class="poster-hero-copy">
-          <p class="eyebrow">Homebrew 作者より</p>
-          <h1 id="hero-title">エージェントが動く前に Mac を堅牢化。</h1>
-          <p class="poster-lede">Mac には、エージェントが読める、漏らせる、マルウェアに渡せる平文キーが残りがちです。Automic Vault はあなたの認証情報を守る層を堅牢化します。暗号化されたシークレット、封印されたツール、実行前の承認です。</p>
+          <p class="eyebrow">HOMEBREW 作者より</p>
+          <h1 id="hero-title">
+            <span class="hero-title-line">自分のツールに</span>
+            <span class="hero-title-emphasis">乗っ取られないために</span>
+          </h1>
+          <p class="hero-tagline">brew install するツールを守る</p>
+          <p class="poster-lede">
+            使い慣れたパッケージマネージャーやワンライナーはそのまま。
+            Automic Vault は露出したシークレットを検出し、それを使うツールを
+            堅牢化し、スタックが足元で変わったときに知らせます。
+          </p>
         </div>
+
+        <aside class="poster-scan" aria-label="Automic Vault クイックスキャン">
+          <p class="poster-scan-label">クイックスキャン</p>
+          <ul>
+            <li>
+              <strong>露出を検出</strong>
+              <span>Supply chain の侵害がアクセスに変わる前に、エージェントが読める認証情報を見つけます。</span>
+            </li>
+            <li>
+              <strong>ツールを堅牢化</strong>
+              <span>パッケージにパッチを当て、シークレットを Keychain に移し、インストールを不変にします。</span>
+            </li>
+            <li>
+              <strong>ドリフトを監視</strong>
+              <span>Homebrew、npm、pip、curl を使い続けながら、Automic Vault が新しい問題を監視します。</span>
+            </li>
+          </ul>
+        </aside>
 
         <div class="poster-hero-foot">
           <div class="hero-actions">
-            <a class="button primary" href="/Automic Vault.dmg">av.dmg をダウンロード</a>
-            <a class="button secondary" href="/ja/secret-scanner-for-ai-agents/">スキャナーを実行</a>
+            <a class="button primary" href="/Automic Vault.dmg">Automic Vault をダウンロード</a>
+            <a class="button secondary" href="/ja/secret-scanner-for-ai-agents/">露出を検出</a>
             <a class="button text" href="https://github.com/automic-vault/automic-vault">ソースを見る</a>
           </div>
         </div>
       </section>
 
-      <section class="feature-section harden-section" id="harden" aria-labelledby="harden-title">
+      <section class="feature-section app-section detect-section" id="detect" aria-labelledby="detect-title">
         <div class="feature-copy">
-          <p class="eyebrow">01 &middot; Harden</p>
-          <h2 id="harden-title">パッケージ由来の平文シークレットを消す。</h2>
-          <p>Automic Vault は CLI が dotfile に残す認証情報を見つけ、対応済みのシークレットを Keychain に移し、エージェントが値を読まずに使える実行時ヘルパーを残します。</p>
+          <p class="eyebrow">01 &middot; DETECT</p>
+          <h2 id="detect-title">侵害されたパッケージが必要なのは、たった 1 つのファイル。あなたはいくつ持っていますか。</h2>
+          <p class="section-subtitle">2026 年最大級の supply chain 攻撃は、本番環境ではなく開発者のラップトップから始まりました。</p>
+          <p>
+            次の supply chain 攻撃に噛みつかれる前に、スタック内の
+            シークレット露出を検出します。Automic Vault は、ツールがまだ
+            Mac ローカルにあるうちに、パッケージ由来のトークン、認証情報
+            ファイル、ヘルパーの漏れ、エージェントが読める設定を可視化します。
+          </p>
         </div>
 
-        <div class="terminal-story" aria-label="Terminal examples for package hardening">
-          <aside class="terminal-notes" aria-label="What this terminal demonstrates">
+        <figure class="app-visual landing-visual">
+          <img src="/assets/landing/detect-gh-hazard.webp" alt="Automic Vault が gh の GitHub CLI トークン露出を表示している" width="1672" height="941" loading="lazy" decoding="async">
+        </figure>
+      </section>
+
+      <section class="feature-section harden-section" id="harden" aria-labelledby="harden-title">
+        <div class="feature-copy">
+          <p class="eyebrow">02.1 &middot; HARDEN (Secrets)</p>
+          <h2 id="harden-title">ディスクから外へ。Keychain の中へ。</h2>
+          <p class="section-subtitle">1 コマンドで、平文の認証情報をエージェントやマルウェアの手が届かない場所へ移します。</p>
+          <p>
+            Automic Vault はシークレットを扱うパッケージにパッチを当て、
+            そのシークレットをマルウェアやエージェントから遠ざけます。
+            対応済みツールには Keychain-backed のヘルパーパスを残すため、
+            どのローカルプロセスでも読めるファイルに再利用可能な認証情報を
+            残さずにコマンドを実行できます。
+          </p>
+        </div>
+
+        <figure class="app-visual landing-visual">
+          <img src="/assets/landing/harden-aws-cli.webp" alt="Automic Vault が av credential-helper 経由で aws-cli 認証情報を AV Keychain に移している" width="1672" height="941" loading="lazy" decoding="async">
+        </figure>
+
+        <div class="terminal-story" aria-label="パッケージ堅牢化のターミナル例">
+          <aside class="terminal-notes" aria-label="このターミナルが示すこと">
             <p>いつも通りツールをインストール</p>
             <p>シークレット露出を検出</p>
             <p>平文シークレットは残念ながらオープンソースでよくあります</p>
-            <p>av harden がキーを Keychain に移してヘルパーを書き換えます</p>
-            <p>credential_process で aws はキーを受け取り、エージェントやマルウェアには露出しません</p>
+            <p><code>av harden</code> がキーを Keychain に移してヘルパーを書き換えます</p>
+            <p><code>credential_process</code> により <code>aws</code> はキーを受け取り、エージェントやマルウェアには露出しません</p>
           </aside>
           <figure class="terminal-card terminal-card-green">
             <figcaption>Harden package-owned secrets</figcaption>
@@ -122,7 +177,7 @@ credential_process = /usr/local/bin/av credential-helper aws
           </figure>
         </div>
 
-        <div class="package-hardening-radar secured-radar" aria-label="Packages Automic Vault hardens">
+        <div class="package-hardening-radar secured-radar" aria-label="Automic Vault が堅牢化するパッケージ">
           <div class="radar-copy">
             <span>Package hardening feed</span>
             <strong>既知のツール、見える制御。</strong>
@@ -140,12 +195,25 @@ credential_process = /usr/local/bin/av credential-helper aws
 
       <section class="feature-section immutable-section" id="immutable" aria-labelledby="immutable-title">
         <div class="feature-copy">
-          <p class="eyebrow">02 &middot; Harden</p>
-          <h2 id="immutable-title">インストール後のパッケージを不変に。</h2>
-          <p>Automic Vault は Homebrew、npm、PyPI のツールを封印された root にインストールし、PATH に av shim を置きます。エージェントはツールを実行できますが、ツール自体の変更は承認済みアップデート経由になります。</p>
+          <p class="eyebrow">02.2 &middot; HARDEN (Immutability)</p>
+          <h2 id="immutable-title">エージェントはツールを実行できる。書き換えはできない。</h2>
+          <p class="section-subtitle">封印されたインストール。制御されたアップデート。あなたなしでは何も変わりません。</p>
+          <p>
+            パッケージを不変にインストールすることで、エージェントが自分自身を
+            変更するのを止め、さらにエージェントやマルウェアがスタック内の重要な
+            ツールを変更するのも止めます。Automic Vault はツールを封印された root
+            に置き、<code>PATH</code> に制御された <code>av</code> shim を公開します。
+            エージェントはツールを実行できますが、ツール自体の変更は承認済み
+            アップデート経由になります。
+          </p>
         </div>
-        <div class="terminal-story" aria-label="Terminal example for immutable package roots">
-          <aside class="terminal-notes immutable-terminal-notes" aria-label="What this terminal demonstrates">
+
+        <figure class="app-visual landing-visual">
+          <img src="/assets/landing/immutable-package-root.webp" alt="Automic Vault の不変パッケージ root がエージェントやマルウェアによるインストール済みツールの書き換えを防ぐ" width="1672" height="941" loading="lazy" decoding="async">
+        </figure>
+
+        <div class="terminal-story" aria-label="不変パッケージ root のターミナル例">
+          <aside class="terminal-notes immutable-terminal-notes" aria-label="このターミナルが示すこと">
             <p>エージェントは自分自身を変更できません</p>
           </aside>
           <figure class="terminal-card terminal-card-blue" aria-label="Agent cannot modify itself">
@@ -163,11 +231,19 @@ permission denied</code></pre>
 
       <section class="feature-section dotenv-section" id="dotenv" aria-labelledby="dotenv-title">
         <div class="feature-copy">
-          <p class="eyebrow">03 &middot; Securing .env files</p>
-          <h2 id="dotenv-title">ワークフローには .env を。エージェントの文脈には入れない。</h2>
-          <p>av dotenv は、秘密鍵を Automic Vault Keychain に残したまま、dotenvx 互換の encrypted: 値を書きます。direnv 風の hook は、承認済みキーだけを、それを要求した shell やコマンドへ読み込みます。</p>
+          <p class="eyebrow">02.3 &middot; HARDEN (.env)</p>
+          <h2 id="dotenv-title"><code>.env</code> を暗号化。何も壊さない。</h2>
+          <p class="section-subtitle">キーは Keychain に残ります。ワークフローはそのままです。</p>
+          <p>
+            秘密鍵を AV Keychain に安全に保存したまま、dotenvx 互換の
+            <code>.env</code> ファイル暗号化を行います。<code>av dotenv</code> は
+            <a href="https://dotenvx.com/" target="_blank" rel="noopener noreferrer">dotenvx</a> 互換の
+            <code>encrypted:</code> 値を書き、承認済み shell hook は要求した
+            コマンドに対してだけ復号します。
+          </p>
         </div>
-        <div class="dotenv-terminal-layout" aria-label="Terminal examples for encrypted dotenv files">
+
+        <div class="dotenv-terminal-layout" aria-label="暗号化 dotenv ファイルのターミナル例">
           <figure class="terminal-card terminal-card-green dotenv-terminal-single">
             <figcaption>Encrypted .env with direnv-style loading</figcaption>
             <pre><code><span class="prompt">$</span> cd ~/work/billing-api
@@ -211,30 +287,42 @@ av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
         </div>
       </section>
 
-      <section class="feature-section app-section detect-section" id="detect" aria-labelledby="detect-title">
+      <section class="feature-section app-section monitor-section" id="monitor" aria-labelledby="monitor-title">
         <div class="feature-copy">
-          <p class="eyebrow">04 &middot; Detect</p>
-          <h2 id="detect-title">Mac が変わり続ける間に、新しいリスクを検出。</h2>
-          <p>Automic Vault.app は、ツールをインストールし、プロジェクトを編集し、うっかり新しいシークレットを露出する間もバックグラウンドで動きます。新しいパッケージ hazard は発生時に通知され、対応済みの平文シークレットは即座に暗号化されます。</p>
+          <p class="eyebrow">03 &middot; MONITOR</p>
+          <h2 id="monitor-title">一度きりのスキャンではなく、継続的な検出。</h2>
+          <p class="section-subtitle">Homebrew、npm、pip、curl — すべて使い続けてください。異常があれば知らせます。</p>
+          <p>
+            状況が変わったらすぐ通知します。Homebrew、npm、pip、curl の
+            ワンライナーでのインストールは続けてください。困った状態になれば、
+            Automic Vault が知らせます。
+          </p>
           <ul class="app-feature-list">
-            <li><strong>マルチソースパッケージ.</strong> Homebrew、npm、PyPI のツールをインストールして堅牢化。対応元は今後も増えます。</li>
+            <li><strong>マルチソースパッケージ.</strong> Homebrew、npm、PyPI のツールをインストールして堅牢化。curl スタイルのインストーラ tracing も同じ workflow で扱います。</li>
             <li><strong>Touch ID インストール.</strong> ターミナルを離れずに権限付きインストールとアップデートを承認。</li>
             <li><strong>自動アップデート.</strong> アプリと堅牢化ルールをバックグラウンドで最新に保ちます。</li>
             <li><strong>GUI 検索と発見.</strong> パッケージ、ホームページ、バージョン、hazard、セキュリティノートを閲覧。</li>
             <li><strong>通知.</strong> 新しい脆弱性や露出したシークレットが現れたら分かります。</li>
           </ul>
         </div>
+
         <figure class="app-visual">
-          <img src="/assets/app-hazard-journey.webp" alt="Automic Vault app" width="1672" height="941" loading="lazy" decoding="async">
+          <img src="/assets/app-hazard-journey.webp" alt="Automic Vault アプリがパッケージページ横に平文 credential hazard を表示している" width="1672" height="941" loading="lazy" decoding="async">
         </figure>
       </section>
 
       <section class="feature-section endorsement-section" id="endorsements" aria-labelledby="endorsements-title">
         <div class="feature-copy">
-          <p class="eyebrow">05 · フィールドノート</p>
-          <h2 id="endorsements-title">正しい境界は、ずっと前から必要だったように感じる。</h2>
-          <p>最初に役立った反応は、数値でもローンチ記事でもありませんでした。ローカルのエージェントセキュリティは、すでにツールチェーンの一部であるべきだという感覚でした。</p>
+          <p class="eyebrow">Max Howell による開発</p>
+          <h2 id="endorsements-title">Homebrew は世界にインストールを教えました。次に来るのがこれです。</h2>
+          <p>
+            Max Howell は Homebrew を作りました。Automic Vault も同じ現場感から
+            生まれています。開発者は多くのツールをインストールし、そのツールは
+            本物の権限を持ちます。エージェントや侵害されたパッケージがローカル
+            シークレットをアクセス権に変える前に、エンドポイントには境界が必要です。
+          </p>
         </div>
+
         <a class="tweet-endorsement" href="https://x.com/Hiraweb3/status/2059662670006038857?s=20" target="_blank" rel="noopener noreferrer">
           <div class="tweet-endorsement-person">
             <img src="/assets/hira-avatar.webp" alt="Hira avatar" width="160" height="160" loading="lazy" decoding="async">
@@ -246,12 +334,9 @@ av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
 
       <section class="closing-cta" aria-labelledby="final-title">
         <p class="eyebrow">無料のオープンソース</p>
-        <h2 id="final-title" aria-label="brew、npm、pip、cargo、pnpm、uv でインストールするツールを保護します。">
-          ツールを保護
-          <span class="tool-command-line">あなたが <span class="tool-flip" aria-hidden="true"><span class="tool-flip-word" data-tool-flip>brew install</span></span></span>
-        </h2>
+        <h2 id="final-title">無料、オープンソース。背後で守ります。</h2>
         <div>
-          <a class="button primary" href="/Automic Vault.dmg">ダウンロード</a>
+          <a class="button primary" href="/Automic Vault.dmg">Automic Vault をダウンロード</a>
           <a class="button secondary" href="/ja/docs/">ドキュメントを読む</a>
           <a class="button text" href="/ja/pkg/">パッケージを見る</a>
         </div>
@@ -280,7 +365,7 @@ av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
     </footer>
   </div>
 
-  <script src="/app.js?v=21"></script>
+  <script src="/app.js?v=23"></script>
   <nav class="language-links" aria-label="言語版"><a href="/" lang="en">English</a> <a href="/ja/" lang="ja">日本語</a> <a href="/de/" lang="de">Deutsch</a> <a href="/fr/" lang="fr">Français</a> <a href="/zh-hans/" lang="zh-Hans">简体中文</a></nav>
   <script src="/i18n.js" defer></script>
 </body>
