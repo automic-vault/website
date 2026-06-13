@@ -2,7 +2,6 @@ const toggle = document.querySelector(".nav-toggle");
 const nav = document.querySelector(".nav");
 const scrollMeter = document.querySelector(".scroll-meter span");
 const securedFeed = document.querySelector("[data-secured-feed]");
-const toolFlipWords = Array.from(document.querySelectorAll("[data-tool-flip]"));
 
 const securedPackages = [
   ["gh", "GitHub tokens saved in Keychain and injected only for gh commands", "accent-green", "/pkg/brew/gh/"],
@@ -72,78 +71,6 @@ if (scrollMeter) {
   updateScrollMeter();
   window.addEventListener("scroll", scheduleScrollMeterUpdate, { passive: true });
   window.addEventListener("resize", scheduleScrollMeterUpdate);
-}
-
-if (toolFlipWords.length > 0) {
-  const toolWords = ["brew install", "npm install", "pip install", "curl | sh", "pnpm install", "uv install"];
-  const motionAllowed = window.matchMedia("(prefers-reduced-motion: no-preference)");
-  const flipDuration = 640;
-  const flipInterval = 1900;
-  const visibleDelay = 2000;
-  let toolCursor = 0;
-
-  if (motionAllowed.matches) {
-    const flipToNextTool = () => {
-      toolCursor = (toolCursor + 1) % toolWords.length;
-      toolFlipWords.forEach((toolFlipWord) => {
-        toolFlipWord.classList.remove("is-flipping");
-      });
-
-      window.requestAnimationFrame(() => {
-        toolFlipWords.forEach((toolFlipWord) => {
-          toolFlipWord.classList.add("is-flipping");
-        });
-      });
-
-      window.setTimeout(() => {
-        toolFlipWords.forEach((toolFlipWord) => {
-          toolFlipWord.textContent = toolWords[toolCursor];
-        });
-      }, flipDuration / 2);
-
-      window.setTimeout(() => {
-        toolFlipWords.forEach((toolFlipWord) => {
-          toolFlipWord.classList.remove("is-flipping");
-        });
-      }, flipDuration);
-    };
-
-    let started = false;
-    let visibleTimer = 0;
-
-    const startToolFlip = () => {
-      if (started) {
-        return;
-      }
-
-      started = true;
-      flipToNextTool();
-      window.setInterval(flipToNextTool, flipInterval);
-    };
-
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver((entries) => {
-        const isVisible = entries.some((entry) => entry.isIntersecting);
-
-        if (isVisible && !visibleTimer && !started) {
-          visibleTimer = window.setTimeout(() => {
-            visibleTimer = 0;
-            startToolFlip();
-            observer.disconnect();
-          }, visibleDelay);
-        } else if (!isVisible && visibleTimer) {
-          window.clearTimeout(visibleTimer);
-          visibleTimer = 0;
-        }
-      }, { threshold: 0.35 });
-
-      toolFlipWords.forEach((toolFlipWord) => {
-        observer.observe(toolFlipWord);
-      });
-    } else {
-      window.setTimeout(startToolFlip, visibleDelay);
-    }
-  }
 }
 
 if (securedFeed) {

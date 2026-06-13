@@ -166,7 +166,7 @@
   >
   <link rel="icon" href="./favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles.css?v=85">
+  <link rel="stylesheet" href="./styles.css?v=86">
 </head>
 <body>
   <div class="scroll-meter" aria-hidden="true"><span></span></div>
@@ -245,7 +245,8 @@
       <section class="feature-section app-section detect-section" id="detect" aria-labelledby="detect-title">
         <div class="feature-copy">
           <p class="eyebrow">01 &middot; DETECT</p>
-          <h2 id="detect-title">Catch secret exposure before the next supply chain attack bites.</h2>
+          <h2 id="detect-title">Supply chain attacks are up. Your credentials are the prize.</h2>
+          <p class="section-subtitle">Tokens, credentials, helper leaks — surfaced while they&rsquo;re still on your machine.</p>
           <p>
             Detect secret exposure in your stack before the next supply chain
             attack bites you. Automic Vault surfaces package-owned tokens,
@@ -268,8 +269,9 @@
 
       <section class="feature-section harden-section" id="harden" aria-labelledby="harden-title">
         <div class="feature-copy">
-          <p class="eyebrow">02.1 &middot; HARDEN</p>
-          <h2 id="harden-title">Patch packages that work with secrets.</h2>
+          <p class="eyebrow">02.1 &middot; HARDEN (Secrets)</p>
+          <h2 id="harden-title">Off disk. Into Keychain.</h2>
+          <p class="section-subtitle">One command moves plaintext credentials out of reach of agents and malware.</p>
           <p>
             Automic Vault patches packages that work with secrets to keep those
             secrets away from malware and agents. Supported tools get a
@@ -359,8 +361,9 @@ credential_process = /usr/local/bin/av credential-helper aws
 
       <section class="feature-section immutable-section" id="immutable" aria-labelledby="immutable-title">
         <div class="feature-copy">
-          <p class="eyebrow">02.2 &middot; HARDEN</p>
-          <h2 id="immutable-title">Stop agents and malware from rewriting your tools.</h2>
+          <p class="eyebrow">02.2 &middot; HARDEN (Immutability)</p>
+          <h2 id="immutable-title">Agents can run your tools. Not rewrite them.</h2>
+          <p class="section-subtitle">Sealed installs. Controlled updates. Nothing changes without you.</p>
           <p>
             Stop agents from modifying themselves by installing packages
             immutably, and stop agents or malware from modifying vital tools in
@@ -401,8 +404,9 @@ permission denied</code></pre>
 
       <section class="feature-section dotenv-section" id="dotenv" aria-labelledby="dotenv-title">
         <div class="feature-copy">
-          <p class="eyebrow">02.3 &middot; HARDEN</p>
-          <h2 id="dotenv-title">Encrypt <code>.env</code> without breaking the workflow.</h2>
+          <p class="eyebrow">02.3 &middot; HARDEN (.env)</p>
+          <h2 id="dotenv-title">Encrypt <code>.env</code>. Break nothing.</h2>
+          <p class="section-subtitle">Keys stay in Keychain. Your workflow stays exactly the same.</p>
           <p>
             dotenvx-compatible <code>.env</code> file encryption with the
             private key securely stored in the AV Keychain. <code>av dotenv</code> writes
@@ -459,7 +463,8 @@ av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
       <section class="feature-section app-section monitor-section" id="monitor" aria-labelledby="monitor-title">
         <div class="feature-copy">
           <p class="eyebrow">03 &middot; MONITOR</p>
-          <h2 id="monitor-title">Know as soon as the situation changes.</h2>
+          <h2 id="monitor-title">Install freely. Know immediately.</h2>
+          <p class="section-subtitle">Homebrew, npm, pip, curl — keep using all of it. We&rsquo;ll flag when something&rsquo;s wrong.</p>
           <p>
             Be notified as soon as the situation changes. Keep installing with
             Homebrew, npm, pip, and curl one-liners and rest assured Automic
@@ -490,7 +495,7 @@ av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
       <section class="feature-section endorsement-section" id="endorsements" aria-labelledby="endorsements-title">
         <div class="feature-copy">
           <p class="eyebrow">Built by Max Howell</p>
-          <h2 id="endorsements-title">From Homebrew to the next package boundary.</h2>
+          <h2 id="endorsements-title">Homebrew taught the world to install. This is what comes next.</h2>
           <p>
             Max Howell created Homebrew. Automic Vault comes from the same
             operating reality: developers install a lot of tools, those tools
@@ -528,10 +533,7 @@ av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
 
       <section class="closing-cta" aria-labelledby="final-title">
         <p class="eyebrow">Free and open source</p>
-        <h2 id="final-title" aria-label="Secure the tools you install with brew, npm, pip, cargo, pnpm, and uv.">
-          Secure the tools
-          <span class="tool-command-line">you <span class="tool-flip" aria-hidden="true"><span class="tool-flip-word" data-tool-flip>brew install</span></span></span>
-        </h2>
+        <h2 id="final-title">Free, open source, and watching your back.</h2>
         <div>
           <a class="button primary" href="/Automic Vault.dmg">Download Automic Vault</a>
           <a class="button secondary" href="/docs/">Read docs</a>
@@ -569,7 +571,7 @@ av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
     </footer>
   </div>
 
-  <script src="./app.js?v=22"></script>
+  <script src="./app.js?v=23"></script>
   <nav class="language-links" aria-label="Language versions"><a href="/" lang="en">English</a> <a href="/ja/" lang="ja">日本語</a> <a href="/de/" lang="de">Deutsch</a> <a href="/fr/" lang="fr">Français</a> <a href="/zh-hans/" lang="zh-Hans">简体中文</a></nav>
   <script src="/i18n.js" defer></script>
 </body>

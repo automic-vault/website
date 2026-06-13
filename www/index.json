@@ -5,8 +5,43 @@
   "license": "Apache License 2.0",
   "description": "Automic Vault detects secret exposure, hardens packages that work with secrets, encrypts .env files, and monitors the tools you install with Homebrew, npm, pip, and curl one-liners.",
   "short_description": "Don't get owned by your own tools.",
-  "full_description": "From the creator of Homebrew, Automic Vault detects secret exposure before supply chain attacks turn local files into access, patches packages that work with secrets, installs tools immutably, provides dotenvx-compatible .env encryption with the private key stored in the AV Keychain, and monitors new installs and stale tool config for hazards.",
+  "full_description": "From the creator of Homebrew, Automic Vault surfaces tokens, credentials, and helper leaks while they are still on your machine, moves plaintext credentials off disk and into Keychain, installs tools immutably, provides dotenvx-compatible .env encryption, and monitors Homebrew, npm, pip, and curl workflows for new hazards.",
   "positioning": "Don't get owned by your own tools",
+  "sections": [
+    {
+      "eyebrow": "01 · DETECT",
+      "title": "Supply chain attacks are up. Your credentials are the prize.",
+      "subtitle": "Tokens, credentials, helper leaks — surfaced while they're still on your machine."
+    },
+    {
+      "eyebrow": "02.1 · HARDEN (Secrets)",
+      "title": "Off disk. Into Keychain.",
+      "subtitle": "One command moves plaintext credentials out of reach of agents and malware."
+    },
+    {
+      "eyebrow": "02.2 · HARDEN (Immutability)",
+      "title": "Agents can run your tools. Not rewrite them.",
+      "subtitle": "Sealed installs. Controlled updates. Nothing changes without you."
+    },
+    {
+      "eyebrow": "02.3 · HARDEN (.env)",
+      "title": "Encrypt .env. Break nothing.",
+      "subtitle": "Keys stay in Keychain. Your workflow stays exactly the same."
+    },
+    {
+      "eyebrow": "03 · MONITOR",
+      "title": "Install freely. Know immediately.",
+      "subtitle": "Homebrew, npm, pip, curl — keep using all of it. We'll flag when something's wrong."
+    },
+    {
+      "eyebrow": "Built by Max Howell",
+      "title": "Homebrew taught the world to install. This is what comes next."
+    },
+    {
+      "eyebrow": "CTA",
+      "title": "Free, open source, and watching your back."
+    }
+  ],
   "exposure_examples": [
     {
       "command": "gh auth token",
@@ -21,7 +56,7 @@
       "summary": "Asks the local credential helper to reveal repository credentials, even when there is no obvious token file."
     }
   ],
-  "founder_context": "Max Howell created Homebrew. Automic Vault applies that package-management background to local package roots, command stubs, secret helpers, and monitoring boundaries for AI agents on macOS.",
+  "founder_context": "Homebrew taught the world to install. This is what comes next. Max Howell created Homebrew, and Automic Vault applies that package-management background to local package roots, command stubs, secret helpers, and monitoring boundaries for AI agents on macOS.",
   "endorsement": {
     "quote": "we needed this yesterday but i'll take it now",
     "author": "Hira",
@@ -112,11 +147,11 @@
   "llms_txt": "https://www.automicvault.com/llms.txt",
   "llms_full_txt": "https://www.automicvault.com/llms-full.txt",
   "use_cases": [
-    "Detect secret exposure in local dev-tool files such as .env, .netrc, .npmrc, GitHub CLI config, AWS credentials, and MCP config before a supply chain attack can use it.",
-    "Harden packages that work with secrets so supported credentials are exposed only to approved executables at runtime.",
+    "Surface tokens, credentials, and helper leaks while they are still on the developer's machine.",
+    "Move plaintext credentials off disk and into Keychain, out of reach of agents and malware.",
     "Expose credentials through native helper protocols such as AWS credential_process, Kubernetes ExecCredential, Cargo credential providers, Docker-compatible registry helpers, and WakaTime api_key_vault_cmd.",
-    "Install packages immutably so agents can run tools without rewriting themselves, and so agents or malware cannot modify vital tools in the local stack.",
-    "Encrypt dotenvx-compatible .env files while keeping the private key in the AV Keychain.",
-    "Monitor Homebrew, npm, pip, and curl one-liner workflows for new hazards as the local stack changes."
+    "Install packages immutably so agents can run tools but cannot rewrite them.",
+    "Encrypt dotenvx-compatible .env files while keeping keys in Keychain and preserving the existing workflow.",
+    "Monitor Homebrew, npm, pip, and curl workflows and flag when something is wrong."
   ]
 }

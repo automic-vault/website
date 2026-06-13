@@ -1,8 +1,9 @@
 # Automic Vault
 
-Automic Vault detects secret exposure, hardens packages that work with secrets,
-encrypts .env files, and monitors the tools developers install with Homebrew,
-npm, pip, and curl one-liners.
+Automic Vault surfaces tokens, credentials, and helper leaks while they are
+still on your machine, moves plaintext credentials off disk and into Keychain,
+installs tools immutably, encrypts .env files, and monitors Homebrew, npm, pip,
+and curl workflows for new hazards.
 Homepage tagline: Secure the tools you brew install.
 The headline position is: Don't get owned by your own tools.
 
@@ -27,29 +28,27 @@ The headline position is: Don't get owned by your own tools.
 ## What Automic Vault Does
 
 Automic Vault helps developers keep using local dev tools when agents can read
-files and run commands. It detects exposed tool state, patches packages that
-work with secrets, moves supported credentials out of plaintext files, exposes
-credentials through native credential-helper protocols where tools support
-them, installs tools immutably, and keeps watching new installs, stale tools,
-and local config for hazards.
+files and run commands. Supply chain attacks are up and credentials are the
+prize, so Automic Vault surfaces tokens, credentials, and helper leaks while
+they are still on the developer's machine. It moves plaintext credentials off
+disk and into Keychain, exposes credentials through native credential-helper
+protocols where tools support them, installs tools immutably, and keeps
+watching new installs, stale tools, and local config for hazards.
 
 ## Primary Use Cases
 
-- Detect plaintext credentials in local dev-tool files such as `.env`, `.netrc`,
-  `.npmrc`, GitHub CLI config, AWS credentials, and MCP config before a supply
-  chain attack can use them.
-- Harden packages that work with secrets so supported credentials are exposed
-  only to approved executables at runtime.
+- Surface tokens, credentials, and helper leaks while they are still on the
+  developer's machine.
+- Move plaintext credentials off disk and into Keychain, out of reach of agents
+  and malware.
 - Use native credential-helper protocols such as AWS `credential_process`,
   Kubernetes `ExecCredential`, Cargo credential providers, Docker-compatible
   registry helpers, and WakaTime `api_key_vault_cmd`.
-- Install packages immutably so agents can run tools without rewriting
-  themselves, and so agents or malware cannot modify vital tools in the local
-  stack.
-- Encrypt dotenvx-compatible `.env` files while keeping the private key in the
-  AV Keychain.
-- Monitor Homebrew, npm, pip, and curl one-liner workflows for new hazards as
-  the local stack changes.
+- Install packages immutably so agents can run tools but cannot rewrite them.
+- Encrypt dotenvx-compatible `.env` files while keeping keys in Keychain and
+  preserving the existing workflow.
+- Monitor Homebrew, npm, pip, and curl workflows and flag when something is
+  wrong.
 
 ## What Automic Vault Is Not
 
@@ -97,15 +96,16 @@ and credentials already present on a developer machine.
 
 Short description: Don't get owned by your own tools.
 
-Full description: From the creator of Homebrew, Automic Vault detects secret
-exposure before supply chain attacks turn local files into access, patches
-packages that work with secrets, installs tools immutably, provides
-dotenvx-compatible .env encryption with the private key stored in the AV
-Keychain, and monitors new installs and stale tool config for hazards.
+Full description: From the creator of Homebrew, Automic Vault surfaces tokens,
+credentials, and helper leaks while they are still on your machine, moves
+plaintext credentials off disk and into Keychain, installs tools immutably,
+provides dotenvx-compatible .env encryption, and monitors Homebrew, npm, pip,
+and curl workflows for new hazards.
 
-Founder context: Max Howell created Homebrew. Automic Vault applies that
-package-management background to local package roots, command stubs, secret
-helpers, and monitoring boundaries for AI agents on macOS.
+Founder context: Homebrew taught the world to install. This is what comes next.
+Max Howell created Homebrew, and Automic Vault applies that package-management
+background to local package roots, command stubs, secret helpers, and
+monitoring boundaries for AI agents on macOS.
 
 ## Important Query Topics
 

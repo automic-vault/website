@@ -10,16 +10,31 @@ you install with Homebrew, npm, pip, and curl one-liners.
 
 ## Detect
 
+Supply chain attacks are up. Your credentials are the prize.
+
+Tokens, credentials, helper leaks — surfaced while they're still on your
+machine.
+
 Detect secret exposure in your stack before the next supply chain attack bites
 you. Automic Vault surfaces package-owned tokens, credential files, helper
 leaks, and agent-readable config while the tools are still local to your Mac.
 
-## Harden
+## Harden Secrets
+
+Off disk. Into Keychain.
+
+One command moves plaintext credentials out of reach of agents and malware.
 
 Automic Vault patches packages that work with secrets to keep those secrets
 away from malware and agents. Supported tools get a Keychain-backed helper
 path, so the command can run without leaving reusable credentials in files any
 local process can read.
+
+## Harden Immutability
+
+Agents can run your tools. Not rewrite them.
+
+Sealed installs. Controlled updates. Nothing changes without you.
 
 Stop agents from modifying themselves by installing packages immutably, and
 stop agents or malware from modifying vital tools in your stack. Automic Vault
@@ -27,10 +42,21 @@ puts tools in sealed roots and exposes a controlled `av` shim on `PATH`: agents
 can run the tool, but changing the tool itself routes through an approved
 update.
 
+## Harden .env
+
+Encrypt `.env`. Break nothing.
+
+Keys stay in Keychain. Your workflow stays exactly the same.
+
 Automic Vault provides dotenvx-compatible `.env` file encryption with the
 private key securely stored in the AV Keychain.
 
 ## Monitor
+
+Install freely. Know immediately.
+
+Homebrew, npm, pip, curl — keep using all of it. We'll flag when something's
+wrong.
 
 Be notified as soon as the situation changes. Keep installing with Homebrew,
 npm, pip, and curl one-liners and rest assured Automic Vault will let you know
@@ -47,6 +73,8 @@ when you're in trouble.
 
 ## Built by Max Howell
 
+Homebrew taught the world to install. This is what comes next.
+
 Max Howell created Homebrew. Automic Vault comes from the same operating
 reality: developers install a lot of tools, those tools hold real authority,
 and the endpoint needs a boundary before agents or compromised packages can
@@ -55,6 +83,8 @@ turn local secrets into access.
 > we needed this yesterday but i'll take it now
 >
 > - Hira, @Hiraweb3
+
+Free, open source, and watching your back.
 
 Automic Vault is free open-source software under the Apache License 2.0.
 
