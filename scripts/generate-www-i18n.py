@@ -1006,7 +1006,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="{root}favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="{root}apple-touch-icon.png">
-  <link rel="stylesheet" href="{root}styles.css?v=75">
+  <link rel="stylesheet" href="{root}styles.css?v=76">
   <link rel="stylesheet" href="{root}landing-pages.css?v=1">
   <script type="application/ld+json">
   {{
@@ -1206,7 +1206,7 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=75">
+  <link rel="stylesheet" href="/styles.css?v=76">
   <script type="application/ld+json">
   {{
     "@context": "https://schema.org",

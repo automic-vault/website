@@ -123,6 +123,10 @@ code {
   box-shadow: none;
 }
 
+.site-shell:has(.package-hardening-radar) {
+  overflow: visible;
+}
+
 .masthead {
   position: sticky;
   top: 0;
@@ -2802,6 +2806,7 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
 .harden-section {
   padding-top: clamp(156px, 18vw, 256px);
   padding-bottom: 0;
+  overflow: visible;
 }
 
 .immutable-section {
@@ -2818,7 +2823,7 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   overflow: hidden;
   gap: 0;
   margin-top: clamp(40px, 7vw, 98px);
-  margin-inline: clamp(-58px, -4vw, -20px);
+  margin-inline: calc(50% - 50vw);
   border: solid var(--line-strong);
   border-width: 1px 0;
   border-radius: 0;
