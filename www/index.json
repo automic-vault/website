@@ -5,13 +5,13 @@
   "license": "Apache License 2.0",
   "description": "Automic Vault detects secret exposure, hardens packages that work with secrets, encrypts .env files, and monitors the tools you install with Homebrew, npm, pip, and curl one-liners.",
   "short_description": "Don't get owned by your own tools.",
-  "full_description": "From the creator of Homebrew, Automic Vault surfaces tokens, credentials, and helper leaks while they are still on your machine, moves plaintext credentials off disk and into Keychain, installs tools immutably, provides dotenvx-compatible .env encryption, and monitors Homebrew, npm, pip, and curl workflows for new hazards.",
+  "full_description": "From the creator of Homebrew, Automic Vault finds tokens, credentials, and helper leaks while they are still on your machine, moves plaintext credentials off disk and into Keychain, installs tools immutably, provides dotenvx-compatible .env encryption, and monitors Homebrew, npm, pip, and curl workflows for new hazards.",
   "positioning": "Don't get owned by your own tools",
   "sections": [
     {
       "eyebrow": "01 · DETECT",
       "title": "Supply chain attacks are up. Your credentials are the prize.",
-      "subtitle": "Tokens, credentials, helper leaks — surfaced while they're still on your machine."
+      "subtitle": "Automic Vault finds tokens, credentials, and helper leaks while they're still on your machine."
     },
     {
       "eyebrow": "02.1 · HARDEN (Secrets)",
@@ -20,26 +20,26 @@
     },
     {
       "eyebrow": "02.2 · HARDEN (Immutability)",
-      "title": "Agents can run your tools. Not rewrite them.",
+      "title": "Agents can run your tools without rewriting them.",
       "subtitle": "Sealed installs. Controlled updates. Nothing changes without you."
     },
     {
       "eyebrow": "02.3 · HARDEN (.env)",
       "title": "Encrypt .env. Break nothing.",
-      "subtitle": "Keys stay in Keychain. Your workflow stays exactly the same."
+      "subtitle": "Keys stay in Keychain. Your shell keeps working."
     },
     {
       "eyebrow": "03 · MONITOR",
       "title": "Install freely. Know immediately.",
-      "subtitle": "Homebrew, npm, pip, curl — keep using all of it. We'll flag when something's wrong."
+      "subtitle": "Homebrew, npm, pip, curl: keep using all of it. We'll flag risky changes."
     },
     {
       "eyebrow": "Built by Max Howell",
-      "title": "Homebrew taught the world to install. This is what comes next."
+      "title": "Homebrew made installing tools normal. Automic Vault adds the local boundary."
     },
     {
       "eyebrow": "CTA",
-      "title": "Free, open source, and watching your back."
+      "title": "Free, open source local security for agent toolchains."
     }
   ],
   "exposure_examples": [
@@ -56,7 +56,7 @@
       "summary": "Asks the local credential helper to reveal repository credentials, even when there is no obvious token file."
     }
   ],
-  "founder_context": "Homebrew taught the world to install. This is what comes next. Max Howell created Homebrew, and Automic Vault applies that package-management background to local package roots, command stubs, secret helpers, and monitoring boundaries for AI agents on macOS.",
+  "founder_context": "Homebrew made installing tools normal. Automic Vault adds the local boundary. Max Howell created Homebrew, and Automic Vault applies that package-management background to local package roots, command stubs, secret helpers, and monitoring boundaries for AI agents on macOS.",
   "endorsement": {
     "quote": "we needed this yesterday but i'll take it now",
     "author": "Hira",

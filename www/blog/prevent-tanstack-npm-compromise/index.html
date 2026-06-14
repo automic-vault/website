@@ -214,7 +214,7 @@
 
           <section class="incident-section" aria-labelledby="failure-title">
             <div class="section-label">
-              <h2 id="failure-title">What Actually Failed?</h2>
+              <h2 id="failure-title">Failure Point</h2>
               <span>root cause</span>
             </div>
             <p>TanStack had modern supply-chain controls, but the package that reached developers could still contain malicious runtime behavior. Provenance can tell you where a package came from. It cannot guarantee that code running locally should read ~/.aws, ~/.ssh, or .claude configuration.</p>
@@ -235,7 +235,7 @@
             <article class="incident-control">
               <span>02 / secrets</span>
               <h3>Agent and editor config would be treated as sensitive</h3>
-              <p>Claude, MCP, and editor task files are part of the local authority surface. Automic Vault is designed to make package, path, credential, and requester context visible before a tool gets sensitive access.</p>
+              <p>Claude, MCP, and editor task files are part of the local authority surface. Automic Vault shows package, path, credential, and requester context before a tool gets sensitive access.</p>
             </article>
             <article class="incident-control">
               <span>03 / execution</span>
@@ -247,11 +247,11 @@
 
           <section class="incident-section" aria-labelledby="prevention-title">
             <div class="section-label">
-              <h2 id="prevention-title">Why This Is Prevention, Not Just Detection</h2>
+              <h2 id="prevention-title">Workstation Prevention Boundary</h2>
               <span>local boundary</span>
             </div>
             <p>Automic Vault would have prevented the damaging endpoint phase by making the malicious package run without the broad credential set it expected. The upstream npm publish would still be a serious incident, but the workstation would not be an all-you-can-read secret sink.</p>
-            <p>This is why local developer credential protection matters even when a project has SLSA, OIDC trusted publishing, and transparent postmortems. The last mile is the machine where the package executes.</p>
+            <p>Local developer credential protection still matters when a project has SLSA, OIDC trusted publishing, and transparent postmortems. The package still executes on a developer machine.</p>
             <p>For TanStack, the strongest prevention claim is simple: Automic Vault would have broken the attacker assumptions that home directories are readable, secret-bearing CLIs are ambient, and editor or AI-tool hooks can be modified without a visible security decision.</p>
             <p class="incident-note">Automic Vault does not claim to make npm, PyPI, GitHub Actions, or extension marketplaces impossible to compromise. The prevention claim is narrower and more useful: compromised tools should not inherit every credential and sensitive path on a developer machine.</p>
           </section>

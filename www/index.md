@@ -12,8 +12,8 @@ you install with Homebrew, npm, pip, and curl one-liners.
 
 Supply chain attacks are up. Your credentials are the prize.
 
-Tokens, credentials, helper leaks — surfaced while they're still on your
-machine.
+Automic Vault finds tokens, credentials, and helper leaks while they're still
+on your machine.
 
 Detect secret exposure in your stack before the next supply chain attack bites
 you. Automic Vault surfaces package-owned tokens, credential files, helper
@@ -32,7 +32,7 @@ local process can read.
 
 ## Harden Immutability
 
-Agents can run your tools. Not rewrite them.
+Agents can run your tools without rewriting them.
 
 Sealed installs. Controlled updates. Nothing changes without you.
 
@@ -46,7 +46,7 @@ update.
 
 Encrypt `.env`. Break nothing.
 
-Keys stay in Keychain. Your workflow stays exactly the same.
+Keys stay in Keychain. Your shell keeps working.
 
 Automic Vault provides dotenvx-compatible `.env` file encryption with the
 private key securely stored in the AV Keychain.
@@ -55,12 +55,10 @@ private key securely stored in the AV Keychain.
 
 Install freely. Know immediately.
 
-Homebrew, npm, pip, curl — keep using all of it. We'll flag when something's
-wrong.
+Homebrew, npm, pip, curl: keep using all of it. We'll flag risky changes.
 
-Be notified as soon as the situation changes. Keep installing with Homebrew,
-npm, pip, and curl one-liners and rest assured Automic Vault will let you know
-when you're in trouble.
+Keep installing with Homebrew, npm, pip, and curl one-liners. Automic Vault
+watches for new hazards in the tools and local config that agents can reach.
 
 ## Secret Exposure Examples
 
@@ -73,7 +71,7 @@ when you're in trouble.
 
 ## Built by Max Howell
 
-Homebrew taught the world to install. This is what comes next.
+Homebrew made installing tools normal. Automic Vault adds the local boundary.
 
 Max Howell created Homebrew. Automic Vault comes from the same operating
 reality: developers install a lot of tools, those tools hold real authority,
@@ -84,7 +82,7 @@ turn local secrets into access.
 >
 > - Hira, @Hiraweb3
 
-Free, open source, and watching your back.
+Free, open source local security for agent toolchains.
 
 Automic Vault is free open-source software under the Apache License 2.0.
 

@@ -213,7 +213,7 @@
 
           <section class="incident-section" aria-labelledby="failure-title">
             <div class="section-label">
-              <h2 id="failure-title">What Actually Failed?</h2>
+              <h2 id="failure-title">Failure Point</h2>
               <span>root cause</span>
             </div>
             <p>The failed assumption was that a legitimate PyPI project imported by a trusted application should inherit the host account. Once durabletask code executed, it had enough local authority to enumerate cloud and infrastructure secrets far outside the narrow job of a workflow SDK.</p>
@@ -239,14 +239,14 @@
             <article class="incident-control">
               <span>03 / execution</span>
               <h3>Dropper and persistence behavior would be constrained</h3>
-              <p>Fetching a second-stage payload, installing service files, and running follow-on infrastructure commands are meaningful execution boundaries. Automic Vault is designed to put those tool actions under local control.</p>
+              <p>Fetching a second-stage payload, installing service files, and running follow-on infrastructure commands are meaningful execution boundaries. Automic Vault puts those tool actions under local control.</p>
             </article>
             </div>
           </section>
 
           <section class="incident-section" aria-labelledby="prevention-title">
             <div class="section-label">
-              <h2 id="prevention-title">Why This Is Prevention, Not Just Detection</h2>
+              <h2 id="prevention-title">Workstation Prevention Boundary</h2>
               <span>local boundary</span>
             </div>
             <p>Automic Vault would have prevented the durabletask compromise from becoming a full environment compromise by removing the package import from the credential trust path.</p>

@@ -25,11 +25,11 @@ credential-helper protocols where a tool supports that boundary, asks before
 injecting named values into an executable, and can run an agent through a
 synthetic toolchain where host tool execution is mediated by the local app.
 
-The design succeeds at moving several critical decisions below the prompt
-layer. An agent cannot simply read a key from a migrated plaintext file if the
-key now lives behind keychain-backed injection. An approval prompt can show the
-requested secret names, executable path, command line, parent process, current
-directory, and root-control status. Always-allow is intentionally narrow: it is
+The design moves several critical decisions below the prompt layer. An agent
+cannot read a key from a migrated plaintext file if the key now lives behind
+keychain-backed injection. An approval prompt can show the requested secret
+names, executable path, command line, parent process, current directory, and
+root-control status. Always-allow is intentionally narrow: it is
 available for root-owned, non-writable executables, root-owned scripts, or
 hash-bound scripts behind root-controlled interpreters.
 
@@ -148,10 +148,10 @@ config file or injecting a broad environment variable, Automic Vault can rewrite
 the persisted tool config to a non-secret helper reference and provide the
 credential only when the approved tool invokes the helper.
 
-This matters because the agent can inspect the project and many home-directory
-files without seeing the secret. It sees a helper command or protocol reference,
-not the token itself. The credential crosses the boundary only at the moment
-the tool performs the authenticated operation.
+The agent can inspect the project and many home-directory files without seeing
+the secret. It sees a helper command or protocol reference, not the token
+itself. The credential crosses the boundary only when the tool performs the
+authenticated operation.
 
 Current adapters include AWS `credential_process`, Kubernetes
 `ExecCredential`, Cargo's credential provider protocol, NuGet credential

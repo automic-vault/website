@@ -207,13 +207,13 @@
               <span>incident record</span>
             </div>
             <p>Datadog reported that three node-ipc releases published on May 14, 2026 contained the same malicious node-ipc.cjs file. The payload was not an npm lifecycle script. It lived in the CommonJS module path, so it could activate when application or test code required the package.</p>
-            <p>The malware forked a detached child process, staged collected files into a temporary archive, compressed the result, and sent it out over DNS. That design matters because many organizations focus on HTTP exfiltration while allowing DNS traffic by default.</p>
-            <p>The target list was broad and local: npm files, GitHub CLI state, Git credential files, AWS/Azure/GCP credentials, SSH keys, Kubernetes config, environment variables, and desktop token stores. The package acted like a local credential collector, not just a malicious dependency.</p>
+            <p>The malware forked a detached child process, staged collected files into a temporary archive, compressed the result, and sent it out over DNS. Many organizations focus on HTTP exfiltration while allowing DNS traffic by default.</p>
+            <p>The target list was broad and local: npm files, GitHub CLI state, Git credential files, AWS/Azure/GCP credentials, SSH keys, Kubernetes config, environment variables, and desktop token stores. The package acted as a local credential collector.</p>
           </section>
 
           <section class="incident-section" aria-labelledby="failure-title">
             <div class="section-label">
-              <h2 id="failure-title">What Actually Failed?</h2>
+              <h2 id="failure-title">Failure Point</h2>
               <span>root cause</span>
             </div>
             <p>This incident defeats a narrow defense that only disables npm preinstall and postinstall scripts. The payload activated at runtime, after dependency installation was over. Any policy that assumes library code is safe once installed misses this class of attack.</p>
@@ -229,7 +229,7 @@
             <article class="incident-control">
               <span>01 / files</span>
               <h3>Runtime access would be constrained</h3>
-              <p>Automic Vault containment and package boundaries are aimed at the execution layer, not only installation. A loaded dependency should not receive arbitrary access to home-directory secret stores.</p>
+              <p>Automic Vault containment and package boundaries cover the execution layer after installation. A loaded dependency should not receive arbitrary access to home-directory secret stores.</p>
             </article>
             <article class="incident-control">
               <span>02 / secrets</span>
@@ -246,7 +246,7 @@
 
           <section class="incident-section" aria-labelledby="prevention-title">
             <div class="section-label">
-              <h2 id="prevention-title">Why This Is Prevention, Not Just Detection</h2>
+              <h2 id="prevention-title">Workstation Prevention Boundary</h2>
               <span>local boundary</span>
             </div>
             <p>Automic Vault would have prevented the useful theft, even though the malicious package could still be present in node_modules. The key is that presence is not authority.</p>

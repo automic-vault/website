@@ -262,15 +262,15 @@
             <ul>
               <li>The target path must be absolute.</li>
               <li><code>av inject</code> refuses to run as root.</li>
-              <li>Core dumps are disabled before key loading.</li>
-              <li>Existing environment values are preserved unless <code>--replace-existing-env</code> is used.</li>
+              <li><code>av inject</code> disables core dumps before key loading.</li>
+              <li><code>av inject</code> preserves existing environment values unless <code>--replace-existing-env</code> is used.</li>
               <li>The opened file descriptor is compared with the path immediately before <code>execve</code>.</li>
               <li>Loaded credential strings are zeroed on failure paths before being dropped.</li>
             </ul>
 
             <h3 id="credential-helpers">Credential-helper adapters</h3>
             <p><code>av credential-helper &lt;protocol&gt;</code> is the stronger path for tools that already know how to ask a helper for credentials. Instead of reconstructing a plaintext config file or injecting a broad environment variable, Automic Vault can rewrite the persisted tool config to a non-secret helper reference and provide the credential only when the approved tool invokes the helper.</p>
-            <p>This matters because the agent can inspect the project and many home-directory files without seeing the secret. It sees a helper command or protocol reference, not the token itself. The credential crosses the boundary only at the moment the tool performs the authenticated operation.</p>
+            <p>The agent can inspect the project and many home-directory files without seeing the secret. It sees a helper command or protocol reference, not the token itself. The credential crosses the boundary only when the tool performs the authenticated operation.</p>
             <p>Current adapters include AWS <code>credential_process</code>, Kubernetes <code>ExecCredential</code>, Cargo's credential provider protocol, NuGet credential provider flows, Terraform and OpenTofu credential helpers, Docker-compatible registry helpers for Podman and Skopeo, and WakaTime's <code>api_key_vault_cmd</code>.</p>
             <p>The helpers are not general-purpose secret printers. The dispatcher disables core dumps before helper execution. The generated wrapper passes a per-run approval token through <code>AUTOMIC_VAULT_CREDENTIAL_HELPER_TOKEN</code>, and helpers validate that token before returning credentials. Helpers also check that their parent process is the expected Automic Vault-managed launcher, and where the tool boundary allows it, validate that the parent path is root-controlled.</p>
             <p>The caveat: credential helpers are still a local process boundary, not a cryptographic proof that the whole system is safe. A legitimately approved tool can receive and use the credential. Same-user malware and root compromise are still outside the current model. Helper coverage is also package-specific: it is excellent where the upstream tool has a native protocol, and absent where no adapter has been built yet.</p>
@@ -298,7 +298,7 @@
             <p class="kicker">Successes</p>
             <h2>The strongest choices move decisions below the prompt layer.</h2>
             <div class="paper-status-grid">
-              <article><span>Runtime</span><p>Controls happen where local tools run, not only where prompts are written.</p></article>
+              <article><span>Runtime</span><p>Controls happen where local tools run, below the prompt layer.</p></article>
               <article><span>Storage</span><p>Supported secrets move from plaintext files into keychain-backed storage.</p></article>
               <article><span>Native helpers</span><p>Tools that support credential-helper protocols can request secrets at runtime without restoring agent-readable plaintext config.</p></article>
               <article><span>Approval</span><p>Prompts show concrete paths, commands, parent processes, requested keys, and root-control status.</p></article>

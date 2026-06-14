@@ -209,12 +209,12 @@
             </div>
             <p>On March 24, 2026, malicious LiteLLM releases 1.82.7 and 1.82.8 reached PyPI. Public analysis from Datadog and Snyk ties the poisoned releases to a wider TeamPCP supply-chain campaign that first stole publishing material through other developer tooling.</p>
             <p>The high-risk version was 1.82.8 because the attacker added a Python .pth file. Python processes load .pth files from site-packages during interpreter startup, so the malware did not need a developer to explicitly import LiteLLM in the application path. A normal local Python startup in the affected environment could trigger collection.</p>
-            <p>The payload looked for the exact files developers tend to leave on a Mac or Linux workstation: SSH keys, cloud CLI credentials, Kubernetes material, database passwords, shell-adjacent secrets, and environment variables. That is why this was not only a package integrity incident. It was a local developer credential theft incident.</p>
+            <p>The payload looked for the exact files developers tend to leave on a Mac or Linux workstation: SSH keys, cloud CLI credentials, Kubernetes material, database passwords, shell-adjacent secrets, and environment variables. This was a local developer credential theft incident.</p>
           </section>
 
           <section class="incident-section" aria-labelledby="failure-title">
             <div class="section-label">
-              <h2 id="failure-title">What Actually Failed?</h2>
+              <h2 id="failure-title">Failure Point</h2>
               <span>root cause</span>
             </div>
             <p>The core failure was ambient authority. Once the package executed, it ran as the developer and could read the same home-directory files the developer could read. PyPI quarantine shortened the exposure window, but quarantine happened after the malicious code had already reached some machines.</p>
@@ -247,7 +247,7 @@
 
           <section class="incident-section" aria-labelledby="prevention-title">
             <div class="section-label">
-              <h2 id="prevention-title">Why This Is Prevention, Not Just Detection</h2>
+              <h2 id="prevention-title">Workstation Prevention Boundary</h2>
               <span>local boundary</span>
             </div>
             <p>Automic Vault would have prevented the damaging phase by changing the default: package code gets the project and approved tool context, not the developer account as a readable secret store.</p>

@@ -208,13 +208,13 @@
               <span>incident record</span>
             </div>
             <p>GitHub publicly confirmed in May 2026 that an employee device was compromised through a poisoned VS Code extension and that the activity involved exfiltration of GitHub-internal repositories. Public reports said the attacker claim of roughly 3,800 repositories was directionally consistent with GitHub investigation statements.</p>
-            <p>The important point is not only which extension was involved. The important point is the chain: a developer tool update ran on a workstation, reached local auth and repository context, and became a source-code exposure event for a major developer platform.</p>
+            <p>The chain matters: a developer tool update ran on a workstation, reached local auth and repository context, and became a source-code exposure event for a major developer platform.</p>
             <p>That is the downstream version of the same pattern visible in LiteLLM, Bitwarden CLI, TanStack, node-ipc, Nx Console, and durabletask. The package or extension compromise happens upstream. The breach happens when the local machine grants broad authority to the compromised code.</p>
           </section>
 
           <section class="incident-section" aria-labelledby="failure-title">
             <div class="section-label">
-              <h2 id="failure-title">What Actually Failed?</h2>
+              <h2 id="failure-title">Failure Point</h2>
               <span>root cause</span>
             </div>
             <p>GitHub is one of the most security-aware developer organizations in the world, which makes the lesson harder to dismiss. A single endpoint with a poisoned developer extension can still become a repository access path if local credentials and source-control authority are available to that process.</p>
@@ -235,7 +235,7 @@
             <article class="incident-control">
               <span>02 / secrets</span>
               <h3>Secrets would stay behind a local broker</h3>
-              <p>The poisoned extension would not be able to scrape the same plaintext local tokens, SSH material, cloud credentials, and tool configs that turn one machine into many downstream accounts.</p>
+              <p>The poisoned extension would lose the plaintext local tokens, SSH material, cloud credentials, and tool configs that turn one machine into many downstream accounts.</p>
             </article>
             <article class="incident-control">
               <span>03 / execution</span>
@@ -247,7 +247,7 @@
 
           <section class="incident-section" aria-labelledby="prevention-title">
             <div class="section-label">
-              <h2 id="prevention-title">Why This Is Prevention, Not Just Detection</h2>
+              <h2 id="prevention-title">Workstation Prevention Boundary</h2>
               <span>local boundary</span>
             </div>
             <p>Automic Vault would have prevented the GitHub employee device breach at the workstation boundary. It would not have made the upstream extension ecosystem perfect. It would have denied the compromised extension the local materials needed to become repository access.</p>

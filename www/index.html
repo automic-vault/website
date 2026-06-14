@@ -351,7 +351,7 @@ credential_process = /usr/local/bin/av credential-helper aws
       <section class="feature-section immutable-section" id="immutable" aria-labelledby="immutable-title">
         <div class="feature-copy">
           <p class="eyebrow">02.2 &middot; HARDEN (Immutability)</p>
-          <h2 id="immutable-title">Let agents run your tools. Not rewrite them.</h2>
+          <h2 id="immutable-title">Let agents run your tools without rewriting them.</h2>
           <p class="section-subtitle">Sealed installs. Controlled updates. Nothing changes without you.</p>
           <p>
             Stop agents from modifying themselves by installing packages
@@ -395,7 +395,7 @@ permission denied</code></pre>
         <div class="feature-copy">
           <p class="eyebrow">02.3 &middot; HARDEN (.env)</p>
           <h2 id="dotenv-title">Encrypt <code>.env</code>. Break nothing.</h2>
-          <p class="section-subtitle">Keys stay in Keychain. Your workflow stays exactly the same.</p>
+          <p class="section-subtitle">Keys stay in Keychain. Your shell keeps working.</p>
           <p>
             dotenvx-compatible <code>.env</code> file encryption with the
             private key securely stored in the AV Keychain. <code>av dotenv</code> writes
@@ -452,12 +452,12 @@ av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
       <section class="feature-section app-section monitor-section" id="monitor" aria-labelledby="monitor-title">
         <div class="feature-copy">
           <p class="eyebrow">03 &middot; MONITOR</p>
-          <h2 id="monitor-title">Not a one-time scan. Ongoing detection.</h2>
-          <p class="section-subtitle">Homebrew, npm, pip, curl — keep using all of it. We&rsquo;ll flag when something&rsquo;s wrong.</p>
+          <h2 id="monitor-title">Ongoing detection for new tool risk.</h2>
+          <p class="section-subtitle">Homebrew, npm, pip, curl: keep using all of it. We&rsquo;ll flag risky changes.</p>
           <p>
-            Be notified as soon as the situation changes. Keep installing with
-            Homebrew, npm, pip, and curl one-liners and rest assured Automic
-            Vault will let you know when you&rsquo;re in trouble.
+            Keep installing with Homebrew, npm, pip, and curl one-liners.
+            Automic Vault watches for new hazards in the tools and local
+            config that agents can reach.
           </p>
           <ul class="app-feature-list">
             <li><strong>Multi-source packages.</strong> Install and harden tools from Homebrew, npm, and PyPI, with curl-style installer tracing in the same workflow.</li>
@@ -484,7 +484,7 @@ av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
       <section class="feature-section endorsement-section" id="endorsements" aria-labelledby="endorsements-title">
         <div class="feature-copy">
           <p class="eyebrow">Built by Max Howell</p>
-          <h2 id="endorsements-title">Homebrew taught the world to install. This is what comes next.</h2>
+          <h2 id="endorsements-title">Homebrew made installing tools normal. Automic Vault adds the local boundary.</h2>
           <p>
             Max Howell created Homebrew. Automic Vault comes from the same
             operating reality: developers install a lot of tools, those tools
@@ -522,7 +522,7 @@ av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
 
       <section class="closing-cta" aria-labelledby="final-title">
         <p class="eyebrow">Free and open source</p>
-        <h2 id="final-title">Free, open source, and watching your back.</h2>
+        <h2 id="final-title">Free, open source local security for agent toolchains.</h2>
         <div>
           <a class="button primary" href="/Automic Vault.dmg">Download Automic Vault</a>
           <a class="button secondary" href="/docs/">Read docs</a>

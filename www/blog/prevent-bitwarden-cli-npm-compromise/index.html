@@ -207,13 +207,13 @@
               <span>incident record</span>
             </div>
             <p>Bitwarden disclosed that a malicious @bitwarden/cli 2026.4.0 npm package was briefly distributed on April 22, 2026. The NVD record for CVE-2026-42994 places the affected npm window from 21:57 UTC to 23:30 UTC.</p>
-            <p>Researchers reported that the package used a malicious preinstall path and loader files rather than simply shipping the normal CLI. That matters because npm lifecycle scripts execute during installation, before a developer ever has a chance to run the command-line tool for a real password-manager task.</p>
+            <p>Researchers reported that the package used a malicious preinstall path and loader files instead of shipping the normal CLI. npm lifecycle scripts execute during installation, before a developer has a chance to run the command-line tool for a real password-manager task.</p>
             <p>The attacker did not need Bitwarden vault data to make the compromise serious. The local machine already had developer credentials: GitHub tokens, npm tokens, shell history, cloud credential databases, .env files, SSH material, and MCP or AI-tool configuration. The package tried to take those.</p>
           </section>
 
           <section class="incident-section" aria-labelledby="failure-title">
             <div class="section-label">
-              <h2 id="failure-title">What Actually Failed?</h2>
+              <h2 id="failure-title">Failure Point</h2>
               <span>root cause</span>
             </div>
             <p>The failed assumption was that an official package name meant install scripts were safe to run with the user account. The npm identity was trusted, so the local preinstall script inherited broad read access and network reachability.</p>
@@ -228,8 +228,8 @@
             <div class="incident-controls">
             <article class="incident-control">
               <span>01 / files</span>
-              <h3>Install code would not get the secret trove</h3>
-              <p>Automic Vault is built around keeping secrets out of plaintext developer-tool files. The malicious preinstall script would not get to scrape a broad set of local credentials just because npm invoked it.</p>
+              <h3>Install code loses the secret trove</h3>
+              <p>Automic Vault keeps secrets out of plaintext developer-tool files. The malicious preinstall script loses the broad set of local credentials npm would otherwise expose to it.</p>
             </article>
             <article class="incident-control">
               <span>02 / secrets</span>
@@ -246,7 +246,7 @@
 
           <section class="incident-section" aria-labelledby="prevention-title">
             <div class="section-label">
-              <h2 id="prevention-title">Why This Is Prevention, Not Just Detection</h2>
+              <h2 id="prevention-title">Workstation Prevention Boundary</h2>
               <span>local boundary</span>
             </div>
             <p>Automic Vault would have prevented the local credential theft phase by denying the install hook the thing it wanted most: ambient access to every useful file and token on the developer machine.</p>

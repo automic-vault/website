@@ -213,7 +213,7 @@
 
           <section class="incident-section" aria-labelledby="failure-title">
             <div class="section-label">
-              <h2 id="failure-title">What Actually Failed?</h2>
+              <h2 id="failure-title">Failure Point</h2>
               <span>root cause</span>
             </div>
             <p>The editor became the trust boundary, and the editor was too broad. A signed or marketplace-delivered extension update could run with access to the user session and the repository workspace, including auth stores that were never meant for arbitrary extension code.</p>
@@ -229,7 +229,7 @@
             <article class="incident-control">
               <span>01 / files</span>
               <h3>Editor-launched code would not read every secret</h3>
-              <p>Automic Vault keeps sensitive values out of plaintext files and model-visible context. A malicious extension would not get raw GitHub, cloud, Vault, and .env material by reading local config paths.</p>
+              <p>Automic Vault keeps sensitive values out of plaintext files and model-visible context. A malicious extension loses the raw GitHub, cloud, Vault, and .env material exposed through local config paths.</p>
             </article>
             <article class="incident-control">
               <span>02 / secrets</span>
@@ -246,7 +246,7 @@
 
           <section class="incident-section" aria-labelledby="prevention-title">
             <div class="section-label">
-              <h2 id="prevention-title">Why This Is Prevention, Not Just Detection</h2>
+              <h2 id="prevention-title">Workstation Prevention Boundary</h2>
               <span>local boundary</span>
             </div>
             <p>Automic Vault would have prevented the Nx Console incident from becoming a workstation credential breach by denying the malicious extension the broad local secrets it expected.</p>

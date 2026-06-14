@@ -184,7 +184,7 @@
                               "name": "Why gate commands instead of prompts?",
                               "acceptedAnswer": {
                                     "@type": "Answer",
-                                    "text": "The prompt is only intent. The command is where credentials, repositories, package registries, and cloud accounts are actually modified."
+                                    "text": "The prompt states intent. The command modifies credentials, repositories, package registries, and cloud accounts."
                               }
                         },
                         {
@@ -294,7 +294,7 @@
         </div>
         <div class="faq-list">
           <article><h3>What should an AI agent approval gate review?</h3><p>It should review the concrete executable, command path, arguments, and requested capability before a sensitive local action runs.</p></article>
-          <article><h3>Why gate commands instead of prompts?</h3><p>The prompt is only intent. The command is where credentials, repositories, package registries, and cloud accounts are actually modified.</p></article>
+          <article><h3>Why gate commands instead of prompts?</h3><p>The prompt states intent. The command modifies credentials, repositories, package registries, and cloud accounts.</p></article>
           <article><h3>Which commands need gates first?</h3><p>Start with deploys, package publishes, source-control writes, cloud CLIs, credential exports, and shell installers.</p></article>
         </div>
       </section>
