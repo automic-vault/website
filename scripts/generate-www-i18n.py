@@ -19,6 +19,14 @@ STATIC_PATH = Path("data/www-i18n/static/pages.json")
 SITE_DIR = Path("www")
 SITEMAP_PATH = SITE_DIR / "sitemap.xml"
 I18N_SCRIPT = SITE_DIR / "i18n.js"
+GOOGLE_ANALYTICS_TAG = """  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>"""
 
 
 @dataclass(frozen=True)
@@ -901,6 +909,7 @@ def render_legacy_page(record: dict[str, Any], locale: Locale, locales: list[Loc
   <link rel="icon" href="{root}favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="stylesheet" href="{root}styles.css">
   <link rel="stylesheet" href="{root}seo.css">
+{GOOGLE_ANALYTICS_TAG}
   <script type="application/ld+json">
   {{
     "@context": "https://schema.org",
@@ -1008,6 +1017,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
   <link rel="apple-touch-icon" href="{root}apple-touch-icon.png">
   <link rel="stylesheet" href="{root}styles.css?v=76">
   <link rel="stylesheet" href="{root}landing-pages.css?v=1">
+{GOOGLE_ANALYTICS_TAG}
   <script type="application/ld+json">
   {{
     "@context": "https://schema.org",
@@ -1207,6 +1217,7 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/styles.css?v=89">
+{GOOGLE_ANALYTICS_TAG}
   <script type="application/ld+json">
   {{
     "@context": "https://schema.org",

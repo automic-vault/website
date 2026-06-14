@@ -9,6 +9,8 @@ import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 WEBSITE_INPUTS_SCRIPT = ROOT / "scripts" / "export-website-inputs.py"
+GA_SCRIPT = "https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"
+GA_CONFIG = "gtag('config', 'G-Y78QKG1T9Y')"
 
 
 def load_module(path, name):
@@ -126,6 +128,17 @@ class WebsiteInputsExportTests(unittest.TestCase):
 
             with self.assertRaises(SystemExit):
                 module.read_product_version(version_file)
+
+
+class StaticHtmlAnalyticsTests(unittest.TestCase):
+    def test_all_static_html_pages_embed_google_analytics(self):
+        missing = []
+        for page in sorted((ROOT / "www").rglob("*.html")):
+            text = page.read_text(encoding="utf-8")
+            if GA_SCRIPT not in text or GA_CONFIG not in text:
+                missing.append(str(page.relative_to(ROOT)))
+
+        self.assertEqual(missing, [])
 
 
 if __name__ == "__main__":

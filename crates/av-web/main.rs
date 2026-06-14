@@ -5537,6 +5537,9 @@ mod tests {
         let package = dynamic_response_for_path(db.path(), "/pkg/brew/awscli/")
             .expect("query")
             .expect("package response");
+        let localized_package = dynamic_response_for_path(db.path(), "/fr/pkg/brew/awscli/")
+            .expect("query")
+            .expect("localized package response");
         let hub = dynamic_response_for_path(db.path(), "/pkg/cloud/")
             .expect("query")
             .expect("hub response");
@@ -5572,6 +5575,15 @@ mod tests {
         assert!(package_html.contains("Debian apt"));
         assert!(package_html.contains("Amazon.AWSCLI"));
         assert!(package_html.contains("123,456,789"));
+        assert!(package_html.contains("https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"));
+        assert!(package_html.contains("gtag('config', 'G-Y78QKG1T9Y')"));
+
+        let localized_package_html =
+            String::from_utf8(localized_package.body).expect("localized package html");
+        assert!(localized_package_html.contains("<html lang=\"fr\">"));
+        assert!(localized_package_html
+            .contains("https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"));
+        assert!(localized_package_html.contains("gtag('config', 'G-Y78QKG1T9Y')"));
 
         let hub_html = String::from_utf8(hub.body).expect("hub html");
         assert!(hub_html.contains("Cloud CLI"));
