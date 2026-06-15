@@ -1,3 +1,8 @@
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4
+ * Hallmark · genre: modern-minimal · macrostructure: Workbench · theme: Cobalt-dark · enrichment: real product captures · nav: N1b · footer: Ft5 · tone: technical/austere · anchor hue: cobalt
+ */
+@import url("./tokens.css");
+
 :root {
   --bg-outer: oklch(8% 0.006 255);
   --bg: oklch(13% 0.006 255);
@@ -32,6 +37,7 @@
 }
 
 html {
+  overflow-x: clip;
   background: var(--bg-outer);
   color: var(--ink);
   scroll-behavior: smooth;
@@ -40,6 +46,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: clip;
   background:
     linear-gradient(180deg, oklch(9% 0.008 255), var(--bg-outer) 42rem),
     var(--bg-outer);
@@ -199,6 +206,7 @@ code {
   align-items: center;
   min-height: 44px;
   padding: 8px 0;
+  white-space: nowrap;
   transition: color 160ms ease, transform 160ms ease;
 }
 
@@ -223,6 +231,56 @@ code {
 .nav a:hover::before {
   opacity: 0.72;
   transform: scaleX(1);
+}
+
+.nav-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  min-height: 44px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.79rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.nav-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  transition:
+    border-color var(--dur-micro) var(--ease-out),
+    background var(--dur-micro) var(--ease-out),
+    color var(--dur-micro) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
+}
+
+.nav-actions a:hover {
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.nav-actions a:active {
+  transform: translateY(0);
+}
+
+.nav-actions .nav-download {
+  border-color: var(--blue);
+  background: oklch(68% 0.15 246 / 0.12);
+  color: var(--ink);
+}
+
+.nav-actions .nav-download:hover {
+  border-color: var(--ink);
+  background: var(--blue);
+  color: var(--ink-dark);
 }
 
 .nav-toggle {
@@ -565,6 +623,7 @@ h1 code {
   font-size: 0.83rem;
   font-weight: 700;
   text-transform: uppercase;
+  white-space: nowrap;
   transition: border-color 160ms ease, background 160ms ease, color 160ms ease, transform 160ms ease;
 }
 
@@ -1803,6 +1862,18 @@ h1 code {
   text-transform: uppercase;
 }
 
+.footer-statement {
+  grid-column: 1 / -1;
+  max-width: 28ch;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: clamp(2.2rem, 4.6vw, 4.9rem);
+  font-weight: 820;
+  letter-spacing: 0;
+  line-height: 0.92;
+  text-transform: none;
+}
+
 .footer-brand,
 .footer-state,
 .footer-links {
@@ -1812,7 +1883,7 @@ h1 code {
 
 .footer-brand {
   grid-column: 1;
-  grid-row: 1;
+  grid-row: 2;
   align-items: center;
   gap: 12px;
   min-width: max-content;
@@ -1825,7 +1896,7 @@ h1 code {
 
 .footer-state {
   grid-column: 1 / -1;
-  grid-row: 2;
+  grid-row: 3;
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
@@ -1861,7 +1932,7 @@ h1 code {
 
 .footer-links {
   grid-column: 2;
-  grid-row: 1;
+  grid-row: 2;
   align-items: center;
   justify-content: flex-end;
   gap: 6px 14px;
@@ -1876,6 +1947,7 @@ h1 code {
   min-height: 32px;
   min-width: 0;
   color: oklch(73% 0.018 82 / 0.74);
+  white-space: nowrap;
   transition: color 160ms ease, transform 160ms ease;
 }
 
@@ -2051,6 +2123,10 @@ h1 code {
     padding: 8px 20px 20px;
     border-bottom: 1px solid var(--line);
     background: oklch(17% 0.006 255 / 0.98);
+  }
+
+  .nav-actions {
+    display: none;
   }
 
   .nav.is-open {
@@ -2330,7 +2406,7 @@ h1 code {
 
 .poster-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(286px, 0.34fr);
+  grid-template-columns: minmax(0, 0.92fr) minmax(420px, 0.78fr);
   grid-template-areas:
     "copy scan"
     "foot scan";
@@ -2366,7 +2442,8 @@ h1 code {
 .poster-hero-copy {
   grid-area: copy;
   align-self: end;
-  max-width: 1080px;
+  min-width: 0;
+  max-width: 680px;
 }
 
 .poster-hero-copy > .eyebrow {
@@ -2374,12 +2451,13 @@ h1 code {
 }
 
 .poster-hero h1 {
-  max-width: min(100%, 14.75ch);
+  max-width: min(100%, 13.4ch);
   margin-top: 12px;
   color: var(--ink);
-  font-size: clamp(5rem, 7.35vw, 8.6rem);
+  font-size: clamp(4rem, 5.4vw, 6.4rem);
   font-weight: 850;
   line-height: 0.9;
+  overflow-wrap: anywhere;
 }
 
 .poster-hero h1 span {
@@ -2396,8 +2474,8 @@ h1 code {
 }
 
 html[lang="en"] .poster-hero h1 {
-  max-width: min(100%, 17.1ch);
-  font-size: clamp(4.8rem, 6.9vw, 8.3rem);
+  max-width: min(100%, 13.4ch);
+  font-size: clamp(4rem, 5.4vw, 6.4rem);
 }
 
 html[lang="en"] .poster-hero .hero-title-emphasis {
@@ -2405,6 +2483,7 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
 }
 
 .poster-lede {
+  min-width: 0;
   max-width: 33em;
   margin-top: 12px;
   color: oklch(84% 0.016 82);
@@ -2492,6 +2571,114 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.34;
+}
+
+.workbench-panel {
+  grid-area: scan;
+  align-self: end;
+  justify-self: end;
+  display: grid;
+  gap: 14px;
+  width: min(100%, 720px);
+  min-width: 0;
+  margin: clamp(9rem, 15vw, 13rem) 0 0;
+  color: var(--ink);
+}
+
+.workbench-media {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-deep);
+  box-shadow:
+    inset 0 1px 0 oklch(94% 0.01 82 / 0.08),
+    0 22px 70px oklch(5% 0.006 255 / 0.42);
+}
+
+.workbench-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 66%, oklch(8% 0.006 255 / 0.58)),
+    linear-gradient(180deg, oklch(94% 0.01 82 / 0.08), transparent 22%);
+}
+
+.workbench-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.workbench-panel figcaption {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.3fr) minmax(0, 1fr);
+  gap: 10px 16px;
+  align-items: start;
+  max-width: 42rem;
+  padding-top: 2px;
+  border-top: 1px solid var(--line-strong);
+}
+
+.workbench-panel figcaption span,
+.workbench-status span {
+  color: var(--blue);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.workbench-panel figcaption strong {
+  min-width: 0;
+  color: var(--ink);
+  font-size: clamp(1.1rem, 1.45vw, 1.38rem);
+  font-weight: 760;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.workbench-status {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.workbench-status li {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 4px 10px;
+  align-items: center;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: oklch(94% 0.01 82 / 0.026);
+}
+
+.workbench-status img {
+  grid-row: span 2;
+  width: 34px;
+  height: 34px;
+}
+
+.workbench-status strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 0.78rem;
+  line-height: 1.08;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .terminal-card {
@@ -3108,6 +3295,13 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
     max-width: 42rem;
     margin-top: clamp(0.75rem, 2vw, 1.5rem);
   }
+
+  .workbench-panel {
+    justify-self: stretch;
+    width: 100%;
+    max-width: 48rem;
+    margin: clamp(0.75rem, 2vw, 1.5rem) 0 0;
+  }
 }
 
 @media (max-width: 980px) {
@@ -3124,6 +3318,13 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
     width: 100%;
     max-width: 42rem;
     margin-top: clamp(0.75rem, 2vw, 1.5rem);
+  }
+
+  .workbench-panel {
+    justify-self: stretch;
+    width: 100%;
+    max-width: 48rem;
+    margin: clamp(0.75rem, 2vw, 1.5rem) 0 0;
   }
 
   .terminal-story,
@@ -3265,6 +3466,10 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
     white-space: normal;
   }
 
+  .poster-hero .hero-title-line {
+    white-space: normal;
+  }
+
   .poster-lede {
     margin-top: 10px;
     font-size: clamp(1rem, 3.6vw, 1.14rem);
@@ -3286,6 +3491,22 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
 
   .poster-scan span {
     max-width: none;
+  }
+
+  .workbench-panel {
+    gap: 12px;
+  }
+
+  .workbench-panel figcaption {
+    grid-template-columns: 1fr;
+  }
+
+  .workbench-status {
+    grid-template-columns: 1fr;
+  }
+
+  .workbench-status strong {
+    white-space: normal;
   }
 
   .poster-hero-foot {

@@ -1,0 +1,21 @@
+{
+  "date": "2026-06-15",
+  "target": "www/index.html",
+  "framework": "vanilla HTML",
+  "font_stack": "Geist + Geist Mono via Google Fonts",
+  "palette": "OKLCH custom properties in www/styles.css",
+  "motion": "small custom JavaScript interactions; no motion library",
+  "spacing": "existing clamp/px scale with Hallmark token aliases in www/tokens.css",
+  "preserve": [
+    "static website shape",
+    "existing dark technical palette",
+    "Geist font stack",
+    "existing product screenshots and assets"
+  ],
+  "introduce": [
+    "Workbench macrostructure stamp",
+    "N1b-style product navigation",
+    "Ft5 statement footer",
+    "portable token aliases"
+  ]
+}
