@@ -1,0 +1,13 @@
+WEBVTT
+
+00:00.000 --> 00:05.000
+The one-liner downloads the Automic Vault scanner.
+
+00:05.000 --> 00:10.000
+The scanner runs with file writes and network access denied.
+
+00:10.000 --> 00:16.000
+Package-specific detectors check local credentials and tool configs.
+
+00:16.000 --> 00:21.000
+The report lists findings without printing secret values.

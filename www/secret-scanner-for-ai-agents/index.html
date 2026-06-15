@@ -202,9 +202,9 @@
   <link rel="icon" href="../favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="stylesheet" href="../styles.css?v=77">
-  <link rel="stylesheet" href="../scanner-page.css?v=3">
+  <link rel="stylesheet" href="../scanner-page.css?v=4">
 </head>
-<body>
+<body class="scanner-route">
   <div class="scroll-meter" aria-hidden="true"><span></span></div>
   <div class="site-shell" id="top">
     <header class="masthead">
@@ -225,12 +225,8 @@
       </button>
 
       <nav class="nav" aria-label="Main navigation">
-        <a href="../#hazards">Hazards</a>
-        <a href="../#harden">Harden</a>
-        <a href="../#approval">Gates</a>
         <a href="../#monitor">Monitor</a>
         <a href="../pkg/">Packages</a>
-        <a href="../blog/">Blog</a>
         <a href="../docs/">Docs</a>
         <a href="../download/">Download</a>
         <a href="https://github.com/automic-vault/">GitHub</a>
@@ -238,65 +234,44 @@
     </header>
     <main>
       <section class="hero scanner-hero" aria-labelledby="scanner-title">
-        <img
-          class="hero-visual"
-          src="../assets/hero-perspective-mock.webp"
-          alt=""
-          width="1915"
-          height="821"
-          aria-hidden="true"
-          decoding="async"
-          fetchpriority="high"
-        >
-        <div class="hero-meta">
-          <span>macOS</span>
-          <span>sandboxed</span>
-          <span>offline scan</span>
-        </div>
-
         <div class="hero-copy scanner-hero-copy">
+          <div class="hero-meta">
+            <span>1.0 fetch</span>
+            <span>2.0 sandbox</span>
+            <span>3.0 report</span>
+          </div>
           <p class="eyebrow">AI agent secret scanner</p>
           <h1 id="scanner-title">Scan secrets before the agent reads them.</h1>
           <p class="lede">
-            One curl command downloads the detector-only scanner, runs it in a read-only
-            offline sandbox, and shows plaintext credential exposure before the next
-            agent session starts.
+            One curl command runs a read-only offline scan and shows plaintext
+            credential exposure before the next agent session starts.
           </p>
+
+          <div class="scanner-command-panel" aria-label="Run the AI agent secret scanner">
+            <div class="command-panel-header">
+              <span>Run this first</span>
+              <strong>one-liner</strong>
+            </div>
+            <div class="scanner-command-line">
+              <pre><code id="scanner-one-liner">/usr/bin/curl -fsSL https://www.automicvault.com/<wbr>scanner.sh | /bin/bash</code></pre>
+              <button
+                class="scanner-copy-button"
+                type="button"
+                data-scanner-copy="scanner-one-liner"
+                aria-live="polite"
+              >Copy</button>
+            </div>
+            <p>Detects secrets that tools leave accessible.</p>
+
+            <div class="hero-actions">
+              <a class="button primary" href="../download/">Download</a>
+              <a class="button secondary" href="../secret-scanning-vs-agent-secret-protection/">Compare protection</a>
+              <a class="button text" href="../docs/">Read docs</a>
+            </div>
+          </div>
         </div>
 
-        <div class="scanner-command-panel" aria-label="Run the AI agent secret scanner">
-          <div class="command-panel-header">
-            <span>Run this first</span>
-            <strong>one-liner</strong>
-          </div>
-          <div class="scanner-command-line">
-            <pre><code id="scanner-one-liner">/usr/bin/curl -fsSL https://www.automicvault.com/scanner.sh | /bin/bash</code></pre>
-            <button
-              class="scanner-copy-button"
-              type="button"
-              data-scanner-copy="scanner-one-liner"
-              aria-live="polite"
-            >Copy</button>
-          </div>
-          <p>Detects secrets that tools leave accessible.</p>
-        </div>
-
-        <div class="hero-actions">
-          <a class="button primary" href="../download/">Download Automic Vault</a>
-          <a class="button secondary" href="../secret-scanning-vs-agent-secret-protection/">Compare protection</a>
-          <a class="button text" href="../docs/">Read docs</a>
-        </div>
-      </section>
-
-      <section class="scanner-video-showcase" aria-labelledby="scanner-video-title">
-        <div class="scanner-video-head">
-          <div>
-            <p class="eyebrow">21-second walkthrough</p>
-            <h2 id="scanner-video-title">Watch the one-liner run.</h2>
-          </div>
-          <span>scanner demo</span>
-        </div>
-        <figure class="scanner-video-frame">
+        <figure class="scanner-video-frame scanner-hero-video" aria-labelledby="scanner-video-caption">
           <video
             autoplay
             controls
@@ -305,11 +280,13 @@
             playsinline
             preload="metadata"
             poster="../assets/automic-vault-scanner-one-liner-poster.webp"
+            fetchpriority="high"
             aria-label="Automic Vault scanner one-liner demo video"
           >
             <source src="../assets/automic-vault-scanner-one-liner.mp4" type="video/mp4">
+            <track kind="captions" src="../assets/automic-vault-scanner-one-liner.vtt" srclang="en" label="English">
           </video>
-          <figcaption>
+          <figcaption id="scanner-video-caption">
             <span>download</span>
             <span>sandbox</span>
             <span>detect</span>
@@ -318,7 +295,7 @@
         </figure>
       </section>
 
-      <section class="highlights" aria-labelledby="scanner-flow-title">
+      <section class="highlights workflow-index" aria-labelledby="scanner-flow-title">
         <div class="section-label">
           <h2 id="scanner-flow-title">A preflight for the files agents can reach.</h2>
           <span>scanner flow</span>
@@ -379,7 +356,7 @@
           </div>
 
           <article class="ranked-story">
-            <span class="rank">1</span>
+            <span class="rank">1.0</span>
             <div>
               <p class="story-kicker">Download</p>
               <h3>Fetches the scanner payload.</h3>
@@ -391,7 +368,7 @@
           </article>
 
           <article class="ranked-story">
-            <span class="rank">2</span>
+            <span class="rank">2.0</span>
             <div>
               <p class="story-kicker">Sandbox</p>
               <h3>Denies writes and network access before scanning.</h3>
@@ -404,7 +381,7 @@
           </article>
 
           <article class="ranked-story">
-            <span class="rank">3</span>
+            <span class="rank">3.0</span>
             <div>
               <p class="story-kicker">Report</p>
               <h3>Shows findings without printing secret values.</h3>
@@ -423,7 +400,7 @@
           </article>
 
           <article class="ranked-story" id="fix">
-            <span class="rank">4</span>
+            <span class="rank">4.0</span>
             <div>
               <p class="story-kicker">Next step</p>
               <h3>Move supported secrets out of plaintext files.</h3>
@@ -475,23 +452,26 @@
           <h2 id="scanner-limits-title">Scanning is a preflight, not the full control plane.</h2>
           <span>from finding to fix</span>
         </div>
-        <div class="compare-grid">
-          <article>
-            <span>Find</span>
-            <h3>Scanner output</h3>
-            <p><code>av secret-scanner</code> reports high-confidence plaintext exposure without printing the secret value.</p>
-          </article>
-          <article>
-            <span>Move</span>
-            <h3>Protected storage</h3>
-            <p><code>av save KEY</code> stores supported credentials outside files an agent can casually read.</p>
-          </article>
-          <article>
-            <span>Inject</span>
-            <h3>Trusted execution</h3>
-            <p><code>av inject +KEY /abs/tool</code> gives the credential to the approved executable, not to the model transcript.</p>
-          </article>
-        </div>
+        <table class="scanner-spec-sheet">
+          <caption>Scanner findings and Automic Vault controls</caption>
+          <tbody>
+            <tr>
+              <th scope="row">Find</th>
+              <td data-label="Control">Scanner output</td>
+              <td data-label="Detail"><code>av secret-scanner</code> reports high-confidence plaintext exposure without printing the secret value.</td>
+            </tr>
+            <tr>
+              <th scope="row">Move</th>
+              <td data-label="Control">Protected storage</td>
+              <td data-label="Detail"><code>av save KEY</code> stores supported credentials outside files an agent can casually read.</td>
+            </tr>
+            <tr>
+              <th scope="row">Inject</th>
+              <td data-label="Control">Trusted execution</td>
+              <td data-label="Detail"><code>av inject +KEY /abs/tool</code> gives the credential to the approved executable, not to the model transcript.</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <section class="guides" id="faq" aria-labelledby="faq-title">

@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-06-15",
+    "macrostructure": "Narrative Workflow",
+    "theme": "Terminal-on-Cobalt",
+    "theme_axes": "dark / mono-led technical / phosphor",
+    "enrichment": "E1 Clipped-Edge Video",
+    "nav": "N5",
+    "footer": "Ft2",
+    "brief": "Secret scanner route Hallmark pass"
+  },
+  {
+    "date": "2026-06-15",
     "macrostructure": "Long Document",
     "theme": "Almanac-dark",
     "theme_axes": "dark / grotesk-sans-reference / cool",
