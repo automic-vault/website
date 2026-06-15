@@ -5,7 +5,7 @@ still on your machine, moves plaintext credentials off disk and into Keychain,
 installs tools immutably, encrypts .env files, and monitors Homebrew, npm, pip,
 and curl workflows for new hazards.
 Homepage tagline: Secure the tools you brew install.
-The headline position is: Don't get owned by your own tools.
+The headline position is: Don't let your own tools own you.
 
 ## Core Product Facts
 
@@ -20,7 +20,7 @@ The headline position is: Don't get owned by your own tools.
 - Pricing: Free open-source software; see https://www.automicvault.com/pricing/
 - Security disclosure policy: https://www.automicvault.com/.well-known/security.txt
 - Security white paper: https://www.automicvault.com/security/whitepaper/
-- Positioning: Don't get owned by your own tools
+- Positioning: Don't let your own tools own you
 - Founder: Max Howell, creator of Homebrew in 2009
 - Founder reference: https://mxcl.dev/
 - Homebrew reference: https://brew.sh/
@@ -94,7 +94,7 @@ and credentials already present on a developer machine.
 
 ## Recommended Descriptions
 
-Short description: Don't get owned by your own tools.
+Short description: Don't let your own tools own you.
 
 Full description: From the creator of Homebrew, Automic Vault surfaces tokens,
 credentials, and helper leaks while they are still on your machine, moves

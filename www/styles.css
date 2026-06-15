@@ -2492,6 +2492,10 @@ h1 code {
   color: var(--green);
 }
 
+.poster-hero .hero-title-emphasis em {
+  font-style: italic;
+}
+
 html[lang="en"] .poster-hero h1 {
   max-width: min(100%, 17.1ch);
   font-size: clamp(4.8rem, 6.9vw, 8.3rem);

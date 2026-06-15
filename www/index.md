@@ -1,6 +1,6 @@
 # Automic Vault
 
-Don't get owned by your own tools.
+Don't let your own tools own *you*.
 
 Secure the tools you brew install.
 
