@@ -165,18 +165,22 @@
 .scanner-command-panel pre {
   min-width: 0;
   margin: 0;
-  overflow: visible;
-  white-space: pre-wrap;
+  overflow-x: auto;
+  overflow-y: clip;
+  scrollbar-color: var(--color-scanner-rule) var(--color-scanner-transparent);
+  white-space: nowrap;
 }
 
 .scanner-command-panel code {
-  display: block;
-  min-width: 0;
+  display: inline-block;
+  min-width: max-content;
   color: var(--color-scanner-ink);
   font-size: clamp(var(--text-sm), 0.55vw + 0.76rem, var(--text-base));
   font-weight: 760;
   line-height: 1.45;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  white-space: nowrap;
+  word-break: normal;
 }
 
 .scanner-copy-button {
