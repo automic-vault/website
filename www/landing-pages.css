@@ -1,3 +1,6 @@
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R5 V5
+ * Hallmark · genre: modern-minimal/reference · macrostructure: Long Document · theme: Almanac-dark · enrichment: none · nav: N3 · footer: Ft4 · tone: technical/austere · anchor hue: cobalt · contrast: pass (40–41) · slop: pass (42–45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (49) · mobile: pass (34, 49, 50–57)
+ */
 /* Root-style adapter for non-root marketing, legal, and security pages. */
 
 .seo-shell {
@@ -844,5 +847,346 @@
 
   .paper-toc {
     grid-template-columns: 1fr;
+  }
+}
+
+.security-rail {
+  position: fixed;
+  top: calc(76px + var(--space-xl));
+  left: max(var(--space-lg), calc((100vw - var(--max)) / 2 + var(--space-lg)));
+  z-index: 32;
+  display: grid;
+  gap: var(--space-xs);
+  width: 9rem;
+  font-family: var(--font-code);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.security-rail a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  color: var(--color-subtle);
+  white-space: nowrap;
+  transition: color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+
+.security-rail a::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-inline-end: var(--space-sm);
+  border: var(--rule-hair) solid var(--color-rule-2);
+  border-radius: 50%;
+}
+
+.security-rail a:hover,
+.security-rail a:focus-visible {
+  color: var(--color-ink);
+  transform: translateX(2px);
+}
+
+.security-rail a:active {
+  transform: translateX(1px);
+}
+
+.security-rail a:focus-visible {
+  outline: 2px solid var(--color-warn);
+  outline-offset: 4px;
+}
+
+.security-page .seo-hero,
+.security-page .seo-section {
+  grid-template-columns: minmax(0, 72ch);
+  justify-content: center;
+  min-height: auto;
+  min-width: 0;
+}
+
+.security-page .seo-hero {
+  align-items: start;
+  padding-block: clamp(64px, 9vw, 132px) clamp(52px, 7vw, 96px);
+  background:
+    linear-gradient(180deg, var(--color-paper), var(--color-graphite));
+}
+
+.security-page .seo-hero::before,
+.security-page .seo-section::before {
+  opacity: 0.22;
+}
+
+.security-page .seo-hero > div:first-child,
+.security-page .section-heading,
+.security-page .copy-stack,
+.security-page .proof-list,
+.security-page .comparison-table,
+.security-page .resource-list {
+  grid-column: 1;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.security-page .seo-hero h1 {
+  max-width: 13ch;
+  font-size: clamp(3rem, 5vw, 5.05rem);
+  line-height: 0.93;
+  overflow-wrap: anywhere;
+}
+
+.security-page .lede,
+.security-page .answer-box p,
+.security-page .section-heading p:not(.kicker) {
+  width: 100%;
+  max-width: 64ch;
+  line-height: 1.64;
+  overflow-wrap: anywhere;
+}
+
+.security-page .answer-box {
+  max-width: 68ch;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+}
+
+.security-page .hero-actions {
+  gap: var(--space-md) var(--space-xl);
+}
+
+.security-page .button,
+.security-page .button.primary {
+  min-width: 0;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-rule-2);
+  text-decoration-thickness: var(--rule-hair);
+  text-underline-offset: 0.28em;
+  white-space: nowrap;
+}
+
+.security-page .button:hover,
+.security-page .button.primary:hover {
+  color: var(--color-accent);
+  text-decoration-color: currentColor;
+  transform: translateY(-1px);
+}
+
+.security-page .button:active,
+.security-page .button.primary:active {
+  transform: translateY(0);
+}
+
+.security-page .seo-visual {
+  grid-column: 1;
+  justify-self: start;
+  width: min(100%, 48rem);
+  margin-top: var(--space-2xl);
+}
+
+.security-page .seo-visual img {
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+}
+
+.security-page .seo-section {
+  padding-block: clamp(64px, 8vw, 112px);
+  background:
+    linear-gradient(180deg, var(--color-paper), var(--color-paper-2));
+}
+
+.security-page .seo-section:nth-of-type(odd) {
+  background:
+    linear-gradient(180deg, var(--color-paper-2), var(--color-paper));
+}
+
+.security-page .section-heading {
+  display: block;
+}
+
+.security-page .section-heading h2 {
+  max-width: 14ch;
+  font-size: clamp(2.2rem, 4.4vw, 4.35rem);
+  line-height: 0.96;
+}
+
+.security-page .section-heading h2 span {
+  display: inline;
+  color: var(--color-accent);
+}
+
+.security-page .section-heading p:not(.kicker) {
+  margin-top: var(--space-lg);
+  font-size: clamp(1.02rem, 1.18vw, 1.15rem);
+}
+
+.security-page .proof-list,
+.security-page .resource-list {
+  gap: 0;
+  margin-top: var(--space-xl);
+  border-top: var(--rule-hair) solid var(--color-rule-2);
+}
+
+.security-page .proof-list {
+  grid-template-columns: 1fr;
+}
+
+.security-page .proof-list article,
+.security-page .resource-list a,
+.security-page .resource-list div {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.3fr) minmax(0, 1fr);
+  gap: var(--space-md) var(--space-xl);
+  padding: var(--space-lg) 0;
+  border: 0;
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transition: color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+
+.security-page .proof-list article:hover,
+.security-page .resource-list a:hover {
+  border-color: var(--color-rule);
+  box-shadow: none;
+  transform: none;
+}
+
+.security-page .proof-list span {
+  padding-top: 0.22em;
+  color: var(--color-subtle);
+}
+
+.security-page .proof-list h3,
+.security-page .resource-list strong {
+  margin-top: 0;
+  font-size: clamp(1.14rem, 1.4vw, 1.36rem);
+}
+
+.security-page .proof-list p,
+.security-page .resource-list p {
+  grid-column: 2;
+  margin-top: calc(var(--space-xs) + var(--space-2xs));
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.security-page .resource-list a:hover strong {
+  color: var(--color-accent);
+}
+
+.security-page .comparison-table {
+  margin-top: var(--space-xl);
+  border-radius: var(--radius-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.seo-shell:has(.security-page) .seo-footer {
+  display: block;
+  padding-block: var(--space-xl);
+  color: var(--color-subtle);
+  font-size: var(--text-sm);
+  line-height: 1.65;
+  text-transform: none;
+}
+
+.seo-shell:has(.security-page) .seo-footer p,
+.seo-shell:has(.security-page) .footer-links {
+  max-width: 72ch;
+  margin-inline: auto;
+}
+
+.seo-shell:has(.security-page) .footer-links {
+  justify-content: flex-start;
+  margin-top: var(--space-sm);
+  gap: var(--space-xs) var(--space-md);
+}
+
+.seo-shell:has(.security-page) .seo-footer a {
+  white-space: nowrap;
+}
+
+@media (max-width: 1320px) {
+  .security-rail {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .security-page .seo-hero,
+  .security-page .seo-section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .security-page .seo-hero h1,
+  .security-page .section-heading h2 {
+    max-width: 100%;
+  }
+
+  .security-page .seo-visual {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    z-index: auto;
+    width: 100%;
+    opacity: 1;
+  }
+
+  .security-page .proof-list article,
+  .security-page .resource-list a,
+  .security-page .resource-list div {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+
+  .security-page .proof-list p,
+  .security-page .resource-list p {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .security-page .comparison-table,
+  .security-page .comparison-table thead,
+  .security-page .comparison-table tbody,
+  .security-page .comparison-table tr,
+  .security-page .comparison-table th,
+  .security-page .comparison-table td {
+    display: block;
+  }
+
+  .security-page .comparison-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .security-page .comparison-table tr {
+    padding: var(--space-lg);
+    border-top: var(--rule-hair) solid var(--color-rule);
+  }
+
+  .security-page .comparison-table tbody tr:first-child {
+    border-top: 0;
+  }
+
+  .security-page .comparison-table th,
+  .security-page .comparison-table td {
+    width: auto;
+    padding: 0;
+    border: 0;
+  }
+
+  .security-page .comparison-table td {
+    margin-top: var(--space-xs);
   }
 }

@@ -172,7 +172,7 @@
   <link rel="icon" href="../favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="stylesheet" href="../styles.css?v=77">
-  <link rel="stylesheet" href="../landing-pages.css?v=1">
+  <link rel="stylesheet" href="../landing-pages.css?v=2">
 </head>
 <body>
   <div class="seo-shell">
@@ -189,7 +189,14 @@
         <a href="https://github.com/automic-vault/">GitHub</a>
       </nav>
     </header>
-    <main>
+    <nav class="security-rail" aria-label="Security page sections">
+      <a href="#threat-model">Threat</a>
+      <a href="#disclosure">Disclosure</a>
+      <a href="#release-trust">Release</a>
+      <a href="#local-data">Local data</a>
+      <a href="#supported-surface">Review</a>
+    </nav>
+    <main class="security-page">
       <section class="seo-hero">
         <div>
           <p class="kicker">Security model</p>
@@ -207,10 +214,9 @@
           <img src="../assets/vault-console.webp" alt="Automic Vault console" width="820" height="1024">
         </figure>
       </section>
-      <section class="seo-section seo-split">
+      <section class="seo-section seo-split" id="threat-model">
         <div class="section-heading">
-          <p class="kicker">Threat model</p>
-          <h2>The risk is an agent with filesystem and tool access.</h2>
+          <h2><span>Threat model.</span> The risk is an agent with filesystem and tool access.</h2>
           <p>Automic Vault assumes a local AI coding agent can read project files, inspect shell configuration, run command-line tools, and accidentally expose credentials through logs or transcripts. The product reduces that ambient authority.</p>
         </div>
         <div class="proof-list">
@@ -220,10 +226,9 @@
           <article><span>Roots</span><h3>Controlled installation</h3><p>Release builds install under `/opt` and stub into `/usr/local/bin`; debug builds use `/tmp/opt` and `/tmp/usr/local/bin`.</p></article>
         </div>
       </section>
-      <section class="seo-section seo-split">
+      <section class="seo-section seo-split" id="disclosure">
         <div class="section-heading">
-          <p class="kicker">Disclosure</p>
-          <h2>Report security issues through GitHub.</h2>
+          <h2><span>Disclosure.</span> Report security issues through GitHub.</h2>
           <p>Automic Vault is open-source software. Use the public repository for source review, issue reporting, and release tracking. Do not include live secrets, cloud account identifiers, private keys, or unreleased exploit details in public issues. If a report requires sensitive material, open a minimal public issue asking for a private reporting channel.</p>
         </div>
         <div class="resource-list">
@@ -234,10 +239,9 @@
           <a href="../.well-known/security.txt"><strong>security.txt</strong><p>Machine-readable disclosure and policy location.</p></a>
         </div>
       </section>
-      <section class="seo-section seo-split">
+      <section class="seo-section seo-split" id="release-trust">
         <div class="section-heading">
-          <p class="kicker">Release trust</p>
-          <h2>Use public releases and source as the verification path.</h2>
+          <h2><span>Release trust.</span> Use public releases and source as the verification path.</h2>
           <p>The public GitHub repository holds the code, tags, releases, issues, and license terms. Download links on this site point to the published macOS release artifact, and the app version is derived from the repository's Cargo metadata during deployment.</p>
         </div>
         <table class="comparison-table">
@@ -252,10 +256,9 @@
           </tbody>
         </table>
       </section>
-      <section class="seo-section seo-split">
+      <section class="seo-section seo-split" id="local-data">
         <div class="section-heading">
-          <p class="kicker">Local data boundary</p>
-          <h2>Secrets are product data on the local Mac.</h2>
+          <h2><span>Local data boundary.</span> Secrets are product data on the local Mac.</h2>
           <p>Automic Vault is not a hosted SaaS vault. The website is static, while the product focuses on local storage, local command execution, and local approval decisions on macOS.</p>
         </div>
         <div class="proof-list">
@@ -265,10 +268,9 @@
           <article><span>Approvals</span><h3>Runtime decision</h3><p>Commands that mutate cloud, source, packages, or credentials can be reviewed before execution.</p></article>
         </div>
       </section>
-      <section class="seo-section seo-split">
+      <section class="seo-section seo-split" id="supported-surface">
         <div class="section-heading">
-          <p class="kicker">Supported surface</p>
-          <h2>Security review should focus on the current public release.</h2>
+          <h2><span>Supported surface.</span> Security review should focus on the current public release.</h2>
           <p>Automic Vault is young open-source software, so the safest security reference is the current public release and source tree. Reports should identify the version, macOS version, command being run, package or tool involved, and whether the behavior requires a local agent, local shell access, or an already-approved credential.</p>
         </div>
         <div class="proof-list">
