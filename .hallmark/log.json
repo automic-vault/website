@@ -5,7 +5,7 @@
     "theme": "Terminal-on-Cobalt",
     "theme_axes": "dark / mono-led technical / phosphor",
     "enrichment": "E1 Clipped-Edge Video",
-    "nav": "N5",
+    "nav": "site masthead",
     "footer": "Ft2",
     "brief": "Secret scanner route Hallmark pass"
   },
