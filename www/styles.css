@@ -654,6 +654,21 @@ h1 code {
   color: var(--ink);
 }
 
+.download-cta {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
+
+.download-cta span {
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
 .highlights,
 .problem-strip,
 .exposure-examples,
@@ -3391,6 +3406,14 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
 
   .poster-hero .button.primary {
     grid-column: 1 / -1;
+  }
+
+  .poster-hero .download-cta {
+    flex: 1 1 100%;
+  }
+
+  .poster-hero .download-cta .button {
+    width: 100%;
   }
 
   .feature-section h2,
