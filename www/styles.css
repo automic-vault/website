@@ -602,6 +602,7 @@ h1 code {
 }
 
 .hero-actions {
+  align-items: flex-start;
   gap: 12px;
   margin-top: 0;
 }
@@ -657,7 +658,8 @@ h1 code {
 .download-cta {
   display: grid;
   gap: 6px;
-  justify-items: start;
+  justify-items: center;
+  align-self: flex-start;
 }
 
 .download-cta span {
@@ -666,6 +668,7 @@ h1 code {
   font-size: 0.72rem;
   font-weight: 700;
   line-height: 1.2;
+  text-align: center;
   text-transform: uppercase;
 }
 
