@@ -293,7 +293,7 @@ EOF
 }
 
 deploy_remote() {
-  local stamp staging_dir remote_tmp
+  local stamp staging_dir remote_tmp sqlite_archive
 
   [[ -n "${AV_WEB_BINARY_PATH}" ]] || fail "missing av-web binary path"
   [[ -x "${AV_WEB_BINARY_PATH}" ]] || fail "missing built binary: ${AV_WEB_BINARY_PATH}"
@@ -303,13 +303,15 @@ deploy_remote() {
   staging_dir="$(mktemp -d)"
   trap 'rm -rf "${staging_dir}"' RETURN
   write_local_config_files "${staging_dir}"
+  sqlite_archive="${staging_dir}/pkg.sqlite.gz"
+  gzip -c "${AV_WEB_SQLITE_PATH}" >"${sqlite_archive}"
 
   remote_tmp="${AV_WEB_REMOTE_TMP%/}/av-web-deploy-${stamp}.$$"
   log "Copying package origin release to Atlas"
   ssh "${ssh_args[@]}" "${ATLAS_SSH_TARGET}" "mkdir -p $(shell_quote "${remote_tmp}")"
   scp "${scp_args[@]}" \
     "${AV_WEB_BINARY_PATH}" \
-    "${AV_WEB_SQLITE_PATH}" \
+    "${sqlite_archive}" \
     "${staging_dir}/automic-vault-web.service" \
     "${staging_dir}/automic-vault-web.env" \
     "${staging_dir}/automic-vault-web-http.conf" \
@@ -334,7 +336,9 @@ release_dir="${remote_root}/releases/${stamp}"
 sudo useradd --system --home "${remote_root}" --shell /sbin/nologin "${service}" >/dev/null 2>&1 || true
 sudo mkdir -p "${release_dir}" "${data_dir}" /var/www/html
 sudo install -o root -g root -m 0755 "${remote_tmp}/av-web" "${release_dir}/av-web"
-sudo install -o "${service}" -g "${service}" -m 0640 "${remote_tmp}/pkg.sqlite" "${data_dir}/pkg.sqlite.new"
+sudo gzip -dc "${remote_tmp}/pkg.sqlite.gz" | sudo tee "${data_dir}/pkg.sqlite.new" >/dev/null
+sudo chown "${service}:${service}" "${data_dir}/pkg.sqlite.new"
+sudo chmod 0640 "${data_dir}/pkg.sqlite.new"
 sudo mv "${data_dir}/pkg.sqlite.new" "${data_dir}/pkg.sqlite"
 sudo chown "${service}:${service}" "${data_dir}/pkg.sqlite"
 sudo ln -sfn "${release_dir}" "${remote_root}/current"
@@ -368,6 +372,7 @@ if [[ -z "${AV_WEB_ORIGIN_SECRET}" ]]; then
 fi
 
 require_cmd cargo
+require_cmd gzip
 require_cmd rustc
 require_cmd python3
 require_cmd sqlite3

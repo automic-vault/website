@@ -27,16 +27,83 @@ format_duration() {
   fi
 }
 
+run_with_timeout() {
+  local timeout_seconds="$1"
+  shift
+
+  python3 - "$timeout_seconds" "$@" <<'PY'
+import os
+import signal
+import subprocess
+import sys
+
+timeout = int(sys.argv[1])
+command = sys.argv[2:]
+process = subprocess.Popen(command, start_new_session=True)
+try:
+    raise SystemExit(process.wait(timeout=timeout))
+except KeyboardInterrupt:
+    try:
+        os.killpg(process.pid, signal.SIGTERM)
+    except ProcessLookupError:
+        raise SystemExit(process.wait())
+    try:
+        process.wait(timeout=30)
+        raise SystemExit(130)
+    except subprocess.TimeoutExpired:
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        process.wait()
+        raise SystemExit(130)
+except subprocess.TimeoutExpired:
+    try:
+        os.killpg(process.pid, signal.SIGTERM)
+    except ProcessLookupError:
+        raise SystemExit(process.wait())
+    try:
+        process.wait(timeout=30)
+        raise SystemExit(124)
+    except subprocess.TimeoutExpired:
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        process.wait()
+        raise SystemExit(124)
+PY
+}
+
 run_step() {
   local name="$1"
   shift
-  local started_at elapsed
+  local started_at elapsed exit_code
 
   log INFO "Starting ${name}"
   started_at="$(date +%s)"
+  set +e
   "$@"
+  exit_code=$?
+  set -e
   elapsed=$(($(date +%s) - started_at))
+  if [[ "${exit_code}" -ne 0 ]]; then
+    log WARN "Failed ${name} after $(format_duration "${elapsed}") with exit code ${exit_code}"
+    return "${exit_code}"
+  fi
   log OK "Finished ${name} in $(format_duration "${elapsed}")"
+}
+
+run_enrichment_refresh() {
+  local timeout_seconds="${AVWWW_PKG_ORIGIN_ENRICHMENT_REFRESH_TIMEOUT_SECONDS:-120}"
+
+  if ! run_step "package-origin enrichment refresh" \
+    run_with_timeout "${timeout_seconds}" \
+      python3 "${AV_DB_ROOT}/scripts/generate-pkg-page-enrichment.py" --refresh; then
+    log WARN "Homebrew API refresh did not finish within ${timeout_seconds}s; using cached package-origin enrichment inputs."
+    run_step "package-origin enrichment cache fallback" \
+      python3 "${AV_DB_ROOT}/scripts/generate-pkg-page-enrichment.py" --registry-cache-only
+  fi
 }
 
 require_publish_env() {
@@ -59,8 +126,7 @@ require_publish_env() {
 }
 
 require_publish_env
-run_step "package-origin enrichment refresh" \
-  python3 "${AV_DB_ROOT}/scripts/generate-pkg-page-enrichment.py" --refresh
+run_enrichment_refresh
 run_step "package version freshness generation" \
   python3 "${AV_DB_ROOT}/scripts/generate-pkg-version-freshness.py"
 run_step "package manager index generation" \
