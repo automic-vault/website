@@ -1,4 +1,4 @@
-Don't let your own tools own you.
+Don't Get Owned By Your Own Tools.
 
 Secure the tools you brew install.
 

@@ -4,9 +4,9 @@
   "platform": "macOS",
   "license": "Apache License 2.0",
   "description": "Automic Vault detects secret exposure, hardens packages that work with secrets, encrypts .env files, and monitors the tools you install with Homebrew, npm, pip, and curl one-liners.",
-  "short_description": "Don't let your own tools own you.",
+  "short_description": "Don't Get Owned By Your Own Tools.",
   "full_description": "From the creator of Homebrew, Automic Vault finds tokens, credentials, and helper leaks while they are still on your machine, moves plaintext credentials off disk and into Keychain, installs tools immutably, provides dotenvx-compatible .env encryption, and monitors Homebrew, npm, pip, and curl workflows for new hazards.",
-  "positioning": "Don't let your own tools own you",
+  "positioning": "Don't Get Owned By Your Own Tools",
   "sections": [
     {
       "eyebrow": "01 · DETECT",
