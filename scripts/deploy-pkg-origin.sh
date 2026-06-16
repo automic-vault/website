@@ -371,6 +371,10 @@ if [[ -z "${AV_WEB_ORIGIN_SECRET}" ]]; then
   fail "set AV_WEB_ORIGIN_SECRET to the CloudFront custom origin header value"
 fi
 
+if [[ "${AV_WEB_ORIGIN_SECRET}" == encrypted:* ]]; then
+  fail "AV_WEB_ORIGIN_SECRET is still encrypted; provide the decrypted CloudFront custom origin header value"
+fi
+
 require_cmd cargo
 require_cmd gzip
 require_cmd rustc

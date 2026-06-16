@@ -112,6 +112,11 @@ require_publish_env() {
     return 1
   fi
 
+  if [[ "${AV_WEB_ORIGIN_SECRET}" == encrypted:* ]]; then
+    log ERROR "AV_WEB_ORIGIN_SECRET is still encrypted; resolve it before deploying the package origin."
+    return 1
+  fi
+
   if [[ -n "${WWW_PKG_ORIGIN_HEADER_VALUE:-}" && "${WWW_PKG_ORIGIN_HEADER_VALUE}" != "${AV_WEB_ORIGIN_SECRET}" ]]; then
     log WARN "WWW_PKG_ORIGIN_HEADER_VALUE is set but does not match AV_WEB_ORIGIN_SECRET."
   fi

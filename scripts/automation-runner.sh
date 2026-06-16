@@ -15,6 +15,32 @@ environment loading, locking, timeout handling, and status recording.
 EOF
 }
 
+resolve_pkg_origin_secret_from_cloudfront() {
+  local header_name="${AV_WEB_ORIGIN_HEADER:-X-Automic-Vault-Origin}"
+  local domain="${WWW_DOMAIN:-}"
+  local origin_id distribution_id secret
+
+  [[ -n "${domain}" ]] || return 1
+  origin_id="${domain}-atlas-pkg-origin"
+
+  distribution_id="$(
+    aws cloudfront list-distributions \
+      --query "DistributionList.Items[?contains(Aliases.Items, \`${domain}\`) || contains(Aliases.Items, \`www.${domain}\`)].Id | [0]" \
+      --output text 2>/dev/null
+  )" || return 1
+  [[ -n "${distribution_id}" && "${distribution_id}" != "None" ]] || return 1
+
+  secret="$(
+    aws cloudfront get-distribution-config \
+      --id "${distribution_id}" \
+      --query "DistributionConfig.Origins.Items[?Id==\`${origin_id}\`].CustomHeaders.Items[?HeaderName==\`${header_name}\`].HeaderValue | [0][0]" \
+      --output text 2>/dev/null
+  )" || return 1
+  [[ -n "${secret}" && "${secret}" != "None" ]] || return 1
+
+  printf '%s\n' "${secret}"
+}
+
 load_environment() {
   export PATH="/usr/local/bin:/opt/homebrew/bin:${repo_root}/scripts/bin:${PATH}"
   export AWS_PAGER="${AWS_PAGER:-}"
@@ -27,6 +53,15 @@ load_environment() {
       set +a
     fi
   done
+
+  if [[ "${AV_WEB_ORIGIN_SECRET:-${WWW_PKG_ORIGIN_HEADER_VALUE:-}}" == encrypted:* ]]; then
+    local resolved_secret=""
+    resolved_secret="$(resolve_pkg_origin_secret_from_cloudfront || true)"
+    if [[ -n "${resolved_secret}" ]]; then
+      export WWW_PKG_ORIGIN_HEADER_VALUE="${resolved_secret}"
+      export AV_WEB_ORIGIN_SECRET="${resolved_secret}"
+    fi
+  fi
 
   export AV_WEB_ORIGIN_HEADER="${AV_WEB_ORIGIN_HEADER:-${WWW_PKG_ORIGIN_HEADER_NAME:-}}"
   export AV_WEB_ORIGIN_SECRET="${AV_WEB_ORIGIN_SECRET:-${WWW_PKG_ORIGIN_HEADER_VALUE:-}}"
