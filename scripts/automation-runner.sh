@@ -21,6 +21,8 @@ resolve_pkg_origin_secret_from_cloudfront() {
   local origin_id distribution_id secret
 
   [[ -n "${domain}" ]] || return 1
+  command -v aws >/dev/null 2>&1 || return 1
+  command -v jq >/dev/null 2>&1 || return 1
   origin_id="${domain}-atlas-pkg-origin"
 
   distribution_id="$(
@@ -33,8 +35,18 @@ resolve_pkg_origin_secret_from_cloudfront() {
   secret="$(
     aws cloudfront get-distribution-config \
       --id "${distribution_id}" \
-      --query "DistributionConfig.Origins.Items[?Id==\`${origin_id}\`].CustomHeaders.Items[?HeaderName==\`${header_name}\`].HeaderValue | [0][0]" \
-      --output text 2>/dev/null
+      --output json 2>/dev/null \
+      | jq -r \
+        --arg origin_id "${origin_id}" \
+        --arg header_name "${header_name}" \
+        '
+          .DistributionConfig.Origins.Items[]
+          | select(.Id == $origin_id)
+          | .CustomHeaders.Items[]?
+          | select(.HeaderName == $header_name)
+          | .HeaderValue
+        ' \
+      | head -n1
   )" || return 1
   [[ -n "${secret}" && "${secret}" != "None" ]] || return 1
 
