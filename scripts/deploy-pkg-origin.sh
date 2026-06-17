@@ -127,6 +127,7 @@ run_refresh_steps() {
   python3 "${AV_DB_ROOT}/scripts/generate-pkg-page-enrichment.py" --refresh
   python3 "${AV_DB_ROOT}/scripts/generate-pkg-version-freshness.py"
   python3 "${AV_DB_ROOT}/scripts/generate-pkg-manager-indexes.py"
+  python3 "${AV_DB_ROOT}/scripts/bootstrap/02-crates-index.py" --refresh
   python3 "${AV_DB_ROOT}/scripts/generate-pkg-cross-ecosystem.py"
   python3 "${AV_DB_ROOT}/scripts/generate-pkg-graph.py"
   python3 "${AV_DB_ROOT}/scripts/generate-pkg-graph-curation.py"

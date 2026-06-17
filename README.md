@@ -54,3 +54,5 @@ scripts/deploy-pkg-origin.sh --skip-refresh --skip-sqlite
 ```
 
 `AV_WEB_SQLITE_PATH` defaults to `../av.db/cache/pkg.sqlite`.
+The refresh path also builds `../av.db/cache/cratesio/index.json` for Cargo
+package pages; those crates.io records stay out of the exported `db.json`.

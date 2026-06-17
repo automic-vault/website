@@ -463,7 +463,7 @@ const LOCALES: &[Locale] = &[
 ];
 
 const SITE_ORIGIN: &str = "https://www.automicvault.com";
-const PROVIDERS: &[&str] = &["brew", "cask", "npm", "pip"];
+const PROVIDERS: &[&str] = &["brew", "cask", "npm", "pip", "cargo"];
 
 #[derive(Debug, Clone, Default, Deserialize)]
 struct PackageData {
@@ -2313,9 +2313,7 @@ fn display_last_verified(package: &PackageRow) -> String {
         return String::new();
     }
     let authoritative = authoritative_package_version(package);
-    if !package.version.is_empty()
-        && !authoritative.is_empty()
-        && package.version != authoritative
+    if !package.version.is_empty() && !authoritative.is_empty() && package.version != authoritative
     {
         return String::new();
     }
@@ -3352,6 +3350,8 @@ fn native_command_provider(command: &str) -> Option<&'static str> {
         || command.starts_with("python3 -m pip install ")
     {
         Some("pip")
+    } else if command.starts_with("cargo install ") {
+        Some("cargo")
     } else {
         None
     }
@@ -5185,6 +5185,52 @@ mod tests {
                 search_text: "private-tool npm internal",
             },
         );
+        insert_package(
+            &connection,
+            PackageFixture {
+                path: "/pkg/cargo/ripgrep/",
+                provider: "cargo",
+                slug: "ripgrep",
+                package_key: "cargo:ripgrep",
+                name: "ripgrep",
+                display_name: "ripgrep",
+                summary: "Line-oriented search tool.",
+                provider_label: "Cargo",
+                package_manager_url: "https://crates.io/crates/ripgrep",
+                install_command: "sudo av install ripgrep",
+                native_install_command: "cargo install ripgrep",
+                version: "14.1.1",
+                category: "developer-tools",
+                license: "MIT OR Unlicense",
+                homepage: "https://github.com/BurntSushi/ripgrep",
+                repository: "https://github.com/BurntSushi/ripgrep",
+                rank: Some(12),
+                last_updated_at: "2026-06-01",
+                indexable: true,
+                data_json: serde_json::json!({"full": {
+                    "aliases": ["rg"],
+                    "executablesDetailed": [
+                        {"name": "rg", "kind": "executable", "exposure": "global executable"}
+                    ],
+                    "registryInsights": {
+                        "sourceDatabase": "crates.io DB dump",
+                        "defaultVersion": "14.1.1",
+                        "recentDownloads": 12345,
+                        "totalDownloads": 45678
+                    },
+                    "installCommands": [
+                        {"platform": "portable", "manager": "Automic Vault", "command": "sudo av install ripgrep", "kind": "automic_vault", "confidence": 1.0, "evidence": "deterministic local package key"},
+                        {"platform": "portable", "manager": "Cargo", "command": "cargo install ripgrep", "kind": "package_manager", "confidence": 1.0, "evidence": "crates.io default version"}
+                    ],
+                    "installBehavior": {"postInstallDefined": false},
+                    "popularity": {"rank": 12, "downloads_recent": 12345, "downloads_total": 45678},
+                    "sourceArchive": "https://crates.io/api/v1/crates/ripgrep/14.1.1/download",
+                    "sourceNotes": ["crates.io DB dump"]
+                }})
+                .to_string(),
+                search_text: "ripgrep cargo:ripgrep rg search grep",
+            },
+        );
         for (path, slug, title, description, group) in [
             ("/pkg/cloud/", "cloud", "Cloud", "Cloud tools", "topical"),
             (
@@ -5537,6 +5583,9 @@ mod tests {
         let package = dynamic_response_for_path(db.path(), "/pkg/brew/awscli/")
             .expect("query")
             .expect("package response");
+        let cargo_package = dynamic_response_for_path(db.path(), "/pkg/cargo/ripgrep/")
+            .expect("query")
+            .expect("cargo package response");
         let localized_package = dynamic_response_for_path(db.path(), "/fr/pkg/brew/awscli/")
             .expect("query")
             .expect("localized package response");
@@ -5558,6 +5607,9 @@ mod tests {
         let sitemap = dynamic_response_for_path(db.path(), "/pkg/sitemap-brew.xml")
             .expect("query")
             .expect("sitemap response");
+        let cargo_sitemap = dynamic_response_for_path(db.path(), "/pkg/sitemap-cargo.xml")
+            .expect("query")
+            .expect("cargo sitemap response");
 
         let package_html = String::from_utf8(package.body).expect("package html");
         assert!(package_html.contains("AWS credential file coverage"));
@@ -5578,11 +5630,18 @@ mod tests {
         assert!(package_html.contains("https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"));
         assert!(package_html.contains("gtag('config', 'G-Y78QKG1T9Y')"));
 
+        let cargo_package_html = String::from_utf8(cargo_package.body).expect("cargo package html");
+        assert!(cargo_package_html.contains("Line-oriented search tool."));
+        assert!(cargo_package_html.contains("cargo install ripgrep"));
+        assert!(cargo_package_html.contains("crates.io DB dump"));
+
         let localized_package_html =
             String::from_utf8(localized_package.body).expect("localized package html");
         assert!(localized_package_html.contains("<html lang=\"fr\">"));
-        assert!(localized_package_html
-            .contains("https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"));
+        assert!(
+            localized_package_html
+                .contains("https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y")
+        );
         assert!(localized_package_html.contains("gtag('config', 'G-Y78QKG1T9Y')"));
 
         let hub_html = String::from_utf8(hub.body).expect("hub html");
@@ -5604,11 +5663,9 @@ mod tests {
         assert!(index_html.contains("Risky tools"));
         assert!(index_html.contains("JavaScript"));
 
-        assert!(
-            String::from_utf8(sitemap_index.body)
-                .expect("sitemap index xml")
-                .contains("/pkg/sitemap-brew.xml")
-        );
+        let sitemap_index_xml = String::from_utf8(sitemap_index.body).expect("sitemap index xml");
+        assert!(sitemap_index_xml.contains("/pkg/sitemap-brew.xml"));
+        assert!(sitemap_index_xml.contains("/pkg/sitemap-cargo.xml"));
         assert!(
             String::from_utf8(hub_sitemap.body)
                 .expect("hub sitemap xml")
@@ -5618,6 +5675,11 @@ mod tests {
             String::from_utf8(sitemap.body)
                 .expect("sitemap xml")
                 .contains("hreflang=\"zh-Hans\"")
+        );
+        assert!(
+            String::from_utf8(cargo_sitemap.body)
+                .expect("cargo sitemap xml")
+                .contains("/pkg/cargo/ripgrep/")
         );
     }
 
@@ -5942,6 +6004,10 @@ mod tests {
         assert_eq!(
             native_command_provider("python3 -m pip install sparse"),
             Some("pip")
+        );
+        assert_eq!(
+            native_command_provider("cargo install ripgrep"),
+            Some("cargo")
         );
         assert_eq!(native_command_provider("curl https://example.test"), None);
         assert_eq!(fmt_int(-12345), "-12,345");

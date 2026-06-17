@@ -136,6 +136,8 @@ run_step "package version freshness generation" \
   python3 "${AV_DB_ROOT}/scripts/generate-pkg-version-freshness.py"
 run_step "package manager index generation" \
   python3 "${AV_DB_ROOT}/scripts/generate-pkg-manager-indexes.py"
+run_step "crates.io package index generation" \
+  python3 "${AV_DB_ROOT}/scripts/bootstrap/02-crates-index.py" --refresh
 run_step "package cross-ecosystem generation" \
   python3 "${AV_DB_ROOT}/scripts/generate-pkg-cross-ecosystem.py"
 run_step "package graph prepass generation" \
