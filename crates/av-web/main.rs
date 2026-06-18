@@ -5248,6 +5248,13 @@ mod tests {
                 "ecosystem",
             ),
             (
+                "/pkg/crates-cli-packages/",
+                "crates-cli-packages",
+                "crates.io command packages",
+                "crates.io packages with local package pages and command-line or developer workflow metadata.",
+                "ecosystem",
+            ),
+            (
                 "/pkg/source-control/",
                 "source-control",
                 "Source control",
@@ -5277,6 +5284,13 @@ mod tests {
                 [],
             )
             .expect("insert related hub package");
+        connection
+            .execute(
+                "INSERT INTO hub_packages(hub_slug, package_key, position, reason)
+                 VALUES('crates-cli-packages', 'cargo:ripgrep', 1, 'Matched crates.io Cargo package provider.')",
+                [],
+            )
+            .expect("insert crates.io hub package");
         for (path, title, summary, provider, key, rank, text) in [
             (
                 "/pkg/brew/awscli/",
@@ -5595,6 +5609,13 @@ mod tests {
         let hub_markdown = dynamic_response_for_path(db.path(), "/pkg/cloud/index.md")
             .expect("query")
             .expect("hub markdown response");
+        let crates_hub = dynamic_response_for_path(db.path(), "/pkg/crates-cli-packages/")
+            .expect("query")
+            .expect("crates.io hub response");
+        let crates_hub_markdown =
+            dynamic_response_for_path(db.path(), "/pkg/crates-cli-packages/index.md")
+                .expect("query")
+                .expect("crates.io hub markdown response");
         let index = dynamic_response_for_path(db.path(), "/de/pkg/")
             .expect("query")
             .expect("localized index response");
@@ -5658,19 +5679,37 @@ mod tests {
         assert!(hub_markdown.contains("Cloud tools"));
         assert!(hub_markdown.contains("[awscli](https://www.automicvault.com/pkg/brew/awscli/)"));
 
+        let crates_hub_html = String::from_utf8(crates_hub.body).expect("crates.io hub html");
+        assert!(crates_hub_html.contains("crates.io command packages"));
+        assert!(crates_hub_html.contains("ripgrep"));
+        assert!(crates_hub_html.contains("Cargo"));
+        assert!(crates_hub_html.contains("Matched crates.io Cargo package provider."));
+        assert!(crates_hub_html.contains("/pkg/crates-cli-packages/index.md"));
+
+        assert_eq!(
+            crates_hub_markdown.content_type,
+            "text/markdown; charset=utf-8"
+        );
+        let crates_hub_markdown =
+            String::from_utf8(crates_hub_markdown.body).expect("crates.io hub markdown");
+        assert!(crates_hub_markdown.contains("# crates.io command packages"));
+        assert!(
+            crates_hub_markdown
+                .contains("[ripgrep](https://www.automicvault.com/pkg/cargo/ripgrep/)")
+        );
+
         let index_html = String::from_utf8(index.body).expect("index html");
         assert!(index_html.contains("data-locale=\"de\""));
         assert!(index_html.contains("Risky tools"));
         assert!(index_html.contains("JavaScript"));
+        assert!(index_html.contains("crates.io command packages"));
 
         let sitemap_index_xml = String::from_utf8(sitemap_index.body).expect("sitemap index xml");
         assert!(sitemap_index_xml.contains("/pkg/sitemap-brew.xml"));
         assert!(sitemap_index_xml.contains("/pkg/sitemap-cargo.xml"));
-        assert!(
-            String::from_utf8(hub_sitemap.body)
-                .expect("hub sitemap xml")
-                .contains("/pkg/risky-tools/")
-        );
+        let hub_sitemap_xml = String::from_utf8(hub_sitemap.body).expect("hub sitemap xml");
+        assert!(hub_sitemap_xml.contains("/pkg/risky-tools/"));
+        assert!(hub_sitemap_xml.contains("/pkg/crates-cli-packages/"));
         assert!(
             String::from_utf8(sitemap.body)
                 .expect("sitemap xml")
