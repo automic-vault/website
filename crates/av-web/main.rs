@@ -1002,7 +1002,7 @@ fn render_index_page(connection: &Connection, locale: &Locale) -> Result<String,
     let schema = json!({
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "name": "Automic Vault package security catalog",
+        "name": catalog_title.clone(),
         "url": locale_url("/pkg/", locale),
         "inLanguage": locale.hreflang,
         "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": format!("{SITE_ORIGIN}/")},
@@ -1063,7 +1063,8 @@ fn render_hub_page(
     body.push_str(&site_nav(locale));
     body.push_str("<main>");
     body.push_str(&format!(
-        r#"<nav class="breadcrumbs" aria-label="Breadcrumbs"><a href="{}">{}</a><span>/</span><a href="{}">{}</a><span>/</span><span>{}</span></nav><section class="pkg-hero pkg-hero-index" aria-labelledby="hub-title"><div class="hero-copy"><p class="eyebrow">{}</p><h1 id="hub-title">{}</h1><p class="lede">{}</p></div><aside class="hero-panel" aria-label="{}">{}{}{}{}</aside></section>"#,
+        r#"<nav class="breadcrumbs" aria-label="{}"><a href="{}">{}</a><span>/</span><a href="{}">{}</a><span>/</span><span>{}</span></nav><section class="pkg-hero pkg-hero-index" aria-labelledby="hub-title"><div class="hero-copy"><p class="eyebrow">{}</p><h1 id="hub-title">{}</h1><p class="lede">{}</p></div><aside class="hero-panel" aria-label="{}">{}{}{}{}</aside></section>"#,
+        html_escape(&tx(locale, "breadcrumbs", "Breadcrumbs")),
         html_escape(&locale_path("/", locale)),
         html_escape(&tx(locale, "home", "Home")),
         html_escape(&locale_path("/pkg/", locale)),
@@ -1164,7 +1165,11 @@ fn render_hub_page(
     let schema_json = serde_json::to_string_pretty(&schema).unwrap_or_else(|_| "{}".to_string());
     Ok(html_doc(
         locale,
-        &format!("{} | Automic Vault package catalog", hub.title),
+        &format!(
+            "{} | {}",
+            hub.title,
+            tx(locale, "packageCatalogTitle", "Package security catalog")
+        ),
         &description,
         &locale_url(&hub.path, locale),
         "index,follow",
@@ -1253,7 +1258,7 @@ fn render_package_page(package: &PackageRow, locale: &Locale, generated_at: &str
         &[("name", package.display_name.clone())],
     );
     let title = format!("{install_heading} | Automic Vault");
-    let description = meta_description(package);
+    let description = meta_description(package, locale);
     let updated = first_non_empty(&[
         display_last_verified(package),
         package.last_updated_at.clone(),
@@ -1268,7 +1273,8 @@ fn render_package_page(package: &PackageRow, locale: &Locale, generated_at: &str
     body.push_str(&site_nav(locale));
     body.push_str("<main>");
     body.push_str(&format!(
-        r#"<nav class="breadcrumbs" aria-label="Breadcrumbs"><a href="{}">{}</a><span>/</span><a href="{}">{}</a><span>/</span><span>{}</span></nav>"#,
+        r#"<nav class="breadcrumbs" aria-label="{}"><a href="{}">{}</a><span>/</span><a href="{}">{}</a><span>/</span><span>{}</span></nav>"#,
+        html_escape(&tx(locale, "breadcrumbs", "Breadcrumbs")),
         html_escape(&locale_path("/", locale)),
         html_escape(&tx(locale, "home", "Home")),
         html_escape(&locale_path("/pkg/", locale)),
@@ -1314,36 +1320,84 @@ fn render_package_page(package: &PackageRow, locale: &Locale, generated_at: &str
         ),
         &schema_json,
         &body,
-        &copy_script(),
+        &copy_script(locale),
     )
 }
 
 fn render_package_markdown(package: &PackageRow, locale: &Locale, generated_at: &str) -> String {
     let mut text = format!(
-        "# Install {}\n\n{}\n\n## Install\n\n```sh\n{}\n```\n\n",
-        package.display_name,
-        hero_sentence(package),
+        "# {}\n\n{}\n\n## {}\n\n```sh\n{}\n```\n\n",
+        txf(
+            locale,
+            "installHeading",
+            "Install {name}",
+            &[("name", package.display_name.clone())],
+        ),
+        localized_hero_sentence(package, locale),
+        tx(locale, "install", "Install"),
         package.install_command,
     );
     markdown_agent_safety_section(&mut text, package, locale);
-    markdown_install_groups(&mut text, package);
-    text.push_str("## Package Facts\n\n");
+    markdown_install_groups(&mut text, package, locale);
+    text.push_str(&format!(
+        "## {}\n\n",
+        tx(locale, "packageFacts", "Package facts")
+    ));
     for (label, value) in [
-        ("Package key", package.package_key.clone()),
-        ("Package manager", package.provider_label.clone()),
-        ("Package manager URL", package.package_manager_url.clone()),
-        ("Version", authoritative_package_version(package)),
-        ("Source summary", package.summary.clone()),
-        ("Homepage", package.homepage.clone()),
-        ("Repository", package.repository.clone()),
-        ("Upstream docs", full_str(package, "upstreamDocs")),
-        ("License", package.license.clone()),
-        ("Source archive", full_str(package, "sourceArchive")),
-        ("Issue tracker", full_str(package, "issueTracker")),
-        ("Published", full_str(package, "publishedAt")),
-        ("Last verified", display_last_verified(package)),
-        ("Last updated", package.last_updated_at.clone()),
-        ("Generated", generated_at.to_string()),
+        (
+            tx(locale, "packageKey", "Package key"),
+            package.package_key.clone(),
+        ),
+        (
+            tx(locale, "packageManager", "Package manager"),
+            package.provider_label.clone(),
+        ),
+        (
+            tx(locale, "packageManagerPage", "Package manager page"),
+            package.package_manager_url.clone(),
+        ),
+        (
+            tx(locale, "version", "Version"),
+            authoritative_package_version(package),
+        ),
+        (
+            tx(locale, "sourceSummary", "Source summary"),
+            package.summary.clone(),
+        ),
+        (tx(locale, "homepage", "Homepage"), package.homepage.clone()),
+        (
+            tx(locale, "repository", "Repository"),
+            package.repository.clone(),
+        ),
+        (
+            tx(locale, "upstreamDocs", "Upstream docs"),
+            full_str(package, "upstreamDocs"),
+        ),
+        (tx(locale, "license", "License"), package.license.clone()),
+        (
+            tx(locale, "sourceArchive", "Source archive"),
+            full_str(package, "sourceArchive"),
+        ),
+        (
+            tx(locale, "issueTracker", "Issue tracker"),
+            full_str(package, "issueTracker"),
+        ),
+        (
+            tx(locale, "published", "Published"),
+            full_str(package, "publishedAt"),
+        ),
+        (
+            tx(locale, "lastVerified", "Last verified"),
+            display_last_verified(package),
+        ),
+        (
+            tx(locale, "lastUpdated", "Last updated"),
+            package.last_updated_at.clone(),
+        ),
+        (
+            tx(locale, "generated", "Generated"),
+            generated_at.to_string(),
+        ),
     ] {
         if !value.trim().is_empty() {
             text.push_str(&format!("- **{}:** {}\n", label, markdown_value(&value)));
@@ -1351,33 +1405,33 @@ fn render_package_markdown(package: &PackageRow, locale: &Locale, generated_at: 
     }
     markdown_value_list(
         &mut text,
-        "Executables",
-        &executable_markdown_items(package),
+        &tx(locale, "executables", "Executables"),
+        &executable_markdown_items(package, locale),
     );
     markdown_value_list(
         &mut text,
-        "Dependencies",
+        &tx(locale, "dependencies", "Dependencies"),
         &full_string_array(package, "dependencies"),
     );
     markdown_value_list(
         &mut text,
-        "Build Dependencies",
+        &tx(locale, "buildDependencies", "Build dependencies"),
         &full_string_array(package, "buildDependencies"),
     );
     markdown_value_list(
         &mut text,
-        "macOS Provided Libraries",
+        &tx(locale, "usesFromMacos", "Uses from macOS"),
         &full_string_array(package, "usesFromMacos"),
     );
     markdown_value_list(
         &mut text,
-        "Install Behavior",
-        &markdown_install_behavior_items(package),
+        &tx(locale, "installBehaviorTitle", "Install behavior"),
+        &markdown_install_behavior_items(package, locale),
     );
     markdown_value_list(
         &mut text,
-        "Freshness",
-        &markdown_freshness_items(package, generated_at),
+        &tx(locale, "freshnessTitle", "Freshness"),
+        &markdown_freshness_items(package, generated_at, locale),
     );
     markdown_security_section(&mut text, package, locale);
     markdown_registry_insights(&mut text, package, locale);
@@ -1385,7 +1439,7 @@ fn render_package_markdown(package: &PackageRow, locale: &Locale, generated_at: 
     markdown_related(&mut text, package, locale);
     markdown_value_list(
         &mut text,
-        "Sources",
+        &tx(locale, "sources", "Sources"),
         &full_string_array(package, "sourceNotes"),
     );
     text
@@ -1466,44 +1520,59 @@ fn html_doc(
 
 fn site_nav(locale: &Locale) -> String {
     format!(
-        r#"<header class="masthead"><a class="brand" href="{}" aria-label="Automic Vault home"><img class="brand-mark" src="/assets/icon@2x.webp" alt="Automic Vault" width="54" height="54"><span class="brand-type">Automic Vault</span></a><nav class="nav" aria-label="Main navigation"><a href="{}">Docs</a><a href="{}">Security</a><a href="{}">Packages</a><a href="https://github.com/automic-vault/">GitHub</a></nav></header>"#,
+        r#"<header class="masthead"><a class="brand" href="{}" aria-label="{}"><img class="brand-mark" src="/assets/icon@2x.webp" alt="Automic Vault" width="54" height="54"><span class="brand-type">Automic Vault</span></a><nav class="nav" aria-label="{}"><a href="{}">{}</a><a href="{}">{}</a><a href="{}">{}</a><a href="https://github.com/automic-vault/">GitHub</a></nav></header>"#,
         html_escape(&locale_path("/", locale)),
+        html_escape(&tx(locale, "brandHomeAria", "Automic Vault home")),
+        html_escape(&tx(locale, "mainNavigation", "Main navigation")),
         html_escape(&locale_path("/docs/", locale)),
+        html_escape(&tx(locale, "docs", "Docs")),
         html_escape(&locale_path("/security/", locale)),
+        html_escape(&tx(locale, "security", "Security")),
         html_escape(&locale_path("/pkg/", locale)),
+        html_escape(&tx(locale, "packages", "Packages")),
     )
 }
 
 fn site_footer(locale: &Locale) -> String {
     format!(
-        r#"<footer class="site-footer"><p>Automic Vault secures Homebrew tools, CLI secrets, and command approval gates locally on your Mac before AI agents use them.</p><div class="footer-links"><a href="{}">Privacy</a><a href="{}">Terms</a><a href="{}">llms.txt</a></div></footer>"#,
+        r#"<footer class="site-footer"><p>{}</p><div class="footer-links"><a href="{}">{}</a><a href="{}">{}</a><a href="{}">llms.txt</a></div></footer>"#,
+        html_escape(&tx(
+            locale,
+            "footer",
+            "Automic Vault secures Homebrew tools, CLI secrets, and command approval gates locally on your Mac before AI agents use them."
+        )),
         html_escape(&locale_path("/privacy/", locale)),
+        html_escape(&tx(locale, "privacy", "Privacy")),
         html_escape(&locale_path("/terms/", locale)),
+        html_escape(&tx(locale, "terms", "Terms")),
         html_escape(&locale_path("/llms.txt", locale)),
     )
 }
 
-fn copy_script() -> String {
-    r#"  <script>
-    document.addEventListener("click", async (event) => {
+fn copy_script(locale: &Locale) -> String {
+    format!(
+        r#"  <script>
+    document.addEventListener("click", async (event) => {{
       const button = event.target.closest("[data-copy]");
       if (!button) return;
-      try {
+      try {{
         await navigator.clipboard.writeText(button.getAttribute("data-copy"));
         const previous = button.textContent;
-        button.textContent = "Copied";
+        button.textContent = "{}";
         button.setAttribute("data-state", "copied");
-        window.setTimeout(() => {
+        window.setTimeout(() => {{
           button.textContent = previous;
           button.removeAttribute("data-state");
-        }, 1600);
-      } catch (_error) {
-        button.textContent = "Copy failed";
+        }}, 1600);
+      }} catch (_error) {{
+        button.textContent = "{}";
         button.setAttribute("data-state", "error");
-      }
-    });
-  </script>"#
-        .to_string()
+      }}
+    }});
+  </script>"#,
+        js_string_escape(&tx(locale, "copied", "Copied")),
+        js_string_escape(&tx(locale, "copyFailed", "Copy failed")),
+    )
 }
 
 fn html_hreflang_links(canonical: &str) -> String {
@@ -1557,12 +1626,14 @@ fn render_install(package: &PackageRow, locale: &Locale) -> String {
                 .collect::<String>()
         })
         .unwrap_or_default();
-    let platform_html = render_platform_install_commands(&commands[1..]);
+    let platform_html = render_platform_install_commands(&commands[1..], locale);
     let manager_link = if package.package_manager_url.is_empty() {
-        format!(
-            "{} metadata was not linked in local data.",
-            html_escape(&package.provider_label)
-        )
+        html_escape(&txf(
+            locale,
+            "installSourceMissing",
+            "{manager} metadata was not linked in local data.",
+            &[("manager", package.provider_label.clone())],
+        ))
     } else {
         format!(
             r#"<a href="{}">{}</a>"#,
@@ -1663,13 +1734,20 @@ fn render_agent_safety_answer(package: &PackageRow, locale: &Locale) -> String {
     )
 }
 
-fn render_platform_install_commands(commands: &[Value]) -> String {
+fn render_platform_install_commands(commands: &[Value], locale: &Locale) -> String {
     let mut sections = Vec::new();
     for (platform, label) in [
-        ("macos", "macOS"),
-        ("linux", "Linux"),
-        ("windows", "Windows"),
-        ("portable", "Portable and language managers"),
+        ("macos", tx(locale, "macos", "macOS")),
+        ("linux", tx(locale, "linux", "Linux")),
+        ("windows", tx(locale, "windows", "Windows")),
+        (
+            "portable",
+            tx(
+                locale,
+                "platformPortableLanguageManagers",
+                "Portable and language managers",
+            ),
+        ),
     ] {
         let rows = commands
             .iter()
@@ -1677,12 +1755,12 @@ fn render_platform_install_commands(commands: &[Value]) -> String {
                 value_str_key(item, "platform").unwrap_or_else(|| "portable".to_string())
                     == platform
             })
-            .map(install_command_row)
+            .map(|item| install_command_row(item, locale))
             .collect::<String>();
         if !rows.is_empty() {
             sections.push(format!(
                 r#"<article><h3>{}</h3><div class="install-command-list">{}</div></article>"#,
-                html_escape(label),
+                html_escape(&label),
                 rows
             ));
         }
@@ -1691,30 +1769,41 @@ fn render_platform_install_commands(commands: &[Value]) -> String {
         String::new()
     } else {
         format!(
-            r#"<div class="platform-install-grid" aria-label="Platform install commands">{}</div>"#,
+            r#"<div class="platform-install-grid" aria-label="{}">{}</div>"#,
+            html_escape(&tx(
+                locale,
+                "platformInstallCommands",
+                "Platform install commands"
+            )),
             sections.join("")
         )
     }
 }
 
-fn install_command_row(item: &Value) -> String {
+fn install_command_row(item: &Value, locale: &Locale) -> String {
     let command = value_str_key(item, "command").unwrap_or_default();
     let label = install_command_manager_label(item);
     let confidence = value_f64_key(item, "confidence").unwrap_or(0.0);
     let confidence_label = if confidence >= 0.9 {
-        "verified"
+        tx(locale, "verified", "verified")
     } else {
-        "inferred"
+        tx(locale, "inferred", "inferred")
     };
-    let source = install_command_source_html(item);
+    let source = install_command_source_html(item, locale);
     format!(
-        r#"<div class="install-command-row"><div class="install-command-head"><strong class="install-command-eyebrow">{}</strong><span>{} · {:.0}%</span></div><div class="install-command-shell"><code>{}</code><button class="copy-button" type="button" data-copy="{}" aria-label="Copy {} install command">Copy</button></div>{}</div>"#,
+        r#"<div class="install-command-row"><div class="install-command-head"><strong class="install-command-eyebrow">{}</strong><span>{} · {:.0}%</span></div><div class="install-command-shell"><code>{}</code><button class="copy-button" type="button" data-copy="{}" aria-label="{}">{}</button></div>{}</div>"#,
         html_escape(&label),
-        confidence_label,
+        html_escape(&confidence_label),
         confidence * 100.0,
         html_escape(&command),
         html_escape(&command),
-        html_escape(&label),
+        html_escape(&txf(
+            locale,
+            "copyManagerInstallCommand",
+            "Copy {manager} install command",
+            &[("manager", label.clone())],
+        )),
+        html_escape(&tx(locale, "copy", "Copy")),
         source
     )
 }
@@ -1749,7 +1838,7 @@ fn install_command_manager_label(item: &Value) -> String {
     }
 }
 
-fn install_command_source_html(item: &Value) -> String {
+fn install_command_source_html(item: &Value, locale: &Locale) -> String {
     if let Some(source) = item.get("source").filter(|value| value.is_object()) {
         let label = value_str_key(source, "source_label").unwrap_or_default();
         let package_name = value_str_key(source, "package_name")
@@ -1763,8 +1852,9 @@ fn install_command_source_html(item: &Value) -> String {
             .collect::<Vec<_>>();
         if !source_url.is_empty() {
             pieces.push(format!(
-                r#"<a href="{}">source: {}</a>"#,
+                r#"<a href="{}">{}: {}</a>"#,
                 html_escape(&source_url),
+                html_escape(&tx(locale, "source", "source")),
                 html_escape(source_host_label(&source_url))
             ));
         }
@@ -1835,18 +1925,22 @@ fn render_overview(package: &PackageRow, locale: &Locale) -> String {
 }
 
 fn render_security(package: &PackageRow, locale: &Locale) -> String {
-    let geiger = render_geiger(package);
-    let install_signals = render_install_behavior_signals(package);
+    let geiger = render_geiger(package, locale);
+    let install_signals = render_install_behavior_signals(package, locale);
     let gate = render_gate(package, locale);
     if let Some(isotope) = full_value(package, "isotope").filter(|value| value.is_object()) {
         let justification = isotope.get("justification").unwrap_or(&Value::Null);
         let title = value_str_key(justification, "title")
-            .or_else(|| Some("Protected-tool coverage".to_string()))
+            .or_else(|| Some(tx(locale, "radioisotopeKicker", "Protected-tool coverage")))
             .unwrap();
         let detail = value_str_key(justification, "detail")
             .or_else(|| full_opt_str(package, "isotopeReadme"))
             .unwrap_or_else(|| {
-                "Automic Vault has a local secret-handling manifest for this package.".to_string()
+                tx(
+                    locale,
+                    "radioisotopeManifestFallback",
+                    "Automic Vault has a local secret-handling manifest for this package.",
+                )
             });
         let caveats = isotope
             .get("caveats")
@@ -1888,7 +1982,14 @@ fn render_security(package: &PackageRow, locale: &Locale) -> String {
             )),
             html_escape(&tx(locale, "caveats", "Caveats")),
             if caveats.is_empty() {
-                "<li>No caveats were listed in the local manifest.</li>".to_string()
+                format!(
+                    "<li>{}</li>",
+                    html_escape(&tx(
+                        locale,
+                        "noCaveats",
+                        "No caveats were listed in the local manifest."
+                    ))
+                )
             } else {
                 caveats
             },
@@ -1914,7 +2015,7 @@ fn render_security(package: &PackageRow, locale: &Locale) -> String {
     )
 }
 
-fn render_geiger(package: &PackageRow) -> String {
+fn render_geiger(package: &PackageRow, locale: &Locale) -> String {
     let Some(geiger) = full_value(package, "geiger").filter(|value| value.is_object()) else {
         return String::new();
     };
@@ -1931,26 +2032,73 @@ fn render_geiger(package: &PackageRow) -> String {
         .map(|item| format!("<li>{}</li>", html_escape(&item)))
         .collect::<String>();
     format!(
-        r#"<div class="signal-grid" aria-label="Geiger classifier signals"><article><h3>Risk classifier</h3><p><strong>{}</strong> risk · {} confidence · {}</p></article><article><h3>Why</h3><ul>{}</ul></article><article><h3>Signals</h3><ul>{}</ul></article></div>"#,
-        html_escape(&value_str_key(geiger, "level").unwrap_or_else(|| "unknown".to_string())),
-        html_escape(&value_str_key(geiger, "confidence").unwrap_or_else(|| "unknown".to_string())),
-        html_escape(
-            &value_str_key(geiger, "category").unwrap_or_else(|| "uncategorized".to_string())
-        ),
+        r#"<div class="signal-grid" aria-label="{}"><article><h3>{}</h3><p>{}</p></article><article><h3>{}</h3><ul>{}</ul></article><article><h3>{}</h3><ul>{}</ul></article></div>"#,
+        html_escape(&tx(
+            locale,
+            "geigerSignalsAria",
+            "Geiger classifier signals"
+        )),
+        html_escape(&tx(locale, "riskClassifier", "Risk classifier")),
+        html_escape(&txf(
+            locale,
+            "geigerRiskSummary",
+            "{level} risk · {confidence} confidence · {category}",
+            &[
+                (
+                    "level",
+                    localized_standard_value(
+                        locale,
+                        &value_str_key(geiger, "level").unwrap_or_else(|| "unknown".to_string()),
+                    ),
+                ),
+                (
+                    "confidence",
+                    localized_standard_value(
+                        locale,
+                        &value_str_key(geiger, "confidence")
+                            .unwrap_or_else(|| "unknown".to_string()),
+                    ),
+                ),
+                (
+                    "category",
+                    localized_standard_value(
+                        locale,
+                        &value_str_key(geiger, "category")
+                            .unwrap_or_else(|| "uncategorized".to_string()),
+                    ),
+                ),
+            ],
+        )),
+        html_escape(&tx(locale, "why", "Why")),
         if reasons.is_empty() {
-            "<li>No classifier reasons were present.</li>".to_string()
+            format!(
+                "<li>{}</li>",
+                html_escape(&tx(
+                    locale,
+                    "noClassifierReasons",
+                    "No classifier reasons were present."
+                ))
+            )
         } else {
             reasons
         },
+        html_escape(&tx(locale, "signals", "Signals")),
         if signals.is_empty() {
-            "<li>No classifier signals were present.</li>".to_string()
+            format!(
+                "<li>{}</li>",
+                html_escape(&tx(
+                    locale,
+                    "noClassifierSignals",
+                    "No classifier signals were present."
+                ))
+            )
         } else {
             signals
         },
     )
 }
 
-fn render_install_behavior_signals(package: &PackageRow) -> String {
+fn render_install_behavior_signals(package: &PackageRow, locale: &Locale) -> String {
     let Some(behavior) = full_value(package, "installBehavior").filter(|value| value.is_object())
     else {
         return String::new();
@@ -1961,81 +2109,138 @@ fn render_install_behavior_signals(package: &PackageRow) -> String {
         .and_then(Value::as_array)
         .filter(|items| !items.is_empty())
     {
-        signals.push(format!(
-            "npm lifecycle scripts are declared: {}.",
-            items
-                .iter()
-                .take(5)
-                .filter_map(value_string)
-                .collect::<Vec<_>>()
-                .join(", ")
+        signals.push(txf(
+            locale,
+            "signalNpmLifecycle",
+            "npm lifecycle scripts are declared: {scripts}.",
+            &[(
+                "scripts",
+                items
+                    .iter()
+                    .take(5)
+                    .filter_map(value_string)
+                    .collect::<Vec<_>>()
+                    .join(", "),
+            )],
         ));
     }
     if let Some(value) = behavior.get("postInstallDefined").and_then(Value::as_bool) {
         signals.push(if value {
             if package.provider == "npm" {
-                "npm package metadata declares a postinstall script.".to_string()
+                tx(
+                    locale,
+                    "signalNpmPostinstall",
+                    "npm package metadata declares a postinstall script.",
+                )
             } else {
-                "Homebrew declares a post-install hook for this formula.".to_string()
+                tx(
+                    locale,
+                    "signalHomebrewPostinstall",
+                    "Homebrew declares a post-install hook for this formula.",
+                )
             }
         } else if package.provider == "npm" {
-            "No npm postinstall script is recorded in package metadata.".to_string()
+            tx(
+                locale,
+                "signalNoNpmPostinstall",
+                "No npm postinstall script is recorded in package metadata.",
+            )
         } else {
-            "No Homebrew post-install hook is recorded in formula metadata.".to_string()
+            tx(
+                locale,
+                "signalNoHomebrewPostinstall",
+                "No Homebrew post-install hook is recorded in formula metadata.",
+            )
         });
     }
     if behavior.get("prepareDefined").and_then(Value::as_bool) == Some(true) {
-        signals.push("npm package metadata declares a prepare script.".to_string());
+        signals.push(tx(
+            locale,
+            "signalNpmPrepare",
+            "npm package metadata declares a prepare script.",
+        ));
     }
     if let Some(value) = value_str_key(behavior, "pythonRequires").filter(|value| !value.is_empty())
     {
-        signals.push(format!("PyPI metadata requires Python {value}."));
+        signals.push(txf(
+            locale,
+            "signalPythonRequires",
+            "PyPI metadata requires Python {version}.",
+            &[("version", value)],
+        ));
     }
     if let Some(value) = value_i64_key(behavior, "requiresDistCount").filter(|value| *value > 0) {
-        signals.push(format!(
-            "PyPI metadata lists {value} dependency specifications."
+        signals.push(txf(
+            locale,
+            "signalRequiresDistCount",
+            "PyPI metadata lists {count} dependency specifications.",
+            &[("count", fmt_int(value))],
         ));
     }
     if value_str_key(behavior, "service")
         .filter(|value| !value.is_empty())
         .is_some()
     {
-        signals.push("Formula metadata declares a service or daemon block.".to_string());
+        signals.push(tx(
+            locale,
+            "signalService",
+            "Formula metadata declares a service or daemon block.",
+        ));
     }
     if let Some(bottle) = full_value(package, "bottle").filter(|value| value.is_object()) {
         if bottle.get("available").and_then(Value::as_bool) == Some(true) {
             let platforms = value_array(bottle, "platforms");
             if platforms.is_empty() {
-                signals.push("Homebrew bottle metadata is available.".to_string());
+                signals.push(tx(
+                    locale,
+                    "signalBottleAvailable",
+                    "Homebrew bottle metadata is available.",
+                ));
             } else {
-                signals.push(format!(
-                    "Homebrew bottle metadata is available for {} platform targets.",
-                    platforms.len()
+                signals.push(txf(
+                    locale,
+                    "signalBottlePlatforms",
+                    "Homebrew bottle metadata is available for {count} platform targets.",
+                    &[("count", fmt_int(platforms.len() as i64))],
                 ));
             }
         } else {
-            signals.push("No Homebrew bottle metadata was recorded.".to_string());
+            signals.push(tx(
+                locale,
+                "signalNoBottle",
+                "No Homebrew bottle metadata was recorded.",
+            ));
         }
     }
     let dependencies = full_string_array(package, "dependencies");
     if !dependencies.is_empty() {
-        signals.push(format!(
-            "Installs with {} runtime dependencies.",
-            dependencies.len()
+        signals.push(txf(
+            locale,
+            "signalDependencies",
+            "Installs with {count} runtime dependencies.",
+            &[("count", fmt_int(dependencies.len() as i64))],
         ));
     }
     let build_dependencies = full_string_array(package, "buildDependencies");
     if !build_dependencies.is_empty() {
-        signals.push(format!(
-            "Build metadata lists {} build dependencies.",
-            build_dependencies.len()
+        signals.push(txf(
+            locale,
+            "signalBuildDependencies",
+            "Build metadata lists {count} build dependencies.",
+            &[("count", fmt_int(build_dependencies.len() as i64))],
         ));
     }
     if signals.is_empty() {
         String::new()
     } else {
         format!(
-            r#"<div class="signal-grid install-signal-grid" aria-label="Install behavior signals"><article><h3>Install behavior</h3><ul>{}</ul></article></div>"#,
+            r#"<div class="signal-grid install-signal-grid" aria-label="{}"><article><h3>{}</h3><ul>{}</ul></article></div>"#,
+            html_escape(&tx(
+                locale,
+                "installBehaviorSignals",
+                "Install behavior signals"
+            )),
+            html_escape(&tx(locale, "installBehaviorTitle", "Install behavior")),
             signals
                 .into_iter()
                 .take(6)
@@ -2070,8 +2275,25 @@ fn render_gate(package: &PackageRow, locale: &Locale) -> String {
     let reviewed_copy = if reviewed.is_empty() {
         String::new()
     } else {
-        format!(", reviewed {reviewed}")
+        txf(
+            locale,
+            "approvalGateReviewedSuffix",
+            ", reviewed {date}",
+            &[("date", reviewed)],
+        )
     };
+    let severities = if severities.is_empty() {
+        tx(locale, "notSpecified", "not specified")
+    } else {
+        severities
+            .split(',')
+            .map(|value| localized_standard_value(locale, value.trim()))
+            .collect::<Vec<_>>()
+            .join(", ")
+    };
+    let coverage = value_str_key(gate, "coverage_status")
+        .map(|value| localized_standard_value(locale, &value))
+        .unwrap_or_else(|| tx(locale, "unknown", "unknown"));
     format!(
         r#"<section class="pkg-section split-section gate-section"><div><p class="section-kicker">{}</p><h2>{}</h2><p>{}</p></div><div class="detail-stack"><article><h3>{}</h3><ul>{}</ul></article></div></section>"#,
         html_escape(&tx(locale, "approvalGatesKicker", "approval gates")),
@@ -2098,18 +2320,8 @@ fn render_gate(package: &PackageRow, locale: &Locale) -> String {
                         entrypoints.clone()
                     }
                 ),
-                (
-                    "severities",
-                    if severities.is_empty() {
-                        "not specified".to_string()
-                    } else {
-                        severities.clone()
-                    }
-                ),
-                (
-                    "coverage",
-                    value_str_key(gate, "coverage_status").unwrap_or_else(|| "unknown".to_string())
-                ),
+                ("severities", severities.clone()),
+                ("coverage", coverage.clone()),
                 ("reviewed", reviewed_copy.clone()),
             ],
         )),
@@ -2145,6 +2357,7 @@ fn render_executables(package: &PackageRow, locale: &Locale) -> String {
             &value_str_key(item, "kind").unwrap_or_else(|| "executable".to_string()),
             &value_str_key(item, "exposure").unwrap_or_else(|| "global executable".to_string()),
             &value_str_key(item, "note").unwrap_or_default(),
+            locale,
         ));
     }
     for item in value_array(&package.data.full, "binaries") {
@@ -2157,6 +2370,7 @@ fn render_executables(package: &PackageRow, locale: &Locale) -> String {
                 "binary",
                 "Homebrew cask binary",
                 &value_str_key(item, "source").unwrap_or_default(),
+                locale,
             ));
         }
     }
@@ -2181,6 +2395,7 @@ fn render_executables(package: &PackageRow, locale: &Locale) -> String {
                     "indexed executable"
                 },
                 "Discovered from the local executable index.",
+                locale,
             ));
         }
     }
@@ -2207,13 +2422,13 @@ fn render_executables(package: &PackageRow, locale: &Locale) -> String {
     )
 }
 
-fn executable_row(name: &str, kind: &str, exposure: &str, note: &str) -> String {
+fn executable_row(name: &str, kind: &str, exposure: &str, note: &str, locale: &Locale) -> String {
     format!(
         "<tr><td><code>{}</code></td><td>{}</td><td>{}</td><td>{}</td></tr>",
         html_escape(name),
-        html_escape(kind),
-        html_escape(exposure),
-        html_escape(note)
+        html_escape(&localized_executable_text(locale, kind)),
+        html_escape(&localized_executable_text(locale, exposure)),
+        html_escape(&localized_executable_text(locale, note))
     )
 }
 
@@ -2235,8 +2450,8 @@ fn render_freshness(package: &PackageRow, generated_at: &str, locale: &Locale) -
             format!(
                 r#"<li class="freshness-item freshness-{}"><strong>{}</strong><span>{}</span>{}{}</li>"#,
                 html_escape(&severity),
-                html_escape(&severity),
-                html_escape(&message),
+                html_escape(&localized_standard_value(locale, &severity)),
+                html_escape(&localized_freshness_message(locale, &message)),
                 if evidence.is_empty() {
                     String::new()
                 } else {
@@ -2245,13 +2460,32 @@ fn render_freshness(package: &PackageRow, generated_at: &str, locale: &Locale) -
                 if confidence.is_empty() {
                     String::new()
                 } else {
-                    format!("<em>{} confidence</em>", html_escape(&confidence))
+                    format!(
+                        "<em>{}</em>",
+                        html_escape(&txf(
+                            locale,
+                            "confidenceSuffix",
+                            "{confidence} confidence",
+                            &[(
+                                "confidence",
+                                localized_standard_value(locale, &confidence)
+                            )],
+                        ))
+                    )
                 }
             )
         })
         .collect::<String>();
     let warnings = if warnings.is_empty() {
-        r#"<li class="freshness-item freshness-info"><strong>ok</strong><span>No freshness warnings were generated.</span></li>"#.to_string()
+        format!(
+            r#"<li class="freshness-item freshness-info"><strong>{}</strong><span>{}</span></li>"#,
+            html_escape(&localized_standard_value(locale, "ok")),
+            html_escape(&tx(
+                locale,
+                "noFreshnessWarnings",
+                "No freshness warnings were generated."
+            ))
+        )
     } else {
         warnings
     };
@@ -2277,15 +2511,20 @@ fn render_freshness(package: &PackageRow, generated_at: &str, locale: &Locale) -
             &value_str_key(manager, "updatedAt").unwrap_or_else(|| package.last_updated_at.clone())
         )),
         html_escape(&tx(locale, "localData", "local data")),
-        html_escape(&value_str_key(site, "status").unwrap_or_else(|| "unknown".to_string())),
+        html_escape(&localized_standard_value(
+            locale,
+            &value_str_key(site, "status").unwrap_or_else(|| "unknown".to_string())
+        )),
         html_escape(&tx(locale, "upstream", "upstream")),
-        html_escape(
+        html_escape(&localized_standard_value(
+            locale,
             &value_str_key(upstream, "comparison").unwrap_or_else(|| "not available".to_string())
-        ),
+        )),
         html_escape(&tx(locale, "upstreamLatestDetected", "latest detected")),
-        html_escape(
+        html_escape(&localized_standard_value(
+            locale,
             &value_str_key(upstream, "latestVersion").unwrap_or_else(|| "not detected".to_string())
-        ),
+        )),
         if repository.is_empty() {
             String::new()
         } else {
@@ -2323,22 +2562,58 @@ fn display_last_verified(package: &PackageRow) -> String {
 fn render_install_metadata(package: &PackageRow, locale: &Locale) -> String {
     let mut rows = Vec::new();
     for (label, value) in [
-        ("Package key", package.package_key.clone()),
-        ("Version", authoritative_package_version(package)),
-        ("Package manager", package.provider_label.clone()),
-        ("Package manager page", package.package_manager_url.clone()),
-        ("Homepage", package.homepage.clone()),
-        ("Repository", package.repository.clone()),
-        ("Upstream docs", full_str(package, "upstreamDocs")),
-        ("License", package.license.clone()),
-        ("Source archive", full_str(package, "sourceArchive")),
-        ("Issue tracker", full_str(package, "issueTracker")),
-        ("Last updated", package.last_updated_at.clone()),
-        ("Last verified", display_last_verified(package)),
-        ("Published", full_str(package, "publishedAt")),
-        ("Pulse", full_str(package, "pulseKind")),
-        ("SHA-256", full_str(package, "sha256")),
-        ("Download URL", full_str(package, "url")),
+        (
+            tx(locale, "packageKey", "Package key"),
+            package.package_key.clone(),
+        ),
+        (
+            tx(locale, "version", "Version"),
+            authoritative_package_version(package),
+        ),
+        (
+            tx(locale, "packageManager", "Package manager"),
+            package.provider_label.clone(),
+        ),
+        (
+            tx(locale, "packageManagerPage", "Package manager page"),
+            package.package_manager_url.clone(),
+        ),
+        (tx(locale, "homepage", "Homepage"), package.homepage.clone()),
+        (
+            tx(locale, "repository", "Repository"),
+            package.repository.clone(),
+        ),
+        (
+            tx(locale, "upstreamDocs", "Upstream docs"),
+            full_str(package, "upstreamDocs"),
+        ),
+        (tx(locale, "license", "License"), package.license.clone()),
+        (
+            tx(locale, "sourceArchive", "Source archive"),
+            full_str(package, "sourceArchive"),
+        ),
+        (
+            tx(locale, "issueTracker", "Issue tracker"),
+            full_str(package, "issueTracker"),
+        ),
+        (
+            tx(locale, "lastUpdated", "Last updated"),
+            package.last_updated_at.clone(),
+        ),
+        (
+            tx(locale, "lastVerified", "Last verified"),
+            display_last_verified(package),
+        ),
+        (
+            tx(locale, "published", "Published"),
+            full_str(package, "publishedAt"),
+        ),
+        (tx(locale, "pulse", "Pulse"), full_str(package, "pulseKind")),
+        (tx(locale, "sha256", "SHA-256"), full_str(package, "sha256")),
+        (
+            tx(locale, "downloadUrl", "Download URL"),
+            full_str(package, "url"),
+        ),
     ] {
         if !value.is_empty() {
             rows.push((label.to_string(), value));
@@ -2346,71 +2621,75 @@ fn render_install_metadata(package: &PackageRow, locale: &Locale) -> String {
     }
     push_joined_row(
         &mut rows,
-        "Dependencies",
+        &tx(locale, "dependencies", "Dependencies"),
         &full_string_array(package, "dependencies"),
     );
     push_joined_row(
         &mut rows,
-        "Build dependencies",
+        &tx(locale, "buildDependencies", "Build dependencies"),
         &full_string_array(package, "buildDependencies"),
     );
     push_joined_row(
         &mut rows,
-        "Uses from macOS",
+        &tx(locale, "usesFromMacos", "Uses from macOS"),
         &full_string_array(package, "usesFromMacos"),
     );
     if let Some(bottle) = full_value(package, "bottle").filter(|value| value.is_object()) {
         let mut detail = if bottle.get("available").and_then(Value::as_bool) == Some(true) {
-            "available".to_string()
+            tx(locale, "available", "available")
         } else {
-            "not recorded".to_string()
+            tx(locale, "notRecorded", "not recorded")
         };
         let platforms = value_array(bottle, "platforms")
             .into_iter()
             .filter_map(value_string)
             .collect::<Vec<_>>();
         if !platforms.is_empty() {
-            detail.push_str(&format!(" ({})", platforms.join(", ")));
+            detail.push_str(&format!(
+                " ({} {})",
+                tx(locale, "onPlatforms", "on"),
+                platforms.join(", ")
+            ));
         }
-        rows.push(("Bottle".to_string(), detail));
+        rows.push((tx(locale, "bottle", "Bottle"), detail));
     }
     if let Some(behavior) = full_value(package, "installBehavior").filter(|value| value.is_object())
     {
         if let Some(post_install) = behavior.get("postInstallDefined").and_then(Value::as_bool) {
             rows.push((
                 if package.provider == "npm" {
-                    "npm postinstall"
+                    tx(locale, "npmPostinstall", "npm postinstall")
                 } else {
-                    "Homebrew post-install"
+                    tx(locale, "homebrewPostinstall", "Homebrew post-install")
                 }
                 .to_string(),
                 if post_install {
-                    "defined"
+                    tx(locale, "defined", "defined")
                 } else {
-                    "not defined"
+                    tx(locale, "notDefined", "not defined")
                 }
                 .to_string(),
             ));
         }
         rows.push((
-            "Service".to_string(),
+            tx(locale, "service", "Service"),
             value_str_key(behavior, "service")
                 .filter(|value| !value.is_empty())
-                .unwrap_or_else(|| "none declared".to_string()),
+                .unwrap_or_else(|| tx(locale, "serviceNone", "none declared")),
         ));
         if let Some(caveats) = value_str_key(behavior, "caveats").filter(|value| !value.is_empty())
         {
-            rows.push(("Caveats".to_string(), caveats));
+            rows.push((tx(locale, "caveats", "Caveats"), caveats));
         }
     }
     push_joined_row(
         &mut rows,
-        "Keywords",
+        &tx(locale, "keywords", "Keywords"),
         &full_string_array(package, "keywords"),
     );
     push_joined_row(
         &mut rows,
-        "Classifiers",
+        &tx(locale, "classifiers", "Classifiers"),
         &full_string_array(package, "classifiers"),
     );
     let row_html = rows
@@ -2482,7 +2761,7 @@ fn render_external_package_manager_matches(package: &PackageRow, locale: &Locale
     let match_html = matches
         .into_iter()
         .take(16)
-        .map(external_package_match_card)
+        .map(|item| external_package_match_card(item, locale))
         .collect::<String>();
     format!(
         r#"<section class="pkg-section split-section manager-match-section" aria-labelledby="manager-match-title"><div><p class="section-kicker">{}</p><h2 id="manager-match-title">{}</h2><p>{}</p></div><div class="manager-match-grid">{}</div></section>"#,
@@ -2505,7 +2784,7 @@ fn render_external_package_manager_matches(package: &PackageRow, locale: &Locale
     )
 }
 
-fn external_package_match_card(item: &Value) -> String {
+fn external_package_match_card(item: &Value, locale: &Locale) -> String {
     let metadata = item
         .get("metadata")
         .filter(|value| value.is_object())
@@ -2550,9 +2829,12 @@ fn external_package_match_card(item: &Value) -> String {
         }
     }
     for (key, label) in [
-        ("dependencies", "dependencies"),
-        ("provides", "provides"),
-        ("optionalDependencies", "optional deps"),
+        ("dependencies", tx(locale, "dependencies", "dependencies")),
+        ("provides", tx(locale, "provides", "provides")),
+        (
+            "optionalDependencies",
+            tx(locale, "optionalDependencies", "optional deps"),
+        ),
     ] {
         let count = metadata
             .get(key)
@@ -2567,7 +2849,12 @@ fn external_package_match_card(item: &Value) -> String {
         fact_bits.push(reason);
     }
     if let Some(matched_by) = value_str_key(item, "matchedBy").filter(|value| !value.is_empty()) {
-        fact_bits.push(format!("Matched by: {}", human_metadata_label(&matched_by)));
+        fact_bits.push(txf(
+            locale,
+            "matchedBy",
+            "Matched by: {value}",
+            &[("value", human_metadata_label(&matched_by))],
+        ));
     }
     let facts = fact_bits
         .into_iter()
@@ -2953,7 +3240,10 @@ fn hub_package_row(package: &PackageRow, reason: &str, locale: &Locale) -> Strin
             "{level} risk",
             &[(
                 "level",
-                value_str_key(geiger, "level").unwrap_or_else(|| "unknown".to_string()),
+                localized_standard_value(
+                    locale,
+                    &value_str_key(geiger, "level").unwrap_or_else(|| "unknown".to_string()),
+                ),
             )],
         ));
     }
@@ -3170,6 +3460,85 @@ fn txf(locale: &Locale, key: &str, default: &str, replacements: &[(&str, String)
     value
 }
 
+fn localized_standard_value(locale: &Locale, value: &str) -> String {
+    let trimmed = value.trim();
+    let normalized = trimmed.to_ascii_lowercase().replace(['_', '-'], " ");
+    let (key, default) = match normalized.as_str() {
+        "available" => ("available", "available"),
+        "behind" => ("valueBehind", "behind"),
+        "critical" => ("valueCritical", "critical"),
+        "current" => ("valueCurrent", "current"),
+        "defined" => ("defined", "defined"),
+        "draft" => ("valueDraft", "draft"),
+        "green" => ("valueGreen", "green"),
+        "high" => ("valueHigh", "high"),
+        "info" => ("valueInfo", "info"),
+        "inferred" => ("inferred", "inferred"),
+        "low" => ("valueLow", "low"),
+        "manual" => ("valueManual", "manual"),
+        "medium" => ("valueMedium", "medium"),
+        "not available" => ("notAvailable", "not available"),
+        "not defined" => ("notDefined", "not defined"),
+        "not detected" => ("notDetected", "not detected"),
+        "not recorded" => ("notRecorded", "not recorded"),
+        "not specified" => ("notSpecified", "not specified"),
+        "ok" => ("valueOk", "ok"),
+        "reviewed" => ("reviewed", "reviewed"),
+        "strong" => ("valueStrong", "strong"),
+        "uncategorized" => ("uncategorized", "uncategorized"),
+        "unknown" => ("unknown", "unknown"),
+        "verified" => ("verified", "verified"),
+        "warning" => ("valueWarning", "warning"),
+        _ => return trimmed.to_string(),
+    };
+    tx(locale, key, default)
+}
+
+fn localized_executable_text(locale: &Locale, value: &str) -> String {
+    match value.trim() {
+        "Automic Vault stub excluded" => tx(locale, "stubExcluded", "Automic Vault stub excluded"),
+        "Discovered from the local executable index." => tx(
+            locale,
+            "localExecutableIndex",
+            "Discovered from the local executable index.",
+        ),
+        "Homebrew cask binary" => tx(locale, "homebrewCaskBinary", "Homebrew cask binary"),
+        "binary" => tx(locale, "binary", "binary"),
+        "completion" => tx(locale, "completion", "completion"),
+        "executable" => tx(locale, "executable", "executable"),
+        "global executable" => tx(locale, "globalExecutable", "global executable"),
+        "helper" => tx(locale, "helper", "helper"),
+        "indexed executable" => tx(locale, "indexedExecutable", "indexed executable"),
+        other => other.to_string(),
+    }
+}
+
+fn localized_freshness_message(locale: &Locale, message: &str) -> String {
+    match message.trim() {
+        "freshness" => tx(locale, "freshness", "freshness"),
+        "stale_source" => tx(
+            locale,
+            "freshnessWarningStaleSource",
+            "Source data may be stale.",
+        ),
+        "Upstream has a newer patch release." => tx(
+            locale,
+            "freshnessWarningNewerPatch",
+            "Upstream has a newer patch release.",
+        ),
+        other => other.to_string(),
+    }
+}
+
+fn js_string_escape(value: &str) -> String {
+    value
+        .replace('\\', "\\\\")
+        .replace('"', "\\\"")
+        .replace('\n', "\\n")
+        .replace('\r', "\\r")
+        .replace('<', "\\u003c")
+}
+
 fn source_host_label(url: &str) -> &str {
     url.trim_start_matches("https://")
         .trim_start_matches("http://")
@@ -3284,7 +3653,21 @@ fn localized_hero_sentence(package: &PackageRow, locale: &Locale) -> String {
     }
 }
 
-fn meta_description(package: &PackageRow) -> String {
+fn meta_description(package: &PackageRow, locale: &Locale) -> String {
+    if locale.code != "en" {
+        return short_text(
+            &txf(
+                locale,
+                "metaDescription",
+                "Install {name} with {manager}. View executables, metadata, and security notes.",
+                &[
+                    ("name", package.display_name.clone()),
+                    ("manager", package.provider_label.clone()),
+                ],
+            ),
+            155,
+        );
+    }
     let mut parts = Vec::new();
     if let Some(alternate) = alternate_install_command(package) {
         let manager = value_str_key(&alternate, "manager")
@@ -3418,11 +3801,17 @@ fn package_facts(package: &PackageRow, locale: &Locale) -> String {
     if let Some(geiger) = full_value(package, "geiger").filter(|value| value.is_object()) {
         facts.push(metric(
             &tx(locale, "risk", "risk"),
-            &value_str_key(geiger, "level").unwrap_or_else(|| "unknown".to_string()),
+            &localized_standard_value(
+                locale,
+                &value_str_key(geiger, "level").unwrap_or_else(|| "unknown".to_string()),
+            ),
         ));
         facts.push(metric(
             &tx(locale, "classifierConfidence", "classifier confidence"),
-            &value_str_key(geiger, "confidence").unwrap_or_else(|| "unknown".to_string()),
+            &localized_standard_value(
+                locale,
+                &value_str_key(geiger, "confidence").unwrap_or_else(|| "unknown".to_string()),
+            ),
         ));
     }
     if let Some(rank) = full_value(package, "popularity")
@@ -3488,7 +3877,10 @@ fn security_heading(package: &PackageRow, locale: &Locale) -> String {
             "Risk level: {level}",
             &[(
                 "level",
-                value_str_key(geiger, "level").unwrap_or_else(|| "unknown".to_string()),
+                localized_standard_value(
+                    locale,
+                    &value_str_key(geiger, "level").unwrap_or_else(|| "unknown".to_string()),
+                ),
             )],
         );
     }
@@ -3850,18 +4242,30 @@ fn core_security_guides(package: &PackageRow, locale: &Locale) -> Vec<String> {
     let mut links = vec![
         (
             locale_path("/secret-scanner-for-ai-agents/", locale),
-            "AI agent secret scanner",
-            "Find plaintext credentials before an agent run starts.",
+            tx(locale, "guideSecretScannerTitle", "AI agent secret scanner"),
+            tx(
+                locale,
+                "guideSecretScannerCopy",
+                "Find plaintext credentials before an agent run starts.",
+            ),
         ),
         (
             locale_path("/ai-agent-approval-gates/", locale),
-            "AI agent approval gates",
-            "Put approvals in front of risky package and tool actions.",
+            tx(locale, "guideApprovalGatesTitle", "AI agent approval gates"),
+            tx(
+                locale,
+                "guideApprovalGatesCopy",
+                "Put approvals in front of risky package and tool actions.",
+            ),
         ),
         (
             locale_path("/docs/#secrets", locale),
-            "Secret injection docs",
-            "Move supported secrets out of plaintext files and inject them into approved tools.",
+            tx(locale, "guideSecretInjectionTitle", "Secret injection docs"),
+            tx(
+                locale,
+                "guideSecretInjectionCopy",
+                "Move supported secrets out of plaintext files and inject them into approved tools.",
+            ),
         ),
     ];
     let haystack = format!(
@@ -3876,15 +4280,23 @@ fn core_security_guides(package: &PackageRow, locale: &Locale) -> Vec<String> {
     if package.provider == "brew" || haystack.contains("homebrew") {
         links.push((
             locale_path("/download/", locale),
-            "Secure Homebrew tools",
-            "Install Vault and scan the tools your Mac already uses.",
+            tx(locale, "guideSecureHomebrewTitle", "Secure Homebrew tools"),
+            tx(
+                locale,
+                "guideSecureHomebrewCopy",
+                "Install Vault and scan the tools your Mac already uses.",
+            ),
         ));
     }
     if haystack.contains("aws") || haystack.contains("cloud") {
         links.push((
             locale_path("/secure-aws-cli-credentials-ai-agents/", locale),
-            "Secure AWS CLI credentials",
-            "Keep cloud keys out of ambient config files.",
+            tx(locale, "guideAwsCliTitle", "Secure AWS CLI credentials"),
+            tx(
+                locale,
+                "guideAwsCliCopy",
+                "Keep cloud keys out of ambient config files.",
+            ),
         ));
     }
     if haystack.contains("github")
@@ -3894,8 +4306,12 @@ fn core_security_guides(package: &PackageRow, locale: &Locale) -> Vec<String> {
     {
         links.push((
             locale_path("/github-cli-token-security-ai-agents/", locale),
-            "GitHub CLI token security",
-            "Protect source and release tokens used by local tools.",
+            tx(locale, "guideGithubCliTitle", "GitHub CLI token security"),
+            tx(
+                locale,
+                "guideGithubCliCopy",
+                "Protect source and release tokens used by local tools.",
+            ),
         ));
     }
     links
@@ -3905,8 +4321,8 @@ fn core_security_guides(package: &PackageRow, locale: &Locale) -> Vec<String> {
             format!(
                 r#"<li><a href="{}">{}</a><span>{}</span></li>"#,
                 html_escape(&url),
-                html_escape(label),
-                html_escape(copy)
+                html_escape(&label),
+                html_escape(&copy)
             )
         })
         .collect()
@@ -3993,7 +4409,12 @@ fn schema_for_package(
             json!({
                 "@type": "HowToStep",
                 "position": index + 1,
-                "name": format!("Run {manager} command"),
+                "name": txf(
+                    locale,
+                    "schemaHowToStep",
+                    "Run {manager} command",
+                    &[("manager", manager.clone())],
+                ),
                 "text": command
             })
         })
@@ -4008,7 +4429,15 @@ fn schema_for_package(
             {
                 "@type": "TechArticle",
                 "@id": format!("{url}#article"),
-                "headline": format!("Install {} with {}", package.display_name, package.provider_label),
+                "headline": txf(
+                    locale,
+                    "schemaTechArticleHeadline",
+                    "Install {name} with {manager}",
+                    &[
+                        ("name", package.display_name.clone()),
+                        ("manager", package.provider_label.clone()),
+                    ],
+                ),
                 "description": description,
                 "dateModified": updated,
                 "inLanguage": locale.hreflang,
@@ -4021,32 +4450,51 @@ fn schema_for_package(
                 "@type": "BreadcrumbList",
                 "@id": format!("{url}#breadcrumbs"),
                 "itemListElement": [
-                    {"@type": "ListItem", "position": 1, "name": "Home", "item": locale_url("/", locale)},
-                    {"@type": "ListItem", "position": 2, "name": "Packages", "item": locale_url("/pkg/", locale)},
+                    {"@type": "ListItem", "position": 1, "name": tx(locale, "home", "Home"), "item": locale_url("/", locale)},
+                    {"@type": "ListItem", "position": 2, "name": tx(locale, "packages", "Packages"), "item": locale_url("/pkg/", locale)},
                     {"@type": "ListItem", "position": 3, "name": package.display_name, "item": url}
                 ]
             },
             {
                 "@type": "HowTo",
                 "@id": format!("{url}#install-howto"),
-                "name": format!("Install {}", package.display_name),
+                "name": txf(
+                    locale,
+                    "schemaHowToName",
+                    "Install {name}",
+                    &[("name", package.display_name.clone())],
+                ),
                 "step": steps
             }
         ]
     })
 }
 
-fn markdown_install_groups(text: &mut String, package: &PackageRow) {
+fn markdown_install_groups(text: &mut String, package: &PackageRow, locale: &Locale) {
     let commands = install_command_entries(package);
     if commands.len() <= 1 {
         return;
     }
-    text.push_str("Additional install commands:\n\n");
+    text.push_str(&format!(
+        "{}:\n\n",
+        tx(
+            locale,
+            "additionalInstallCommands",
+            "Additional install commands"
+        )
+    ));
     for (platform, label) in [
-        ("macos", "macOS"),
-        ("linux", "Linux"),
-        ("windows", "Windows"),
-        ("portable", "Portable and language managers"),
+        ("macos", tx(locale, "macos", "macOS")),
+        ("linux", tx(locale, "linux", "Linux")),
+        ("windows", tx(locale, "windows", "Windows")),
+        (
+            "portable",
+            tx(
+                locale,
+                "platformPortableLanguageManagers",
+                "Portable and language managers",
+            ),
+        ),
     ] {
         let items = commands
             .iter()
@@ -4068,12 +4516,15 @@ fn markdown_install_groups(text: &mut String, package: &PackageRow) {
             }
             let confidence = value_f64_key(item, "confidence")
                 .map(|value| format!("{:.0}%", value * 100.0))
-                .unwrap_or_else(|| "unknown confidence".to_string());
+                .unwrap_or_else(|| tx(locale, "unknownConfidence", "unknown confidence"));
             text.push_str(&format!(
                 "- {manager} ({confidence}):\n\n```sh\n{command}\n```\n"
             ));
             if let Some(evidence) = value_str_key(item, "evidence") {
-                text.push_str(&format!("\n  Evidence: {evidence}\n"));
+                text.push_str(&format!(
+                    "\n  {}: {evidence}\n",
+                    tx(locale, "markdownEvidence", "Evidence")
+                ));
             }
             text.push('\n');
         }
@@ -4139,7 +4590,7 @@ fn markdown_value(value: &str) -> String {
     }
 }
 
-fn executable_markdown_items(package: &PackageRow) -> Vec<String> {
+fn executable_markdown_items(package: &PackageRow, locale: &Locale) -> Vec<String> {
     let mut items = Vec::new();
     let mut seen = std::collections::BTreeSet::new();
     for item in value_array(&package.data.full, "executablesDetailed") {
@@ -4153,9 +4604,13 @@ fn executable_markdown_items(package: &PackageRow) -> Vec<String> {
         let kind = value_str_key(item, "kind").unwrap_or_else(|| "executable".to_string());
         let note = value_str_key(item, "note").unwrap_or_default();
         items.push(if note.is_empty() {
-            format!("{name} ({kind})")
+            format!("{name} ({})", localized_executable_text(locale, &kind))
         } else {
-            format!("{name} ({kind}): {note}")
+            format!(
+                "{name} ({}): {}",
+                localized_executable_text(locale, &kind),
+                localized_executable_text(locale, &note)
+            )
         });
     }
     for item in value_array(&package.data.full, "binaries") {
@@ -4163,58 +4618,70 @@ fn executable_markdown_items(package: &PackageRow) -> Vec<String> {
             .or_else(|| value_str_key(item, "source"))
             .unwrap_or_default();
         if !name.is_empty() {
-            items.push(format!("{name} (binary)"));
+            items.push(format!("{name} ({})", tx(locale, "binary", "binary")));
         }
     }
     for alias in full_string_array(package, "aliases") {
-        items.push(format!("{alias} (alias)"));
+        items.push(format!("{alias} ({})", tx(locale, "alias", "alias")));
     }
     items
 }
 
-fn markdown_install_behavior_items(package: &PackageRow) -> Vec<String> {
+fn markdown_install_behavior_items(package: &PackageRow, locale: &Locale) -> Vec<String> {
     let mut items = Vec::new();
     if let Some(behavior) = full_value(package, "installBehavior").filter(|value| value.is_object())
     {
         if let Some(post_install) = behavior.get("postInstallDefined").and_then(Value::as_bool) {
             items.push(format!(
-                "Post-install hook: {}",
+                "{}: {}",
+                tx(locale, "postInstallHook", "Post-install hook"),
                 if post_install {
-                    "defined"
+                    tx(locale, "defined", "defined")
                 } else {
-                    "not defined"
+                    tx(locale, "notDefined", "not defined")
                 }
             ));
         }
         if let Some(service) = value_str_key(behavior, "service").filter(|value| !value.is_empty())
         {
-            items.push(format!("Service: {service}"));
+            items.push(format!("{}: {service}", tx(locale, "service", "Service")));
         }
         if let Some(caveats) = value_str_key(behavior, "caveats").filter(|value| !value.is_empty())
         {
-            items.push(format!("Caveats: {caveats}"));
+            items.push(format!("{}: {caveats}", tx(locale, "caveats", "Caveats")));
         }
         let lifecycle = value_array(behavior, "lifecycleScripts")
             .into_iter()
             .filter_map(value_string)
             .collect::<Vec<_>>();
         if !lifecycle.is_empty() {
-            items.push(format!("Lifecycle scripts: {}", lifecycle.join(", ")));
+            items.push(format!(
+                "{}: {}",
+                tx(locale, "lifecycleScripts", "Lifecycle scripts"),
+                lifecycle.join(", ")
+            ));
         }
         if let Some(python) =
             value_str_key(behavior, "pythonRequires").filter(|value| !value.is_empty())
         {
-            items.push(format!("Python requires: {python}"));
+            items.push(format!(
+                "{}: {python}",
+                tx(locale, "pythonRequires", "Python requires")
+            ));
         }
         if let Some(count) = value_i64_key(behavior, "requiresDistCount") {
-            items.push(format!("PyPI dependency specs: {count}"));
+            items.push(format!(
+                "{}: {}",
+                tx(locale, "pypiDependencySpecs", "PyPI dependency specs"),
+                fmt_int(count)
+            ));
         }
     }
     if let Some(bottle) = full_value(package, "bottle").filter(|value| value.is_object()) {
         let mut detail = if bottle.get("available").and_then(Value::as_bool) == Some(true) {
-            "available".to_string()
+            tx(locale, "available", "available")
         } else {
-            "not available".to_string()
+            tx(locale, "notAvailable", "not available")
         };
         let platforms = value_array(bottle, "platforms")
             .into_iter()
@@ -4222,43 +4689,77 @@ fn markdown_install_behavior_items(package: &PackageRow) -> Vec<String> {
             .take(12)
             .collect::<Vec<_>>();
         if !platforms.is_empty() {
-            detail.push_str(&format!(" on {}", platforms.join(", ")));
+            detail.push_str(&format!(
+                " {} {}",
+                tx(locale, "onPlatforms", "on"),
+                platforms.join(", ")
+            ));
         }
-        items.push(format!("Bottle: {detail}"));
+        items.push(format!("{}: {detail}", tx(locale, "bottle", "Bottle")));
     }
     items
 }
 
-fn markdown_freshness_items(package: &PackageRow, generated_at: &str) -> Vec<String> {
+fn markdown_freshness_items(
+    package: &PackageRow,
+    generated_at: &str,
+    locale: &Locale,
+) -> Vec<String> {
     let freshness = full_value(package, "versionFreshness").unwrap_or(&Value::Null);
     let manager = freshness.get("packageManager").unwrap_or(&Value::Null);
     let site = freshness.get("siteData").unwrap_or(&Value::Null);
     let upstream = freshness.get("upstream").unwrap_or(&Value::Null);
     let mut items = vec![
         format!(
-            "Page generated: {}",
-            non_empty(&fmt_date(generated_at), "unknown")
+            "{}: {}",
+            tx(locale, "pageGenerated", "Page generated"),
+            if fmt_date(generated_at).is_empty() {
+                tx(locale, "unknown", "unknown")
+            } else {
+                fmt_date(generated_at)
+            }
         ),
         format!(
-            "Package-manager version: {}",
-            value_str_key(manager, "version")
-                .unwrap_or_else(|| empty_as_unknown(&package.version).to_string())
+            "{}: {}",
+            tx(locale, "managerVersion", "Package-manager version"),
+            value_str_key(manager, "version").unwrap_or_else(|| {
+                if package.version.is_empty() {
+                    tx(locale, "unknown", "unknown")
+                } else {
+                    package.version.clone()
+                }
+            })
         ),
     ];
     if let Some(updated) = value_str_key(manager, "updatedAt") {
-        items.push(format!("Package-manager updated: {}", fmt_date(&updated)));
+        items.push(format!(
+            "{}: {}",
+            tx(locale, "managerUpdated", "Package-manager updated"),
+            fmt_date(&updated)
+        ));
     }
     if let Some(status) = value_str_key(site, "status") {
-        items.push(format!("Local data status: {status}"));
+        items.push(format!(
+            "{}: {}",
+            tx(locale, "localData", "Local data"),
+            localized_standard_value(locale, &status)
+        ));
     }
     if let Some(repository) = value_str_key(upstream, "repository") {
-        items.push(format!("Upstream repository: {repository}"));
+        items.push(format!(
+            "{}: {repository}",
+            tx(locale, "upstreamRepository", "Upstream repository")
+        ));
     }
     if let Some(version) = value_str_key(upstream, "latestVersion") {
         items.push(format!(
-            "Upstream latest detected: {} ({})",
+            "{}: {} ({})",
+            tx(locale, "upstreamLatestDetected", "Upstream latest detected"),
             version,
-            value_str_key(upstream, "comparison").unwrap_or_else(|| "unknown".to_string())
+            localized_standard_value(
+                locale,
+                &value_str_key(upstream, "comparison").unwrap_or_else(|| "unknown".to_string())
+            )
         ));
     }
     for item in value_array(freshness, "warnings").into_iter().take(8) {
@@ -4266,7 +4767,11 @@ fn markdown_freshness_items(package: &PackageRow, generated_at: &str) -> Vec<Str
             let severity = value_str_key(item, "severity").unwrap_or_else(|| "info".to_string());
             let message = value_str_key(item, "message").unwrap_or_default();
             if !message.is_empty() {
-                items.push(format!("{severity}: {message}"));
+                items.push(format!(
+                    "{}: {}",
+                    localized_standard_value(locale, &severity),
+                    localized_freshness_message(locale, &message)
+                ));
             }
         }
     }
@@ -4285,14 +4790,24 @@ fn markdown_security_section(text: &mut String, package: &PackageRow, locale: &L
             .get("justification")
             .and_then(|justification| value_str_key(justification, "title"))
         {
-            text.push_str(&format!("- **Protected-tool coverage:** {title}\n"));
+            text.push_str(&format!(
+                "- **{}:** {title}\n",
+                tx(locale, "radioisotopeKicker", "Protected-tool coverage")
+            ));
         }
     }
     if let Some(geiger) = full_value(package, "geiger").filter(|value| value.is_object()) {
         text.push_str(&format!(
-            "- **Geiger risk:** {} / {}\n",
-            value_str_key(geiger, "level").unwrap_or_else(|| "unknown".to_string()),
-            value_str_key(geiger, "confidence").unwrap_or_else(|| "unknown".to_string())
+            "- **{}:** {} / {}\n",
+            tx(locale, "geigerRisk", "Geiger risk"),
+            localized_standard_value(
+                locale,
+                &value_str_key(geiger, "level").unwrap_or_else(|| "unknown".to_string())
+            ),
+            localized_standard_value(
+                locale,
+                &value_str_key(geiger, "confidence").unwrap_or_else(|| "unknown".to_string())
+            )
         ));
         for item in value_array(geiger, "reasons")
             .into_iter()
@@ -4303,7 +4818,10 @@ fn markdown_security_section(text: &mut String, package: &PackageRow, locale: &L
     }
     if let Some(gate) = full_value(package, "approvalGate").filter(|value| value.is_object()) {
         if let Some(rule_count) = value_i64_key(gate, "rule_count") {
-            text.push_str(&format!("- **Approval gate rules:** {rule_count}\n"));
+            text.push_str(&format!(
+                "- **{}:** {rule_count}\n",
+                tx(locale, "approvalRules", "Approval gate rules")
+            ));
         }
     }
     text.push('\n');
@@ -4430,7 +4948,7 @@ fn markdown_related(text: &mut String, package: &PackageRow, locale: &Locale) {
             }
         }
     }
-    markdown_value_list(text, "Related Links", &items);
+    markdown_value_list(text, &tx(locale, "relatedLinks", "Related links"), &items);
 }
 
 fn markdown_link_item(label: &str, url: &str, reason: &str) -> String {
@@ -5659,6 +6177,19 @@ mod tests {
         let localized_package_html =
             String::from_utf8(localized_package.body).expect("localized package html");
         assert!(localized_package_html.contains("<html lang=\"fr\">"));
+        assert!(localized_package_html.contains("Copier"));
+        assert!(localized_package_html.contains("Copié"));
+        assert!(localized_package_html.contains("vérifié · 100%"));
+        assert!(localized_package_html.contains("Comportement d'installation"));
+        assert!(localized_package_html.contains("Homebrew déclare un hook post-install"));
+        assert!(localized_package_html.contains("risque élevé · confiance forte"));
+        assert!(localized_package_html.contains("Réponse sur la sécurité des agents"));
+        assert!(
+            localized_package_html.contains("Autres enregistrements de gestionnaires de paquets")
+        );
+        assert!(localized_package_html.contains("Sécuriser les identifiants AWS CLI"));
+        assert!(!localized_package_html.contains(">Copy</button>"));
+        assert!(!localized_package_html.contains("Install behavior"));
         assert!(
             localized_package_html
                 .contains("https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y")
@@ -6089,14 +6620,14 @@ mod tests {
             "bottle": {"available": true}
         });
         assert!(
-            render_install_behavior_signals(&npm_behavior)
+            render_install_behavior_signals(&npm_behavior, &LOCALES[0])
                 .contains("npm package metadata declares a postinstall script.")
         );
         assert!(
-            render_install_behavior_signals(&serde_json_package(
-                &sparse,
-                serde_json::json!({"installBehavior": {}})
-            ))
+            render_install_behavior_signals(
+                &serde_json_package(&sparse, serde_json::json!({"installBehavior": {}})),
+                &LOCALES[0]
+            )
             .is_empty()
         );
 
@@ -6137,26 +6668,29 @@ mod tests {
         );
         assert!(render_registry_insights(&empty_registry, &LOCALES[0]).is_empty());
 
-        let manager_card = external_package_match_card(&serde_json::json!({
-            "displayName": "Chocolatey",
-            "packageId": "Sparse.Tool",
-            "confidence": "manual",
-            "command": "choco install sparse",
-            "matchedBy": "package_id",
-            "source": {"sourceLabel": "Chocolatey", "sourceUrl": "https://community.chocolatey.org/packages/sparse"},
-            "metadata": {
-                "version": "1.2.3",
-                "license": "MIT",
-                "dependencies": ["dep"],
-                "optionalDependencies": ["optional"],
-                "provides": ["sparse"],
-                "sourcePackage": "sparse-src"
-            }
-        }));
+        let manager_card = external_package_match_card(
+            &serde_json::json!({
+                "displayName": "Chocolatey",
+                "packageId": "Sparse.Tool",
+                "confidence": "manual",
+                "command": "choco install sparse",
+                "matchedBy": "package_id",
+                "source": {"sourceLabel": "Chocolatey", "sourceUrl": "https://community.chocolatey.org/packages/sparse"},
+                "metadata": {
+                    "version": "1.2.3",
+                    "license": "MIT",
+                    "dependencies": ["dep"],
+                    "optionalDependencies": ["optional"],
+                    "provides": ["sparse"],
+                    "sourcePackage": "sparse-src"
+                }
+            }),
+            &LOCALES[0],
+        );
         assert!(manager_card.contains("choco install sparse"));
         assert!(manager_card.contains("Matched by: Package ID"));
         assert!(
-            external_package_match_card(&serde_json::json!({"displayName": "Empty"}))
+            external_package_match_card(&serde_json::json!({"displayName": "Empty"}), &LOCALES[0])
                 .contains("Empty")
         );
 
@@ -6168,7 +6702,9 @@ mod tests {
             )
             .is_empty()
         );
-        assert!(install_command_source_html(&serde_json::json!({"source": {}})).is_empty());
+        assert!(
+            install_command_source_html(&serde_json::json!({"source": {}}), &LOCALES[0]).is_empty()
+        );
 
         let command_edges = serde_json_package(
             &sparse,
@@ -6188,7 +6724,7 @@ mod tests {
             .len()
             >= 2);
         let mut install_groups = String::new();
-        markdown_install_groups(&mut install_groups, &command_edges);
+        markdown_install_groups(&mut install_groups, &command_edges, &LOCALES[0]);
         assert!(install_groups.contains("unknown confidence"));
 
         assert!(hub_package_reason(&gate_only, &LOCALES[0]).contains("approval-gate"));
@@ -6236,20 +6772,23 @@ mod tests {
             serde_json::json!("sudo av install sparse")
         );
 
-        let behavior_items = markdown_install_behavior_items(&serde_json_package(
-            &sparse,
-            serde_json::json!({
-                "installBehavior": {
-                    "postInstallDefined": true,
-                    "service": "com.example.sparse",
-                    "caveats": "Review shell completions.",
-                    "lifecycleScripts": ["prepare"],
-                    "pythonRequires": ">=3.12",
-                    "requiresDistCount": 3
-                },
-                "bottle": {"available": true, "platforms": ["arm64_tahoe"]}
-            }),
-        ));
+        let behavior_items = markdown_install_behavior_items(
+            &serde_json_package(
+                &sparse,
+                serde_json::json!({
+                    "installBehavior": {
+                        "postInstallDefined": true,
+                        "service": "com.example.sparse",
+                        "caveats": "Review shell completions.",
+                        "lifecycleScripts": ["prepare"],
+                        "pythonRequires": ">=3.12",
+                        "requiresDistCount": 3
+                    },
+                    "bottle": {"available": true, "platforms": ["arm64_tahoe"]}
+                }),
+            ),
+            &LOCALES[0],
+        );
         assert!(behavior_items.join("\n").contains("com.example.sparse"));
         let freshness_items = markdown_freshness_items(
             &serde_json_package(
@@ -6269,6 +6808,7 @@ mod tests {
                 }),
             ),
             "not-a-date",
+            &LOCALES[0],
         );
         assert!(freshness_items.join("\n").contains("Manual review needed."));
 
