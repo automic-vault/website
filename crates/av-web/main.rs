@@ -3807,15 +3807,58 @@ fn localized_hero_sentence(package: &PackageRow, locale: &Locale) -> String {
 }
 
 fn package_install_heading(package: &PackageRow, locale: &Locale) -> String {
+    let managers = package_heading_managers(package).join(", ");
     txf(
         locale,
         "installWithManagerHeading",
         "Install {name} with {manager}",
         &[
             ("name", package.display_name.clone()),
-            ("manager", package.provider_label.clone()),
+            ("manager", managers),
         ],
     )
+}
+
+fn package_heading_managers(package: &PackageRow) -> Vec<String> {
+    let mut managers = Vec::new();
+    for item in install_command_entries(package) {
+        let kind = value_str_key(&item, "kind").unwrap_or_default();
+        let manager = item
+            .get("source")
+            .and_then(|source| value_str_key(source, "manager"))
+            .or_else(|| value_str_key(&item, "manager"))
+            .unwrap_or_default();
+        if kind == "automic_vault" || manager.eq_ignore_ascii_case("Automic Vault") {
+            continue;
+        }
+        let label = heading_manager_label(&manager);
+        if !label.is_empty() && !managers.iter().any(|seen| seen == &label) {
+            managers.push(label);
+        }
+    }
+    if managers.is_empty() && !package.provider_label.is_empty() {
+        managers.push(heading_manager_label(&package.provider_label));
+    }
+    managers
+}
+
+fn heading_manager_label(manager: &str) -> String {
+    let trimmed = manager.trim();
+    match trimmed.to_ascii_lowercase().as_str() {
+        "" => String::new(),
+        "alpine linux apk" | "apk" => "apk".to_string(),
+        "arch linux pacman" | "pacman" => "pacman".to_string(),
+        "debian apt" | "apt" => "apt".to_string(),
+        "fedora dnf" | "dnf" => "dnf".to_string(),
+        "brew" | "homebrew" => "Homebrew".to_string(),
+        "cask" | "homebrew cask" => "Homebrew Cask".to_string(),
+        "nix" => "Nix".to_string(),
+        "macports" => "MacPorts".to_string(),
+        "opensuse zypper" | "zypper" => "zypper".to_string(),
+        "python pip" | "pip" => "pip".to_string(),
+        "windows package manager" | "winget" => "winget".to_string(),
+        _ => trimmed.to_string(),
+    }
 }
 
 fn meta_description(package: &PackageRow, locale: &Locale) -> String {
@@ -6389,10 +6432,15 @@ mod tests {
         assert!(package_html.contains("Risk classifier"));
         assert!(package_html.contains("aws iam create-access-key"));
         assert!(package_html.contains("Agent safety answer"));
+        assert!(package_html.contains(
+            "<title>Install awscli with Homebrew, apt, winget, pip | Automic Vault</title>"
+        ));
         assert!(
-            package_html.contains("<title>Install awscli with Homebrew | Automic Vault</title>")
+            package_html.contains(
+                r#"<h1 id="pkg-title">Install awscli with Homebrew, apt, winget, pip</h1>"#
+            )
         );
-        assert!(package_html.contains(r#"<h1 id="pkg-title">Install awscli with Homebrew</h1>"#));
+        assert!(!package_html.contains(r#"<h1 id="pkg-title">Install awscli with Automic Vault"#));
         assert!(package_html.contains("Use protected AWS credential helpers"));
         assert!(package_html.contains("aws-iam-authenticator"));
         assert!(package_html.contains("Upstream has a newer patch release."));
@@ -6414,10 +6462,9 @@ mod tests {
         let localized_package_html =
             String::from_utf8(localized_package.body).expect("localized package html");
         assert!(localized_package_html.contains("<html lang=\"fr\">"));
-        assert!(
-            localized_package_html
-                .contains("<title>Installer awscli avec Homebrew | Automic Vault</title>")
-        );
+        assert!(localized_package_html.contains(
+            "<title>Installer awscli avec Homebrew, apt, winget, pip | Automic Vault</title>"
+        ));
         assert!(localized_package_html.contains("Copier"));
         assert!(localized_package_html.contains("Copié"));
         assert!(localized_package_html.contains("vérifié · 100%"));
@@ -6505,7 +6552,7 @@ mod tests {
             .expect("private response");
 
         let text = String::from_utf8(markdown.body).expect("markdown");
-        assert!(text.starts_with("# Install awscli with Homebrew"));
+        assert!(text.starts_with("# Install awscli with Homebrew, apt, winget, pip"));
         assert!(text.contains("Additional install commands"));
         assert!(text.contains("## Agent safety answer"));
         assert!(text.contains("Use protected AWS credential helpers"));
@@ -6820,6 +6867,8 @@ mod tests {
             install_command_manager_label(&serde_json::json!({"manager": "npm"})),
             "npm"
         );
+        assert_eq!(heading_manager_label("Debian apt"), "apt");
+        assert_eq!(heading_manager_label("openSUSE zypper"), "zypper");
         assert_eq!(
             install_command_manager_label(
                 &serde_json::json!({"manager": "shell", "source": {"manager": "winget"}})
