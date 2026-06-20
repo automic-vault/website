@@ -174,6 +174,7 @@ site_dir="${repo_root}/www"
 llms_full_generator="${repo_root}/scripts/generate-llms-full.mjs"
 www_i18n_generator="${repo_root}/scripts/generate-www-i18n.py"
 prepared_site_dir=""
+temp_paths=()
 
 if [[ ! -d "${site_dir}" ]]; then
   die "Missing site directory: ${site_dir}"
@@ -230,10 +231,31 @@ if [[ "${prepare_only}" != true ]]; then
   pkg_search_cache_policy_name="${WWW_DOMAIN//./-}-pkg-search-daily-cache"
 fi
 
+make_temp_file() {
+  local target_var="$1"
+  local path
+  path="$(mktemp)"
+  temp_paths+=("${path}")
+  printf -v "${target_var}" '%s' "${path}"
+}
+
+make_temp_dir() {
+  local target_var="$1"
+  local path
+  path="$(mktemp -d)"
+  temp_paths+=("${path}")
+  printf -v "${target_var}" '%s' "${path}"
+}
+
 cleanup() {
-  if [[ -n "${prepared_site_dir}" && -d "${prepared_site_dir}" ]]; then
-    rm -rf "${prepared_site_dir}"
-  fi
+  local path
+  for path in "${temp_paths[@]}"; do
+    if [[ -d "${path}" && ! -L "${path}" ]]; then
+      rm -rf "${path}"
+    else
+      rm -f "${path}"
+    fi
+  done
 }
 
 trap cleanup EXIT
@@ -330,7 +352,7 @@ prepared_product_files() {
 assert_product_version_stamped() {
   local product_version="$1"
   local file mismatch_file
-  mismatch_file="$(mktemp)"
+  make_temp_file mismatch_file
 
   while IFS= read -r -d '' file; do
     PRODUCT_VERSION="${product_version}" perl -0ne '
@@ -388,7 +410,7 @@ prepare_site_for_upload() {
   product_version="$(read_product_version)"
   scanned_package_count="$(count_scan_log_entries)"
   scanned_package_display_count="$(format_count_for_display "${scanned_package_count}")"
-  prepared_site_dir="$(mktemp -d)"
+  make_temp_dir prepared_site_dir
   rsync -a \
     --exclude '/pkg/' \
     --exclude '/*/pkg/' \
@@ -495,7 +517,7 @@ ensure_oac() {
   fi
 
   local config_file created_id
-  config_file="$(mktemp)"
+  make_temp_file config_file
   jq -n \
     --arg name "${oac_name}" \
     '{
@@ -519,7 +541,7 @@ ensure_oac() {
 ensure_redirect_function() {
   local function_file function_etag stage
   log_step "Publishing canonical-host redirect function"
-  function_file="$(mktemp)"
+  make_temp_file function_file
   cat >"${function_file}" <<EOF
 function handler(event) {
   var request = event.request;
@@ -805,8 +827,8 @@ EOF
 ensure_response_headers_policy() {
   local policy_file policy_id etag response_file
   log_step "Preparing CloudFront security headers policy"
-  policy_file="$(mktemp)"
-  response_file="$(mktemp)"
+  make_temp_file policy_file
+  make_temp_file response_file
 
   jq -n \
     --arg name "${response_headers_policy_name}" \
@@ -892,8 +914,8 @@ ensure_response_headers_policy() {
 ensure_cache_policy() {
   local policy_file policy_id etag response_file
   log_step "Preparing CloudFront Brotli cache policy"
-  policy_file="$(mktemp)"
-  response_file="$(mktemp)"
+  make_temp_file policy_file
+  make_temp_file response_file
 
   jq -n \
     --arg name "${cache_policy_name}" \
@@ -955,8 +977,8 @@ ensure_cache_policy() {
 ensure_pkg_cache_policy() {
   local policy_file policy_id etag response_file
   log_step "Preparing CloudFront package-origin daily cache policy"
-  policy_file="$(mktemp)"
-  response_file="$(mktemp)"
+  make_temp_file policy_file
+  make_temp_file response_file
 
   jq -n \
     --arg name "${pkg_cache_policy_name}" \
@@ -1008,8 +1030,8 @@ ensure_pkg_cache_policy() {
 ensure_pkg_search_cache_policy() {
   local policy_file policy_id etag response_file
   log_step "Preparing CloudFront package search cache policy"
-  policy_file="$(mktemp)"
-  response_file="$(mktemp)"
+  make_temp_file policy_file
+  make_temp_file response_file
 
   jq -n \
     --arg name "${pkg_search_cache_policy_name}" \
@@ -1283,8 +1305,8 @@ upsert_distribution() {
   local pkg_search_cache_policy_id="$6"
   local distribution_id etag config_file response_file
   log_step "Preparing CloudFront distribution"
-  config_file="$(mktemp)"
-  response_file="$(mktemp)"
+  make_temp_file config_file
+  make_temp_file response_file
 
   if distribution_id="$(distribution_id_for_alias)"; then
     log "  Updating distribution ${distribution_id}"
@@ -1488,7 +1510,7 @@ put_bucket_policy() {
   local distribution_id="$1"
   local policy_file
   log_step "Restricting bucket reads to CloudFront"
-  policy_file="$(mktemp)"
+  make_temp_file policy_file
 
   jq -n \
     --arg bucket "${WWW_BUCKET}" \

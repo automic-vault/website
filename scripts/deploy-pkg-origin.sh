@@ -30,6 +30,7 @@ AV_WEB_REMOTE_TMP="${AV_WEB_REMOTE_TMP:-/var/tmp}"
 skip_refresh=false
 skip_sqlite=false
 skip_build=false
+temp_paths=()
 
 usage() {
   cat <<EOF
@@ -87,6 +88,27 @@ fail() {
   printf 'error: %s\n' "$*" >&2
   exit 1
 }
+
+make_temp_dir() {
+  local target_var="$1"
+  local path
+  path="$(mktemp -d)"
+  temp_paths+=("${path}")
+  printf -v "${target_var}" '%s' "${path}"
+}
+
+cleanup() {
+  local path
+  for path in "${temp_paths[@]}"; do
+    if [[ -d "${path}" && ! -L "${path}" ]]; then
+      rm -rf "${path}"
+    else
+      rm -f "${path}"
+    fi
+  done
+}
+
+trap cleanup EXIT
 
 require_cmd() {
   command -v "$1" >/dev/null 2>&1 || fail "missing required command: $1"
@@ -301,8 +323,7 @@ deploy_remote() {
   [[ -f "${AV_WEB_SQLITE_PATH}" ]] || fail "missing SQLite artifact: ${AV_WEB_SQLITE_PATH}"
 
   stamp="$(date -u +%Y%m%dT%H%M%SZ)"
-  staging_dir="$(mktemp -d)"
-  trap 'rm -rf "${staging_dir}"' RETURN
+  make_temp_dir staging_dir
   write_local_config_files "${staging_dir}"
   sqlite_archive="${staging_dir}/pkg.sqlite.gz"
   gzip -c "${AV_WEB_SQLITE_PATH}" >"${sqlite_archive}"
@@ -333,6 +354,14 @@ data_dir="$5"
 origin_domain="$6"
 certbot_email="$7"
 release_dir="${remote_root}/releases/${stamp}"
+
+cleanup_remote_tmp() {
+  if [[ -n "${remote_tmp:-}" ]]; then
+    rm -rf "${remote_tmp}"
+  fi
+}
+
+trap cleanup_remote_tmp EXIT
 
 sudo useradd --system --home "${remote_root}" --shell /sbin/nologin "${service}" >/dev/null 2>&1 || true
 sudo mkdir -p "${release_dir}" "${data_dir}" /var/www/html
