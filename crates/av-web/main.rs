@@ -1251,12 +1251,7 @@ fn render_hub_markdown(
 }
 
 fn render_package_page(package: &PackageRow, locale: &Locale, generated_at: &str) -> String {
-    let install_heading = txf(
-        locale,
-        "installHeading",
-        "Install {name}",
-        &[("name", package.display_name.clone())],
-    );
+    let install_heading = package_install_heading(package, locale);
     let title = format!("{install_heading} | Automic Vault");
     let description = meta_description(package, locale);
     let updated = first_non_empty(&[
@@ -1327,12 +1322,7 @@ fn render_package_page(package: &PackageRow, locale: &Locale, generated_at: &str
 fn render_package_markdown(package: &PackageRow, locale: &Locale, generated_at: &str) -> String {
     let mut text = format!(
         "# {}\n\n{}\n\n## {}\n\n```sh\n{}\n```\n\n",
-        txf(
-            locale,
-            "installHeading",
-            "Install {name}",
-            &[("name", package.display_name.clone())],
-        ),
+        package_install_heading(package, locale),
         localized_hero_sentence(package, locale),
         tx(locale, "install", "Install"),
         package.install_command,
@@ -3651,6 +3641,18 @@ fn localized_hero_sentence(package: &PackageRow, locale: &Locale) -> String {
             &[("name", package.display_name.clone())],
         )
     }
+}
+
+fn package_install_heading(package: &PackageRow, locale: &Locale) -> String {
+    txf(
+        locale,
+        "installWithManagerHeading",
+        "Install {name} with {manager}",
+        &[
+            ("name", package.display_name.clone()),
+            ("manager", package.provider_label.clone()),
+        ],
+    )
 }
 
 fn meta_description(package: &PackageRow, locale: &Locale) -> String {
@@ -6156,6 +6158,8 @@ mod tests {
         assert!(package_html.contains("Risk classifier"));
         assert!(package_html.contains("aws iam create-access-key"));
         assert!(package_html.contains("Agent safety answer"));
+        assert!(package_html.contains("<title>Install awscli with Homebrew | Automic Vault</title>"));
+        assert!(package_html.contains(r#"<h1 id="pkg-title">Install awscli with Homebrew</h1>"#));
         assert!(package_html.contains("Use protected AWS credential helpers"));
         assert!(package_html.contains("aws-iam-authenticator"));
         assert!(package_html.contains("Upstream has a newer patch release."));
@@ -6177,6 +6181,8 @@ mod tests {
         let localized_package_html =
             String::from_utf8(localized_package.body).expect("localized package html");
         assert!(localized_package_html.contains("<html lang=\"fr\">"));
+        assert!(localized_package_html
+            .contains("<title>Installer awscli avec Homebrew | Automic Vault</title>"));
         assert!(localized_package_html.contains("Copier"));
         assert!(localized_package_html.contains("Copié"));
         assert!(localized_package_html.contains("vérifié · 100%"));
@@ -6264,6 +6270,7 @@ mod tests {
             .expect("private response");
 
         let text = String::from_utf8(markdown.body).expect("markdown");
+        assert!(text.starts_with("# Install awscli with Homebrew"));
         assert!(text.contains("Additional install commands"));
         assert!(text.contains("## Agent safety answer"));
         assert!(text.contains("Use protected AWS credential helpers"));
