@@ -3848,13 +3848,13 @@ fn heading_manager_label(manager: &str) -> String {
         "" => String::new(),
         "alpine linux apk" | "apk" => "apk".to_string(),
         "arch linux pacman" | "pacman" => "pacman".to_string(),
-        "debian apt" | "apt" => "apt".to_string(),
-        "fedora dnf" | "dnf" => "dnf".to_string(),
+        "debian" | "debian apt" | "ubuntu" | "apt" => "apt".to_string(),
+        "fedora" | "fedora dnf" | "redhat" | "rhel" | "dnf" => "dnf".to_string(),
         "brew" | "homebrew" => "Homebrew".to_string(),
         "cask" | "homebrew cask" => "Homebrew Cask".to_string(),
         "nix" => "Nix".to_string(),
         "macports" => "MacPorts".to_string(),
-        "opensuse zypper" | "zypper" => "zypper".to_string(),
+        "opensuse" | "opensuse zypper" | "suse" | "zypper" => "zypper".to_string(),
         "python pip" | "pip" => "pip".to_string(),
         "windows package manager" | "winget" => "winget".to_string(),
         _ => trimmed.to_string(),
@@ -6867,7 +6867,10 @@ mod tests {
             install_command_manager_label(&serde_json::json!({"manager": "npm"})),
             "npm"
         );
+        assert_eq!(heading_manager_label("debian"), "apt");
+        assert_eq!(heading_manager_label("ubuntu"), "apt");
         assert_eq!(heading_manager_label("Debian apt"), "apt");
+        assert_eq!(heading_manager_label("fedora"), "dnf");
         assert_eq!(heading_manager_label("openSUSE zypper"), "zypper");
         assert_eq!(
             install_command_manager_label(
