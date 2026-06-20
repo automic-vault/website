@@ -56,3 +56,16 @@ scripts/deploy-pkg-origin.sh --skip-refresh --skip-sqlite
 `AV_WEB_SQLITE_PATH` defaults to `../av.db/cache/pkg.sqlite`.
 The refresh path also builds `../av.db/cache/cratesio/index.json` for Cargo
 package pages; those crates.io records stay out of the exported `db.json`.
+
+## Package Traffic Loop
+
+Use the ops repo Search Console credentials to refresh `/pkg/` opportunities:
+
+```sh
+scripts/pkg-traffic-loop.mjs --days 90 --row-limit 25000
+```
+
+The script writes ignored artifacts to `cache/pkg-traffic-loop.json` and
+`cache/pkg-traffic-loop.md`. Use the report to pick a high-impression package
+query, improve the package renderer or metadata, verify with `cargo test`, and
+commit the focused change before the next loop pass.
