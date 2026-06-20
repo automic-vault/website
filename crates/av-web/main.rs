@@ -1290,6 +1290,7 @@ fn render_package_page(package: &PackageRow, locale: &Locale, generated_at: &str
     body.push_str(&render_install(package, locale));
     body.push_str(&render_overview(package, locale));
     body.push_str(&render_security(package, locale));
+    body.push_str(&render_file_locations(package, locale));
     body.push_str(&render_executables(package, locale));
     body.push_str(&render_freshness(package, generated_at, locale));
     body.push_str(&render_install_metadata(package, locale));
@@ -1424,6 +1425,7 @@ fn render_package_markdown(package: &PackageRow, locale: &Locale, generated_at: 
         &markdown_freshness_items(package, generated_at, locale),
     );
     markdown_security_section(&mut text, package, locale);
+    markdown_file_locations(&mut text, package, locale);
     markdown_registry_insights(&mut text, package, locale);
     markdown_external_package_manager_matches(&mut text, package, locale);
     markdown_related(&mut text, package, locale);
@@ -2003,6 +2005,144 @@ fn render_security(package: &PackageRow, locale: &Locale) -> String {
             "Before unattended agent use, check whether the tool reads plaintext credentials, writes remote state, publishes artifacts, or shells out to plugins."
         ))
     )
+}
+
+fn render_file_locations(package: &PackageRow, locale: &Locale) -> String {
+    let config = path_location_groups(package, "configFileLocations");
+    let credentials = path_location_groups(package, "credentialsFileLocations");
+    if config.is_empty() && credentials.is_empty() {
+        return String::new();
+    }
+    let mut cards = String::new();
+    if !config.is_empty() {
+        cards.push_str(&file_location_card(
+            &tx(locale, "configFileLocationsTitle", "Configuration files"),
+            &tx(
+                locale,
+                "configFileLocationsCopy",
+                "Config paths the tool may read or write during local use.",
+            ),
+            &config,
+            locale,
+        ));
+    }
+    if !credentials.is_empty() {
+        cards.push_str(&file_location_card(
+            &tx(locale, "credentialFileLocationsTitle", "Credential files"),
+            &tx(
+                locale,
+                "credentialFileLocationsCopy",
+                "Credential-bearing paths to review before unattended agent runs.",
+            ),
+            &credentials,
+            locale,
+        ));
+    }
+    format!(
+        r#"<section class="pkg-section split-section file-surface-section" aria-labelledby="file-surface-title"><div><p class="section-kicker">{}</p><h2 id="file-surface-title">{}</h2><p>{}</p></div><div class="file-location-board">{}</div></section>"#,
+        html_escape(&tx(locale, "localFilesKicker", "local files")),
+        html_escape(&tx(
+            locale,
+            "localFilesTitle",
+            "Configuration and credential file locations"
+        )),
+        html_escape(&tx(
+            locale,
+            "localFilesCopy",
+            "These source-backed paths show where this package keeps local settings or durable credentials. Automic Vault can use them as review targets for secret scanning, migration, and command approval."
+        )),
+        cards
+    )
+}
+
+fn file_location_card(
+    title: &str,
+    copy: &str,
+    groups: &[(String, Vec<String>)],
+    locale: &Locale,
+) -> String {
+    let rows = groups
+        .iter()
+        .map(|(platform, paths)| {
+            let path_html = paths
+                .iter()
+                .map(|path| format!("<code>{}</code>", html_escape(path)))
+                .collect::<String>();
+            format!(
+                "<div><dt>{}</dt><dd>{}</dd></div>",
+                html_escape(&localized_platform_label(locale, platform)),
+                path_html
+            )
+        })
+        .collect::<String>();
+    format!(
+        r#"<article class="file-location-card"><h3>{}</h3><p>{}</p><dl class="file-location-list">{}</dl></article>"#,
+        html_escape(title),
+        html_escape(copy),
+        rows
+    )
+}
+
+fn path_location_groups(package: &PackageRow, key: &str) -> Vec<(String, Vec<String>)> {
+    let Some(value) = full_value(package, key) else {
+        return Vec::new();
+    };
+    let mut groups: BTreeMap<String, Vec<String>> = BTreeMap::new();
+    match value {
+        Value::Object(items) => {
+            for (platform, value) in items {
+                let paths = path_location_values(value);
+                if !paths.is_empty() {
+                    groups.insert(platform.to_string(), paths);
+                }
+            }
+        }
+        _ => {
+            let paths = path_location_values(value);
+            if !paths.is_empty() {
+                groups.insert("portable".to_string(), paths);
+            }
+        }
+    }
+    groups
+        .into_iter()
+        .map(|(platform, paths)| {
+            let mut seen = std::collections::BTreeSet::new();
+            let paths = paths
+                .into_iter()
+                .map(|path| path.trim().to_string())
+                .filter(|path| !path.is_empty() && seen.insert(path.clone()))
+                .collect::<Vec<_>>();
+            (platform, paths)
+        })
+        .filter(|(_platform, paths)| !paths.is_empty())
+        .collect()
+}
+
+fn path_location_values(value: &Value) -> Vec<String> {
+    match value {
+        Value::String(text) => {
+            let text = text.trim();
+            if text.is_empty() {
+                Vec::new()
+            } else {
+                vec![text.to_string()]
+            }
+        }
+        Value::Array(items) => items.iter().filter_map(value_string).collect(),
+        _ => Vec::new(),
+    }
+}
+
+fn localized_platform_label(locale: &Locale, platform: &str) -> String {
+    match platform {
+        "macos" => tx(locale, "platformMacos", "macOS"),
+        "unix" => tx(locale, "platformUnix", "Unix"),
+        "linux" => tx(locale, "platformLinux", "Linux"),
+        "windows" => tx(locale, "platformWindows", "Windows"),
+        "portable" => tx(locale, "platformPortable", "Portable"),
+        value => human_metadata_label(value),
+    }
 }
 
 fn render_geiger(package: &PackageRow, locale: &Locale) -> String {
@@ -4829,6 +4969,50 @@ fn markdown_security_section(text: &mut String, package: &PackageRow, locale: &L
     text.push('\n');
 }
 
+fn markdown_file_locations(text: &mut String, package: &PackageRow, locale: &Locale) {
+    let config = path_location_markdown_items(package, "configFileLocations", locale);
+    let credentials = path_location_markdown_items(package, "credentialsFileLocations", locale);
+    if config.is_empty() && credentials.is_empty() {
+        return;
+    }
+    text.push_str(&format!(
+        "\n## {}\n\n{}\n\n",
+        tx(
+            locale,
+            "localFilesTitle",
+            "Configuration and credential file locations"
+        ),
+        tx(
+            locale,
+            "localFilesCopy",
+            "These source-backed paths show where this package keeps local settings or durable credentials. Automic Vault can use them as review targets for secret scanning, migration, and command approval."
+        )
+    ));
+    markdown_value_list(
+        text,
+        &tx(locale, "configFileLocationsTitle", "Configuration files"),
+        &config,
+    );
+    markdown_value_list(
+        text,
+        &tx(locale, "credentialFileLocationsTitle", "Credential files"),
+        &credentials,
+    );
+}
+
+fn path_location_markdown_items(package: &PackageRow, key: &str, locale: &Locale) -> Vec<String> {
+    path_location_groups(package, key)
+        .into_iter()
+        .map(|(platform, paths)| {
+            format!(
+                "{}: {}",
+                localized_platform_label(locale, &platform),
+                paths.join(", ")
+            )
+        })
+        .collect()
+}
+
 fn markdown_registry_insights(text: &mut String, package: &PackageRow, locale: &Locale) {
     let Some(insights) = registry_insights(package) else {
         return;
@@ -6158,7 +6342,9 @@ mod tests {
         assert!(package_html.contains("Risk classifier"));
         assert!(package_html.contains("aws iam create-access-key"));
         assert!(package_html.contains("Agent safety answer"));
-        assert!(package_html.contains("<title>Install awscli with Homebrew | Automic Vault</title>"));
+        assert!(
+            package_html.contains("<title>Install awscli with Homebrew | Automic Vault</title>")
+        );
         assert!(package_html.contains(r#"<h1 id="pkg-title">Install awscli with Homebrew</h1>"#));
         assert!(package_html.contains("Use protected AWS credential helpers"));
         assert!(package_html.contains("aws-iam-authenticator"));
@@ -6181,8 +6367,10 @@ mod tests {
         let localized_package_html =
             String::from_utf8(localized_package.body).expect("localized package html");
         assert!(localized_package_html.contains("<html lang=\"fr\">"));
-        assert!(localized_package_html
-            .contains("<title>Installer awscli avec Homebrew | Automic Vault</title>"));
+        assert!(
+            localized_package_html
+                .contains("<title>Installer awscli avec Homebrew | Automic Vault</title>")
+        );
         assert!(localized_package_html.contains("Copier"));
         assert!(localized_package_html.contains("Copié"));
         assert!(localized_package_html.contains("vérifié · 100%"));
@@ -6342,6 +6530,13 @@ mod tests {
                     "installBehavior": {"postInstallDefined": false},
                     "bottle": {"available": false},
                     "dependencies": ["openssl@3"],
+                    "configFileLocations": {
+                        "unix": ["$XDG_CONFIG_HOME/sparse/config.yml", "~/.config/sparse/config.yml"],
+                        "windows": "%AppData%\\Sparse\\config.yml"
+                    },
+                    "credentialsFileLocations": {
+                        "unix": "~/.config/sparse/hosts.yml"
+                    },
                     "popularity": {"downloads_per_30_days": 12345},
                     "extra": {
                         "registryInsights": {
@@ -6440,6 +6635,9 @@ mod tests {
         assert!(html.contains("No Homebrew post-install hook is recorded"));
         assert!(html.contains("No Homebrew bottle metadata was recorded."));
         assert!(html.contains("30d downloads"));
+        assert!(html.contains("Configuration and credential file locations"));
+        assert!(html.contains("$XDG_CONFIG_HOME/sparse/config.yml"));
+        assert!(html.contains("%AppData%\\Sparse\\config.yml"));
         assert!(html.contains("12,345"));
         assert!(html.contains("Source database details"));
         assert!(html.contains("Custom Metric"));
@@ -6447,6 +6645,9 @@ mod tests {
 
         let markdown = render_package_markdown(&sparse, &LOCALES[0], "2026-06-07T00:00:00Z");
         assert!(markdown.contains("Bottle: not available"));
+        assert!(markdown.contains("Configuration files"));
+        assert!(markdown.contains("Unix: $XDG_CONFIG_HOME/sparse/config.yml"));
+        assert!(markdown.contains("Credential files"));
         assert!(markdown.contains("left pad"));
         assert!(markdown.contains("fixture note"));
         assert!(markdown.contains("apk - sparse"));
