@@ -1608,22 +1608,8 @@ fn render_install(package: &PackageRow, locale: &Locale) -> String {
     let command =
         value_str_key(&primary, "command").unwrap_or_else(|| package.install_command.clone());
     let platform_html = render_platform_install_commands(&commands[1..], locale);
-    let manager_link = if package.package_manager_url.is_empty() {
-        html_escape(&txf(
-            locale,
-            "installSourceMissing",
-            "{manager} metadata was not linked in local data.",
-            &[("manager", package.provider_label.clone())],
-        ))
-    } else {
-        format!(
-            r#"<a href="{}">{}</a>"#,
-            html_escape(&package.package_manager_url),
-            html_escape(&package.package_manager_url)
-        )
-    };
     format!(
-        r#"<section id="install" class="pkg-section install-section" aria-labelledby="install-title"><div class="install-command-panel"><div><p class="section-kicker">{}</p><h2 id="install-title">{}</h2></div><div class="terminal-block"><div class="terminal-head"><span>{}</span><div class="terminal-actions"><a class="download-av-button" href="/download/" aria-label="{}">{}</a><button class="copy-button" type="button" data-copy="{}" aria-label="{}">{}</button></div></div><pre><code>{}</code></pre></div>{}</div><div class="install-notes-grid"><article><h3>{}</h3><p>{}</p></article></div></section>"#,
+        r#"<section id="install" class="pkg-section install-section" aria-labelledby="install-title"><div class="install-command-panel"><div><p class="section-kicker">{}</p><h2 id="install-title">{}</h2></div><div class="terminal-block"><div class="terminal-head"><span>{}</span><div class="terminal-actions"><a class="download-av-button" href="/download/" aria-label="{}">{}</a><button class="copy-button" type="button" data-copy="{}" aria-label="{}">{}</button></div></div><pre><code>{}</code></pre></div>{}</div></section>"#,
         html_escape(&tx(locale, "install", "install")),
         html_escape(&tx(
             locale,
@@ -1639,13 +1625,7 @@ fn render_install(package: &PackageRow, locale: &Locale) -> String {
         html_escape(&tx(locale, "copyInstallCommand", "Copy install command")),
         html_escape(&tx(locale, "copy", "Copy")),
         html_escape(&command),
-        platform_html,
-        html_escape(&tx(
-            locale,
-            "packageManagerSource",
-            "Package manager source"
-        )),
-        manager_link
+        platform_html
     )
 }
 
@@ -6699,7 +6679,8 @@ mod tests {
         assert_eq!(hub_signal_condition("unknown"), None);
 
         let html = render_package_page(&sparse, &LOCALES[0], "2026-06-07T00:00:00Z");
-        assert!(html.contains("Homebrew metadata was not linked in local data."));
+        assert!(!html.contains("Package manager source"));
+        assert!(!html.contains("Homebrew metadata was not linked in local data."));
         assert!(html.contains("No classifier reasons were present."));
         assert!(html.contains("No classifier signals were present."));
         assert!(html.contains("No Homebrew post-install hook is recorded"));
