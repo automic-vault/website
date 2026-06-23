@@ -1832,8 +1832,8 @@ fn install_command_source_html(item: &Value, locale: &Locale) -> String {
 }
 
 fn render_overview(package: &PackageRow, locale: &Locale) -> String {
-    let aliases = full_string_array(package, "aliases");
-    let alias_block = if aliases.is_empty() {
+    let commands = overview_command_names(package);
+    let command_block = if commands.is_empty() {
         format!(
             "<p>{}</p>",
             html_escape(&tx(
@@ -1845,36 +1845,94 @@ fn render_overview(package: &PackageRow, locale: &Locale) -> String {
     } else {
         format!(
             r#"<ul class="chip-list">{}</ul>"#,
-            aliases
+            commands
                 .iter()
                 .take(32)
-                .map(|alias| format!("<li>{}</li>", html_escape(alias)))
+                .map(|command| format!("<li>{}</li>", html_escape(command)))
                 .collect::<String>()
         )
     };
-    let homepage = if package.homepage.is_empty() {
-        tx(
-            locale,
-            "homepageMissing",
-            "Not present in the local metadata.",
+    let project_links = overview_project_links(package, locale);
+    let project_block = if project_links.is_empty() {
+        format!(
+            "<p>{}</p>",
+            html_escape(&tx(
+                locale,
+                "homepageMissing",
+                "Not present in the local metadata.",
+            ))
         )
     } else {
         format!(
-            r#"<a href="{}">{}</a>"#,
-            html_escape(&package.homepage),
-            html_escape(&package.homepage)
+            r#"<ul class="chip-list">{}</ul>"#,
+            project_links
+                .into_iter()
+                .map(|(label, url)| {
+                    format!(
+                        r#"<li><a href="{}">{}</a></li>"#,
+                        html_escape(&url),
+                        html_escape(&label)
+                    )
+                })
+                .collect::<String>()
         )
     };
     format!(
-        r#"<section class="pkg-section split-section"><div><p class="section-kicker">{}</p><h2>{}</h2><p>{}</p></div><div class="detail-stack"><article><h3>{}</h3><p>{}</p></article><article><h3>{}</h3>{}</article></div></section>"#,
+        r#"<section class="pkg-section split-section"><div><p class="section-kicker">{}</p><h2>{}</h2><p>{}</p></div><div class="detail-stack"><article><h3>{}</h3>{}</article><article><h3>{}</h3>{}</article></div></section>"#,
         html_escape(&tx(locale, "overview", "overview")),
         html_escape(&tx(locale, "packageSummary", "Package summary")),
         html_escape(&package.summary),
-        html_escape(&tx(locale, "homepage", "Homepage")),
-        homepage,
+        html_escape(&tx(locale, "projectLinks", "Project links")),
+        project_block,
         html_escape(&tx(locale, "commandsAndAliases", "Commands and aliases")),
-        alias_block
+        command_block
     )
+}
+
+fn overview_project_links(package: &PackageRow, locale: &Locale) -> Vec<(String, String)> {
+    let mut links = Vec::new();
+    let mut seen = std::collections::BTreeSet::new();
+    for (label, url) in [
+        (
+            tx(locale, "homepage", "Homepage"),
+            first_non_empty(&[package.homepage.clone(), full_str(package, "homepage")])
+                .unwrap_or_default(),
+        ),
+        (
+            tx(locale, "repository", "Repository"),
+            package.repository.clone(),
+        ),
+        (
+            tx(locale, "upstreamDocs", "Upstream docs"),
+            full_str(package, "upstreamDocs"),
+        ),
+        (
+            tx(locale, "packageManagerPage", "Package manager page"),
+            package.package_manager_url.clone(),
+        ),
+    ] {
+        let url = url.trim();
+        if !url.is_empty() && seen.insert(url.to_string()) {
+            links.push((label, url.to_string()));
+        }
+    }
+    links
+}
+
+fn overview_command_names(package: &PackageRow) -> Vec<String> {
+    let mut names = Vec::new();
+    let mut seen = std::collections::BTreeSet::new();
+    for item in full_string_array(package, "aliases")
+        .into_iter()
+        .chain(full_string_array(package, "executablesDetailed"))
+        .chain(full_string_array(package, "binaries"))
+    {
+        let item = item.trim();
+        if !item.is_empty() && seen.insert(item.to_string()) {
+            names.push(item.to_string());
+        }
+    }
+    names
 }
 
 fn render_security(package: &PackageRow, locale: &Locale) -> String {
@@ -6417,6 +6475,8 @@ mod tests {
         assert!(cargo_package_html.contains("Line-oriented search tool."));
         assert!(cargo_package_html.contains("cargo install ripgrep"));
         assert!(cargo_package_html.contains("crates.io DB dump"));
+        assert!(cargo_package_html.contains("Project links"));
+        assert!(cargo_package_html.contains("<li>rg</li>"));
 
         let localized_package_html =
             String::from_utf8(localized_package.body).expect("localized package html");
@@ -6700,6 +6760,28 @@ mod tests {
         assert!(html.contains("Source database details"));
         assert!(html.contains("Custom Metric"));
         assert!(html.contains("Sparse package in an external index."));
+
+        let mut cargo_like = serde_json_package(
+            &sparse,
+            serde_json::json!({
+                "executablesDetailed": [
+                    {"name": "sparse", "kind": "binary", "exposure": "cargo-installed executable"}
+                ],
+                "homepage": "",
+                "upstreamDocs": "https://docs.rs/sparse"
+            }),
+        );
+        cargo_like.provider = "cargo".to_string();
+        cargo_like.provider_label = "Cargo".to_string();
+        cargo_like.package_manager_url = "https://crates.io/crates/sparse".to_string();
+        cargo_like.repository = "https://github.com/example/sparse".to_string();
+        let cargo_like_overview = render_overview(&cargo_like, &LOCALES[0]);
+        assert!(cargo_like_overview.contains("Project links"));
+        assert!(cargo_like_overview.contains("https://github.com/example/sparse"));
+        assert!(cargo_like_overview.contains("https://docs.rs/sparse"));
+        assert!(cargo_like_overview.contains("https://crates.io/crates/sparse"));
+        assert!(cargo_like_overview.contains("<li>sparse</li>"));
+        assert!(!cargo_like_overview.contains("Not present in the local metadata."));
 
         let markdown = render_package_markdown(&sparse, &LOCALES[0], "2026-06-07T00:00:00Z");
         assert!(markdown.contains("Bottle: not available"));
