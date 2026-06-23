@@ -1607,18 +1607,6 @@ fn render_install(package: &PackageRow, locale: &Locale) -> String {
     });
     let command =
         value_str_key(&primary, "command").unwrap_or_else(|| package.install_command.clone());
-    let notes = full_value(package, "install")
-        .and_then(|value| value.get("notes"))
-        .and_then(Value::as_array)
-        .map(|items| {
-            items
-                .iter()
-                .take(6)
-                .filter_map(value_string)
-                .map(|item| format!("<li>{}</li>", html_escape(&item)))
-                .collect::<String>()
-        })
-        .unwrap_or_default();
     let platform_html = render_platform_install_commands(&commands[1..], locale);
     let manager_link = if package.package_manager_url.is_empty() {
         html_escape(&txf(
@@ -1635,7 +1623,7 @@ fn render_install(package: &PackageRow, locale: &Locale) -> String {
         )
     };
     format!(
-        r#"<section id="install" class="pkg-section install-section" aria-labelledby="install-title"><div class="install-command-panel"><div><p class="section-kicker">{}</p><h2 id="install-title">{}</h2></div><div class="terminal-block"><div class="terminal-head"><span>{}</span><div class="terminal-actions"><a class="download-av-button" href="/download/" aria-label="{}">{}</a><button class="copy-button" type="button" data-copy="{}" aria-label="{}">{}</button></div></div><pre><code>{}</code></pre></div>{}</div><div class="install-notes-grid"><article><h3>{}</h3><p>{}</p></article><article><h3>{}</h3><ul>{}</ul></article></div></section>"#,
+        r#"<section id="install" class="pkg-section install-section" aria-labelledby="install-title"><div class="install-command-panel"><div><p class="section-kicker">{}</p><h2 id="install-title">{}</h2></div><div class="terminal-block"><div class="terminal-head"><span>{}</span><div class="terminal-actions"><a class="download-av-button" href="/download/" aria-label="{}">{}</a><button class="copy-button" type="button" data-copy="{}" aria-label="{}">{}</button></div></div><pre><code>{}</code></pre></div>{}</div><div class="install-notes-grid"><article><h3>{}</h3><p>{}</p></article></div></section>"#,
         html_escape(&tx(locale, "install", "install")),
         html_escape(&tx(
             locale,
@@ -1657,20 +1645,7 @@ fn render_install(package: &PackageRow, locale: &Locale) -> String {
             "packageManagerSource",
             "Package manager source"
         )),
-        manager_link,
-        html_escape(&tx(locale, "platformNotes", "Platform notes")),
-        if notes.is_empty() {
-            format!(
-                "<li>{}</li>",
-                html_escape(&tx(
-                    locale,
-                    "noPlatformNotes",
-                    "No package-specific platform notes were present."
-                ))
-            )
-        } else {
-            notes
-        }
+        manager_link
     )
 }
 
@@ -5868,7 +5843,6 @@ mod tests {
                         {"platform": "windows", "manager": "winget", "command": "winget install Amazon.AWSCLI", "confidence": 0.95, "source": {"source_label": "WinGet", "package_id": "Amazon.AWSCLI", "source_url": "https://github.com/microsoft/winget-pkgs"}},
                         {"platform": "portable", "manager": "pip", "command": "python3 -m pip install awscli", "confidence": 0.91, "evidence": "PyPI package"}
                     ],
-                    "install": {"notes": ["Use an isolated profile for automation.", "Run av scan after installing."]},
                     "isotope": {
                         "justification": {
                             "title": "AWS credential file coverage",
