@@ -17,6 +17,7 @@ const DEFAULT_ORIGIN_HEADER: &str = "x-automic-vault-origin";
 const HTML_CACHE_CONTROL: &str = "public, max-age=86400, s-maxage=86400";
 const DEFAULT_SEARCH_LIMIT: usize = 8;
 const MAX_SEARCH_LIMIT: usize = 50;
+const PKG_STYLESHEET_VERSION: &str = "20260623-shell-cap";
 const I18N_PKG_TEMPLATES_JSON: &str = include_str!("../../data/pkg-i18n/templates.json");
 static I18N_PKG_TEMPLATES: OnceLock<Value> = OnceLock::new();
 
@@ -1503,7 +1504,11 @@ fn html_doc(
         canonical = html_escape(canonical),
         origin = SITE_ORIGIN,
         hreflang = html_hreflang_links(canonical),
-        stylesheet = html_escape(&locale_path("/pkg/styles.css", locale)),
+        stylesheet = html_escape(&format!(
+            "{}?v={}",
+            locale_path("/pkg/styles.css", locale),
+            PKG_STYLESHEET_VERSION
+        )),
         extra_head = extra_head,
         schema_json = schema_json,
         body = body,
