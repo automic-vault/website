@@ -3880,6 +3880,7 @@ fn heading_manager_label(manager: &str) -> String {
 }
 
 fn meta_description(package: &PackageRow, locale: &Locale) -> String {
+    let managers = package_heading_managers(package).join(", ");
     if locale.code != "en" {
         return short_text(
             &txf(
@@ -3888,27 +3889,17 @@ fn meta_description(package: &PackageRow, locale: &Locale) -> String {
                 "Install {name} with {manager}. View executables, metadata, and security notes.",
                 &[
                     ("name", package.display_name.clone()),
-                    ("manager", package.provider_label.clone()),
+                    ("manager", managers),
                 ],
             ),
             155,
         );
     }
     let mut parts = Vec::new();
-    if let Some(alternate) = alternate_install_command(package) {
-        let manager = value_str_key(&alternate, "manager")
-            .unwrap_or_else(|| "another package manager".to_string());
-        let command = value_str_key(&alternate, "command").unwrap_or_default();
-        parts.push(format!(
-            "Install {} with {} or {}: {}.",
-            package.display_name, package.provider_label, manager, command
-        ));
-    } else {
-        parts.push(format!(
-            "Install {} with {}.",
-            package.display_name, package.provider_label
-        ));
-    }
+    parts.push(format!(
+        "Install {} with {}.",
+        package.display_name, managers
+    ));
     if !package.summary.is_empty() {
         parts.push(package.summary.clone());
     }
@@ -6452,6 +6443,9 @@ mod tests {
         assert!(package_html.contains(
             "<title>Install awscli with Homebrew, apt, winget, pip | Automic Vault</title>"
         ));
+        assert!(package_html.contains(
+            r#"<meta name="description" content="Install awscli with Homebrew, apt, winget, pip. AWS command line interface. View executables, metadata, and security notes."#
+        ));
         assert!(
             package_html.contains(
                 r#"<h1 id="pkg-title">Install awscli with Homebrew, apt, winget, pip</h1>"#
@@ -6483,6 +6477,9 @@ mod tests {
         assert!(localized_package_html.contains("<html lang=\"fr\">"));
         assert!(localized_package_html.contains(
             "<title>Installer awscli avec Homebrew, apt, winget, pip | Automic Vault</title>"
+        ));
+        assert!(localized_package_html.contains(
+            r#"<meta name="description" content="Installez awscli avec Homebrew, apt, winget, pip. Consultez les exécutables, métadonnées et notes de sécurité.""#
         ));
         assert!(localized_package_html.contains("Copier"));
         assert!(localized_package_html.contains("Copié"));
