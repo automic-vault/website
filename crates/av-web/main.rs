@@ -3528,6 +3528,17 @@ fn full_string_array(package: &PackageRow, key: &str) -> Vec<String> {
     values
 }
 
+fn taxonomy_tags(package: &PackageRow) -> Vec<String> {
+    let Some(items) = full_value(package, "extra")
+        .and_then(|extra| extra.get("pkgTaxonomy"))
+        .and_then(|taxonomy| taxonomy.get("tags"))
+        .and_then(Value::as_array)
+    else {
+        return Vec::new();
+    };
+    items.iter().filter_map(value_string).take(5).collect()
+}
+
 fn value_array<'a>(value: &'a Value, key: &str) -> Vec<&'a Value> {
     value
         .get(key)
@@ -4014,6 +4025,10 @@ fn package_facts(package: &PackageRow, locale: &Locale) -> String {
     }
     if !package.license.is_empty() {
         facts.push(metric(&tx(locale, "license", "license"), &package.license));
+    }
+    let tags = taxonomy_tags(package);
+    if !tags.is_empty() {
+        facts.push(metric(&tx(locale, "tags", "tags"), &tags.join(", ")));
     }
     if let Some(geiger) = full_value(package, "geiger").filter(|value| value.is_object()) {
         facts.push(metric(
@@ -6649,6 +6664,10 @@ mod tests {
                     },
                     "popularity": {"downloads_per_30_days": 12345},
                     "extra": {
+                        "pkgTaxonomy": {
+                            "category": "developer-tools",
+                            "tags": ["source-control", "cli", "testing", "automation", "rust", "extra"]
+                        },
                         "registryInsights": {
                             "apiURL": "https://example.test/api",
                             "customMetric": 9876,
@@ -6749,6 +6768,7 @@ mod tests {
         assert!(html.contains("No Homebrew bottle metadata was recorded."));
         assert!(html.contains("30d downloads"));
         assert!(html.contains("Configuration and credential file locations"));
+        assert!(html.contains("source-control, cli, testing, automation, rust"));
         assert!(html.contains("$XDG_CONFIG_HOME/sparse/config.yml"));
         assert!(html.contains("%AppData%\\Sparse\\config.yml"));
         assert!(html.contains("Combined YAML source"));
