@@ -1290,6 +1290,7 @@ fn render_package_page(package: &PackageRow, locale: &Locale, generated_at: &str
     body.push_str(&render_agent_safety_answer(package, locale));
     body.push_str(&render_install(package, locale));
     body.push_str(&render_overview(package, locale));
+    body.push_str(&render_history(package, locale));
     body.push_str(&render_security(package, locale));
     body.push_str(&render_file_locations(package, locale));
     body.push_str(&render_executables(package, locale));
@@ -1425,6 +1426,7 @@ fn render_package_markdown(package: &PackageRow, locale: &Locale, generated_at: 
         &tx(locale, "freshnessTitle", "Freshness"),
         &markdown_freshness_items(package, generated_at, locale),
     );
+    markdown_history_section(&mut text, package, locale);
     markdown_security_section(&mut text, package, locale);
     markdown_file_locations(&mut text, package, locale);
     markdown_registry_insights(&mut text, package, locale);
@@ -1887,6 +1889,97 @@ fn render_overview(package: &PackageRow, locale: &Locale) -> String {
         html_escape(&tx(locale, "commandsAndAliases", "Commands and aliases")),
         command_block
     )
+}
+
+fn render_history(package: &PackageRow, locale: &Locale) -> String {
+    let Some(history) = full_value(package, "history").filter(|value| value.is_object()) else {
+        return String::new();
+    };
+    let mut body = String::new();
+    for paragraph in history_items(history, "summary") {
+        body.push_str(&format!("<p>{}</p>", html_escape(&paragraph)));
+    }
+    let mut articles = String::new();
+    for (key, title) in [
+        (
+            "project-history",
+            tx(locale, "projectHistory", "Project history"),
+        ),
+        (
+            "adoption-history",
+            tx(locale, "adoptionHistory", "Adoption history"),
+        ),
+        ("usage", tx(locale, "usage", "How it is used")),
+        (
+            "package-nerd-significance",
+            tx(locale, "packageNerdSignificance", "Why package nerds care"),
+        ),
+    ] {
+        let paragraphs = history_items(history, key);
+        if paragraphs.is_empty() {
+            continue;
+        }
+        let content = paragraphs
+            .into_iter()
+            .map(|item| format!("<p>{}</p>", html_escape(&item)))
+            .collect::<String>();
+        articles.push_str(&format!(
+            "<article><h3>{}</h3>{}</article>",
+            html_escape(&title),
+            content
+        ));
+    }
+    for (key, title) in [
+        ("timeline", tx(locale, "timeline", "Timeline")),
+        (
+            "related-projects",
+            tx(locale, "relatedProjects", "Related projects"),
+        ),
+        ("sources", tx(locale, "sources", "Sources")),
+    ] {
+        let items = history_items(history, key);
+        if items.is_empty() {
+            continue;
+        }
+        let list = items
+            .into_iter()
+            .map(|item| history_list_item(&item))
+            .collect::<String>();
+        articles.push_str(&format!(
+            r#"<article><h3>{}</h3><ul>{}</ul></article>"#,
+            html_escape(&title),
+            list
+        ));
+    }
+    if articles.is_empty() && body.is_empty() {
+        return String::new();
+    }
+    format!(
+        r#"<section class="pkg-section split-section" id="history" aria-labelledby="history-title"><div><p class="section-kicker">{}</p><h2 id="history-title">{}</h2>{}</div><div class="detail-stack">{}</div></section>"#,
+        html_escape(&tx(locale, "history", "history")),
+        html_escape(&tx(locale, "historyTitle", "Project history and usage")),
+        body,
+        articles
+    )
+}
+
+fn history_items(history: &Value, key: &str) -> Vec<String> {
+    value_array(history, key)
+        .into_iter()
+        .filter_map(value_string)
+        .collect()
+}
+
+fn history_list_item(value: &str) -> String {
+    if value.starts_with("http://") || value.starts_with("https://") {
+        format!(
+            r#"<li><a href="{}">{}</a></li>"#,
+            html_escape(value),
+            html_escape(value)
+        )
+    } else {
+        format!("<li>{}</li>", html_escape(value))
+    }
 }
 
 fn overview_project_links(package: &PackageRow, locale: &Locale) -> Vec<(String, String)> {
@@ -4702,6 +4795,65 @@ fn schema_for_package(
     })
 }
 
+fn markdown_history_section(text: &mut String, package: &PackageRow, locale: &Locale) {
+    let Some(history) = full_value(package, "history").filter(|value| value.is_object()) else {
+        return;
+    };
+    let mut section = String::new();
+    for paragraph in history_items(history, "summary") {
+        section.push_str(&format!("{}\n\n", markdown_value(&paragraph)));
+    }
+    for (key, title) in [
+        (
+            "project-history",
+            tx(locale, "projectHistory", "Project history"),
+        ),
+        (
+            "adoption-history",
+            tx(locale, "adoptionHistory", "Adoption history"),
+        ),
+        ("usage", tx(locale, "usage", "How it is used")),
+        (
+            "package-nerd-significance",
+            tx(locale, "packageNerdSignificance", "Why package nerds care"),
+        ),
+    ] {
+        let items = history_items(history, key);
+        if items.is_empty() {
+            continue;
+        }
+        section.push_str(&format!("### {}\n\n", title));
+        for item in items {
+            section.push_str(&format!("{}\n\n", markdown_value(&item)));
+        }
+    }
+    for (key, title) in [
+        ("timeline", tx(locale, "timeline", "Timeline")),
+        (
+            "related-projects",
+            tx(locale, "relatedProjects", "Related projects"),
+        ),
+        ("sources", tx(locale, "sources", "Sources")),
+    ] {
+        let items = history_items(history, key);
+        if items.is_empty() {
+            continue;
+        }
+        section.push_str(&format!("### {}\n\n", title));
+        for item in items {
+            section.push_str(&format!("- {}\n", markdown_value(&item)));
+        }
+        section.push('\n');
+    }
+    if !section.is_empty() {
+        text.push_str(&format!(
+            "## {}\n\n{}",
+            tx(locale, "historyTitle", "Project history and usage"),
+            section
+        ));
+    }
+}
+
 fn markdown_install_groups(text: &mut String, package: &PackageRow, locale: &Locale) {
     let commands = install_command_entries(package);
     if commands.len() <= 1 {
@@ -5873,6 +6025,16 @@ mod tests {
                 indexable: true,
                 data_json: serde_json::json!({"full": {
                     "aliases": ["aws", "aws-vault"],
+                    "history": {
+                        "summary": ["AWS CLI is Amazon's command-line interface for controlling AWS services from local shells and automation systems."],
+                        "project-history": ["The AWS CLI grew out of Amazon Web Services' need for a consistent command-line surface across service APIs."],
+                        "adoption-history": ["It became a default package-manager install for cloud operators because many AWS docs, scripts, and CI workflows assume an `aws` executable is available."],
+                        "usage": ["Package users commonly install it for authentication checks, S3 file movement, IAM inspection, and deployment automation."],
+                        "package-nerd-significance": ["For package catalog users, awscli is a canonical high-authority CLI: one small executable exposes a large cloud control plane."],
+                        "timeline": ["2013: AWS CLI v1 public documentation establishes the unified `aws` command.", "2020: AWS CLI v2 becomes the default generation of the tool."],
+                        "related-projects": ["aws-vault", "aws-cdk"],
+                        "sources": ["https://docs.aws.amazon.com/cli/latest/userguide/"]
+                    },
                     "executablesDetailed": [
                         {"name": "aws", "kind": "executable", "exposure": "global executable", "note": "Primary CLI"},
                         {"target": "aws_completer", "kind": "completion", "note": "Shell completion"},
@@ -6468,6 +6630,10 @@ mod tests {
         );
         assert!(!package_html.contains(r#"<h1 id="pkg-title">Install awscli with Automic Vault"#));
         assert!(package_html.contains("Use protected AWS credential helpers"));
+        assert!(package_html.contains("Project history and usage"));
+        assert!(package_html.contains("default package-manager install for cloud operators"));
+        assert!(package_html.contains("2013: AWS CLI v1 public documentation"));
+        assert!(package_html.contains("https://docs.aws.amazon.com/cli/latest/userguide/"));
         assert!(package_html.contains("aws-iam-authenticator"));
         assert!(package_html.contains("Upstream has a newer patch release."));
         assert!(package_html.contains("Secure AWS CLI credentials"));
@@ -6486,6 +6652,7 @@ mod tests {
         assert!(cargo_package_html.contains("crates.io DB dump"));
         assert!(cargo_package_html.contains("Project links"));
         assert!(cargo_package_html.contains("<li>rg</li>"));
+        assert!(!cargo_package_html.contains("Project history and usage"));
 
         let localized_package_html =
             String::from_utf8(localized_package.body).expect("localized package html");
@@ -6587,6 +6754,10 @@ mod tests {
         assert!(text.contains("Additional install commands"));
         assert!(text.contains("## Agent safety answer"));
         assert!(text.contains("Use protected AWS credential helpers"));
+        assert!(text.contains("## Project history and usage"));
+        assert!(text.contains("### Adoption history"));
+        assert!(text.contains("default package-manager install for cloud operators"));
+        assert!(text.contains("- 2020: AWS CLI v2 becomes the default generation of the tool."));
         assert!(text.contains("AWS credential file coverage"));
         assert!(text.contains("Upstream latest detected"));
         assert!(text.contains("[Cloud](https://www.automicvault.com/pkg/cloud/)"));

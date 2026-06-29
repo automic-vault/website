@@ -405,6 +405,7 @@ class PackagePage:
     upstream_docs: str = ""
     config_file_locations: dict[str, Any] = field(default_factory=dict)
     credentials_file_locations: dict[str, Any] = field(default_factory=dict)
+    history: dict[str, Any] | None = None
     combined_yaml_path: str = ""
     combined_yaml_url: str = ""
     category: str = ""
@@ -781,8 +782,13 @@ def apply_combined_yaml_locations(pages: dict[str, PackagePage]) -> None:
         credentials_locations = normalize_path_locations(record.get("credentials-file-location"))
         if credentials_locations:
             page.credentials_file_locations = credentials_locations
+        history = record.get("history")
+        if isinstance(history, dict):
+            page.history = history
         if config_locations or credentials_locations:
             page.source_notes.append("curated configuration and credential file locations")
+        if page.history:
+            page.source_notes.append("curated package history")
 
 
 def package_pages_from_sources(sources: dict[str, Any]) -> dict[str, PackagePage]:
@@ -821,6 +827,8 @@ def package_pages_from_sources(sources: dict[str, Any]) -> dict[str, PackagePage
                 normalize_path_locations(info.get("credentials-file-location"))
                 or page.credentials_file_locations
             )
+            if isinstance(info.get("history"), dict):
+                page.history = info["history"]
             page.category = info.get("category") or page.category
             page.version = info.get("version") or page.version
             page.last_updated_at = info.get("last_updated_at") or page.last_updated_at
