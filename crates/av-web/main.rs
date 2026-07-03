@@ -476,6 +476,7 @@ struct PackageData {
 struct PackageRow {
     path: String,
     provider: String,
+    slug: String,
     package_key: String,
     name: String,
     display_name: String,
@@ -485,6 +486,7 @@ struct PackageRow {
     install_command: String,
     native_install_command: String,
     version: String,
+    category: String,
     license: String,
     homepage: String,
     repository: String,
@@ -528,6 +530,19 @@ fn dynamic_response_for_path(db_path: &Path, path: &str) -> Result<Option<Stored
         Some((
             render_provider_sitemap(&connection, provider)?,
             "application/xml; charset=utf-8",
+        ))
+    } else if canonical_path == "/pkg/new.json" {
+        Some((
+            render_new_packages_json(&connection)?,
+            "application/json; charset=utf-8",
+        ))
+    } else if let Some((provider, slug)) = package_json_route(&canonical_path) {
+        let Some(package) = package_by_provider_slug(&connection, provider, slug)? else {
+            return Ok(None);
+        };
+        Some((
+            render_package_json(&package)?,
+            "application/json; charset=utf-8",
         ))
     } else if let Some((provider, slug, markdown)) = package_route(&canonical_path) {
         let Some(package) = package_by_provider_slug(&connection, provider, slug)? else {
@@ -618,6 +633,13 @@ fn package_route(path: &str) -> Option<(&str, &str, bool)> {
     }
 }
 
+fn package_json_route(path: &str) -> Option<(&str, &str)> {
+    let rest = path.strip_prefix("/pkg/")?;
+    let (provider, slug) = rest.split_once('/')?;
+    let slug = slug.strip_suffix(".json")?;
+    (PROVIDERS.contains(&provider) && !slug.contains('/')).then_some((provider, slug))
+}
+
 fn hub_route(path: &str) -> Option<(&str, bool)> {
     let rest = path.strip_prefix("/pkg/")?;
     let parts = rest.split('/').collect::<Vec<_>>();
@@ -689,6 +711,7 @@ fn package_from_row(row: &rusqlite::Row<'_>) -> rusqlite::Result<PackageRow> {
     Ok(PackageRow {
         path: row.get(0)?,
         provider: row.get(1)?,
+        slug: row.get(2)?,
         package_key: row.get(3)?,
         name: row.get(4)?,
         display_name: row.get(5)?,
@@ -698,6 +721,7 @@ fn package_from_row(row: &rusqlite::Row<'_>) -> rusqlite::Result<PackageRow> {
         install_command: row.get(9)?,
         native_install_command: row.get(10)?,
         version: row.get(11)?,
+        category: row.get(12)?,
         license: row.get(13)?,
         homepage: row.get(14)?,
         repository: row.get(15)?,
@@ -925,6 +949,57 @@ where
     rows.map_err(|err| format!("failed to query packages: {err}"))?
         .collect::<Result<Vec<_>, _>>()
         .map_err(|err| format!("failed to read packages: {err}"))
+}
+
+fn package_json_value(package: &PackageRow) -> Value {
+    json!({
+        "path": package.path,
+        "provider": package.provider,
+        "slug": package.slug,
+        "packageKey": package.package_key,
+        "name": package.name,
+        "displayName": package.display_name,
+        "summary": package.summary,
+        "providerLabel": package.provider_label,
+        "packageManagerUrl": package.package_manager_url,
+        "installCommand": package.install_command,
+        "nativeInstallCommand": package.native_install_command,
+        "version": package.version,
+        "category": package.category,
+        "license": package.license,
+        "homepage": package.homepage,
+        "repository": package.repository,
+        "rank": package.rank,
+        "lastUpdatedAt": package.last_updated_at,
+        "indexable": package.indexable,
+        "data": package.data.full,
+    })
+}
+
+fn render_package_json(package: &PackageRow) -> Result<String, String> {
+    serde_json::to_string(&package_json_value(package))
+        .map_err(|err| format!("failed to encode package json: {err}"))
+}
+
+fn render_new_packages_json(connection: &Connection) -> Result<String, String> {
+    let generated_at =
+        metadata_string(connection, "generated_at")?.unwrap_or_else(|| "now".to_string());
+    let mut statement = connection
+        .prepare(
+            "SELECT path, provider, slug, package_key, name, display_name, summary,
+                    provider_label, package_manager_url, install_command, native_install_command,
+                    version, category, license, homepage, repository, rank, last_updated_at,
+                    indexable, data_json
+             FROM packages
+             WHERE date(last_updated_at) >= date(?1, '-7 days')
+               AND date(last_updated_at) <= date(?1)
+             ORDER BY date(last_updated_at) DESC, rank IS NULL, rank, display_name",
+        )
+        .map_err(|err| format!("failed to prepare new packages query: {err}"))?;
+    let packages = collect_packages(statement.query_map(params![generated_at], package_from_row))?;
+    let values = packages.iter().map(package_json_value).collect::<Vec<_>>();
+    serde_json::to_string(&values)
+        .map_err(|err| format!("failed to encode new packages json: {err}"))
 }
 
 fn render_index_page(connection: &Connection, locale: &Locale) -> Result<String, String> {
@@ -6536,6 +6611,14 @@ mod tests {
             "/pkg/brew/awscli/index.html"
         );
         assert_eq!(
+            canonical_pkg_route("/pkg/brew/awscli.json").1,
+            "/pkg/brew/awscli.json"
+        );
+        assert_eq!(
+            package_json_route("/pkg/brew/awscli.json"),
+            Some(("brew", "awscli"))
+        );
+        assert_eq!(
             dynamic_response_for_path(db.path(), "/not-pkg").unwrap(),
             None
         );
@@ -6610,6 +6693,12 @@ mod tests {
         let cargo_sitemap = dynamic_response_for_path(db.path(), "/pkg/sitemap-cargo.xml")
             .expect("query")
             .expect("cargo sitemap response");
+        let package_json = dynamic_response_for_path(db.path(), "/pkg/brew/awscli.json")
+            .expect("query")
+            .expect("package json response");
+        let new_json = dynamic_response_for_path(db.path(), "/pkg/new.json")
+            .expect("query")
+            .expect("new json response");
 
         let package_html = String::from_utf8(package.body).expect("package html");
         assert!(package_html.contains("AWS credential file coverage"));
@@ -6737,6 +6826,19 @@ mod tests {
                 .expect("cargo sitemap xml")
                 .contains("/pkg/cargo/ripgrep/")
         );
+
+        assert_eq!(package_json.content_type, "application/json; charset=utf-8");
+        let package_json: Value = serde_json::from_slice(&package_json.body).expect("package json");
+        assert_eq!(package_json["packageKey"], "brew:awscli");
+        assert_eq!(package_json["category"], "developer-tools");
+        assert_eq!(package_json["data"]["approvalGate"]["rule_count"], 2);
+
+        assert_eq!(new_json.content_type, "application/json; charset=utf-8");
+        let new_json: Value = serde_json::from_slice(&new_json.body).expect("new json");
+        let new_packages = new_json.as_array().expect("new packages");
+        assert_eq!(new_packages.len(), 2);
+        assert_eq!(new_packages[0]["packageKey"], "brew:awscli");
+        assert_eq!(new_packages[1]["data"]["aliases"][0], "rg");
     }
 
     #[test]
