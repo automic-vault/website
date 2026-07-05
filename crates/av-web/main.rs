@@ -1676,37 +1676,19 @@ fn html_hreflang_links(canonical: &str) -> String {
 }
 
 fn render_install(package: &PackageRow, locale: &Locale) -> String {
-    let commands = install_command_entries(package);
-    let primary = commands.first().cloned().unwrap_or_else(|| {
-        json!({
-            "platform": "portable",
-            "manager": "Automic Vault",
-            "command": package.install_command,
-            "kind": "automic_vault",
-            "confidence": 1.0,
-            "evidence": "deterministic local package key"
-        })
-    });
-    let command =
-        value_str_key(&primary, "command").unwrap_or_else(|| package.install_command.clone());
-    let platform_html = render_platform_install_commands(&commands[1..], locale);
+    let commands = package_manager_install_entries(package);
+    let platform_html = render_platform_install_commands(&commands, locale);
+    if platform_html.is_empty() {
+        return String::new();
+    }
     format!(
-        r#"<section id="install" class="pkg-section install-section" aria-labelledby="install-title"><div class="install-command-panel"><div><p class="section-kicker">{}</p><h2 id="install-title">{}</h2></div><div class="terminal-block"><div class="terminal-head"><span>{}</span><div class="terminal-actions"><a class="download-av-button" href="/download/" aria-label="{}">{}</a><button class="copy-button" type="button" data-copy="{}" aria-label="{}">{}</button></div></div><pre><code>{}</code></pre></div>{}</div></section>"#,
+        r#"<section id="install" class="pkg-section install-section" aria-labelledby="install-title"><div class="install-command-panel"><div><p class="section-kicker">{}</p><h2 id="install-title">{}</h2></div>{}</div></section>"#,
         html_escape(&tx(locale, "install", "install")),
         html_escape(&tx(
             locale,
-            "automicVaultInstallHeading",
-            "Install with Automic Vault"
+            "additionalInstallCommands",
+            "Additional install commands"
         )),
-        html_escape(
-            &value_str_key(&primary, "manager").unwrap_or_else(|| "Automic Vault".to_string())
-        ),
-        html_escape(&tx(locale, "downloadAV", "Download AV")),
-        html_escape(&tx(locale, "downloadAV", "Download AV")),
-        html_escape(&command),
-        html_escape(&tx(locale, "copyInstallCommand", "Copy install command")),
-        html_escape(&tx(locale, "copy", "Copy")),
-        html_escape(&command),
         platform_html
     )
 }
@@ -4182,6 +4164,18 @@ fn install_command_entries(package: &PackageRow) -> Vec<Value> {
     entries
 }
 
+fn package_manager_install_entries(package: &PackageRow) -> Vec<Value> {
+    install_command_entries(package)
+        .into_iter()
+        .filter(|item| {
+            value_str_key(item, "kind").unwrap_or_default() != "automic_vault"
+                && !value_str_key(item, "manager")
+                    .unwrap_or_default()
+                    .eq_ignore_ascii_case("Automic Vault")
+        })
+        .collect()
+}
+
 fn package_facts(package: &PackageRow, locale: &Locale) -> String {
     let mut facts = vec![metric(
         &tx(locale, "manager", "manager"),
@@ -4793,7 +4787,7 @@ fn schema_for_package(
             );
         }
     }
-    let steps = install_command_entries(package)
+    let steps = package_manager_install_entries(package)
         .into_iter()
         .filter_map(|item| {
             let command = value_str_key(&item, "command")?;
@@ -4930,8 +4924,8 @@ fn markdown_history_section(text: &mut String, package: &PackageRow, locale: &Lo
 }
 
 fn markdown_install_groups(text: &mut String, package: &PackageRow, locale: &Locale) {
-    let commands = install_command_entries(package);
-    if commands.len() <= 1 {
+    let commands = package_manager_install_entries(package);
+    if commands.is_empty() {
         return;
     }
     text.push_str(&format!(
@@ -4957,7 +4951,6 @@ fn markdown_install_groups(text: &mut String, package: &PackageRow, locale: &Loc
     ] {
         let items = commands
             .iter()
-            .skip(1)
             .filter(|item| {
                 value_str_key(item, "platform").unwrap_or_else(|| "portable".to_string())
                     == platform
@@ -7361,12 +7354,22 @@ mod tests {
                 ]
             }),
         );
-        assert!(schema_for_package(&command_edges, "Install sparse.", "2026-06-07", &LOCALES[0])
-            ["@graph"][6]["step"]
+        let command_edge_steps = schema_for_package(
+            &command_edges,
+            "Install sparse.",
+            "2026-06-07",
+            &LOCALES[0],
+        )["@graph"][6]["step"]
             .as_array()
             .unwrap()
-            .len()
-            >= 2);
+            .clone();
+        assert_eq!(command_edge_steps.len(), 1);
+        assert!(
+            !command_edge_steps[0]["text"]
+                .as_str()
+                .unwrap()
+                .contains("sudo av install")
+        );
         let mut install_groups = String::new();
         markdown_install_groups(&mut install_groups, &command_edges, &LOCALES[0]);
         assert!(install_groups.contains("unknown confidence"));

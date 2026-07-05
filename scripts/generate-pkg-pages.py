@@ -121,7 +121,6 @@ REQUIRED_I18N_PKG_KEYS = {
     "approvalGatesKicker",
     "approvalRules",
     "atAGlance",
-    "automicVaultInstallHeading",
     "binaries",
     "bottle",
     "buildDependencies",
@@ -141,12 +140,10 @@ REQUIRED_I18N_PKG_KEYS = {
     "command",
     "commandsAndAliases",
     "copy",
-    "copyInstallCommand",
     "copyManagerInstallCommand",
     "coverageSource",
     "crawlableCatalog",
     "dependencies",
-    "downloadAV",
     "executableDataMissing",
     "executables",
     "executablesCount",
@@ -187,8 +184,6 @@ REQUIRED_I18N_PKG_KEYS = {
     "installRoutes",
     "installSourceMissing",
     "installSourcePrefix",
-    "installTitleConcept",
-    "installTitleConceptCopy",
     "installSupportTitle",
     "installSupportCopy",
     "issueTracker",
@@ -368,8 +363,6 @@ def validate_i18n_pkg_templates() -> list[str]:
 
 LOCALIZED_UI_ENGLISH_SNIPPETS = (
     ">Package summary<",
-    ">Install with Automic Vault<",
-    ">Start with Vault",
     ">Installed executables<",
     ">Version and freshness<",
     ">Package metadata<",
@@ -2612,7 +2605,7 @@ def render_package_page(
     title = package_install_title(page, locale)
     description = meta_description(page, locale)
     updated = fmt_date(page.last_verified) or fmt_date(page.last_updated_at) or fmt_date(manifest.get("generated_at", ""))
-    install_section = render_concept_install(page, locale) if page.key == "brew:ripgrep" else render_install(page, locale)
+    install_section = render_install(page, locale)
     sections = [
         render_install_support(page, locale),
         install_section,
@@ -2851,94 +2844,6 @@ def render_agent_risk_assessment(page: PackagePage, locale: dict[str, Any] | Non
 """
 
 
-def render_concept_install(page: PackagePage, locale: dict[str, Any] | None = None) -> str:
-    commands = install_command_entries(page)
-    primary = commands[0] if commands else {
-        "command": f"sudo av install {page.key}",
-        "manager": "Automic Vault",
-        "platform": "portable",
-        "confidence": 1.0,
-        "evidence": "deterministic local package key",
-    }
-    command = str(primary.get("command") or "")
-    return f"""
-<section id="install" class="pkg-section pkg-concept-install" aria-labelledby="install-title">
-  <div class="pkg-concept-section-head">
-      <p class="section-kicker">{html_escape(tx(locale, 'installRoutes', 'install routes'))}</p>
-      <h2 id="install-title">{html_escape(tx(locale, 'installTitleConcept', 'Start with Vault, then choose the host package manager.'))}</h2>
-      <p>{html_escape(tx(locale, 'installTitleConceptCopy', 'The page keeps the Automic Vault command first, then separates package-manager commands by operating system so the copy target is unambiguous.'))}</p>
-  </div>
-  <div class="pkg-concept-primary-command">
-    <div class="pkg-concept-primary-head">
-      <span>{html_escape(primary.get('manager') or 'Automic Vault')}</span>
-      <button class="copy-button" type="button" data-copy="{attr(command)}" aria-label="{attr(tx(locale, 'copyInstallCommand', 'Copy install command'))}">{html_escape(tx(locale, 'copy', 'Copy'))}</button>
-    </div>
-    <pre><code>{html_escape(command)}</code></pre>
-  </div>
-  {render_concept_platforms(commands[1:], locale)}
-</section>
-"""
-
-
-def render_concept_platforms(commands: list[dict[str, Any]], locale: dict[str, Any] | None = None) -> str:
-    grouped: dict[str, list[dict[str, Any]]] = {"macos": [], "linux": [], "windows": [], "portable": []}
-    for item in commands:
-        platform = str(item.get("platform") or "portable")
-        if platform not in grouped:
-            platform = "portable"
-        grouped[platform].append(item)
-    labels = {
-        "macos": "macOS",
-        "linux": "Linux",
-        "windows": "Windows",
-        "portable": "Portable",
-    }
-    sections = []
-    for index, platform in enumerate(("macos", "linux", "windows", "portable")):
-        items = grouped.get(platform) or []
-        if not items:
-            continue
-        rows = "".join(render_concept_command_row(item, locale) for item in items)
-        count_label = tx(locale, "commandCount", "{count} commands", count=fmt_int(len(items)))
-        sections.append(f"""
-<article class="pkg-concept-platform" style="--i: {index}">
-  <div class="pkg-concept-platform-head">
-    <h3>{html_escape(labels[platform])}</h3>
-    <span>{html_escape(count_label)}</span>
-  </div>
-  <div class="pkg-concept-command-list">{rows}</div>
-</article>
-""")
-    if not sections:
-        return f"<p>{html_escape(tx(locale, 'noPlatformCommands', 'No additional platform commands were present.'))}</p>"
-    return f'<div class="pkg-concept-platform-grid" aria-label="{attr(tx(locale, "platformInstallCommands", "Platform install commands"))}">{"".join(sections)}</div>'
-
-
-def render_concept_command_row(item: dict[str, Any], locale: dict[str, Any] | None = None) -> str:
-    command_text = str(item.get("command") or "")
-    manager = str(item.get("manager") or "shell")
-    manager_label = install_command_manager_label(item)
-    source_html = install_command_source_html(item, locale)
-    try:
-        confidence_value = float(item.get("confidence"))
-    except (TypeError, ValueError):
-        confidence_value = 0.0
-    confidence_label = tx(locale, "verified", "verified") if confidence_value >= 0.9 else tx(locale, "inferred", "inferred")
-    return f"""
-<div class="pkg-concept-command-row">
-  <div class="install-command-head">
-    <strong class="install-command-eyebrow">{html_escape(manager_label)}</strong>
-    <span>{html_escape(confidence_label)} / {html_escape(f'{confidence_value:.0%}')}</span>
-  </div>
-  <div class="install-command-shell">
-    <code>{html_escape(command_text)}</code>
-    <button class="copy-button" type="button" data-copy="{attr(command_text)}" aria-label="{attr(tx(locale, 'copyManagerInstallCommand', 'Copy {manager} install command', manager=manager_label))}">{html_escape(tx(locale, 'copy', 'Copy'))}</button>
-  </div>
-  {source_html}
-</div>
-"""
-
-
 def markdown_alternate_head(path: str, locale: dict[str, Any] | None = None) -> str:
     return f'  <link rel="alternate" type="text/markdown" href="{attr(f"{locale_url(path, locale)}index.md")}">'
 
@@ -3063,7 +2968,7 @@ def md_agent_safety_section(page: PackagePage, locale: dict[str, Any] | None = N
 
 
 def md_install_command_groups(page: PackagePage, locale: dict[str, Any] | None = None) -> list[str]:
-    commands = install_command_entries(page)[1:]
+    commands = package_manager_install_entries(page)
     if not commands:
         return []
     labels = {
@@ -3517,9 +3422,16 @@ def install_command_entries(page: PackagePage) -> list[dict[str, Any]]:
     return entries
 
 
+def package_manager_install_entries(page: PackagePage) -> list[dict[str, Any]]:
+    return [
+        item for item in install_command_entries(page)
+        if item.get("kind") != "automic_vault" and str(item.get("manager") or "").lower() != "automic vault"
+    ]
+
+
 def source_backed_schema_commands(page: PackagePage) -> list[dict[str, Any]]:
     result = []
-    for item in install_command_entries(page):
+    for item in package_manager_install_entries(page):
         command_text = str(item.get("command") or "").strip()
         evidence = str(item.get("evidence") or "")
         if not command_text or "agent-inferred" in evidence:
@@ -3769,32 +3681,15 @@ def geiger_confidence_label(geiger: dict[str, Any]) -> str:
 
 
 def render_install(page: PackagePage, locale: dict[str, Any] | None = None) -> str:
-    commands = install_command_entries(page)
-    primary = commands[0] if commands else {
-        "command": f"sudo av install {page.key}",
-        "manager": "Automic Vault",
-        "platform": "portable",
-        "confidence": 1.0,
-        "evidence": "deterministic local package key",
-    }
-    command = str(primary.get("command") or "")
-    platform_html = render_platform_install_commands(commands[1:], locale)
+    platform_html = render_platform_install_commands(package_manager_install_entries(page), locale)
+    if not platform_html:
+        return ""
     return f"""
 <section id="install" class="pkg-section install-section" aria-labelledby="install-title">
   <div class="install-command-panel">
     <div>
       <p class="section-kicker">{html_escape(tx(locale, 'install', 'install'))}</p>
-      <h2 id="install-title">{html_escape(tx(locale, 'automicVaultInstallHeading', 'Install with Automic Vault'))}</h2>
-    </div>
-    <div class="terminal-block">
-      <div class="terminal-head">
-        <span>{html_escape(primary.get('manager') or 'shell')}</span>
-        <div class="terminal-actions">
-          <a class="download-av-button" href="/download/" aria-label="{attr(tx(locale, 'downloadAV', 'Download Automic Vault'))}">{html_escape(tx(locale, 'downloadAV', 'Download AV'))}</a>
-          <button class="copy-button" type="button" data-copy="{attr(command)}" aria-label="{attr(tx(locale, 'copyInstallCommand', 'Copy install command'))}">{html_escape(tx(locale, 'copy', 'Copy'))}</button>
-        </div>
-      </div>
-      <pre><code>{html_escape(command)}</code></pre>
+      <h2 id="install-title">{html_escape(tx(locale, 'additionalInstallCommands', 'Additional install commands'))}</h2>
     </div>
     {platform_html}
   </div>
@@ -5316,36 +5211,6 @@ h1 {
 .copy-button:active { transform: translateY(1px) scale(0.98); }
 .copy-button[data-state="copied"] { border-color: rgba(114, 182, 97, 0.72); color: var(--green); }
 .copy-button[data-state="error"] { border-color: rgba(242, 109, 61, 0.72); color: var(--hot); }
-.terminal-actions {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 8px;
-}
-.download-av-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 36px;
-  padding: 8px 12px;
-  border: 1px solid rgba(242, 109, 61, 0.72);
-  border-radius: 7px;
-  background: rgba(242, 109, 61, 0.12);
-  color: var(--ink);
-  cursor: pointer;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), border-color 180ms cubic-bezier(0.16, 1, 0.3, 1), background 180ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.download-av-button:hover {
-  border-color: var(--hot);
-  background: rgba(242, 109, 61, 0.18);
-}
-.download-av-button:active { transform: translateY(1px) scale(0.98); }
-
 .hero-panel {
   display: grid;
   align-self: stretch;
@@ -5517,50 +5382,6 @@ h1 {
 .install-command-panel {
   display: grid;
   gap: 22px;
-}
-.terminal-block {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--line-strong);
-  border-radius: 8px;
-  background:
-    radial-gradient(circle at 12% 0%, rgba(114, 182, 97, 0.09), transparent 18rem),
-    #10100f;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 18px 44px rgba(0, 0, 0, 0.18);
-}
-.terminal-block::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  height: 2px;
-  background: linear-gradient(90deg, var(--green), var(--gold), transparent);
-  opacity: 0.72;
-}
-.terminal-head {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  min-height: 52px;
-  padding: 8px 10px 8px 16px;
-  border-bottom: 1px solid var(--line);
-  color: var(--dim);
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-.terminal-block pre {
-  position: relative;
-  overflow-x: auto;
-  padding: 24px;
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  line-height: 1.5;
 }
 .platform-install-grid {
   display: grid;
@@ -6330,142 +6151,6 @@ td { color: var(--ink); overflow-wrap: anywhere; }
   color: var(--hot);
   font-family: var(--font-mono);
 }
-.pkg-concept-install {
-  background:
-    linear-gradient(90deg, rgba(114, 182, 97, 0.058), transparent 38%),
-    rgba(255, 255, 255, 0.014);
-}
-.pkg-concept-section-head {
-  display: grid;
-  grid-template-columns: minmax(250px, 0.36fr) minmax(0, 0.72fr);
-  gap: clamp(18px, 4vw, 54px);
-  align-items: start;
-}
-.pkg-concept-section-head .section-kicker {
-  padding-top: 10px;
-}
-.pkg-concept-section-head h2 {
-  max-width: 840px;
-  margin-top: 0;
-  font-size: clamp(2.2rem, 4.2vw, 5.4rem);
-  line-height: 0.92;
-}
-.pkg-concept-section-head p:not(.section-kicker) {
-  grid-column: 2;
-  max-width: 760px;
-  margin-top: -22px;
-}
-.pkg-concept-primary-command {
-  position: relative;
-  min-width: 0;
-  overflow: hidden;
-  margin-top: clamp(28px, 4vw, 52px);
-  border: 1px solid rgba(114, 182, 97, 0.44);
-  border-radius: 9px;
-  background:
-    linear-gradient(135deg, rgba(114, 182, 97, 0.12), transparent 48%),
-    #11110f;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-.pkg-concept-primary-command::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, transparent, rgba(114, 182, 97, 0.1), transparent);
-  opacity: 0.52;
-  transform: translateY(-100%);
-  animation: pkg-scanline 6.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-.pkg-concept-primary-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  min-height: 54px;
-  padding: 10px 10px 10px 16px;
-  border-bottom: 1px solid rgba(114, 182, 97, 0.24);
-  color: var(--green);
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-.pkg-concept-primary-command pre {
-  min-width: 0;
-  overflow-x: auto;
-  padding: clamp(22px, 4vw, 38px);
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: clamp(1.16rem, 2.4vw, 2rem);
-  line-height: 1.35;
-}
-.pkg-concept-platform-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  gap: 1px;
-  margin-top: clamp(28px, 4vw, 52px);
-  border: 1px solid var(--line);
-  background: var(--line);
-}
-.pkg-concept-platform {
-  min-width: 0;
-  padding: clamp(16px, 2vw, 24px);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.026), transparent),
-    var(--surface-2);
-  animation: pkg-rise 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: calc(var(--i) * 90ms);
-}
-.pkg-concept-platform:nth-child(2) {
-  grid-row: span 2;
-}
-.pkg-concept-platform-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 14px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--line);
-}
-.pkg-concept-platform h3 {
-  color: var(--ink);
-  font-size: clamp(1.12rem, 1.6vw, 1.55rem);
-  line-height: 1;
-  text-transform: uppercase;
-}
-.pkg-concept-platform-head span {
-  color: var(--dim);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-.pkg-concept-command-list {
-  display: grid;
-}
-.pkg-concept-command-row {
-  display: block;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--line);
-}
-.pkg-concept-command-row:last-child {
-  border-bottom: 0;
-}
-.pkg-concept-command-row .install-command-shell {
-  background: rgba(255, 255, 255, 0.032);
-}
-.pkg-concept-command-row .install-command-source {
-  max-width: 58rem;
-}
-@keyframes pkg-scanline {
-  0%, 38% { transform: translateY(-100%); }
-  62%, 100% { transform: translateY(100%); }
-}
-@keyframes pkg-rise {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 .site-footer {
   display: flex;
   align-items: center;
@@ -6493,20 +6178,7 @@ td { color: var(--ink); overflow-wrap: anywhere; }
   .masthead, .site-footer { align-items: flex-start; flex-direction: column; }
   .nav { width: 100%; flex-wrap: wrap; gap: 12px 18px; }
   .pkg-hero, .split-section, .security-section, .support-section, .pkg-search-section, .install-section, .signal-grid, .related-columns, .platform-install-grid, .install-command-row, .freshness-metrics, .file-location-board { grid-template-columns: 1fr; }
-  .pkg-concept-section-head,
-  .pkg-concept-platform-grid,
-  .pkg-concept-command-row {
-    grid-template-columns: 1fr;
-  }
-  .pkg-concept-section-head p:not(.section-kicker) { grid-column: auto; margin-top: 0; }
-  .pkg-concept-platform:nth-child(2) { grid-row: auto; }
-  .pkg-concept-command-row p { grid-column: 1 / -1; }
   .pkg-hero { padding-top: 38px; }
-  .terminal-head {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-  .terminal-actions { justify-content: flex-start; }
   h1 { font-size: clamp(2.8rem, 15vw, 4.8rem); }
   .lede { font-size: 1.32rem; }
   .package-list { grid-template-columns: 1fr; }
