@@ -1,8 +1,8 @@
 # Automic Vault
 
-ツールにシークレットを。実行は管理下に。
+ツールはあなたの権限で動く。 使う前に承認させる。
 
-Automic Vault は、要求するプロセスと実行されるローカルツールの間に入ります。認証情報を Keychain に保管し、承認された実行ファイルだけに渡し、危険なコマンドは実行前に確認します。
+Automic Vault は shell や agent と、それらが使うツールの間にある最後のローカル区間を管理します。Keychain のシークレットを承認済み実行ファイルへ 1 回の実行だけ渡し、危険なコマンドは実行前に確認します。
 
 - ウェブサイト: https://www.automicvault.com/ja/
 - ドキュメント: https://www.automicvault.com/ja/docs/

@@ -9,8 +9,8 @@
           "title": "Automic Vault | ローカルツールのシークレットと実行を管理",
           "description": "Automic Vault は macOS 上でツールへのシークレット注入と高リスクコマンドの実行を管理します。認証情報を Keychain に保管し、承認された実行ファイルだけに渡します。",
           "kicker": "ローカルツールのセキュリティ",
-          "h1": "ツールにシークレットを。実行は管理下に。",
-          "lede": "要求するプロセスと実行されるツールの間に、確認できるローカル境界を置きます。",
+          "h1": "ツールはあなたの権限で動く。使う前に承認させる。",
+          "lede": "shell や agent と、それらが使うツールの間にある最後のローカル区間を管理します。",
           "sections": [
             [
               "ツール単位のシークレット",
@@ -30,8 +30,8 @@
           "title": "Automic Vault | Secrets und Ausführung für lokale Tools",
           "description": "Automic Vault verwaltet Secret-Injection und riskante Tool-Ausführung lokal auf macOS. Credentials bleiben im Schlüsselbund und erreichen nur genehmigte Executables.",
           "kicker": "Sicherheit für lokale Tools",
-          "h1": "Secrets für Tools. Ausführung unter Kontrolle.",
-          "lede": "Setze eine prüfbare lokale Grenze zwischen den anfragenden Prozess und das Tool, das wirklich läuft.",
+          "h1": "Deine Tools haben deine Berechtigungen. Lass sie um Freigabe bitten.",
+          "lede": "Kontrolliere den letzten lokalen Übergang zwischen Shells, Agents und den Tools, die sie verwenden.",
           "sections": [
             [
               "Tool-spezifische Secrets",
@@ -51,8 +51,8 @@
           "title": "Automic Vault | Secrets et exécution pour les outils locaux",
           "description": "Automic Vault gère localement sur macOS l’injection de secrets et l’exécution sensible des outils. Les identifiants restent dans le trousseau et vont seulement aux exécutables approuvés.",
           "kicker": "Sécurité des outils locaux",
-          "h1": "Des secrets pour les outils. Une exécution contrôlée.",
-          "lede": "Placez une limite locale vérifiable entre le processus demandeur et l’outil qui s’exécute.",
+          "h1": "Vos outils ont vos autorisations. Faites-leur demander l’accord.",
+          "lede": "Contrôlez le dernier passage local entre les shells, les agents et les outils qu’ils utilisent.",
           "sections": [
             [
               "Secrets limités aux outils",
@@ -72,8 +72,8 @@
           "title": "Automic Vault | 管理本地工具使用的密钥与执行权限",
           "description": "Automic Vault 在 macOS 本地管理工具的密钥注入和高风险命令执行。凭据保存在 Keychain 中，只提供给已批准的可执行文件。",
           "kicker": "本地工具安全",
-          "h1": "密钥交给工具。执行由你掌控。",
-          "lede": "在发起请求的进程与实际运行的工具之间建立可检查的本地边界。",
+          "h1": "工具握有你的权限。让它们先请求批准。",
+          "lede": "控制 shell、agent 与它们所用工具之间最后一段本地路径。",
           "sections": [
             [
               "工具级密钥",

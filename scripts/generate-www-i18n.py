@@ -673,9 +673,11 @@ SUPPORT_SECTIONS: dict[str, list[list[str]]] = {
 LANDING_HOME: dict[str, dict[str, Any]] = {
     "ja": {
         "nav_download": "ダウンロード",
+        "category": "ツールのためのシークレット · 実行を制御",
         "orientation": "macOS のローカル境界 · プロセス → ツール → 認証情報",
-        "hero_h1": "ツールにシークレットを。実行は管理下に。",
-        "hero_lede": "Automic Vault は、要求するプロセスと実行されるローカルツールの間に入ります。認証情報を Keychain に保管し、承認された実行ファイルだけに渡し、危険なコマンドは実行前に確認します。",
+        "hero_h1": "ツールはあなたの権限で動く。",
+        "hero_action": "使う前に承認させる。",
+        "hero_lede": "Automic Vault は shell や agent と、それらが使うツールの間にある最後のローカル区間を管理します。Keychain のシークレットを承認済み実行ファイルへ 1 回の実行だけ渡し、危険なコマンドは実行前に確認します。",
         "download": "macOS 版をダウンロード",
         "docs": "ドキュメント",
         "requester": "要求元",
@@ -691,7 +693,7 @@ LANDING_HOME: dict[str, dict[str, Any]] = {
         "approved_tool": "承認済みツール",
         "tool_note": "承認されたツールだけがシークレットを受け取ります。",
         "external_service": "外部サービス",
-        "problem_title": "ローカルツールは、すでに強い権限を持っています。",
+        "problem_title": "読み取り可能な認証情報があれば、別のローカルプロセスがあなたとして動けます。",
         "problem_body": "クラウド CLI、ソース管理クライアント、デプロイスクリプト、公開ツールは、非公開データを読み、リモートシステムを変更できます。認証情報は、ローカルプロセスが読めるファイルに残りがちです。",
         "risks": [["~/.aws/credentials", "読み取り可能な dotfile にあるクラウド権限"], ["gh auth token", "要求元プロセスへ出力される bearer token"], ["npm publish", "リリース権限を持つローカルコマンド"], ["terraform apply", "現在の shell から行うインフラ変更"]],
         "secrets_title": "シークレットは、ツールの実行にだけ属します。",
@@ -716,9 +718,11 @@ LANDING_HOME: dict[str, dict[str, Any]] = {
     },
     "de": {
         "nav_download": "Download",
+        "category": "Secrets für Tools · Ausführung unter Kontrolle",
         "orientation": "Lokale macOS-Grenze · Prozess → Tool → Credential",
-        "hero_h1": "Secrets für Tools. Ausführung unter Kontrolle.",
-        "hero_lede": "Automic Vault sitzt zwischen dem anfragenden Prozess und dem lokalen Tool. Credentials bleiben im Schlüsselbund, erreichen nur genehmigte Executables und riskante Befehle warten auf deine Freigabe.",
+        "hero_h1": "Deine Tools haben deine Berechtigungen.",
+        "hero_action": "Lass sie um Freigabe bitten.",
+        "hero_lede": "Automic Vault kontrolliert den letzten lokalen Übergang zwischen Shells, Agents und den Tools, die sie verwenden. Es gibt Secrets aus dem Schlüsselbund für genau einen Lauf an ein genehmigtes Executable und fragt dich vor riskanten Befehlen.",
         "download": "Für macOS laden",
         "docs": "Doku lesen",
         "requester": "Anfrage",
@@ -734,7 +738,7 @@ LANDING_HOME: dict[str, dict[str, Any]] = {
         "approved_tool": "Genehmigtes Tool",
         "tool_note": "Nur das freigegebene Tool erhält das Secret.",
         "external_service": "Externer Dienst",
-        "problem_title": "Deine lokalen Tools haben bereits echte Berechtigungen.",
+        "problem_title": "Ein lesbares Credential lässt einen anderen lokalen Prozess als dich handeln.",
         "problem_body": "Cloud-CLIs, Source-Control-Clients, Deploy-Skripte und Publisher können private Daten lesen oder entfernte Systeme ändern. Ihre Credentials liegen oft in Dateien, die jeder lokale Prozess lesen kann.",
         "risks": [["~/.aws/credentials", "Cloud-Zugriff in einer lesbaren Dotfile"], ["gh auth token", "Ein Bearer-Token für den anfragenden Prozess"], ["npm publish", "Ein lokaler Befehl mit Release-Rechten"], ["terraform apply", "Infrastrukturänderung aus der aktuellen Shell"]],
         "secrets_title": "Das Secret gehört zur Ausführung des Tools.",
@@ -759,9 +763,11 @@ LANDING_HOME: dict[str, dict[str, Any]] = {
     },
     "fr": {
         "nav_download": "Télécharger",
+        "category": "Des secrets pour les outils · une exécution sous contrôle",
         "orientation": "Limite macOS locale · processus → outil → identifiant",
-        "hero_h1": "Des secrets pour les outils. Une exécution contrôlée.",
-        "hero_lede": "Automic Vault se place entre le processus demandeur et l’outil local. Les identifiants restent dans le trousseau, seuls les exécutables approuvés les reçoivent, et les commandes risquées attendent votre validation.",
+        "hero_h1": "Vos outils ont vos autorisations.",
+        "hero_action": "Faites-leur demander l’accord.",
+        "hero_lede": "Automic Vault contrôle le dernier passage local entre les shells, les agents et les outils qu’ils utilisent. Il transmet un secret du trousseau à un exécutable approuvé pour une seule exécution et vous consulte avant une commande risquée.",
         "download": "Télécharger pour macOS",
         "docs": "Lire la documentation",
         "requester": "Demandeur",
@@ -777,7 +783,7 @@ LANDING_HOME: dict[str, dict[str, Any]] = {
         "approved_tool": "Outil approuvé",
         "tool_note": "Seul l’outil approuvé reçoit le secret.",
         "external_service": "Service externe",
-        "problem_title": "Vos outils locaux possèdent déjà de vrais pouvoirs.",
+        "problem_title": "Un identifiant lisible permet à un autre processus local d’agir en votre nom.",
         "problem_body": "Les CLI cloud, clients de gestion de source, scripts de déploiement et outils de publication peuvent lire des données privées ou modifier des systèmes distants. Leurs identifiants restent souvent dans des fichiers lisibles par tout processus local.",
         "risks": [["~/.aws/credentials", "Accès cloud dans un dotfile lisible"], ["gh auth token", "Bearer token imprimé pour le processus demandeur"], ["npm publish", "Commande locale avec droit de publication"], ["terraform apply", "Mutation d’infrastructure depuis le shell courant"]],
         "secrets_title": "Le secret appartient à l’exécution de l’outil.",
@@ -802,9 +808,11 @@ LANDING_HOME: dict[str, dict[str, Any]] = {
     },
     "zh-Hans": {
         "nav_download": "下载",
+        "category": "密钥属于工具 · 执行由你控制",
         "orientation": "macOS 本地边界 · 进程 → 工具 → 凭据",
-        "hero_h1": "密钥交给工具。执行由你掌控。",
-        "hero_lede": "Automic Vault 位于发起请求的进程与实际运行的本地工具之间。凭据留在 Keychain 中，只提供给已批准的可执行文件；高风险命令在运行前需要你的确认。",
+        "hero_h1": "工具握有你的权限。",
+        "hero_action": "让它们先请求批准。",
+        "hero_lede": "Automic Vault 控制 shell、agent 与它们所用工具之间最后一段本地路径。Keychain 中的密钥只在单次运行时提供给已批准的可执行文件，高风险命令会在执行前征求你的确认。",
         "download": "下载 macOS 版",
         "docs": "阅读文档",
         "requester": "请求方",
@@ -820,7 +828,7 @@ LANDING_HOME: dict[str, dict[str, Any]] = {
         "approved_tool": "已批准工具",
         "tool_note": "只有获准的工具会收到密钥。",
         "external_service": "外部服务",
-        "problem_title": "你的本地工具已经拥有真实权限。",
+        "problem_title": "可读取的凭据会让另一个本地进程以你的身份行动。",
         "problem_body": "云 CLI、源代码管理客户端、部署脚本和发布工具可以读取私有数据或修改远程系统。它们的凭据常常留在所有本地进程都能读取的文件中。",
         "risks": [["~/.aws/credentials", "可读 dotfile 中的云账户权限"], ["gh auth token", "输出给请求进程的 bearer token"], ["npm publish", "拥有发布权限的本地命令"], ["terraform apply", "从当前 shell 发起基础设施变更"]],
         "secrets_title": "密钥只属于这次工具执行。",
@@ -1129,7 +1137,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
 def render_llms(locale: Locale) -> str:
     ui = ui_copy(locale.code)
     landing = LANDING_HOME[locale.code]
-    lines = ["# Automic Vault", landing["hero_h1"], landing["hero_lede"]]
+    lines = ["# Automic Vault", f'{landing["hero_h1"]} {landing["hero_action"]}', landing["hero_lede"]]
     return "\n\n".join(lines) + (
         f"\n\n- {ui['website']}: {href('/', locale)}"
         f"\n- {ui['docs']}: {href('/docs/', locale)}"
@@ -1242,7 +1250,7 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
     "@type": "WebPage",
     "url": "{canonical}",
     "name": {json.dumps(t["title"], ensure_ascii=False)},
-    "headline": {json.dumps(landing["hero_h1"], ensure_ascii=False)},
+    "headline": {json.dumps(f'{landing["hero_h1"]} {landing["hero_action"]}', ensure_ascii=False)},
     "description": {json.dumps(t["description"], ensure_ascii=False)},
     "inLanguage": "{locale.html_lang}",
     "image": "{SITE_ORIGIN}/preview.jpg",
@@ -1263,8 +1271,8 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
   <main>
     <section class="boundary-hero" aria-labelledby="hero-title">
       <div class="boundary-hero-copy">
-        <p class="boundary-orientation">{html.escape(landing["orientation"])}</p>
-        <h1 id="hero-title">{html.escape(landing["hero_h1"])}</h1>
+        <p class="boundary-orientation">{html.escape(landing["category"])}</p>
+        <h1 id="hero-title">{html.escape(landing["hero_h1"])}<br><span>{html.escape(landing["hero_action"])}</span></h1>
         <p class="boundary-lede">{html.escape(landing["hero_lede"])}</p>
       </div>
 

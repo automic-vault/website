@@ -1,8 +1,8 @@
 # Automic Vault
 
-密钥交给工具。执行由你掌控。
+工具握有你的权限。 让它们先请求批准。
 
-Automic Vault 位于发起请求的进程与实际运行的本地工具之间。凭据留在 Keychain 中，只提供给已批准的可执行文件；高风险命令在运行前需要你的确认。
+Automic Vault 控制 shell、agent 与它们所用工具之间最后一段本地路径。Keychain 中的密钥只在单次运行时提供给已批准的可执行文件，高风险命令会在执行前征求你的确认。
 
 - 网站: https://www.automicvault.com/zh-hans/
 - 文档: https://www.automicvault.com/zh-hans/docs/

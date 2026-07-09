@@ -1,10 +1,10 @@
 # Automic Vault
 
-Automic Vault is a local macOS secrets and execution manager for developer
-tools. It controls the last local hop between a shell, script, or AI agent and
-the executable that receives a credential and performs work.
+Automic Vault controls the last local hop between a shell, script, or AI agent
+and the executable that receives a credential and performs work. It keeps
+long-lived values in Keychain and asks before risky commands execute.
 
-Homepage headline: Secrets for tools. Execution under control.
+Homepage headline: Your tools have your authority. Make them ask.
 
 ## Core Product Facts
 

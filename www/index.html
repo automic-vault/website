@@ -12,17 +12,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Automic Vault | Secrets and Execution for Local Tools</title>
-  <meta name="description" content="Automic Vault is a local macOS secrets and execution manager for developer tools. Keep credentials out of agent-readable files, inject them only into approved executables, and review risky tool runs.">
+  <meta name="description" content="Automic Vault controls the local executable boundary between shells or agents and developer tools. Release Keychain secrets for one run and approve risky commands before they execute.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Automic Vault | Secrets and Execution for Local Tools">
-  <meta property="og:description" content="Give approved local tools the secrets they need, and put human approval in front of risky execution.">
+  <meta property="og:title" content="Your tools have your authority. Make them ask.">
+  <meta property="og:description" content="Automic Vault releases Keychain secrets to approved local tools for one run and asks before risky commands execute.">
   <meta property="og:url" content="https://www.automicvault.com/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
-  <meta name="twitter:title" content="Automic Vault | Secrets and Execution for Local Tools">
-  <meta name="twitter:description" content="Give approved local tools the secrets they need, and put human approval in front of risky execution.">
+  <meta name="twitter:title" content="Your tools have your authority. Make them ask.">
+  <meta name="twitter:description" content="Automic Vault releases Keychain secrets to approved local tools for one run and asks before risky commands execute.">
   <link rel="canonical" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/">
@@ -109,8 +109,8 @@
         "@id": "https://www.automicvault.com/#webpage",
         "url": "https://www.automicvault.com/",
         "name": "Automic Vault | Secrets and Execution for Local Tools",
-        "headline": "Secrets for tools. Execution under control.",
-        "description": "Automic Vault is a local macOS secrets and execution manager for developer tools.",
+        "headline": "Your tools have your authority. Make them ask.",
+        "description": "Automic Vault controls the local executable boundary where developer tools receive credentials and run sensitive commands.",
         "datePublished": "2026-05-15",
         "dateModified": "2026-07-09",
         "image": "https://www.automicvault.com/preview.jpg",
@@ -141,9 +141,9 @@
   <main>
     <section class="boundary-hero" aria-labelledby="hero-title">
       <div class="boundary-hero-copy">
-        <p class="boundary-orientation">Local macOS boundary · process → tool → credential</p>
-        <h1 id="hero-title">Secrets for tools.<br><span>Execution under control.</span></h1>
-        <p class="boundary-lede">Automic Vault sits between the process asking and the local tool that runs. It keeps credentials in Keychain, releases them to approved executables, and asks before a command crosses a risk line.</p>
+        <p class="boundary-orientation">Secrets for tools · execution under control</p>
+        <h1 id="hero-title">Your tools have your authority.<br><span>Make them ask.</span></h1>
+        <p class="boundary-lede">Automic Vault controls the last local hop between shells, agents, and the tools they use. It releases Keychain secrets to an approved executable for one run, and asks you before a risky command executes.</p>
       </div>
 
       <div class="execution-map" data-execution-map role="group" aria-label="A shell, script, or agent sends a request through Automic Vault to an approved local tool. The tool, not the requester, receives the secret before contacting an external service.">
@@ -192,7 +192,7 @@
 
     <section class="boundary-problem" id="detect" aria-labelledby="problem-title">
       <div class="boundary-section-copy">
-        <h2 id="problem-title">Your local tools already hold real authority.</h2>
+        <h2 id="problem-title">A readable credential lets another local process act as you.</h2>
         <p>Cloud CLIs, source-control clients, deployment scripts, and release tools can read private data or change remote systems. Their credentials often sit in files that every local process can read.</p>
       </div>
       <dl class="authority-ledger">

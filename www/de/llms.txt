@@ -1,8 +1,8 @@
 # Automic Vault
 
-Secrets für Tools. Ausführung unter Kontrolle.
+Deine Tools haben deine Berechtigungen. Lass sie um Freigabe bitten.
 
-Automic Vault sitzt zwischen dem anfragenden Prozess und dem lokalen Tool. Credentials bleiben im Schlüsselbund, erreichen nur genehmigte Executables und riskante Befehle warten auf deine Freigabe.
+Automic Vault kontrolliert den letzten lokalen Übergang zwischen Shells, Agents und den Tools, die sie verwenden. Es gibt Secrets aus dem Schlüsselbund für genau einen Lauf an ein genehmigtes Executable und fragt dich vor riskanten Befehlen.
 
 - Website: https://www.automicvault.com/de/
 - Dokumentation: https://www.automicvault.com/de/docs/

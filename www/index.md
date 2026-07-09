@@ -1,11 +1,13 @@
 # Automic Vault
 
-## Secrets for tools. Execution under control.
+## Your tools have your authority. Make them ask.
 
-Automic Vault is a local macOS secrets and execution manager for developer
-tools. It sits between the process asking and the executable that runs. Long-
-lived credentials stay in Keychain, approved executables receive named values
-for one run, and risky commands can require human approval.
+Secrets for tools. Execution under control.
+
+Automic Vault controls the last local hop between shells, scripts, agents, and
+the tools they use. It keeps long-lived credentials in Keychain, releases named
+values to an approved executable for one run, and asks you before a risky
+command executes.
 
 [Download for macOS](/Automic%20Vault.dmg) · [Read the docs](/docs/) ·
 [Review the source](https://github.com/automic-vault/automic-vault)

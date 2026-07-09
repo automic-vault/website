@@ -3,8 +3,8 @@
   "category": "Local secrets and execution management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "Secrets for tools. Execution under control.",
-  "description": "Automic Vault is a local macOS secrets and execution manager for developer tools. It keeps credentials in Keychain, injects named values only into approved executables, and mediates risky tool runs.",
+  "title": "Your tools have your authority. Make them ask.",
+  "description": "Automic Vault controls the local executable boundary between shells or agents and developer tools. It keeps credentials in Keychain, releases named values to approved executables for one run, and asks before risky commands execute.",
   "positioning": "Automic Vault controls the last local hop between a shell, script, or agent and the developer tool that receives a credential and performs work.",
   "primary_action": {
     "label": "Download for macOS",

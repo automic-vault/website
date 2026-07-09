@@ -44,7 +44,7 @@
     "@type": "WebPage",
     "url": "https://www.automicvault.com/ja/",
     "name": "Automic Vault | ローカルツールのシークレットと実行を管理",
-    "headline": "ツールにシークレットを。実行は管理下に。",
+    "headline": "ツールはあなたの権限で動く。 使う前に承認させる。",
     "description": "Automic Vault は macOS 上でツールへのシークレット注入と高リスクコマンドの実行を管理します。認証情報を Keychain に保管し、承認された実行ファイルだけに渡します。",
     "inLanguage": "ja",
     "image": "https://www.automicvault.com/preview.jpg",
@@ -65,9 +65,9 @@
   <main>
     <section class="boundary-hero" aria-labelledby="hero-title">
       <div class="boundary-hero-copy">
-        <p class="boundary-orientation">macOS のローカル境界 · プロセス → ツール → 認証情報</p>
-        <h1 id="hero-title">ツールにシークレットを。実行は管理下に。</h1>
-        <p class="boundary-lede">Automic Vault は、要求するプロセスと実行されるローカルツールの間に入ります。認証情報を Keychain に保管し、承認された実行ファイルだけに渡し、危険なコマンドは実行前に確認します。</p>
+        <p class="boundary-orientation">ツールのためのシークレット · 実行を制御</p>
+        <h1 id="hero-title">ツールはあなたの権限で動く。<br><span>使う前に承認させる。</span></h1>
+        <p class="boundary-lede">Automic Vault は shell や agent と、それらが使うツールの間にある最後のローカル区間を管理します。Keychain のシークレットを承認済み実行ファイルへ 1 回の実行だけ渡し、危険なコマンドは実行前に確認します。</p>
       </div>
 
       <div class="execution-map" data-execution-map role="group" aria-label="macOS のローカル境界 · プロセス → ツール → 認証情報">
@@ -110,7 +110,7 @@
 
     <section class="boundary-problem" id="detect" aria-labelledby="problem-title">
       <div class="boundary-section-copy">
-        <h2 id="problem-title">ローカルツールは、すでに強い権限を持っています。</h2>
+        <h2 id="problem-title">読み取り可能な認証情報があれば、別のローカルプロセスがあなたとして動けます。</h2>
         <p>クラウド CLI、ソース管理クライアント、デプロイスクリプト、公開ツールは、非公開データを読み、リモートシステムを変更できます。認証情報は、ローカルプロセスが読めるファイルに残りがちです。</p>
       </div>
       <dl class="authority-ledger">
