@@ -672,160 +672,178 @@ SUPPORT_SECTIONS: dict[str, list[list[str]]] = {
 
 LANDING_HOME: dict[str, dict[str, Any]] = {
     "ja": {
-        "nav": ["パッケージ", "ブログ", "セキュリティ", "ドキュメント", "ダウンロード"],
-        "hero_eyebrow": "Homebrew 作者より",
-        "hero_h1": "エージェントが動く前に Mac を堅牢化。",
-        "hero_lede": "Mac には、エージェントが読める、漏らせる、マルウェアに渡せる平文キーが残りがちです。Automic Vault はあなたの認証情報を守る層を堅牢化します。暗号化されたシークレット、封印されたツール、実行前の承認です。",
-        "download_short": "av.dmg をダウンロード",
-        "run_scanner": "スキャナーを実行",
-        "view_source": "ソースを見る",
-        "harden_title": "パッケージ由来の平文シークレットを消す。",
-        "harden_body": "Automic Vault は CLI が dotfile に残す認証情報を見つけ、対応済みのシークレットを Keychain に移し、エージェントが値を読まずに使える実行時ヘルパーを残します。",
-        "harden_notes": ["いつも通りツールをインストール", "シークレット露出を検出", "平文シークレットは残念ながらオープンソースでよくあります", "av harden がキーを Keychain に移してヘルパーを書き換えます", "credential_process で aws はキーを受け取り、エージェントやマルウェアには露出しません"],
-        "radar_title": "既知のツール、見える制御。",
-        "radar_body": "Automic Vault はヘルパープロトコル、一時ホーム、Keychain-backed トークン、平文 hazard 検出のパッケージルールを巡回します。",
-        "immutable_title": "インストール後のパッケージを不変に。",
-        "immutable_body": "Automic Vault は Homebrew、npm、PyPI のツールを封印された root にインストールし、PATH に av shim を置きます。エージェントはツールを実行できますが、ツール自体の変更は承認済みアップデート経由になります。",
-        "immutable_note": "エージェントは自分自身を変更できません",
-        "dotenv_title": "ワークフローには .env を。エージェントの文脈には入れない。",
-        "dotenv_body": "av dotenv は、秘密鍵を Automic Vault Keychain に残したまま、dotenvx 互換の encrypted: 値を書きます。direnv 風の hook は、承認済みキーだけを、それを要求した shell やコマンドへ読み込みます。",
-        "detect_title": "Mac が変わり続ける間に、新しいリスクを検出。",
-        "detect_body": "Automic Vault.app は、ツールをインストールし、プロジェクトを編集し、うっかり新しいシークレットを露出する間もバックグラウンドで動きます。新しいパッケージ hazard は発生時に通知され、対応済みの平文シークレットは即座に暗号化されます。",
-        "features": [
-            ["マルチソースパッケージ", "Homebrew、npm、PyPI のツールをインストールして堅牢化。対応元は今後も増えます。"],
-            ["Touch ID インストール", "ターミナルを離れずに権限付きインストールとアップデートを承認。"],
-            ["自動アップデート", "アプリと堅牢化ルールをバックグラウンドで最新に保ちます。"],
-            ["GUI 検索と発見", "パッケージ、ホームページ、バージョン、hazard、セキュリティノートを閲覧。"],
-            ["通知", "新しい脆弱性や露出したシークレットが現れたら分かります。"],
-        ],
-        "field_eyebrow": "05 · フィールドノート",
-        "field_title": "正しい境界は、ずっと前から必要だったように感じる。",
-        "field_body": "最初に役立った反応は、数値でもローンチ記事でもありませんでした。ローカルのエージェントセキュリティは、すでにツールチェーンの一部であるべきだという感覚でした。",
-        "final_eyebrow": "無料のオープンソース",
-        "final_a11y": "brew、npm、pip、cargo、pnpm、uv でインストールするツールを保護します。",
-        "final_prefix": "ツールを保護",
-        "final_you": "あなたが",
-        "read_docs": "ドキュメントを読む",
-        "browse_packages": "パッケージを見る",
-        "footer_state": [["Hazard", "検出"], ["Secrets", "Keychain-backed"], ["Approvals", "Touch ID ready"]],
+        "nav_download": "ダウンロード",
+        "orientation": "macOS のローカル境界 · プロセス → ツール → 認証情報",
+        "hero_h1": "ツールにシークレットを。実行は管理下に。",
+        "hero_lede": "Automic Vault は、要求するプロセスと実行されるローカルツールの間に入ります。認証情報を Keychain に保管し、承認された実行ファイルだけに渡し、危険なコマンドは実行前に確認します。",
+        "download": "macOS 版をダウンロード",
+        "docs": "ドキュメント",
+        "requester": "要求元",
+        "sources": [["$ shell", "人がコマンドを入力"], ["./script", "自動処理がキーを要求"], ["agent", "ローカル作業にツールが必要"]],
+        "request": "要求",
+        "vault_boundary": "ローカル実行境界",
+        "secret_label": "Secret",
+        "secret_map_title": "Keychain → 指定プロセス",
+        "secret_map_body": "承認された実行ファイルが、この実行に限って値を受け取ります。",
+        "execution_label": "Execution",
+        "execution_map_title": "パス + 引数 + cwd → 承認",
+        "execution_map_body": "実行前にコマンドと権限を確認できます。",
+        "approved_tool": "承認済みツール",
+        "tool_note": "承認されたツールだけがシークレットを受け取ります。",
+        "external_service": "外部サービス",
+        "problem_title": "ローカルツールは、すでに強い権限を持っています。",
+        "problem_body": "クラウド CLI、ソース管理クライアント、デプロイスクリプト、公開ツールは、非公開データを読み、リモートシステムを変更できます。認証情報は、ローカルプロセスが読めるファイルに残りがちです。",
+        "risks": [["~/.aws/credentials", "読み取り可能な dotfile にあるクラウド権限"], ["gh auth token", "要求元プロセスへ出力される bearer token"], ["npm publish", "リリース権限を持つローカルコマンド"], ["terraform apply", "現在の shell から行うインフラ変更"]],
+        "secrets_title": "シークレットは、ツールの実行にだけ属します。",
+        "secrets_body": "長期利用する値は Automic Vault Keychain に保管します。受け取りを許可する実行ファイルを指定すると、Automic Vault が承認後に子プロセスへ値を渡します。",
+        "secret_points": [["値を prompt やプロジェクトファイルに置かない", "エージェントは生の認証情報を読まずに作業を要求できます。"], ["ネイティブ helper で受け渡しを狭める", "AWS credential_process、Kubernetes ExecCredential、registry helper などを使い、shell 全体への export を避けます。"]],
+        "execution_title": "実行時にコマンドを管理します。",
+        "execution_body": "av contain はエージェントへ合成 toolchain を渡します。ホストツールの要求は、実行ファイルのパス、引数、作業ディレクトリ、必要なシークレットとともに Automic Vault へ戻ります。",
+        "approval_labels": ["実行ファイル", "引数", "シークレット", "判断"],
+        "approval_required": "人の承認が必要",
+        "layer_title": "実行ファイルの層で守る。",
+        "layer_body": "Automic Vault は実行時の情報を使います。ディスク上のバイナリ、パス、引数、親プロセス、作業ディレクトリ、ツール固有の認証プロトコルです。",
+        "layer_note": "中央の vault は引き続き正本にできます。Automic Vault は、Mac 上で開発ツールが認証情報を受け取り、その権限で動く最後の区間を管理します。",
+        "terminal_title": "3 つのコマンドで境界を作る。",
+        "trust_title": "確認できるローカル境界。",
+        "trust_body": "Automic Vault は Apache 2.0 のオープンソースソフトウェアです。macOS Keychain、System Integrity Protection、署名済みアプリが信頼できることを前提とします。root compromise と悪意ある承認済み実行ファイルは境界外です。",
+        "security_link": "セキュリティモデル",
+        "source_link": "ソースを確認",
+        "founder": "Max Howell が開発。Homebrew で培ったローカルインフラの経験を、ツールが実行時に使う権限の管理へ応用しています。",
+        "cta_title": "ツールの周りに境界を置く。",
+        "cta_body": "まず 1 つのシークレットを Keychain に移し、そのツールを Automic Vault 経由で実行します。",
+        "footer_tagline": "Mac 上のツールに、シークレットと実行の管理を。",
     },
     "de": {
-        "nav": ["Pakete", "Blog", "Sicherheit", "Dokumentation", "Download"],
-        "hero_eyebrow": "Vom Homebrew-Erfinder",
-        "hero_h1": "Härtet deinen Mac, bevor der Agent läuft.",
-        "hero_lede": "Auf deinem Mac liegen Klartext-Keys, die ein Agent lesen, leaken oder Malware übergeben kann. Automic Vault härtet die Schicht, die deine Credentials schützt: verschlüsselte Secrets, versiegelte Tools und Freigabe vor der Ausführung.",
-        "download_short": "av.dmg herunterladen",
-        "run_scanner": "Scanner starten",
-        "view_source": "Quellcode ansehen",
-        "harden_title": "Lass Klartext-Secrets aus Paketen verschwinden.",
-        "harden_body": "Automic Vault findet Credentials, die CLIs in Dotfiles ablegen, verschiebt unterstützte Secrets in den Keychain und hinterlässt jedem Tool einen Laufzeit-Helper, den der Agent nutzen kann, ohne das Secret zu lesen.",
-        "harden_notes": ["Installiere Tools wie immer", "Erkenne Secret-Exposure", "Klartext-Secrets sind leider üblich in Open Source", "av harden verschiebt Keys in den Keychain und schreibt den Helper um", "credential_process gibt aws Keys, ohne sie Agents oder Malware offenzulegen"],
-        "radar_title": "Bekannte Tools, sichtbare Kontrollen.",
-        "radar_body": "Automic Vault rotiert durch Paketregeln für Helper-Protokolle, temporäre Homes, Keychain-gestützte Tokens und Klartext-Hazard-Erkennung.",
-        "immutable_title": "Mache Pakete nach der Installation unveränderlich.",
-        "immutable_body": "Automic Vault installiert Tools aus Homebrew, npm oder PyPI in versiegelte Roots und setzt einen av-Shim auf PATH. Agents können das Tool ausführen; Änderungen am Tool selbst laufen über ein genehmigtes Update.",
-        "immutable_note": "Agent kann sich nicht selbst ändern",
-        "dotenv_title": ".env bleibt im Workflow, nicht im Agent-Kontext.",
-        "dotenv_body": "av dotenv schreibt dotenvx-kompatible encrypted:-Werte, während der private Key im Automic-Vault-Keychain bleibt. Direnv-artige Hooks laden nur genehmigte Keys in die Shell oder den Befehl, der sie angefordert hat.",
-        "detect_title": "Erkenne neue Risiken, während dein Mac sich weiter verändert.",
-        "detect_body": "Automic Vault.app läuft im Hintergrund, während du Tools installierst, Projekte bearbeitest und versehentlich neue Secrets offenlegst. Neue Paket-Hazards werden sofort gemeldet, und unterstützte Klartext-Secrets werden direkt verschlüsselt.",
-        "features": [
-            ["Multi-Source-Pakete", "Installiere und härte Tools aus Homebrew, npm und PyPI; weitere Quellen folgen."],
-            ["Touch-ID-Installationen", "Genehmige privilegierte Installationen und Updates, ohne das Terminal zu verlassen."],
-            ["Auto-Updates", "Halte App und Paketregeln im Hintergrund aktuell."],
-            ["GUI-Suche und Discovery", "Durchsuche Pakete, Homepages, Versionen, Hazards und Security Notes."],
-            ["Benachrichtigungen", "Erfahre, wenn neue Schwachstellen oder offengelegte Secrets erscheinen."],
-        ],
-        "field_eyebrow": "05 · Feldnotiz",
-        "field_title": "Die richtige Grenze fühlt sich überfällig an.",
-        "field_body": "Das erste nützliche Signal war keine Metrik und kein Launch-Post. Es war das Gefühl, dass lokale Agent-Sicherheit längst Teil der Toolchain sein sollte.",
-        "final_eyebrow": "Kostenlos und Open Source",
-        "final_a11y": "Sichere die Tools, die du mit brew, npm, pip, cargo, pnpm und uv installierst.",
-        "final_prefix": "Sichere die Tools",
-        "final_you": "die du",
-        "read_docs": "Doku lesen",
-        "browse_packages": "Pakete ansehen",
-        "footer_state": [["Hazards", "erkannt"], ["Secrets", "Keychain-backed"], ["Approvals", "Touch ID ready"]],
+        "nav_download": "Download",
+        "orientation": "Lokale macOS-Grenze · Prozess → Tool → Credential",
+        "hero_h1": "Secrets für Tools. Ausführung unter Kontrolle.",
+        "hero_lede": "Automic Vault sitzt zwischen dem anfragenden Prozess und dem lokalen Tool. Credentials bleiben im Schlüsselbund, erreichen nur genehmigte Executables und riskante Befehle warten auf deine Freigabe.",
+        "download": "Für macOS laden",
+        "docs": "Doku lesen",
+        "requester": "Anfrage",
+        "sources": [["$ shell", "du gibst einen Befehl ein"], ["./script", "Automation fordert Keys an"], ["agent", "lokale Arbeit braucht ein Tool"]],
+        "request": "Anfrage",
+        "vault_boundary": "lokale Ausführungsgrenze",
+        "secret_label": "Secret",
+        "secret_map_title": "Schlüsselbund → benannter Prozess",
+        "secret_map_body": "Das genehmigte Executable erhält den Wert für diesen Lauf.",
+        "execution_label": "Execution",
+        "execution_map_title": "Pfad + Argumente + cwd → Freigabe",
+        "execution_map_body": "Du siehst Befehl und Berechtigung vor der Ausführung.",
+        "approved_tool": "Genehmigtes Tool",
+        "tool_note": "Nur das freigegebene Tool erhält das Secret.",
+        "external_service": "Externer Dienst",
+        "problem_title": "Deine lokalen Tools haben bereits echte Berechtigungen.",
+        "problem_body": "Cloud-CLIs, Source-Control-Clients, Deploy-Skripte und Publisher können private Daten lesen oder entfernte Systeme ändern. Ihre Credentials liegen oft in Dateien, die jeder lokale Prozess lesen kann.",
+        "risks": [["~/.aws/credentials", "Cloud-Zugriff in einer lesbaren Dotfile"], ["gh auth token", "Ein Bearer-Token für den anfragenden Prozess"], ["npm publish", "Ein lokaler Befehl mit Release-Rechten"], ["terraform apply", "Infrastrukturänderung aus der aktuellen Shell"]],
+        "secrets_title": "Das Secret gehört zur Ausführung des Tools.",
+        "secrets_body": "Langfristige Werte liegen im Automic-Vault-Schlüsselbund. Du benennst das Executable, das sie empfangen darf. Nach der Freigabe lädt Automic Vault den Wert in genau diesen Kindprozess.",
+        "secret_points": [["Werte bleiben aus Prompts und Projektdateien", "Agents können Arbeit anfordern, ohne das rohe Credential zu lesen."], ["Native Helper begrenzen die Übergabe", "AWS credential_process, Kubernetes ExecCredential, Registry-Helper und weitere Tool-Protokolle vermeiden globale Shell-Exports."]],
+        "execution_title": "Kontrolliere den Befehl bei der Ausführung.",
+        "execution_body": "av contain gibt einem Agent eine synthetische Toolchain. Host-Tool-Anfragen kehren mit Executable-Pfad, Argumenten, Arbeitsverzeichnis und angeforderten Secrets zu Automic Vault zurück.",
+        "approval_labels": ["Executable", "Argumente", "Secret", "Entscheidung"],
+        "approval_required": "Menschliche Freigabe erforderlich",
+        "layer_title": "Sicherheit auf der Executable-Schicht.",
+        "layer_body": "Automic Vault verwendet die Fakten, die dein Mac bei der Ausführung kennt: Binärdatei, Pfad, Argumente, Elternprozess, Arbeitsverzeichnis und das Credential-Protokoll des Tools.",
+        "layer_note": "Zentrale Vaults können die Quelle der Wahrheit bleiben. Automic Vault kontrolliert den letzten lokalen Übergang, an dem ein Entwickler-Tool ein Credential erhält und damit handelt.",
+        "terminal_title": "Drei Befehle setzen die Grenze.",
+        "trust_title": "Eine lokale Grenze, die du prüfen kannst.",
+        "trust_body": "Automic Vault ist Open-Source-Software unter Apache 2.0. Das Sicherheitsmodell setzt einen vertrauenswürdigen macOS-Schlüsselbund, System Integrity Protection und die signierte App voraus. Root-Kompromittierung und ein bösartiges genehmigtes Executable liegen außerhalb der Grenze.",
+        "security_link": "Sicherheitsmodell lesen",
+        "source_link": "Quellcode prüfen",
+        "founder": "Entwickelt von Max Howell. Die Erfahrung aus Homebrew fließt hier in die Kontrolle der Berechtigungen ein, die lokale Tools bei der Ausführung nutzen.",
+        "cta_title": "Setze eine Grenze um deine Tools.",
+        "cta_body": "Verschiebe ein Secret in den Schlüsselbund und führe das Tool über Automic Vault aus.",
+        "footer_tagline": "Secrets und Ausführungskontrollen für die Tools auf deinem Mac.",
     },
     "fr": {
-        "nav": ["Paquets", "Blog", "Sécurité", "Docs", "Télécharger"],
-        "hero_eyebrow": "Par le créateur de Homebrew",
-        "hero_h1": "Durcissez votre Mac avant que l’agent s’exécute.",
-        "hero_lede": "Votre Mac contient des clés en clair qu’un agent peut lire, divulguer ou transmettre à un malware. Automic Vault durcit la couche qui protège vos identifiants : secrets chiffrés, outils scellés et approbation avant l’exécution.",
-        "download_short": "Télécharger av.dmg",
-        "run_scanner": "Lancer le scanner",
-        "view_source": "Voir le code",
-        "harden_title": "Faites disparaître les secrets en clair des paquets.",
-        "harden_body": "Automic Vault trouve les identifiants que les CLI laissent dans les dotfiles, déplace les secrets pris en charge dans le trousseau et laisse à chaque outil un helper d’exécution utilisable par l’agent sans lire le secret.",
-        "harden_notes": ["Installez les outils comme d’habitude", "Détectez l’exposition des secrets", "Les secrets en clair sont malheureusement courants dans l’open source", "av harden déplace les clés dans le trousseau et réécrit le helper", "credential_process donne les clés à aws sans les exposer aux agents ou aux malwares"],
-        "radar_title": "Outils connus, contrôles visibles.",
-        "radar_body": "Automic Vault parcourt les règles de paquets pour les protocoles helper, homes temporaires, jetons adossés au trousseau et détection de dangers en clair.",
-        "immutable_title": "Rendez les paquets immuables après installation.",
-        "immutable_body": "Automic Vault installe les outils Homebrew, npm ou PyPI dans des racines scellées et place un shim av sur PATH. Les agents peuvent lancer l’outil; modifier l’outil lui-même passe par une mise à jour approuvée.",
-        "immutable_note": "l’agent ne peut pas se modifier lui-même",
-        "dotenv_title": "Gardez .env dans le workflow, pas dans le contexte de l’agent.",
-        "dotenv_body": "av dotenv écrit des valeurs encrypted: compatibles dotenvx pendant que la clé privée reste dans le trousseau Automic Vault. Des hooks façon direnv chargent seulement les clés approuvées dans le shell ou la commande qui les a demandées.",
-        "detect_title": "Détectez les nouveaux risques pendant que votre Mac change.",
-        "detect_body": "Automic Vault.app tourne en arrière-plan quand vous installez des outils, modifiez des projets et exposez accidentellement de nouveaux secrets. Les nouveaux dangers de paquets sont signalés dès leur apparition, et les secrets en clair pris en charge sont chiffrés immédiatement.",
-        "features": [
-            ["Paquets multi-sources", "Installez et durcissez des outils Homebrew, npm et PyPI, avec d’autres sources à venir."],
-            ["Installations Touch ID", "Approuvez les installations et mises à jour privilégiées sans quitter le terminal."],
-            ["Mises à jour automatiques", "Gardez l’app et les règles de durcissement à jour en arrière-plan."],
-            ["Recherche et découverte GUI", "Parcourez paquets, homepages, versions, dangers et notes de sécurité."],
-            ["Notifications", "Soyez averti quand de nouvelles vulnérabilités ou des secrets exposés apparaissent."],
-        ],
-        "field_eyebrow": "05 · Note de terrain",
-        "field_title": "La bonne limite semble déjà en retard.",
-        "field_body": "Le premier signal utile n’était pas une métrique ni un billet de lancement. C’était l’impression que la sécurité locale des agents devrait déjà faire partie de la toolchain.",
-        "final_eyebrow": "Gratuit et open source",
-        "final_a11y": "Sécurisez les outils que vous installez avec brew, npm, pip, cargo, pnpm et uv.",
-        "final_prefix": "Sécurisez les outils",
-        "final_you": "que vous",
-        "read_docs": "Lire la doc",
-        "browse_packages": "Voir les paquets",
-        "footer_state": [["Dangers", "détectés"], ["Secrets", "Keychain-backed"], ["Approvals", "Touch ID ready"]],
+        "nav_download": "Télécharger",
+        "orientation": "Limite macOS locale · processus → outil → identifiant",
+        "hero_h1": "Des secrets pour les outils. Une exécution contrôlée.",
+        "hero_lede": "Automic Vault se place entre le processus demandeur et l’outil local. Les identifiants restent dans le trousseau, seuls les exécutables approuvés les reçoivent, et les commandes risquées attendent votre validation.",
+        "download": "Télécharger pour macOS",
+        "docs": "Lire la documentation",
+        "requester": "Demandeur",
+        "sources": [["$ shell", "vous saisissez une commande"], ["./script", "l’automatisation demande des clés"], ["agent", "le travail local exige un outil"]],
+        "request": "requête",
+        "vault_boundary": "limite d’exécution locale",
+        "secret_label": "Secret",
+        "secret_map_title": "Trousseau → processus nommé",
+        "secret_map_body": "L’exécutable approuvé reçoit la valeur pour cette exécution.",
+        "execution_label": "Execution",
+        "execution_map_title": "Chemin + arguments + cwd → validation",
+        "execution_map_body": "Vous voyez la commande et son autorité avant son lancement.",
+        "approved_tool": "Outil approuvé",
+        "tool_note": "Seul l’outil approuvé reçoit le secret.",
+        "external_service": "Service externe",
+        "problem_title": "Vos outils locaux possèdent déjà de vrais pouvoirs.",
+        "problem_body": "Les CLI cloud, clients de gestion de source, scripts de déploiement et outils de publication peuvent lire des données privées ou modifier des systèmes distants. Leurs identifiants restent souvent dans des fichiers lisibles par tout processus local.",
+        "risks": [["~/.aws/credentials", "Accès cloud dans un dotfile lisible"], ["gh auth token", "Bearer token imprimé pour le processus demandeur"], ["npm publish", "Commande locale avec droit de publication"], ["terraform apply", "Mutation d’infrastructure depuis le shell courant"]],
+        "secrets_title": "Le secret appartient à l’exécution de l’outil.",
+        "secrets_body": "Conservez les valeurs durables dans le trousseau Automic Vault. Nommez l’exécutable autorisé à les recevoir. Après validation, Automic Vault charge chaque valeur dans ce processus enfant.",
+        "secret_points": [["Les valeurs restent hors des prompts et des projets", "Les agents peuvent demander un travail sans lire l’identifiant brut."], ["Les helpers natifs resserrent le transfert", "AWS credential_process, Kubernetes ExecCredential, les helpers de registre et d’autres protocoles évitent les exports globaux du shell."]],
+        "execution_title": "Contrôlez la commande au moment de son exécution.",
+        "execution_body": "av contain fournit une toolchain synthétique à l’agent. Les demandes d’outils hôtes reviennent à Automic Vault avec le chemin de l’exécutable, les arguments, le dossier courant et les secrets demandés.",
+        "approval_labels": ["Exécutable", "Arguments", "Secret", "Décision"],
+        "approval_required": "Validation humaine requise",
+        "layer_title": "La sécurité au niveau de l’exécutable.",
+        "layer_body": "Automic Vault utilise les faits disponibles au moment de l’exécution : binaire sur disque, chemin, arguments, processus parent, dossier courant et protocole d’identification propre à l’outil.",
+        "layer_note": "Vos coffres centraux peuvent rester la source de vérité. Automic Vault contrôle le dernier passage local où un outil développeur reçoit un identifiant et agit avec lui.",
+        "terminal_title": "Trois commandes établissent la limite.",
+        "trust_title": "Une limite locale que vous pouvez examiner.",
+        "trust_body": "Automic Vault est un logiciel open source sous licence Apache 2.0. Son modèle suppose que le trousseau macOS, System Integrity Protection et l’application signée restent fiables. Une compromission root et un exécutable approuvé malveillant restent hors de cette limite.",
+        "security_link": "Lire le modèle de sécurité",
+        "source_link": "Examiner le code source",
+        "founder": "Créé par Max Howell. Son expérience de Homebrew sert ici à contrôler l’autorité utilisée par les outils locaux pendant leur exécution.",
+        "cta_title": "Placez une limite autour de vos outils.",
+        "cta_body": "Déplacez un secret dans le trousseau, puis exécutez l’outil avec Automic Vault.",
+        "footer_tagline": "Secrets et contrôle d’exécution pour les outils de votre Mac.",
     },
     "zh-Hans": {
-        "nav": ["软件包", "博客", "安全", "文档", "下载"],
-        "hero_eyebrow": "来自 Homebrew 作者",
-        "hero_h1": "在代理运行前加固你的 Mac。",
-        "hero_lede": "你的 Mac 上可能有代理能读取、泄露，甚至交给恶意软件的明文密钥。Automic Vault 加固保护你凭据的关键层：加密密钥、封印工具，以及执行前审批。",
-        "download_short": "下载 av.dmg",
-        "run_scanner": "运行扫描器",
-        "view_source": "查看源码",
-        "harden_title": "让软件包里的明文密钥消失。",
-        "harden_body": "Automic Vault 会发现 CLI 留在 dotfile 中的凭据，将支持的密钥移入 Keychain，并给每个工具留下运行时 helper，让代理无需读取密钥也能使用工具。",
-        "harden_notes": ["照常安装工具", "检测密钥暴露", "明文密钥在开源工具中很常见", "av harden 将密钥移入 Keychain 并重写 helper", "credential_process 让 aws 获得密钥，但不暴露给代理或恶意软件"],
-        "radar_title": "已知工具，可见控制。",
-        "radar_body": "Automic Vault 会轮询软件包规则，覆盖 helper 协议、临时 home、Keychain-backed token 和明文 hazard 检测。",
-        "immutable_title": "安装后让软件包不可变。",
-        "immutable_body": "Automic Vault 将来自 Homebrew、npm 或 PyPI 的工具安装到封印 root 中，并在 PATH 上放置 av shim。代理可以运行工具；修改工具本身会转到已批准的更新流程。",
-        "immutable_note": "代理不能修改自己",
-        "dotenv_title": ".env 留在工作流中，不进入代理上下文。",
-        "dotenv_body": "av dotenv 写入 dotenvx 兼容的 encrypted: 值，同时私钥留在 Automic Vault Keychain 中。direnv 风格的 hook 只把已批准的密钥加载到请求它们的 shell 或命令里。",
-        "detect_title": "在 Mac 持续变化时检测新风险。",
-        "detect_body": "Automic Vault.app 会在后台运行：你安装工具、编辑项目、意外暴露新密钥时，它都会继续监控。新的软件包 hazard 会在出现时报告，支持的明文密钥会立即加密。",
-        "features": [
-            ["多来源软件包", "安装并加固来自 Homebrew、npm 和 PyPI 的工具，更多来源即将支持。"],
-            ["Touch ID 安装", "无需离开终端即可审批特权安装和更新。"],
-            ["自动更新", "在后台保持应用和加固规则最新。"],
-            ["GUI 搜索与发现", "浏览软件包、主页、版本、hazard 和安全说明。"],
-            ["通知", "新的漏洞或暴露密钥出现时及时知道。"],
-        ],
-        "field_eyebrow": "05 · 现场反馈",
-        "field_title": "正确的边界早就该存在了。",
-        "field_body": "最有用的第一条信号不是指标，也不是发布文章，而是一种感觉：本地代理安全本应已经是工具链的一部分。",
-        "final_eyebrow": "免费且开源",
-        "final_a11y": "保护你用 brew、npm、pip、cargo、pnpm 和 uv 安装的工具。",
-        "final_prefix": "保护你的工具",
-        "final_you": "当你",
-        "read_docs": "阅读文档",
-        "browse_packages": "浏览软件包",
-        "footer_state": [["Hazards", "已检测"], ["Secrets", "Keychain-backed"], ["Approvals", "Touch ID ready"]],
+        "nav_download": "下载",
+        "orientation": "macOS 本地边界 · 进程 → 工具 → 凭据",
+        "hero_h1": "密钥交给工具。执行由你掌控。",
+        "hero_lede": "Automic Vault 位于发起请求的进程与实际运行的本地工具之间。凭据留在 Keychain 中，只提供给已批准的可执行文件；高风险命令在运行前需要你的确认。",
+        "download": "下载 macOS 版",
+        "docs": "阅读文档",
+        "requester": "请求方",
+        "sources": [["$ shell", "你输入命令"], ["./script", "自动化请求密钥"], ["agent", "本地任务需要工具"]],
+        "request": "请求",
+        "vault_boundary": "本地执行边界",
+        "secret_label": "Secret",
+        "secret_map_title": "Keychain → 指定进程",
+        "secret_map_body": "已批准的可执行文件仅在本次运行中获得该值。",
+        "execution_label": "Execution",
+        "execution_map_title": "路径 + 参数 + cwd → 审批",
+        "execution_map_body": "命令及其权限在执行前清晰可见。",
+        "approved_tool": "已批准工具",
+        "tool_note": "只有获准的工具会收到密钥。",
+        "external_service": "外部服务",
+        "problem_title": "你的本地工具已经拥有真实权限。",
+        "problem_body": "云 CLI、源代码管理客户端、部署脚本和发布工具可以读取私有数据或修改远程系统。它们的凭据常常留在所有本地进程都能读取的文件中。",
+        "risks": [["~/.aws/credentials", "可读 dotfile 中的云账户权限"], ["gh auth token", "输出给请求进程的 bearer token"], ["npm publish", "拥有发布权限的本地命令"], ["terraform apply", "从当前 shell 发起基础设施变更"]],
+        "secrets_title": "密钥只属于这次工具执行。",
+        "secrets_body": "长期凭据存入 Automic Vault Keychain。指定允许接收它的可执行文件后，Automic Vault 会在审批完成后把值加载到该子进程。",
+        "secret_points": [["凭据不会进入 prompt 或项目文件", "代理无需读取原始凭据即可请求工作。"], ["原生 helper 缩小交付范围", "AWS credential_process、Kubernetes ExecCredential、registry helper 等协议可避免全局 shell export。"]],
+        "execution_title": "在执行时控制命令。",
+        "execution_body": "av contain 为代理提供合成 toolchain。主机工具请求会携带可执行文件路径、参数、工作目录和所需密钥返回 Automic Vault。",
+        "approval_labels": ["可执行文件", "参数", "密钥", "决定"],
+        "approval_required": "需要人工审批",
+        "layer_title": "在可执行文件层落实安全控制。",
+        "layer_body": "Automic Vault 使用 Mac 在执行时掌握的事实：磁盘上的二进制文件、路径、参数、父进程、工作目录和工具专用凭据协议。",
+        "layer_note": "中心化 vault 仍可作为真实来源。Automic Vault 控制的是开发工具在本地接收凭据并使用该权限的最后一段路径。",
+        "terminal_title": "三个命令建立边界。",
+        "trust_title": "可检查的本地边界。",
+        "trust_body": "Automic Vault 是 Apache 2.0 开源软件。安全模型假设 macOS Keychain、System Integrity Protection 和签名应用可信。root compromise 与恶意的已批准可执行文件不在此边界内。",
+        "security_link": "阅读安全模型",
+        "source_link": "查看源码",
+        "founder": "由 Max Howell 开发。他把创建 Homebrew 所积累的本地基础设施经验，用于控制工具运行时所使用的权限。",
+        "cta_title": "为你的工具建立边界。",
+        "cta_body": "先把一个密钥移入 Keychain，再通过 Automic Vault 运行对应工具。",
+        "footer_tagline": "管理 Mac 工具使用的密钥与执行权限。",
     },
 }
-
-
 def normalized_title(title: str, locale: Locale) -> str:
     if locale.code == "en":
         return title
@@ -1110,13 +1128,13 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
 
 def render_llms(locale: Locale) -> str:
     ui = ui_copy(locale.code)
-    lines = {
-        "ja": ["# Automic Vault", "brew install したツールを安全に。", "Automic Vault は、AI エージェントが使う前に、Homebrew ツール、CLI シークレット、コマンド承認ゲートを Mac 上でローカルに保護します。"],
-        "de": ["# Automic Vault", "Sichere die Tools, die du mit brew install installierst.", "Automic Vault sichert Homebrew-Tools, CLI-Secrets und Command-Approval-Gates lokal auf deinem Mac, bevor AI-Agents sie verwenden."],
-        "fr": ["# Automic Vault", "Sécurisez les outils que vous installez avec brew.", "Automic Vault sécurise localement sur votre Mac les outils Homebrew, les secrets CLI et les portes d'approbation des commandes avant que les agents IA les utilisent."],
-        "zh-Hans": ["# Automic Vault", "保护你用 brew install 装上的工具。", "Automic Vault 在 AI 代理使用之前，在你的 Mac 本地保护 Homebrew 工具、CLI 密钥和命令审批门。"],
-    }[locale.code]
-    return "\n\n".join(lines) + f"\n\n- {ui['website']}: {href('/', locale)}\n- {ui['packages']}: {href('/pkg/', locale)}\n"
+    landing = LANDING_HOME[locale.code]
+    lines = ["# Automic Vault", landing["hero_h1"], landing["hero_lede"]]
+    return "\n\n".join(lines) + (
+        f"\n\n- {ui['website']}: {href('/', locale)}"
+        f"\n- {ui['docs']}: {href('/docs/', locale)}"
+        f"\n- {ui['security']}: {href('/security/', locale)}\n"
+    )
 
 
 def render_i18n_js(locales: list[Locale]) -> str:
@@ -1176,25 +1194,25 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
     ui = ui_copy(locale.code)
     landing = LANDING_HOME[locale.code]
     canonical = href("/", locale)
-    nav = landing["nav"]
-    harden_notes = "\n".join(
-        f"            <p>{html.escape(note)}</p>"
-        for note in landing["harden_notes"]
+    source_nodes = "\n".join(
+        f"""          <div class="map-node"><code>{html.escape(name)}</code><span>{html.escape(body)}</span></div>"""
+        for name, body in landing["sources"]
     )
-    feature_items = "\n".join(
-        f"            <li><strong>{html.escape(title)}.</strong> {html.escape(body)}</li>"
-        for title, body in landing["features"]
+    risk_rows = "\n".join(
+        f"""        <div><dt><code>{html.escape(name)}</code></dt><dd>{html.escape(body)}</dd></div>"""
+        for name, body in landing["risks"]
     )
-    footer_state = "\n        ".join(
-        f"<span><strong>{html.escape(title)}</strong> {html.escape(body)}</span>"
-        for title, body in landing["footer_state"]
+    secret_points = "\n".join(
+        f"""        <p><strong>{html.escape(title)}.</strong><span>{html.escape(body)}</span></p>"""
+        for title, body in landing["secret_points"]
     )
+    labels = landing["approval_labels"]
     language_nav = language_links("/", locale, locales)
     return f"""<!DOCTYPE html>
 <html lang="{html.escape(locale.html_lang)}">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>{html.escape(t["title"])}</title>
   <meta name="description" content="{html.escape(t["description"], quote=True)}">
   <meta name="robots" content="index,follow">
@@ -1203,11 +1221,11 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
   <meta property="og:title" content="{html.escape(t["title"], quote=True)}">
   <meta property="og:description" content="{html.escape(t["description"], quote=True)}">
   <meta property="og:url" content="{html.escape(canonical, quote=True)}">
-  <meta property="og:image" content="{SITE_ORIGIN}/assets/app-hazard-journey.webp">
+  <meta property="og:image" content="{SITE_ORIGIN}/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{html.escape(t["title"], quote=True)}">
   <meta name="twitter:description" content="{html.escape(t["description"], quote=True)}">
-  <meta name="twitter:image" content="{SITE_ORIGIN}/assets/app-hazard-journey.webp">
+  <meta name="twitter:image" content="{SITE_ORIGIN}/preview.jpg">
   <link rel="canonical" href="{html.escape(canonical, quote=True)}">
 {alternate_link_block("/", locales)}
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
@@ -1216,7 +1234,7 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=89">
+  <link rel="stylesheet" href="/styles.css?v=95">
 {GOOGLE_ANALYTICS_TAG}
   <script type="application/ld+json">
   {{
@@ -1227,245 +1245,164 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
     "headline": {json.dumps(landing["hero_h1"], ensure_ascii=False)},
     "description": {json.dumps(t["description"], ensure_ascii=False)},
     "inLanguage": "{locale.html_lang}",
-    "image": "{SITE_ORIGIN}/assets/app-hazard-journey.webp",
+    "image": "{SITE_ORIGIN}/preview.jpg",
     "isPartOf": {{"@type": "WebSite", "name": "Automic Vault", "url": "{SITE_ORIGIN}/"}}
   }}
   </script>
 </head>
-<body>
+<body class="boundary-home">
   <div class="scroll-meter" aria-hidden="true"><span></span></div>
-  <header class="masthead" id="top">
-    <a class="brand" href="{locale_path('/', locale)}" aria-label="{html.escape(ui["brandHomeAria"], quote=True)}">
-      <img class="brand-mark" src="/assets/icon@2x.webp" alt="Automic Vault" width="54" height="54">
-      <span class="brand-type">Automic Vault</span>
+  <header class="boundary-nav" id="top">
+    <a class="boundary-brand" href="{locale_path('/', locale)}" aria-label="{html.escape(ui["brandHomeAria"], quote=True)}">
+      <img src="/assets/icon@2x.webp" alt="" width="54" height="54">
+      <span>Automic Vault</span>
     </a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-label="{html.escape(ui["toggleNavigationAria"], quote=True)}"><span></span><span></span></button>
-    <nav class="nav" aria-label="{html.escape(ui["mainNavigationAria"], quote=True)}">
-      <a href="{locale_path('/pkg/', locale)}">{html.escape(nav[0])}</a>
-      <a href="{locale_path('/blog/', locale)}">{html.escape(nav[1])}</a>
-      <a href="{locale_path('/security/', locale)}">{html.escape(nav[2])}</a>
-      <a href="{locale_path('/docs/', locale)}">{html.escape(nav[3])}</a>
-      <a href="{locale_path('/download/', locale)}">{html.escape(nav[4])}</a>
-      <a href="https://github.com/automic-vault/">GitHub</a>
-    </nav>
+    <a class="boundary-nav-download" href="/Automic Vault.dmg">{html.escape(landing["nav_download"])}</a>
   </header>
 
-  <div class="site-shell">
-    <main class="landing-main">
-      <section class="poster-hero" aria-labelledby="hero-title">
-        <div class="poster-hero-copy">
-          <p class="eyebrow">{html.escape(landing["hero_eyebrow"])}</p>
-          <h1 id="hero-title">{html.escape(landing["hero_h1"])}</h1>
-          <p class="poster-lede">{html.escape(landing["hero_lede"])}</p>
-        </div>
-
-        <div class="poster-hero-foot">
-          <div class="hero-actions">
-            <a class="button primary" href="/Automic Vault.dmg">{html.escape(landing["download_short"])}</a>
-            <a class="button secondary" href="{locale_path('/secret-scanner-for-ai-agents/', locale)}">{html.escape(landing["run_scanner"])}</a>
-            <a class="button text" href="https://github.com/automic-vault/automic-vault">{html.escape(landing["view_source"])}</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="feature-section harden-section" id="harden" aria-labelledby="harden-title">
-        <div class="feature-copy">
-          <p class="eyebrow">01 &middot; Harden</p>
-          <h2 id="harden-title">{html.escape(landing["harden_title"])}</h2>
-          <p>{html.escape(landing["harden_body"])}</p>
-        </div>
-
-        <div class="terminal-story" aria-label="Terminal examples for package hardening">
-          <aside class="terminal-notes" aria-label="What this terminal demonstrates">
-{harden_notes}
-          </aside>
-          <figure class="terminal-card terminal-card-green">
-            <figcaption>Harden package-owned secrets</figcaption>
-            <pre><code><span class="prompt">$</span> brew install awscli
-installed: /opt/homebrew/Cellar/awscli
-
-<span class="prompt">$</span> av scan
-<span class="terminal-danger">plaintext secret exposure</span>: ~/.aws/credentials
-reason agent-readable cloud keys
-
-<span class="prompt">$</span> cat ~/.aws/credentials
-[default]
-aws_access_key_id=AKIA<span class="secret-blur">IOSFODNN7EXAMPLE</span>
-aws_secret_access_key=wJalr<span class="secret-blur">XUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</span>
-
-<span class="prompt">$</span> av harden awscli
-saved AWS keys in Keychain
-rewrote credential_process helper
-removed plaintext credentials
-made install immutable
-
-<span class="prompt">$</span> cat ~/.aws/credentials
-[default]
-credential_process = /usr/local/bin/av credential-helper aws
-</code></pre>
-          </figure>
-        </div>
-
-        <div class="package-hardening-radar secured-radar" aria-label="Packages Automic Vault hardens">
-          <div class="radar-copy">
-            <span>Package hardening feed</span>
-            <strong>{html.escape(landing["radar_title"])}</strong>
-            <p>{html.escape(landing["radar_body"])}</p>
-          </div>
-          <div class="radar-feed" data-secured-feed>
-            <a class="feed-row accent-green" href="/pkg/brew/gh/" aria-label="gh"><span>gh</span><p>GitHub tokens saved in Keychain and injected only for gh commands</p></a>
-            <a class="feed-row accent-green" href="/pkg/brew/awscli/" aria-label="awscli"><span>awscli</span><p>AWS keys moved from ~/.aws/credentials to credential_process</p></a>
-            <a class="feed-row accent-hot" href="/pkg/brew/curl/" aria-label="curl"><span>curl</span><p>netrc and curlrc credentials detected as hazards</p></a>
-            <a class="feed-row accent-gold" href="/pkg/brew/git/" aria-label="git"><span>git</span><p>plaintext credential-store files flagged before agent runs</p></a>
-            <a class="feed-row accent-blue" href="/pkg/brew/node/" aria-label="npm"><span>npm</span><p>registry tokens mounted through a temporary npm config</p></a>
-          </div>
-        </div>
-      </section>
-
-      <section class="feature-section immutable-section" id="immutable" aria-labelledby="immutable-title">
-        <div class="feature-copy">
-          <p class="eyebrow">02 &middot; Harden</p>
-          <h2 id="immutable-title">{html.escape(landing["immutable_title"])}</h2>
-          <p>{html.escape(landing["immutable_body"])}</p>
-        </div>
-        <div class="terminal-story" aria-label="Terminal example for immutable package roots">
-          <aside class="terminal-notes immutable-terminal-notes" aria-label="What this terminal demonstrates">
-            <p>{html.escape(landing["immutable_note"])}</p>
-          </aside>
-          <figure class="terminal-card terminal-card-blue" aria-label="Agent cannot modify itself">
-            <figcaption aria-hidden="true"></figcaption>
-            <pre><code><span class="prompt">$</span> av install codex
-awaiting Touch ID for root escalation… approved
-prefix: /opt/codex
-shim: /usr/local/bin/codex -> /opt/codex/bin/codex
-
-<span class="prompt">$</span> codex exec "patch $(which codex)"
-permission denied</code></pre>
-          </figure>
-        </div>
-      </section>
-
-      <section class="feature-section dotenv-section" id="dotenv" aria-labelledby="dotenv-title">
-        <div class="feature-copy">
-          <p class="eyebrow">03 &middot; Securing .env files</p>
-          <h2 id="dotenv-title">{html.escape(landing["dotenv_title"])}</h2>
-          <p>{html.escape(landing["dotenv_body"])}</p>
-        </div>
-        <div class="dotenv-terminal-layout" aria-label="Terminal examples for encrypted dotenv files">
-          <figure class="terminal-card terminal-card-green dotenv-terminal-single">
-            <figcaption>Encrypted .env with direnv-style loading</figcaption>
-            <pre><code><span class="prompt">$</span> cd ~/work/billing-api
-
-<span class="prompt">$</span> cat .env
-APP_ENV=development
-LOG_LEVEL=debug
-PUBLIC_SITE_URL=https://billing.example
-STRIPE_SECRET_KEY=sk_live_<span class="secret-blur">4eC39HqLyjWDarjtT1zdp7dc</span>
-OPENAI_API_KEY=sk-proj-<span class="secret-blur">BJN9zqY2Q9p7xWm8kL3n</span>
-DATABASE_URL=postgres://billing:<span class="secret-blur">s3cr3t</span>@db.internal/app
-
-<span class="prompt">$</span> av dotenv init
-found existing .env
-stored DOTENV_PRIVATE_KEY in Keychain
-
-<span class="prompt">$</span> av dotenv encrypt
-encrypted .env
-
-<span class="prompt">$</span> cat .env
-DOTENV_PUBLIC_KEY="BP9x..."
-APP_ENV=development
-LOG_LEVEL=debug
-PUBLIC_SITE_URL=https://billing.example
-STRIPE_SECRET_KEY="<span class="terminal-encrypted">encrypted:</span>BO/8An..."
-OPENAI_API_KEY="<span class="terminal-encrypted">encrypted:</span>BJN9z..."
-DATABASE_URL="<span class="terminal-encrypted">encrypted:</span>BI4p3..."
-<span class="terminal-comment"># ^^ dotenvx compatible</span>
-
-<span class="prompt">$</span> echo 'eval "$(av dotenv hook zsh)"' >> ~/.zshrc
-
-<span class="terminal-session-divider">----- NEW TERMINAL SESSION -----</span>
-
-<span class="prompt">$</span> cd ~/work/billing-api
-av: human approval required… approved
-av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
-
-<span class="prompt">$</span> npm run dev
-<span class="terminal-comment"># keys exported into this shell only</span></code></pre>
-          </figure>
-        </div>
-      </section>
-
-      <section class="feature-section app-section detect-section" id="detect" aria-labelledby="detect-title">
-        <div class="feature-copy">
-          <p class="eyebrow">04 &middot; Detect</p>
-          <h2 id="detect-title">{html.escape(landing["detect_title"])}</h2>
-          <p>{html.escape(landing["detect_body"])}</p>
-          <ul class="app-feature-list">
-{feature_items}
-          </ul>
-        </div>
-        <figure class="app-visual">
-          <img src="/assets/app-hazard-journey.webp" alt="Automic Vault app" width="1672" height="941" loading="lazy" decoding="async">
-        </figure>
-      </section>
-
-      <section class="feature-section endorsement-section" id="endorsements" aria-labelledby="endorsements-title">
-        <div class="feature-copy">
-          <p class="eyebrow">{html.escape(landing["field_eyebrow"])}</p>
-          <h2 id="endorsements-title">{html.escape(landing["field_title"])}</h2>
-          <p>{html.escape(landing["field_body"])}</p>
-        </div>
-        <a class="tweet-endorsement" href="https://x.com/Hiraweb3/status/2059662670006038857?s=20" target="_blank" rel="noopener noreferrer">
-          <div class="tweet-endorsement-person">
-            <img src="/assets/hira-avatar.webp" alt="Hira avatar" width="160" height="160" loading="lazy" decoding="async">
-            <cite class="tweet-endorsement-author"><span>Hira</span><span class="tweet-endorsement-handle">@Hiraweb3</span><span class="tweet-endorsement-source" aria-hidden="true">𝕏</span></cite>
-          </div>
-          <blockquote><p>we needed this yesterday but i'll take it now</p></blockquote>
-        </a>
-      </section>
-
-      <section class="closing-cta" aria-labelledby="final-title">
-        <p class="eyebrow">{html.escape(landing["final_eyebrow"])}</p>
-        <h2 id="final-title" aria-label="{html.escape(landing["final_a11y"], quote=True)}">
-          {html.escape(landing["final_prefix"])}
-          <span class="tool-command-line">{html.escape(landing["final_you"])} <span class="tool-flip" aria-hidden="true"><span class="tool-flip-word" data-tool-flip>brew install</span></span></span>
-        </h2>
-        <div>
-          <a class="button primary" href="/Automic Vault.dmg">{html.escape(ui["download"])}</a>
-          <a class="button secondary" href="{locale_path('/docs/', locale)}">{html.escape(landing["read_docs"])}</a>
-          <a class="button text" href="{locale_path('/pkg/', locale)}">{html.escape(landing["browse_packages"])}</a>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="footer-brand">
-        <img src="/assets/icon@2x.webp" alt="" width="54" height="54" loading="lazy" decoding="async">
-        <p>&copy; 2026 Automic Vault.</p>
+  <main>
+    <section class="boundary-hero" aria-labelledby="hero-title">
+      <div class="boundary-hero-copy">
+        <p class="boundary-orientation">{html.escape(landing["orientation"])}</p>
+        <h1 id="hero-title">{html.escape(landing["hero_h1"])}</h1>
+        <p class="boundary-lede">{html.escape(landing["hero_lede"])}</p>
       </div>
-      <div class="footer-state" aria-label="Automic Vault local boundary">
-        {footer_state}
-      </div>
-      <nav class="footer-links" aria-label="Footer navigation">
-        <a href="{locale_path('/about/', locale)}">{html.escape(ui["about"])}</a>
-        <a href="{locale_path('/security/', locale)}">{html.escape(ui["security"])}</a>
-        <a href="{locale_path('/blog/', locale)}">Blog</a>
-        <a href="{locale_path('/privacy/', locale)}">{html.escape(ui["privacy"])}</a>
-        <a href="{locale_path('/terms/', locale)}">{html.escape(ui["terms"])}</a>
-        <a href="https://x.com/AutomicVault">X</a>
-        <a href="https://github.com/automic-vault/">GitHub</a>
-      </nav>
-    </footer>
-  </div>
 
-  <script src="/app.js?v=21"></script>
+      <div class="execution-map" data-execution-map role="group" aria-label="{html.escape(landing["orientation"], quote=True)}">
+        <div class="map-column map-requesters">
+          <p class="map-column-label">{html.escape(landing["requester"])}</p>
+{source_nodes}
+        </div>
+        <div class="map-hop" aria-hidden="true"><span>{html.escape(landing["request"])}</span><b>→</b></div>
+        <div class="map-vault">
+          <div class="map-vault-head">
+            <img src="/assets/icon@2x.webp" alt="" width="42" height="42">
+            <div><strong>Automic Vault</strong><span>{html.escape(landing["vault_boundary"])}</span></div>
+          </div>
+          <div class="map-control">
+            <span class="map-signal map-signal-secret">{html.escape(landing["secret_label"])}</span>
+            <div><strong>{html.escape(landing["secret_map_title"])}</strong><p>{html.escape(landing["secret_map_body"])}</p></div>
+          </div>
+          <div class="map-control">
+            <span class="map-signal map-signal-approval">{html.escape(landing["execution_label"])}</span>
+            <div><strong>{html.escape(landing["execution_map_title"])}</strong><p>{html.escape(landing["execution_map_body"])}</p></div>
+          </div>
+        </div>
+        <div class="map-hop" aria-hidden="true"><span>execve</span><b>→</b></div>
+        <div class="map-column map-tools">
+          <p class="map-column-label">{html.escape(landing["approved_tool"])}</p>
+          <div class="map-tool-list" aria-label="{html.escape(landing["approved_tool"], quote=True)}"><code>gh</code><code>aws</code><code>terraform</code><code>npm</code></div>
+          <p class="map-tool-note">{html.escape(landing["tool_note"])}</p>
+          <div class="map-service"><span>{html.escape(landing["external_service"])}</span><strong>GitHub · AWS · registries</strong></div>
+        </div>
+      </div>
+
+      <div class="boundary-hero-actions">
+        <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">{html.escape(landing["download"])}</a>
+        <a class="boundary-button boundary-button-secondary" href="{locale_path('/docs/', locale)}">{html.escape(landing["docs"])}</a>
+        <span>Free and open source · Apple Silicon · macOS 26</span>
+      </div>
+    </section>
+
+    <section class="boundary-problem" id="detect" aria-labelledby="problem-title">
+      <div class="boundary-section-copy">
+        <h2 id="problem-title">{html.escape(landing["problem_title"])}</h2>
+        <p>{html.escape(landing["problem_body"])}</p>
+      </div>
+      <dl class="authority-ledger">
+{risk_rows}
+      </dl>
+    </section>
+
+    <section class="boundary-feature boundary-feature-secrets" id="harden" aria-labelledby="secrets-title">
+      <span class="anchor-alias" id="dotenv" aria-hidden="true"></span>
+      <div class="boundary-section-copy">
+        <h2 id="secrets-title">{html.escape(landing["secrets_title"])}</h2>
+        <p>{html.escape(landing["secrets_body"])}</p>
+      </div>
+      <div class="boundary-detail-list">
+{secret_points}
+      </div>
+    </section>
+
+    <section class="boundary-feature boundary-feature-execution" id="immutable" aria-labelledby="execution-title">
+      <div class="boundary-section-copy">
+        <h2 id="execution-title">{html.escape(landing["execution_title"])}</h2>
+        <p>{html.escape(landing["execution_body"])}</p>
+      </div>
+      <div class="approval-readout" aria-label="{html.escape(landing["approval_required"], quote=True)}">
+        <div><span>{html.escape(labels[0])}</span><code>/opt/homebrew/bin/gh</code></div>
+        <div><span>{html.escape(labels[1])}</span><code>release create v2.4.0</code></div>
+        <div><span>{html.escape(labels[2])}</span><code>GITHUB_TOKEN</code></div>
+        <div><span>{html.escape(labels[3])}</span><strong>{html.escape(landing["approval_required"])}</strong></div>
+      </div>
+    </section>
+
+    <section class="boundary-layer" id="monitor" aria-labelledby="layer-title">
+      <div class="boundary-section-copy">
+        <h2 id="layer-title">{html.escape(landing["layer_title"])}</h2>
+        <p>{html.escape(landing["layer_body"])}</p>
+      </div>
+      <p class="layer-note">{html.escape(landing["layer_note"])}</p>
+    </section>
+
+    <section class="boundary-terminal" aria-labelledby="terminal-title">
+      <div class="boundary-section-copy"><h2 id="terminal-title">{html.escape(landing["terminal_title"])}</h2></div>
+      <figure class="command-proof">
+        <figcaption>Save · inject · contain</figcaption>
+        <pre><code><span class="command-muted"># store one long-lived value in Keychain</span>
+$ printf '%s\\n' "$GITHUB_TOKEN" | av save GITHUB_TOKEN
+saved GITHUB_TOKEN in Automic Vault Keychain
+
+<span class="command-muted"># give one approved executable the named value</span>
+$ av inject +GITHUB_TOKEN /opt/homebrew/bin/gh repo view
+approval required: gh repo view
+approved · executing /opt/homebrew/bin/gh
+
+<span class="command-muted"># mediate the host tools an agent invokes</span>
+$ av contain codex
+contained toolchain ready · host execution requires approval</code></pre>
+      </figure>
+    </section>
+
+    <section class="boundary-trust" aria-labelledby="trust-title">
+      <div class="boundary-section-copy">
+        <h2 id="trust-title">{html.escape(landing["trust_title"])}</h2>
+        <p>{html.escape(landing["trust_body"])}</p>
+      </div>
+      <div class="trust-links">
+        <a href="{locale_path('/security/', locale)}">{html.escape(landing["security_link"])}</a>
+        <a href="https://github.com/automic-vault/automic-vault">{html.escape(landing["source_link"])}</a>
+      </div>
+      <p class="founder-note"><strong>{html.escape(landing["founder"])}</strong></p>
+    </section>
+
+    <section class="boundary-cta" id="free-open-source" aria-labelledby="cta-title">
+      <h2 id="cta-title">{html.escape(landing["cta_title"])}</h2>
+      <p>{html.escape(landing["cta_body"])}</p>
+      <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">{html.escape(landing["download"])}</a>
+    </section>
+  </main>
+
+  <footer class="boundary-footer">
+    <div class="boundary-footer-brand">
+      <div><img src="/assets/icon@2x.webp" alt="" width="54" height="54"><strong>Automic Vault</strong></div>
+      <p>{html.escape(landing["footer_tagline"])}</p>
+    </div>
+    <nav aria-label="Footer">
+      <a href="{locale_path('/docs/', locale)}">{html.escape(landing["docs"])}</a>
+      <a href="{locale_path('/security/', locale)}">{html.escape(ui["security"])}</a>
+      <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+    </nav>
+    <p class="boundary-footer-meta">© 2026 Automic Vault · Apache License 2.0</p>
+  </footer>
+
+  <script src="/app.js?v=24"></script>
   {language_nav}
   <script src="/i18n.js" defer></script>
 </body>
 </html>
 """
-
-
 def patch_english_page(path: str, locales: list[Locale], check: bool, failures: list[str]) -> None:
     file = route_file(path, Locale("en", "", "en", "en", "English", "English", ("en",), True))
     if not file.exists():

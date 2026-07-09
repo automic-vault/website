@@ -2,20 +2,20 @@
 <html lang="zh-Hans">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automic Vault | 加固软件包、.env 文件和 Mac 安装</title>
-  <meta name="description" content="代理和恶意软件只差一个命令就能偷走你的密钥。Automic Vault 加密密钥、封住工具，并在凭据暴露的关键层强制审批。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Automic Vault | 管理本地工具使用的密钥与执行权限</title>
+  <meta name="description" content="Automic Vault 在 macOS 本地管理工具的密钥注入和高风险命令执行。凭据保存在 Keychain 中，只提供给已批准的可执行文件。">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Automic Vault | 加固软件包、.env 文件和 Mac 安装">
-  <meta property="og:description" content="代理和恶意软件只差一个命令就能偷走你的密钥。Automic Vault 加密密钥、封住工具，并在凭据暴露的关键层强制审批。">
+  <meta property="og:title" content="Automic Vault | 管理本地工具使用的密钥与执行权限">
+  <meta property="og:description" content="Automic Vault 在 macOS 本地管理工具的密钥注入和高风险命令执行。凭据保存在 Keychain 中，只提供给已批准的可执行文件。">
   <meta property="og:url" content="https://www.automicvault.com/zh-hans/">
-  <meta property="og:image" content="https://www.automicvault.com/assets/app-hazard-journey.webp">
+  <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Automic Vault | 加固软件包、.env 文件和 Mac 安装">
-  <meta name="twitter:description" content="代理和恶意软件只差一个命令就能偷走你的密钥。Automic Vault 加密密钥、封住工具，并在凭据暴露的关键层强制审批。">
-  <meta name="twitter:image" content="https://www.automicvault.com/assets/app-hazard-journey.webp">
+  <meta name="twitter:title" content="Automic Vault | 管理本地工具使用的密钥与执行权限">
+  <meta name="twitter:description" content="Automic Vault 在 macOS 本地管理工具的密钥注入和高风险命令执行。凭据保存在 Keychain 中，只提供给已批准的可执行文件。">
+  <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/zh-hans/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/">
@@ -29,7 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=89">
+  <link rel="stylesheet" href="/styles.css?v=95">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
   <script>
@@ -43,252 +43,169 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/zh-hans/",
-    "name": "Automic Vault | 加固软件包、.env 文件和 Mac 安装",
-    "headline": "在代理运行前加固你的 Mac。",
-    "description": "代理和恶意软件只差一个命令就能偷走你的密钥。Automic Vault 加密密钥、封住工具，并在凭据暴露的关键层强制审批。",
+    "name": "Automic Vault | 管理本地工具使用的密钥与执行权限",
+    "headline": "密钥交给工具。执行由你掌控。",
+    "description": "Automic Vault 在 macOS 本地管理工具的密钥注入和高风险命令执行。凭据保存在 Keychain 中，只提供给已批准的可执行文件。",
     "inLanguage": "zh-Hans",
-    "image": "https://www.automicvault.com/assets/app-hazard-journey.webp",
+    "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
   }
   </script>
 </head>
-<body>
+<body class="boundary-home">
   <div class="scroll-meter" aria-hidden="true"><span></span></div>
-  <header class="masthead" id="top">
-    <a class="brand" href="/zh-hans/" aria-label="Automic Vault 首页">
-      <img class="brand-mark" src="/assets/icon@2x.webp" alt="Automic Vault" width="54" height="54">
-      <span class="brand-type">Automic Vault</span>
+  <header class="boundary-nav" id="top">
+    <a class="boundary-brand" href="/zh-hans/" aria-label="Automic Vault 首页">
+      <img src="/assets/icon@2x.webp" alt="" width="54" height="54">
+      <span>Automic Vault</span>
     </a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-label="切换导航"><span></span><span></span></button>
-    <nav class="nav" aria-label="主导航">
-      <a href="/zh-hans/pkg/">软件包</a>
-      <a href="/zh-hans/blog/">博客</a>
-      <a href="/zh-hans/security/">安全</a>
-      <a href="/zh-hans/docs/">文档</a>
-      <a href="/zh-hans/download/">下载</a>
-      <a href="https://github.com/automic-vault/">GitHub</a>
-    </nav>
+    <a class="boundary-nav-download" href="/Automic Vault.dmg">下载</a>
   </header>
 
-  <div class="site-shell">
-    <main class="landing-main">
-      <section class="poster-hero" aria-labelledby="hero-title">
-        <div class="poster-hero-copy">
-          <p class="eyebrow">来自 Homebrew 作者</p>
-          <h1 id="hero-title">在代理运行前加固你的 Mac。</h1>
-          <p class="poster-lede">你的 Mac 上可能有代理能读取、泄露，甚至交给恶意软件的明文密钥。Automic Vault 加固保护你凭据的关键层：加密密钥、封印工具，以及执行前审批。</p>
-        </div>
-
-        <div class="poster-hero-foot">
-          <div class="hero-actions">
-            <a class="button primary" href="/Automic Vault.dmg">下载 av.dmg</a>
-            <a class="button secondary" href="/zh-hans/secret-scanner-for-ai-agents/">运行扫描器</a>
-            <a class="button text" href="https://github.com/automic-vault/automic-vault">查看源码</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="feature-section harden-section" id="harden" aria-labelledby="harden-title">
-        <div class="feature-copy">
-          <p class="eyebrow">01 &middot; Harden</p>
-          <h2 id="harden-title">让软件包里的明文密钥消失。</h2>
-          <p>Automic Vault 会发现 CLI 留在 dotfile 中的凭据，将支持的密钥移入 Keychain，并给每个工具留下运行时 helper，让代理无需读取密钥也能使用工具。</p>
-        </div>
-
-        <div class="terminal-story" aria-label="Terminal examples for package hardening">
-          <aside class="terminal-notes" aria-label="What this terminal demonstrates">
-            <p>照常安装工具</p>
-            <p>检测密钥暴露</p>
-            <p>明文密钥在开源工具中很常见</p>
-            <p>av harden 将密钥移入 Keychain 并重写 helper</p>
-            <p>credential_process 让 aws 获得密钥，但不暴露给代理或恶意软件</p>
-          </aside>
-          <figure class="terminal-card terminal-card-green">
-            <figcaption>Harden package-owned secrets</figcaption>
-            <pre><code><span class="prompt">$</span> brew install awscli
-installed: /opt/homebrew/Cellar/awscli
-
-<span class="prompt">$</span> av scan
-<span class="terminal-danger">plaintext secret exposure</span>: ~/.aws/credentials
-reason agent-readable cloud keys
-
-<span class="prompt">$</span> cat ~/.aws/credentials
-[default]
-aws_access_key_id=AKIA<span class="secret-blur">IOSFODNN7EXAMPLE</span>
-aws_secret_access_key=wJalr<span class="secret-blur">XUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</span>
-
-<span class="prompt">$</span> av harden awscli
-saved AWS keys in Keychain
-rewrote credential_process helper
-removed plaintext credentials
-made install immutable
-
-<span class="prompt">$</span> cat ~/.aws/credentials
-[default]
-credential_process = /usr/local/bin/av credential-helper aws
-</code></pre>
-          </figure>
-        </div>
-
-        <div class="package-hardening-radar secured-radar" aria-label="Packages Automic Vault hardens">
-          <div class="radar-copy">
-            <span>Package hardening feed</span>
-            <strong>已知工具，可见控制。</strong>
-            <p>Automic Vault 会轮询软件包规则，覆盖 helper 协议、临时 home、Keychain-backed token 和明文 hazard 检测。</p>
-          </div>
-          <div class="radar-feed" data-secured-feed>
-            <a class="feed-row accent-green" href="/pkg/brew/gh/" aria-label="gh"><span>gh</span><p>GitHub tokens saved in Keychain and injected only for gh commands</p></a>
-            <a class="feed-row accent-green" href="/pkg/brew/awscli/" aria-label="awscli"><span>awscli</span><p>AWS keys moved from ~/.aws/credentials to credential_process</p></a>
-            <a class="feed-row accent-hot" href="/pkg/brew/curl/" aria-label="curl"><span>curl</span><p>netrc and curlrc credentials detected as hazards</p></a>
-            <a class="feed-row accent-gold" href="/pkg/brew/git/" aria-label="git"><span>git</span><p>plaintext credential-store files flagged before agent runs</p></a>
-            <a class="feed-row accent-blue" href="/pkg/brew/node/" aria-label="npm"><span>npm</span><p>registry tokens mounted through a temporary npm config</p></a>
-          </div>
-        </div>
-      </section>
-
-      <section class="feature-section immutable-section" id="immutable" aria-labelledby="immutable-title">
-        <div class="feature-copy">
-          <p class="eyebrow">02 &middot; Harden</p>
-          <h2 id="immutable-title">安装后让软件包不可变。</h2>
-          <p>Automic Vault 将来自 Homebrew、npm 或 PyPI 的工具安装到封印 root 中，并在 PATH 上放置 av shim。代理可以运行工具；修改工具本身会转到已批准的更新流程。</p>
-        </div>
-        <div class="terminal-story" aria-label="Terminal example for immutable package roots">
-          <aside class="terminal-notes immutable-terminal-notes" aria-label="What this terminal demonstrates">
-            <p>代理不能修改自己</p>
-          </aside>
-          <figure class="terminal-card terminal-card-blue" aria-label="Agent cannot modify itself">
-            <figcaption aria-hidden="true"></figcaption>
-            <pre><code><span class="prompt">$</span> av install codex
-awaiting Touch ID for root escalation… approved
-prefix: /opt/codex
-shim: /usr/local/bin/codex -> /opt/codex/bin/codex
-
-<span class="prompt">$</span> codex exec "patch $(which codex)"
-permission denied</code></pre>
-          </figure>
-        </div>
-      </section>
-
-      <section class="feature-section dotenv-section" id="dotenv" aria-labelledby="dotenv-title">
-        <div class="feature-copy">
-          <p class="eyebrow">03 &middot; Securing .env files</p>
-          <h2 id="dotenv-title">.env 留在工作流中，不进入代理上下文。</h2>
-          <p>av dotenv 写入 dotenvx 兼容的 encrypted: 值，同时私钥留在 Automic Vault Keychain 中。direnv 风格的 hook 只把已批准的密钥加载到请求它们的 shell 或命令里。</p>
-        </div>
-        <div class="dotenv-terminal-layout" aria-label="Terminal examples for encrypted dotenv files">
-          <figure class="terminal-card terminal-card-green dotenv-terminal-single">
-            <figcaption>Encrypted .env with direnv-style loading</figcaption>
-            <pre><code><span class="prompt">$</span> cd ~/work/billing-api
-
-<span class="prompt">$</span> cat .env
-APP_ENV=development
-LOG_LEVEL=debug
-PUBLIC_SITE_URL=https://billing.example
-STRIPE_SECRET_KEY=sk_live_<span class="secret-blur">4eC39HqLyjWDarjtT1zdp7dc</span>
-OPENAI_API_KEY=sk-proj-<span class="secret-blur">BJN9zqY2Q9p7xWm8kL3n</span>
-DATABASE_URL=postgres://billing:<span class="secret-blur">s3cr3t</span>@db.internal/app
-
-<span class="prompt">$</span> av dotenv init
-found existing .env
-stored DOTENV_PRIVATE_KEY in Keychain
-
-<span class="prompt">$</span> av dotenv encrypt
-encrypted .env
-
-<span class="prompt">$</span> cat .env
-DOTENV_PUBLIC_KEY="BP9x..."
-APP_ENV=development
-LOG_LEVEL=debug
-PUBLIC_SITE_URL=https://billing.example
-STRIPE_SECRET_KEY="<span class="terminal-encrypted">encrypted:</span>BO/8An..."
-OPENAI_API_KEY="<span class="terminal-encrypted">encrypted:</span>BJN9z..."
-DATABASE_URL="<span class="terminal-encrypted">encrypted:</span>BI4p3..."
-<span class="terminal-comment"># ^^ dotenvx compatible</span>
-
-<span class="prompt">$</span> echo 'eval "$(av dotenv hook zsh)"' >> ~/.zshrc
-
-<span class="terminal-session-divider">----- NEW TERMINAL SESSION -----</span>
-
-<span class="prompt">$</span> cd ~/work/billing-api
-av: human approval required… approved
-av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
-
-<span class="prompt">$</span> npm run dev
-<span class="terminal-comment"># keys exported into this shell only</span></code></pre>
-          </figure>
-        </div>
-      </section>
-
-      <section class="feature-section app-section detect-section" id="detect" aria-labelledby="detect-title">
-        <div class="feature-copy">
-          <p class="eyebrow">04 &middot; Detect</p>
-          <h2 id="detect-title">在 Mac 持续变化时检测新风险。</h2>
-          <p>Automic Vault.app 会在后台运行：你安装工具、编辑项目、意外暴露新密钥时，它都会继续监控。新的软件包 hazard 会在出现时报告，支持的明文密钥会立即加密。</p>
-          <ul class="app-feature-list">
-            <li><strong>多来源软件包.</strong> 安装并加固来自 Homebrew、npm 和 PyPI 的工具，更多来源即将支持。</li>
-            <li><strong>Touch ID 安装.</strong> 无需离开终端即可审批特权安装和更新。</li>
-            <li><strong>自动更新.</strong> 在后台保持应用和加固规则最新。</li>
-            <li><strong>GUI 搜索与发现.</strong> 浏览软件包、主页、版本、hazard 和安全说明。</li>
-            <li><strong>通知.</strong> 新的漏洞或暴露密钥出现时及时知道。</li>
-          </ul>
-        </div>
-        <figure class="app-visual">
-          <img src="/assets/app-hazard-journey.webp" alt="Automic Vault app" width="1672" height="941" loading="lazy" decoding="async">
-        </figure>
-      </section>
-
-      <section class="feature-section endorsement-section" id="endorsements" aria-labelledby="endorsements-title">
-        <div class="feature-copy">
-          <p class="eyebrow">05 · 现场反馈</p>
-          <h2 id="endorsements-title">正确的边界早就该存在了。</h2>
-          <p>最有用的第一条信号不是指标，也不是发布文章，而是一种感觉：本地代理安全本应已经是工具链的一部分。</p>
-        </div>
-        <a class="tweet-endorsement" href="https://x.com/Hiraweb3/status/2059662670006038857?s=20" target="_blank" rel="noopener noreferrer">
-          <div class="tweet-endorsement-person">
-            <img src="/assets/hira-avatar.webp" alt="Hira avatar" width="160" height="160" loading="lazy" decoding="async">
-            <cite class="tweet-endorsement-author"><span>Hira</span><span class="tweet-endorsement-handle">@Hiraweb3</span><span class="tweet-endorsement-source" aria-hidden="true">𝕏</span></cite>
-          </div>
-          <blockquote><p>we needed this yesterday but i'll take it now</p></blockquote>
-        </a>
-      </section>
-
-      <section class="closing-cta" aria-labelledby="final-title">
-        <p class="eyebrow">免费且开源</p>
-        <h2 id="final-title" aria-label="保护你用 brew、npm、pip、cargo、pnpm 和 uv 安装的工具。">
-          保护你的工具
-          <span class="tool-command-line">当你 <span class="tool-flip" aria-hidden="true"><span class="tool-flip-word" data-tool-flip>brew install</span></span></span>
-        </h2>
-        <div>
-          <a class="button primary" href="/Automic Vault.dmg">下载</a>
-          <a class="button secondary" href="/zh-hans/docs/">阅读文档</a>
-          <a class="button text" href="/zh-hans/pkg/">浏览软件包</a>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="footer-brand">
-        <img src="/assets/icon@2x.webp" alt="" width="54" height="54" loading="lazy" decoding="async">
-        <p>&copy; 2026 Automic Vault.</p>
+  <main>
+    <section class="boundary-hero" aria-labelledby="hero-title">
+      <div class="boundary-hero-copy">
+        <p class="boundary-orientation">macOS 本地边界 · 进程 → 工具 → 凭据</p>
+        <h1 id="hero-title">密钥交给工具。执行由你掌控。</h1>
+        <p class="boundary-lede">Automic Vault 位于发起请求的进程与实际运行的本地工具之间。凭据留在 Keychain 中，只提供给已批准的可执行文件；高风险命令在运行前需要你的确认。</p>
       </div>
-      <div class="footer-state" aria-label="Automic Vault local boundary">
-        <span><strong>Hazards</strong> 已检测</span>
-        <span><strong>Secrets</strong> Keychain-backed</span>
-        <span><strong>Approvals</strong> Touch ID ready</span>
-      </div>
-      <nav class="footer-links" aria-label="Footer navigation">
-        <a href="/zh-hans/about/">关于</a>
-        <a href="/zh-hans/security/">安全</a>
-        <a href="/zh-hans/blog/">Blog</a>
-        <a href="/zh-hans/privacy/">隐私</a>
-        <a href="/zh-hans/terms/">条款</a>
-        <a href="https://x.com/AutomicVault">X</a>
-        <a href="https://github.com/automic-vault/">GitHub</a>
-      </nav>
-    </footer>
-  </div>
 
-  <script src="/app.js?v=21"></script>
+      <div class="execution-map" data-execution-map role="group" aria-label="macOS 本地边界 · 进程 → 工具 → 凭据">
+        <div class="map-column map-requesters">
+          <p class="map-column-label">请求方</p>
+          <div class="map-node"><code>$ shell</code><span>你输入命令</span></div>
+          <div class="map-node"><code>./script</code><span>自动化请求密钥</span></div>
+          <div class="map-node"><code>agent</code><span>本地任务需要工具</span></div>
+        </div>
+        <div class="map-hop" aria-hidden="true"><span>请求</span><b>→</b></div>
+        <div class="map-vault">
+          <div class="map-vault-head">
+            <img src="/assets/icon@2x.webp" alt="" width="42" height="42">
+            <div><strong>Automic Vault</strong><span>本地执行边界</span></div>
+          </div>
+          <div class="map-control">
+            <span class="map-signal map-signal-secret">Secret</span>
+            <div><strong>Keychain → 指定进程</strong><p>已批准的可执行文件仅在本次运行中获得该值。</p></div>
+          </div>
+          <div class="map-control">
+            <span class="map-signal map-signal-approval">Execution</span>
+            <div><strong>路径 + 参数 + cwd → 审批</strong><p>命令及其权限在执行前清晰可见。</p></div>
+          </div>
+        </div>
+        <div class="map-hop" aria-hidden="true"><span>execve</span><b>→</b></div>
+        <div class="map-column map-tools">
+          <p class="map-column-label">已批准工具</p>
+          <div class="map-tool-list" aria-label="已批准工具"><code>gh</code><code>aws</code><code>terraform</code><code>npm</code></div>
+          <p class="map-tool-note">只有获准的工具会收到密钥。</p>
+          <div class="map-service"><span>外部服务</span><strong>GitHub · AWS · registries</strong></div>
+        </div>
+      </div>
+
+      <div class="boundary-hero-actions">
+        <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">下载 macOS 版</a>
+        <a class="boundary-button boundary-button-secondary" href="/zh-hans/docs/">阅读文档</a>
+        <span>Free and open source · Apple Silicon · macOS 26</span>
+      </div>
+    </section>
+
+    <section class="boundary-problem" id="detect" aria-labelledby="problem-title">
+      <div class="boundary-section-copy">
+        <h2 id="problem-title">你的本地工具已经拥有真实权限。</h2>
+        <p>云 CLI、源代码管理客户端、部署脚本和发布工具可以读取私有数据或修改远程系统。它们的凭据常常留在所有本地进程都能读取的文件中。</p>
+      </div>
+      <dl class="authority-ledger">
+        <div><dt><code>~/.aws/credentials</code></dt><dd>可读 dotfile 中的云账户权限</dd></div>
+        <div><dt><code>gh auth token</code></dt><dd>输出给请求进程的 bearer token</dd></div>
+        <div><dt><code>npm publish</code></dt><dd>拥有发布权限的本地命令</dd></div>
+        <div><dt><code>terraform apply</code></dt><dd>从当前 shell 发起基础设施变更</dd></div>
+      </dl>
+    </section>
+
+    <section class="boundary-feature boundary-feature-secrets" id="harden" aria-labelledby="secrets-title">
+      <span class="anchor-alias" id="dotenv" aria-hidden="true"></span>
+      <div class="boundary-section-copy">
+        <h2 id="secrets-title">密钥只属于这次工具执行。</h2>
+        <p>长期凭据存入 Automic Vault Keychain。指定允许接收它的可执行文件后，Automic Vault 会在审批完成后把值加载到该子进程。</p>
+      </div>
+      <div class="boundary-detail-list">
+        <p><strong>凭据不会进入 prompt 或项目文件.</strong><span>代理无需读取原始凭据即可请求工作。</span></p>
+        <p><strong>原生 helper 缩小交付范围.</strong><span>AWS credential_process、Kubernetes ExecCredential、registry helper 等协议可避免全局 shell export。</span></p>
+      </div>
+    </section>
+
+    <section class="boundary-feature boundary-feature-execution" id="immutable" aria-labelledby="execution-title">
+      <div class="boundary-section-copy">
+        <h2 id="execution-title">在执行时控制命令。</h2>
+        <p>av contain 为代理提供合成 toolchain。主机工具请求会携带可执行文件路径、参数、工作目录和所需密钥返回 Automic Vault。</p>
+      </div>
+      <div class="approval-readout" aria-label="需要人工审批">
+        <div><span>可执行文件</span><code>/opt/homebrew/bin/gh</code></div>
+        <div><span>参数</span><code>release create v2.4.0</code></div>
+        <div><span>密钥</span><code>GITHUB_TOKEN</code></div>
+        <div><span>决定</span><strong>需要人工审批</strong></div>
+      </div>
+    </section>
+
+    <section class="boundary-layer" id="monitor" aria-labelledby="layer-title">
+      <div class="boundary-section-copy">
+        <h2 id="layer-title">在可执行文件层落实安全控制。</h2>
+        <p>Automic Vault 使用 Mac 在执行时掌握的事实：磁盘上的二进制文件、路径、参数、父进程、工作目录和工具专用凭据协议。</p>
+      </div>
+      <p class="layer-note">中心化 vault 仍可作为真实来源。Automic Vault 控制的是开发工具在本地接收凭据并使用该权限的最后一段路径。</p>
+    </section>
+
+    <section class="boundary-terminal" aria-labelledby="terminal-title">
+      <div class="boundary-section-copy"><h2 id="terminal-title">三个命令建立边界。</h2></div>
+      <figure class="command-proof">
+        <figcaption>Save · inject · contain</figcaption>
+        <pre><code><span class="command-muted"># store one long-lived value in Keychain</span>
+$ printf '%s\n' "$GITHUB_TOKEN" | av save GITHUB_TOKEN
+saved GITHUB_TOKEN in Automic Vault Keychain
+
+<span class="command-muted"># give one approved executable the named value</span>
+$ av inject +GITHUB_TOKEN /opt/homebrew/bin/gh repo view
+approval required: gh repo view
+approved · executing /opt/homebrew/bin/gh
+
+<span class="command-muted"># mediate the host tools an agent invokes</span>
+$ av contain codex
+contained toolchain ready · host execution requires approval</code></pre>
+      </figure>
+    </section>
+
+    <section class="boundary-trust" aria-labelledby="trust-title">
+      <div class="boundary-section-copy">
+        <h2 id="trust-title">可检查的本地边界。</h2>
+        <p>Automic Vault 是 Apache 2.0 开源软件。安全模型假设 macOS Keychain、System Integrity Protection 和签名应用可信。root compromise 与恶意的已批准可执行文件不在此边界内。</p>
+      </div>
+      <div class="trust-links">
+        <a href="/zh-hans/security/">阅读安全模型</a>
+        <a href="https://github.com/automic-vault/automic-vault">查看源码</a>
+      </div>
+      <p class="founder-note"><strong>由 Max Howell 开发。他把创建 Homebrew 所积累的本地基础设施经验，用于控制工具运行时所使用的权限。</strong></p>
+    </section>
+
+    <section class="boundary-cta" id="free-open-source" aria-labelledby="cta-title">
+      <h2 id="cta-title">为你的工具建立边界。</h2>
+      <p>先把一个密钥移入 Keychain，再通过 Automic Vault 运行对应工具。</p>
+      <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">下载 macOS 版</a>
+    </section>
+  </main>
+
+  <footer class="boundary-footer">
+    <div class="boundary-footer-brand">
+      <div><img src="/assets/icon@2x.webp" alt="" width="54" height="54"><strong>Automic Vault</strong></div>
+      <p>管理 Mac 工具使用的密钥与执行权限。</p>
+    </div>
+    <nav aria-label="Footer">
+      <a href="/zh-hans/docs/">阅读文档</a>
+      <a href="/zh-hans/security/">安全</a>
+      <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+    </nav>
+    <p class="boundary-footer-meta">© 2026 Automic Vault · Apache License 2.0</p>
+  </footer>
+
+  <script src="/app.js?v=24"></script>
   <nav class="language-links" aria-label="语言版本"><a href="/" lang="en">English</a> <a href="/ja/" lang="ja">日本語</a> <a href="/de/" lang="de">Deutsch</a> <a href="/fr/" lang="fr">Français</a> <a href="/zh-hans/" lang="zh-Hans">简体中文</a></nav>
   <script src="/i18n.js" defer></script>
 </body>

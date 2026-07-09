@@ -1,157 +1,49 @@
 {
   "name": "Automic Vault",
-  "category": "AI agent security",
+  "category": "Local secrets and execution management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "description": "Automic Vault detects secret exposure, hardens packages that work with secrets, encrypts .env files, and monitors the tools you install with Homebrew, npm, pip, and curl one-liners.",
-  "short_description": "Don't Get Owned By Your Own Tools.",
-  "full_description": "From the creator of Homebrew, Automic Vault finds tokens, credentials, and helper leaks while they are still on your machine, moves plaintext credentials off disk and into Keychain, installs tools immutably, provides dotenvx-compatible .env encryption, and monitors Homebrew, npm, pip, and curl workflows for new hazards.",
-  "positioning": "Don't Get Owned By Your Own Tools",
-  "sections": [
-    {
-      "eyebrow": "01 · DETECT",
-      "title": "Supply chain attacks are up. Your credentials are the prize.",
-      "subtitle": "Automic Vault finds tokens, credentials, and helper leaks while they're still on your machine."
-    },
-    {
-      "eyebrow": "02.1 · HARDEN (Secrets)",
-      "title": "Off disk. Into Keychain.",
-      "subtitle": "One command moves plaintext credentials out of reach of agents and malware."
-    },
-    {
-      "eyebrow": "02.2 · HARDEN (Immutability)",
-      "title": "Agents can run your tools without rewriting them.",
-      "subtitle": "Sealed installs. Controlled updates. Nothing changes without you."
-    },
-    {
-      "eyebrow": "02.3 · HARDEN (.env)",
-      "title": "Encrypt .env. Break nothing.",
-      "subtitle": "Keys stay in Keychain. Your shell keeps working."
-    },
-    {
-      "eyebrow": "03 · MONITOR",
-      "title": "Install freely. Know immediately.",
-      "subtitle": "Homebrew, npm, pip, curl: keep using all of it. We'll flag risky changes."
-    },
-    {
-      "eyebrow": "Built by Max Howell",
-      "title": "Homebrew made installing tools normal. Automic Vault adds the local boundary."
-    },
-    {
-      "eyebrow": "CTA",
-      "title": "Free, open source local security for agent toolchains."
-    }
-  ],
-  "exposure_examples": [
-    {
-      "command": "gh auth token",
-      "summary": "Prints a GitHub bearer token that an agent, script, or compromised tool can copy into API calls."
-    },
-    {
-      "command": "cat ~/.aws/credentials",
-      "summary": "Turns a readable dotfile into cloud account access."
-    },
-    {
-      "command": "printf 'protocol=https\\nhost=github.com\\n\\n' | git credential fill",
-      "summary": "Asks the local credential helper to reveal repository credentials, even when there is no obvious token file."
-    }
-  ],
-  "founder_context": "Homebrew made installing tools normal. Automic Vault adds the local boundary. Max Howell created Homebrew, and Automic Vault applies that package-management background to local package roots, command stubs, secret helpers, and monitoring boundaries for AI agents on macOS.",
-  "endorsement": {
-    "quote": "we needed this yesterday but i'll take it now",
-    "author": "Hira",
-    "handle": "@Hiraweb3",
-    "url": "https://x.com/Hiraweb3/status/2059662670006038857?s=20"
+  "title": "Secrets for tools. Execution under control.",
+  "description": "Automic Vault is a local macOS secrets and execution manager for developer tools. It keeps credentials in Keychain, injects named values only into approved executables, and mediates risky tool runs.",
+  "positioning": "Automic Vault controls the last local hop between a shell, script, or agent and the developer tool that receives a credential and performs work.",
+  "primary_action": {
+    "label": "Download for macOS",
+    "url": "https://www.automicvault.com/Automic%20Vault.dmg"
   },
+  "execution_boundary": [
+    "A shell, script, or agent requests work.",
+    "Automic Vault resolves the executable, arguments, working directory, and requested secrets.",
+    "The user approves the credential handoff or sensitive command.",
+    "The local tool receives the secret for that execution and contacts the external service."
+  ],
+  "capabilities": [
+    {
+      "name": "Tool-scoped secrets",
+      "description": "Store long-lived values in the Automic Vault Keychain and inject them only into approved local executables."
+    },
+    {
+      "name": "Execution management",
+      "description": "Mediate host tool requests from contained agents and review executable path, arguments, working directory, and requested keys."
+    },
+    {
+      "name": "Native credential helpers",
+      "description": "Use tool protocols such as AWS credential_process, Kubernetes ExecCredential, and registry helpers instead of ambient shell exports."
+    },
+    {
+      "name": "Plaintext detection",
+      "description": "Find credentials in local files that agents and other processes can read."
+    }
+  ],
+  "commands": [
+    "printf '%s\\n' \"$GITHUB_TOKEN\" | av save GITHUB_TOKEN",
+    "av inject +GITHUB_TOKEN /opt/homebrew/bin/gh repo view",
+    "av contain codex"
+  ],
+  "security_boundary": "The security model assumes macOS Keychain, System Integrity Protection, and the signed app remain trustworthy. Root compromise and malicious approved executables remain outside the boundary.",
+  "founder": "Max Howell, creator of Homebrew",
   "url": "https://www.automicvault.com/",
   "source": "https://github.com/automic-vault/automic-vault",
-  "pricing": "Free open-source software",
-  "pricing_url": "https://www.automicvault.com/pricing/",
   "docs": "https://www.automicvault.com/docs/",
-  "security_whitepaper": "https://www.automicvault.com/security/whitepaper/",
-  "blog": "https://www.automicvault.com/blog/",
-  "latest_blog_post": {
-    "title": "Agent Pack",
-    "url": "https://www.automicvault.com/blog/agent-pack/",
-    "description": "Agent CLIs and coding assistants for terminal-native planning, editing, review, model routing, and usage inspection."
-  },
-  "blog_posts": [
-    {
-      "title": "Agent Pack",
-      "url": "https://www.automicvault.com/blog/agent-pack/",
-      "description": "Agent CLIs and coding assistants for terminal-native planning, editing, review, model routing, and usage inspection.",
-      "date_published": "2026-06-04"
-    },
-    {
-      "title": "UNIX++ Pack",
-      "url": "https://www.automicvault.com/blog/unix-plus-plus/",
-      "description": "Modern UNIX command line replacements and operators for search, file inspection, process monitoring, data wrangling, and HTTP/DNS work.",
-      "date_published": "2026-06-04"
-    },
-    {
-      "title": "The Agentic Toolkit",
-      "url": "https://www.automicvault.com/blog/agentic-toolkit/",
-      "description": "An installable pack of 26 Homebrew packages for media, images, runtimes, search, shell, build, OCR, metadata, and document conversion.",
-      "date_published": "2026-06-02"
-    },
-    {
-      "title": "How Automic Vault Would Have Prevented the Nx Console VS Code Extension Compromise",
-      "url": "https://www.automicvault.com/blog/prevent-nx-console-vscode-compromise/",
-      "description": "Nx Console 18.95.0 stole local developer credentials from editor sessions. Automic Vault would have stopped the local secret access.",
-      "date_published": "2026-05-21"
-    },
-    {
-      "title": "How Automic Vault Would Have Prevented the GitHub Employee Device Breach",
-      "url": "https://www.automicvault.com/blog/prevent-github-vscode-extension-breach/",
-      "description": "A poisoned VS Code extension reached a GitHub employee device. Automic Vault would have prevented local credentials from becoming repository access.",
-      "date_published": "2026-05-21"
-    },
-    {
-      "title": "How Automic Vault Would Have Prevented the durabletask PyPI Compromise",
-      "url": "https://www.automicvault.com/blog/prevent-durabletask-pypi-compromise/",
-      "description": "Malicious durabletask PyPI releases fetched rope.pyz and stole cloud and developer secrets. Automic Vault would have blocked the local theft path.",
-      "date_published": "2026-05-20"
-    },
-    {
-      "title": "How Automic Vault Would Have Prevented the TanStack npm Credential Theft",
-      "url": "https://www.automicvault.com/blog/prevent-tanstack-npm-compromise/",
-      "description": "TanStack packages were poisoned through trusted publishing, then stole local secrets. Automic Vault would have prevented the endpoint theft.",
-      "date_published": "2026-05-15"
-    },
-    {
-      "title": "How Automic Vault Would Have Prevented the node-ipc npm Backdoor",
-      "url": "https://www.automicvault.com/blog/prevent-node-ipc-npm-backdoor/",
-      "description": "The node-ipc backdoor ran on module load and exfiltrated secrets over DNS. Automic Vault would have prevented useful credential theft.",
-      "date_published": "2026-05-15"
-    },
-    {
-      "title": "How Automic Vault Would Have Prevented the Bitwarden CLI npm Compromise",
-      "url": "https://www.automicvault.com/blog/prevent-bitwarden-cli-npm-compromise/",
-      "description": "The compromised Bitwarden CLI npm package used install-time code to steal developer secrets. Automic Vault would have stopped the local theft.",
-      "date_published": "2026-04-23"
-    },
-    {
-      "title": "How Automic Vault Would Have Prevented the LiteLLM PyPI Compromise",
-      "url": "https://www.automicvault.com/blog/prevent-litellm-pypi-compromise/",
-      "description": "LiteLLM 1.82.7 and 1.82.8 stole local credentials. Automic Vault would have prevented the workstation credential theft phase.",
-      "date_published": "2026-03-25"
-    }
-  ],
   "security": "https://www.automicvault.com/security/",
-  "security_methods_and_gaps": {
-    "title": "Automic Vault Security Methods and Gaps",
-    "url": "https://www.automicvault.com/security/whitepaper/",
-    "description": "A candid white paper on Automic Vault controls, caveats, holes, successes, and hardening work."
-  },
-  "security_txt": "https://www.automicvault.com/.well-known/security.txt",
-  "llms_txt": "https://www.automicvault.com/llms.txt",
-  "llms_full_txt": "https://www.automicvault.com/llms-full.txt",
-  "use_cases": [
-    "Surface tokens, credentials, and helper leaks while they are still on the developer's machine.",
-    "Move plaintext credentials off disk and into Keychain, out of reach of agents and malware.",
-    "Expose credentials through native helper protocols such as AWS credential_process, Kubernetes ExecCredential, Cargo credential providers, Docker-compatible registry helpers, and WakaTime api_key_vault_cmd.",
-    "Install packages immutably so agents can run tools but cannot rewrite them.",
-    "Encrypt dotenvx-compatible .env files while keeping keys in Keychain and preserving the existing workflow.",
-    "Monitor Homebrew, npm, pip, and curl workflows and flag when something is wrong."
-  ]
+  "pricing": "Free open-source software"
 }

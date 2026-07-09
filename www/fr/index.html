@@ -2,20 +2,20 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automic Vault | Durcir les paquets, .env et installations Mac</title>
-  <meta name="description" content="Agents et malware ne sont qu’à une commande de voler vos secrets. Automic Vault chiffre les secrets, scelle les outils et impose l’approbation là où vos identifiants sont exposés.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Automic Vault | Secrets et exécution pour les outils locaux</title>
+  <meta name="description" content="Automic Vault gère localement sur macOS l’injection de secrets et l’exécution sensible des outils. Les identifiants restent dans le trousseau et vont seulement aux exécutables approuvés.">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Automic Vault | Durcir les paquets, .env et installations Mac">
-  <meta property="og:description" content="Agents et malware ne sont qu’à une commande de voler vos secrets. Automic Vault chiffre les secrets, scelle les outils et impose l’approbation là où vos identifiants sont exposés.">
+  <meta property="og:title" content="Automic Vault | Secrets et exécution pour les outils locaux">
+  <meta property="og:description" content="Automic Vault gère localement sur macOS l’injection de secrets et l’exécution sensible des outils. Les identifiants restent dans le trousseau et vont seulement aux exécutables approuvés.">
   <meta property="og:url" content="https://www.automicvault.com/fr/">
-  <meta property="og:image" content="https://www.automicvault.com/assets/app-hazard-journey.webp">
+  <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Automic Vault | Durcir les paquets, .env et installations Mac">
-  <meta name="twitter:description" content="Agents et malware ne sont qu’à une commande de voler vos secrets. Automic Vault chiffre les secrets, scelle les outils et impose l’approbation là où vos identifiants sont exposés.">
-  <meta name="twitter:image" content="https://www.automicvault.com/assets/app-hazard-journey.webp">
+  <meta name="twitter:title" content="Automic Vault | Secrets et exécution pour les outils locaux">
+  <meta name="twitter:description" content="Automic Vault gère localement sur macOS l’injection de secrets et l’exécution sensible des outils. Les identifiants restent dans le trousseau et vont seulement aux exécutables approuvés.">
+  <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/fr/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/">
@@ -29,7 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=89">
+  <link rel="stylesheet" href="/styles.css?v=95">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
   <script>
@@ -43,252 +43,169 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/fr/",
-    "name": "Automic Vault | Durcir les paquets, .env et installations Mac",
-    "headline": "Durcissez votre Mac avant que l’agent s’exécute.",
-    "description": "Agents et malware ne sont qu’à une commande de voler vos secrets. Automic Vault chiffre les secrets, scelle les outils et impose l’approbation là où vos identifiants sont exposés.",
+    "name": "Automic Vault | Secrets et exécution pour les outils locaux",
+    "headline": "Des secrets pour les outils. Une exécution contrôlée.",
+    "description": "Automic Vault gère localement sur macOS l’injection de secrets et l’exécution sensible des outils. Les identifiants restent dans le trousseau et vont seulement aux exécutables approuvés.",
     "inLanguage": "fr",
-    "image": "https://www.automicvault.com/assets/app-hazard-journey.webp",
+    "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
   }
   </script>
 </head>
-<body>
+<body class="boundary-home">
   <div class="scroll-meter" aria-hidden="true"><span></span></div>
-  <header class="masthead" id="top">
-    <a class="brand" href="/fr/" aria-label="Accueil Automic Vault">
-      <img class="brand-mark" src="/assets/icon@2x.webp" alt="Automic Vault" width="54" height="54">
-      <span class="brand-type">Automic Vault</span>
+  <header class="boundary-nav" id="top">
+    <a class="boundary-brand" href="/fr/" aria-label="Accueil Automic Vault">
+      <img src="/assets/icon@2x.webp" alt="" width="54" height="54">
+      <span>Automic Vault</span>
     </a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Afficher ou masquer la navigation"><span></span><span></span></button>
-    <nav class="nav" aria-label="Navigation principale">
-      <a href="/fr/pkg/">Paquets</a>
-      <a href="/fr/blog/">Blog</a>
-      <a href="/fr/security/">Sécurité</a>
-      <a href="/fr/docs/">Docs</a>
-      <a href="/fr/download/">Télécharger</a>
-      <a href="https://github.com/automic-vault/">GitHub</a>
-    </nav>
+    <a class="boundary-nav-download" href="/Automic Vault.dmg">Télécharger</a>
   </header>
 
-  <div class="site-shell">
-    <main class="landing-main">
-      <section class="poster-hero" aria-labelledby="hero-title">
-        <div class="poster-hero-copy">
-          <p class="eyebrow">Par le créateur de Homebrew</p>
-          <h1 id="hero-title">Durcissez votre Mac avant que l’agent s’exécute.</h1>
-          <p class="poster-lede">Votre Mac contient des clés en clair qu’un agent peut lire, divulguer ou transmettre à un malware. Automic Vault durcit la couche qui protège vos identifiants : secrets chiffrés, outils scellés et approbation avant l’exécution.</p>
-        </div>
-
-        <div class="poster-hero-foot">
-          <div class="hero-actions">
-            <a class="button primary" href="/Automic Vault.dmg">Télécharger av.dmg</a>
-            <a class="button secondary" href="/fr/secret-scanner-for-ai-agents/">Lancer le scanner</a>
-            <a class="button text" href="https://github.com/automic-vault/automic-vault">Voir le code</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="feature-section harden-section" id="harden" aria-labelledby="harden-title">
-        <div class="feature-copy">
-          <p class="eyebrow">01 &middot; Harden</p>
-          <h2 id="harden-title">Faites disparaître les secrets en clair des paquets.</h2>
-          <p>Automic Vault trouve les identifiants que les CLI laissent dans les dotfiles, déplace les secrets pris en charge dans le trousseau et laisse à chaque outil un helper d’exécution utilisable par l’agent sans lire le secret.</p>
-        </div>
-
-        <div class="terminal-story" aria-label="Terminal examples for package hardening">
-          <aside class="terminal-notes" aria-label="What this terminal demonstrates">
-            <p>Installez les outils comme d’habitude</p>
-            <p>Détectez l’exposition des secrets</p>
-            <p>Les secrets en clair sont malheureusement courants dans l’open source</p>
-            <p>av harden déplace les clés dans le trousseau et réécrit le helper</p>
-            <p>credential_process donne les clés à aws sans les exposer aux agents ou aux malwares</p>
-          </aside>
-          <figure class="terminal-card terminal-card-green">
-            <figcaption>Harden package-owned secrets</figcaption>
-            <pre><code><span class="prompt">$</span> brew install awscli
-installed: /opt/homebrew/Cellar/awscli
-
-<span class="prompt">$</span> av scan
-<span class="terminal-danger">plaintext secret exposure</span>: ~/.aws/credentials
-reason agent-readable cloud keys
-
-<span class="prompt">$</span> cat ~/.aws/credentials
-[default]
-aws_access_key_id=AKIA<span class="secret-blur">IOSFODNN7EXAMPLE</span>
-aws_secret_access_key=wJalr<span class="secret-blur">XUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</span>
-
-<span class="prompt">$</span> av harden awscli
-saved AWS keys in Keychain
-rewrote credential_process helper
-removed plaintext credentials
-made install immutable
-
-<span class="prompt">$</span> cat ~/.aws/credentials
-[default]
-credential_process = /usr/local/bin/av credential-helper aws
-</code></pre>
-          </figure>
-        </div>
-
-        <div class="package-hardening-radar secured-radar" aria-label="Packages Automic Vault hardens">
-          <div class="radar-copy">
-            <span>Package hardening feed</span>
-            <strong>Outils connus, contrôles visibles.</strong>
-            <p>Automic Vault parcourt les règles de paquets pour les protocoles helper, homes temporaires, jetons adossés au trousseau et détection de dangers en clair.</p>
-          </div>
-          <div class="radar-feed" data-secured-feed>
-            <a class="feed-row accent-green" href="/pkg/brew/gh/" aria-label="gh"><span>gh</span><p>GitHub tokens saved in Keychain and injected only for gh commands</p></a>
-            <a class="feed-row accent-green" href="/pkg/brew/awscli/" aria-label="awscli"><span>awscli</span><p>AWS keys moved from ~/.aws/credentials to credential_process</p></a>
-            <a class="feed-row accent-hot" href="/pkg/brew/curl/" aria-label="curl"><span>curl</span><p>netrc and curlrc credentials detected as hazards</p></a>
-            <a class="feed-row accent-gold" href="/pkg/brew/git/" aria-label="git"><span>git</span><p>plaintext credential-store files flagged before agent runs</p></a>
-            <a class="feed-row accent-blue" href="/pkg/brew/node/" aria-label="npm"><span>npm</span><p>registry tokens mounted through a temporary npm config</p></a>
-          </div>
-        </div>
-      </section>
-
-      <section class="feature-section immutable-section" id="immutable" aria-labelledby="immutable-title">
-        <div class="feature-copy">
-          <p class="eyebrow">02 &middot; Harden</p>
-          <h2 id="immutable-title">Rendez les paquets immuables après installation.</h2>
-          <p>Automic Vault installe les outils Homebrew, npm ou PyPI dans des racines scellées et place un shim av sur PATH. Les agents peuvent lancer l’outil; modifier l’outil lui-même passe par une mise à jour approuvée.</p>
-        </div>
-        <div class="terminal-story" aria-label="Terminal example for immutable package roots">
-          <aside class="terminal-notes immutable-terminal-notes" aria-label="What this terminal demonstrates">
-            <p>l’agent ne peut pas se modifier lui-même</p>
-          </aside>
-          <figure class="terminal-card terminal-card-blue" aria-label="Agent cannot modify itself">
-            <figcaption aria-hidden="true"></figcaption>
-            <pre><code><span class="prompt">$</span> av install codex
-awaiting Touch ID for root escalation… approved
-prefix: /opt/codex
-shim: /usr/local/bin/codex -> /opt/codex/bin/codex
-
-<span class="prompt">$</span> codex exec "patch $(which codex)"
-permission denied</code></pre>
-          </figure>
-        </div>
-      </section>
-
-      <section class="feature-section dotenv-section" id="dotenv" aria-labelledby="dotenv-title">
-        <div class="feature-copy">
-          <p class="eyebrow">03 &middot; Securing .env files</p>
-          <h2 id="dotenv-title">Gardez .env dans le workflow, pas dans le contexte de l’agent.</h2>
-          <p>av dotenv écrit des valeurs encrypted: compatibles dotenvx pendant que la clé privée reste dans le trousseau Automic Vault. Des hooks façon direnv chargent seulement les clés approuvées dans le shell ou la commande qui les a demandées.</p>
-        </div>
-        <div class="dotenv-terminal-layout" aria-label="Terminal examples for encrypted dotenv files">
-          <figure class="terminal-card terminal-card-green dotenv-terminal-single">
-            <figcaption>Encrypted .env with direnv-style loading</figcaption>
-            <pre><code><span class="prompt">$</span> cd ~/work/billing-api
-
-<span class="prompt">$</span> cat .env
-APP_ENV=development
-LOG_LEVEL=debug
-PUBLIC_SITE_URL=https://billing.example
-STRIPE_SECRET_KEY=sk_live_<span class="secret-blur">4eC39HqLyjWDarjtT1zdp7dc</span>
-OPENAI_API_KEY=sk-proj-<span class="secret-blur">BJN9zqY2Q9p7xWm8kL3n</span>
-DATABASE_URL=postgres://billing:<span class="secret-blur">s3cr3t</span>@db.internal/app
-
-<span class="prompt">$</span> av dotenv init
-found existing .env
-stored DOTENV_PRIVATE_KEY in Keychain
-
-<span class="prompt">$</span> av dotenv encrypt
-encrypted .env
-
-<span class="prompt">$</span> cat .env
-DOTENV_PUBLIC_KEY="BP9x..."
-APP_ENV=development
-LOG_LEVEL=debug
-PUBLIC_SITE_URL=https://billing.example
-STRIPE_SECRET_KEY="<span class="terminal-encrypted">encrypted:</span>BO/8An..."
-OPENAI_API_KEY="<span class="terminal-encrypted">encrypted:</span>BJN9z..."
-DATABASE_URL="<span class="terminal-encrypted">encrypted:</span>BI4p3..."
-<span class="terminal-comment"># ^^ dotenvx compatible</span>
-
-<span class="prompt">$</span> echo 'eval "$(av dotenv hook zsh)"' >> ~/.zshrc
-
-<span class="terminal-session-divider">----- NEW TERMINAL SESSION -----</span>
-
-<span class="prompt">$</span> cd ~/work/billing-api
-av: human approval required… approved
-av: +STRIPE_SECRET_KEY +OPENAI_API_KEY +DATABASE_URL
-
-<span class="prompt">$</span> npm run dev
-<span class="terminal-comment"># keys exported into this shell only</span></code></pre>
-          </figure>
-        </div>
-      </section>
-
-      <section class="feature-section app-section detect-section" id="detect" aria-labelledby="detect-title">
-        <div class="feature-copy">
-          <p class="eyebrow">04 &middot; Detect</p>
-          <h2 id="detect-title">Détectez les nouveaux risques pendant que votre Mac change.</h2>
-          <p>Automic Vault.app tourne en arrière-plan quand vous installez des outils, modifiez des projets et exposez accidentellement de nouveaux secrets. Les nouveaux dangers de paquets sont signalés dès leur apparition, et les secrets en clair pris en charge sont chiffrés immédiatement.</p>
-          <ul class="app-feature-list">
-            <li><strong>Paquets multi-sources.</strong> Installez et durcissez des outils Homebrew, npm et PyPI, avec d’autres sources à venir.</li>
-            <li><strong>Installations Touch ID.</strong> Approuvez les installations et mises à jour privilégiées sans quitter le terminal.</li>
-            <li><strong>Mises à jour automatiques.</strong> Gardez l’app et les règles de durcissement à jour en arrière-plan.</li>
-            <li><strong>Recherche et découverte GUI.</strong> Parcourez paquets, homepages, versions, dangers et notes de sécurité.</li>
-            <li><strong>Notifications.</strong> Soyez averti quand de nouvelles vulnérabilités ou des secrets exposés apparaissent.</li>
-          </ul>
-        </div>
-        <figure class="app-visual">
-          <img src="/assets/app-hazard-journey.webp" alt="Automic Vault app" width="1672" height="941" loading="lazy" decoding="async">
-        </figure>
-      </section>
-
-      <section class="feature-section endorsement-section" id="endorsements" aria-labelledby="endorsements-title">
-        <div class="feature-copy">
-          <p class="eyebrow">05 · Note de terrain</p>
-          <h2 id="endorsements-title">La bonne limite semble déjà en retard.</h2>
-          <p>Le premier signal utile n’était pas une métrique ni un billet de lancement. C’était l’impression que la sécurité locale des agents devrait déjà faire partie de la toolchain.</p>
-        </div>
-        <a class="tweet-endorsement" href="https://x.com/Hiraweb3/status/2059662670006038857?s=20" target="_blank" rel="noopener noreferrer">
-          <div class="tweet-endorsement-person">
-            <img src="/assets/hira-avatar.webp" alt="Hira avatar" width="160" height="160" loading="lazy" decoding="async">
-            <cite class="tweet-endorsement-author"><span>Hira</span><span class="tweet-endorsement-handle">@Hiraweb3</span><span class="tweet-endorsement-source" aria-hidden="true">𝕏</span></cite>
-          </div>
-          <blockquote><p>we needed this yesterday but i'll take it now</p></blockquote>
-        </a>
-      </section>
-
-      <section class="closing-cta" aria-labelledby="final-title">
-        <p class="eyebrow">Gratuit et open source</p>
-        <h2 id="final-title" aria-label="Sécurisez les outils que vous installez avec brew, npm, pip, cargo, pnpm et uv.">
-          Sécurisez les outils
-          <span class="tool-command-line">que vous <span class="tool-flip" aria-hidden="true"><span class="tool-flip-word" data-tool-flip>brew install</span></span></span>
-        </h2>
-        <div>
-          <a class="button primary" href="/Automic Vault.dmg">Télécharger</a>
-          <a class="button secondary" href="/fr/docs/">Lire la doc</a>
-          <a class="button text" href="/fr/pkg/">Voir les paquets</a>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="footer-brand">
-        <img src="/assets/icon@2x.webp" alt="" width="54" height="54" loading="lazy" decoding="async">
-        <p>&copy; 2026 Automic Vault.</p>
+  <main>
+    <section class="boundary-hero" aria-labelledby="hero-title">
+      <div class="boundary-hero-copy">
+        <p class="boundary-orientation">Limite macOS locale · processus → outil → identifiant</p>
+        <h1 id="hero-title">Des secrets pour les outils. Une exécution contrôlée.</h1>
+        <p class="boundary-lede">Automic Vault se place entre le processus demandeur et l’outil local. Les identifiants restent dans le trousseau, seuls les exécutables approuvés les reçoivent, et les commandes risquées attendent votre validation.</p>
       </div>
-      <div class="footer-state" aria-label="Automic Vault local boundary">
-        <span><strong>Dangers</strong> détectés</span>
-        <span><strong>Secrets</strong> Keychain-backed</span>
-        <span><strong>Approvals</strong> Touch ID ready</span>
-      </div>
-      <nav class="footer-links" aria-label="Footer navigation">
-        <a href="/fr/about/">À propos</a>
-        <a href="/fr/security/">Sécurité</a>
-        <a href="/fr/blog/">Blog</a>
-        <a href="/fr/privacy/">Confidentialité</a>
-        <a href="/fr/terms/">Conditions</a>
-        <a href="https://x.com/AutomicVault">X</a>
-        <a href="https://github.com/automic-vault/">GitHub</a>
-      </nav>
-    </footer>
-  </div>
 
-  <script src="/app.js?v=21"></script>
+      <div class="execution-map" data-execution-map role="group" aria-label="Limite macOS locale · processus → outil → identifiant">
+        <div class="map-column map-requesters">
+          <p class="map-column-label">Demandeur</p>
+          <div class="map-node"><code>$ shell</code><span>vous saisissez une commande</span></div>
+          <div class="map-node"><code>./script</code><span>l’automatisation demande des clés</span></div>
+          <div class="map-node"><code>agent</code><span>le travail local exige un outil</span></div>
+        </div>
+        <div class="map-hop" aria-hidden="true"><span>requête</span><b>→</b></div>
+        <div class="map-vault">
+          <div class="map-vault-head">
+            <img src="/assets/icon@2x.webp" alt="" width="42" height="42">
+            <div><strong>Automic Vault</strong><span>limite d’exécution locale</span></div>
+          </div>
+          <div class="map-control">
+            <span class="map-signal map-signal-secret">Secret</span>
+            <div><strong>Trousseau → processus nommé</strong><p>L’exécutable approuvé reçoit la valeur pour cette exécution.</p></div>
+          </div>
+          <div class="map-control">
+            <span class="map-signal map-signal-approval">Execution</span>
+            <div><strong>Chemin + arguments + cwd → validation</strong><p>Vous voyez la commande et son autorité avant son lancement.</p></div>
+          </div>
+        </div>
+        <div class="map-hop" aria-hidden="true"><span>execve</span><b>→</b></div>
+        <div class="map-column map-tools">
+          <p class="map-column-label">Outil approuvé</p>
+          <div class="map-tool-list" aria-label="Outil approuvé"><code>gh</code><code>aws</code><code>terraform</code><code>npm</code></div>
+          <p class="map-tool-note">Seul l’outil approuvé reçoit le secret.</p>
+          <div class="map-service"><span>Service externe</span><strong>GitHub · AWS · registries</strong></div>
+        </div>
+      </div>
+
+      <div class="boundary-hero-actions">
+        <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">Télécharger pour macOS</a>
+        <a class="boundary-button boundary-button-secondary" href="/fr/docs/">Lire la documentation</a>
+        <span>Free and open source · Apple Silicon · macOS 26</span>
+      </div>
+    </section>
+
+    <section class="boundary-problem" id="detect" aria-labelledby="problem-title">
+      <div class="boundary-section-copy">
+        <h2 id="problem-title">Vos outils locaux possèdent déjà de vrais pouvoirs.</h2>
+        <p>Les CLI cloud, clients de gestion de source, scripts de déploiement et outils de publication peuvent lire des données privées ou modifier des systèmes distants. Leurs identifiants restent souvent dans des fichiers lisibles par tout processus local.</p>
+      </div>
+      <dl class="authority-ledger">
+        <div><dt><code>~/.aws/credentials</code></dt><dd>Accès cloud dans un dotfile lisible</dd></div>
+        <div><dt><code>gh auth token</code></dt><dd>Bearer token imprimé pour le processus demandeur</dd></div>
+        <div><dt><code>npm publish</code></dt><dd>Commande locale avec droit de publication</dd></div>
+        <div><dt><code>terraform apply</code></dt><dd>Mutation d’infrastructure depuis le shell courant</dd></div>
+      </dl>
+    </section>
+
+    <section class="boundary-feature boundary-feature-secrets" id="harden" aria-labelledby="secrets-title">
+      <span class="anchor-alias" id="dotenv" aria-hidden="true"></span>
+      <div class="boundary-section-copy">
+        <h2 id="secrets-title">Le secret appartient à l’exécution de l’outil.</h2>
+        <p>Conservez les valeurs durables dans le trousseau Automic Vault. Nommez l’exécutable autorisé à les recevoir. Après validation, Automic Vault charge chaque valeur dans ce processus enfant.</p>
+      </div>
+      <div class="boundary-detail-list">
+        <p><strong>Les valeurs restent hors des prompts et des projets.</strong><span>Les agents peuvent demander un travail sans lire l’identifiant brut.</span></p>
+        <p><strong>Les helpers natifs resserrent le transfert.</strong><span>AWS credential_process, Kubernetes ExecCredential, les helpers de registre et d’autres protocoles évitent les exports globaux du shell.</span></p>
+      </div>
+    </section>
+
+    <section class="boundary-feature boundary-feature-execution" id="immutable" aria-labelledby="execution-title">
+      <div class="boundary-section-copy">
+        <h2 id="execution-title">Contrôlez la commande au moment de son exécution.</h2>
+        <p>av contain fournit une toolchain synthétique à l’agent. Les demandes d’outils hôtes reviennent à Automic Vault avec le chemin de l’exécutable, les arguments, le dossier courant et les secrets demandés.</p>
+      </div>
+      <div class="approval-readout" aria-label="Validation humaine requise">
+        <div><span>Exécutable</span><code>/opt/homebrew/bin/gh</code></div>
+        <div><span>Arguments</span><code>release create v2.4.0</code></div>
+        <div><span>Secret</span><code>GITHUB_TOKEN</code></div>
+        <div><span>Décision</span><strong>Validation humaine requise</strong></div>
+      </div>
+    </section>
+
+    <section class="boundary-layer" id="monitor" aria-labelledby="layer-title">
+      <div class="boundary-section-copy">
+        <h2 id="layer-title">La sécurité au niveau de l’exécutable.</h2>
+        <p>Automic Vault utilise les faits disponibles au moment de l’exécution : binaire sur disque, chemin, arguments, processus parent, dossier courant et protocole d’identification propre à l’outil.</p>
+      </div>
+      <p class="layer-note">Vos coffres centraux peuvent rester la source de vérité. Automic Vault contrôle le dernier passage local où un outil développeur reçoit un identifiant et agit avec lui.</p>
+    </section>
+
+    <section class="boundary-terminal" aria-labelledby="terminal-title">
+      <div class="boundary-section-copy"><h2 id="terminal-title">Trois commandes établissent la limite.</h2></div>
+      <figure class="command-proof">
+        <figcaption>Save · inject · contain</figcaption>
+        <pre><code><span class="command-muted"># store one long-lived value in Keychain</span>
+$ printf '%s\n' "$GITHUB_TOKEN" | av save GITHUB_TOKEN
+saved GITHUB_TOKEN in Automic Vault Keychain
+
+<span class="command-muted"># give one approved executable the named value</span>
+$ av inject +GITHUB_TOKEN /opt/homebrew/bin/gh repo view
+approval required: gh repo view
+approved · executing /opt/homebrew/bin/gh
+
+<span class="command-muted"># mediate the host tools an agent invokes</span>
+$ av contain codex
+contained toolchain ready · host execution requires approval</code></pre>
+      </figure>
+    </section>
+
+    <section class="boundary-trust" aria-labelledby="trust-title">
+      <div class="boundary-section-copy">
+        <h2 id="trust-title">Une limite locale que vous pouvez examiner.</h2>
+        <p>Automic Vault est un logiciel open source sous licence Apache 2.0. Son modèle suppose que le trousseau macOS, System Integrity Protection et l’application signée restent fiables. Une compromission root et un exécutable approuvé malveillant restent hors de cette limite.</p>
+      </div>
+      <div class="trust-links">
+        <a href="/fr/security/">Lire le modèle de sécurité</a>
+        <a href="https://github.com/automic-vault/automic-vault">Examiner le code source</a>
+      </div>
+      <p class="founder-note"><strong>Créé par Max Howell. Son expérience de Homebrew sert ici à contrôler l’autorité utilisée par les outils locaux pendant leur exécution.</strong></p>
+    </section>
+
+    <section class="boundary-cta" id="free-open-source" aria-labelledby="cta-title">
+      <h2 id="cta-title">Placez une limite autour de vos outils.</h2>
+      <p>Déplacez un secret dans le trousseau, puis exécutez l’outil avec Automic Vault.</p>
+      <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">Télécharger pour macOS</a>
+    </section>
+  </main>
+
+  <footer class="boundary-footer">
+    <div class="boundary-footer-brand">
+      <div><img src="/assets/icon@2x.webp" alt="" width="54" height="54"><strong>Automic Vault</strong></div>
+      <p>Secrets et contrôle d’exécution pour les outils de votre Mac.</p>
+    </div>
+    <nav aria-label="Footer">
+      <a href="/fr/docs/">Lire la documentation</a>
+      <a href="/fr/security/">Sécurité</a>
+      <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+    </nav>
+    <p class="boundary-footer-meta">© 2026 Automic Vault · Apache License 2.0</p>
+  </footer>
+
+  <script src="/app.js?v=24"></script>
   <nav class="language-links" aria-label="Versions linguistiques"><a href="/" lang="en">English</a> <a href="/ja/" lang="ja">日本語</a> <a href="/de/" lang="de">Deutsch</a> <a href="/fr/" lang="fr">Français</a> <a href="/zh-hans/" lang="zh-Hans">简体中文</a></nav>
   <script src="/i18n.js" defer></script>
 </body>

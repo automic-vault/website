@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-07-09",
+    "macrostructure": "Map / Diagram",
+    "theme": "Cobalt-dark",
+    "theme_axes": "dark / grotesk-sans / cool-with-warm-signal",
+    "enrichment": "Tier-A semantic execution map",
+    "nav": "N9",
+    "footer": "Ft1",
+    "brief": "Automic Vault tool-scoped secrets and execution homepage"
+  },
+  {
     "date": "2026-06-15",
     "macrostructure": "Narrative Workflow",
     "theme": "Terminal-on-Cobalt",

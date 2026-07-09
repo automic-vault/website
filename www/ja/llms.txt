@@ -1,8 +1,9 @@
 # Automic Vault
 
-brew install したツールを安全に。
+ツールにシークレットを。実行は管理下に。
 
-Automic Vault は、AI エージェントが使う前に、Homebrew ツール、CLI シークレット、コマンド承認ゲートを Mac 上でローカルに保護します。
+Automic Vault は、要求するプロセスと実行されるローカルツールの間に入ります。認証情報を Keychain に保管し、承認された実行ファイルだけに渡し、危険なコマンドは実行前に確認します。
 
 - ウェブサイト: https://www.automicvault.com/ja/
-- パッケージ: https://www.automicvault.com/ja/pkg/
+- ドキュメント: https://www.automicvault.com/ja/docs/
+- セキュリティ: https://www.automicvault.com/ja/security/

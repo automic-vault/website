@@ -1,4 +1,4 @@
-/* Hallmark tokens · Automic Vault homepage · Workbench / Cobalt-dark */
+/* Hallmark tokens · Automic Vault homepage · Map / Diagram / Cobalt-dark */
 :root {
   --color-paper: var(--bg-outer);
   --color-paper-2: var(--bg);
@@ -16,6 +16,25 @@
   --color-success: var(--green);
   --color-warn: var(--gold);
   --color-danger: var(--hot);
+  --color-boundary-paper: oklch(8% 0.007 255);
+  --color-boundary-paper-2: oklch(11% 0.009 255);
+  --color-boundary-surface: oklch(15% 0.01 255);
+  --color-boundary-surface-2: oklch(19% 0.012 255);
+  --color-boundary-ink: oklch(95% 0.01 82);
+  --color-boundary-body: oklch(77% 0.014 82);
+  --color-boundary-dim: oklch(61% 0.014 82);
+  --color-boundary-rule: oklch(29% 0.012 255);
+  --color-boundary-rule-strong: oklch(39% 0.018 255);
+  --color-boundary-accent: oklch(69% 0.16 246);
+  --color-boundary-accent-ink: var(--color-boundary-paper);
+  --color-boundary-warn: oklch(78% 0.14 82);
+  --color-boundary-danger: oklch(70% 0.17 37);
+  --color-boundary-success: oklch(73% 0.14 137);
+  --color-boundary-accent-soft: oklch(69% 0.16 246 / 0.12);
+  --color-boundary-warn-soft: oklch(78% 0.14 82 / 0.12);
+  --color-boundary-grid: oklch(95% 0.01 82 / 0.045);
+  --color-boundary-shadow: oklch(4% 0.006 255 / 0.48);
+  --color-boundary-transparent: transparent;
   --color-scanner-paper: var(--color-paper);
   --color-scanner-paper-2: var(--color-paper-2);
   --color-scanner-ink: var(--color-ink);
@@ -36,6 +55,7 @@
   --font-display: var(--font-ui);
   --font-body: var(--font-ui);
   --font-code: var(--font-mono);
+  --font-wordmark: var(--font-code);
   --space-3xs: 0.125rem;
   --space-2xs: 0.25rem;
   --space-xs: 0.5rem;
@@ -56,6 +76,7 @@
   --text-3xl: 3.0518rem;
   --text-4xl: 3.8147rem;
   --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --text-display-s: clamp(2.5rem, 4vw + 0.75rem, 4.5rem);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
