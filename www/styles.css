@@ -3756,7 +3756,7 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
 
 .brew-risk {
   display: grid;
-  gap: clamp(var(--space-3xl), 12vw, var(--space-4xl));
+  gap: calc(var(--space-2xl) + var(--space-sm));
   background: var(--color-boundary-paper-2);
   color: var(--color-boundary-ink);
 }
@@ -3956,7 +3956,7 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
 }
 
 .brew-after {
-  padding-block: var(--space-2xl);
+  padding-block: calc(var(--space-2xl) + var(--space-sm)) var(--space-2xl);
   border-block-end: var(--rule-hair) solid var(--color-boundary-rule-strong);
 }
 
