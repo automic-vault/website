@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | Secrets und Ausführung für lokale Tools</title>
-  <meta name="description" content="Automic Vault verwaltet Secret-Injection und riskante Tool-Ausführung lokal auf macOS. Credentials bleiben im Schlüsselbund und erreichen nur genehmigte Executables.">
+  <title>Automic Vault | Sichere jedes Homebrew-CLI-Tool</title>
+  <meta name="description" content="Verschlüsselt CLI-Secrets, verlangt menschliche Freigabe, überwacht Bedrohungen in allen Ökosystemen, steuert Zugriff pro Tool und protokolliert jede Anfrage.">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Automic Vault | Secrets und Ausführung für lokale Tools">
-  <meta property="og:description" content="Automic Vault verwaltet Secret-Injection und riskante Tool-Ausführung lokal auf macOS. Credentials bleiben im Schlüsselbund und erreichen nur genehmigte Executables.">
+  <meta property="og:title" content="Sichere die Tools, die du mit brew install installierst">
+  <meta property="og:description" content="Verschlüsselt CLI-Secrets, verlangt menschliche Freigabe, überwacht Bedrohungen in allen Ökosystemen, steuert Zugriff pro Tool und protokolliert jede Anfrage.">
   <meta property="og:url" content="https://www.automicvault.com/de/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Automic Vault | Secrets und Ausführung für lokale Tools">
-  <meta name="twitter:description" content="Automic Vault verwaltet Secret-Injection und riskante Tool-Ausführung lokal auf macOS. Credentials bleiben im Schlüsselbund und erreichen nur genehmigte Executables.">
+  <meta name="twitter:title" content="Sichere die Tools, die du mit brew install installierst">
+  <meta name="twitter:description" content="Verschlüsselt CLI-Secrets, verlangt menschliche Freigabe, überwacht Bedrohungen in allen Ökosystemen, steuert Zugriff pro Tool und protokolliert jede Anfrage.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/de/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -29,7 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=95">
+  <link rel="stylesheet" href="/styles.css?v=97">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
   <script>
@@ -43,170 +43,239 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/de/",
-    "name": "Automic Vault | Secrets und Ausführung für lokale Tools",
-    "headline": "Deine Tools haben deine Berechtigungen. Lass sie um Freigabe bitten.",
-    "description": "Automic Vault verwaltet Secret-Injection und riskante Tool-Ausführung lokal auf macOS. Credentials bleiben im Schlüsselbund und erreichen nur genehmigte Executables.",
+    "name": "Automic Vault | Sichere jedes Homebrew-CLI-Tool",
+    "headline": "Sichere die Tools, die du mit brew install installierst",
+    "description": "Verschlüsselt CLI-Secrets, verlangt menschliche Freigabe, überwacht Bedrohungen in allen Ökosystemen, steuert Zugriff pro Tool und protokolliert jede Anfrage.",
     "inLanguage": "de",
     "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
   }
   </script>
 </head>
-<body class="boundary-home">
-  <div class="scroll-meter" aria-hidden="true"><span></span></div>
-  <header class="boundary-nav" id="top">
-    <a class="boundary-brand" href="/de/" aria-label="Automic Vault Startseite">
+<body class="brew-home">
+  <header class="brew-nav">
+    <a class="brew-brand" href="#top" aria-label="Automic Vault Startseite">
       <img src="/assets/icon@2x.webp" alt="" width="54" height="54">
       <span>Automic Vault</span>
     </a>
-    <a class="boundary-nav-download" href="/Automic Vault.dmg">Download</a>
+    <nav class="brew-nav-links" aria-label="Hauptnavigation">
+      <a href="#controls">Zugriff</a>
+      <a href="#audit">Audit-Protokoll</a>
+      <a href="#threats">Bedrohungen</a>
+    </nav>
+    <a class="brew-download" href="/Automic Vault.dmg">Download</a>
   </header>
 
   <main>
-    <section class="boundary-hero" aria-labelledby="hero-title">
-      <div class="boundary-hero-copy">
-        <p class="boundary-orientation">Secrets für Tools · Ausführung unter Kontrolle</p>
-        <h1 id="hero-title">Deine Tools haben deine Berechtigungen.<br><span>Lass sie um Freigabe bitten.</span></h1>
-        <p class="boundary-lede">Automic Vault kontrolliert den letzten lokalen Übergang zwischen Shells, Agents und den Tools, die sie verwenden. Es gibt Secrets aus dem Schlüsselbund für genau einen Lauf an ein genehmigtes Executable und fragt dich vor riskanten Befehlen.</p>
+    <section class="brew-hero" id="top" aria-labelledby="hero-title">
+      <div class="brew-hero-title">
+        <p class="brew-kicker">Vom Erfinder von Homebrew</p>
+        <h1 id="hero-title">Sichere die Tools, die du mit <span>brew install</span> installierst</h1>
+        <a class="brew-cta" href="/Automic Vault.dmg">Für macOS laden</a>
       </div>
+      <ul class="brew-promises">
+        <li><span>01</span><strong>Verschlüsselt Klartext-Secrets für alle CLI-Tools.</strong></li>
+        <li><span>02</span><strong>Menschliche Freigabe für jede authentifizierte Tool-Nutzung</strong></li>
+        <li><span>03</span><strong>Sicherheit auf der entscheidenden Ebene: der Paketebene</strong></li>
+      </ul>
+    </section>
 
-      <div class="execution-map" data-execution-map role="group" aria-label="Lokale macOS-Grenze · Prozess → Tool → Credential">
-        <div class="map-column map-requesters">
-          <p class="map-column-label">Anfrage</p>
-          <div class="map-node"><code>$ shell</code><span>du gibst einen Befehl ein</span></div>
-          <div class="map-node"><code>./script</code><span>Automation fordert Keys an</span></div>
-          <div class="map-node"><code>agent</code><span>lokale Arbeit braucht ein Tool</span></div>
+    <section class="brew-risk" aria-labelledby="risk-title">
+      <div class="brew-split">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">Vor Automic Vault</p>
+          <h2 id="risk-title">„Hilfreiche“ Agents nehmen gefährliche Abkürzungen.</h2>
         </div>
-        <div class="map-hop" aria-hidden="true"><span>Anfrage</span><b>→</b></div>
-        <div class="map-vault">
-          <div class="map-vault-head">
-            <img src="/assets/icon@2x.webp" alt="" width="42" height="42">
-            <div><strong>Automic Vault</strong><span>lokale Ausführungsgrenze</span></div>
-          </div>
-          <div class="map-control">
-            <span class="map-signal map-signal-secret">Secret</span>
-            <div><strong>Schlüsselbund → benannter Prozess</strong><p>Das genehmigte Executable erhält den Wert für diesen Lauf.</p></div>
-          </div>
-          <div class="map-control">
-            <span class="map-signal map-signal-approval">Execution</span>
-            <div><strong>Pfad + Argumente + cwd → Freigabe</strong><p>Du siehst Befehl und Berechtigung vor der Ausführung.</p></div>
-          </div>
+        <ol class="brew-session" aria-label="Claude-Sitzung, die lokale AWS-Credentials liest und hochlädt">
+          <li class="brew-chat-message brew-chat-message-agent">
+            <span class="brew-chat-avatar" aria-hidden="true">C</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">Claude</span>
+              <div class="brew-chat-bubble"><p>Hmm… der Remote-Server hat keinen AWS-Zugriff.</p></div>
+            </div>
+          </li>
+          <li class="brew-chat-message brew-chat-message-agent">
+            <span class="brew-chat-avatar" aria-hidden="true">C</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">Claude</span>
+              <div class="brew-chat-bubble"><p>Kein Problem — ich lade die Schlüssel von hier hoch.</p></div>
+            </div>
+          </li>
+          <li class="brew-chat-message brew-chat-message-tool">
+            <span class="brew-chat-avatar" aria-hidden="true">T</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">Tool-Aufruf</span>
+              <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
+            </div>
+          </li>
+          <li class="brew-chat-message brew-chat-message-result">
+            <span class="brew-chat-avatar" aria-hidden="true">R</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">Tool-Ergebnis</span>
+              <div class="brew-chat-bubble"><pre><code>[default]
+aws_access_key_id = AKIA••••••••••••
+aws_secret_access_key = ••••••••••••••••••••••••••••••••</code></pre></div>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="brew-exfiltration">
+        <div class="brew-alert">
+          <strong>SECRET EXFILTRIERT</strong>
+          <span>Ein wiederverwendbares Cloud-Credential hat gerade die Vertrauensgrenze überschritten.</span>
         </div>
-        <div class="map-hop" aria-hidden="true"><span>execve</span><b>→</b></div>
-        <div class="map-column map-tools">
-          <p class="map-column-label">Genehmigtes Tool</p>
-          <div class="map-tool-list" aria-label="Genehmigtes Tool"><code>gh</code><code>aws</code><code>terraform</code><code>npm</code></div>
-          <p class="map-tool-note">Nur das freigegebene Tool erhält das Secret.</p>
-          <div class="map-service"><span>Externer Dienst</span><strong>GitHub · AWS · registries</strong></div>
+        <section class="brew-split brew-after" aria-labelledby="after-title">
+          <div class="brew-copy">
+            <p class="brew-eyebrow">Nach Automic Vault</p>
+            <h2 id="after-title">Klartext-Secrets: erkannt, verschlüsselt und freigabepflichtig.</h2>
+          </div>
+          <ol class="brew-session" aria-label="Claude-Sitzung, die nach einer fehlenden lokalen AWS-Credential-Datei zur menschlichen Freigabe anhält">
+            <li class="brew-chat-message brew-chat-message-agent">
+              <span class="brew-chat-avatar" aria-hidden="true">C</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Claude</span>
+                <div class="brew-chat-bubble"><p>Hmm… der Remote-Server hat keinen AWS-Zugriff.</p></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-agent">
+              <span class="brew-chat-avatar" aria-hidden="true">C</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Claude</span>
+                <div class="brew-chat-bubble"><p>Kein Problem — ich lade die Schlüssel von hier hoch.</p></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-tool">
+              <span class="brew-chat-avatar" aria-hidden="true">T</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Tool-Aufruf</span>
+                <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-result">
+              <span class="brew-chat-avatar" aria-hidden="true">R</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Tool-Ergebnis</span>
+                <div class="brew-chat-bubble"><code>Datei nicht gefunden</code></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-agent">
+              <span class="brew-chat-avatar" aria-hidden="true">C</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Claude</span>
+                <div class="brew-chat-bubble"><p>Ich führe stattdessen den Export-Befehl aus.</p></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-tool">
+              <span class="brew-chat-avatar" aria-hidden="true">T</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Tool-Aufruf</span>
+                <div class="brew-chat-bubble"><code>aws config export-credentials</code></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-approval">
+              <span class="brew-chat-avatar" aria-hidden="true">!</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Automic Vault</span>
+                <div class="brew-chat-bubble"><strong>Menschliche Freigabe erforderlich</strong></div>
+              </div>
+            </li>
+          </ol>
+        </section>
+      </div>
+
+      <div class="brew-split brew-proof">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">Secrets zu verschlüsseln reicht nicht</p>
+          <h2>Das Tool muss fragen.</h2>
+          <p>Automic Vault hält das Credential aus dem Kontext des Agents heraus. Die Anfrage stoppt an einer nativen Freigabe, an der du den Befehl prüfen und einmal genehmigen oder ablehnen kannst.</p>
         </div>
-      </div>
-
-      <div class="boundary-hero-actions">
-        <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">Für macOS laden</a>
-        <a class="boundary-button boundary-button-secondary" href="/de/docs/">Doku lesen</a>
-        <span>Free and open source · Apple Silicon · macOS 26</span>
+        <figure class="brew-capture brew-capture-gate">
+          <img src="/assets/av-approve-gate.png" alt="Automic-Vault-Freigabe, in der ChatGPT ein GitHub-Token mit den Optionen Ablehnen und Einmal genehmigen anfordert" width="1212" height="1090" loading="lazy" decoding="async">
+          <figcaption>Befehl, Arbeitsverzeichnis und angeforderter Schlüssel sind vor der Ausführung sichtbar.</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section class="boundary-problem" id="detect" aria-labelledby="problem-title">
-      <div class="boundary-section-copy">
-        <h2 id="problem-title">Ein lesbares Credential lässt einen anderen lokalen Prozess als dich handeln.</h2>
-        <p>Cloud-CLIs, Source-Control-Clients, Deploy-Skripte und Publisher können private Daten lesen oder entfernte Systeme ändern. Ihre Credentials liegen oft in Dateien, die jeder lokale Prozess lesen kann.</p>
+    <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
+      <div class="brew-capture-stack">
+        <figure class="brew-capture">
+          <img src="/assets/approval-read-only.webp" alt="Automic-Vault-Ansicht für gehärtete Tools mit aktivierten schreibgeschützten gh-Anfragen" width="1944" height="1380" loading="lazy" decoding="async">
+          <figcaption>Optionale Nur-Lese-Freigabe pro Tool, das Secrets verarbeitet.</figcaption>
+        </figure>
+        <figure class="brew-capture">
+          <img src="/assets/approval-terminal-only.webp" alt="Automic-Vault-Secret-Gate für gh, das direkten GitHub-Token-Zugriff nur für Terminal.app erlaubt" width="1952" height="1338" loading="lazy" decoding="async">
+          <figcaption>Vollzugriff — aber nur für Terminal.app.</figcaption>
+        </figure>
       </div>
-      <dl class="authority-ledger">
-        <div><dt><code>~/.aws/credentials</code></dt><dd>Cloud-Zugriff in einer lesbaren Dotfile</dd></div>
-        <div><dt><code>gh auth token</code></dt><dd>Ein Bearer-Token für den anfragenden Prozess</dd></div>
-        <div><dt><code>npm publish</code></dt><dd>Ein lokaler Befehl mit Release-Rechten</dd></div>
-        <div><dt><code>terraform apply</code></dt><dd>Infrastrukturänderung aus der aktuellen Shell</dd></div>
-      </dl>
-    </section>
-
-    <section class="boundary-feature boundary-feature-secrets" id="harden" aria-labelledby="secrets-title">
-      <span class="anchor-alias" id="dotenv" aria-hidden="true"></span>
-      <div class="boundary-section-copy">
-        <h2 id="secrets-title">Das Secret gehört zur Ausführung des Tools.</h2>
-        <p>Langfristige Werte liegen im Automic-Vault-Schlüsselbund. Du benennst das Executable, das sie empfangen darf. Nach der Freigabe lädt Automic Vault den Wert in genau diesen Kindprozess.</p>
-      </div>
-      <div class="boundary-detail-list">
-        <p><strong>Werte bleiben aus Prompts und Projektdateien.</strong><span>Agents können Arbeit anfordern, ohne das rohe Credential zu lesen.</span></p>
-        <p><strong>Native Helper begrenzen die Übergabe.</strong><span>AWS credential_process, Kubernetes ExecCredential, Registry-Helper und weitere Tool-Protokolle vermeiden globale Shell-Exports.</span></p>
+      <div class="brew-copy">
+        <h2 id="controls-title">Granularer Zugriff pro Tool-Aufrufer</h2>
+        <p>Jede Secret-Nutzung ist standardmäßig eingeschränkt. Lockere die Freigabe nur für das von dir benannte, codesignierte Executable.</p>
+        <dl class="brew-control-list">
+          <div><dt>Nur Lesen</dt><dd>Sichere <code>gh</code>-Abfragen automatisch genehmigen, ohne Schreibzugriff zu gewähren.</dd></div>
+          <div><dt>Vollzugriff</dt><dd>Direkten <code>gh</code>-Zugriff nur für eine benannte aufrufende App wie Terminal.app dauerhaft genehmigen.</dd></div>
+        </dl>
       </div>
     </section>
 
-    <section class="boundary-feature boundary-feature-execution" id="immutable" aria-labelledby="execution-title">
-      <div class="boundary-section-copy">
-        <h2 id="execution-title">Kontrolliere den Befehl bei der Ausführung.</h2>
-        <p>av contain gibt einem Agent eine synthetische Toolchain. Host-Tool-Anfragen kehren mit Executable-Pfad, Argumenten, Arbeitsverzeichnis und angeforderten Secrets zu Automic Vault zurück.</p>
+    <section class="brew-feature" id="audit" aria-labelledby="audit-title">
+      <div class="brew-copy">
+        <h2 id="audit-title">Jede Secret-Nutzung wird protokolliert.</h2>
+        <p>Genehmigt oder abgelehnt, automatisch oder manuell: Jede Anfrage hinterlässt lokal Starter, Schlüssel, Befehl, Arbeitsverzeichnis und Entscheidung.</p>
+        <ul class="brew-log-fields" aria-label="Protokollierte Details">
+          <li>Entscheidung</li>
+          <li>Starter</li>
+          <li>Angeforderter Schlüssel</li>
+          <li>Arbeitsverzeichnis</li>
+        </ul>
       </div>
-      <div class="approval-readout" aria-label="Menschliche Freigabe erforderlich">
-        <div><span>Executable</span><code>/opt/homebrew/bin/gh</code></div>
-        <div><span>Argumente</span><code>release create v2.4.0</code></div>
-        <div><span>Secret</span><code>GITHUB_TOKEN</code></div>
-        <div><span>Entscheidung</span><strong>Menschliche Freigabe erforderlich</strong></div>
-      </div>
-    </section>
-
-    <section class="boundary-layer" id="monitor" aria-labelledby="layer-title">
-      <div class="boundary-section-copy">
-        <h2 id="layer-title">Sicherheit auf der Executable-Schicht.</h2>
-        <p>Automic Vault verwendet die Fakten, die dein Mac bei der Ausführung kennt: Binärdatei, Pfad, Argumente, Elternprozess, Arbeitsverzeichnis und das Credential-Protokoll des Tools.</p>
-      </div>
-      <p class="layer-note">Zentrale Vaults können die Quelle der Wahrheit bleiben. Automic Vault kontrolliert den letzten lokalen Übergang, an dem ein Entwickler-Tool ein Credential erhält und damit handelt.</p>
-    </section>
-
-    <section class="boundary-terminal" aria-labelledby="terminal-title">
-      <div class="boundary-section-copy"><h2 id="terminal-title">Drei Befehle setzen die Grenze.</h2></div>
-      <figure class="command-proof">
-        <figcaption>Save · inject · contain</figcaption>
-        <pre><code><span class="command-muted"># store one long-lived value in Keychain</span>
-$ printf '%s\n' "$GITHUB_TOKEN" | av save GITHUB_TOKEN
-saved GITHUB_TOKEN in Automic Vault Keychain
-
-<span class="command-muted"># give one approved executable the named value</span>
-$ av inject +GITHUB_TOKEN /opt/homebrew/bin/gh repo view
-approval required: gh repo view
-approved · executing /opt/homebrew/bin/gh
-
-<span class="command-muted"># mediate the host tools an agent invokes</span>
-$ av contain codex
-contained toolchain ready · host execution requires approval</code></pre>
+      <figure class="brew-capture">
+        <img src="/assets/secret-use-log.webp" alt="Automic-Vault-Verlauf mit manuell abgelehnten und automatisch genehmigten gh-Anfragen samt Starter, Schlüssel und Arbeitsverzeichnis" width="1944" height="1380" loading="lazy" decoding="async">
+        <figcaption>Abgelehnte und genehmigte Anfragen landen im selben Audit-Protokoll.</figcaption>
       </figure>
     </section>
 
-    <section class="boundary-trust" aria-labelledby="trust-title">
-      <div class="boundary-section-copy">
-        <h2 id="trust-title">Eine lokale Grenze, die du prüfen kannst.</h2>
-        <p>Automic Vault ist Open-Source-Software unter Apache 2.0. Das Sicherheitsmodell setzt einen vertrauenswürdigen macOS-Schlüsselbund, System Integrity Protection und die signierte App voraus. Root-Kompromittierung und ein bösartiges genehmigtes Executable liegen außerhalb der Grenze.</p>
+    <section class="brew-feature brew-feature-reverse" id="threats" aria-labelledby="threats-title">
+      <figure class="brew-capture">
+        <img src="/assets/threat-monitor.webp" alt="Automic-Vault-Detektoren markieren Homebrew als veränderbar und zeigen Auslöser, Begründung und Härtungsbefehl" width="1944" height="1380" loading="lazy" decoding="async">
+        <figcaption>Jeder Fund enthält Auslöser, Begründung und Schritte zur Behebung.</figcaption>
+      </figure>
+      <div class="brew-copy">
+        <h2 id="threats-title">Überwache Bedrohungen in deiner Entwicklungsumgebung</h2>
+        <p>Automic Vault überwacht Entwickler-Tools in allen Ökosystemen. Neue Bedrohungen werden sofort mit klaren Schritten zur Behebung markiert.</p>
       </div>
-      <div class="trust-links">
-        <a href="/de/security/">Sicherheitsmodell lesen</a>
-        <a href="https://github.com/automic-vault/automic-vault">Quellcode prüfen</a>
-      </div>
-      <p class="founder-note"><strong>Entwickelt von Max Howell. Die Erfahrung aus Homebrew fließt hier in die Kontrolle der Berechtigungen ein, die lokale Tools bei der Ausführung nutzen.</strong></p>
-    </section>
-
-    <section class="boundary-cta" id="free-open-source" aria-labelledby="cta-title">
-      <h2 id="cta-title">Setze eine Grenze um deine Tools.</h2>
-      <p>Verschiebe ein Secret in den Schlüsselbund und führe das Tool über Automic Vault aus.</p>
-      <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">Für macOS laden</a>
     </section>
   </main>
 
-  <footer class="boundary-footer">
-    <div class="boundary-footer-brand">
-      <div><img src="/assets/icon@2x.webp" alt="" width="54" height="54"><strong>Automic Vault</strong></div>
-      <p>Secrets und Ausführungskontrollen für die Tools auf deinem Mac.</p>
+  <footer class="brew-footer">
+    <p class="brew-footer-statement">Vom Erfinder von Homebrew.</p>
+    <a class="brew-cta" href="/Automic Vault.dmg">Für macOS laden</a>
+    <div class="brew-footer-meta">
+      <a class="brew-brand" href="#top">
+        <img src="/assets/icon@2x.webp" alt="" width="54" height="54">
+        <span>Automic Vault</span>
+      </a>
+      <nav aria-label="Footer-Navigation">
+        <a href="/de/pkg/">Pakete</a>
+        <a href="/de/about/">Über uns</a>
+        <a href="/de/security/">Sicherheit</a>
+        <a href="/blog/">Blog</a>
+        <a href="/de/privacy/">Datenschutz</a>
+        <a href="/de/terms/">Bedingungen</a>
+        <a href="https://x.com/AutomicVault" aria-label="X">𝕏</a>
+        <a href="https://github.com/automic-vault/">GitHub</a>
+      </nav>
+      <span>© 2026 · Apache-2.0</span>
     </div>
-    <nav aria-label="Footer">
-      <a href="/de/docs/">Doku lesen</a>
-      <a href="/de/security/">Sicherheit</a>
-      <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+    <nav class="brew-languages" aria-label="Sprachversionen">
+      <a href="/" lang="en">English</a>
+      <a href="/ja/" lang="ja">日本語</a>
+      <a href="/de/" lang="de">Deutsch</a>
+      <a href="/fr/" lang="fr">Français</a>
+      <a href="/zh-hans/" lang="zh-Hans">简体中文</a>
     </nav>
-    <p class="boundary-footer-meta">© 2026 Automic Vault · Apache License 2.0</p>
   </footer>
 
-  <script src="/app.js?v=24"></script>
-  <nav class="language-links" aria-label="Sprachversionen"><a href="/" lang="en">English</a> <a href="/ja/" lang="ja">日本語</a> <a href="/de/" lang="de">Deutsch</a> <a href="/fr/" lang="fr">Français</a> <a href="/zh-hans/" lang="zh-Hans">简体中文</a></nav>
   <script src="/i18n.js" defer></script>
 </body>
 </html>

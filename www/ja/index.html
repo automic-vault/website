@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | ローカルツールのシークレットと実行を管理</title>
-  <meta name="description" content="Automic Vault は macOS 上でツールへのシークレット注入と高リスクコマンドの実行を管理します。認証情報を Keychain に保管し、承認された実行ファイルだけに渡します。">
+  <title>Automic Vault | Homebrew の CLI ツールをすべて保護</title>
+  <meta name="description" content="CLI シークレットを暗号化し、人の承認を必須にし、あらゆるエコシステムの脅威を監視。ツールごとのアクセス制御と全要求の記録も行います。">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Automic Vault | ローカルツールのシークレットと実行を管理">
-  <meta property="og:description" content="Automic Vault は macOS 上でツールへのシークレット注入と高リスクコマンドの実行を管理します。認証情報を Keychain に保管し、承認された実行ファイルだけに渡します。">
+  <meta property="og:title" content="brew install するツールを保護">
+  <meta property="og:description" content="CLI シークレットを暗号化し、人の承認を必須にし、あらゆるエコシステムの脅威を監視。ツールごとのアクセス制御と全要求の記録も行います。">
   <meta property="og:url" content="https://www.automicvault.com/ja/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Automic Vault | ローカルツールのシークレットと実行を管理">
-  <meta name="twitter:description" content="Automic Vault は macOS 上でツールへのシークレット注入と高リスクコマンドの実行を管理します。認証情報を Keychain に保管し、承認された実行ファイルだけに渡します。">
+  <meta name="twitter:title" content="brew install するツールを保護">
+  <meta name="twitter:description" content="CLI シークレットを暗号化し、人の承認を必須にし、あらゆるエコシステムの脅威を監視。ツールごとのアクセス制御と全要求の記録も行います。">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/ja/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -29,7 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=95">
+  <link rel="stylesheet" href="/styles.css?v=97">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
   <script>
@@ -43,170 +43,239 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/ja/",
-    "name": "Automic Vault | ローカルツールのシークレットと実行を管理",
-    "headline": "ツールはあなたの権限で動く。 使う前に承認させる。",
-    "description": "Automic Vault は macOS 上でツールへのシークレット注入と高リスクコマンドの実行を管理します。認証情報を Keychain に保管し、承認された実行ファイルだけに渡します。",
+    "name": "Automic Vault | Homebrew の CLI ツールをすべて保護",
+    "headline": "brew install するツールを保護",
+    "description": "CLI シークレットを暗号化し、人の承認を必須にし、あらゆるエコシステムの脅威を監視。ツールごとのアクセス制御と全要求の記録も行います。",
     "inLanguage": "ja",
     "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
   }
   </script>
 </head>
-<body class="boundary-home">
-  <div class="scroll-meter" aria-hidden="true"><span></span></div>
-  <header class="boundary-nav" id="top">
-    <a class="boundary-brand" href="/ja/" aria-label="Automic Vault ホーム">
+<body class="brew-home">
+  <header class="brew-nav">
+    <a class="brew-brand" href="#top" aria-label="Automic Vault ホーム">
       <img src="/assets/icon@2x.webp" alt="" width="54" height="54">
       <span>Automic Vault</span>
     </a>
-    <a class="boundary-nav-download" href="/Automic Vault.dmg">ダウンロード</a>
+    <nav class="brew-nav-links" aria-label="メインナビゲーション">
+      <a href="#controls">アクセス制御</a>
+      <a href="#audit">監査ログ</a>
+      <a href="#threats">脅威</a>
+    </nav>
+    <a class="brew-download" href="/Automic Vault.dmg">ダウンロード</a>
   </header>
 
   <main>
-    <section class="boundary-hero" aria-labelledby="hero-title">
-      <div class="boundary-hero-copy">
-        <p class="boundary-orientation">ツールのためのシークレット · 実行を制御</p>
-        <h1 id="hero-title">ツールはあなたの権限で動く。<br><span>使う前に承認させる。</span></h1>
-        <p class="boundary-lede">Automic Vault は shell や agent と、それらが使うツールの間にある最後のローカル区間を管理します。Keychain のシークレットを承認済み実行ファイルへ 1 回の実行だけ渡し、危険なコマンドは実行前に確認します。</p>
+    <section class="brew-hero" id="top" aria-labelledby="hero-title">
+      <div class="brew-hero-title">
+        <p class="brew-kicker">Homebrew の開発者が提供</p>
+        <h1 id="hero-title"><span>brew install</span> するツールを保護</h1>
+        <a class="brew-cta" href="/Automic Vault.dmg">macOS 版をダウンロード</a>
       </div>
+      <ul class="brew-promises">
+        <li><span>01</span><strong>すべての CLI ツールの平文シークレットを暗号化します。</strong></li>
+        <li><span>02</span><strong>認証済みツールの利用すべてに人の承認を要求</strong></li>
+        <li><span>03</span><strong>重要なパッケージ層でセキュリティを確保</strong></li>
+      </ul>
+    </section>
 
-      <div class="execution-map" data-execution-map role="group" aria-label="macOS のローカル境界 · プロセス → ツール → 認証情報">
-        <div class="map-column map-requesters">
-          <p class="map-column-label">要求元</p>
-          <div class="map-node"><code>$ shell</code><span>人がコマンドを入力</span></div>
-          <div class="map-node"><code>./script</code><span>自動処理がキーを要求</span></div>
-          <div class="map-node"><code>agent</code><span>ローカル作業にツールが必要</span></div>
+    <section class="brew-risk" aria-labelledby="risk-title">
+      <div class="brew-split">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">Automic Vault 導入前</p>
+          <h2 id="risk-title">「親切な」エージェントは危険な近道を選びます。</h2>
         </div>
-        <div class="map-hop" aria-hidden="true"><span>要求</span><b>→</b></div>
-        <div class="map-vault">
-          <div class="map-vault-head">
-            <img src="/assets/icon@2x.webp" alt="" width="42" height="42">
-            <div><strong>Automic Vault</strong><span>ローカル実行境界</span></div>
-          </div>
-          <div class="map-control">
-            <span class="map-signal map-signal-secret">Secret</span>
-            <div><strong>Keychain → 指定プロセス</strong><p>承認された実行ファイルが、この実行に限って値を受け取ります。</p></div>
-          </div>
-          <div class="map-control">
-            <span class="map-signal map-signal-approval">Execution</span>
-            <div><strong>パス + 引数 + cwd → 承認</strong><p>実行前にコマンドと権限を確認できます。</p></div>
-          </div>
+        <ol class="brew-session" aria-label="ローカルの AWS 認証情報を読み取ってアップロードする Claude セッション">
+          <li class="brew-chat-message brew-chat-message-agent">
+            <span class="brew-chat-avatar" aria-hidden="true">C</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">Claude</span>
+              <div class="brew-chat-bubble"><p>うーん… リモートサーバーには AWS へのアクセス権がありません。</p></div>
+            </div>
+          </li>
+          <li class="brew-chat-message brew-chat-message-agent">
+            <span class="brew-chat-avatar" aria-hidden="true">C</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">Claude</span>
+              <div class="brew-chat-bubble"><p>問題ありません。ここからキーをアップロードします。</p></div>
+            </div>
+          </li>
+          <li class="brew-chat-message brew-chat-message-tool">
+            <span class="brew-chat-avatar" aria-hidden="true">T</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">ツール呼び出し</span>
+              <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
+            </div>
+          </li>
+          <li class="brew-chat-message brew-chat-message-result">
+            <span class="brew-chat-avatar" aria-hidden="true">R</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">ツール結果</span>
+              <div class="brew-chat-bubble"><pre><code>[default]
+aws_access_key_id = AKIA••••••••••••
+aws_secret_access_key = ••••••••••••••••••••••••••••••••</code></pre></div>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="brew-exfiltration">
+        <div class="brew-alert">
+          <strong>シークレット流出</strong>
+          <span>再利用可能なクラウド認証情報が信頼境界を越えました。</span>
         </div>
-        <div class="map-hop" aria-hidden="true"><span>execve</span><b>→</b></div>
-        <div class="map-column map-tools">
-          <p class="map-column-label">承認済みツール</p>
-          <div class="map-tool-list" aria-label="承認済みツール"><code>gh</code><code>aws</code><code>terraform</code><code>npm</code></div>
-          <p class="map-tool-note">承認されたツールだけがシークレットを受け取ります。</p>
-          <div class="map-service"><span>外部サービス</span><strong>GitHub · AWS · registries</strong></div>
+        <section class="brew-split brew-after" aria-labelledby="after-title">
+          <div class="brew-copy">
+            <p class="brew-eyebrow">Automic Vault 導入後</p>
+            <h2 id="after-title">平文シークレットを検出・暗号化し、承認で保護。</h2>
+          </div>
+          <ol class="brew-session" aria-label="ローカルの AWS 認証情報ファイルが見つからず、人の承認で停止する Claude セッション">
+            <li class="brew-chat-message brew-chat-message-agent">
+              <span class="brew-chat-avatar" aria-hidden="true">C</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Claude</span>
+                <div class="brew-chat-bubble"><p>うーん… リモートサーバーには AWS へのアクセス権がありません。</p></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-agent">
+              <span class="brew-chat-avatar" aria-hidden="true">C</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Claude</span>
+                <div class="brew-chat-bubble"><p>問題ありません。ここからキーをアップロードします。</p></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-tool">
+              <span class="brew-chat-avatar" aria-hidden="true">T</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">ツール呼び出し</span>
+                <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-result">
+              <span class="brew-chat-avatar" aria-hidden="true">R</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">ツール結果</span>
+                <div class="brew-chat-bubble"><code>ファイルがありません</code></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-agent">
+              <span class="brew-chat-avatar" aria-hidden="true">C</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Claude</span>
+                <div class="brew-chat-bubble"><p>代わりにエクスポートコマンドを実行します。</p></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-tool">
+              <span class="brew-chat-avatar" aria-hidden="true">T</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">ツール呼び出し</span>
+                <div class="brew-chat-bubble"><code>aws config export-credentials</code></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-approval">
+              <span class="brew-chat-avatar" aria-hidden="true">!</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Automic Vault</span>
+                <div class="brew-chat-bubble"><strong>人の承認が必要</strong></div>
+              </div>
+            </li>
+          </ol>
+        </section>
+      </div>
+
+      <div class="brew-split brew-proof">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">シークレットの暗号化だけでは不十分</p>
+          <h2>ツールには承認を求めさせます。</h2>
+          <p>Automic Vault は認証情報をエージェントのコンテキストに入れません。要求はネイティブの承認画面で止まり、コマンドを確認して 1 回だけ承認するか拒否できます。</p>
         </div>
-      </div>
-
-      <div class="boundary-hero-actions">
-        <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">macOS 版をダウンロード</a>
-        <a class="boundary-button boundary-button-secondary" href="/ja/docs/">ドキュメント</a>
-        <span>Free and open source · Apple Silicon · macOS 26</span>
+        <figure class="brew-capture brew-capture-gate">
+          <img src="/assets/av-approve-gate.png" alt="ChatGPT が GitHub トークンを要求し、拒否と 1 回だけ承認を選べる Automic Vault の承認画面" width="1212" height="1090" loading="lazy" decoding="async">
+          <figcaption>実行前にコマンド、作業ディレクトリ、要求キーを確認できます。</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section class="boundary-problem" id="detect" aria-labelledby="problem-title">
-      <div class="boundary-section-copy">
-        <h2 id="problem-title">読み取り可能な認証情報があれば、別のローカルプロセスがあなたとして動けます。</h2>
-        <p>クラウド CLI、ソース管理クライアント、デプロイスクリプト、公開ツールは、非公開データを読み、リモートシステムを変更できます。認証情報は、ローカルプロセスが読めるファイルに残りがちです。</p>
+    <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
+      <div class="brew-capture-stack">
+        <figure class="brew-capture">
+          <img src="/assets/approval-read-only.webp" alt="gh の読み取り専用要求を許可した Automic Vault の強化ツール画面" width="1944" height="1380" loading="lazy" decoding="async">
+          <figcaption>シークレットを扱うツールごとに読み取り専用の自動承認を選べます。</figcaption>
+        </figure>
+        <figure class="brew-capture">
+          <img src="/assets/approval-terminal-only.webp" alt="Terminal.app が呼び出した場合だけ gh に GitHub トークンへの直接アクセスを許可する Automic Vault のシークレットゲート" width="1952" height="1338" loading="lazy" decoding="async">
+          <figcaption>完全アクセスは Terminal.app だけに許可します。</figcaption>
+        </figure>
       </div>
-      <dl class="authority-ledger">
-        <div><dt><code>~/.aws/credentials</code></dt><dd>読み取り可能な dotfile にあるクラウド権限</dd></div>
-        <div><dt><code>gh auth token</code></dt><dd>要求元プロセスへ出力される bearer token</dd></div>
-        <div><dt><code>npm publish</code></dt><dd>リリース権限を持つローカルコマンド</dd></div>
-        <div><dt><code>terraform apply</code></dt><dd>現在の shell から行うインフラ変更</dd></div>
-      </dl>
-    </section>
-
-    <section class="boundary-feature boundary-feature-secrets" id="harden" aria-labelledby="secrets-title">
-      <span class="anchor-alias" id="dotenv" aria-hidden="true"></span>
-      <div class="boundary-section-copy">
-        <h2 id="secrets-title">シークレットは、ツールの実行にだけ属します。</h2>
-        <p>長期利用する値は Automic Vault Keychain に保管します。受け取りを許可する実行ファイルを指定すると、Automic Vault が承認後に子プロセスへ値を渡します。</p>
-      </div>
-      <div class="boundary-detail-list">
-        <p><strong>値を prompt やプロジェクトファイルに置かない.</strong><span>エージェントは生の認証情報を読まずに作業を要求できます。</span></p>
-        <p><strong>ネイティブ helper で受け渡しを狭める.</strong><span>AWS credential_process、Kubernetes ExecCredential、registry helper などを使い、shell 全体への export を避けます。</span></p>
+      <div class="brew-copy">
+        <h2 id="controls-title">ツールの呼び出し元ごとに細かくアクセス制御</h2>
+        <p>すべてのシークレット利用を既定で制限します。指定したコード署名済み実行ファイルだけ承認条件を緩和できます。</p>
+        <dl class="brew-control-list">
+          <div><dt>読み取り専用</dt><dd>安全な <code>gh</code> クエリを、書き込み権限なしで自動承認します。</dd></div>
+          <div><dt>完全アクセス</dt><dd>直接の <code>gh</code> アクセスを、Terminal.app など指定した呼び出し元アプリだけ常時承認します。</dd></div>
+        </dl>
       </div>
     </section>
 
-    <section class="boundary-feature boundary-feature-execution" id="immutable" aria-labelledby="execution-title">
-      <div class="boundary-section-copy">
-        <h2 id="execution-title">実行時にコマンドを管理します。</h2>
-        <p>av contain はエージェントへ合成 toolchain を渡します。ホストツールの要求は、実行ファイルのパス、引数、作業ディレクトリ、必要なシークレットとともに Automic Vault へ戻ります。</p>
+    <section class="brew-feature" id="audit" aria-labelledby="audit-title">
+      <div class="brew-copy">
+        <h2 id="audit-title">シークレットの利用をすべて記録します。</h2>
+        <p>承認か拒否か、自動か手動かを問わず、すべての要求について起動元、キー、コマンド、作業ディレクトリ、判断をローカルに記録します。</p>
+        <ul class="brew-log-fields" aria-label="記録内容">
+          <li>判断</li>
+          <li>起動元</li>
+          <li>要求キー</li>
+          <li>作業ディレクトリ</li>
+        </ul>
       </div>
-      <div class="approval-readout" aria-label="人の承認が必要">
-        <div><span>実行ファイル</span><code>/opt/homebrew/bin/gh</code></div>
-        <div><span>引数</span><code>release create v2.4.0</code></div>
-        <div><span>シークレット</span><code>GITHUB_TOKEN</code></div>
-        <div><span>判断</span><strong>人の承認が必要</strong></div>
-      </div>
-    </section>
-
-    <section class="boundary-layer" id="monitor" aria-labelledby="layer-title">
-      <div class="boundary-section-copy">
-        <h2 id="layer-title">実行ファイルの層で守る。</h2>
-        <p>Automic Vault は実行時の情報を使います。ディスク上のバイナリ、パス、引数、親プロセス、作業ディレクトリ、ツール固有の認証プロトコルです。</p>
-      </div>
-      <p class="layer-note">中央の vault は引き続き正本にできます。Automic Vault は、Mac 上で開発ツールが認証情報を受け取り、その権限で動く最後の区間を管理します。</p>
-    </section>
-
-    <section class="boundary-terminal" aria-labelledby="terminal-title">
-      <div class="boundary-section-copy"><h2 id="terminal-title">3 つのコマンドで境界を作る。</h2></div>
-      <figure class="command-proof">
-        <figcaption>Save · inject · contain</figcaption>
-        <pre><code><span class="command-muted"># store one long-lived value in Keychain</span>
-$ printf '%s\n' "$GITHUB_TOKEN" | av save GITHUB_TOKEN
-saved GITHUB_TOKEN in Automic Vault Keychain
-
-<span class="command-muted"># give one approved executable the named value</span>
-$ av inject +GITHUB_TOKEN /opt/homebrew/bin/gh repo view
-approval required: gh repo view
-approved · executing /opt/homebrew/bin/gh
-
-<span class="command-muted"># mediate the host tools an agent invokes</span>
-$ av contain codex
-contained toolchain ready · host execution requires approval</code></pre>
+      <figure class="brew-capture">
+        <img src="/assets/secret-use-log.webp" alt="起動元、キー、作業ディレクトリとともに手動拒否と自動承認の gh 要求を示す Automic Vault の履歴" width="1944" height="1380" loading="lazy" decoding="async">
+        <figcaption>拒否と承認の要求を同じ監査証跡に記録します。</figcaption>
       </figure>
     </section>
 
-    <section class="boundary-trust" aria-labelledby="trust-title">
-      <div class="boundary-section-copy">
-        <h2 id="trust-title">確認できるローカル境界。</h2>
-        <p>Automic Vault は Apache 2.0 のオープンソースソフトウェアです。macOS Keychain、System Integrity Protection、署名済みアプリが信頼できることを前提とします。root compromise と悪意ある承認済み実行ファイルは境界外です。</p>
+    <section class="brew-feature brew-feature-reverse" id="threats" aria-labelledby="threats-title">
+      <figure class="brew-capture">
+        <img src="/assets/threat-monitor.webp" alt="Homebrew を変更可能として検出し、条件、理由、強化コマンドを示す Automic Vault の検出画面" width="1944" height="1380" loading="lazy" decoding="async">
+        <figcaption>各検出項目に条件、理由、対処手順を示します。</figcaption>
+      </figure>
+      <div class="brew-copy">
+        <h2 id="threats-title">開発環境の脅威を監視</h2>
+        <p>Automic Vault はあらゆるエコシステムの開発ツールを監視します。新しい脅威を即座に検出し、それぞれの対処手順を示します。</p>
       </div>
-      <div class="trust-links">
-        <a href="/ja/security/">セキュリティモデル</a>
-        <a href="https://github.com/automic-vault/automic-vault">ソースを確認</a>
-      </div>
-      <p class="founder-note"><strong>Max Howell が開発。Homebrew で培ったローカルインフラの経験を、ツールが実行時に使う権限の管理へ応用しています。</strong></p>
-    </section>
-
-    <section class="boundary-cta" id="free-open-source" aria-labelledby="cta-title">
-      <h2 id="cta-title">ツールの周りに境界を置く。</h2>
-      <p>まず 1 つのシークレットを Keychain に移し、そのツールを Automic Vault 経由で実行します。</p>
-      <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">macOS 版をダウンロード</a>
     </section>
   </main>
 
-  <footer class="boundary-footer">
-    <div class="boundary-footer-brand">
-      <div><img src="/assets/icon@2x.webp" alt="" width="54" height="54"><strong>Automic Vault</strong></div>
-      <p>Mac 上のツールに、シークレットと実行の管理を。</p>
+  <footer class="brew-footer">
+    <p class="brew-footer-statement">Homebrew の開発者が提供。</p>
+    <a class="brew-cta" href="/Automic Vault.dmg">macOS 版をダウンロード</a>
+    <div class="brew-footer-meta">
+      <a class="brew-brand" href="#top">
+        <img src="/assets/icon@2x.webp" alt="" width="54" height="54">
+        <span>Automic Vault</span>
+      </a>
+      <nav aria-label="フッターナビゲーション">
+        <a href="/ja/pkg/">パッケージ</a>
+        <a href="/ja/about/">Automic Vault について</a>
+        <a href="/ja/security/">セキュリティ</a>
+        <a href="/blog/">ブログ</a>
+        <a href="/ja/privacy/">プライバシー</a>
+        <a href="/ja/terms/">利用規約</a>
+        <a href="https://x.com/AutomicVault" aria-label="X">𝕏</a>
+        <a href="https://github.com/automic-vault/">GitHub</a>
+      </nav>
+      <span>© 2026 · Apache-2.0</span>
     </div>
-    <nav aria-label="Footer">
-      <a href="/ja/docs/">ドキュメント</a>
-      <a href="/ja/security/">セキュリティ</a>
-      <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+    <nav class="brew-languages" aria-label="言語版">
+      <a href="/" lang="en">English</a>
+      <a href="/ja/" lang="ja">日本語</a>
+      <a href="/de/" lang="de">Deutsch</a>
+      <a href="/fr/" lang="fr">Français</a>
+      <a href="/zh-hans/" lang="zh-Hans">简体中文</a>
     </nav>
-    <p class="boundary-footer-meta">© 2026 Automic Vault · Apache License 2.0</p>
   </footer>
 
-  <script src="/app.js?v=24"></script>
-  <nav class="language-links" aria-label="言語版"><a href="/" lang="en">English</a> <a href="/ja/" lang="ja">日本語</a> <a href="/de/" lang="de">Deutsch</a> <a href="/fr/" lang="fr">Français</a> <a href="/zh-hans/" lang="zh-Hans">简体中文</a></nav>
   <script src="/i18n.js" defer></script>
 </body>
 </html>

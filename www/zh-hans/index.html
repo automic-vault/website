@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | 管理本地工具使用的密钥与执行权限</title>
-  <meta name="description" content="Automic Vault 在 macOS 本地管理工具的密钥注入和高风险命令执行。凭据保存在 Keychain 中，只提供给已批准的可执行文件。">
+  <title>Automic Vault | 保护所有 Homebrew CLI 工具</title>
+  <meta name="description" content="加密 CLI 密钥、强制人工审批、监控所有生态系统中的威胁、按工具控制访问权限，并记录每个请求。">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Automic Vault | 管理本地工具使用的密钥与执行权限">
-  <meta property="og:description" content="Automic Vault 在 macOS 本地管理工具的密钥注入和高风险命令执行。凭据保存在 Keychain 中，只提供给已批准的可执行文件。">
+  <meta property="og:title" content="保护你通过 brew install 安装的工具">
+  <meta property="og:description" content="加密 CLI 密钥、强制人工审批、监控所有生态系统中的威胁、按工具控制访问权限，并记录每个请求。">
   <meta property="og:url" content="https://www.automicvault.com/zh-hans/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Automic Vault | 管理本地工具使用的密钥与执行权限">
-  <meta name="twitter:description" content="Automic Vault 在 macOS 本地管理工具的密钥注入和高风险命令执行。凭据保存在 Keychain 中，只提供给已批准的可执行文件。">
+  <meta name="twitter:title" content="保护你通过 brew install 安装的工具">
+  <meta name="twitter:description" content="加密 CLI 密钥、强制人工审批、监控所有生态系统中的威胁、按工具控制访问权限，并记录每个请求。">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/zh-hans/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -29,7 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=95">
+  <link rel="stylesheet" href="/styles.css?v=97">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
   <script>
@@ -43,170 +43,239 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/zh-hans/",
-    "name": "Automic Vault | 管理本地工具使用的密钥与执行权限",
-    "headline": "工具握有你的权限。 让它们先请求批准。",
-    "description": "Automic Vault 在 macOS 本地管理工具的密钥注入和高风险命令执行。凭据保存在 Keychain 中，只提供给已批准的可执行文件。",
+    "name": "Automic Vault | 保护所有 Homebrew CLI 工具",
+    "headline": "保护你通过 brew install 安装的工具",
+    "description": "加密 CLI 密钥、强制人工审批、监控所有生态系统中的威胁、按工具控制访问权限，并记录每个请求。",
     "inLanguage": "zh-Hans",
     "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
   }
   </script>
 </head>
-<body class="boundary-home">
-  <div class="scroll-meter" aria-hidden="true"><span></span></div>
-  <header class="boundary-nav" id="top">
-    <a class="boundary-brand" href="/zh-hans/" aria-label="Automic Vault 首页">
+<body class="brew-home">
+  <header class="brew-nav">
+    <a class="brew-brand" href="#top" aria-label="Automic Vault 首页">
       <img src="/assets/icon@2x.webp" alt="" width="54" height="54">
       <span>Automic Vault</span>
     </a>
-    <a class="boundary-nav-download" href="/Automic Vault.dmg">下载</a>
+    <nav class="brew-nav-links" aria-label="主导航">
+      <a href="#controls">访问控制</a>
+      <a href="#audit">审计日志</a>
+      <a href="#threats">威胁</a>
+    </nav>
+    <a class="brew-download" href="/Automic Vault.dmg">下载</a>
   </header>
 
   <main>
-    <section class="boundary-hero" aria-labelledby="hero-title">
-      <div class="boundary-hero-copy">
-        <p class="boundary-orientation">密钥属于工具 · 执行由你控制</p>
-        <h1 id="hero-title">工具握有你的权限。<br><span>让它们先请求批准。</span></h1>
-        <p class="boundary-lede">Automic Vault 控制 shell、agent 与它们所用工具之间最后一段本地路径。Keychain 中的密钥只在单次运行时提供给已批准的可执行文件，高风险命令会在执行前征求你的确认。</p>
+    <section class="brew-hero" id="top" aria-labelledby="hero-title">
+      <div class="brew-hero-title">
+        <p class="brew-kicker">由 Homebrew 创始人打造</p>
+        <h1 id="hero-title">保护你通过 <span>brew install</span> 安装的工具</h1>
+        <a class="brew-cta" href="/Automic Vault.dmg">下载 macOS 版</a>
       </div>
+      <ul class="brew-promises">
+        <li><span>01</span><strong>加密所有 CLI 工具中的明文密钥。</strong></li>
+        <li><span>02</span><strong>所有经过身份验证的工具使用都需人工审批</strong></li>
+        <li><span>03</span><strong>在最关键的软件包层提供安全保护</strong></li>
+      </ul>
+    </section>
 
-      <div class="execution-map" data-execution-map role="group" aria-label="macOS 本地边界 · 进程 → 工具 → 凭据">
-        <div class="map-column map-requesters">
-          <p class="map-column-label">请求方</p>
-          <div class="map-node"><code>$ shell</code><span>你输入命令</span></div>
-          <div class="map-node"><code>./script</code><span>自动化请求密钥</span></div>
-          <div class="map-node"><code>agent</code><span>本地任务需要工具</span></div>
+    <section class="brew-risk" aria-labelledby="risk-title">
+      <div class="brew-split">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">使用 Automic Vault 之前</p>
+          <h2 id="risk-title">“乐于助人”的代理会走危险的捷径。</h2>
         </div>
-        <div class="map-hop" aria-hidden="true"><span>请求</span><b>→</b></div>
-        <div class="map-vault">
-          <div class="map-vault-head">
-            <img src="/assets/icon@2x.webp" alt="" width="42" height="42">
-            <div><strong>Automic Vault</strong><span>本地执行边界</span></div>
-          </div>
-          <div class="map-control">
-            <span class="map-signal map-signal-secret">Secret</span>
-            <div><strong>Keychain → 指定进程</strong><p>已批准的可执行文件仅在本次运行中获得该值。</p></div>
-          </div>
-          <div class="map-control">
-            <span class="map-signal map-signal-approval">Execution</span>
-            <div><strong>路径 + 参数 + cwd → 审批</strong><p>命令及其权限在执行前清晰可见。</p></div>
-          </div>
+        <ol class="brew-session" aria-label="读取并上传本地 AWS 凭据的 Claude 会话">
+          <li class="brew-chat-message brew-chat-message-agent">
+            <span class="brew-chat-avatar" aria-hidden="true">C</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">Claude</span>
+              <div class="brew-chat-bubble"><p>嗯……远程服务器没有 AWS 访问权限。</p></div>
+            </div>
+          </li>
+          <li class="brew-chat-message brew-chat-message-agent">
+            <span class="brew-chat-avatar" aria-hidden="true">C</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">Claude</span>
+              <div class="brew-chat-bubble"><p>没问题——我会从这里上传密钥。</p></div>
+            </div>
+          </li>
+          <li class="brew-chat-message brew-chat-message-tool">
+            <span class="brew-chat-avatar" aria-hidden="true">T</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">工具调用</span>
+              <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
+            </div>
+          </li>
+          <li class="brew-chat-message brew-chat-message-result">
+            <span class="brew-chat-avatar" aria-hidden="true">R</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">工具结果</span>
+              <div class="brew-chat-bubble"><pre><code>[default]
+aws_access_key_id = AKIA••••••••••••
+aws_secret_access_key = ••••••••••••••••••••••••••••••••</code></pre></div>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="brew-exfiltration">
+        <div class="brew-alert">
+          <strong>密钥已外泄</strong>
+          <span>一个可重复使用的云凭据刚刚越过了信任边界。</span>
         </div>
-        <div class="map-hop" aria-hidden="true"><span>execve</span><b>→</b></div>
-        <div class="map-column map-tools">
-          <p class="map-column-label">已批准工具</p>
-          <div class="map-tool-list" aria-label="已批准工具"><code>gh</code><code>aws</code><code>terraform</code><code>npm</code></div>
-          <p class="map-tool-note">只有获准的工具会收到密钥。</p>
-          <div class="map-service"><span>外部服务</span><strong>GitHub · AWS · registries</strong></div>
+        <section class="brew-split brew-after" aria-labelledby="after-title">
+          <div class="brew-copy">
+            <p class="brew-eyebrow">使用 Automic Vault 之后</p>
+            <h2 id="after-title">明文密钥：已检测、已加密、需审批。</h2>
+          </div>
+          <ol class="brew-session" aria-label="本地 AWS 凭据文件缺失后因人工审批而停止的 Claude 会话">
+            <li class="brew-chat-message brew-chat-message-agent">
+              <span class="brew-chat-avatar" aria-hidden="true">C</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Claude</span>
+                <div class="brew-chat-bubble"><p>嗯……远程服务器没有 AWS 访问权限。</p></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-agent">
+              <span class="brew-chat-avatar" aria-hidden="true">C</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Claude</span>
+                <div class="brew-chat-bubble"><p>没问题——我会从这里上传密钥。</p></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-tool">
+              <span class="brew-chat-avatar" aria-hidden="true">T</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">工具调用</span>
+                <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-result">
+              <span class="brew-chat-avatar" aria-hidden="true">R</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">工具结果</span>
+                <div class="brew-chat-bubble"><code>找不到文件</code></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-agent">
+              <span class="brew-chat-avatar" aria-hidden="true">C</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Claude</span>
+                <div class="brew-chat-bubble"><p>我改为运行导出命令。</p></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-tool">
+              <span class="brew-chat-avatar" aria-hidden="true">T</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">工具调用</span>
+                <div class="brew-chat-bubble"><code>aws config export-credentials</code></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-approval">
+              <span class="brew-chat-avatar" aria-hidden="true">!</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Automic Vault</span>
+                <div class="brew-chat-bubble"><strong>需要人工审批</strong></div>
+              </div>
+            </li>
+          </ol>
+        </section>
+      </div>
+
+      <div class="brew-split brew-proof">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">仅仅加密密钥还不够</p>
+          <h2>工具必须先请求批准。</h2>
+          <p>Automic Vault 不会把凭据放入代理的上下文。请求会停在原生审批界面，你可以检查命令并批准一次或拒绝。</p>
         </div>
-      </div>
-
-      <div class="boundary-hero-actions">
-        <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">下载 macOS 版</a>
-        <a class="boundary-button boundary-button-secondary" href="/zh-hans/docs/">阅读文档</a>
-        <span>Free and open source · Apple Silicon · macOS 26</span>
+        <figure class="brew-capture brew-capture-gate">
+          <img src="/assets/av-approve-gate.png" alt="Automic Vault 审批界面显示 ChatGPT 请求 GitHub 令牌，并提供拒绝和仅批准一次选项" width="1212" height="1090" loading="lazy" decoding="async">
+          <figcaption>运行前即可查看命令、工作目录和所请求的密钥。</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section class="boundary-problem" id="detect" aria-labelledby="problem-title">
-      <div class="boundary-section-copy">
-        <h2 id="problem-title">可读取的凭据会让另一个本地进程以你的身份行动。</h2>
-        <p>云 CLI、源代码管理客户端、部署脚本和发布工具可以读取私有数据或修改远程系统。它们的凭据常常留在所有本地进程都能读取的文件中。</p>
+    <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
+      <div class="brew-capture-stack">
+        <figure class="brew-capture">
+          <img src="/assets/approval-read-only.webp" alt="Automic Vault 强化工具界面为 gh 启用了只读请求" width="1944" height="1380" loading="lazy" decoding="async">
+          <figcaption>按处理密钥的工具选择启用只读审批。</figcaption>
+        </figure>
+        <figure class="brew-capture">
+          <img src="/assets/approval-terminal-only.webp" alt="Automic Vault 密钥门仅在 Terminal.app 为调用方时允许 gh 直接访问 GitHub 令牌" width="1952" height="1338" loading="lazy" decoding="async">
+          <figcaption>完全访问权限，但仅限 Terminal.app。</figcaption>
+        </figure>
       </div>
-      <dl class="authority-ledger">
-        <div><dt><code>~/.aws/credentials</code></dt><dd>可读 dotfile 中的云账户权限</dd></div>
-        <div><dt><code>gh auth token</code></dt><dd>输出给请求进程的 bearer token</dd></div>
-        <div><dt><code>npm publish</code></dt><dd>拥有发布权限的本地命令</dd></div>
-        <div><dt><code>terraform apply</code></dt><dd>从当前 shell 发起基础设施变更</dd></div>
-      </dl>
-    </section>
-
-    <section class="boundary-feature boundary-feature-secrets" id="harden" aria-labelledby="secrets-title">
-      <span class="anchor-alias" id="dotenv" aria-hidden="true"></span>
-      <div class="boundary-section-copy">
-        <h2 id="secrets-title">密钥只属于这次工具执行。</h2>
-        <p>长期凭据存入 Automic Vault Keychain。指定允许接收它的可执行文件后，Automic Vault 会在审批完成后把值加载到该子进程。</p>
-      </div>
-      <div class="boundary-detail-list">
-        <p><strong>凭据不会进入 prompt 或项目文件.</strong><span>代理无需读取原始凭据即可请求工作。</span></p>
-        <p><strong>原生 helper 缩小交付范围.</strong><span>AWS credential_process、Kubernetes ExecCredential、registry helper 等协议可避免全局 shell export。</span></p>
+      <div class="brew-copy">
+        <h2 id="controls-title">按工具调用方精细控制访问权限</h2>
+        <p>每次密钥使用默认受限。只有对指定的代码签名可执行文件才可放宽审批。</p>
+        <dl class="brew-control-list">
+          <div><dt>只读</dt><dd>自动批准安全的 <code>gh</code> 查询，但不授予写入权限。</dd></div>
+          <div><dt>完全访问</dt><dd>仅对指定的调用应用（例如 Terminal.app）始终批准直接 <code>gh</code> 访问。</dd></div>
+        </dl>
       </div>
     </section>
 
-    <section class="boundary-feature boundary-feature-execution" id="immutable" aria-labelledby="execution-title">
-      <div class="boundary-section-copy">
-        <h2 id="execution-title">在执行时控制命令。</h2>
-        <p>av contain 为代理提供合成 toolchain。主机工具请求会携带可执行文件路径、参数、工作目录和所需密钥返回 Automic Vault。</p>
+    <section class="brew-feature" id="audit" aria-labelledby="audit-title">
+      <div class="brew-copy">
+        <h2 id="audit-title">每次密钥使用都有日志记录。</h2>
+        <p>无论批准或拒绝、自动或手动，每个请求都会在本地记录启动方、密钥、命令、工作目录和决定。</p>
+        <ul class="brew-log-fields" aria-label="记录详情">
+          <li>决定</li>
+          <li>启动方</li>
+          <li>请求的密钥</li>
+          <li>工作目录</li>
+        </ul>
       </div>
-      <div class="approval-readout" aria-label="需要人工审批">
-        <div><span>可执行文件</span><code>/opt/homebrew/bin/gh</code></div>
-        <div><span>参数</span><code>release create v2.4.0</code></div>
-        <div><span>密钥</span><code>GITHUB_TOKEN</code></div>
-        <div><span>决定</span><strong>需要人工审批</strong></div>
-      </div>
-    </section>
-
-    <section class="boundary-layer" id="monitor" aria-labelledby="layer-title">
-      <div class="boundary-section-copy">
-        <h2 id="layer-title">在可执行文件层落实安全控制。</h2>
-        <p>Automic Vault 使用 Mac 在执行时掌握的事实：磁盘上的二进制文件、路径、参数、父进程、工作目录和工具专用凭据协议。</p>
-      </div>
-      <p class="layer-note">中心化 vault 仍可作为真实来源。Automic Vault 控制的是开发工具在本地接收凭据并使用该权限的最后一段路径。</p>
-    </section>
-
-    <section class="boundary-terminal" aria-labelledby="terminal-title">
-      <div class="boundary-section-copy"><h2 id="terminal-title">三个命令建立边界。</h2></div>
-      <figure class="command-proof">
-        <figcaption>Save · inject · contain</figcaption>
-        <pre><code><span class="command-muted"># store one long-lived value in Keychain</span>
-$ printf '%s\n' "$GITHUB_TOKEN" | av save GITHUB_TOKEN
-saved GITHUB_TOKEN in Automic Vault Keychain
-
-<span class="command-muted"># give one approved executable the named value</span>
-$ av inject +GITHUB_TOKEN /opt/homebrew/bin/gh repo view
-approval required: gh repo view
-approved · executing /opt/homebrew/bin/gh
-
-<span class="command-muted"># mediate the host tools an agent invokes</span>
-$ av contain codex
-contained toolchain ready · host execution requires approval</code></pre>
+      <figure class="brew-capture">
+        <img src="/assets/secret-use-log.webp" alt="Automic Vault 密钥请求历史显示手动拒绝和自动批准的 gh 请求，以及启动方、密钥和工作目录详情" width="1944" height="1380" loading="lazy" decoding="async">
+        <figcaption>拒绝和批准的请求使用同一份审计记录。</figcaption>
       </figure>
     </section>
 
-    <section class="boundary-trust" aria-labelledby="trust-title">
-      <div class="boundary-section-copy">
-        <h2 id="trust-title">可检查的本地边界。</h2>
-        <p>Automic Vault 是 Apache 2.0 开源软件。安全模型假设 macOS Keychain、System Integrity Protection 和签名应用可信。root compromise 与恶意的已批准可执行文件不在此边界内。</p>
+    <section class="brew-feature brew-feature-reverse" id="threats" aria-labelledby="threats-title">
+      <figure class="brew-capture">
+        <img src="/assets/threat-monitor.webp" alt="Automic Vault 检测器将 Homebrew 标记为可修改，并显示触发条件、原因和强化命令" width="1944" height="1380" loading="lazy" decoding="async">
+        <figcaption>每个标记都包含触发条件、原因和缓解步骤。</figcaption>
+      </figure>
+      <div class="brew-copy">
+        <h2 id="threats-title">监控开发环境中的威胁</h2>
+        <p>Automic Vault 监控所有生态系统中的开发工具。新威胁会立即被标记，并提供清晰的缓解步骤。</p>
       </div>
-      <div class="trust-links">
-        <a href="/zh-hans/security/">阅读安全模型</a>
-        <a href="https://github.com/automic-vault/automic-vault">查看源码</a>
-      </div>
-      <p class="founder-note"><strong>由 Max Howell 开发。他把创建 Homebrew 所积累的本地基础设施经验，用于控制工具运行时所使用的权限。</strong></p>
-    </section>
-
-    <section class="boundary-cta" id="free-open-source" aria-labelledby="cta-title">
-      <h2 id="cta-title">为你的工具建立边界。</h2>
-      <p>先把一个密钥移入 Keychain，再通过 Automic Vault 运行对应工具。</p>
-      <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">下载 macOS 版</a>
     </section>
   </main>
 
-  <footer class="boundary-footer">
-    <div class="boundary-footer-brand">
-      <div><img src="/assets/icon@2x.webp" alt="" width="54" height="54"><strong>Automic Vault</strong></div>
-      <p>管理 Mac 工具使用的密钥与执行权限。</p>
+  <footer class="brew-footer">
+    <p class="brew-footer-statement">由 Homebrew 创始人打造。</p>
+    <a class="brew-cta" href="/Automic Vault.dmg">下载 macOS 版</a>
+    <div class="brew-footer-meta">
+      <a class="brew-brand" href="#top">
+        <img src="/assets/icon@2x.webp" alt="" width="54" height="54">
+        <span>Automic Vault</span>
+      </a>
+      <nav aria-label="页脚导航">
+        <a href="/zh-hans/pkg/">软件包</a>
+        <a href="/zh-hans/about/">关于</a>
+        <a href="/zh-hans/security/">安全</a>
+        <a href="/blog/">博客</a>
+        <a href="/zh-hans/privacy/">隐私</a>
+        <a href="/zh-hans/terms/">条款</a>
+        <a href="https://x.com/AutomicVault" aria-label="X">𝕏</a>
+        <a href="https://github.com/automic-vault/">GitHub</a>
+      </nav>
+      <span>© 2026 · Apache-2.0</span>
     </div>
-    <nav aria-label="Footer">
-      <a href="/zh-hans/docs/">阅读文档</a>
-      <a href="/zh-hans/security/">安全</a>
-      <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+    <nav class="brew-languages" aria-label="语言版本">
+      <a href="/" lang="en">English</a>
+      <a href="/ja/" lang="ja">日本語</a>
+      <a href="/de/" lang="de">Deutsch</a>
+      <a href="/fr/" lang="fr">Français</a>
+      <a href="/zh-hans/" lang="zh-Hans">简体中文</a>
     </nav>
-    <p class="boundary-footer-meta">© 2026 Automic Vault · Apache License 2.0</p>
   </footer>
 
-  <script src="/app.js?v=24"></script>
-  <nav class="language-links" aria-label="语言版本"><a href="/" lang="en">English</a> <a href="/ja/" lang="ja">日本語</a> <a href="/de/" lang="de">Deutsch</a> <a href="/fr/" lang="fr">Français</a> <a href="/zh-hans/" lang="zh-Hans">简体中文</a></nav>
   <script src="/i18n.js" defer></script>
 </body>
 </html>
