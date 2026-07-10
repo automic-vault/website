@@ -158,7 +158,7 @@
     <section class="brew-risk" aria-labelledby="risk-title">
       <div class="brew-split">
         <div class="brew-copy">
-          <p class="brew-eyebrow">No more plaintext secrets</p>
+          <p class="brew-eyebrow">Before Automic Vault</p>
           <h2 id="risk-title">“Helpful” agents take dangerous shortcuts.</h2>
         </div>
         <ol class="brew-session" aria-label="Example Claude session that reads and uploads local AWS credentials">
@@ -200,8 +200,41 @@ aws_secret_access_key = ••••••••••••••••••�
           <strong>SECRET EXFILTRATED</strong>
           <span>A reusable cloud credential just crossed the trust boundary.</span>
         </div>
-        <section class="brew-plaintext" aria-labelledby="plaintext-title">
-          <h2 id="plaintext-title">Automic Vault detects and encrypts every plaintext secret exposed by your development stack</h2>
+        <section class="brew-split brew-after" aria-labelledby="after-title">
+          <div class="brew-copy">
+            <p class="brew-eyebrow">After Automic Vault</p>
+            <h2 id="after-title">Automic Vault detects and encrypts every plaintext secret exposed by your development stack</h2>
+          </div>
+          <ol class="brew-session" aria-label="Example Claude session stopped for human approval before accessing local AWS credentials">
+            <li class="brew-chat-message brew-chat-message-agent">
+              <span class="brew-chat-avatar" aria-hidden="true">C</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Claude</span>
+                <div class="brew-chat-bubble"><p>Hmm… the remote server doesn’t have AWS access.</p></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-agent">
+              <span class="brew-chat-avatar" aria-hidden="true">C</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Claude</span>
+                <div class="brew-chat-bubble"><p>No problem — I’ll upload the keys from here.</p></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-tool">
+              <span class="brew-chat-avatar" aria-hidden="true">T</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Tool call</span>
+                <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-approval">
+              <span class="brew-chat-avatar" aria-hidden="true">!</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Automic Vault</span>
+                <div class="brew-chat-bubble"><strong>Human Approval required</strong></div>
+              </div>
+            </li>
+          </ol>
         </section>
       </div>
 

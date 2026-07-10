@@ -3903,6 +3903,26 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   color: var(--color-boundary-body);
 }
 
+.brew-chat-message-approval .brew-chat-avatar {
+  border-color: var(--color-boundary-warn);
+  background: var(--color-boundary-warn);
+  color: var(--color-boundary-paper);
+}
+
+.brew-chat-message-approval .brew-chat-bubble {
+  width: 100%;
+  border-color: var(--color-boundary-warn);
+  background: var(--color-boundary-warn-soft);
+}
+
+.brew-chat-message-approval strong {
+  color: var(--color-boundary-warn);
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-lg), 2.4vw, var(--text-xl));
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
 .brew-exfiltration {
   display: grid;
   min-width: 0;
@@ -3935,23 +3955,9 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   line-height: 1.4;
 }
 
-.brew-plaintext {
-  min-width: 0;
+.brew-after {
   padding-block: var(--space-2xl);
   border-block-end: var(--rule-hair) solid var(--color-boundary-rule-strong);
-}
-
-.brew-plaintext h2 {
-  min-width: 0;
-  margin: 0;
-  color: var(--color-boundary-ink);
-  font-family: var(--font-display);
-  font-size: clamp(var(--text-2xl), 6vw, var(--text-display-s));
-  font-style: normal;
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 1.04;
-  overflow-wrap: anywhere;
 }
 
 .brew-proof {
