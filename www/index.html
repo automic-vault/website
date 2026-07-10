@@ -205,7 +205,7 @@ aws_secret_access_key = ••••••••••••••••••�
             <p class="brew-eyebrow">After Automic Vault</p>
             <h2 id="after-title">Automic Vault detects and encrypts every plaintext secret exposed by your development stack</h2>
           </div>
-          <ol class="brew-session" aria-label="Example Claude session stopped for human approval before accessing local AWS credentials">
+          <ol class="brew-session" aria-label="Example Claude session stopped for human approval after the local AWS credentials file is missing">
             <li class="brew-chat-message brew-chat-message-agent">
               <span class="brew-chat-avatar" aria-hidden="true">C</span>
               <div class="brew-chat-body">
@@ -225,6 +225,27 @@ aws_secret_access_key = ••••••••••••••••••�
               <div class="brew-chat-body">
                 <span class="brew-chat-speaker">Tool call</span>
                 <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-result">
+              <span class="brew-chat-avatar" aria-hidden="true">R</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Tool result</span>
+                <div class="brew-chat-bubble"><code>No such file</code></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-agent">
+              <span class="brew-chat-avatar" aria-hidden="true">C</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Claude</span>
+                <div class="brew-chat-bubble"><p>I’ll export the credentials from AWS instead.</p></div>
+              </div>
+            </li>
+            <li class="brew-chat-message brew-chat-message-tool">
+              <span class="brew-chat-avatar" aria-hidden="true">T</span>
+              <div class="brew-chat-body">
+                <span class="brew-chat-speaker">Tool call</span>
+                <div class="brew-chat-bubble"><code>aws config export-credentials</code></div>
               </div>
             </li>
             <li class="brew-chat-message brew-chat-message-approval">
