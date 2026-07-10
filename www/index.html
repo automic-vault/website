@@ -112,7 +112,7 @@
         "headline": "Your tools have your authority. Make them ask.",
         "description": "Automic Vault controls the local executable boundary where developer tools receive credentials and run sensitive commands.",
         "datePublished": "2026-05-15",
-        "dateModified": "2026-07-09",
+        "dateModified": "2026-07-10",
         "image": "https://www.automicvault.com/preview.jpg",
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "isPartOf": {"@id": "https://www.automicvault.com/#website"},
@@ -126,7 +126,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="./favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles.css?v=95">
+  <link rel="stylesheet" href="./styles.css?v=96">
 </head>
 <body class="boundary-home">
   <div class="scroll-meter" aria-hidden="true"><span></span></div>
@@ -187,6 +187,52 @@
         <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">Download for macOS</a>
         <a class="boundary-button boundary-button-secondary" href="/docs/">Read docs</a>
         <span>Free and open source · Apple Silicon · macOS 26</span>
+      </div>
+    </section>
+
+    <section class="boundary-crux" aria-labelledby="crux-title">
+      <div class="boundary-crux-intro">
+        <div class="boundary-section-copy">
+          <h2 id="crux-title">“Helpful” agents take dangerous shortcuts.</h2>
+          <p>When a remote shell cannot use AWS, an agent may reach for the credentials on your Mac.</p>
+        </div>
+
+        <ol class="agent-session" aria-label="Example Claude session that reads and uploads local AWS credentials">
+          <li class="session-message session-agent">
+            <span class="session-speaker">Claude</span>
+            <p>Hmm… the remote server doesn’t have AWS access.</p>
+          </li>
+          <li class="session-message session-agent">
+            <span class="session-speaker">Claude</span>
+            <p>No problem — I’ll upload the keys from here.</p>
+          </li>
+          <li class="session-message session-tool">
+            <span class="session-speaker">Tool</span>
+            <code>Read(~/.aws/credentials)</code>
+          </li>
+          <li class="session-message session-output" aria-label="Credential file contents returned to the agent">
+            <span class="session-speaker">Result</span>
+            <pre><code>[default]
+aws_access_key_id = AKIA••••••••••••
+aws_secret_access_key = ••••••••••••••••••••••••••••••••</code></pre>
+          </li>
+        </ol>
+      </div>
+
+      <div class="exfiltration-alert">
+        <strong>SECRET EXFILTRATED</strong>
+        <span>A reusable cloud credential just crossed the trust boundary.</span>
+      </div>
+
+      <div class="approval-proof">
+        <div class="boundary-section-copy">
+          <h2>The tool should have to ask.</h2>
+          <p>Automic Vault keeps the credential out of the agent’s context. The tool request stops at a native approval gate where you can inspect the command and allow it once—or deny it.</p>
+        </div>
+        <figure class="approval-capture">
+          <img src="./assets/av-approve-gate.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" loading="lazy">
+          <figcaption>Executable, command, working directory, and requested key—visible before anything runs.</figcaption>
+        </figure>
       </div>
     </section>
 

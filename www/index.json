@@ -6,6 +6,11 @@
   "title": "Your tools have your authority. Make them ask.",
   "description": "Automic Vault controls the local executable boundary between shells or agents and developer tools. It keeps credentials in Keychain, releases named values to approved executables for one run, and asks before risky commands execute.",
   "positioning": "Automic Vault controls the last local hop between a shell, script, or agent and the developer tool that receives a credential and performs work.",
+  "risk_story": {
+    "unsafe": "When a remote shell cannot use AWS, an agent may read ~/.aws/credentials and upload the keys from the user's Mac.",
+    "failure": "A reusable cloud credential has crossed the trust boundary.",
+    "controlled": "Automic Vault keeps the credential out of the agent's context and presents the executable, command, working directory, and requested key for one-time approval or denial."
+  },
   "primary_action": {
     "label": "Download for macOS",
     "url": "https://www.automicvault.com/Automic%20Vault.dmg"

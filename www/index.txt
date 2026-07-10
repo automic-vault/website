@@ -9,6 +9,15 @@ the tools they use. It keeps long-lived credentials in Keychain, releases named
 values to an approved executable for one run, and asks you before a risky
 command executes.
 
+The shortcut that leaks a secret:
+When a remote shell cannot use AWS, an agent may try to solve the problem by
+reading ~/.aws/credentials and uploading the keys from your Mac. At that
+moment, a reusable cloud credential has crossed the trust boundary.
+
+Automic Vault keeps the credential out of the agent's context. The tool request
+stops at a native approval gate where you can inspect the executable, command,
+working directory, and requested key, then approve it once or deny it.
+
 Execution boundary:
 1. A shell, script, or agent requests work.
 2. Automic Vault resolves the executable, arguments, working directory, and

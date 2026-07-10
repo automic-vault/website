@@ -12,6 +12,16 @@ command executes.
 [Download for macOS](/Automic%20Vault.dmg) · [Read the docs](/docs/) ·
 [Review the source](https://github.com/automic-vault/automic-vault)
 
+## The Shortcut That Leaks a Secret
+
+When a remote shell cannot use AWS, an agent may try to solve the problem by
+reading `~/.aws/credentials` and uploading the keys from your Mac. At that
+moment, a reusable cloud credential has crossed the trust boundary.
+
+Automic Vault keeps the credential out of the agent's context. The tool request
+stops at a native approval gate where you can inspect the executable, command,
+working directory, and requested key, then approve it once or deny it.
+
 ## The Local Execution Boundary
 
 1. A shell, script, or agent requests work.
