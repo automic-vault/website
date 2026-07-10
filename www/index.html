@@ -12,17 +12,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Automic Vault | Secure Every Homebrew CLI Tool</title>
-  <meta name="description" content="Encrypt plaintext secrets for CLI tools, require human approval for secret usage, grant access per tool, and keep a local audit log.">
+  <meta name="description" content="Encrypt CLI secrets, enforce human approval, monitor threats across ecosystems, grant access per tool, and log every request.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Secure the tools you brew install">
-  <meta property="og:description" content="Encrypt CLI secrets, enforce human approval, grant access per tool, and log every secret request.">
+  <meta property="og:description" content="Encrypt CLI secrets, enforce human approval, monitor threats across ecosystems, grant access per tool, and log every request.">
   <meta property="og:url" content="https://www.automicvault.com/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:title" content="Secure the tools you brew install">
-  <meta name="twitter:description" content="Encrypt CLI secrets, enforce human approval, grant access per tool, and log every secret request.">
+  <meta name="twitter:description" content="Encrypt CLI secrets, enforce human approval, monitor threats across ecosystems, grant access per tool, and log every request.">
   <link rel="canonical" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/">
@@ -90,6 +90,7 @@
           "Encrypted storage for plaintext CLI secrets",
           "Human approval for secret usage",
           "Per-tool read-only and full-access controls",
+          "Cross-ecosystem developer threat monitoring with mitigation steps",
           "Local audit log for approved and denied secret requests"
         ],
         "offers": {
@@ -99,7 +100,7 @@
           "availability": "https://schema.org/InStock",
           "url": "https://www.automicvault.com/pricing/"
         },
-        "description": "Automic Vault encrypts CLI secrets, gates their use per tool, and records every request.",
+        "description": "Automic Vault encrypts CLI secrets, gates their use per tool, monitors threats across ecosystems, and records every request.",
         "publisher": {"@id": "https://www.automicvault.com/#organization"}
       },
       {
@@ -135,6 +136,7 @@
     <nav class="brew-nav-links" aria-label="Primary navigation">
       <a href="#controls">Controls</a>
       <a href="#audit">Audit Log</a>
+      <a href="#threats">Threats</a>
     </nav>
     <a class="brew-download" href="/Automic Vault.dmg">Download</a>
   </header>
@@ -216,6 +218,17 @@ aws_secret_access_key = ••••••••••••••••••�
         <img src="./assets/secret-use-log.webp" alt="Automic Vault secret request history showing denied manual and approved automatic gh requests with launcher, key, and working directory details" width="1944" height="1380" loading="lazy" decoding="async">
         <figcaption>Denied and approved requests share the same audit trail.</figcaption>
       </figure>
+    </section>
+
+    <section class="brew-feature brew-feature-reverse" id="threats" aria-labelledby="threats-title">
+      <figure class="brew-capture">
+        <img src="./assets/threat-monitor.webp" alt="Automic Vault Detectors screen showing Homebrew flagged as mutable with trigger conditions, rationale, and a hardening command" width="1944" height="1380" loading="lazy" decoding="async">
+        <figcaption>Each flag includes its trigger, rationale, and mitigation steps.</figcaption>
+      </figure>
+      <div class="brew-copy">
+        <h2 id="threats-title">Monitor Threats to your developer environment</h2>
+        <p>Automic Vault monitors developer tools across all ecosystems. New threats are flagged instantly, with clear steps to mitigate each finding.</p>
+      </div>
     </section>
   </main>
 

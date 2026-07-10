@@ -30,6 +30,11 @@ without granting access to any other executable.
 Approved or denied, automatic or manual: every request leaves a local record
 with the decision, launcher, requested key, command, and working directory.
 
+## Monitor Threats to your developer environment
+
+Automic Vault monitors developer tools across all ecosystems. New threats are
+flagged instantly, with clear steps to mitigate each finding.
+
 ## From the Creator of Homebrew
 
 Automic Vault is free Apache-2.0 open-source software for macOS.

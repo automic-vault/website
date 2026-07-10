@@ -21,6 +21,10 @@ Every secret use is logged:
 Approved or denied, automatic or manual, each request records the decision,
 launcher, requested key, command, and working directory.
 
+Monitor Threats to your developer environment:
+Automic Vault monitors developer tools across all ecosystems. New threats are
+flagged instantly, with clear steps to mitigate each finding.
+
 From the creator of Homebrew.
 
 Download: https://www.automicvault.com/Automic%20Vault.dmg

@@ -5,7 +5,7 @@
   "license": "Apache License 2.0",
   "title": "Secure the tools you brew install",
   "eyebrow": "From the Creator of Homebrew",
-  "description": "Automic Vault encrypts plaintext secrets for CLI tools, enforces human approval for secret usage, grants access per tool, and logs every request.",
+  "description": "Automic Vault encrypts plaintext secrets for CLI tools, enforces human approval, monitors threats across ecosystems, grants access per tool, and logs every request.",
   "promises": [
     "Encrypts plaintext secrets for all CLI tools.",
     "Enforces human approval for all secret usage."
@@ -42,6 +42,11 @@
       "command",
       "working directory"
     ]
+  },
+  "threat_monitoring": {
+    "scope": "all developer ecosystems",
+    "notification": "New threats are flagged instantly.",
+    "mitigation": "Each finding includes clear steps to mitigate it."
   },
   "primary_action": {
     "label": "Download for macOS",
