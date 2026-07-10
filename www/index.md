@@ -11,10 +11,6 @@
 
 ## “Helpful” Agents Take Dangerous Shortcuts
 
-When a remote shell cannot use AWS, an agent may read
-`~/.aws/credentials` and upload the keys from your Mac. A reusable cloud
-credential has now crossed the trust boundary.
-
 **Protecting secrets is not enough**
 
 ### The Tool Should Have to Ask
