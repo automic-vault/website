@@ -13,7 +13,7 @@
   "risk_story": {
     "eyebrow": "No more plaintext secrets",
     "failure": "A reusable cloud credential has crossed the trust boundary.",
-    "controlled_eyebrow": "Protecting secrets is not enough",
+    "controlled_eyebrow": "Encrypting secrets is not enough",
     "controlled": "Automic Vault keeps the credential out of the agent's context and presents the command, working directory, and requested key for one-time approval or denial."
   },
   "approval_controls": [

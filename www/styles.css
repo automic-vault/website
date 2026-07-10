@@ -3915,6 +3915,10 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   justify-self: end;
 }
 
+.brew-capture-gate img {
+  border: 0;
+}
+
 .brew-control-list {
   display: grid;
   gap: 0;

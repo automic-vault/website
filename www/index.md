@@ -11,7 +11,7 @@
 
 ## “Helpful” Agents Take Dangerous Shortcuts
 
-**Protecting secrets is not enough**
+**Encrypting secrets is not enough**
 
 ### The Tool Should Have to Ask
 
