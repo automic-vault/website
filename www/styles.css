@@ -3932,7 +3932,8 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
 .brew-alert {
   display: grid;
   gap: var(--space-xs);
-  margin-inline: clamp(calc(var(--space-md) * -1), -6vw, calc(var(--space-3xl) * -1));
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
   padding: var(--space-2xl) clamp(var(--space-md), 6vw, var(--space-3xl));
   border-block: var(--rule-hair) solid var(--color-boundary-danger);
   background: var(--color-boundary-danger);
@@ -4229,7 +4230,6 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   }
 
   .brew-alert {
-    margin-inline: calc(var(--space-md) * -1);
     padding-block: var(--space-xl);
   }
 
