@@ -26,12 +26,12 @@
     {
       "scope": "per tool",
       "access": "read only",
-      "description": "Auto-approve safe queries for one named tool."
+      "description": "Auto-approve safe gh queries without granting write access."
     },
     {
-      "scope": "per tool",
+      "scope": "per tool consumer",
       "access": "full",
-      "description": "Explicitly trust one tool without granting access to any other executable."
+      "description": "Always approve direct gh access only for a named calling app, such as Terminal.app."
     }
   ],
   "audit_log": {

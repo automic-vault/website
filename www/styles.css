@@ -3903,6 +3903,12 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   margin: 0;
 }
 
+.brew-capture-stack {
+  display: grid;
+  gap: var(--space-xl);
+  min-width: 0;
+}
+
 .brew-capture img {
   display: block;
   width: 100%;

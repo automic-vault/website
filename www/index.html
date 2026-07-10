@@ -189,16 +189,22 @@ aws_secret_access_key = ••••••••••••••••••�
     </section>
 
     <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
-      <figure class="brew-capture">
-        <img src="./assets/approval-read-only.webp" alt="Automic Vault Hardened Tools screen for gh with Allow Read-Only gh Requests enabled" width="1944" height="1380" loading="lazy" decoding="async">
-        <figcaption>Read-only auto-approval is configured for this tool alone.</figcaption>
-      </figure>
+      <div class="brew-capture-stack">
+        <figure class="brew-capture">
+          <img src="./assets/approval-read-only.webp" alt="Automic Vault Hardened Tools screen for gh with Allow Read-Only gh Requests enabled" width="1944" height="1380" loading="lazy" decoding="async">
+          <figcaption>Read-only auto-approval is configured for gh.</figcaption>
+        </figure>
+        <figure class="brew-capture">
+          <img src="./assets/approval-terminal-only.webp" alt="Automic Vault Secret Gate for gh allowing direct GitHub token access only when Terminal.app is the calling app" width="1952" height="1338" loading="lazy" decoding="async">
+          <figcaption>Full access—but only to Terminal.app.</figcaption>
+        </figure>
+      </div>
       <div class="brew-copy">
         <h2 id="controls-title">Granular access per tool consumer</h2>
-        <p>Every secret use is restricted by default. Relax the gate only for the executable you name.</p>
+        <p>Every secret use is restricted by default. Relax the gate only for the tool and calling app you name.</p>
         <dl class="brew-control-list">
-          <div><dt>Read only</dt><dd>Auto-approve safe queries for one named tool.</dd></div>
-          <div><dt>Full access</dt><dd>Explicitly trust one tool without granting access to any other executable.</dd></div>
+          <div><dt>Read only</dt><dd>Auto-approve safe <code>gh</code> queries without granting write access.</dd></div>
+          <div><dt>Full access</dt><dd>Always approve direct <code>gh</code> access only for a named calling app, such as Terminal.app.</dd></div>
         </dl>
       </div>
     </section>
