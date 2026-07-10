@@ -161,12 +161,36 @@
           <h2 id="risk-title">“Helpful” agents take dangerous shortcuts.</h2>
         </div>
         <ol class="brew-session" aria-label="Example Claude session that reads and uploads local AWS credentials">
-          <li><span>Claude</span><p>Hmm… the remote server doesn’t have AWS access.</p></li>
-          <li><span>Claude</span><p>No problem — I’ll upload the keys from here.</p></li>
-          <li><span>Tool</span><code>Read(~/.aws/credentials)</code></li>
-          <li><span>Result</span><pre><code>[default]
+          <li class="brew-chat-message brew-chat-message-agent">
+            <span class="brew-chat-avatar" aria-hidden="true">C</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">Claude</span>
+              <div class="brew-chat-bubble"><p>Hmm… the remote server doesn’t have AWS access.</p></div>
+            </div>
+          </li>
+          <li class="brew-chat-message brew-chat-message-agent">
+            <span class="brew-chat-avatar" aria-hidden="true">C</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">Claude</span>
+              <div class="brew-chat-bubble"><p>No problem — I’ll upload the keys from here.</p></div>
+            </div>
+          </li>
+          <li class="brew-chat-message brew-chat-message-tool">
+            <span class="brew-chat-avatar" aria-hidden="true">T</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">Tool call</span>
+              <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
+            </div>
+          </li>
+          <li class="brew-chat-message brew-chat-message-result">
+            <span class="brew-chat-avatar" aria-hidden="true">R</span>
+            <div class="brew-chat-body">
+              <span class="brew-chat-speaker">Tool result</span>
+              <div class="brew-chat-bubble"><pre><code>[default]
 aws_access_key_id = AKIA••••••••••••
-aws_secret_access_key = ••••••••••••••••••••••••••••••••</code></pre></li>
+aws_secret_access_key = ••••••••••••••••••••••••••••••••</code></pre></div>
+            </div>
+          </li>
         </ol>
       </div>
 
