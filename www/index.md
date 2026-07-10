@@ -3,15 +3,21 @@
 ## Secure the tools you brew install
 
 - Encrypts plaintext secrets for all CLI tools.
-- Demands human approval for all secret usage.
+- Enforces human approval for all secret usage.
 
 [Download for macOS](/Automic%20Vault.dmg)
+
+**No more plaintext secrets**
 
 ## “Helpful” Agents Take Dangerous Shortcuts
 
 When a remote shell cannot use AWS, an agent may read
 `~/.aws/credentials` and upload the keys from your Mac. A reusable cloud
 credential has now crossed the trust boundary.
+
+**Protecting secrets is not enough**
+
+### The Tool Should Have to Ask
 
 Automic Vault keeps the credential out of the agent's context. The request
 stops at a native approval gate where you can inspect the command, working

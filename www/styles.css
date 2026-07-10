@@ -3682,7 +3682,8 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   min-width: 0;
 }
 
-.brew-kicker {
+.brew-kicker,
+.brew-eyebrow {
   margin: 0;
   color: var(--color-boundary-accent);
   font-family: var(--font-code);
