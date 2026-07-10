@@ -16,6 +16,7 @@
     "controlled_eyebrow": "Encrypting secrets is not enough",
     "controlled": "Automic Vault keeps the credential out of the agent's context and presents the command, working directory, and requested key for one-time approval or denial."
   },
+  "approval_controls_heading": "Granular access per tool consumer",
   "approval_controls": [
     {
       "scope": "default",

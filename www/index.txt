@@ -11,7 +11,7 @@ Automic Vault keeps the credential out of the agent's context. The request
 stops at a native approval gate where you can inspect the command, working
 directory, and requested key, then approve it once or deny it.
 
-Access is granted per tool:
+Granular access per tool consumer:
 - Every secret use is restricted by default.
 - Read-only queries can be auto-approved for one named tool.
 - Full access can be granted explicitly to one tool without granting access to
