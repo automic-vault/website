@@ -63,6 +63,14 @@ def write_package_database(root: pathlib.Path) -> pathlib.Path:
     return root
 
 
+def write_combined_packages(root: pathlib.Path) -> pathlib.Path:
+    combined = root / "combined"
+    combined.mkdir(parents=True)
+    (combined / "awscli.yml").write_text("name: awscli\n", encoding="utf-8")
+    (combined / "gh.yml").write_text("name: gh\n", encoding="utf-8")
+    return root
+
+
 class WebsiteInputsExportTests(unittest.TestCase):
     def test_website_inputs_export_product_owned_contract(self):
         module = load_module(WEBSITE_INPUTS_SCRIPT, "export_website_inputs_contract_test")
@@ -120,6 +128,16 @@ class WebsiteInputsExportTests(unittest.TestCase):
 
         self.assertEqual(payload["scannedPackageCount"], 2)
 
+    def test_website_inputs_falls_back_to_combined_packages(self):
+        module = load_module(WEBSITE_INPUTS_SCRIPT, "export_website_inputs_combined_test")
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = pathlib.Path(tmp)
+            product_repo = write_product_repo(tmp_path / "automic-vault")
+            av_db_root = write_combined_packages(tmp_path / "av.db")
+            payload = module.website_inputs(product_repo, av_db_root)
+
+        self.assertEqual(payload["scannedPackageCount"], 2)
+
     def test_product_version_reader_rejects_unexpected_versions(self):
         module = load_module(WEBSITE_INPUTS_SCRIPT, "export_website_inputs_version_test")
         with tempfile.TemporaryDirectory() as tmp:
@@ -139,6 +157,13 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                 missing.append(str(page.relative_to(ROOT)))
 
         self.assertEqual(missing, [])
+
+    def test_localized_static_pages_are_current(self):
+        subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "generate-www-i18n.py"), "--check"],
+            cwd=ROOT,
+            check=True,
+        )
 
 
 if __name__ == "__main__":

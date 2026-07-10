@@ -1427,14 +1427,40 @@ def patch_english_page(path: str, locales: list[Locale], check: bool, failures: 
     if block not in text:
         text = text.replace(canonical_match.group(0), canonical_match.group(0) + "\n" + block)
     language_block = language_links(route, Locale("en", "", "en", "en", "English", "English", ("en",), True), locales)
-    if "class=\"language-links\"" not in text:
-        text = text.replace("</body>", f"  {language_block}\n  <script src=\"/i18n.js\" defer></script>\n</body>")
+    if "class=\"language-links\"" not in text and "class=\"brew-languages\"" not in text:
+        text = text.replace("</body>", f"  {language_block}\n</body>")
+    if 'src="/i18n.js"' not in text:
+        text = text.replace("</body>", '  <script src="/i18n.js" defer></script>\n</body>')
     if check:
         current = file.read_text(encoding="utf-8")
         if current != text:
             failures.append(f"stale i18n head/body metadata: {file}")
     else:
         file.write_text(text, encoding="utf-8")
+
+
+def is_curated_home_page() -> bool:
+    source = SITE_DIR / "index.html"
+    return source.exists() and '<body class="brew-home">' in source.read_text(encoding="utf-8")
+
+
+def check_curated_home_page(output: Path, locale: Locale, locales: list[Locale], failures: list[str]) -> None:
+    if not output.exists():
+        failures.append(f"missing curated localized homepage: {output}")
+        return
+
+    text = output.read_text(encoding="utf-8")
+    required = [
+        f'<html lang="{locale.html_lang}">',
+        '<body class="brew-home">',
+        f'<link rel="canonical" href="{href("/", locale)}">',
+        'class="brew-languages"',
+        'src="/i18n.js"',
+    ]
+    required.extend(line.strip() for line in alternate_link_block("/", locales).splitlines())
+    missing = [snippet for snippet in required if snippet not in text]
+    if missing:
+        failures.append(f"stale curated localized homepage metadata: {output}")
 
 
 def sitemap_entry(loc: str, lastmod: str, path: str | None, locales: list[Locale]) -> str:
@@ -1485,6 +1511,7 @@ def generate(check: bool = False) -> int:
     locales = enabled_locales()
     locale_codes = {locale.code for locale in locales}
     records = translated_page_records()
+    curated_home = is_curated_home_page()
     failures: list[str] = []
     for record in records:
         missing = locale_codes - {"en"} - set(record.get("translations", {}).keys())
@@ -1494,6 +1521,9 @@ def generate(check: bool = False) -> int:
         patch_english_page(record["path"], locales, check, failures)
         for locale in non_default_locales():
             output = route_file(record["path"], locale)
+            if record["path"] == "/" and curated_home:
+                check_curated_home_page(output, locale, locales, failures)
+                continue
             expected = render_home_page(record, locale, locales) if record["path"] == "/" else render_page(record, locale, locales)
             if check:
                 if not output.exists() or output.read_text(encoding="utf-8") != expected:

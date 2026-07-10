@@ -91,7 +91,13 @@ def scanned_package_count(product_repo: Path, av_db_root: Path) -> int:
     if package_database.exists():
         return count_package_database_entries(package_database)
 
-    searched = ", ".join(str(path) for path in [*scan_log_paths, package_database])
+    combined_packages = list((av_db_root / "combined").glob("*.yml"))
+    if combined_packages:
+        return len(combined_packages)
+
+    searched = ", ".join(
+        str(path) for path in [*scan_log_paths, package_database, av_db_root / "combined"]
+    )
     raise SystemExit(f"Could not find scanned package source. Searched: {searched}")
 
 
@@ -100,7 +106,7 @@ def website_inputs(product_repo: Path | None = None, av_db_root: Path | None = N
     db_root = av_db_root or default_av_db_root()
     return {
         "schemaVersion": 1,
-        "generatedAt": dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "generatedAt": dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "productVersion": read_product_version(root / "Cargo.toml"),
         "scannedPackageCount": scanned_package_count(root, db_root),
     }

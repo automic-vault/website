@@ -249,6 +249,9 @@ make_temp_dir() {
 
 cleanup() {
   local path
+  if [[ -z "${temp_paths[*]-}" ]]; then
+    return
+  fi
   for path in "${temp_paths[@]}"; do
     if [[ -d "${path}" && ! -L "${path}" ]]; then
       rm -rf "${path}"
