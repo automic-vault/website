@@ -3913,16 +3913,12 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   display: block;
   width: 100%;
   height: auto;
-  border: var(--rule-hair) solid var(--color-boundary-rule-strong);
+  border: 0;
 }
 
 .brew-capture-gate {
   width: min(100%, 46rem);
   justify-self: end;
-}
-
-.brew-capture-gate img {
-  border: 0;
 }
 
 .brew-control-list {
