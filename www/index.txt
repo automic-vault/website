@@ -1,54 +1,29 @@
 Automic Vault
 
-Your tools have your authority. Make them ask.
+Secure the tool you brew install.
 
-Secrets for tools. Execution under control.
+- Encrypts plaintext secrets for all CLI tools.
+- Demands human approval for all secret usage.
 
-Automic Vault controls the last local hop between shells, scripts, agents, and
-the tools they use. It keeps long-lived credentials in Keychain, releases named
-values to an approved executable for one run, and asks you before a risky
-command executes.
+When a remote shell cannot use AWS, an agent may read
+~/.aws/credentials and upload the keys from your Mac. A reusable cloud
+credential has now crossed the trust boundary.
 
-The shortcut that leaks a secret:
-When a remote shell cannot use AWS, an agent may try to solve the problem by
-reading ~/.aws/credentials and uploading the keys from your Mac. At that
-moment, a reusable cloud credential has crossed the trust boundary.
+Automic Vault keeps the credential out of the agent's context. The request
+stops at a native approval gate where you can inspect the command, working
+directory, and requested key, then approve it once or deny it.
 
-Automic Vault keeps the credential out of the agent's context. The tool request
-stops at a native approval gate where you can inspect the executable, command,
-working directory, and requested key, then approve it once or deny it.
+Access is granted per tool:
+- Every secret use is restricted by default.
+- Read-only queries can be auto-approved for one named tool.
+- Full access can be granted explicitly to one tool without granting access to
+  any other executable.
 
-Execution boundary:
-1. A shell, script, or agent requests work.
-2. Automic Vault resolves the executable, arguments, working directory, and
-   requested secrets.
-3. The user approves the secret handoff or sensitive command.
-4. The local tool receives the secret for that execution and contacts the
-   external service itself.
+Every secret use is logged:
+Approved or denied, automatic or manual, each request records the decision,
+launcher, requested key, command, and working directory.
 
-Tool-scoped secrets:
-- av save stores a long-lived value in the Automic Vault Keychain.
-- av inject gives named values to one approved executable.
-- Native helpers such as AWS credential_process, Kubernetes ExecCredential,
-  and registry helpers avoid ambient shell exports.
-
-Execution management:
-- av contain gives an agent a synthetic toolchain.
-- Host tool requests return to Automic Vault with executable path, arguments,
-  current directory, parent process, and requested keys.
-- Sensitive commands can require human approval before they run.
-
-Commands:
-printf '%s\n' "$GITHUB_TOKEN" | av save GITHUB_TOKEN
-av inject +GITHUB_TOKEN /opt/homebrew/bin/gh repo view
-av contain codex
-
-Automic Vault uses the local facts available at execution time: binary, path,
-arguments, parent process, working directory, and tool-specific credential
-protocol. Central vaults can remain the source of truth while Automic Vault
-controls the last local credential handoff.
-
-Automic Vault is free Apache-2.0 open-source software for macOS.
+From the creator of Homebrew.
 
 Download: https://www.automicvault.com/Automic%20Vault.dmg
 Documentation: https://www.automicvault.com/docs/

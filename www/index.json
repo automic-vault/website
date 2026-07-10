@@ -1,50 +1,50 @@
 {
   "name": "Automic Vault",
-  "category": "Local secrets and execution management",
+  "category": "CLI secret protection and approval gates",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "Your tools have your authority. Make them ask.",
-  "description": "Automic Vault controls the local executable boundary between shells or agents and developer tools. It keeps credentials in Keychain, releases named values to approved executables for one run, and asks before risky commands execute.",
-  "positioning": "Automic Vault controls the last local hop between a shell, script, or agent and the developer tool that receives a credential and performs work.",
+  "title": "Secure the tool you brew install",
+  "description": "Automic Vault encrypts plaintext secrets for CLI tools, demands human approval for secret usage, grants access per tool, and logs every request.",
+  "promises": [
+    "Encrypts plaintext secrets for all CLI tools.",
+    "Demands human approval for all secret usage."
+  ],
   "risk_story": {
     "unsafe": "When a remote shell cannot use AWS, an agent may read ~/.aws/credentials and upload the keys from the user's Mac.",
     "failure": "A reusable cloud credential has crossed the trust boundary.",
-    "controlled": "Automic Vault keeps the credential out of the agent's context and presents the executable, command, working directory, and requested key for one-time approval or denial."
+    "controlled": "Automic Vault keeps the credential out of the agent's context and presents the command, working directory, and requested key for one-time approval or denial."
+  },
+  "approval_controls": [
+    {
+      "scope": "default",
+      "access": "restricted",
+      "description": "Every secret request requires approval."
+    },
+    {
+      "scope": "per tool",
+      "access": "read only",
+      "description": "Auto-approve safe queries for one named tool."
+    },
+    {
+      "scope": "per tool",
+      "access": "full",
+      "description": "Explicitly trust one tool without granting access to any other executable."
+    }
+  ],
+  "audit_log": {
+    "description": "Every approved or denied, automatic or manual secret request leaves a local record.",
+    "fields": [
+      "decision",
+      "launcher",
+      "requested key",
+      "command",
+      "working directory"
+    ]
   },
   "primary_action": {
     "label": "Download for macOS",
     "url": "https://www.automicvault.com/Automic%20Vault.dmg"
   },
-  "execution_boundary": [
-    "A shell, script, or agent requests work.",
-    "Automic Vault resolves the executable, arguments, working directory, and requested secrets.",
-    "The user approves the credential handoff or sensitive command.",
-    "The local tool receives the secret for that execution and contacts the external service."
-  ],
-  "capabilities": [
-    {
-      "name": "Tool-scoped secrets",
-      "description": "Store long-lived values in the Automic Vault Keychain and inject them only into approved local executables."
-    },
-    {
-      "name": "Execution management",
-      "description": "Mediate host tool requests from contained agents and review executable path, arguments, working directory, and requested keys."
-    },
-    {
-      "name": "Native credential helpers",
-      "description": "Use tool protocols such as AWS credential_process, Kubernetes ExecCredential, and registry helpers instead of ambient shell exports."
-    },
-    {
-      "name": "Plaintext detection",
-      "description": "Find credentials in local files that agents and other processes can read."
-    }
-  ],
-  "commands": [
-    "printf '%s\\n' \"$GITHUB_TOKEN\" | av save GITHUB_TOKEN",
-    "av inject +GITHUB_TOKEN /opt/homebrew/bin/gh repo view",
-    "av contain codex"
-  ],
-  "security_boundary": "The security model assumes macOS Keychain, System Integrity Protection, and the signed app remain trustworthy. Root compromise and malicious approved executables remain outside the boundary.",
   "founder": "Max Howell, creator of Homebrew",
   "url": "https://www.automicvault.com/",
   "source": "https://github.com/automic-vault/automic-vault",

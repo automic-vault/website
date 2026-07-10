@@ -11,18 +11,18 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | Secrets and Execution for Local Tools</title>
-  <meta name="description" content="Automic Vault controls the local executable boundary between shells or agents and developer tools. Release Keychain secrets for one run and approve risky commands before they execute.">
+  <title>Automic Vault | Secure Every Homebrew CLI Tool</title>
+  <meta name="description" content="Encrypt plaintext secrets for CLI tools, require human approval for secret usage, grant access per tool, and keep a local audit log.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Your tools have your authority. Make them ask.">
-  <meta property="og:description" content="Automic Vault releases Keychain secrets to approved local tools for one run and asks before risky commands execute.">
+  <meta property="og:title" content="Secure the tool you brew install">
+  <meta property="og:description" content="Encrypt CLI secrets, demand human approval, grant access per tool, and log every secret request.">
   <meta property="og:url" content="https://www.automicvault.com/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
-  <meta name="twitter:title" content="Your tools have your authority. Make them ask.">
-  <meta name="twitter:description" content="Automic Vault releases Keychain secrets to approved local tools for one run and asks before risky commands execute.">
+  <meta name="twitter:title" content="Secure the tool you brew install">
+  <meta name="twitter:description" content="Encrypt CLI secrets, demand human approval, grant access per tool, and log every secret request.">
   <link rel="canonical" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/">
@@ -87,12 +87,10 @@
         "license": "https://www.apache.org/licenses/LICENSE-2.0",
         "screenshot": "https://www.automicvault.com/preview.jpg",
         "featureList": [
-          "Keychain-backed storage for developer secrets",
-          "Approved secret injection into local executables",
-          "Human approval for sensitive tool execution",
-          "Contained AI agent tool execution",
-          "Plaintext developer secret detection",
-          "Encrypted dotenv workflows"
+          "Encrypted storage for plaintext CLI secrets",
+          "Human approval for secret usage",
+          "Per-tool read-only and full-access controls",
+          "Local audit log for approved and denied secret requests"
         ],
         "offers": {
           "@type": "Offer",
@@ -101,16 +99,16 @@
           "availability": "https://schema.org/InStock",
           "url": "https://www.automicvault.com/pricing/"
         },
-        "description": "Automic Vault controls the local execution path where developer tools receive secrets and perform sensitive work.",
+        "description": "Automic Vault encrypts CLI secrets, gates their use per tool, and records every request.",
         "publisher": {"@id": "https://www.automicvault.com/#organization"}
       },
       {
         "@type": "WebPage",
         "@id": "https://www.automicvault.com/#webpage",
         "url": "https://www.automicvault.com/",
-        "name": "Automic Vault | Secrets and Execution for Local Tools",
-        "headline": "Your tools have your authority. Make them ask.",
-        "description": "Automic Vault controls the local executable boundary where developer tools receive credentials and run sensitive commands.",
+        "name": "Automic Vault | Secure Every Homebrew CLI Tool",
+        "headline": "Secure the tool you brew install",
+        "description": "Automic Vault encrypts plaintext CLI secrets, gates their use per tool, and records every request.",
         "datePublished": "2026-05-15",
         "dateModified": "2026-07-10",
         "image": "https://www.automicvault.com/preview.jpg",
@@ -126,217 +124,124 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="./favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles.css?v=96">
+  <link rel="stylesheet" href="./styles.css?v=97">
 </head>
-<body class="boundary-home">
-  <div class="scroll-meter" aria-hidden="true"><span></span></div>
-  <header class="boundary-nav" id="top">
-    <a class="boundary-brand" href="#top" aria-label="Automic Vault home">
+<body class="brew-home">
+  <header class="brew-nav">
+    <a class="brew-brand" href="#top" aria-label="Automic Vault home">
       <img src="./assets/icon@2x.webp" alt="" width="54" height="54">
       <span>Automic Vault</span>
     </a>
-    <a class="boundary-nav-download" href="/Automic Vault.dmg">Download</a>
+    <nav class="brew-nav-links" aria-label="Primary navigation">
+      <a href="#controls">Controls</a>
+      <a href="#audit">Audit log</a>
+    </nav>
+    <a class="brew-download" href="/Automic Vault.dmg">Download</a>
   </header>
 
   <main>
-    <section class="boundary-hero" aria-labelledby="hero-title">
-      <div class="boundary-hero-copy">
-        <p class="boundary-orientation">Secrets for tools · execution under control</p>
-        <h1 id="hero-title">Your tools have your authority.<br><span>Make them ask.</span></h1>
-        <p class="boundary-lede">Automic Vault controls the last local hop between shells, agents, and the tools they use. It releases Keychain secrets to an approved executable for one run, and asks you before a risky command executes.</p>
+    <section class="brew-hero" id="top" aria-labelledby="hero-title">
+      <div class="brew-hero-title">
+        <p class="brew-kicker">Automic Vault for CLI tools</p>
+        <h1 id="hero-title">Secure the tool you <span>brew install</span></h1>
+        <a class="brew-cta" href="/Automic Vault.dmg">Download for macOS</a>
       </div>
-
-      <div class="execution-map" data-execution-map role="group" aria-label="A shell, script, or agent sends a request through Automic Vault to an approved local tool. The tool, not the requester, receives the secret before contacting an external service.">
-        <div class="map-column map-requesters">
-          <p class="map-column-label">Requester</p>
-          <div class="map-node"><code>$ shell</code><span>you type a command</span></div>
-          <div class="map-node"><code>./script</code><span>automation asks for keys</span></div>
-          <div class="map-node"><code>agent</code><span>local work needs a tool</span></div>
-        </div>
-
-        <div class="map-hop" aria-hidden="true"><span>request</span><b>→</b></div>
-
-        <div class="map-vault">
-          <div class="map-vault-head">
-            <img src="./assets/icon@2x.webp" alt="" width="42" height="42">
-            <div><strong>Automic Vault</strong><span>local execution boundary</span></div>
-          </div>
-          <div class="map-control">
-            <span class="map-signal map-signal-secret">Secret</span>
-            <div><strong>Keychain → named process</strong><p>The approved executable receives the value for this run.</p></div>
-          </div>
-          <div class="map-control">
-            <span class="map-signal map-signal-approval">Execution</span>
-            <div><strong>Path + args + cwd → approval</strong><p>You see the command and its authority before it runs.</p></div>
-          </div>
-        </div>
-
-        <div class="map-hop" aria-hidden="true"><span>execve</span><b>→</b></div>
-
-        <div class="map-column map-tools">
-          <p class="map-column-label">Approved tool</p>
-          <div class="map-tool-list" aria-label="Example approved tools">
-            <code>gh</code><code>aws</code><code>terraform</code><code>npm</code>
-          </div>
-          <p class="map-tool-note">Only the approved tool receives the secret.</p>
-          <div class="map-service"><span>External service</span><strong>GitHub · AWS · registries</strong></div>
-        </div>
-      </div>
-
-      <div class="boundary-hero-actions">
-        <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">Download for macOS</a>
-        <a class="boundary-button boundary-button-secondary" href="/docs/">Read docs</a>
-        <span>Free and open source · Apple Silicon · macOS 26</span>
-      </div>
+      <ul class="brew-promises">
+        <li><span>01</span><strong>Encrypts plaintext secrets for all CLI tools.</strong></li>
+        <li><span>02</span><strong>Demands human approval for all secret usage.</strong></li>
+      </ul>
     </section>
 
-    <section class="boundary-crux" aria-labelledby="crux-title">
-      <div class="boundary-crux-intro">
-        <div class="boundary-section-copy">
-          <h2 id="crux-title">“Helpful” agents take dangerous shortcuts.</h2>
+    <section class="brew-risk" aria-labelledby="risk-title">
+      <div class="brew-split">
+        <div class="brew-copy">
+          <h2 id="risk-title">“Helpful” agents take dangerous shortcuts.</h2>
           <p>When a remote shell cannot use AWS, an agent may reach for the credentials on your Mac.</p>
         </div>
-
-        <ol class="agent-session" aria-label="Example Claude session that reads and uploads local AWS credentials">
-          <li class="session-message session-agent">
-            <span class="session-speaker">Claude</span>
-            <p>Hmm… the remote server doesn’t have AWS access.</p>
-          </li>
-          <li class="session-message session-agent">
-            <span class="session-speaker">Claude</span>
-            <p>No problem — I’ll upload the keys from here.</p>
-          </li>
-          <li class="session-message session-tool">
-            <span class="session-speaker">Tool</span>
-            <code>Read(~/.aws/credentials)</code>
-          </li>
-          <li class="session-message session-output" aria-label="Credential file contents returned to the agent">
-            <span class="session-speaker">Result</span>
-            <pre><code>[default]
+        <ol class="brew-session" aria-label="Example Claude session that reads and uploads local AWS credentials">
+          <li><span>Claude</span><p>Hmm… the remote server doesn’t have AWS access.</p></li>
+          <li><span>Claude</span><p>No problem — I’ll upload the keys from here.</p></li>
+          <li><span>Tool</span><code>Read(~/.aws/credentials)</code></li>
+          <li><span>Result</span><pre><code>[default]
 aws_access_key_id = AKIA••••••••••••
-aws_secret_access_key = ••••••••••••••••••••••••••••••••</code></pre>
-          </li>
+aws_secret_access_key = ••••••••••••••••••••••••••••••••</code></pre></li>
         </ol>
       </div>
 
-      <div class="exfiltration-alert">
+      <div class="brew-alert">
         <strong>SECRET EXFILTRATED</strong>
         <span>A reusable cloud credential just crossed the trust boundary.</span>
       </div>
 
-      <div class="approval-proof">
-        <div class="boundary-section-copy">
+      <div class="brew-split brew-proof">
+        <div class="brew-copy">
           <h2>The tool should have to ask.</h2>
-          <p>Automic Vault keeps the credential out of the agent’s context. The tool request stops at a native approval gate where you can inspect the command and allow it once—or deny it.</p>
+          <p>Automic Vault keeps the credential out of the agent’s context. The request stops at a native approval gate where you can inspect the command and approve it once—or deny it.</p>
         </div>
-        <figure class="approval-capture">
-          <img src="./assets/av-approve-gate.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" loading="lazy">
-          <figcaption>Executable, command, working directory, and requested key—visible before anything runs.</figcaption>
+        <figure class="brew-capture brew-capture-gate">
+          <img src="./assets/av-approve-gate.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" loading="lazy" decoding="async">
+          <figcaption>Command, working directory, and requested key—visible before anything runs.</figcaption>
         </figure>
       </div>
     </section>
 
-    <section class="boundary-problem" id="detect" aria-labelledby="problem-title">
-      <div class="boundary-section-copy">
-        <h2 id="problem-title">A readable credential lets another local process act as you.</h2>
-        <p>Cloud CLIs, source-control clients, deployment scripts, and release tools can read private data or change remote systems. Their credentials often sit in files that every local process can read.</p>
-      </div>
-      <dl class="authority-ledger">
-        <div><dt><code>~/.aws/credentials</code></dt><dd>Cloud account access in a readable dotfile</dd></div>
-        <div><dt><code>gh auth token</code></dt><dd>A bearer token printed to the requesting process</dd></div>
-        <div><dt><code>npm publish</code></dt><dd>A local command with release authority</dd></div>
-        <div><dt><code>terraform apply</code></dt><dd>Infrastructure mutation from the current shell</dd></div>
-      </dl>
-    </section>
-
-    <section class="boundary-feature boundary-feature-secrets" id="harden" aria-labelledby="secrets-title">
-      <span class="anchor-alias" id="dotenv" aria-hidden="true"></span>
-      <div class="boundary-section-copy">
-        <h2 id="secrets-title">The secret belongs to the tool invocation.</h2>
-        <p>Store long-lived values in the Automic Vault Keychain. Name the executable that may receive them. Automic Vault loads each value after approval and places it in that child process.</p>
-      </div>
-      <div class="boundary-detail-list">
-        <p><strong>Values stay out of prompts and project files.</strong><span>Agents can request work without reading the raw credential.</span></p>
-        <p><strong>Native helpers narrow the handoff.</strong><span>AWS <code>credential_process</code>, Kubernetes <code>ExecCredential</code>, registry helpers, and other tool protocols avoid ambient shell exports.</span></p>
-      </div>
-    </section>
-
-    <section class="boundary-feature boundary-feature-execution" id="immutable" aria-labelledby="execution-title">
-      <div class="boundary-section-copy">
-        <h2 id="execution-title">Control the command at execution time.</h2>
-        <p><code>av contain</code> gives an agent a synthetic toolchain. Host tool requests return to Automic Vault with the executable path, arguments, working directory, and requested secrets.</p>
-      </div>
-      <div class="approval-readout" aria-label="Example approval request">
-        <div><span>Executable</span><code>/opt/homebrew/bin/gh</code></div>
-        <div><span>Arguments</span><code>release create v2.4.0</code></div>
-        <div><span>Secret</span><code>GITHUB_TOKEN</code></div>
-        <div><span>Decision</span><strong>Human approval required</strong></div>
-      </div>
-    </section>
-
-    <section class="boundary-layer" id="monitor" aria-labelledby="layer-title">
-      <div class="boundary-section-copy">
-        <h2 id="layer-title">Security at the executable layer.</h2>
-        <p>Automic Vault uses the facts your Mac has at execution time: the binary on disk, its path, arguments, parent process, working directory, and tool-specific credential protocol.</p>
-      </div>
-      <p class="layer-note">Central vaults can remain your source of truth. Automic Vault controls the last local hop where a developer tool receives a credential and acts with it.</p>
-    </section>
-
-    <section class="boundary-terminal" aria-labelledby="terminal-title">
-      <div class="boundary-section-copy">
-        <h2 id="terminal-title">Three commands establish the boundary.</h2>
-      </div>
-      <figure class="command-proof">
-        <figcaption>Save · inject · contain</figcaption>
-        <pre><code><span class="command-muted"># move a long-lived value out of shell startup files</span>
-$ printf '%s\n' "$GITHUB_TOKEN" | av save GITHUB_TOKEN
-saved GITHUB_TOKEN in Automic Vault Keychain
-
-<span class="command-muted"># give one approved executable the named value</span>
-$ av inject +GITHUB_TOKEN /opt/homebrew/bin/gh repo view
-approval required: gh repo view
-approved · executing /opt/homebrew/bin/gh
-
-<span class="command-muted"># mediate the host tools an agent invokes</span>
-$ av contain codex
-contained toolchain ready · host execution requires approval</code></pre>
+    <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
+      <figure class="brew-capture">
+        <img src="./assets/approval-read-only.webp" alt="Automic Vault Hardened Tools screen for gh with Allow Read-Only gh Requests enabled" width="1944" height="1380" loading="lazy" decoding="async">
+        <figcaption>Read-only auto-approval is configured for this tool alone.</figcaption>
       </figure>
+      <div class="brew-copy">
+        <h2 id="controls-title">Access is granted per tool.</h2>
+        <p>Every secret use is restricted by default. Relax the gate only for the executable you name.</p>
+        <dl class="brew-control-list">
+          <div><dt>Read only</dt><dd>Auto-approve safe queries for one named tool.</dd></div>
+          <div><dt>Full access</dt><dd>Explicitly trust one tool without granting access to any other executable.</dd></div>
+        </dl>
+      </div>
     </section>
 
-    <section class="boundary-trust" aria-labelledby="trust-title">
-      <div class="boundary-section-copy">
-        <h2 id="trust-title">A local boundary you can inspect.</h2>
-        <p>Automic Vault is Apache-2.0 open-source software. Its security model assumes macOS Keychain, System Integrity Protection, and the signed app remain trustworthy. Root compromise and a malicious approved executable remain outside that boundary.</p>
+    <section class="brew-feature" id="audit" aria-labelledby="audit-title">
+      <div class="brew-copy">
+        <h2 id="audit-title">Every secret use is logged.</h2>
+        <p>Approved or denied, automatic or manual: every request leaves a local record with the launcher, key, command, working directory, and decision.</p>
+        <ul class="brew-log-fields" aria-label="Recorded details">
+          <li>Decision</li>
+          <li>Launcher</li>
+          <li>Requested key</li>
+          <li>Working directory</li>
+        </ul>
       </div>
-      <div class="trust-links">
-        <a href="/security/">Read the security model</a>
-        <a href="https://github.com/automic-vault/automic-vault">Review the source</a>
-      </div>
-      <p class="founder-note"><strong>Built by Max Howell.</strong> Homebrew made developer tools easy to install. Automic Vault applies that local-infrastructure experience to the authority those tools use when they run.</p>
-    </section>
-
-    <section class="boundary-cta" id="free-open-source" aria-labelledby="cta-title">
-      <h2 id="cta-title">Put a boundary around your tools.</h2>
-      <p>Move one secret into Keychain, then run the tool through Automic Vault.</p>
-      <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">Download for macOS</a>
+      <figure class="brew-capture">
+        <img src="./assets/secret-use-log.webp" alt="Automic Vault secret request history showing denied manual and approved automatic gh requests with launcher, key, and working directory details" width="1944" height="1380" loading="lazy" decoding="async">
+        <figcaption>Denied and approved requests share the same audit trail.</figcaption>
+      </figure>
     </section>
   </main>
 
-  <footer class="boundary-footer">
-    <div class="boundary-footer-brand">
-      <div><img src="./assets/icon@2x.webp" alt="" width="54" height="54"><strong>Automic Vault</strong></div>
-      <p>Secrets and execution controls for the tools on your Mac.</p>
+  <footer class="brew-footer">
+    <p class="brew-footer-statement">From the creator of Homebrew.</p>
+    <a class="brew-cta" href="/Automic Vault.dmg">Download for macOS</a>
+    <div class="brew-footer-meta">
+      <a class="brew-brand" href="#top">
+        <img src="./assets/icon@2x.webp" alt="" width="54" height="54">
+        <span>Automic Vault</span>
+      </a>
+      <nav aria-label="Footer navigation">
+        <a href="/docs/">Docs</a>
+        <a href="/security/">Security</a>
+        <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      </nav>
+      <span>© 2026 · Apache-2.0</span>
     </div>
-    <nav aria-label="Footer navigation">
-      <a href="/docs/">Docs</a>
-      <a href="/security/">Security</a>
-      <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+    <nav class="brew-languages" aria-label="Language versions">
+      <a href="/" lang="en">English</a>
+      <a href="/ja/" lang="ja">日本語</a>
+      <a href="/de/" lang="de">Deutsch</a>
+      <a href="/fr/" lang="fr">Français</a>
+      <a href="/zh-hans/" lang="zh-Hans">简体中文</a>
     </nav>
-    <p class="boundary-footer-meta">© 2026 Automic Vault · Apache License 2.0</p>
   </footer>
 
-  <script src="./app.js?v=24"></script>
-  <nav class="language-links" aria-label="Language versions"><a href="/" lang="en">English</a> <a href="/ja/" lang="ja">日本語</a> <a href="/de/" lang="de">Deutsch</a> <a href="/fr/" lang="fr">Français</a> <a href="/zh-hans/" lang="zh-Hans">简体中文</a></nav>
   <script src="/i18n.js" defer></script>
 </body>
 </html>

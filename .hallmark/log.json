@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-07-10",
+    "macrostructure": "Split Studio",
+    "theme": "Cobalt-dark",
+    "theme_axes": "dark / grotesk-sans / cool-with-warm-signal",
+    "enrichment": "real product captures",
+    "nav": "N5",
+    "footer": "Ft5",
+    "brief": "Stripped CLI secret protection homepage with per-tool controls and audit log"
+  },
+  {
     "date": "2026-07-09",
     "macrostructure": "Map / Diagram",
     "theme": "Cobalt-dark",
