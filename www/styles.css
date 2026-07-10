@@ -3,7 +3,7 @@
  * Hallmark · Split Studio knobs: hero=claim+promises · modules=alternating proof · divider=negative-space
  * Hallmark · contrast: pass (40–41) · slop: pass (42–45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive/mobile: pass (34, 49–57) · icons: pass (30)
  */
-@import url("./tokens.css?v=2");
+@import url("./tokens.css?v=101");
 
 :root {
   --bg-outer: oklch(8% 0.006 255);
