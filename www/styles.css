@@ -3748,6 +3748,7 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
 
 .brew-risk,
 .brew-feature,
+.brew-pricing,
 .brew-footer {
   min-width: 0;
   padding: clamp(var(--space-3xl), 12vw, var(--space-4xl)) clamp(var(--space-md), 6vw, var(--space-3xl));
@@ -3976,6 +3977,38 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   color: var(--color-boundary-ink);
 }
 
+.brew-pricing {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(18rem, 0.72fr);
+  align-items: end;
+  gap: clamp(var(--space-xl), 7vw, var(--space-4xl));
+  border-block-start: var(--rule-hair) solid var(--color-boundary-accent);
+  background: var(--color-boundary-surface-2);
+  color: var(--color-boundary-ink);
+}
+
+.brew-pricing h2 {
+  min-width: 0;
+  max-width: 12ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-s);
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  overflow-wrap: anywhere;
+}
+
+.brew-pricing p {
+  max-width: 45ch;
+  margin: 0;
+  color: var(--color-boundary-body);
+  font-size: var(--text-md);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
 .brew-capture {
   display: grid;
   gap: var(--space-sm);
@@ -4132,7 +4165,8 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   .brew-hero,
   .brew-split,
   .brew-feature,
-  .brew-feature-reverse {
+  .brew-feature-reverse,
+  .brew-pricing {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -4179,6 +4213,7 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
 
   .brew-risk,
   .brew-feature,
+  .brew-pricing,
   .brew-footer {
     padding-inline: var(--space-md);
   }
