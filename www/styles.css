@@ -3975,6 +3975,10 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   border-block-end: var(--rule-hair) solid var(--color-boundary-rule-strong);
 }
 
+.brew-after .brew-session > :nth-child(-n + 3) {
+  opacity: 0.4;
+}
+
 .brew-proof {
   align-items: center;
 }
