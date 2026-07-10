@@ -3,7 +3,7 @@
   "category": "CLI secret protection and approval gates",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "Secure the tool you brew install",
+  "title": "Secure the tools you brew install",
   "description": "Automic Vault encrypts plaintext secrets for CLI tools, demands human approval for secret usage, grants access per tool, and logs every request.",
   "promises": [
     "Encrypts plaintext secrets for all CLI tools.",

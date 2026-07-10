@@ -1,6 +1,6 @@
 Automic Vault
 
-Secure the tool you brew install.
+Secure the tools you brew install.
 
 - Encrypts plaintext secrets for all CLI tools.
 - Demands human approval for all secret usage.
