@@ -21,10 +21,11 @@ directory, and requested key, then approve it once or deny it.
 
 ## Granular Access per Tool Consumer
 
-Every secret use is restricted by default. Read-only `gh` queries can be
-auto-approved without write access. Full `gh` access can be always approved
-for one named calling app—Terminal.app in this example—without opening it to
-any other consumer.
+Every secret use is restricted by default. Relax the gate only for the
+code-signed executable you name. Read-only `gh` approval is opt-in on a per
+secret handling tool basis. Full `gh` access can be always approved for one
+named calling app—Terminal.app in this example—without opening it to any other
+consumer.
 
 ## Every Secret Use Is Logged
 

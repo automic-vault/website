@@ -192,7 +192,7 @@ aws_secret_access_key = ••••••••••••••••••�
       <div class="brew-capture-stack">
         <figure class="brew-capture">
           <img src="./assets/approval-read-only.webp" alt="Automic Vault Hardened Tools screen for gh with Allow Read-Only gh Requests enabled" width="1944" height="1380" loading="lazy" decoding="async">
-          <figcaption>Read-only auto-approval is configured for gh.</figcaption>
+          <figcaption>Opt-in read-only approval on a per secret handling tool basis.</figcaption>
         </figure>
         <figure class="brew-capture">
           <img src="./assets/approval-terminal-only.webp" alt="Automic Vault Secret Gate for gh allowing direct GitHub token access only when Terminal.app is the calling app" width="1952" height="1338" loading="lazy" decoding="async">
@@ -201,7 +201,7 @@ aws_secret_access_key = ••••••••••••••••••�
       </div>
       <div class="brew-copy">
         <h2 id="controls-title">Granular access per tool consumer</h2>
-        <p>Every secret use is restricted by default. Relax the gate only for the tool and calling app you name.</p>
+        <p>Every secret use is restricted by default. Relax the gate only for the code-signed executable you name.</p>
         <dl class="brew-control-list">
           <div><dt>Read only</dt><dd>Auto-approve safe <code>gh</code> queries without granting write access.</dd></div>
           <div><dt>Full access</dt><dd>Always approve direct <code>gh</code> access only for a named calling app, such as Terminal.app.</dd></div>

@@ -21,12 +21,12 @@
     {
       "scope": "default",
       "access": "restricted",
-      "description": "Every secret request requires approval."
+      "description": "Every secret request is restricted by default. Relax the gate only for the named code-signed executable."
     },
     {
       "scope": "per tool",
       "access": "read only",
-      "description": "Auto-approve safe gh queries without granting write access."
+      "description": "Opt-in read-only approval on a per secret handling tool basis."
     },
     {
       "scope": "per tool consumer",
