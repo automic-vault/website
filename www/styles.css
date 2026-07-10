@@ -3835,6 +3835,25 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
   color: var(--color-boundary-accent-ink);
 }
 
+.brew-chat-message:is(.brew-chat-message-tool, .brew-chat-message-result) {
+  grid-template-columns: 0.625rem minmax(0, 1fr);
+}
+
+.brew-chat-message:is(.brew-chat-message-tool, .brew-chat-message-result) .brew-chat-avatar {
+  width: 0.625rem;
+  height: 1.5rem;
+  border: 0;
+  background: transparent;
+  color: var(--color-boundary-dim);
+  font-size: 0;
+}
+
+.brew-chat-message:is(.brew-chat-message-tool, .brew-chat-message-result) .brew-chat-avatar::before {
+  content: "•";
+  font-size: var(--text-sm);
+  line-height: 1;
+}
+
 .brew-chat-body {
   display: grid;
   gap: var(--space-xs);
