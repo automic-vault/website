@@ -125,11 +125,7 @@ aws_secret_access_key = ••••••••••••••••••�
           <strong>シークレット流出</strong>
           <span>再利用可能なクラウド認証情報が信頼境界を越えました。</span>
         </div>
-        <section class="brew-split brew-after" aria-labelledby="after-title">
-          <div class="brew-copy">
-            <p class="brew-eyebrow">Automic Vault 導入後</p>
-            <h2 id="after-title">平文シークレットを検出・暗号化し、承認で保護。</h2>
-          </div>
+        <section class="brew-split brew-after" aria-label="Automic Vault 導入後">
           <ol class="brew-session" aria-label="ローカルの AWS 認証情報ファイルが見つからず、人の承認で停止する Claude セッション">
             <li class="brew-chat-message brew-chat-message-agent">
               <span class="brew-chat-avatar" aria-hidden="true">C</span>
@@ -152,6 +148,7 @@ aws_secret_access_key = ••••••••••••••••••�
                 <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
               </div>
             </li>
+            <li class="brew-chat-divider"><span>Automic Vault が平文シークレットを排除</span></li>
             <li class="brew-chat-message brew-chat-message-result">
               <span class="brew-chat-avatar" aria-hidden="true">R</span>
               <div class="brew-chat-body">
@@ -173,6 +170,7 @@ aws_secret_access_key = ••••••••••••••••••�
                 <div class="brew-chat-bubble"><code>aws config export-credentials</code></div>
               </div>
             </li>
+            <li class="brew-chat-divider"><span>Automic Vault がシークレット流出経路へのアクセスを制御</span></li>
             <li class="brew-chat-message brew-chat-message-approval">
               <span class="brew-chat-avatar" aria-hidden="true">!</span>
               <div class="brew-chat-body">

@@ -125,11 +125,7 @@ aws_secret_access_key = ••••••••••••••••••�
           <strong>密钥已外泄</strong>
           <span>一个可重复使用的云凭据刚刚越过了信任边界。</span>
         </div>
-        <section class="brew-split brew-after" aria-labelledby="after-title">
-          <div class="brew-copy">
-            <p class="brew-eyebrow">使用 Automic Vault 之后</p>
-            <h2 id="after-title">明文密钥：已检测、已加密、需审批。</h2>
-          </div>
+        <section class="brew-split brew-after" aria-label="使用 Automic Vault 之后">
           <ol class="brew-session" aria-label="本地 AWS 凭据文件缺失后因人工审批而停止的 Claude 会话">
             <li class="brew-chat-message brew-chat-message-agent">
               <span class="brew-chat-avatar" aria-hidden="true">C</span>
@@ -152,6 +148,7 @@ aws_secret_access_key = ••••••••••••••••••�
                 <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
               </div>
             </li>
+            <li class="brew-chat-divider"><span>Automic Vault 移除明文密钥</span></li>
             <li class="brew-chat-message brew-chat-message-result">
               <span class="brew-chat-avatar" aria-hidden="true">R</span>
               <div class="brew-chat-body">
@@ -173,6 +170,7 @@ aws_secret_access_key = ••••••••••••••••••�
                 <div class="brew-chat-bubble"><code>aws config export-credentials</code></div>
               </div>
             </li>
+            <li class="brew-chat-divider"><span>Automic Vault 限制对密钥外泄路径的访问</span></li>
             <li class="brew-chat-message brew-chat-message-approval">
               <span class="brew-chat-avatar" aria-hidden="true">!</span>
               <div class="brew-chat-body">

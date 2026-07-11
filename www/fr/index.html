@@ -125,11 +125,7 @@ aws_secret_access_key = ••••••••••••••••••�
           <strong>SECRET EXFILTRÉ</strong>
           <span>Un identifiant cloud réutilisable vient de franchir la frontière de confiance.</span>
         </div>
-        <section class="brew-split brew-after" aria-labelledby="after-title">
-          <div class="brew-copy">
-            <p class="brew-eyebrow">Après Automic Vault</p>
-            <h2 id="after-title">Secrets en clair : détectés, chiffrés et soumis à validation.</h2>
-          </div>
+        <section class="brew-split brew-after" aria-label="Après Automic Vault">
           <ol class="brew-session" aria-label="Session Claude arrêtée pour validation humaine après l’absence du fichier d’identifiants AWS local">
             <li class="brew-chat-message brew-chat-message-agent">
               <span class="brew-chat-avatar" aria-hidden="true">C</span>
@@ -152,6 +148,7 @@ aws_secret_access_key = ••••••••••••••••••�
                 <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
               </div>
             </li>
+            <li class="brew-chat-divider"><span>Automic Vault élimine les secrets en clair</span></li>
             <li class="brew-chat-message brew-chat-message-result">
               <span class="brew-chat-avatar" aria-hidden="true">R</span>
               <div class="brew-chat-body">
@@ -173,6 +170,7 @@ aws_secret_access_key = ••••••••••••••••••�
                 <div class="brew-chat-bubble"><code>aws config export-credentials</code></div>
               </div>
             </li>
+            <li class="brew-chat-divider"><span>Automic Vault contrôle l’accès aux voies d’exfiltration des secrets</span></li>
             <li class="brew-chat-message brew-chat-message-approval">
               <span class="brew-chat-avatar" aria-hidden="true">!</span>
               <div class="brew-chat-body">

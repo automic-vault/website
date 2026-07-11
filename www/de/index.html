@@ -125,11 +125,7 @@ aws_secret_access_key = ••••••••••••••••••�
           <strong>SECRET EXFILTRIERT</strong>
           <span>Ein wiederverwendbares Cloud-Credential hat gerade die Vertrauensgrenze überschritten.</span>
         </div>
-        <section class="brew-split brew-after" aria-labelledby="after-title">
-          <div class="brew-copy">
-            <p class="brew-eyebrow">Nach Automic Vault</p>
-            <h2 id="after-title">Klartext-Secrets: erkannt, verschlüsselt und freigabepflichtig.</h2>
-          </div>
+        <section class="brew-split brew-after" aria-label="Nach Automic Vault">
           <ol class="brew-session" aria-label="Claude-Sitzung, die nach einer fehlenden lokalen AWS-Credential-Datei zur menschlichen Freigabe anhält">
             <li class="brew-chat-message brew-chat-message-agent">
               <span class="brew-chat-avatar" aria-hidden="true">C</span>
@@ -152,6 +148,7 @@ aws_secret_access_key = ••••••••••••••••••�
                 <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
               </div>
             </li>
+            <li class="brew-chat-divider"><span>Automic Vault entfernt Klartext-Secrets</span></li>
             <li class="brew-chat-message brew-chat-message-result">
               <span class="brew-chat-avatar" aria-hidden="true">R</span>
               <div class="brew-chat-body">
@@ -173,6 +170,7 @@ aws_secret_access_key = ••••••••••••••••••�
                 <div class="brew-chat-bubble"><code>aws config export-credentials</code></div>
               </div>
             </li>
+            <li class="brew-chat-divider"><span>Automic Vault sperrt Zugriffswege für die Exfiltration von Secrets</span></li>
             <li class="brew-chat-message brew-chat-message-approval">
               <span class="brew-chat-avatar" aria-hidden="true">!</span>
               <div class="brew-chat-body">

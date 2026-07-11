@@ -200,11 +200,7 @@ aws_secret_access_key = ••••••••••••••••••�
           <strong>SECRET EXFILTRATED</strong>
           <span>A reusable cloud credential just crossed the trust boundary.</span>
         </div>
-        <section class="brew-split brew-after" aria-labelledby="after-title">
-          <div class="brew-copy">
-            <p class="brew-eyebrow">After Automic Vault</p>
-            <h2 id="after-title">Plaintext secrets: detected, encrypted and gated.</h2>
-          </div>
+        <section class="brew-split brew-after" aria-label="After Automic Vault">
           <ol class="brew-session" aria-label="Example Claude session stopped for human approval after the local AWS credentials file is missing">
             <li class="brew-chat-message brew-chat-message-agent">
               <span class="brew-chat-avatar" aria-hidden="true">C</span>
@@ -227,6 +223,7 @@ aws_secret_access_key = ••••••••••••••••••�
                 <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
               </div>
             </li>
+            <li class="brew-chat-divider"><span>Automic Vault removes plaintext secrets</span></li>
             <li class="brew-chat-message brew-chat-message-result">
               <span class="brew-chat-avatar" aria-hidden="true">R</span>
               <div class="brew-chat-body">
@@ -248,6 +245,7 @@ aws_secret_access_key = ••••••••••••••••••�
                 <div class="brew-chat-bubble"><code>aws config export-credentials</code></div>
               </div>
             </li>
+            <li class="brew-chat-divider"><span>Automic Vault gates access to secret exfiltration routes</span></li>
             <li class="brew-chat-message brew-chat-message-approval">
               <span class="brew-chat-avatar" aria-hidden="true">!</span>
               <div class="brew-chat-body">
