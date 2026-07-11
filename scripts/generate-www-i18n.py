@@ -1040,21 +1040,21 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
 </head>
 <body>
   <div class="scroll-meter" aria-hidden="true"><span></span></div>
-  <header class="masthead" id="top">
-    <a class="brand" href="{locale_path('/', locale)}" aria-label="{html.escape(ui["brandHomeAria"], quote=True)}">
-      <img class="brand-mark" src="/assets/icon@2x.webp" alt="Automic Vault" width="54" height="54">
-      <span class="brand-type">Automic Vault</span>
-    </a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-label="{html.escape(ui["toggleNavigationAria"], quote=True)}"><span></span><span></span></button>
-    <nav class="nav" aria-label="{html.escape(ui["mainNavigationAria"], quote=True)}">
-      <a href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
-      <a href="/blog/">Blog</a>
-      <a href="{locale_path('/about/', locale)}">{html.escape(ui["about"])}</a>
-      <a href="https://github.com/automic-vault/">GitHub</a>
-    </nav>
-  </header>
+  <div class="seo-shell">
+    <header class="seo-masthead" id="top">
+      <a class="brand" href="{locale_path('/', locale)}" aria-label="{html.escape(ui["brandHomeAria"], quote=True)}">
+        <img class="brand-mark" src="/assets/icon@2x.webp" alt="Automic Vault icon" width="54" height="54">
+        <img class="brand-wordmark" src="/assets/wordmark.webp" alt="Automic Vault" width="996" height="257">
+      </a>
+      <nav class="seo-nav" aria-label="{html.escape(ui["mainNavigationAria"], quote=True)}">
+        <a href="/Automic Vault.dmg">{html.escape(ui["download"])}</a>
+        <a href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
+        <a href="/blog/">Blog</a>
+        <a href="{locale_path('/about/', locale)}">{html.escape(ui["about"])}</a>
+        <a href="https://github.com/automic-vault/">GitHub</a>
+      </nav>
+    </header>
 
-  <div class="site-shell">
     <main class="landing-main landing-page-main">
       <section class="poster-hero landing-page-hero" aria-labelledby="hero-title">
         <div class="poster-hero-copy">
@@ -1083,18 +1083,12 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="footer-brand">
-        <img src="/assets/icon@2x.webp" alt="" width="54" height="54" loading="lazy" decoding="async">
-        <p>&copy; 2026 Automic Vault.</p>
-      </div>
-      <div class="footer-state" aria-label="Automic Vault local boundary">
-        <span><strong>Hazards</strong> detected</span>
-        <span><strong>Secrets</strong> Keychain-backed</span>
-        <span><strong>Approvals</strong> Touch ID ready</span>
-      </div>
+    <footer class="seo-footer">
+      <p>&copy; 2026 Automic Vault.</p>
       <nav class="footer-links" aria-label="Footer navigation">
+        <a href="{locale_path('/', locale)}">{html.escape(ui["website"])}</a>
         <a href="{locale_path('/about/', locale)}">{html.escape(ui["about"])}</a>
+        <a href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
         <a href="/blog/">Blog</a>
         <a href="{locale_path('/privacy/', locale)}">{html.escape(ui["privacy"])}</a>
         <a href="{locale_path('/terms/', locale)}">{html.escape(ui["terms"])}</a>
@@ -1103,7 +1097,6 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
     </footer>
   </div>
 
-  <script src="{root}app.js?v=21"></script>
   {language_nav}
   <script src="{root}i18n.js" defer></script>
 </body>

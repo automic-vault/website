@@ -212,6 +212,23 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             check=True,
         )
 
+    def test_content_pages_share_current_chrome_and_styles(self):
+        pages = []
+        for route in ("about", "privacy", "terms"):
+            pages.append(ROOT / "www" / route / "index.html")
+            pages.extend(
+                ROOT / "www" / locale / route / "index.html"
+                for locale in ("de", "fr", "ja", "zh-hans")
+            )
+
+        for page in pages:
+            text = page.read_text(encoding="utf-8")
+            with self.subTest(page=page.relative_to(ROOT)):
+                self.assertIn('class="seo-masthead"', text)
+                self.assertIn('class="seo-footer"', text)
+                self.assertIn("styles.css?v=106", text)
+                self.assertIn("landing-pages.css?v=2", text)
+
     def test_local_html_references_resolve(self):
         site = ROOT / "www"
         missing = []
