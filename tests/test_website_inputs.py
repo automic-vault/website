@@ -1,16 +1,29 @@
 import importlib.util
+import html.parser
 import json
 import pathlib
 import subprocess
 import sys
 import tempfile
 import unittest
+import urllib.parse
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 WEBSITE_INPUTS_SCRIPT = ROOT / "scripts" / "export-website-inputs.py"
 GA_SCRIPT = "https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"
 GA_CONFIG = "gtag('config', 'G-Y78QKG1T9Y')"
+
+
+class LocalReferenceParser(html.parser.HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.references = []
+
+    def handle_starttag(self, _tag, attrs):
+        for name, value in attrs:
+            if name in {"href", "src"} and value:
+                self.references.append(value)
 
 
 def load_module(path, name):
@@ -55,6 +68,30 @@ def write_package_database(root: pathlib.Path) -> pathlib.Path:
                     "awscli": {},
                     "gh": {},
                     "ripgrep": {},
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    return root
+
+
+def write_current_package_database(root: pathlib.Path) -> pathlib.Path:
+    root.mkdir(parents=True)
+    (root / "db.json").write_text(
+        json.dumps(
+            {
+                "schema": 1,
+                "sources": {
+                    "db": {
+                        "schema": 1,
+                        "entries": {
+                            "awscli": {},
+                            "gh": {},
+                            "ripgrep": {},
+                            "uv": {},
+                        },
+                    }
                 },
             }
         ),
@@ -118,6 +155,16 @@ class WebsiteInputsExportTests(unittest.TestCase):
 
         self.assertEqual(payload["scannedPackageCount"], 3)
 
+    def test_website_inputs_supports_current_package_database(self):
+        module = load_module(WEBSITE_INPUTS_SCRIPT, "export_website_inputs_current_db_test")
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = pathlib.Path(tmp)
+            product_repo = write_product_repo(tmp_path / "av2")
+            av_db_root = write_current_package_database(tmp_path / "run")
+            payload = module.website_inputs(product_repo, av_db_root)
+
+        self.assertEqual(payload["scannedPackageCount"], 4)
+
     def test_legacy_product_scan_log_still_works(self):
         module = load_module(WEBSITE_INPUTS_SCRIPT, "export_website_inputs_legacy_test")
         with tempfile.TemporaryDirectory() as tmp:
@@ -164,6 +211,38 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             cwd=ROOT,
             check=True,
         )
+
+    def test_local_html_references_resolve(self):
+        site = ROOT / "www"
+        missing = []
+        release_artifacts = {"/Automic Vault.dmg", "/install.sh", "/scanner.gz", "/scanner.sh"}
+
+        for page in sorted(site.rglob("*.html")):
+            parser = LocalReferenceParser()
+            parser.feed(page.read_text(encoding="utf-8"))
+            relative = page.relative_to(site)
+            route = "/" if relative == pathlib.Path("index.html") else f"/{relative.parent.as_posix()}/"
+
+            for reference in parser.references:
+                parsed = urllib.parse.urlsplit(reference)
+                if parsed.scheme not in {"", "http", "https"}:
+                    continue
+                if parsed.netloc and parsed.netloc != "www.automicvault.com":
+                    continue
+                path = urllib.parse.unquote(urllib.parse.urljoin(route, parsed.path or route))
+                if path in release_artifacts or path == "/pkg/" or any(
+                    path.startswith(f"/{locale}/pkg/") for locale in ("de", "fr", "ja", "zh-hans")
+                ):
+                    continue
+                target = site / path.lstrip("/")
+                if path.endswith("/"):
+                    target /= "index.html"
+                elif target.is_dir():
+                    target /= "index.html"
+                if not target.exists():
+                    missing.append(f"{relative}: {reference}")
+
+        self.assertEqual(missing, [])
 
 
 if __name__ == "__main__":

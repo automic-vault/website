@@ -897,20 +897,9 @@ def render_legacy_page(record: dict[str, Any], locale: Locale, locales: list[Loc
       </section>"""
         for title, body in expanded_sections(t, locale)
     )
-    if path == "/download/":
-        hero_actions = f"""        <div class="hero-actions">
-          <a class="button primary" href="/Automic Vault.dmg">{html.escape(ui["downloadDmg"])}</a>
-          <a class="button secondary" href="/install.sh">{html.escape(ui["installerScript"])}</a>
-        </div>"""
-    elif path == "/security/whitepaper/":
-        hero_actions = f"""        <div class="hero-actions">
-          <a class="button primary" href="/security/whitepaper/">{html.escape(ui["whitePaperEnglish"])}</a>
-          <a class="button secondary" href="{locale_path('/security/', locale)}">{html.escape(ui["security"])}</a>
-        </div>"""
-    else:
-        hero_actions = f"""        <div class="hero-actions">
-          <a class="button primary" href="{locale_path('/download/', locale)}">{html.escape(ui["download"])}</a>
-          <a class="button secondary" href="{locale_path('/docs/', locale)}">{html.escape(ui["docs"])}</a>
+    hero_actions = f"""        <div class="hero-actions">
+          <a class="button primary" href="/Automic Vault.dmg">{html.escape(ui["download"])}</a>
+          <a class="button secondary" href="https://github.com/automic-vault/automic-vault#readme">{html.escape(ui["docs"])}</a>
         </div>"""
     return f"""<!DOCTYPE html>
 <html lang="{html.escape(locale.html_lang)}">
@@ -956,9 +945,8 @@ def render_legacy_page(record: dict[str, Any], locale: Locale, locales: list[Loc
         <span class="brand-type">Automic Vault</span>
       </a>
       <nav class="nav" aria-label="{html.escape(ui["mainNavigationAria"], quote=True)}">
-        <a href="{locale_path('/docs/', locale)}">{html.escape(ui["docs"])}</a>
-        <a href="{locale_path('/security/', locale)}">{html.escape(ui["security"])}</a>
         <a href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
+        <a href="/blog/">Blog</a>
         <a href="https://github.com/automic-vault/">GitHub</a>
       </nav>
     </header>
@@ -1005,15 +993,8 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
       </section>"""
         for index, (title, body) in enumerate(expanded_sections(t, locale), start=1)
     )
-    if path == "/download/":
-        hero_actions = f"""          <a class="button primary" href="/Automic Vault.dmg">{html.escape(ui["downloadDmg"])}</a>
-          <a class="button secondary" href="/install.sh">{html.escape(ui["installerScript"])}</a>"""
-    elif path == "/security/whitepaper/":
-        hero_actions = f"""          <a class="button primary" href="/security/whitepaper/">{html.escape(ui["whitePaperEnglish"])}</a>
-          <a class="button secondary" href="{locale_path('/security/', locale)}">{html.escape(ui["security"])}</a>"""
-    else:
-        hero_actions = f"""          <a class="button primary" href="{locale_path('/download/', locale)}">{html.escape(ui["download"])}</a>
-          <a class="button secondary" href="{locale_path('/docs/', locale)}">{html.escape(ui["docs"])}</a>"""
+    hero_actions = f"""          <a class="button primary" href="/Automic Vault.dmg">{html.escape(ui["download"])}</a>
+          <a class="button secondary" href="https://github.com/automic-vault/automic-vault#readme">{html.escape(ui["docs"])}</a>"""
     language_nav = language_links(path, locale, locales)
     return f"""<!DOCTYPE html>
 <html lang="{html.escape(locale.html_lang)}">
@@ -1068,10 +1049,8 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
     <button class="nav-toggle" type="button" aria-expanded="false" aria-label="{html.escape(ui["toggleNavigationAria"], quote=True)}"><span></span><span></span></button>
     <nav class="nav" aria-label="{html.escape(ui["mainNavigationAria"], quote=True)}">
       <a href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
-      <a href="{locale_path('/blog/', locale)}">Blog</a>
-      <a href="{locale_path('/security/', locale)}">{html.escape(ui["security"])}</a>
-      <a href="{locale_path('/docs/', locale)}">{html.escape(ui["docs"])}</a>
-      <a href="{locale_path('/download/', locale)}">{html.escape(ui["download"])}</a>
+      <a href="/blog/">Blog</a>
+      <a href="{locale_path('/about/', locale)}">{html.escape(ui["about"])}</a>
       <a href="https://github.com/automic-vault/">GitHub</a>
     </nav>
   </header>
@@ -1098,8 +1077,8 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
         <p class="eyebrow">Automic Vault</p>
         <h2 id="final-title">{html.escape(t["h1"])}</h2>
         <div class="hero-actions">
-          <a class="button primary" href="{locale_path('/download/', locale)}">{html.escape(ui["download"])}</a>
-          <a class="button secondary" href="{locale_path('/docs/', locale)}">{html.escape(ui["docs"])}</a>
+          <a class="button primary" href="/Automic Vault.dmg">{html.escape(ui["download"])}</a>
+          <a class="button secondary" href="https://github.com/automic-vault/automic-vault#readme">{html.escape(ui["docs"])}</a>
           <a class="button text" href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
         </div>
       </section>
@@ -1117,8 +1096,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
       </div>
       <nav class="footer-links" aria-label="Footer navigation">
         <a href="{locale_path('/about/', locale)}">{html.escape(ui["about"])}</a>
-        <a href="{locale_path('/security/', locale)}">{html.escape(ui["security"])}</a>
-        <a href="{locale_path('/blog/', locale)}">Blog</a>
+        <a href="/blog/">Blog</a>
         <a href="{locale_path('/privacy/', locale)}">{html.escape(ui["privacy"])}</a>
         <a href="{locale_path('/terms/', locale)}">{html.escape(ui["terms"])}</a>
         <a href="https://github.com/automic-vault/">GitHub</a>
@@ -1140,8 +1118,8 @@ def render_llms(locale: Locale) -> str:
     lines = ["# Automic Vault", f'{landing["hero_h1"]} {landing["hero_action"]}', landing["hero_lede"]]
     return "\n\n".join(lines) + (
         f"\n\n- {ui['website']}: {href('/', locale)}"
-        f"\n- {ui['docs']}: {href('/docs/', locale)}"
-        f"\n- {ui['security']}: {href('/security/', locale)}\n"
+        f"\n- {ui['packages']}: {href('/pkg/', locale)}"
+        "\n- GitHub: https://github.com/automic-vault/automic-vault\n"
     )
 
 
@@ -1307,7 +1285,7 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
 
       <div class="boundary-hero-actions">
         <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">{html.escape(landing["download"])}</a>
-        <a class="boundary-button boundary-button-secondary" href="{locale_path('/docs/', locale)}">{html.escape(landing["docs"])}</a>
+        <a class="boundary-button boundary-button-secondary" href="https://github.com/automic-vault/automic-vault#readme">{html.escape(landing["docs"])}</a>
         <span>Free and open source · Apple Silicon · macOS 26</span>
       </div>
     </section>
@@ -1379,7 +1357,7 @@ contained toolchain ready · host execution requires approval</code></pre>
         <p>{html.escape(landing["trust_body"])}</p>
       </div>
       <div class="trust-links">
-        <a href="{locale_path('/security/', locale)}">{html.escape(landing["security_link"])}</a>
+        <a href="https://github.com/automic-vault/automic-vault/security">{html.escape(landing["security_link"])}</a>
         <a href="https://github.com/automic-vault/automic-vault">{html.escape(landing["source_link"])}</a>
       </div>
       <p class="founder-note"><strong>{html.escape(landing["founder"])}</strong></p>
@@ -1398,8 +1376,8 @@ contained toolchain ready · host execution requires approval</code></pre>
       <p>{html.escape(landing["footer_tagline"])}</p>
     </div>
     <nav aria-label="Footer">
-      <a href="{locale_path('/docs/', locale)}">{html.escape(landing["docs"])}</a>
-      <a href="{locale_path('/security/', locale)}">{html.escape(ui["security"])}</a>
+      <a href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
+      <a href="/blog/">Blog</a>
       <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
     </nav>
     <p class="boundary-footer-meta">© 2026 Automic Vault · Apache License 2.0</p>
@@ -1488,9 +1466,6 @@ def render_sitemap(records: list[dict[str, Any]], locales: list[Locale]) -> str:
             entries.append(sitemap_entry(href(path, locale), lastmod, path, locales))
     preserved = [
         ("https://www.automicvault.com/blog/", "2026-06-04"),
-        ("https://www.automicvault.com/blog/agent-pack/", "2026-06-04"),
-        ("https://www.automicvault.com/blog/unix-plus-plus/", "2026-06-04"),
-        ("https://www.automicvault.com/blog/agentic-toolkit/", "2026-06-02"),
         ("https://www.automicvault.com/blog/prevent-nx-console-vscode-compromise/", "2026-05-21"),
         ("https://www.automicvault.com/blog/prevent-github-vscode-extension-breach/", "2026-05-21"),
         ("https://www.automicvault.com/blog/prevent-durabletask-pypi-compromise/", "2026-05-20"),
@@ -1500,7 +1475,6 @@ def render_sitemap(records: list[dict[str, Any]], locales: list[Locale]) -> str:
         ("https://www.automicvault.com/blog/prevent-litellm-pypi-compromise/", "2026-03-25"),
         ("https://www.automicvault.com/llms.txt", "2026-06-01"),
         ("https://www.automicvault.com/llms-full.txt", "2026-06-01"),
-        ("https://www.automicvault.com/pricing.md", "2026-06-01"),
         ("https://www.automicvault.com/.well-known/security.txt", "2026-06-01"),
     ]
     entries.extend(sitemap_entry(loc, lastmod, None, locales) for loc, lastmod in preserved)

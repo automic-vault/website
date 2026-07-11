@@ -40,7 +40,8 @@ delete or overwrite them.
 
 Run static deploys through `scripts/deploy-www.sh`. It generates deploy-time
 product inputs from `AUTOMIC_VAULT_REPO_PATH` or the default
-`../automic-vault` checkout without writing a JSON artifact. Use
+`../automic-vault` or `../av2` checkout without writing a JSON artifact. Package
+metadata comes from `AV_DB_ROOT`, `../av.db`, or `~/.cache/run`. Use
 `--prepare-only` before mutating S3 or CloudFront.
 
 This `AGENTS.md` file is local repository guidance only. It must not be synced

@@ -4450,17 +4450,17 @@ def inferred_related_items(page: PackagePage, limit: int) -> list[dict[str, Any]
 def core_security_guide_links(page: PackagePage, locale: dict[str, Any] | None = None) -> list[str]:
     links = [
         (
-            locale_path("/secret-scanner-for-ai-agents/", locale),
+            locale_path("/", locale) + "#threats",
             tx(locale, "aiAgentSecretScanner", "AI agent secret scanner"),
             tx(locale, "aiAgentSecretScannerCopy", "Find plaintext credentials before an agent run starts."),
         ),
         (
-            locale_path("/ai-agent-approval-gates/", locale),
+            locale_path("/", locale) + "#controls",
             tx(locale, "aiAgentApprovalGates", "AI agent approval gates"),
             tx(locale, "aiAgentApprovalGatesCopy", "Put approvals in front of risky package and tool actions."),
         ),
         (
-            locale_path("/docs/#secrets", locale),
+            "https://github.com/automic-vault/automic-vault#readme",
             tx(locale, "secretInjectionDocs", "Secret injection docs"),
             tx(locale, "secretInjectionDocsCopy", "Move supported secrets out of plaintext files and inject them into approved tools."),
         ),
@@ -4469,19 +4469,19 @@ def core_security_guide_links(page: PackagePage, locale: dict[str, Any] | None =
     haystack = " ".join([page.name, page.display_name, page.summary, " ".join(page.aliases), " ".join(page.keywords)]).lower()
     if provider == "brew" or "homebrew" in haystack:
         links.append((
-            locale_path("/download/", locale),
+            "/Automic Vault.dmg",
             tx(locale, "secureHomebrewTools", "Secure Homebrew tools"),
             tx(locale, "secureHomebrewToolsCopy", "Install Vault and scan the tools your Mac already uses."),
         ))
     if "aws" in haystack or "cloud" in haystack:
         links.append((
-            locale_path("/secure-aws-cli-credentials-ai-agents/", locale),
+            locale_path("/", locale),
             tx(locale, "secureAwsCliCredentials", "Secure AWS CLI credentials"),
             tx(locale, "secureAwsCliCredentialsCopy", "Keep cloud keys out of ambient config files."),
         ))
     if "github" in haystack or "gh" in page.aliases:
         links.append((
-            locale_path("/github-cli-token-security-ai-agents/", locale),
+            locale_path("/", locale),
             tx(locale, "githubCliTokenSecurity", "GitHub CLI token security"),
             tx(locale, "githubCliTokenSecurityCopy", "Protect source and release tokens used by local tools."),
         ))

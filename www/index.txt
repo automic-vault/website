@@ -29,6 +29,6 @@ flagged instantly, with clear steps to mitigate each finding.
 From the creator of Homebrew.
 
 Download: https://www.automicvault.com/Automic%20Vault.dmg
-Documentation: https://www.automicvault.com/docs/
-Security: https://www.automicvault.com/security/
+Documentation: https://github.com/automic-vault/automic-vault#readme
+Security: https://github.com/automic-vault/automic-vault/security
 Source: https://github.com/automic-vault/automic-vault

@@ -5,5 +5,5 @@ Vos outils ont vos autorisations. Faites-leur demander l’accord.
 Automic Vault contrôle le dernier passage local entre les shells, les agents et les outils qu’ils utilisent. Il transmet un secret du trousseau à un exécutable approuvé pour une seule exécution et vous consulte avant une commande risquée.
 
 - Site web: https://www.automicvault.com/fr/
-- Documentation: https://www.automicvault.com/fr/docs/
-- Sécurité: https://www.automicvault.com/fr/security/
+- Paquets: https://www.automicvault.com/fr/pkg/
+- GitHub: https://github.com/automic-vault/automic-vault

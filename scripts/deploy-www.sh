@@ -620,46 +620,48 @@ function handler(event) {
       "/": true,
       "/about": true,
       "/about/": true,
-      "/ai-agent-approval-gates": true,
-      "/ai-agent-approval-gates/": true,
-      "/api-key-management-for-ai-agents": true,
-      "/api-key-management-for-ai-agents/": true,
-      "/av-trace": true,
-      "/av-trace/": true,
-      "/docs": true,
-      "/docs/": true,
-      "/download": true,
-      "/download/": true,
-      "/github-cli-token-security-ai-agents": true,
-      "/github-cli-token-security-ai-agents/": true,
-      "/hashicorp-vault-for-ai-agents": true,
-      "/hashicorp-vault-for-ai-agents/": true,
-      "/mcp-secrets-management": true,
-      "/mcp-secrets-management/": true,
       "/privacy": true,
       "/privacy/": true,
-      "/pricing": true,
-      "/pricing/": true,
-      "/privileged-access-management-for-ai-agents": true,
-      "/privileged-access-management-for-ai-agents/": true,
-      "/secret-scanner-for-ai-agents": true,
-      "/secret-scanner-for-ai-agents/": true,
-      "/secret-scanning-vs-agent-secret-protection": true,
-      "/secret-scanning-vs-agent-secret-protection/": true,
-      "/secrets-manager-for-ai-agents": true,
-      "/secrets-manager-for-ai-agents/": true,
-      "/secure-aws-cli-credentials-ai-agents": true,
-      "/secure-aws-cli-credentials-ai-agents/": true,
-      "/security": true,
-      "/security/": true,
-      "/security/whitepaper": true,
-      "/security/whitepaper/": true,
-      "/stop-ai-agents-reading-env-files": true,
-      "/stop-ai-agents-reading-env-files/": true,
       "/terms": true,
       "/terms/": true
     };
     return routes[uri] === true;
+  }
+
+  function retiredLocation(uri) {
+    var prefixes = ["/de", "/fr", "/ja", "/zh-hans"];
+    for (var i = 0; i < prefixes.length; i++) {
+      if (uri.indexOf(prefixes[i] + "/") === 0) {
+        uri = uri.slice(prefixes[i].length);
+        break;
+      }
+    }
+    if (uri.length > 1 && uri.slice(-1) === "/") {
+      uri = uri.slice(0, -1);
+    }
+    var routes = {
+      "/ai-agent-approval-gates": "https://" + canonicalHost + "/#controls",
+      "/api-key-management-for-ai-agents": "https://" + canonicalHost + "/",
+      "/av-trace": "https://" + canonicalHost + "/",
+      "/docs": "https://github.com/automic-vault/automic-vault#readme",
+      "/download": "https://" + canonicalHost + "/Automic%20Vault.dmg",
+      "/github-cli-token-security-ai-agents": "https://" + canonicalHost + "/",
+      "/hashicorp-vault-for-ai-agents": "https://" + canonicalHost + "/",
+      "/mcp-secrets-management": "https://" + canonicalHost + "/",
+      "/pricing": "https://" + canonicalHost + "/#pricing",
+      "/privileged-access-management-for-ai-agents": "https://" + canonicalHost + "/",
+      "/secret-scanner-for-ai-agents": "https://" + canonicalHost + "/#threats",
+      "/secret-scanning-vs-agent-secret-protection": "https://" + canonicalHost + "/#threats",
+      "/secrets-manager-for-ai-agents": "https://" + canonicalHost + "/",
+      "/secure-aws-cli-credentials-ai-agents": "https://" + canonicalHost + "/",
+      "/security": "https://github.com/automic-vault/automic-vault/security",
+      "/security/whitepaper": "https://github.com/automic-vault/automic-vault/security",
+      "/stop-ai-agents-reading-env-files": "https://" + canonicalHost + "/",
+      "/blog/agent-pack": "https://" + canonicalHost + "/blog/",
+      "/blog/agentic-toolkit": "https://" + canonicalHost + "/blog/",
+      "/blog/unix-plus-plus": "https://" + canonicalHost + "/blog/"
+    };
+    return routes[uri] || "";
   }
 
   function jsonNotFound() {
@@ -735,6 +737,16 @@ function handler(event) {
       }
     };
   }
+  var retired = retiredLocation(request.uri);
+  if (retired) {
+    return {
+      statusCode: 301,
+      statusDescription: "Moved Permanently",
+      headers: {
+        location: { value: retired }
+      }
+    };
+  }
   if (isPackageOriginPath(request.uri)) {
     return request;
   }
@@ -765,15 +777,6 @@ function handler(event) {
       }
     };
   }
-  if (request.uri === "/docs") {
-    return {
-      statusCode: 301,
-      statusDescription: "Moved Permanently",
-      headers: {
-        location: { value: appendQueryString("/docs/") }
-      }
-    };
-  }
   if (request.uri !== "/" && request.uri.slice(-1) === "/") {
     request.uri = request.uri + "index.html";
   }
@@ -794,13 +797,13 @@ EOF
     aws cloudfront update-function \
       --name "${redirect_function_name}" \
       --if-match "${function_etag}" \
-        --function-config Comment="Canonical host redirect and docs index routing",Runtime=cloudfront-js-2.0 \
+        --function-config Comment="Canonical host and retired route redirects",Runtime=cloudfront-js-2.0 \
         --function-code "fileb://${function_file}" >/dev/null
   else
     log "  Creating ${redirect_function_name}"
     aws cloudfront create-function \
       --name "${redirect_function_name}" \
-      --function-config Comment="Canonical host redirect and docs index routing",Runtime=cloudfront-js-2.0 \
+      --function-config Comment="Canonical host and retired route redirects",Runtime=cloudfront-js-2.0 \
       --function-code "fileb://${function_file}" >/dev/null
   fi
 

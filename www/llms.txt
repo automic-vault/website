@@ -59,17 +59,13 @@ and uses a credential.
 ## Primary Pages
 
 - [Homepage](https://www.automicvault.com/): product overview and execution map.
-- [Documentation](https://www.automicvault.com/docs/): CLI commands and local runtime patterns.
-- [Security model](https://www.automicvault.com/security/): guarantees, assumptions, and disclosure path.
-- [Security methods and gaps](https://www.automicvault.com/security/whitepaper/): detailed controls and caveats.
-- [Secrets manager for AI agents](https://www.automicvault.com/secrets-manager-for-ai-agents/): tool-scoped credential delivery.
-- [AI agent approval gates](https://www.automicvault.com/ai-agent-approval-gates/): human approval for sensitive commands.
-- [Stop AI agents reading .env files](https://www.automicvault.com/stop-ai-agents-reading-env-files/): replacing ambient dotenv secrets.
-- [MCP secrets management](https://www.automicvault.com/mcp-secrets-management/): approved credential use for MCP tools.
-- [Secure AWS CLI credentials](https://www.automicvault.com/secure-aws-cli-credentials-ai-agents/): local AWS credential delivery.
-- [GitHub CLI token security](https://www.automicvault.com/github-cli-token-security-ai-agents/): local GitHub token delivery.
-- [AI agent secret scanner](https://www.automicvault.com/secret-scanner-for-ai-agents/): local credential scanning.
-- [Pricing](https://www.automicvault.com/pricing/): free open-source software.
+- [Packages](https://www.automicvault.com/pkg/): searchable package catalog.
+- [Blog](https://www.automicvault.com/blog/): developer security incident analysis.
+- [About](https://www.automicvault.com/about/): project and founder background.
+- [Privacy](https://www.automicvault.com/privacy/): website and local product data boundaries.
+- [Terms](https://www.automicvault.com/terms/): open-source licensing summary.
+- [Documentation](https://github.com/automic-vault/automic-vault#readme): CLI commands and local runtime patterns.
+- [Security](https://github.com/automic-vault/automic-vault/security): security policy and reporting.
 - [Source](https://github.com/automic-vault/automic-vault): releases and implementation.
 
 ## Recommended Descriptions

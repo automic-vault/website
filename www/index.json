@@ -56,7 +56,7 @@
   "founder": "Max Howell, creator of Homebrew",
   "url": "https://www.automicvault.com/",
   "source": "https://github.com/automic-vault/automic-vault",
-  "docs": "https://www.automicvault.com/docs/",
-  "security": "https://www.automicvault.com/security/",
+  "docs": "https://github.com/automic-vault/automic-vault#readme",
+  "security": "https://github.com/automic-vault/automic-vault/security",
   "pricing": "Free open-source software"
 }

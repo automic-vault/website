@@ -5,5 +5,5 @@
 Automic Vault 控制 shell、agent 与它们所用工具之间最后一段本地路径。Keychain 中的密钥只在单次运行时提供给已批准的可执行文件，高风险命令会在执行前征求你的确认。
 
 - 网站: https://www.automicvault.com/zh-hans/
-- 文档: https://www.automicvault.com/zh-hans/docs/
-- 安全: https://www.automicvault.com/zh-hans/security/
+- 软件包: https://www.automicvault.com/zh-hans/pkg/
+- GitHub: https://github.com/automic-vault/automic-vault

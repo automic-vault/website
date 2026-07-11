@@ -84,11 +84,8 @@ function sortWeight(file) {
   if (route === "/") {
     return "0000";
   }
-  if (route === "/docs/") {
-    return "0001";
-  }
   if (route === "/llms.txt") {
-    return "0002";
+    return "0001";
   }
   return `1000${route}`;
 }

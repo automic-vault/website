@@ -5,5 +5,5 @@
 Automic Vault は shell や agent と、それらが使うツールの間にある最後のローカル区間を管理します。Keychain のシークレットを承認済み実行ファイルへ 1 回の実行だけ渡し、危険なコマンドは実行前に確認します。
 
 - ウェブサイト: https://www.automicvault.com/ja/
-- ドキュメント: https://www.automicvault.com/ja/docs/
-- セキュリティ: https://www.automicvault.com/ja/security/
+- パッケージ: https://www.automicvault.com/ja/pkg/
+- GitHub: https://github.com/automic-vault/automic-vault

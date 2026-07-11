@@ -41,5 +41,5 @@ flagged instantly, with clear steps to mitigate each finding.
 
 Automic Vault is free Apache-2.0 open-source software for macOS.
 
-[Documentation](/docs/) · [Security model](/security/) ·
+[Documentation](https://github.com/automic-vault/automic-vault#readme) · [Security](https://github.com/automic-vault/automic-vault/security) ·
 [Source](https://github.com/automic-vault/automic-vault)

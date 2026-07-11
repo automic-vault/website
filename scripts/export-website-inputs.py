@@ -13,7 +13,9 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PRODUCT_REPO = REPO_ROOT.parent / "automic-vault"
+CURRENT_PRODUCT_REPO = REPO_ROOT.parent / "av2"
 DEFAULT_AV_DB_ROOT = REPO_ROOT.parent / "av.db"
+CURRENT_AV_DB_ROOT = Path.home() / ".cache" / "run"
 PRODUCT_REPO_ENV = "AUTOMIC_VAULT_REPO_PATH"
 AV_DB_ROOT_ENV = "AV_DB_ROOT"
 PRODUCT_VERSION_RE = re.compile(r"^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$")
@@ -21,11 +23,15 @@ SCAN_LOG_ROW_RE = re.compile(r"^\|\s*[0-9]+\s*\|")
 
 
 def default_product_repo() -> Path:
-    return Path(os.environ.get(PRODUCT_REPO_ENV, DEFAULT_PRODUCT_REPO)).expanduser()
+    if value := os.environ.get(PRODUCT_REPO_ENV):
+        return Path(value).expanduser()
+    return DEFAULT_PRODUCT_REPO if DEFAULT_PRODUCT_REPO.exists() else CURRENT_PRODUCT_REPO
 
 
 def default_av_db_root() -> Path:
-    return Path(os.environ.get(AV_DB_ROOT_ENV, DEFAULT_AV_DB_ROOT)).expanduser()
+    if value := os.environ.get(AV_DB_ROOT_ENV):
+        return Path(value).expanduser()
+    return DEFAULT_AV_DB_ROOT if DEFAULT_AV_DB_ROOT.exists() else CURRENT_AV_DB_ROOT
 
 
 def read_product_version(path: Path) -> str:
@@ -63,13 +69,17 @@ def count_package_database_entries(path: Path) -> int:
     except json.JSONDecodeError as err:
         raise SystemExit(f"Could not parse package database {path}: {err}") from err
 
-    entries = data.get("entries")
+    database = data.get("sources", {}).get("db", data)
+    if not isinstance(database, dict):
+        raise SystemExit(f"Could not find package entries in {path}")
+
+    entries = database.get("entries")
     if isinstance(entries, dict) and entries:
         return len(entries)
 
     package_count = 0
     for key in ("formulas", "casks", "npms"):
-        packages = data.get(key)
+        packages = database.get(key)
         if isinstance(packages, dict):
             package_count += len(packages)
 
@@ -87,16 +97,20 @@ def scanned_package_count(product_repo: Path, av_db_root: Path) -> int:
         if path.exists():
             return count_scanned_packages(path)
 
-    package_database = av_db_root / "cache" / "automic-vault" / "db.json"
-    if package_database.exists():
-        return count_package_database_entries(package_database)
+    package_databases = [
+        av_db_root / "cache" / "automic-vault" / "db.json",
+        av_db_root / "db.json",
+    ]
+    for package_database in package_databases:
+        if package_database.exists():
+            return count_package_database_entries(package_database)
 
     combined_packages = list((av_db_root / "combined").glob("*.yml"))
     if combined_packages:
         return len(combined_packages)
 
     searched = ", ".join(
-        str(path) for path in [*scan_log_paths, package_database, av_db_root / "combined"]
+        str(path) for path in [*scan_log_paths, *package_databases, av_db_root / "combined"]
     )
     raise SystemExit(f"Could not find scanned package source. Searched: {searched}")
 
@@ -117,12 +131,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--product-repo",
         default=None,
-        help=f"Main Automic Vault checkout. Defaults to ${PRODUCT_REPO_ENV} or ../automic-vault.",
+        help=f"Main Automic Vault checkout. Defaults to ${PRODUCT_REPO_ENV}, ../automic-vault, or ../av2.",
     )
     parser.add_argument(
         "--av-db-root",
         default=None,
-        help=f"av.db checkout. Defaults to ${AV_DB_ROOT_ENV} or ../av.db.",
+        help=f"Package database root. Defaults to ${AV_DB_ROOT_ENV}, ../av.db, or ~/.cache/run.",
     )
     return parser.parse_args()
 
