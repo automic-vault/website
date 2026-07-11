@@ -4262,6 +4262,25 @@ html[lang="en"] .poster-hero .hero-title-emphasis {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .brew-chat-divider {
+    font-size: var(--text-xs);
+    text-align: end;
+  }
+
+  .brew-chat-divider span {
+    justify-self: end;
+  }
+
+  .brew-chat-divider::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    border-block: 0.28rem solid transparent;
+    border-inline-end: 0.45rem solid var(--color-boundary-accent);
+    transform: translateY(-50%);
+  }
+
   .brew-hero {
     align-content: end;
     gap: var(--space-3xl);
