@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-07-11",
+    "scope": "app",
+    "macrostructure": "Split Studio / Long Document / Index-First",
+    "theme": "Cobalt-dark",
+    "theme_axes": "dark / grotesk-sans / cool-with-warm-signal",
+    "enrichment": "supplied product and incident imagery",
+    "nav": "N5",
+    "footer": "Ft5",
+    "brief": "Unify surviving content, legal, blog, incident, and 404 routes with the landing-page identity"
+  },
+  {
     "date": "2026-07-10",
     "macrostructure": "Split Studio",
     "theme": "Cobalt-dark",
