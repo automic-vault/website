@@ -2251,6 +2251,7 @@ html[lang="en"] .poster-hero h1 {
     align-items: center;
     gap: var(--space-md);
     padding: 0;
+    transform: translateY(calc(var(--space-xs) + var(--space-2xs)));
   }
 
   .brew-after .brew-chat-divider span {
