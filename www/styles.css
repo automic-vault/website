@@ -2263,7 +2263,7 @@ html[lang="en"] .poster-hero h1 {
     grid-column: 2;
     grid-row: 1;
     width: calc(var(--space-xl) + clamp(var(--space-xl), 7vw, var(--space-4xl)) - var(--space-md));
-    border-block-start: var(--rule-hair) dashed var(--color-boundary-warn);
+    border-block-start: var(--rule-hair) dashed var(--color-boundary-accent);
   }
 
   .brew-after .brew-chat-divider::after {
@@ -2273,8 +2273,8 @@ html[lang="en"] .poster-hero h1 {
     inset-inline-end: calc((clamp(var(--space-xl), 7vw, var(--space-4xl)) - var(--space-md)) * -1);
     width: var(--space-xs);
     height: var(--space-xs);
-    border-block-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-warn);
-    border-inline-end: calc(var(--rule-hair) * 2) solid var(--color-boundary-warn);
+    border-block-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
+    border-inline-end: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
     transform: translateY(-50%) rotate(45deg);
   }
 }
