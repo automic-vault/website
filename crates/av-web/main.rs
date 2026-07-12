@@ -4086,15 +4086,26 @@ fn meta_description(package: &PackageRow, locale: &Locale) -> String {
 }
 
 fn alternate_install_command(package: &PackageRow) -> Option<Value> {
-    install_command_entries(package).into_iter().find(|item| {
-        if value_str_key(item, "kind").as_deref() == Some("automic_vault") {
-            return false;
-        }
-        let command = value_str_key(item, "command").unwrap_or_default();
-        native_command_provider(&command)
-            .map(|provider| provider != package.provider)
-            .unwrap_or(false)
-    })
+    install_command_entries(package)
+        .into_iter()
+        .find(|item| {
+            if value_str_key(item, "kind").as_deref() == Some("automic_vault") {
+                return false;
+            }
+            let command = value_str_key(item, "command").unwrap_or_default();
+            native_command_provider(&command)
+                .map(|provider| provider != package.provider)
+                .unwrap_or(false)
+        })
+        .or_else(|| {
+            external_package_manager_matches(package)
+                .into_iter()
+                .find(|item| {
+                    let command = value_str_key(item, "command").unwrap_or_default();
+                    !command.is_empty() && native_command_provider(&command).is_none()
+                })
+                .cloned()
+        })
 }
 
 fn native_command_provider(command: &str) -> Option<&'static str> {
@@ -7484,6 +7495,18 @@ mod tests {
             &LOCALES[0],
         );
         assert!(external_markdown.contains("OnlyName"));
+        let external_command = serde_json_package(
+            &sparse,
+            serde_json::json!({
+                "externalPackageManagerMatches": [
+                    {"manager": "Debian apt", "command": "sudo apt install sparse-tools"}
+                ]
+            }),
+        );
+        assert_eq!(
+            alternate_install_sentence(&external_command),
+            "Also installable with Debian apt: sudo apt install sparse-tools."
+        );
 
         let mut related_markdown = String::new();
         markdown_related(
