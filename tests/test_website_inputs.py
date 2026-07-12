@@ -229,6 +229,24 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                 self.assertIn("styles.css?v=106", text)
                 self.assertIn("landing-pages.css?v=2", text)
 
+    def test_mobile_navigation_has_shared_behavior_and_cache_version(self):
+        script = (ROOT / "www" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('document.querySelector(".nav-toggle")', script)
+        self.assertIn('nav.classList.toggle("is-open"', script)
+        self.assertIn('toggle.setAttribute("aria-expanded"', script)
+
+        pages = []
+        for page in sorted((ROOT / "www").rglob("*.html")):
+            text = page.read_text(encoding="utf-8")
+            if 'class="nav-toggle"' not in text:
+                continue
+
+            pages.append(page)
+            with self.subTest(page=page.relative_to(ROOT)):
+                self.assertIn("app.js?v=25", text)
+
+        self.assertTrue(pages)
+
     def test_local_html_references_resolve(self):
         site = ROOT / "www"
         missing = []

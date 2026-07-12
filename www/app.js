@@ -1,5 +1,22 @@
+const toggle = document.querySelector(".nav-toggle");
+const nav = document.querySelector(".nav");
 const scrollMeter = document.querySelector(".scroll-meter span");
 const executionMap = document.querySelector("[data-execution-map]");
+
+if (toggle && nav) {
+  toggle.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!isOpen));
+    nav.classList.toggle("is-open", !isOpen);
+  });
+
+  nav.addEventListener("click", (event) => {
+    if (event.target instanceof HTMLAnchorElement) {
+      toggle.setAttribute("aria-expanded", "false");
+      nav.classList.remove("is-open");
+    }
+  });
+}
 
 if (scrollMeter) {
   let frame = 0;

@@ -1375,7 +1375,7 @@ contained toolchain ready · host execution requires approval</code></pre>
     <p class="boundary-footer-meta">© 2026 Automic Vault · Apache License 2.0</p>
   </footer>
 
-  <script src="/app.js?v=24"></script>
+  <script src="/app.js?v=25"></script>
   {language_nav}
   <script src="/i18n.js" defer></script>
 </body>
