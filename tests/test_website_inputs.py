@@ -226,8 +226,8 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             with self.subTest(page=page.relative_to(ROOT)):
                 self.assertIn('class="seo-masthead"', text)
                 self.assertIn('class="seo-footer"', text)
-                self.assertIn("styles.css?v=106", text)
-                self.assertIn("landing-pages.css?v=2", text)
+                self.assertIn("styles.css?v=108", text)
+                self.assertIn("landing-pages.css?v=3", text)
 
     def test_mobile_navigation_has_shared_behavior_and_cache_version(self):
         script = (ROOT / "www" / "app.js").read_text(encoding="utf-8")
@@ -243,9 +243,34 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
 
             pages.append(page)
             with self.subTest(page=page.relative_to(ROOT)):
-                self.assertIn("app.js?v=25", text)
+                self.assertIn("app.js?v=26", text)
 
         self.assertTrue(pages)
+
+    def test_public_assets_and_frontend_files_are_referenced(self):
+        site = ROOT / "www"
+        public_files = sorted((site / "assets").rglob("*"))
+        public_files = [path for path in public_files if path.is_file()]
+        public_files.extend(sorted(site.glob("*.css")))
+        public_files.extend(sorted(site.glob("*.js")))
+
+        source_files = []
+        for directory in (site, ROOT / "scripts", ROOT / "crates", ROOT / "data"):
+            for path in directory.rglob("*"):
+                if not path.is_file() or path.is_relative_to(site / "assets"):
+                    continue
+                try:
+                    source_files.append((path, path.read_text(encoding="utf-8")))
+                except UnicodeDecodeError:
+                    continue
+
+        unreferenced = []
+        for public_file in public_files:
+            reference = public_file.relative_to(site).as_posix()
+            if not any(reference in text for path, text in source_files if path != public_file):
+                unreferenced.append(reference)
+
+        self.assertEqual(unreferenced, [])
 
     def test_local_html_references_resolve(self):
         site = ROOT / "www"

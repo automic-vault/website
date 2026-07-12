@@ -1,7 +1,6 @@
 const toggle = document.querySelector(".nav-toggle");
 const nav = document.querySelector(".nav");
 const scrollMeter = document.querySelector(".scroll-meter span");
-const executionMap = document.querySelector("[data-execution-map]");
 
 if (toggle && nav) {
   toggle.addEventListener("click", () => {
@@ -35,9 +34,4 @@ if (scrollMeter) {
   update();
   window.addEventListener("scroll", schedule, { passive: true });
   window.addEventListener("resize", schedule);
-}
-
-if (executionMap && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
-  document.documentElement.classList.add("has-boundary-motion");
-  window.requestAnimationFrame(() => executionMap.classList.add("is-ready"));
 }

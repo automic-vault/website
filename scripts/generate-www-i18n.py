@@ -882,102 +882,7 @@ def expanded_sections(translations: dict[str, Any], locale: Locale) -> list[list
     return sections
 
 
-def render_legacy_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -> str:
-    path = record["path"]
-    t = record["translations"][locale.code]
-    ui = ui_copy(locale.code)
-    root = rel_root(path, locale)
-    canonical = href(path, locale)
-    page_title = normalized_title(t["title"], locale)
-    page_description = normalized_description(t["description"], locale)
-    sections = "\n".join(
-        f"""      <section class="i18n-section">
-        <h2>{html.escape(title)}</h2>
-        <p>{html.escape(body)}</p>
-      </section>"""
-        for title, body in expanded_sections(t, locale)
-    )
-    hero_actions = f"""        <div class="hero-actions">
-          <a class="button primary" href="/Automic Vault.dmg">{html.escape(ui["download"])}</a>
-          <a class="button secondary" href="https://github.com/automic-vault/automic-vault#readme">{html.escape(ui["docs"])}</a>
-        </div>"""
-    return f"""<!DOCTYPE html>
-<html lang="{html.escape(locale.html_lang)}">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{html.escape(page_title)}</title>
-  <meta name="description" content="{html.escape(page_description, quote=True)}">
-  <meta name="robots" content="index,follow">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="{html.escape(page_title, quote=True)}">
-  <meta property="og:description" content="{html.escape(page_description, quote=True)}">
-  <meta property="og:url" content="{html.escape(canonical, quote=True)}">
-  <meta property="og:image" content="{SITE_ORIGIN}/preview.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{html.escape(page_title, quote=True)}">
-  <meta name="twitter:description" content="{html.escape(page_description, quote=True)}">
-  <meta name="twitter:image" content="{SITE_ORIGIN}/preview.jpg">
-  <link rel="canonical" href="{html.escape(canonical, quote=True)}">
-{alternate_link_block(path, locales)}
-  <link rel="icon" href="{root}favicon.ico" sizes="16x16 32x32 48x48">
-  <link rel="stylesheet" href="{root}styles.css">
-  <link rel="stylesheet" href="{root}seo.css">
-{GOOGLE_ANALYTICS_TAG}
-  <script type="application/ld+json">
-  {{
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "url": "{canonical}",
-    "name": {json.dumps(page_title, ensure_ascii=False)},
-    "description": {json.dumps(page_description, ensure_ascii=False)},
-    "inLanguage": "{locale.html_lang}",
-    "isPartOf": {{"@type": "WebSite", "name": "Automic Vault", "url": "{SITE_ORIGIN}/"}}
-  }}
-  </script>
-</head>
-<body>
-  <div class="site-shell i18n-page">
-    <header class="masthead">
-      <a class="brand" href="{locale_path('/', locale)}" aria-label="{html.escape(ui["brandHomeAria"], quote=True)}">
-        <img class="brand-mark" src="/assets/icon@2x.webp" alt="Automic Vault" width="54" height="54">
-        <span class="brand-type">Automic Vault</span>
-      </a>
-      <nav class="nav" aria-label="{html.escape(ui["mainNavigationAria"], quote=True)}">
-        <a href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
-        <a href="/blog/">Blog</a>
-        <a href="https://github.com/automic-vault/">GitHub</a>
-      </nav>
-    </header>
-    <main>
-      <section class="hero i18n-hero">
-        <p class="eyebrow">{html.escape(t.get("kicker", "Automic Vault"))}</p>
-        <h1>{html.escape(t["h1"])}</h1>
-        <p class="lede">{html.escape(t.get("lede", t["description"]))}</p>
-{hero_actions}
-      </section>
-{sections}
-      {language_links(path, locale, locales)}
-    </main>
-    <footer class="site-footer">
-      <p>Automic Vault</p>
-      <div class="footer-links">
-        <a href="{locale_path('/privacy/', locale)}">{html.escape(ui["privacy"])}</a>
-        <a href="{locale_path('/terms/', locale)}">{html.escape(ui["terms"])}</a>
-        <a href="{locale_path('/llms.txt', locale)}">llms.txt</a>
-      </div>
-    </footer>
-  </div>
-</body>
-</html>
-"""
-
-
 def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -> str:
-    if record.get("kind") == "docs":
-        return render_legacy_page(record, locale, locales)
-
     path = record["path"]
     t = record["translations"][locale.code]
     ui = ui_copy(locale.code)
@@ -1021,8 +926,8 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="{root}favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="{root}apple-touch-icon.png">
-  <link rel="stylesheet" href="{root}styles.css?v=106">
-  <link rel="stylesheet" href="{root}landing-pages.css?v=2">
+  <link rel="stylesheet" href="{root}styles.css?v=108">
+  <link rel="stylesheet" href="{root}landing-pages.css?v=3">
 {GOOGLE_ANALYTICS_TAG}
   <script type="application/ld+json">
   {{
@@ -1212,7 +1117,7 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css?v=106">
+  <link rel="stylesheet" href="/styles.css?v=108">
 {GOOGLE_ANALYTICS_TAG}
   <script type="application/ld+json">
   {{
@@ -1375,7 +1280,7 @@ contained toolchain ready · host execution requires approval</code></pre>
     <p class="boundary-footer-meta">© 2026 Automic Vault · Apache License 2.0</p>
   </footer>
 
-  <script src="/app.js?v=25"></script>
+  <script src="/app.js?v=26"></script>
   {language_nav}
   <script src="/i18n.js" defer></script>
 </body>
