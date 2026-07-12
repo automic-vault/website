@@ -2182,7 +2182,7 @@ html[lang="en"] .poster-hero h1 {
   font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .brew-chat-divider span {
@@ -2226,19 +2226,56 @@ html[lang="en"] .poster-hero h1 {
 }
 
 @media (min-width: 60.001rem) {
-  .brew-chat-divider::before {
-    inset-inline-end: auto;
-    inline-size: 52%;
+  .brew-after .brew-session > :nth-child(4),
+  .brew-after .brew-session > :nth-child(5) {
+    grid-row: 4;
   }
 
-  .brew-chat-divider::after {
+  .brew-after .brew-session > :nth-child(6) {
+    grid-row: 5;
+  }
+
+  .brew-after .brew-session > :nth-child(7) {
+    grid-row: 6;
+  }
+
+  .brew-after .brew-session > :nth-child(8),
+  .brew-after .brew-session > :nth-child(9) {
+    grid-row: 7;
+  }
+
+  .brew-after .brew-chat-divider {
+    grid-column: 1;
+    grid-template-columns: minmax(0, 1fr) var(--space-xl);
+    align-self: center;
+    align-items: center;
+    gap: var(--space-md);
+    padding: 0;
+  }
+
+  .brew-after .brew-chat-divider span {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .brew-after .brew-chat-divider::before {
+    position: static;
+    grid-column: 2;
+    grid-row: 1;
+    width: calc(var(--space-xl) + clamp(var(--space-xl), 7vw, var(--space-4xl)) - var(--space-md));
+    border-block-start: var(--rule-hair) dashed var(--color-boundary-warn);
+  }
+
+  .brew-after .brew-chat-divider::after {
     content: "";
     position: absolute;
-    inset-block-start: 0;
-    inset-inline-start: 52%;
-    border-block: 0.28rem solid transparent;
-    border-inline-start: 0.45rem solid var(--color-boundary-accent);
-    transform: translateY(-50%);
+    inset-block-start: 50%;
+    inset-inline-end: calc((clamp(var(--space-xl), 7vw, var(--space-4xl)) - var(--space-md)) * -1);
+    width: var(--space-xs);
+    height: var(--space-xs);
+    border-block-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-warn);
+    border-inline-end: calc(var(--rule-hair) * 2) solid var(--color-boundary-warn);
+    transform: translateY(-50%) rotate(45deg);
   }
 }
 
