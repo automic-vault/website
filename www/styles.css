@@ -2178,7 +2178,7 @@ html[lang="en"] .poster-hero h1 {
   grid-template-columns: subgrid;
   padding-block-start: var(--space-sm);
   color: var(--color-boundary-accent);
-  font-family: var(--font-code);
+  font-family: var(--font-body);
   font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: 0.06em;
