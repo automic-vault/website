@@ -2203,17 +2203,25 @@ html[lang="en"] .poster-hero h1 {
   }
 
   .brew-risk > .brew-split:first-child > .brew-copy::after {
-    content: "→";
+    content: "";
     position: absolute;
     inset-block-start: 50%;
     inset-inline-start: calc(100% - var(--space-3xl) + var(--space-md));
-    width: calc(var(--space-3xl) - var(--space-md) + clamp(var(--space-lg), 4vw, var(--space-xl)));
+    width: calc(var(--space-3xl) - (var(--space-md) * 2) + clamp(var(--space-xl), 7vw, var(--space-4xl)));
     border-block-start: var(--rule-hair) dashed var(--color-boundary-warn);
-    color: var(--color-boundary-warn);
-    font-size: var(--text-xl);
-    line-height: 0;
-    text-align: end;
     transform: translateY(-50%);
+  }
+
+  .brew-risk > .brew-split:first-child > .brew-copy::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: calc(100% + clamp(var(--space-xl), 7vw, var(--space-4xl)) - var(--space-md) - var(--space-xs));
+    width: var(--space-xs);
+    height: var(--space-xs);
+    border-block-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-warn);
+    border-inline-end: calc(var(--rule-hair) * 2) solid var(--color-boundary-warn);
+    transform: translateY(-50%) rotate(45deg);
   }
 }
 
