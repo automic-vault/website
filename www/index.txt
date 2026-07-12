@@ -26,6 +26,15 @@ Monitor Threats to your developer environment:
 Automic Vault monitors developer tools across all ecosystems. New threats are
 flagged instantly, with clear steps to mitigate each finding.
 
+Bring macOS app security to the terminal:
+macOS can code sign apps, sandbox them, and keep them out of one another's
+private data. Command-line tools usually run with the authority of whichever
+app launched them. That app may be Terminal, an AI harness, an editor, or an
+automation app. Automic Vault identifies the tool and its signed launcher,
+then applies the access rules chosen for that pairing.
+
+Learn more: https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/
+
 From the creator of Homebrew.
 
 Download: https://www.automicvault.com/Automic%20Vault.dmg

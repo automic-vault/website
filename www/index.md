@@ -37,6 +37,18 @@ with the decision, launcher, requested key, command, and working directory.
 Automic Vault monitors developer tools across all ecosystems. New threats are
 flagged instantly, with clear steps to mitigate each finding.
 
+## Bring macOS App Security to the Terminal
+
+macOS can code sign apps, sandbox them, and keep them out of one another's
+private data. Command-line tools usually run with the authority of whichever
+app launched them. That used to mean Terminal.app. Now it may mean an AI
+harness, editor, or automation app.
+
+Automic Vault identifies the tool and its signed launcher, then applies the
+access rules you chose for that pairing.
+
+[Read why the terminal needs its own security layer](/blog/bringing-macos-security-to-the-terminal/)
+
 ## From the Creator of Homebrew
 
 Automic Vault is free Apache-2.0 open-source software for macOS.

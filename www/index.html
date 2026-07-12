@@ -111,7 +111,7 @@
         "headline": "Secure the tools you brew install",
         "description": "Automic Vault encrypts plaintext CLI secrets, gates their use per tool, and records every request.",
         "datePublished": "2026-05-15",
-        "dateModified": "2026-07-10",
+        "dateModified": "2026-07-12",
         "image": "https://www.automicvault.com/preview.jpg",
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "isPartOf": {"@id": "https://www.automicvault.com/#website"},
@@ -328,6 +328,20 @@ aws_secret_access_key = ••••••••••••••••••�
         <h2 id="threats-title">Continuous monitoring of threats to your developer environments</h2>
         <p>Automic Vault monitors developer tools across all ecosystems. New threats are flagged instantly, with clear steps to mitigate each finding.</p>
       </div>
+    </section>
+
+    <section class="brew-feature" id="terminal-security" aria-labelledby="terminal-security-title">
+      <div class="brew-copy">
+        <p class="brew-eyebrow">The missing macOS security layer</p>
+        <h2 id="terminal-security-title">Bring app security to the terminal.</h2>
+        <p>macOS can code sign apps, sandbox them, and keep them out of one another’s private data. Command-line tools usually run with the authority of whichever app launched them.</p>
+        <p>That used to mean Terminal.app. Now it may mean an AI harness, editor, or automation app. Automic Vault identifies the tool and its signed launcher, then applies the access rules you chose for that pairing.</p>
+        <a class="brew-text-link" href="/blog/bringing-macos-security-to-the-terminal/">Read why the terminal needs its own security layer <span aria-hidden="true">→</span></a>
+      </div>
+      <figure class="brew-capture">
+        <img src="./assets/approval-terminal-only.webp" alt="Automic Vault rule allowing direct GitHub token access to gh only when Terminal.app launches it" width="1952" height="1338" loading="lazy" decoding="async">
+        <figcaption>The same CLI can receive different access from Terminal, an agent harness, or another host app.</figcaption>
+      </figure>
     </section>
 
     <section class="brew-pricing" id="pricing" aria-labelledby="pricing-title">

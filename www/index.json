@@ -49,6 +49,11 @@
     "notification": "New threats are flagged instantly.",
     "mitigation": "Each finding includes clear steps to mitigate it."
   },
+  "terminal_security": {
+    "problem": "Command-line tools usually run with the authority of the app that launched them, such as Terminal, an AI harness, an editor, or an automation app.",
+    "control": "Automic Vault identifies the tool and its signed launcher, then applies access rules to that pairing.",
+    "learn_more": "https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/"
+  },
   "primary_action": {
     "label": "Download for macOS",
     "url": "https://www.automicvault.com/Automic%20Vault.dmg"
