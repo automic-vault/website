@@ -1,4 +1,4 @@
-.envrc
+/.envrc
 .DS_Store
 */.DS_Store
 /cache/
@@ -7,3 +7,4 @@
 /website-inputs*.json
 /www/llms-full.txt
 __pycache__
+/.env
