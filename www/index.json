@@ -30,8 +30,8 @@
     },
     {
       "scope": "per tool consumer",
-      "access": "full",
-      "description": "Always approve direct gh access only for a named calling app, such as Terminal.app."
+      "access": "trusted",
+      "description": "Automatically approve everything except routes that could exfiltrate secrets."
     }
   ],
   "audit_log": {

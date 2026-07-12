@@ -89,7 +89,7 @@
         "featureList": [
           "Encrypted storage for plaintext CLI secrets",
           "Human approval for secret usage",
-          "Per-tool read-only and full-access controls",
+          "Per-tool read-only and trusted-access controls",
           "Cross-ecosystem developer threat monitoring with mitigation steps",
           "Local audit log for approved and denied secret requests"
         ],
@@ -289,7 +289,7 @@ aws_secret_access_key = ••••••••••••••••••�
         </figure>
         <figure class="brew-capture">
           <img src="./assets/approval-terminal-only.webp" alt="Automic Vault Secret Gate for gh allowing direct GitHub token access only when Terminal.app is the calling app" width="1952" height="1338" loading="lazy" decoding="async">
-          <figcaption>Full access—but only to Terminal.app.</figcaption>
+          <figcaption>Trusted access, with secret-exfiltration routes still gated.</figcaption>
         </figure>
       </div>
       <div class="brew-copy">
@@ -297,7 +297,7 @@ aws_secret_access_key = ••••••••••••••••••�
         <p>Every secret use is restricted by default. Relax the gate only for the code-signed executable you name.</p>
         <dl class="brew-control-list">
           <div><dt>Read only</dt><dd>Auto-approve safe queries without granting write access.</dd></div>
-          <div><dt>Full access</dt><dd>Always approve direct <code>gh</code> access only for a named calling app, such as Terminal.app.</dd></div>
+          <div><dt>Trusted access</dt><dd>Automatically approve everything except routes that could exfiltrate secrets.</dd></div>
         </dl>
       </div>
     </section>

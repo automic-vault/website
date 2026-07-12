@@ -15,8 +15,8 @@ Granular access per tool consumer:
 - Every secret use is restricted by default.
 - Relax the gate only for the code-signed executable you name.
 - Read-only gh approval is opt-in on a per secret handling tool basis.
-- Full gh access can be always approved for one named calling app, such as
-  Terminal.app, without opening it to any other consumer.
+- Trusted access automatically approves everything except routes that could
+  exfiltrate secrets.
 
 Every secret use is logged:
 Approved or denied, automatic or manual, each request records the decision,
