@@ -1848,6 +1848,12 @@ html[lang="en"] .poster-hero h1 {
   isolation: isolate;
 }
 
+@media (min-width: 60.001rem) {
+  .brew-hero-capture {
+    transform: scale(0.84);
+  }
+}
+
 .brew-hero-capture::after {
   content: "";
   position: absolute;
