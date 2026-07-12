@@ -196,11 +196,13 @@ if [[ "${prepare_only}" != true ]]; then
   export WWW_BUCKET="${WWW_BUCKET:-${WWW_DOMAIN}}"
   export WWW_CLOUDFRONT_PRICE_CLASS="${WWW_CLOUDFRONT_PRICE_CLASS:-PriceClass_100}"
   export WWW_HTML_CACHE_CONTROL="${WWW_HTML_CACHE_CONTROL:-public, max-age=60, must-revalidate}"
+  export WWW_CSS_CACHE_CONTROL="${WWW_CSS_CACHE_CONTROL:-public, max-age=3600}"
   export WWW_ASSET_CACHE_CONTROL="${WWW_ASSET_CACHE_CONTROL:-public, max-age=31536000, immutable}"
 
   for env_name in \
     WWW_BUCKET \
     WWW_HTML_CACHE_CONTROL \
+    WWW_CSS_CACHE_CONTROL \
     WWW_ASSET_CACHE_CONTROL
   do
     require_env "${env_name}"
@@ -1571,7 +1573,17 @@ sync_site() {
     --exclude "*.txt" \
     --exclude "*.md" \
     --exclude "*.json" \
+    --exclude "*.css" \
     --cache-control "${WWW_ASSET_CACHE_CONTROL}"
+
+  log_step "Syncing stylesheets"
+  aws s3 sync "${upload_site_dir}/" "s3://${WWW_BUCKET}/" \
+    --exclude "*" \
+    --include "*.css" \
+    --exclude "pkg/*" \
+    --exclude "*/pkg/*" \
+    --exclude "pagefind/*" \
+    --cache-control "${WWW_CSS_CACHE_CONTROL}"
 
   log_step "Syncing crawlable HTML and XML content"
   aws s3 sync "${upload_site_dir}/" "s3://${WWW_BUCKET}/" \
