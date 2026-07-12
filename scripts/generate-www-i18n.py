@@ -897,7 +897,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
       </section>"""
         for index, (title, body) in enumerate(expanded_sections(t, locale), start=1)
     )
-    hero_actions = f"""          <a class="button primary" href="/Automic Vault.dmg">{html.escape(ui["download"])}</a>
+    hero_actions = f"""          <a class="button primary" href="/Automic%20Vault.dmg">{html.escape(ui["download"])}</a>
           <a class="button secondary" href="https://github.com/automic-vault/automic-vault#readme">{html.escape(ui["docs"])}</a>"""
     language_nav = language_links(path, locale, locales)
     return f"""<!DOCTYPE html>
@@ -952,7 +952,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
         <img class="brand-wordmark" src="/assets/wordmark.webp" alt="Automic Vault" width="996" height="257">
       </a>
       <nav class="seo-nav" aria-label="{html.escape(ui["mainNavigationAria"], quote=True)}">
-        <a href="/Automic Vault.dmg">{html.escape(ui["download"])}</a>
+        <a href="/Automic%20Vault.dmg">{html.escape(ui["download"])}</a>
         <a href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
         <a href="/blog/">Blog</a>
         <a href="{locale_path('/about/', locale)}">{html.escape(ui["about"])}</a>
@@ -981,7 +981,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
         <p class="eyebrow">Automic Vault</p>
         <h2 id="final-title">{html.escape(t["h1"])}</h2>
         <div class="hero-actions">
-          <a class="button primary" href="/Automic Vault.dmg">{html.escape(ui["download"])}</a>
+          <a class="button primary" href="/Automic%20Vault.dmg">{html.escape(ui["download"])}</a>
           <a class="button secondary" href="https://github.com/automic-vault/automic-vault#readme">{html.escape(ui["docs"])}</a>
           <a class="button text" href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
         </div>
@@ -1140,7 +1140,7 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
       <img src="/assets/icon@2x.webp" alt="" width="54" height="54">
       <span>Automic Vault</span>
     </a>
-    <a class="boundary-nav-download" href="/Automic Vault.dmg">{html.escape(landing["nav_download"])}</a>
+    <a class="boundary-nav-download" href="/Automic%20Vault.dmg">{html.escape(landing["nav_download"])}</a>
   </header>
 
   <main>
@@ -1181,7 +1181,7 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
       </div>
 
       <div class="boundary-hero-actions">
-        <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">{html.escape(landing["download"])}</a>
+        <a class="boundary-button boundary-button-primary" href="/Automic%20Vault.dmg">{html.escape(landing["download"])}</a>
         <a class="boundary-button boundary-button-secondary" href="https://github.com/automic-vault/automic-vault#readme">{html.escape(landing["docs"])}</a>
         <span>Free and open source · Apple Silicon · macOS 26</span>
       </div>
@@ -1263,7 +1263,7 @@ contained toolchain ready · host execution requires approval</code></pre>
     <section class="boundary-cta" id="free-open-source" aria-labelledby="cta-title">
       <h2 id="cta-title">{html.escape(landing["cta_title"])}</h2>
       <p>{html.escape(landing["cta_body"])}</p>
-      <a class="boundary-button boundary-button-primary" href="/Automic Vault.dmg">{html.escape(landing["download"])}</a>
+      <a class="boundary-button boundary-button-primary" href="/Automic%20Vault.dmg">{html.escape(landing["download"])}</a>
     </section>
   </main>
 

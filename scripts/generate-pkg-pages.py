@@ -4469,7 +4469,7 @@ def core_security_guide_links(page: PackagePage, locale: dict[str, Any] | None =
     haystack = " ".join([page.name, page.display_name, page.summary, " ".join(page.aliases), " ".join(page.keywords)]).lower()
     if provider == "brew" or "homebrew" in haystack:
         links.append((
-            "/Automic Vault.dmg",
+            "/Automic%20Vault.dmg",
             tx(locale, "secureHomebrewTools", "Secure Homebrew tools"),
             tx(locale, "secureHomebrewToolsCopy", "Install Vault and scan the tools your Mac already uses."),
         ))
