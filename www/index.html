@@ -125,7 +125,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="./favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles.css?v=106">
+  <link rel="stylesheet" href="./styles.css?v=107">
 </head>
 <body class="brew-home">
   <header class="brew-nav">
@@ -146,12 +146,19 @@
       <div class="brew-hero-title">
         <p class="brew-kicker">From the Creator of Homebrew</p>
         <h1 id="hero-title">Secure the tools you <span>brew install</span></h1>
-        <a class="brew-cta" href="/Automic Vault.dmg">Download for macOS</a>
+        <p class="brew-hero-lede">Automic Vault encrypts secrets, requires human approval, and logs every sensitive action—so your tools stay powerful and your data stays safe.</p>
+        <div class="brew-hero-actions">
+          <a class="brew-cta" href="/Automic Vault.dmg">Download for macOS</a>
+          <a class="brew-text-link" href="#controls">View controls <span aria-hidden="true">→</span></a>
+        </div>
       </div>
+      <figure class="brew-hero-capture">
+        <img src="./assets/av-approve-gate-gh-token.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" fetchpriority="high" decoding="async">
+      </figure>
       <ul class="brew-promises">
-        <li><span>01</span><strong>Encrypts plaintext secrets for all CLI tools.</strong></li>
-        <li><span>02</span><strong>Human in the loop for all authenticated tool use</strong></li>
-        <li><span>03</span><strong>Security at the layer that counts: where tools are installed</strong></li>
+        <li><span>01</span><strong>Secrets stay encrypted</strong><small>Plaintext never touches disk or logs.</small></li>
+        <li><span>02</span><strong>Human approval required</strong><small>Every sensitive action is gated by you.</small></li>
+        <li><span>03</span><strong>Full audit trails</strong><small>See who did what, when, and why.</small></li>
       </ul>
     </section>
 
@@ -268,7 +275,7 @@ aws_secret_access_key = ••••••••••••••••••�
           <p>Automic Vault doesn’t just protect your secrets; it gates <em>use</em> of those secrets.</p>
         </div>
         <figure class="brew-capture brew-capture-gate">
-          <img src="./assets/av-approve-gate.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" loading="lazy" decoding="async">
+          <img src="./assets/av-approve-gate-gh-token.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" loading="lazy" decoding="async">
           <figcaption>Command, working directory, and requested key—visible before anything runs.</figcaption>
         </figure>
       </div>
