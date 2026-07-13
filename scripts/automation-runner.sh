@@ -17,7 +17,7 @@ EOF
 
 resolve_pkg_origin_secret_from_cloudfront() {
   local header_name="${AV_WEB_ORIGIN_HEADER:-X-Automic-Vault-Origin}"
-  local domain="${WWW_DOMAIN:-}"
+  local domain="${WWW_DOMAIN:-automicvault.com}"
   local origin_id distribution_id secret
 
   [[ -n "${domain}" ]] || return 1
@@ -66,7 +66,10 @@ load_environment() {
     fi
   done
 
-  if [[ "${AV_WEB_ORIGIN_SECRET:-${WWW_PKG_ORIGIN_HEADER_VALUE:-}}" == encrypted:* ]]; then
+  export WWW_DOMAIN="${WWW_DOMAIN:-automicvault.com}"
+  export AV_WEB_ORIGIN_HEADER="${AV_WEB_ORIGIN_HEADER:-${WWW_PKG_ORIGIN_HEADER_NAME:-X-Automic-Vault-Origin}}"
+
+  if [[ -z "${AV_WEB_ORIGIN_SECRET:-${WWW_PKG_ORIGIN_HEADER_VALUE:-}}" || "${AV_WEB_ORIGIN_SECRET:-${WWW_PKG_ORIGIN_HEADER_VALUE:-}}" == encrypted:* ]]; then
     local resolved_secret=""
     resolved_secret="$(resolve_pkg_origin_secret_from_cloudfront || true)"
     if [[ -n "${resolved_secret}" ]]; then
@@ -75,7 +78,6 @@ load_environment() {
     fi
   fi
 
-  export AV_WEB_ORIGIN_HEADER="${AV_WEB_ORIGIN_HEADER:-${WWW_PKG_ORIGIN_HEADER_NAME:-}}"
   export AV_WEB_ORIGIN_SECRET="${AV_WEB_ORIGIN_SECRET:-${WWW_PKG_ORIGIN_HEADER_VALUE:-}}"
 }
 
