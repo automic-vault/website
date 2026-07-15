@@ -1595,7 +1595,7 @@ fn html_doc(
 
 fn site_nav(locale: &Locale) -> String {
     format!(
-        r#"<header class="masthead"><a class="brand" href="{}" aria-label="{}"><img class="brand-mark" src="/assets/icon@2x.webp" alt="Automic Vault" width="54" height="54"><span class="brand-type">Automic Vault</span></a><nav class="nav" aria-label="{}"><a href="{}">{}</a><a href="{}">{}</a><a href="{}">{}</a><a href="https://github.com/automic-vault/">GitHub</a></nav></header>"#,
+        r#"<header class="masthead"><a class="brand" href="{}" aria-label="{}"><img class="brand-mark" src="/assets/icon@2x.webp" alt="Automic Vault" width="54" height="54"><span class="brand-type">Automic Vault</span></a><nav class="nav" aria-label="{}"><a href="{}">{}</a><a href="{}">{}</a><a href="{}">{}</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav></header>"#,
         html_escape(&locale_path("/", locale)),
         html_escape(&tx(locale, "brandHomeAria", "Automic Vault home")),
         html_escape(&tx(locale, "mainNavigation", "Main navigation")),

@@ -956,7 +956,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
         <a href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
         <a href="/blog/">Blog</a>
         <a href="{locale_path('/about/', locale)}">{html.escape(ui["about"])}</a>
-        <a href="https://github.com/automic-vault/">GitHub</a>
+        <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
       </nav>
     </header>
 
@@ -997,7 +997,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
         <a href="/blog/">Blog</a>
         <a href="{locale_path('/privacy/', locale)}">{html.escape(ui["privacy"])}</a>
         <a href="{locale_path('/terms/', locale)}">{html.escape(ui["terms"])}</a>
-        <a href="https://github.com/automic-vault/">GitHub</a>
+        <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
       </nav>
     </footer>
   </div>

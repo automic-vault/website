@@ -4854,7 +4854,7 @@ def nav(root: str, locale: dict[str, Any] | None = None) -> str:
     <a href="{root}docs/">{html_escape(tx(locale, 'docs', 'Docs'))}</a>
     <a href="{root}security/">{html_escape(tx(locale, 'security', 'Security'))}</a>
     <a href="{root}pkg/">{html_escape(tx(locale, 'packages', 'Packages'))}</a>
-    <a href="https://github.com/automic-vault/">{html_escape(tx(locale, 'github', 'GitHub'))}</a>
+    <a href="https://github.com/automic-vault/automic-vault">{html_escape(tx(locale, 'github', 'GitHub'))}</a>
   </nav>
 </header>
 """
