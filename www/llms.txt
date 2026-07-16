@@ -61,6 +61,7 @@ and uses a credential.
 - [Homepage](https://www.automicvault.com/): product overview and execution map.
 - [Packages](https://www.automicvault.com/pkg/): searchable package catalog.
 - [Blog](https://www.automicvault.com/blog/): developer security incident analysis.
+- [Mac security best practices for agents](https://www.automicvault.com/blog/mac-security-best-practices-for-agents/): a least-authority macOS baseline for agent harnesses.
 - [macOS security for the terminal](https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/): why CLI authority depends on the app that launches it.
 - [About](https://www.automicvault.com/about/): project and founder background.
 - [Privacy](https://www.automicvault.com/privacy/): website and local product data boundaries.
