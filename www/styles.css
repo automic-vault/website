@@ -1380,6 +1380,11 @@ html[lang="en"] .poster-hero h1 {
   line-height: 1.72;
 }
 
+.incident-body .article-highlight {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
 .incident-answer,
 .incident-note,
 .incident-panel,
