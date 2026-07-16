@@ -197,12 +197,14 @@ if [[ "${prepare_only}" != true ]]; then
   export WWW_CLOUDFRONT_PRICE_CLASS="${WWW_CLOUDFRONT_PRICE_CLASS:-PriceClass_100}"
   export WWW_HTML_CACHE_CONTROL="${WWW_HTML_CACHE_CONTROL:-public, max-age=60, must-revalidate}"
   export WWW_CSS_CACHE_CONTROL="${WWW_CSS_CACHE_CONTROL:-public, max-age=3600}"
+  export WWW_PREVIEW_CACHE_CONTROL="${WWW_PREVIEW_CACHE_CONTROL:-public, max-age=3600, must-revalidate}"
   export WWW_ASSET_CACHE_CONTROL="${WWW_ASSET_CACHE_CONTROL:-public, max-age=31536000, immutable}"
 
   for env_name in \
     WWW_BUCKET \
     WWW_HTML_CACHE_CONTROL \
     WWW_CSS_CACHE_CONTROL \
+    WWW_PREVIEW_CACHE_CONTROL \
     WWW_ASSET_CACHE_CONTROL
   do
     require_env "${env_name}"
@@ -1565,6 +1567,7 @@ sync_site() {
     --exclude "scanner.gz" \
     --exclude "scanner.sh" \
     --exclude "db.json" \
+    --exclude "preview.jpg" \
     --exclude "pkg/*" \
     --exclude "*/pkg/*" \
     --exclude "pagefind/*" \
@@ -1575,6 +1578,11 @@ sync_site() {
     --exclude "*.json" \
     --exclude "*.css" \
     --cache-control "${WWW_ASSET_CACHE_CONTROL}"
+
+  log_step "Uploading social preview"
+  aws s3 cp "${upload_site_dir}/preview.jpg" "s3://${WWW_BUCKET}/preview.jpg" \
+    --content-type "image/jpeg" \
+    --cache-control "${WWW_PREVIEW_CACHE_CONTROL}"
 
   log_step "Syncing stylesheets"
   aws s3 sync "${upload_site_dir}/" "s3://${WWW_BUCKET}/" \
