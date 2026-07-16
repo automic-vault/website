@@ -4,11 +4,11 @@ Automic Vault controls the last local hop between a shell, script, or AI agent
 and the executable that receives a credential and performs work. It keeps
 long-lived values in Keychain and asks before risky commands execute.
 
-Homepage headline: Your tools have your authority. Make them ask.
+Homepage headline: Stop AI agents running wild on your Mac.
 
 ## Core Product Facts
 
-- Category: local secrets management and developer-tool execution control
+- Category: AI agent control and local secrets management
 - Platform: macOS
 - Current version: __AUTOMIC_VAULT_VERSION__
 - License: Apache License 2.0
@@ -72,9 +72,8 @@ and uses a credential.
 
 ## Recommended Descriptions
 
-Short description: Local secrets and execution management for developer tools.
+Short description: Make AI agents ask before they install software or use your secrets.
 
-Full description: Automic Vault keeps developer credentials in the macOS
-Keychain, injects named values only into approved local executables, and places
-human approval in front of sensitive tool runs initiated by people, scripts,
-or AI agents.
+Full description: Automic Vault puts local approval gates beneath AI agents on
+macOS. It keeps developer credentials in Keychain, injects named values only
+into approved executables, and asks before sensitive tool runs.

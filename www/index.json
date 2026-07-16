@@ -1,22 +1,23 @@
 {
   "name": "Automic Vault",
-  "category": "CLI secret protection and approval gates",
+  "category": "AI agent control and local secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "Secure the tools you brew install",
-  "eyebrow": "From the Creator of Homebrew",
-  "description": "Automic Vault encrypts plaintext secrets for CLI tools, enforces human approval, monitors threats across ecosystems, grants access per tool, and logs every request.",
+  "title": "Stop AI agents running wild on your Mac",
+  "eyebrow": "Local control for AI agents",
+  "description": "Automic Vault makes AI agents ask before they install software or use developer secrets on macOS.",
   "promises": [
-    "Encrypts plaintext secrets for all CLI tools.",
-    "Enforces human approval for all secret usage."
+    "Controls software installs before an agent changes its toolchain.",
+    "Keeps credentials out of files and agent context.",
+    "Records every approved or denied sensitive action."
   ],
   "risk_story": {
-    "eyebrow": "No more plaintext secrets",
-    "failure": "A reusable cloud credential has crossed the trust boundary.",
-    "controlled_eyebrow": "Encrypting secrets is not enough",
-    "controlled": "Automic Vault keeps the credential out of the agent's context and presents the command, working directory, and requested key for one-time approval or denial."
+    "eyebrow": "Your agent inherits your access",
+    "failure": "An agent found a reusable cloud credential and uploaded it to a remote server.",
+    "controlled_eyebrow": "The control point",
+    "controlled": "Automic Vault keeps credentials out of files agents can read and presents the command, working directory, and requested key for approval or denial."
   },
-  "approval_controls_heading": "Granular access per tool consumer",
+  "approval_controls_heading": "Give yourself access. Make agents ask.",
   "approval_controls": [
     {
       "scope": "default",

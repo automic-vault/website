@@ -11,18 +11,18 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | The missing command&hyphen;line security&hyphen;layer for Mac</title>
-  <meta name="description" content="Encrypt CLI secrets, enforce human approval, monitor threats across ecosystems, grant access per tool, and log every request.">
+  <title>Automic Vault | Stop AI agents running wild on your Mac</title>
+  <meta name="description" content="Make AI agents ask before they install software or use your secrets. Automic Vault puts local approval gates under every agent on your Mac.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="The missing command&hyphen;line security&hyphen;layer for Mac">
-  <meta property="og:description" content="Encrypt CLI secrets, enforce human approval, monitor threats across ecosystems, grant access per tool, and log every request.">
+  <meta property="og:title" content="Stop AI agents running wild on your Mac">
+  <meta property="og:description" content="Make AI agents ask before they install software or use your secrets.">
   <meta property="og:url" content="https://www.automicvault.com/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
-  <meta name="twitter:title" content="The missing command&hyphen;line security&hyphen;layer for Mac">
-  <meta name="twitter:description" content="Encrypt CLI secrets, enforce human approval, monitor threats across ecosystems, grant access per tool, and log every request.">
+  <meta name="twitter:title" content="Stop AI agents running wild on your Mac">
+  <meta name="twitter:description" content="Make AI agents ask before they install software or use your secrets.">
   <link rel="canonical" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/">
@@ -78,7 +78,7 @@
         "@id": "https://www.automicvault.com/#software",
         "name": "Automic Vault",
         "applicationCategory": "SecurityApplication",
-        "applicationSubCategory": "Local secrets and execution management",
+        "applicationSubCategory": "AI agent control and local secrets management",
         "operatingSystem": "macOS",
         "softwareVersion": "__AUTOMIC_VAULT_VERSION__",
         "url": "https://www.automicvault.com/",
@@ -87,8 +87,8 @@
         "license": "https://www.apache.org/licenses/LICENSE-2.0",
         "screenshot": "https://www.automicvault.com/preview.jpg",
         "featureList": [
-          "Encrypted storage for plaintext CLI secrets",
-          "Human approval for secret usage",
+          "Human approval for software installs and sensitive commands",
+          "Encrypted storage for CLI secrets",
           "Per-tool read-only and trusted-access controls",
           "Cross-ecosystem developer threat monitoring with mitigation steps",
           "Local audit log for approved and denied secret requests"
@@ -100,18 +100,18 @@
           "availability": "https://schema.org/InStock",
           "url": "https://www.automicvault.com/#pricing"
         },
-        "description": "Automic Vault encrypts CLI secrets, gates their use per tool, monitors threats across ecosystems, and records every request.",
+        "description": "Automic Vault makes AI agents ask before they install software, use developer secrets, or run sensitive commands on macOS.",
         "publisher": {"@id": "https://www.automicvault.com/#organization"}
       },
       {
         "@type": "WebPage",
         "@id": "https://www.automicvault.com/#webpage",
         "url": "https://www.automicvault.com/",
-        "name": "Automic Vault | Secure Every Homebrew CLI Tool",
-        "headline": "Secure the tools you brew install",
-        "description": "Automic Vault encrypts plaintext CLI secrets, gates their use per tool, and records every request.",
+        "name": "Automic Vault | Stop AI agents running wild on your Mac",
+        "headline": "Stop AI agents running wild on your Mac",
+        "description": "Make AI agents ask before they install software or use your secrets.",
         "datePublished": "2026-05-15",
-        "dateModified": "2026-07-12",
+        "dateModified": "2026-07-16",
         "image": "https://www.automicvault.com/preview.jpg",
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "isPartOf": {"@id": "https://www.automicvault.com/#website"},
@@ -125,7 +125,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="./favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles.css?v=108">
+  <link rel="stylesheet" href="./styles.css?v=109">
 </head>
 <body class="brew-home">
   <header class="brew-nav">
@@ -134,9 +134,9 @@
       <span>Automic Vault</span>
     </a>
     <nav class="brew-nav-links" aria-label="Primary navigation">
-      <a href="#controls">Controls</a>
-      <a href="#audit">Audit Log</a>
-      <a href="#threats">Threats</a>
+      <a href="#approval">Approval</a>
+      <a href="#controls">Secrets</a>
+      <a href="#audit">Audit</a>
     </nav>
     <a class="brew-download" href="/Automic%20Vault.dmg">Download</a>
   </header>
@@ -144,29 +144,29 @@
   <main>
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
-        <p class="brew-kicker">From the Creator of Homebrew</p>
-        <h1 id="hero-title">Secure the tools you <span>brew install</span></h1>
-        <p class="brew-hero-lede">The missing command&hyphen;line security&hyphen;layer for Mac.</p>
+        <p class="brew-kicker">Local control for AI agents</p>
+        <h1 id="hero-title">Stop AI agents <span>running wild</span> on your Mac.</h1>
+        <p class="brew-hero-lede">Make agents ask before they install software or use your secrets.</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">Download for macOS</a>
-          <a class="brew-text-link" href="#controls">View controls <span aria-hidden="true">→</span></a>
+          <a class="brew-text-link" href="#approval">See what gets stopped <span aria-hidden="true">→</span></a>
         </div>
       </div>
       <figure class="brew-hero-capture">
         <img src="./assets/av-approve-gate.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" fetchpriority="high" decoding="async">
       </figure>
       <ul class="brew-promises">
-        <li><span>01</span><strong>Secrets stay encrypted</strong><small>Plaintext never touches disk or logs.</small></li>
-        <li><span>02</span><strong>Human approval required</strong><small>Every sensitive action is gated by you.</small></li>
-        <li><span>03</span><strong>Full audit trails</strong><small>See who did what, when, and why.</small></li>
+        <li><span>01</span><strong>Control software installs</strong><small>Agents ask before changing their toolchain.</small></li>
+        <li><span>02</span><strong>Keep secrets out of reach</strong><small>Approved tools get credentials. Agents do not.</small></li>
+        <li><span>03</span><strong>Review sensitive actions</strong><small>Approve or deny with a local record.</small></li>
       </ul>
     </section>
 
-    <section class="brew-risk" aria-labelledby="risk-title">
+    <section class="brew-risk" id="approval" aria-labelledby="risk-title">
       <div class="brew-split">
         <div class="brew-copy">
           <p class="brew-eyebrow">Before Automic Vault</p>
-          <h2 id="risk-title">“Helpful” agents take dangerous shortcuts.</h2>
+          <h2 id="risk-title">Your agent inherits your access.</h2>
         </div>
         <ol class="brew-session" aria-label="Example Claude session that reads and uploads local AWS credentials">
           <li class="brew-chat-message brew-chat-message-agent">
@@ -204,8 +204,8 @@ aws_secret_access_key = ••••••••••••••••••�
 
       <div class="brew-exfiltration">
         <div class="brew-alert">
-          <strong>SECRET EXFILTRATED</strong>
-          <span>A reusable cloud credential just crossed the trust boundary.</span>
+          <strong>YOUR AWS KEYS LEFT THE MAC</strong>
+          <span>The agent found a reusable cloud credential and uploaded it to a remote server.</span>
         </div>
         <section class="brew-split brew-after" aria-label="After Automic Vault">
           <div class="brew-copy">
@@ -233,7 +233,7 @@ aws_secret_access_key = ••••••••••••••••••�
                 <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
               </div>
             </li>
-            <li class="brew-chat-divider"><span>Automic Vault removes plaintext secrets</span></li>
+            <li class="brew-chat-divider"><span>No plaintext credential exists for the agent to read</span></li>
             <li class="brew-chat-message brew-chat-message-result">
               <span class="brew-chat-avatar" aria-hidden="true">R</span>
               <div class="brew-chat-body">
@@ -255,7 +255,7 @@ aws_secret_access_key = ••••••••••••••••••�
                 <div class="brew-chat-bubble"><code>aws config export-credentials</code></div>
               </div>
             </li>
-            <li class="brew-chat-divider"><span>Automic Vault gates access to secret exfiltration routes</span></li>
+            <li class="brew-chat-divider"><span>The export command still requires your approval</span></li>
             <li class="brew-chat-message brew-chat-message-approval">
               <span class="brew-chat-avatar" aria-hidden="true">!</span>
               <div class="brew-chat-body">
@@ -269,10 +269,10 @@ aws_secret_access_key = ••••••••••••••••••�
 
       <div class="brew-split brew-proof">
         <div class="brew-copy">
-          <p class="brew-eyebrow">Encrypting secrets is not enough</p>
-          <h2>Human Approval Required</h2>
-          <p>Encrypting secrets is only half of it when those secrets can be used for sensitive actions.</p>
-          <p>Automic Vault doesn’t just protect your secrets; it gates <em>use</em> of those secrets.</p>
+          <p class="brew-eyebrow">The control point</p>
+          <h2>Secrets stay out of the agent’s context.</h2>
+          <p>Automic Vault stores credentials outside files that agents can read.</p>
+          <p>When an approved tool needs a secret, you see the command, working directory, and requested key before anything runs.</p>
         </div>
         <figure class="brew-capture brew-capture-gate">
           <img src="./assets/av-approve-gate-gh-token.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" loading="lazy" decoding="async">
@@ -289,7 +289,7 @@ aws_secret_access_key = ••••••••••••••••••�
         </figure>
       </div>
       <div class="brew-copy">
-        <h2 id="controls-title">Adjust access granularly. One rule for you and one rule for agents.</h2>
+        <h2 id="controls-title">Give yourself access. Make agents ask.</h2>
         <p>Every secret use is restricted by default. Relax the gate only for the code-signed executable you name.</p>
         <dl class="brew-control-list">
           <div><dt>Read only</dt><dd>Auto-approve safe queries without granting write access.</dd></div>
@@ -321,15 +321,15 @@ aws_secret_access_key = ••••••••••••••••••�
         <figcaption>Each flag includes its trigger, rationale, and mitigation steps.</figcaption>
       </figure>
       <div class="brew-copy">
-        <h2 id="threats-title">Continuous monitoring of threats to your developer environments</h2>
-        <p>Automic Vault monitors developer tools across all ecosystems. New threats are flagged instantly, with clear steps to mitigate each finding.</p>
+        <h2 id="threats-title">Know when an agent’s toolchain turns risky.</h2>
+        <p>Automic Vault monitors developer tools across ecosystems. It flags new threats and shows you how to mitigate each finding.</p>
       </div>
     </section>
 
     <section class="brew-feature" id="terminal-security" aria-labelledby="terminal-security-title">
       <div class="brew-copy">
-        <p class="brew-eyebrow">The missing macOS security layer</p>
-        <h2 id="terminal-security-title">Bring app security to the terminal.</h2>
+        <p class="brew-eyebrow">Below the model and prompt</p>
+        <h2 id="terminal-security-title">Control the tool layer beneath every agent.</h2>
         <p>macOS can code sign apps, sandbox them, and keep them out of one another’s private data. Command-line tools usually run with the authority of whichever app launched them.</p>
         <p>That used to mean Terminal.app. Now it may mean an AI harness, editor, or automation app. Automic Vault identifies the tool and its signed launcher, then applies the access rules you chose for that pairing.</p>
         <a class="brew-text-link" href="/blog/bringing-macos-security-to-the-terminal/">Read why the terminal needs its own security layer <span aria-hidden="true">→</span></a>

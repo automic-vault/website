@@ -1804,7 +1804,7 @@ html[lang="en"] .poster-hero h1 {
 
 .brew-hero h1 {
   min-width: 0;
-  max-width: 10ch;
+  max-width: 12ch;
   margin: 0;
   color: var(--color-boundary-ink);
   font-family: var(--font-display);

@@ -1,54 +1,61 @@
 # Automic Vault
 
-## Secure the tools you brew install
+## Stop AI agents running wild on your Mac
 
-- Encrypts plaintext secrets for all CLI tools.
-- Enforces human approval for all secret usage.
+Make agents ask before they install software or use your secrets.
+
+- Control software installs before an agent changes its toolchain.
+- Keep credentials out of files and agent context.
+- Approve or deny sensitive actions with a local record.
 
 [Download for macOS](/Automic%20Vault.dmg)
 
-**No more plaintext secrets**
+## Your agent inherits your access
 
-## “Helpful” Agents Take Dangerous Shortcuts
+An agent can read the same credential files and run the same tools you can. A
+helpful shortcut can upload a reusable cloud credential to a remote server.
 
-**Encrypting secrets is not enough**
+Automic Vault removes plaintext secrets from files agents can read. If an
+agent tries another route, such as `aws config export-credentials`, the command
+stops at a native approval gate.
 
-### The Tool Should Have to Ask
+## Secrets stay out of the agent’s context
 
-Automic Vault keeps the credential out of the agent's context. The request
-stops at a native approval gate where you can inspect the command, working
-directory, and requested key, then approve it once or deny it.
+Automic Vault stores credentials outside files that agents can read. When an
+approved tool needs a secret, you see the command, working directory, and
+requested key before anything runs.
 
-## Granular Access per Tool Consumer
+## Give yourself access. Make agents ask.
 
 Every secret use is restricted by default. Relax the gate only for the
-code-signed executable you name. Read-only `gh` approval is opt-in on a per
-secret handling tool basis. Trusted access automatically approves everything
-except routes that could exfiltrate secrets.
+code-signed executable and launcher you name.
 
-## Every Secret Use Is Logged
+- Read-only rules can approve safe queries without write access.
+- Trusted rules still gate commands that could expose a secret.
+
+## Every secret use is logged
 
 Approved or denied, automatic or manual: every request leaves a local record
 with the decision, launcher, requested key, command, and working directory.
 
-## Monitor Threats to your developer environment
+## Know when an agent’s toolchain turns risky
 
-Automic Vault monitors developer tools across all ecosystems. New threats are
-flagged instantly, with clear steps to mitigate each finding.
+Automic Vault monitors developer tools across ecosystems. It flags new threats
+and shows you how to mitigate each finding.
 
-## Bring macOS App Security to the Terminal
+## Control the tool layer beneath every agent
 
-macOS can code sign apps, sandbox them, and keep them out of one another's
+macOS can code sign apps, sandbox them, and keep them out of one another’s
 private data. Command-line tools usually run with the authority of whichever
-app launched them. That used to mean Terminal.app. Now it may mean an AI
-harness, editor, or automation app.
+app launched them. That may be Terminal, an AI harness, an editor, or an
+automation app.
 
 Automic Vault identifies the tool and its signed launcher, then applies the
 access rules you chose for that pairing.
 
 [Read why the terminal needs its own security layer](/blog/bringing-macos-security-to-the-terminal/)
 
-## From the Creator of Homebrew
+## From the creator of Homebrew
 
 Automic Vault is free Apache-2.0 open-source software for macOS.
 
