@@ -2,7 +2,7 @@ Automic Vault
 
 Stop AI agents running wild on your Mac.
 
-Make agents ask before they install software or use your secrets.
+Make agents ask before they install software, deploy to prod or use your secrets.
 
 - Control software installs before an agent changes its toolchain.
 - Keep credentials out of files and agent context.
