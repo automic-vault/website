@@ -121,6 +121,14 @@
             <p>Avoid giving the agent a reusable administrator credential or teaching it to approve every elevation prompt. Elevation should be an exceptional, visible act tied to a specific change.</p>
           </section>
 
+          <section class="incident-section" aria-labelledby="maintainer-builds-title">
+            <div class="section-label"><h2 id="maintainer-builds-title">Treat Local App Builds as Untrusted</h2><span>maintainer risk</span></div>
+            <p>Maintainers of large open-source projects face an additional targeted risk. If you build a <code>.app</code> from source and copy it into Applications yourself, that build may never pass through the downloaded-software path where Gatekeeper checks Developer ID, notarization, and integrity. Xcode’s “Sign to Run Locally” signature is ad hoc and tied to that particular build; it does not establish a stable, independently vouched-for distribution identity.</p>
+            <p><strong class="article-highlight">Malware that can write to your build output or locally installed app may be able to replace its code and apply a new ad-hoc signature before you launch it.</strong> A valid signature then shows only that the current bundle has not changed since that new signature was applied—not that Apple notarized it or that it is the build you intended.</p>
+            <p>This makes project knowledge valuable to an attacker. Someone who knows which apps you maintain, where you build them, or which development copy you run can target that exact path instead of attacking a public release. The larger and more trusted the project, the more valuable the maintainer’s local signing keys, release credentials, and repository access may be.</p>
+            <p>For routine use, install the project’s Developer ID-signed and notarized release through a controlled download or package-management path, even when you are its maintainer. Keep development builds separate and ephemeral, protect their output directories from unrelated apps and agents, and verify the expected signing identity before treating a build as trusted. Notarization strengthens the installation boundary; it is not permanent protection for an app that remains writable afterward.</p>
+          </section>
+
           <section class="incident-section" aria-labelledby="downloads-title">
             <div class="section-label"><h2 id="downloads-title">Protect the Downloads Boundary</h2><span>stage, verify, install</span></div>
             <p>In <strong>System Settings → Privacy &amp; Security → Files &amp; Folders</strong>, turn off Downloads access for agent harnesses and other apps that do not need it. A downloaded app is most exposed between arrival and first launch. <strong class="article-highlight">Software that can write to Downloads may be able to replace or modify that payload before you inspect it.</strong></p>
@@ -161,6 +169,8 @@
               <li><a href="https://support.apple.com/guide/security/system-integrity-protection-secb7ea06b49/web">Apple: System Integrity Protection</a></li>
               <li><a href="https://support.apple.com/guide/mac-help/control-access-to-files-and-folders-on-mac-mchld5a35146/mac">Apple: Control access to files and folders on Mac</a></li>
               <li><a href="https://support.apple.com/en-nz/guide/mac-help/mchl211c911f/mac">Apple: Change Privacy &amp; Security settings on Mac</a></li>
+              <li><a href="https://developer.apple.com/documentation/technotes/tn3127-inside-code-signing-requirements/">Apple: Inside Code Signing requirements</a></li>
+              <li><a href="https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution">Apple: Notarizing macOS software before distribution</a></li>
             </ul>
           </section>
         </section>
