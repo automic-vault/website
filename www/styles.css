@@ -1802,6 +1802,10 @@ html[lang="en"] .poster-hero h1 {
   text-transform: uppercase;
 }
 
+.brew-kicker {
+  font-size: var(--text-sm);
+}
+
 .brew-hero h1 {
   min-width: 0;
   max-width: 12ch;
