@@ -32,6 +32,14 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
 
         self.assertEqual(missing, [])
 
+    def test_csp_allows_google_analytics_script(self):
+        deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
+        self.assertIn("script-src", deploy_script)
+        self.assertIn("https://www.googletagmanager.com", deploy_script)
+        self.assertIn("connect-src", deploy_script)
+        self.assertIn("https://www.google-analytics.com", deploy_script)
+        self.assertIn("https://www.google.com", deploy_script)
+
     def test_localized_static_pages_are_current(self):
         subprocess.run(
             [sys.executable, str(ROOT / "scripts" / "generate-www-i18n.py"), "--check"],

@@ -669,7 +669,7 @@ ensure_response_headers_policy() {
         },
         ContentSecurityPolicy: {
           Override: true,
-          ContentSecurityPolicy: "default-src '\''self'\''; script-src '\''self'\'' '\''unsafe-inline'\'' '\''wasm-unsafe-eval'\''; style-src '\''self'\'' '\''unsafe-inline'\'' https://fonts.googleapis.com; font-src '\''self'\'' https://fonts.gstatic.com; img-src '\''self'\'' data: https://www.automicvault.com; connect-src '\''self'\''; frame-ancestors '\''none'\''; base-uri '\''self'\''; form-action '\''none'\''"
+          ContentSecurityPolicy: "default-src '\''self'\''; script-src '\''self'\'' '\''unsafe-inline'\'' '\''wasm-unsafe-eval'\'' https://www.googletagmanager.com; style-src '\''self'\'' '\''unsafe-inline'\'' https://fonts.googleapis.com; font-src '\''self'\'' https://fonts.gstatic.com; img-src '\''self'\'' data: https://www.automicvault.com; connect-src '\''self'\'' https://www.google-analytics.com https://www.google.com; frame-ancestors '\''none'\''; base-uri '\''self'\''; form-action '\''none'\''"
         }
       },
       CustomHeadersConfig: {
