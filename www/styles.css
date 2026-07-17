@@ -2013,9 +2013,9 @@ html[lang="en"] .poster-hero h1 {
 }
 
 .brew-chat-message-agent .brew-chat-avatar {
-  border-color: var(--color-boundary-accent);
-  background: var(--color-boundary-accent);
-  color: var(--color-boundary-accent-ink);
+  border: 0;
+  background: url("/assets/claude-icon.svg") center / cover no-repeat;
+  color: transparent;
 }
 
 .brew-chat-message:is(.brew-chat-message-tool, .brew-chat-message-result) .brew-chat-avatar {
