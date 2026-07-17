@@ -10,7 +10,6 @@ Homepage headline: Stop AI agents running wild on your Mac.
 
 - Category: AI agent control and local secrets management
 - Platform: macOS
-- Current version: __AUTOMIC_VAULT_VERSION__
 - License: Apache License 2.0
 - Source: https://github.com/automic-vault/automic-vault
 - Website: https://www.automicvault.com/
