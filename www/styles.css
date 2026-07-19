@@ -2413,7 +2413,7 @@ html[lang="en"] .poster-hero h1 {
   height: 5.9%;
   border: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
   border-radius: var(--radius-pill);
-  transform: translateY(-50%);
+  transform: translateY(-25%);
 }
 
 .brew-access-ring::after {
@@ -2421,7 +2421,7 @@ html[lang="en"] .poster-hero h1 {
   position: absolute;
   inset-block-start: 50%;
   inset-inline-start: 100%;
-  width: calc(32.5% + 1px);
+  width: calc(32.5% + 3px);
   border-block-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
 }
 
@@ -2451,7 +2451,6 @@ html[lang="en"] .poster-hero h1 {
   position: relative;
   display: grid;
   gap: var(--space-xs);
-  transform: translateY(25%);
 }
 
 .brew-access-note::before {
@@ -2689,7 +2688,6 @@ html[lang="en"] .poster-hero h1 {
   .brew-access-note {
     padding-inline-start: var(--space-md);
     border-inline-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
-    transform: none;
   }
 
   .brew-access-ring::after {
