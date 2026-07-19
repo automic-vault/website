@@ -22,8 +22,11 @@ approved tool needs a secret, you see the command, working directory, and
 requested key before anything runs.
 
 Give yourself access. Make agents ask:
-- Read-only rules can approve safe queries without write access.
-- Trusted rules still gate commands that could expose a secret.
+- No access means everything has an approval gate.
+- Read-only access is for tools you trust somewhat, like agents. Safe reads can
+  proceed; writes require approval.
+- Trusted access is for a terminal where you never intend to run npm i.
+  Commands that could reveal secrets always keep an approval gate.
 
 Every secret use is logged:
 Approved or denied, automatic or manual, each request records the decision,

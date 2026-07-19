@@ -27,11 +27,13 @@ requested key before anything runs.
 
 ## Give yourself access. Make agents ask.
 
-Every secret use is restricted by default. Relax the gate only for the
-code-signed executable and launcher you name.
+Choose how each signed app can use a secret.
 
-- Read-only rules can approve safe queries without write access.
-- Trusted rules still gate commands that could expose a secret.
+- No access means everything has an approval gate.
+- Read-only access is for tools you trust somewhat, like agents. Safe reads can
+  proceed; writes require approval.
+- Trusted access is for a terminal where you never intend to run `npm i`.
+  Commands that could reveal secrets always keep an approval gate.
 
 ## Every secret use is logged
 

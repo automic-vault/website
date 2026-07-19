@@ -124,7 +124,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="./favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles.css?v=112">
+  <link rel="stylesheet" href="./styles.css?v=113">
 </head>
 <body class="brew-home">
   <header class="brew-nav">
@@ -281,21 +281,34 @@ aws_secret_access_key = ••••••••••••••••••�
       </div>
     </section>
 
-    <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
-      <div class="brew-capture-stack">
-        <figure class="brew-capture">
-          <img src="./assets/approval-terminal-only.webp" alt="Automic Vault Secret Gate for gh allowing direct GitHub token access only when Terminal.app is the calling app" width="1952" height="1338" loading="lazy" decoding="async">
-          <figcaption>Opt-in read-only approval on a per secret handling tool basis. Trusted access, with secret-exfiltration routes still gated.</figcaption>
-        </figure>
-      </div>
+    <section class="brew-access" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
+        <p class="brew-eyebrow">Access by app</p>
         <h2 id="controls-title">Give yourself access. Make agents ask.</h2>
-        <p>Every secret use is restricted by default. Relax the gate only for the code-signed executable you name.</p>
-        <dl class="brew-control-list">
-          <div><dt>Read only</dt><dd>Auto-approve safe queries without granting write access.</dd></div>
-          <div><dt>Trusted access</dt><dd>Automatically approve everything except routes that could exfiltrate secrets.</dd></div>
-        </dl>
+        <p>Choose how each app can use a secret. Automic Vault identifies the signed app making the request and applies its access level.</p>
       </div>
+      <figure class="brew-access-diagram">
+        <div class="brew-access-screen">
+          <img src="./assets/access-levels.png" alt="Automic Vault showing No Access for all other apps, Trusted Access for Terminal, and Read Only Access for ChatGPT" width="1944" height="1380" loading="lazy" decoding="async">
+          <span class="brew-access-ring brew-access-ring-none" aria-hidden="true"></span>
+          <span class="brew-access-ring brew-access-ring-trusted" aria-hidden="true"></span>
+          <span class="brew-access-ring brew-access-ring-read" aria-hidden="true"></span>
+        </div>
+        <dl class="brew-access-notes">
+          <div class="brew-access-note brew-access-note-none">
+            <dt>No access</dt>
+            <dd>Everything has an approval gate.</dd>
+          </div>
+          <div class="brew-access-note brew-access-note-trusted">
+            <dt>Trusted access</dt>
+            <dd>For a terminal where you never intend to run <code>npm i</code>. Secret-revealing commands always keep an approval gate.</dd>
+          </div>
+          <div class="brew-access-note brew-access-note-read">
+            <dt>Read only</dt>
+            <dd>For tools you trust somewhat, like agents. Safe reads can proceed; writes require approval.</dd>
+          </div>
+        </dl>
+      </figure>
     </section>
 
     <section class="brew-feature" id="audit" aria-labelledby="audit-title">

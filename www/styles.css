@@ -2364,36 +2364,110 @@ html[lang="en"] .poster-hero h1 {
   justify-self: end;
 }
 
-.brew-control-list {
+/* Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V4 */
+.brew-access {
   display: grid;
-  gap: 0;
-  margin: var(--space-lg) 0 0;
-  border-block-start: var(--rule-hair) solid var(--color-boundary-rule-strong);
-}
-
-.brew-control-list div {
-  display: grid;
-  gap: var(--space-xs);
-  padding-block: var(--space-md);
+  gap: var(--space-2xl);
+  min-width: 0;
+  padding: clamp(var(--space-3xl), 12vw, var(--space-4xl)) clamp(var(--space-md), 6vw, var(--space-3xl));
   border-block-end: var(--rule-hair) solid var(--color-boundary-rule);
+  background: var(--color-boundary-surface);
+  color: var(--color-boundary-ink);
 }
 
-.brew-control-list dt,
-.brew-control-list dd {
+.brew-access > .brew-copy {
+  grid-template-columns: minmax(18rem, 0.72fr) minmax(0, 1.28fr);
+  align-items: end;
+  gap: clamp(var(--space-xl), 7vw, var(--space-4xl));
+}
+
+.brew-access > .brew-copy .brew-eyebrow {
+  grid-column: 1 / -1;
+}
+
+.brew-access-diagram {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 2.25fr) minmax(16rem, 0.75fr);
+  min-width: 0;
   margin: 0;
 }
 
-.brew-control-list dt {
+.brew-access-screen {
+  position: relative;
+  min-width: 0;
+}
+
+.brew-access-screen img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.brew-access-ring {
+  position: absolute;
+  inset-inline-start: 75.5%;
+  width: 18.5%;
+  height: 5.9%;
+  border: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
+  border-radius: var(--radius-pill);
+  transform: translateY(-50%);
+}
+
+.brew-access-ring::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 100%;
+  width: 40%;
+  border-block-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
+}
+
+.brew-access-ring-none { inset-block-start: 46%; }
+.brew-access-ring-trusted { inset-block-start: 55.2%; }
+.brew-access-ring-read { inset-block-start: 65.6%; }
+
+.brew-access-notes {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+}
+
+.brew-access-note {
+  position: absolute;
+  inset-inline: var(--space-xl) 0;
+  display: grid;
+  gap: var(--space-xs);
+  transform: translateY(-50%);
+}
+
+.brew-access-note-none { inset-block-start: 46%; }
+.brew-access-note-trusted { inset-block-start: 55.2%; }
+.brew-access-note-read { inset-block-start: 65.6%; }
+
+.brew-access-note dt,
+.brew-access-note dd {
+  margin: 0;
+}
+
+.brew-access-note dt {
   color: var(--color-boundary-accent);
   font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.brew-control-list dd {
+.brew-access-note dd {
   color: var(--color-boundary-body);
-  line-height: 1.55;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.brew-access-note code {
+  color: var(--color-boundary-ink);
+  font-family: var(--font-code);
 }
 
 .brew-log-fields {
@@ -2554,6 +2628,28 @@ html[lang="en"] .poster-hero h1 {
     width: 100%;
     justify-self: stretch;
   }
+
+  .brew-access > .brew-copy,
+  .brew-access-diagram {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .brew-access-notes {
+    display: grid;
+    gap: var(--space-md);
+    padding-block-start: var(--space-xl);
+  }
+
+  .brew-access-note {
+    position: static;
+    padding-inline-start: var(--space-md);
+    border-inline-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
+    transform: none;
+  }
+
+  .brew-access-ring::after {
+    display: none;
+  }
 }
 
 @media (max-width: 40rem) {
@@ -2599,6 +2695,7 @@ html[lang="en"] .poster-hero h1 {
 
   .brew-risk,
   .brew-feature,
+  .brew-access,
   .brew-pricing,
   .brew-footer {
     padding-inline: var(--space-md);

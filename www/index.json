@@ -21,18 +21,18 @@
   "approval_controls": [
     {
       "scope": "default",
-      "access": "restricted",
-      "description": "Every secret request is restricted by default. Relax the gate only for the named code-signed executable."
+      "access": "no access",
+      "description": "Everything has an approval gate."
     },
     {
       "scope": "per tool",
       "access": "read only",
-      "description": "Opt-in read-only approval on a per secret handling tool basis."
+      "description": "For tools you trust somewhat, like agents. Safe reads can proceed; writes require approval."
     },
     {
       "scope": "per tool consumer",
       "access": "trusted",
-      "description": "Automatically approve everything except routes that could exfiltrate secrets."
+      "description": "For a terminal where you never intend to run npm i. Commands that could reveal secrets always keep an approval gate."
     }
   ],
   "audit_log": {
