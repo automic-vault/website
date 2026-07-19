@@ -1989,11 +1989,12 @@ html[lang="en"] .poster-hero h1 {
 
 .brew-how-it-works h3 {
   margin: 0;
-  color: var(--color-boundary-ink);
+  color: var(--color-boundary-dim);
   font-size: var(--text-sm);
 }
 
 .brew-how-it-works p {
+  color: var(--color-boundary-dim);
   font-size: var(--text-sm);
   line-height: 1.55;
 }

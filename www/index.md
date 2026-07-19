@@ -21,9 +21,8 @@ stops at a native approval gate.
 
 ## Secrets stay out of the agent’s context
 
-Automic Vault hardens tools that normally store secrets in plaintext files. It
-encrypts each secret in the macOS Keychain, configured so only Automic Vault
-can broker access.
+Automic Vault hardens tools that store secrets in plaintext, keeping
+credentials out of an agent’s reach.
 
 When an approved tool needs a secret, you see the command, working directory,
 and requested key before anything runs.
