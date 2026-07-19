@@ -2388,9 +2388,11 @@ html[lang="en"] .poster-hero h1 {
 .brew-access-diagram {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 2.25fr) minmax(16rem, 0.75fr);
+  grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
   min-width: 0;
+  width: min(100%, 75rem);
   margin: 0;
+  justify-self: center;
 }
 
 .brew-access-screen {
@@ -2429,21 +2431,36 @@ html[lang="en"] .poster-hero h1 {
 
 .brew-access-notes {
   position: relative;
+  display: grid;
+  align-content: center;
+  gap: var(--space-lg);
   min-width: 0;
   margin: 0;
+  padding-inline-start: var(--space-xl);
+}
+
+.brew-access-notes::before {
+  content: "";
+  position: absolute;
+  inset-block: 28%;
+  inset-inline-start: 0;
+  border-inline-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
 }
 
 .brew-access-note {
-  position: absolute;
-  inset-inline: var(--space-xl) 0;
+  position: relative;
   display: grid;
   gap: var(--space-xs);
-  transform: translateY(-50%);
 }
 
-.brew-access-note-none { inset-block-start: 46%; }
-.brew-access-note-trusted { inset-block-start: 55.2%; }
-.brew-access-note-read { inset-block-start: 65.6%; }
+.brew-access-note::before {
+  content: "";
+  position: absolute;
+  inset-block-start: calc(var(--text-sm) / 2);
+  inset-inline-start: calc(var(--space-xl) * -1);
+  width: var(--space-lg);
+  border-block-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
+}
 
 .brew-access-note dt,
 .brew-access-note dd {
@@ -2565,31 +2582,6 @@ html[lang="en"] .poster-hero h1 {
   }
 }
 
-@media (max-width: 160rem) {
-  .brew-access > .brew-copy,
-  .brew-access-diagram {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .brew-access-notes {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-lg);
-    padding-block-start: var(--space-xl);
-  }
-
-  .brew-access-note {
-    position: static;
-    padding-inline-start: var(--space-md);
-    border-inline-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
-    transform: none;
-  }
-
-  .brew-access-ring::after {
-    display: none;
-  }
-}
-
 @media (max-width: 60rem) {
   .brew-hero,
   .brew-split,
@@ -2654,9 +2646,30 @@ html[lang="en"] .poster-hero h1 {
     justify-self: stretch;
   }
 
+  .brew-access > .brew-copy,
+  .brew-access-diagram {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .brew-access-notes {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-md);
+    padding-block-start: var(--space-xl);
+    padding-inline-start: 0;
+  }
+
+  .brew-access-note {
+    padding-inline-start: var(--space-md);
+    border-inline-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
+  }
+
+  .brew-access-ring::after {
+    display: none;
+  }
+
+  .brew-access-notes::before,
+  .brew-access-note::before {
+    display: none;
   }
 }
 
