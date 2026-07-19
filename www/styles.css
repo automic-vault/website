@@ -2565,6 +2565,31 @@ html[lang="en"] .poster-hero h1 {
   }
 }
 
+@media (max-width: 75rem) {
+  .brew-access > .brew-copy,
+  .brew-access-diagram {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .brew-access-notes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-lg);
+    padding-block-start: var(--space-xl);
+  }
+
+  .brew-access-note {
+    position: static;
+    padding-inline-start: var(--space-md);
+    border-inline-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
+    transform: none;
+  }
+
+  .brew-access-ring::after {
+    display: none;
+  }
+}
+
 @media (max-width: 60rem) {
   .brew-hero,
   .brew-split,
@@ -2629,26 +2654,9 @@ html[lang="en"] .poster-hero h1 {
     justify-self: stretch;
   }
 
-  .brew-access > .brew-copy,
-  .brew-access-diagram {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
   .brew-access-notes {
-    display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-md);
-    padding-block-start: var(--space-xl);
-  }
-
-  .brew-access-note {
-    position: static;
-    padding-inline-start: var(--space-md);
-    border-inline-start: calc(var(--rule-hair) * 2) solid var(--color-boundary-accent);
-    transform: none;
-  }
-
-  .brew-access-ring::after {
-    display: none;
   }
 }
 
