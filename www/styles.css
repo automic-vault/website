@@ -2385,14 +2385,21 @@ html[lang="en"] .poster-hero h1 {
   grid-column: 1 / -1;
 }
 
+.brew-access-body {
+  display: grid;
+  gap: var(--space-lg);
+  min-width: 0;
+  width: min(100%, 75rem);
+  justify-self: center;
+}
+
 .brew-access-diagram {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
   min-width: 0;
-  width: min(100%, 75rem);
+  width: 100%;
   margin: 0;
-  justify-self: center;
 }
 
 .brew-access-screen {
@@ -2499,14 +2506,14 @@ html[lang="en"] .poster-hero h1 {
 }
 
 .brew-access-footnote {
-  width: min(100%, 75rem);
+  width: calc(100% / 3);
   margin: 0;
   padding-block-start: var(--space-md);
   border-block-start: var(--rule-hair) solid var(--color-boundary-rule);
   color: var(--color-boundary-dim);
   font-size: var(--text-xs);
   line-height: 1.6;
-  justify-self: center;
+  justify-self: end;
 }
 
 .brew-access-footnote code {
@@ -2683,6 +2690,10 @@ html[lang="en"] .poster-hero h1 {
     gap: var(--space-md);
     padding-block-start: var(--space-xl);
     padding-inline-start: 0;
+  }
+
+  .brew-access-footnote {
+    width: 100%;
   }
 
   .brew-access-note {
