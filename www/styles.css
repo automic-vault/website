@@ -2565,7 +2565,7 @@ html[lang="en"] .poster-hero h1 {
   }
 }
 
-@media (max-width: 75rem) {
+@media (max-width: 160rem) {
   .brew-access > .brew-copy,
   .brew-access-diagram {
     grid-template-columns: minmax(0, 1fr);
