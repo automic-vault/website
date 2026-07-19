@@ -21,9 +21,20 @@ stops at a native approval gate.
 
 ## Secrets stay out of the agent’s context
 
-Automic Vault stores credentials outside files that agents can read. When an
-approved tool needs a secret, you see the command, working directory, and
-requested key before anything runs.
+Automic Vault hardens tools that normally store secrets in plaintext files. It
+encrypts each secret in the macOS Keychain, configured so only Automic Vault
+can broker access.
+
+When an approved tool needs a secret, you see the command, working directory,
+and requested key before anything runs.
+
+### How it works
+
+Automic Vault moves the secret out of the tool’s readable config and into
+Keychain-backed storage. When the tool requests it, Automic Vault verifies the
+signed app making the request, applies your access policy, and supplies the
+secret only for the approved run—without exposing the raw value to the agent’s
+context.
 
 ## Give yourself access. Make agents ask.
 

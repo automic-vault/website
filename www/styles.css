@@ -1981,6 +1981,23 @@ html[lang="en"] .poster-hero h1 {
   line-height: 1.65;
 }
 
+.brew-how-it-works {
+  display: grid;
+  gap: var(--space-xs);
+  margin-block-start: var(--space-sm);
+}
+
+.brew-how-it-works h3 {
+  margin: 0;
+  color: var(--color-boundary-ink);
+  font-size: var(--text-sm);
+}
+
+.brew-how-it-works p {
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+
 .brew-session {
   display: grid;
   gap: var(--space-md);

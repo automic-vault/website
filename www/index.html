@@ -271,8 +271,12 @@ aws_secret_access_key = ••••••••••••••••••�
         <div class="brew-copy">
           <p class="brew-eyebrow">The control point</p>
           <h2>Secrets stay out of the agent’s context.</h2>
-          <p>Automic Vault stores credentials outside files that agents can read.</p>
+          <p>Automic Vault hardens tools that normally store secrets in plaintext files. It encrypts each secret in the macOS Keychain, configured so only Automic Vault can broker access.</p>
           <p>When an approved tool needs a secret, you see the command, working directory, and requested key before anything runs.</p>
+          <div class="brew-how-it-works">
+            <h3>How it works</h3>
+            <p>Automic Vault moves the secret out of the tool’s readable config and into Keychain-backed storage. When the tool requests it, Automic Vault verifies the signed app making the request, applies your access policy, and supplies the secret only for the approved run—without exposing the raw value to the agent’s context.</p>
+          </div>
         </div>
         <figure class="brew-capture brew-capture-gate">
           <img src="./assets/av-approve-gate-gh-token.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" loading="lazy" decoding="async">
