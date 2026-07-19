@@ -124,7 +124,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="./favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles.css?v=121">
+  <link rel="stylesheet" href="./styles.css?v=122">
 </head>
 <body class="brew-home">
   <header class="brew-nav">
@@ -301,7 +301,7 @@ aws_secret_access_key = ••••••••••••••••••�
           </div>
           <div class="brew-access-note brew-access-note-trusted">
             <dt>Trusted access</dt>
-            <dd>For a terminal where you never intend to run <code>npm i</code>. Secret-revealing commands always keep an approval gate.</dd>
+            <dd>For a terminal where you never intend to run <code>npm i</code><sup><a href="#access-footnote" aria-label="See supply-chain security note">†</a></sup>. Secret-revealing commands always keep an approval gate.</dd>
           </div>
           <div class="brew-access-note brew-access-note-read">
             <dt>Read only</dt>
@@ -309,6 +309,7 @@ aws_secret_access_key = ••••••••••••••••••�
           </div>
         </dl>
       </figure>
+      <p class="brew-access-footnote" id="access-footnote"><span aria-hidden="true">†</span> Automic Vault prevents installed packages from stealing protected secrets, as attempted by supply-chain attacks such as the 2025 <a href="https://github.blog/security/supply-chain-security/our-plan-for-a-more-secure-npm-supply-chain/">Shai-Hulud npm worm</a>. Defense in depth still matters: run <code>npm i</code> only in a dedicated terminal with low-to-no privileges in both Automic Vault and macOS TCC.</p>
     </section>
 
     <section class="brew-feature" id="audit" aria-labelledby="audit-title">

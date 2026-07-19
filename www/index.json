@@ -32,7 +32,8 @@
     {
       "scope": "per tool consumer",
       "access": "trusted",
-      "description": "For a terminal where you never intend to run npm i. Commands that could reveal secrets always keep an approval gate."
+      "description": "For a terminal where you never intend to run npm i. Commands that could reveal secrets always keep an approval gate.",
+      "footnote": "Automic Vault prevents installed packages from stealing protected secrets, as attempted by supply-chain attacks such as the 2025 Shai-Hulud npm worm. Defense in depth still matters: run npm i only in a dedicated terminal with low-to-no privileges in both Automic Vault and macOS TCC."
     }
   ],
   "audit_log": {

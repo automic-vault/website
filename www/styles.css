@@ -2488,6 +2488,33 @@ html[lang="en"] .poster-hero h1 {
   font-family: var(--font-code);
 }
 
+.brew-access-note sup {
+  margin-inline-start: var(--space-2xs);
+  font-size: var(--text-xs);
+  line-height: 0;
+}
+
+.brew-access-note sup a,
+.brew-access-footnote a {
+  color: var(--color-boundary-accent);
+}
+
+.brew-access-footnote {
+  width: min(100%, 75rem);
+  margin: 0;
+  padding-block-start: var(--space-md);
+  border-block-start: var(--rule-hair) solid var(--color-boundary-rule);
+  color: var(--color-boundary-dim);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  justify-self: center;
+}
+
+.brew-access-footnote code {
+  color: var(--color-boundary-body);
+  font-family: var(--font-code);
+}
+
 .brew-log-fields {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -32,8 +32,13 @@ Choose how each signed app can use a secret.
 - No access means everything has an approval gate.
 - Read-only access is for tools you trust somewhat, like agents. Safe reads can
   proceed; writes require approval.
-- Trusted access is for a terminal where you never intend to run `npm i`.
+- Trusted access is for a terminal where you never intend to run `npm i`.†
   Commands that could reveal secrets always keep an approval gate.
+
+† Automic Vault prevents installed packages from stealing protected secrets, as
+attempted by supply-chain attacks such as the 2025 Shai-Hulud npm worm. Defense
+in depth still matters: run `npm i` only in a dedicated terminal with low-to-no
+privileges in both Automic Vault and macOS TCC.
 
 ## Every secret use is logged
 
