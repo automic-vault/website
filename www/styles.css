@@ -2923,7 +2923,6 @@ html[lang="en"] .poster-hero h1 {
 .brew-hero-capture img,
 .brew-capture img,
 .brew-access-screen img {
-  border: var(--rule-hair) solid var(--color-boundary-rule);
   border-radius: var(--radius-card);
 }
 
