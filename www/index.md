@@ -3,9 +3,10 @@
 ## A security boundary for CLI tools
 
 Automic Vault moves developer secrets out of plaintext files, then controls
-which signed app can run each tool with each credential. Agents, scripts, and
-malware meet the same local policy when they request a protected secret. No
-harness integration required.
+which signed app can run each tool with each credential. Automic Vault applies
+the same policy before an authenticated CLI deploys code or deletes cloud
+resources, whether an agent, script, or malware launched it. No harness
+integration required.
 
 - Remove credentials from dotfiles and tool configs.
 - Give credentials only to the right executable.
