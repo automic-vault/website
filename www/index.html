@@ -145,8 +145,8 @@
       <div class="brew-hero-title">
         <p class="brew-kicker">From the creator of Homebrew</p>
         <h1 id="hero-title">The missing security layer <span>for CLI tools on Mac.</span></h1>
-        <p class="brew-hero-lede">Automic Vault moves developer secrets out of plaintext files, then controls which signed app can run each tool with each credential.</p>
-        <p>Automic Vault applies the same policy before an authenticated CLI deploys code or deletes cloud resources, whether an agent, script, or malware launched it. No harness integration required.</p>
+        <p class="brew-hero-lede">Automic Vault moves CLI tool secrets out of plaintext files, then controls which signed app can run each tool with each credential.</p>
+        <p>Any agent. Any harness. Zeroconf.</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">Download for macOS</a>
           <a class="brew-text-link" href="#boundary">See the boundary work <span aria-hidden="true">→</span></a>
@@ -275,7 +275,7 @@ aws_secret_access_key = ••••••••••••••••••�
           <p>When a tool requests a secret, Automic Vault checks the executable, signed launcher, command, working directory, and requested key.</p>
           <div class="brew-how-it-works">
             <h3>How it works</h3>
-            <p>Automic Vault stores the secret in Keychain. It applies your access policy when a signed app launches the tool, then supplies the secret for that run. The raw value never enters the agent’s context.</p>
+            <p>Automic Vault stores the secret in the macOS Keychain. It applies your access policy when a signed app launches the tool, then supplies the secret for that run. The raw value never enters the agent’s context.</p>
           </div>
         </div>
         <figure class="brew-capture brew-capture-gate">
