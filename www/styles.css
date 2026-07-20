@@ -2944,6 +2944,11 @@ html[lang="en"] .poster-hero h1 {
   align-items: center;
 }
 
+.brew-access > .brew-copy {
+  column-gap: clamp(var(--space-xl), 7vw, var(--space-4xl));
+  row-gap: var(--space-md);
+}
+
 .brew-access-ring,
 .brew-access-notes::before,
 .brew-access-note::before {
