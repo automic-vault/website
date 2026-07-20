@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-07-20",
+    "scope": "homepage",
+    "macrostructure": "Split Studio",
+    "theme": "Cobalt-dark",
+    "theme_axes": "dark / grotesk-sans / cool-with-warm-signal",
+    "enrichment": "real product captures and preserved Claude transcript",
+    "nav": "N5",
+    "footer": "Ft5",
+    "brief": "CSS-only restraint pass preserving all landing-page copy and proof"
+  },
+  {
     "date": "2026-07-16",
     "scope": "homepage",
     "macrostructure": "Split Studio",
