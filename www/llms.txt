@@ -4,7 +4,7 @@ Automic Vault controls the last local hop between a shell, script, or AI agent
 and the executable that receives a credential and performs work. It keeps
 long-lived values in Keychain and applies local policy before tools use them.
 
-Homepage headline: A security boundary for CLI tools.
+Homepage headline: The missing security layer for CLI tools on Mac.
 
 ## Core Product Facts
 

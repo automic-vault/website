@@ -1,6 +1,6 @@
 # Automic Vault
 
-## A security boundary for CLI tools
+## The missing security layer for CLI tools on Mac
 
 Automic Vault moves developer secrets out of plaintext files, then controls
 which signed app can run each tool with each credential. Automic Vault applies
