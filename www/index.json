@@ -1,28 +1,28 @@
 {
   "name": "Automic Vault",
-  "category": "AI agent control and local secrets management",
+  "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "Stop AI agents running wild on your Mac",
-  "eyebrow": "Local control for AI agents",
-  "description": "Automic Vault makes AI agents ask before they install software or use developer secrets on macOS.",
+  "title": "A security boundary for CLI tools",
+  "eyebrow": "Local execution security for macOS",
+  "description": "Automic Vault removes plaintext secrets from CLI tools and controls which signed apps can use them beneath the agent harness.",
   "promises": [
-    "Controls software installs before an agent changes its toolchain.",
-    "Keeps credentials out of files and agent context.",
-    "Records every approved or denied sensitive action."
+    "Removes credentials from dotfiles and tool configs.",
+    "Gives credentials only to the right executable.",
+    "Applies one local boundary to every launcher."
   ],
   "risk_story": {
-    "eyebrow": "Your agent inherits your access",
+    "eyebrow": "A prompt cannot protect a secret the agent can already read",
     "failure": "An agent found a reusable cloud credential and uploaded it to a remote server.",
     "controlled_eyebrow": "The control point",
-    "controlled": "Automic Vault keeps credentials out of files agents can read and presents the command, working directory, and requested key for approval or denial."
+    "controlled": "Automic Vault moves credentials out of readable tool configs, then checks the executable, signed launcher, command, working directory, and requested key before use."
   },
-  "approval_controls_heading": "Give yourself access. Make agents ask.",
+  "approval_controls_heading": "Policy follows the tool and its launcher.",
   "approval_controls": [
     {
       "scope": "default",
       "access": "no access",
-      "description": "Everything has an approval gate."
+      "description": "The app gets no automatic access. Every request requires approval."
     },
     {
       "scope": "per tool",
@@ -33,7 +33,7 @@
       "scope": "per tool consumer",
       "access": "trusted",
       "description": "For a terminal where you never intend to run npm i. Commands that could reveal secrets always keep an approval gate.",
-      "footnote": "Automic Vault prevents installed packages from stealing protected secrets, as attempted by supply-chain attacks such as the 2025 Shai-Hulud npm worm. Defense in depth still matters: run npm i only in a dedicated terminal with low-to-no privileges in both Automic Vault and macOS TCC."
+      "footnote": "Installed packages must cross the same boundary to use protected secrets. Supply-chain attacks such as the 2025 Shai-Hulud npm worm target credentials available to developer tools. Defense in depth still matters: run npm i in a dedicated terminal with low-to-no privileges in both Automic Vault and macOS TCC."
     }
   ],
   "audit_log": {

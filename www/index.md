@@ -1,16 +1,19 @@
 # Automic Vault
 
-## Stop AI agents running wild on your Mac
+## A security boundary for CLI tools
 
-Make agents ask before they install software, deploy to prod or use your secrets.
+Automic Vault moves developer secrets out of plaintext files, then controls
+which signed app can run each tool with each credential. Agents, scripts, and
+malware meet the same local policy when they request a protected secret. No
+harness integration required.
 
-- Control software installs before an agent changes its toolchain.
-- Keep credentials out of files and agent context.
-- Approve or deny sensitive actions with a local record.
+- Remove credentials from dotfiles and tool configs.
+- Give credentials only to the right executable.
+- Apply one local boundary to every launcher.
 
 [Download for macOS](/Automic%20Vault.dmg)
 
-## Your agent inherits your access
+## A prompt cannot protect a secret the agent can already read
 
 An agent can read the same credential files and run the same tools you can. A
 helpful shortcut can upload a reusable cloud credential to a remote server.
@@ -19,43 +22,44 @@ Automic Vault removes plaintext secrets from files agents can read. If an
 agent tries another route, such as `aws config export-credentials`, the command
 stops at a native approval gate.
 
-## Secrets stay out of the agent’s context
+## Automic Vault controls the secret handoff
 
-Automic Vault hardens tools that store secrets in plaintext, keeping
-credentials out of an agent’s reach.
+Automic Vault moves credentials out of readable tool configs. Agents and
+untrusted software cannot find protected secrets in the files they inspect.
 
-When an approved tool needs a secret, you see the command, working directory,
-and requested key before anything runs.
+When a tool requests a secret, Automic Vault checks the executable, signed
+launcher, command, working directory, and requested key.
 
 ### How it works
 
-Automic Vault moves the secret out of the tool’s readable config and into
-Keychain-backed storage. When the tool requests it, Automic Vault verifies the
-signed app making the request, applies your access policy, and supplies the
-secret only for the approved run—without exposing the raw value to the agent’s
-context.
+Automic Vault stores the secret in Keychain. It applies your access policy when
+a signed app launches the tool, then supplies the secret for that run. The raw
+value never enters the agent’s context.
 
-## Give yourself access. Make agents ask.
+## Policy follows the tool and its launcher
 
-Choose how each signed app can use a secret.
+Terminal, Codex, and an unknown process can invoke the same executable. Automic
+Vault identifies the signed launcher and gives each pairing its own access
+policy.
 
-- No access means everything has an approval gate.
+- No access gives the app no automatic access. Every request requires approval.
 - Read-only access is for tools you trust somewhat, like agents. Safe reads can
   proceed; writes require approval.
 - Trusted access is for a terminal where you never intend to run `npm i`.†
   Commands that could reveal secrets always keep an approval gate.
 
-† Automic Vault prevents installed packages from stealing protected secrets, as
-attempted by supply-chain attacks such as the 2025 Shai-Hulud npm worm. Defense
-in depth still matters: run `npm i` only in a dedicated terminal with low-to-no
-privileges in both Automic Vault and macOS TCC.
+† Installed packages must cross the same boundary to use protected secrets.
+Supply-chain attacks such as the 2025 Shai-Hulud npm worm target credentials
+available to developer tools. Defense in depth still matters: run `npm i` in a
+dedicated terminal with low-to-no privileges in both Automic Vault and macOS
+TCC.
 
 ## Every secret use is logged
 
 Approved or denied, automatic or manual: every request leaves a local record
 with the decision, launcher, requested key, command, and working directory.
 
-## Know when an agent’s toolchain turns risky
+## Know when your toolchain turns risky
 
 Automic Vault monitors developer tools across ecosystems. It flags new threats
 and shows you how to mitigate each finding.
