@@ -17,6 +17,7 @@
   --brand-rule: oklch(31% 0.025 274);
   --brand-rule-soft: oklch(22% 0.02 274);
   --brand-silver: oklch(87% 0.025 274);
+  --brand-accent: oklch(78% 0.105 297);
   --brand-violet: oklch(68% 0.19 298);
   --brand-violet-soft: oklch(70% 0.16 298 / 0.17);
   --brand-danger: oklch(67% 0.2 27);
@@ -24,8 +25,8 @@
   --brand-focus: oklch(82% 0.12 247);
   --brand-shadow: oklch(1% 0.01 274 / 0.62);
   --brand-shadow-soft: oklch(1% 0.01 274 / 0.3);
-  --brand-wash: oklch(64% 0.13 256 / 0.08);
-  --brand-wash-soft: oklch(64% 0.13 256 / 0.035);
+  --brand-wash: oklch(67% 0.13 297 / 0.075);
+  --brand-wash-soft: oklch(67% 0.13 297 / 0.035);
   --brand-white-wash: oklch(100% 0 0 / 0.045);
   --brand-white-soft: oklch(100% 0 0 / 0.022);
 
@@ -185,7 +186,7 @@ body {
   justify-content: center;
   min-height: 3rem;
   padding: 0.75rem 1.25rem;
-  border: var(--brand-rule-hair) solid var(--brand-silver);
+  border: var(--brand-rule-hair) solid var(--brand-accent);
   border-radius: var(--brand-radius-pill);
   color: var(--brand-ink);
   background:
@@ -301,7 +302,7 @@ body {
 
 .brew-kicker {
   margin-bottom: var(--brand-space-lg);
-  color: var(--brand-silver);
+  color: var(--brand-accent);
   text-transform: none;
 }
 
@@ -335,7 +336,7 @@ body {
 
 .brew-hero h1 span {
   display: block;
-  color: var(--brand-silver);
+  color: var(--brand-accent);
 }
 
 .brew-hero-lede {
@@ -366,7 +367,7 @@ body {
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
-  color: var(--brand-silver);
+  color: var(--brand-accent);
   font-family: var(--brand-font-body);
   font-size: var(--brand-text-sm);
   font-weight: 600;
@@ -658,7 +659,7 @@ body {
 @media (min-width: 75rem) {
   .brew-risk > .brew-split:first-child .brew-chat-message-tool .brew-chat-bubble::before,
   .brew-risk > .brew-split:first-child .brew-chat-message-tool .brew-chat-bubble::after {
-    border-color: var(--brand-silver);
+    border-color: var(--brand-accent);
   }
 }
 
@@ -718,7 +719,7 @@ body {
   align-items: center;
   gap: var(--brand-space-sm);
   margin: var(--brand-space-sm) 0;
-  color: var(--brand-silver);
+  color: var(--brand-accent);
   font-family: var(--brand-font-mono);
   font-size: var(--brand-text-xs);
   text-align: center;
@@ -839,7 +840,7 @@ body {
 
 .brew-access-note sup a,
 .brew-access-footnote a {
-  color: var(--brand-silver);
+  color: var(--brand-accent);
 }
 
 .brew-access-footnote {
@@ -911,7 +912,7 @@ body {
   gap: clamp(2.5rem, 6vw, 7rem);
   align-items: end;
   padding-block: var(--brand-space-5xl);
-  border-top: var(--brand-rule-strong) solid var(--brand-silver);
+  border-top: var(--brand-rule-strong) solid var(--brand-accent);
   background:
     radial-gradient(circle at 72% 40%, var(--brand-wash), transparent 30rem),
     var(--brand-paper-soft);
