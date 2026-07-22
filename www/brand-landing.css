@@ -17,8 +17,6 @@
   --brand-rule: oklch(31% 0.025 274);
   --brand-rule-soft: oklch(22% 0.02 274);
   --brand-silver: oklch(87% 0.025 274);
-  --brand-blue: oklch(69% 0.17 256);
-  --brand-blue-bright: oklch(78% 0.14 247);
   --brand-violet: oklch(68% 0.19 298);
   --brand-violet-soft: oklch(70% 0.16 298 / 0.17);
   --brand-danger: oklch(67% 0.2 27);
@@ -144,7 +142,7 @@ body {
   height: 3.5rem;
   border: 0;
   border-radius: 0;
-  background: var(--brand-paper);
+  background: transparent;
   object-fit: cover;
   filter: drop-shadow(0 0 18px var(--brand-violet-soft));
 }
@@ -187,7 +185,7 @@ body {
   justify-content: center;
   min-height: 3rem;
   padding: 0.75rem 1.25rem;
-  border: var(--brand-rule-hair) solid var(--brand-blue-bright);
+  border: var(--brand-rule-hair) solid var(--brand-silver);
   border-radius: var(--brand-radius-pill);
   color: var(--brand-ink);
   background:
@@ -312,7 +310,7 @@ body {
   align-items: center;
   gap: var(--brand-space-sm);
   margin: 0 0 var(--brand-space-md);
-  color: var(--brand-blue-bright);
+  color: var(--brand-silver);
 }
 
 .brew-stage::after {
@@ -337,7 +335,7 @@ body {
 
 .brew-hero h1 span {
   display: block;
-  color: var(--brand-blue-bright);
+  color: var(--brand-silver);
 }
 
 .brew-hero-lede {
@@ -368,7 +366,7 @@ body {
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
-  color: var(--brand-blue-bright);
+  color: var(--brand-silver);
   font-family: var(--brand-font-body);
   font-size: var(--brand-text-sm);
   font-weight: 600;
@@ -587,7 +585,7 @@ body {
 }
 
 .brew-chat-message-agent .brew-chat-avatar {
-  color: var(--brand-blue-bright);
+  color: var(--brand-silver);
   background: var(--brand-paper);
 }
 
@@ -660,7 +658,7 @@ body {
 @media (min-width: 75rem) {
   .brew-risk > .brew-split:first-child .brew-chat-message-tool .brew-chat-bubble::before,
   .brew-risk > .brew-split:first-child .brew-chat-message-tool .brew-chat-bubble::after {
-    border-color: var(--brand-blue-bright);
+    border-color: var(--brand-silver);
   }
 }
 
@@ -720,7 +718,7 @@ body {
   align-items: center;
   gap: var(--brand-space-sm);
   margin: var(--brand-space-sm) 0;
-  color: var(--brand-blue-bright);
+  color: var(--brand-silver);
   font-family: var(--brand-font-mono);
   font-size: var(--brand-text-xs);
   text-align: center;
@@ -841,7 +839,7 @@ body {
 
 .brew-access-note sup a,
 .brew-access-footnote a {
-  color: var(--brand-blue-bright);
+  color: var(--brand-silver);
 }
 
 .brew-access-footnote {
@@ -913,7 +911,7 @@ body {
   gap: clamp(2.5rem, 6vw, 7rem);
   align-items: end;
   padding-block: var(--brand-space-5xl);
-  border-top: var(--brand-rule-strong) solid var(--brand-blue);
+  border-top: var(--brand-rule-strong) solid var(--brand-silver);
   background:
     radial-gradient(circle at 72% 40%, var(--brand-wash), transparent 30rem),
     var(--brand-paper-soft);
