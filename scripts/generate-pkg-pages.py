@@ -1017,7 +1017,7 @@ def apply_package_taxonomy(pages: dict[str, PackagePage]) -> None:
             continue
         brief = taxonomy_brief(taxonomy)
         page.extra["pkgTaxonomy"] = brief
-        if not page.category and brief.get("category"):
+        if brief.get("category"):
             page.category = str(brief["category"])
         page.source_notes.append("av.db category and tag curation")
 

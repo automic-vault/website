@@ -1,14 +1,26 @@
 import html.parser
+import importlib.util
 import pathlib
 import subprocess
 import sys
 import unittest
 import urllib.parse
+from unittest import mock
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 GA_SCRIPT = "https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"
 GA_CONFIG = "gtag('config', 'G-Y78QKG1T9Y')"
+
+
+def load_package_renderer():
+    path = ROOT / "scripts" / "generate-pkg-pages.py"
+    spec = importlib.util.spec_from_file_location("av_www_package_renderer_tests", path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
 
 
 class LocalReferenceParser(html.parser.HTMLParser):
@@ -23,6 +35,25 @@ class LocalReferenceParser(html.parser.HTMLParser):
 
 
 class StaticHtmlAnalyticsTests(unittest.TestCase):
+    def test_curated_taxonomy_overrides_fallback_package_category(self):
+        renderer = load_package_renderer()
+        page = renderer.PackagePage(provider="brew", name="aider", category="developer-tools")
+        taxonomy = {
+            "category": "ai",
+            "categoryPath": ["ai", "coding-agents"],
+            "categoryConfidence": "high",
+            "tags": ["ai", "coding-agent"],
+        }
+
+        with (
+            mock.patch.object(renderer, "load_pkg_taxonomy_index", return_value={}),
+            mock.patch.object(renderer, "taxonomy_for_package", return_value=taxonomy),
+        ):
+            renderer.apply_package_taxonomy({"brew:aider": page})
+
+        self.assertEqual(page.category, "ai")
+        self.assertEqual(page.extra["pkgTaxonomy"]["categoryPath"], ["ai", "coding-agents"])
+
     def test_all_static_html_pages_embed_google_analytics(self):
         missing = []
         for page in sorted((ROOT / "www").rglob("*.html")):
