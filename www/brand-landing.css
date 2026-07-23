@@ -588,8 +588,8 @@ body {
 }
 
 .brew-chat-message-agent .brew-chat-avatar {
-  color: var(--brand-silver);
-  background: var(--brand-paper);
+  color: transparent;
+  background: url("/assets/claude-icon.svg") center / cover no-repeat;
 }
 
 .brew-chat-message:is(.brew-chat-message-tool, .brew-chat-message-result) .brew-chat-avatar {
@@ -628,6 +628,15 @@ body {
 .brew-chat-message-result .brew-chat-bubble {
   border-color: var(--brand-rule-soft);
   background: var(--brand-paper);
+}
+
+.brew-chat-message-tool .brew-chat-bubble {
+  border-color: var(--brand-accent);
+  background: var(--brand-paper-glass-hover);
+}
+
+.brew-chat-message-tool .brew-chat-bubble code {
+  color: var(--brand-accent);
 }
 
 .brew-chat-bubble p,
