@@ -801,6 +801,7 @@ body {
     position: relative;
     grid-template-columns: minmax(0, 1fr);
     overflow: visible;
+    transform: translateY(17px);
   }
 
   .brew-after .brew-chat-divider span {
