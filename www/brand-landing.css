@@ -669,8 +669,8 @@ body {
   color: transparent;
   background:
     url("/assets/brand-shield-v2.webp") center / 76% no-repeat,
-    var(--brand-paper-glass-hover);
-  box-shadow: 0 0 1.5rem var(--brand-violet-soft);
+    var(--brand-rule);
+  box-shadow: 0 0 1.5rem var(--brand-shadow-soft);
   transform: translateY(-11px);
 }
 
