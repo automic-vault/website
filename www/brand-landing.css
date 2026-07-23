@@ -676,10 +676,12 @@ body {
 
 .brew-exfiltration {
   width: min(100%, var(--brand-max));
-  margin: var(--brand-space-4xl) auto 0;
+  margin: 0 auto;
 }
 
 .brew-alert {
+  width: 100%;
+  margin: var(--brand-space-4xl) 0;
   display: grid;
   grid-template-columns: minmax(12rem, 0.7fr) minmax(0, 1.3fr);
   gap: var(--brand-space-xl);
@@ -706,7 +708,7 @@ body {
 }
 
 .brew-after {
-  margin-top: var(--brand-space-4xl);
+  margin-top: 0;
   padding: 0;
   border: 0;
   background: transparent;
