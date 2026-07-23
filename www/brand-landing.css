@@ -841,10 +841,16 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  border: var(--brand-rule-hair) solid var(--brand-rule);
+  border: 0;
   border-radius: var(--brand-radius-lg);
   background: var(--brand-paper-soft);
   box-shadow: 0 32px 90px var(--brand-shadow-soft);
+}
+
+.brew-hero-capture img,
+.brew-access-screen img,
+.brew-capture img {
+  border: 0;
 }
 
 .brew-access-ring,
