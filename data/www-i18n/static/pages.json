@@ -168,6 +168,7 @@
     }
   ],
   "aliases": {
+    "/download/": "download",
     "/privacy/": "privacy",
     "/terms/": "terms"
   }

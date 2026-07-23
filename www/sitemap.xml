@@ -101,6 +101,56 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.automicvault.com/about/" />
   </url>
   <url>
+    <loc>https://www.automicvault.com/download/</loc>
+    <lastmod>2026-07-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.automicvault.com/download/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/download/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.automicvault.com/de/download/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.automicvault.com/fr/download/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.automicvault.com/zh-hans/download/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.automicvault.com/download/" />
+  </url>
+  <url>
+    <loc>https://www.automicvault.com/ja/download/</loc>
+    <lastmod>2026-07-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.automicvault.com/download/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/download/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.automicvault.com/de/download/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.automicvault.com/fr/download/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.automicvault.com/zh-hans/download/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.automicvault.com/download/" />
+  </url>
+  <url>
+    <loc>https://www.automicvault.com/de/download/</loc>
+    <lastmod>2026-07-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.automicvault.com/download/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/download/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.automicvault.com/de/download/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.automicvault.com/fr/download/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.automicvault.com/zh-hans/download/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.automicvault.com/download/" />
+  </url>
+  <url>
+    <loc>https://www.automicvault.com/fr/download/</loc>
+    <lastmod>2026-07-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.automicvault.com/download/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/download/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.automicvault.com/de/download/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.automicvault.com/fr/download/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.automicvault.com/zh-hans/download/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.automicvault.com/download/" />
+  </url>
+  <url>
+    <loc>https://www.automicvault.com/zh-hans/download/</loc>
+    <lastmod>2026-07-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.automicvault.com/download/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/download/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.automicvault.com/de/download/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.automicvault.com/fr/download/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.automicvault.com/zh-hans/download/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.automicvault.com/download/" />
+  </url>
+  <url>
     <loc>https://www.automicvault.com/privacy/</loc>
     <lastmod>2026-07-16</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.automicvault.com/privacy/" />

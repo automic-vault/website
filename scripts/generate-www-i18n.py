@@ -43,6 +43,7 @@ class Locale:
 
 TOPICS: dict[str, dict[str, dict[str, Any]]] = {
     "download": {
+        "en": {"title": "Download Automic Vault", "description": "Download Automic Vault for macOS and protect local AI agent runs.", "kicker": "Download", "h1": "Download Automic Vault for macOS", "lede": "Install the local security layer for CLI secrets, developer tools, and AI agent actions on macOS.", "sections": [["Direct download", "Download the signed .dmg, open Automic Vault, and follow the setup guide to install the av command-line tool."], ["What is included", "The native app manages secret gates, access rules, tool hardening, and the local record of approved and denied requests."], ["After installation", "Move a credential out of plaintext storage, choose which signed apps may use it, then review each sensitive request before it runs."]]},
         "ja": {"title": "Automic Vault ダウンロード", "description": "macOS 用 Automic Vault を入手し、ローカルの AI エージェント実行を保護します。", "kicker": "ダウンロード", "h1": "macOS 用 Automic Vault をダウンロード", "lede": "ローカルの Homebrew パッケージ、CLI シークレット、AI エージェント操作を保護する macOS セキュリティレイヤーをインストールします。", "sections": [["直接ダウンロード", ".dmg を取得するか、ターミナル用の install.sh スクリプトでインストールできます。"], ["含まれるもの", "ネイティブアプリ、av コマンドラインツール、シークレットスキャナー、Nucleus パッケージ制御が含まれます。"], ["インストール後", "まずシークレットスキャナーを実行し、平文の認証情報を確認して、対応済みのシークレットを保護されたローカル保存に移します。"]]},
         "de": {"title": "Automic Vault herunterladen", "description": "Lade Automic Vault für macOS herunter und schütze lokale AI-Agent-Läufe.", "kicker": "Download", "h1": "Automic Vault für macOS herunterladen", "lede": "Installiere die lokale Sicherheitschicht für Homebrew-Pakete, CLI-Secrets und AI-Agent-Aktionen auf macOS.", "sections": [["Direkter Download", "Lade die .dmg-Datei herunter oder installiere über das install.sh-Skript im Terminal."], ["Was enthalten ist", "Enthalten sind die native App, das av-Kommandozeilenwerkzeug, Secret-Scanner-Workflows und Nucleus-Paketkontrollen."], ["Nach der Installation", "Starte zuerst den Secret Scanner, prüfe Klartext-Credentials und verschiebe unterstützte Secrets in geschützten lokalen Speicher."]]},
         "fr": {"title": "Télécharger Automic Vault", "description": "Téléchargez Automic Vault pour macOS et protégez les exécutions locales d'agents IA.", "kicker": "Téléchargement", "h1": "Télécharger Automic Vault pour macOS", "lede": "Installez la couche de sécurité locale pour les paquets Homebrew, les secrets CLI et les actions d'agents IA sur macOS.", "sections": [["Téléchargement direct", "Téléchargez le .dmg ou installez depuis le terminal avec le script install.sh."], ["Ce qui est inclus", "Le téléchargement inclut l'application native, l'outil en ligne de commande av, les workflows de scanner de secrets et les contrôles de paquets Nucleus."], ["Après l'installation", "Lancez d'abord le scanner de secrets, vérifiez les identifiants en clair et déplacez les secrets pris en charge vers un stockage local protégé."]]},
@@ -90,6 +91,34 @@ TOPICS: dict[str, dict[str, dict[str, Any]]] = {
         "fr": {"title": "Portes d'approbation pour agents IA", "description": "Vérifiez les commandes risquées des agents IA avec une approbation humaine au niveau outil.", "kicker": "approbation de commandes", "h1": "Portes d'approbation pour les commandes exécutées par les agents IA", "lede": "N'approuvez pas seulement l'intention: approuvez l'exécutable, les arguments et l'accès aux secrets. Automic Vault place le point d'arrêt sous l'agent.", "sections": [["Avant / après", "Avant, après une validation générale, l'agent pouvait lancer git push, npm publish ou aws s3 rm dans la même session. Après, chaque commande risquée demande une approbation juste avant exécution."], ["Exemple de commande", "Faites passer le travail de l'agent par av contain et placez des portes sur publication, suppression, déploiement, affichage d'identifiants et mutation cloud."], ["Priorité", "Commencez par npm publish, twine upload, gh auth token, git push --force, ainsi que les suppressions AWS et changements IAM."]]},
         "zh-Hans": {"title": "AI 代理审批门", "description": "在工具层用人工审批检查 AI 代理的高风险命令。", "kicker": "命令审批", "h1": "AI 代理执行命令的审批门", "lede": "不要只批准意图，而要批准实际可执行文件、参数和密钥访问。Automic Vault 在代理下方的工具层设置停止点。", "sections": [["前后对比", "以前一次宽泛确认后，代理可以在同一会话运行 git push、npm publish 或 aws s3 rm。之后每个高风险命令都在执行前请求审批。"], ["命令示例", "通过 av contain 运行代理工作，并为发布、删除、部署、凭据显示和云资源变更设置审批门。"], ["优先规则", "先覆盖 npm publish、twine upload、gh auth token、git push --force，以及 AWS 删除和 IAM 修改。"]]},
     },
+}
+
+DOWNLOAD_IMAGE_ALTS: dict[str, tuple[str, str, str]] = {
+    "en": (
+        "Automic Vault approval prompt showing ChatGPT requesting a GitHub token",
+        "Automic Vault access rules for a Supabase secret across Terminal and ChatGPT",
+        "Automic Vault secret-use log showing denied and approved GitHub CLI requests",
+    ),
+    "ja": (
+        "ChatGPT が GitHub トークンを要求する Automic Vault の承認画面",
+        "Terminal と ChatGPT に対する Supabase シークレットのアクセス規則",
+        "拒否および承認された GitHub CLI リクエストの利用履歴",
+    ),
+    "de": (
+        "Automic-Vault-Freigabe für eine GitHub-Token-Anfrage von ChatGPT",
+        "Automic-Vault-Zugriffsregeln für ein Supabase-Secret in Terminal und ChatGPT",
+        "Automic-Vault-Protokoll mit abgelehnten und genehmigten GitHub-CLI-Anfragen",
+    ),
+    "fr": (
+        "Demande d’approbation Automic Vault pour un jeton GitHub requis par ChatGPT",
+        "Règles d’accès Automic Vault pour un secret Supabase dans Terminal et ChatGPT",
+        "Journal Automic Vault des requêtes GitHub CLI refusées et approuvées",
+    ),
+    "zh-Hans": (
+        "ChatGPT 请求 GitHub 令牌时显示的 Automic Vault 审批界面",
+        "Terminal 与 ChatGPT 使用 Supabase 密钥的 Automic Vault 访问规则",
+        "Automic Vault 中被拒绝和批准的 GitHub CLI 请求记录",
+    ),
 }
 
 HOME_DETAIL: dict[str, dict[str, Any]] = {
@@ -539,7 +568,9 @@ def route_file(path: str, locale: Locale) -> Path:
 
 
 def rel_root(path: str, locale: Locale) -> str:
-    depth = 1 if path == "/" else len(path.strip("/").split("/")) + 1
+    depth = 0 if path == "/" else len(path.strip("/").split("/"))
+    if locale.code != "en":
+        depth += 1
     return "../" * depth
 
 
@@ -897,6 +928,22 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
       </section>"""
         for index, (title, body) in enumerate(expanded_sections(t, locale), start=1)
     )
+    download_gallery = ""
+    if path == "/download/":
+        image_alts = DOWNLOAD_IMAGE_ALTS[locale.code]
+        download_gallery = f"""
+      <section class="download-gallery" aria-label="{html.escape(t["h1"], quote=True)}">
+        <figure class="download-gallery-primary">
+          <img src="/assets/av-approve-gate.png" alt="{html.escape(image_alts[0], quote=True)}" width="1212" height="1090" loading="eager" decoding="async">
+        </figure>
+        <figure>
+          <img src="/assets/access-levels.png" alt="{html.escape(image_alts[1], quote=True)}" width="1944" height="1380" loading="lazy" decoding="async">
+        </figure>
+        <figure>
+          <img src="/assets/secret-use-log.webp" alt="{html.escape(image_alts[2], quote=True)}" width="1944" height="1380" loading="lazy" decoding="async">
+        </figure>
+      </section>
+"""
     hero_actions = f"""          <a class="button primary" href="/Automic%20Vault.dmg">{html.escape(ui["download"])}</a>
           <a class="button secondary" href="https://github.com/automic-vault/automic-vault#readme">{html.escape(ui["docs"])}</a>"""
     language_nav = language_links(path, locale, locales)
@@ -927,7 +974,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
   <link rel="icon" href="{root}favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="{root}apple-touch-icon.png">
   <link rel="stylesheet" href="{root}styles.css?v=128">
-  <link rel="stylesheet" href="{root}landing-pages.css?v=4">
+  <link rel="stylesheet" href="{root}landing-pages.css?v=5">
 {GOOGLE_ANALYTICS_TAG}
   <script type="application/ld+json">
   {{
@@ -974,7 +1021,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
           </div>
         </div>
       </section>
-
+{download_gallery}
 {section_markup}
 
       <section class="closing-cta landing-page-cta" aria-labelledby="final-title">
@@ -1391,7 +1438,18 @@ def generate(check: bool = False) -> int:
         if missing:
             failures.append(f"{record['path']} missing translations: {', '.join(sorted(missing))}")
             continue
-        patch_english_page(record["path"], locales, check, failures)
+        english_locale = next(locale for locale in locales if locale.code == "en")
+        english_output = route_file(record["path"], english_locale)
+        if "en" in record.get("translations", {}):
+            expected_english = render_page(record, english_locale, locales)
+            if check:
+                if not english_output.exists() or english_output.read_text(encoding="utf-8") != expected_english:
+                    failures.append(f"stale generated English page: {english_output}")
+            else:
+                english_output.parent.mkdir(parents=True, exist_ok=True)
+                english_output.write_text(expected_english, encoding="utf-8")
+        else:
+            patch_english_page(record["path"], locales, check, failures)
         for locale in non_default_locales():
             output = route_file(record["path"], locale)
             if record["path"] == "/" and curated_home:
