@@ -795,6 +795,8 @@ body {
 
   .brew-after .brew-chat-divider span {
     position: absolute;
+    grid-column: auto;
+    grid-row: auto;
     inset-inline-end: calc(100% + clamp(2.5rem, 6vw, 7rem));
     width: min(34vw, 30rem);
     color: var(--brand-accent);
@@ -805,7 +807,7 @@ body {
     position: absolute;
     inset-inline-start: calc(clamp(2.5rem, 6vw, 7rem) * -1);
     inset-block-start: 50%;
-    width: calc(100% + clamp(2.5rem, 6vw, 7rem));
+    width: calc(clamp(2.5rem, 6vw, 7rem) + var(--brand-space-lg));
     height: 0;
     border-top: var(--brand-rule-hair) dashed var(--brand-accent);
     background: transparent;
@@ -814,7 +816,8 @@ body {
 
   .brew-after .brew-chat-divider::after {
     position: absolute;
-    inset-inline-end: 0;
+    inset-inline-start: var(--brand-space-lg);
+    inset-inline-end: auto;
     inset-block-start: 50%;
     display: block;
     width: var(--brand-space-xs);
