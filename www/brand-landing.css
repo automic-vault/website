@@ -664,7 +664,7 @@ body {
 .brew-chat-message-approval .brew-chat-avatar {
   width: 2.5rem;
   height: 2.5rem;
-  border-color: var(--brand-violet);
+  border-color: #000;
   color: transparent;
   background:
     url("/assets/brand-shield-v2.webp") center / 76% no-repeat,
