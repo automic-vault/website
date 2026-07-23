@@ -585,6 +585,7 @@ body {
   font-family: var(--brand-font-mono);
   font-size: var(--brand-text-xs);
   font-weight: 700;
+  transform: translateY(-7px);
 }
 
 .brew-chat-message-agent .brew-chat-avatar {
@@ -670,6 +671,7 @@ body {
     url("/assets/brand-shield-v2.webp") center / 76% no-repeat,
     var(--brand-paper-glass-hover);
   box-shadow: 0 0 1.5rem var(--brand-violet-soft);
+  transform: translateY(-11px);
 }
 
 .brew-chat-message-approval strong {
