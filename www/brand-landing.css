@@ -987,6 +987,7 @@ body {
   color: var(--brand-ink-dim);
   font-family: var(--brand-font-body);
   font-size: var(--brand-text-xs);
+  text-align: center;
   line-height: 1.5;
 }
 
