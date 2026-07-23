@@ -657,10 +657,19 @@ body {
   border-color: var(--brand-violet);
 }
 
+.brew-chat-message-approval {
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+}
+
 .brew-chat-message-approval .brew-chat-avatar {
-  border-color: transparent;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-color: var(--brand-violet);
   color: transparent;
-  background: url("/assets/brand-shield-v2.webp") center / contain no-repeat;
+  background:
+    url("/assets/brand-shield-v2.webp") center / 76% no-repeat,
+    var(--brand-paper-glass-hover);
+  box-shadow: 0 0 1.5rem var(--brand-violet-soft);
 }
 
 .brew-chat-message-approval strong {
