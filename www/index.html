@@ -270,7 +270,6 @@ aws_secret_access_key = ••••••••••••••••••�
 
       <div class="brew-split brew-proof">
         <div class="brew-copy">
-          <p class="brew-stage" aria-hidden="true">02 · Control</p>
           <p class="brew-eyebrow">The local execution boundary</p>
           <h2>Automic Vault controls the secret handoff.</h2>
           <p>Automic Vault moves credentials out of readable tool configs. Agents and untrusted software cannot find protected secrets in the files they inspect.</p>
@@ -289,7 +288,6 @@ aws_secret_access_key = ••••••••••••••••••�
 
     <section class="brew-access" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
-        <p class="brew-stage" aria-hidden="true">03 · Decide</p>
         <p class="brew-eyebrow">Access by app</p>
         <h2 id="controls-title">Policy follows the tool and its launcher.</h2>
         <p>Terminal, Codex, and an unknown process can invoke the same executable. Automic Vault identifies the signed launcher and gives each pairing its own access policy.</p>
@@ -323,7 +321,6 @@ aws_secret_access_key = ••••••••••••••••••�
 
     <section class="brew-feature" id="audit" aria-labelledby="audit-title">
       <div class="brew-copy">
-        <p class="brew-stage" aria-hidden="true">04 · Record</p>
         <h2 id="audit-title">Every secret use is logged.</h2>
         <p>Approved or denied, automatic or manual: every request leaves a local record with the launcher, key, command, working directory, and decision.</p>
         <ul class="brew-log-fields" aria-label="Recorded details">
@@ -345,7 +342,6 @@ aws_secret_access_key = ••••••••••••••••••�
         <figcaption>Each flag includes its trigger, rationale, and mitigation steps.</figcaption>
       </figure>
       <div class="brew-copy">
-        <p class="brew-stage" aria-hidden="true">05 · Monitor</p>
         <h2 id="threats-title">Know when your toolchain turns risky.</h2>
         <p>Automic Vault monitors developer tools across ecosystems. It flags new threats and shows you how to mitigate each finding.</p>
       </div>
@@ -353,7 +349,6 @@ aws_secret_access_key = ••••••••••••••••••�
 
     <section class="brew-feature" id="terminal-security" aria-labelledby="terminal-security-title">
       <div class="brew-copy">
-        <p class="brew-stage" aria-hidden="true">06 · Hold</p>
         <p class="brew-eyebrow">Independent of the harness</p>
         <h2 id="terminal-security-title">Control the tool layer beneath every agent.</h2>
         <p>macOS can code sign apps, sandbox them, and keep them out of one another’s private data. Command-line tools usually run with the authority of whichever app launched them.</p>
