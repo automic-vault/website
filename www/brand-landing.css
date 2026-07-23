@@ -305,7 +305,7 @@ body {
 .brew-kicker {
   margin-bottom: var(--brand-space-lg);
   color: var(--brand-accent);
-  text-transform: none;
+  text-transform: uppercase;
 }
 
 .brew-stage {
