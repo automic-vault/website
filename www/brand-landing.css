@@ -658,8 +658,9 @@ body {
 }
 
 .brew-chat-message-approval .brew-chat-avatar {
-  color: var(--brand-paper);
-  background: var(--brand-violet);
+  border-color: transparent;
+  color: transparent;
+  background: url("/assets/brand-shield-v2.webp") center / contain no-repeat;
 }
 
 .brew-chat-message-approval strong {
