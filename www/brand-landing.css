@@ -784,6 +784,46 @@ body {
   grid-row: 1;
 }
 
+@media (min-width: 60.001rem) {
+  .brew-after .brew-chat-divider {
+    position: relative;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: visible;
+  }
+
+  .brew-after .brew-chat-divider span {
+    position: absolute;
+    inset-inline-end: calc(100% + clamp(2.5rem, 6vw, 7rem));
+    width: min(34vw, 30rem);
+    color: var(--brand-accent);
+    text-align: end;
+  }
+
+  .brew-after .brew-chat-divider::before {
+    position: absolute;
+    inset-inline-start: calc(clamp(2.5rem, 6vw, 7rem) * -1);
+    inset-block-start: 50%;
+    width: calc(100% + clamp(2.5rem, 6vw, 7rem));
+    height: 0;
+    border-top: var(--brand-rule-hair) dashed var(--brand-accent);
+    background: transparent;
+    transform: translateY(-50%);
+  }
+
+  .brew-after .brew-chat-divider::after {
+    position: absolute;
+    inset-inline-end: 0;
+    inset-block-start: 50%;
+    display: block;
+    width: var(--brand-space-xs);
+    height: var(--brand-space-xs);
+    border-block-start: var(--brand-rule-hair) solid var(--brand-accent);
+    border-inline-end: var(--brand-rule-hair) solid var(--brand-accent);
+    background: transparent;
+    transform: translateY(-50%) rotate(45deg);
+  }
+}
+
 .brew-proof {
   margin-top: var(--brand-space-5xl);
   padding-top: var(--brand-space-4xl);
