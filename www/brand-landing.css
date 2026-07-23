@@ -11,6 +11,7 @@
   --brand-paper-raised: oklch(9% 0.014 274);
   --brand-paper-soft: oklch(12.5% 0.016 274);
   --brand-paper-glass: oklch(15% 0.022 274 / 0.72);
+  --brand-paper-glass-hover: oklch(25% 0.055 297 / 0.82);
   --brand-ink: oklch(97% 0.008 275);
   --brand-ink-soft: oklch(78% 0.018 274);
   --brand-ink-dim: oklch(61% 0.022 274);
@@ -189,9 +190,8 @@ body {
   border: var(--brand-rule-hair) solid var(--brand-accent);
   border-radius: var(--brand-radius-pill);
   color: var(--brand-ink);
-  background:
-    linear-gradient(135deg, var(--brand-white-wash), transparent),
-    var(--brand-paper-glass);
+  background-color: var(--brand-paper-glass);
+  background-image: linear-gradient(135deg, var(--brand-white-wash), transparent);
   box-shadow:
     inset 0 1px 0 var(--brand-white-wash),
     0 0 0 1px var(--brand-wash-soft),
@@ -206,9 +206,9 @@ body {
   backdrop-filter: blur(18px) saturate(125%);
   transition:
     transform var(--brand-dur-micro) var(--brand-ease-out),
-    border-color var(--brand-dur-micro) var(--brand-ease-out),
-    background-color var(--brand-dur-micro) var(--brand-ease-out),
-    box-shadow var(--brand-dur-micro) var(--brand-ease-out);
+    border-color var(--brand-dur-short) var(--brand-ease-out),
+    background-color var(--brand-dur-short) var(--brand-ease-out),
+    box-shadow var(--brand-dur-short) var(--brand-ease-out);
 }
 
 .brew-download {
@@ -220,9 +220,7 @@ body {
   transform: translateY(-2px);
   border-color: var(--brand-silver);
   color: var(--brand-ink);
-  background:
-    linear-gradient(135deg, var(--brand-white-wash), var(--brand-violet-soft)),
-    var(--brand-paper-glass);
+  background-color: var(--brand-paper-glass-hover);
   box-shadow:
     inset 0 1px 0 var(--brand-white-wash),
     0 0 28px var(--brand-wash),
