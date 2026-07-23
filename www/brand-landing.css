@@ -714,9 +714,20 @@ body {
 
 .brew-after > .brew-copy,
 .brew-after > .brew-session {
+  grid-column: auto;
+  grid-row: auto;
   width: auto;
   max-width: none;
   margin: 0;
+}
+
+.brew-after > .brew-session {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.brew-after .brew-chat-message,
+.brew-after .brew-chat-divider {
+  grid-column: 1;
 }
 
 .brew-after .brew-chat-message,
@@ -741,6 +752,36 @@ body {
   content: "";
   height: var(--brand-rule-hair);
   background: var(--brand-rule);
+}
+
+.brew-after .brew-chat-divider {
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  padding: 0;
+  transform: none;
+}
+
+.brew-after .brew-chat-divider span {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.brew-after .brew-chat-divider::before,
+.brew-after .brew-chat-divider::after {
+  position: static;
+  width: auto;
+  height: var(--brand-rule-hair);
+  border: 0;
+  transform: none;
+}
+
+.brew-after .brew-chat-divider::before {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.brew-after .brew-chat-divider::after {
+  grid-column: 3;
+  grid-row: 1;
 }
 
 .brew-proof {
