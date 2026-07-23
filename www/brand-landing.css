@@ -1229,9 +1229,19 @@ body {
 
 @media (max-width: 40rem) {
   .brew-nav {
+    grid-template-columns: minmax(0, 1fr);
     min-height: 5rem;
     gap: var(--brand-space-sm);
     padding-block: var(--brand-space-sm);
+  }
+
+  .brew-nav > .brew-download {
+    display: none;
+  }
+
+  .brew-nav .brew-brand span {
+    overflow: visible;
+    text-overflow: clip;
   }
 
   .brew-brand img {
@@ -1358,16 +1368,6 @@ body {
 
   .brew-footer-meta > span {
     order: 5;
-  }
-}
-
-@media (max-width: 23.5rem) {
-  .brew-nav .brew-brand span {
-    display: none;
-  }
-
-  .brew-download {
-    font-size: var(--brand-text-xs);
   }
 }
 
