@@ -2,12 +2,14 @@
 :root {
   --color-paper: var(--bg-outer);
   --color-paper-2: var(--bg);
+  --color-paper-3: var(--site-paper-soft);
   --color-ink: var(--ink);
   --color-rule: var(--line);
   --color-rule-2: var(--line-strong);
   --color-accent: var(--blue);
   --color-accent-ink: var(--ink-dark);
   --color-ink-2: var(--muted);
+  --color-focus: var(--site-focus);
   --color-boundary-paper: oklch(8% 0.007 255);
   --color-boundary-paper-2: oklch(11% 0.009 255);
   --color-boundary-surface: oklch(15% 0.01 255);
@@ -29,6 +31,7 @@
   --font-display: var(--font-ui);
   --font-body: var(--font-ui);
   --font-code: var(--font-mono);
+  --font-outlier: var(--font-code);
   --font-wordmark: var(--font-code);
   --space-2xs: 0.25rem;
   --space-xs: 0.5rem;
@@ -54,9 +57,11 @@
   --dur-micro: 120ms;
   --dur-short: 220ms;
   --rule-hair: 1px;
+  --rule-fine: 2px;
   --radius-md: 8px;
   --radius-lg: 10px;
   --radius-card: var(--radius-md);
+  --radius-input: var(--radius-md);
   --radius-pill: 999px;
   --z-sticky: 200;
 }

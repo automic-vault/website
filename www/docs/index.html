@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Automic Vault CLI Manual</title>
+  <meta name="description" content="Source-checked documentation for the Automic Vault 2.1.0 CLI: scan, doctor, save, inject, harden, machine-readable catalogs, and app links.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="Automic Vault CLI Manual">
+  <meta property="og:description" content="The source-checked manual for the Automic Vault 2.1.0 command line.">
+  <meta property="og:url" content="https://www.automicvault.com/docs/">
+  <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Automic Vault CLI Manual">
+  <meta name="twitter:description" content="The source-checked manual for the Automic Vault 2.1.0 command line.">
+  <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
+  <link rel="canonical" href="https://www.automicvault.com/docs/">
+  <link rel="alternate" type="text/markdown" title="Markdown manual" href="/docs/index.md">
+  <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://www.automicvault.com/docs/#article",
+        "url": "https://www.automicvault.com/docs/",
+        "headline": "Automic Vault CLI Manual",
+        "description": "Source-checked documentation for the Automic Vault 2.1.0 CLI.",
+        "dateModified": "2026-07-24",
+        "author": {"@id": "https://www.automicvault.com/#organization"},
+        "publisher": {"@id": "https://www.automicvault.com/#organization"},
+        "about": {
+          "@type": "SoftwareApplication",
+          "name": "Automic Vault",
+          "softwareVersion": "2.1.0",
+          "operatingSystem": "macOS",
+          "codeRepository": "https://github.com/automic-vault/automic-vault"
+        },
+        "breadcrumb": {"@id": "https://www.automicvault.com/docs/#breadcrumb"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.automicvault.com/docs/#breadcrumb",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Automic Vault", "item": "https://www.automicvault.com/"},
+          {"@type": "ListItem", "position": 2, "name": "Documentation", "item": "https://www.automicvault.com/docs/"}
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/styles.css?v=128">
+  <link rel="stylesheet" href="/docs/styles.css?v=1">
+</head>
+<body>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home">
+        <img class="brand-mark" src="/assets/icon@2x.webp" alt="Automic Vault" width="54" height="54">
+        <span class="brand-type">Automic Vault</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/pkg/">Packages</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/" aria-current="page">Docs</a>
+        <a href="/download/">Download</a>
+        <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <header class="docs-hero">
+        <div class="docs-hero-inner">
+          <h1>The <code>av</code> manual.</h1>
+          <p class="lede">Source-checked documentation for the command line shipped by Automic Vault 2.1.0: audit the machine, repair hardened tools, save a named value, and release it to one approved command.</p>
+          <ul class="docs-provenance" aria-label="Manual provenance">
+            <li>macOS</li>
+            <li>CLI 2.1.0</li>
+            <li>Checked July 24, 2026</li>
+            <li><a href="/docs/index.md">Markdown</a></li>
+          </ul>
+        </div>
+      </header>
+
+      <div class="docs-layout">
+        <nav class="docs-toc" aria-label="On this page">
+          <strong>On this page</strong>
+          <ol>
+            <li><a href="#install">Install</a></li>
+            <li><a href="#quick-start">Quick start</a></li>
+            <li><a href="#model">Mental model</a></li>
+            <li><a href="#commands">Commands</a></li>
+            <li><a href="#scan">Scan</a></li>
+            <li><a href="#doctor">Doctor</a></li>
+            <li><a href="#save">Save</a></li>
+            <li><a href="#inject">Inject</a></li>
+            <li><a href="#harden">Harden</a></li>
+            <li><a href="#catalogs">Catalogs</a></li>
+            <li><a href="#open">Open</a></li>
+            <li><a href="#status">Exit status</a></li>
+            <li><a href="#unsupported">Unsupported</a></li>
+            <li><a href="#source">Source</a></li>
+          </ol>
+        </nav>
+
+        <article class="docs-content">
+          <section class="docs-section" id="install">
+            <h2>Install and verify</h2>
+            <p>Automic Vault requires macOS and currently expects Homebrew. Install the app, open it once, then confirm the CLI on your path.</p>
+            <pre><code>brew install --cask automic-vault/isotopes/automic-vault
+open /Applications/Automic\ Vault.app
+av --version
+av help</code></pre>
+            <p>You can also use the <a href="https://github.com/automic-vault/automic-vault/releases/latest">current GitHub release</a> or review and run the <a href="/install.sh">website installer</a>. The menu bar app owns approval UI and policy; open it before a command needs approval.</p>
+            <pre><code>av open</code></pre>
+          </section>
+
+          <section class="docs-section" id="quick-start">
+            <h2>Five-minute path</h2>
+            <p>Run the complete exposure report, save one value through the hidden terminal prompt, then release it only to the command that needs it.</p>
+            <pre><code>av scan --show-all
+av save GH_TOKEN
+av inject +GH_TOKEN gh auth status</code></pre>
+            <div class="docs-note">
+              <strong><code>save</code> does not read standard input.</strong>
+              <p>It opens <code>/dev/tty</code> and disables terminal echo while reading. Remove an old plaintext export only after confirming the approved command works.</p>
+            </div>
+          </section>
+
+          <section class="docs-section" id="model">
+            <h2>Mental model</h2>
+            <p>Automic Vault stores named values in the macOS Keychain. <code>av inject</code> asks the signed menu bar app to approve a request containing the resolved target, arguments, working directory, requested keys, and existing environment conflicts. After approval, <code>av</code> replaces itself with the target process.</p>
+            <p>This is a secret handoff boundary, not a general sandbox. The target receives the rest of the current environment, and an approved executable can use a released secret. Keep macOS, the app, and each approved target in your trust model.</p>
+          </section>
+
+          <section class="docs-section" id="commands">
+            <h2>Command surface</h2>
+            <dl class="docs-command-list">
+              <div><dt><code>av scan</code></dt><dd>Audit the home directory and report exposure findings.</dd></div>
+              <div><dt><code>av doctor</code></dt><dd>Validate installed hardeners, launchers, dependencies, and path precedence.</dd></div>
+              <div><dt><code>av detectors --json</code></dt><dd>List the detector catalog and its embedded source documentation.</dd></div>
+              <div><dt><code>av hardeners --json</code></dt><dd>List hardener applicability, paths, commands, documentation, and Secret Gate routes.</dd></div>
+              <div><dt><code>av save KEY</code></dt><dd>Read one hidden value from the terminal and store it under a valid environment key name.</dd></div>
+              <div><dt><code>av inject +KEY COMMAND</code></dt><dd>Request named values and execute one approved target.</dd></div>
+              <div><dt><code>av harden NAME</code></dt><dd>Apply a reviewed tool-specific migration or launcher boundary.</dd></div>
+              <div><dt><code>av open</code></dt><dd>Open the app or a specific Secret Gate.</dd></div>
+            </dl>
+          </section>
+
+          <section class="docs-section" id="scan">
+            <h2><code>av scan</code></h2>
+            <p>Audit the current home directory for exposed credentials, unsafe tool configuration, and other detector findings.</p>
+            <pre><code>av scan
+av scan --show-all
+av scan --json</code></pre>
+            <ul>
+              <li>The default human report hides medium- and low-severity findings.</li>
+              <li><code>--show-all</code> includes those lower-severity findings.</li>
+              <li><code>--json</code> writes an object containing <code>findings</code> and <code>gui_path</code>.</li>
+              <li>A completed scan exits <code>0</code> even when it finds problems. Treat the report, not the status code, as the audit result.</li>
+            </ul>
+            <p>Each finding includes a source, severity, explanation, remediation, affected paths, and a source-linked detector document.</p>
+          </section>
+
+          <section class="docs-section" id="doctor">
+            <h2><code>av doctor</code></h2>
+            <p>Check whether installed hardening still has the expected target, dependencies, launcher type, owner, permissions, content, and <code>PATH</code> precedence.</p>
+            <pre><code>av doctor
+av doctor gh
+av doctor gh --json</code></pre>
+            <p>Without a selector, <code>doctor</code> checks applicable installed hardeners. A selector can be a hardener or one of its commands. Current development builds also check supported signed agent CLIs when they are present.</p>
+            <ul>
+              <li>Exit <code>0</code>: every selected check is healthy.</li>
+              <li>Exit <code>1</code>: one or more issues require attention.</li>
+              <li>Exit <code>2</code>: invalid arguments, an unknown selector, or a selector with no Doctor-owned checks.</li>
+            </ul>
+            <p>JSON output contains <code>results</code>; each issue includes its kind, message, remediation, and relevant stub, target, or resolved path.</p>
+          </section>
+
+          <section class="docs-section" id="save">
+            <h2><code>av save</code></h2>
+            <p>Store one named value in the Automic Vault Keychain.</p>
+            <pre><code>av save GH_TOKEN</code></pre>
+            <p>The key must be a valid environment variable name: it begins with a letter or underscore and continues with letters, digits, or underscores. The command opens <code>/dev/tty</code>, disables terminal echo while reading, trims the line ending, rejects an empty value, and restores echo even if reading fails.</p>
+            <pre><code># Wrong: save deliberately does not read stdin.
+printf '%s\n' "$GH_TOKEN" | av save GH_TOKEN</code></pre>
+          </section>
+
+          <section class="docs-section" id="inject">
+            <h2><code>av inject</code></h2>
+            <p>Request one or more named Keychain values, then execute a command.</p>
+            <pre><code>av inject +GH_TOKEN gh auth status
+av inject +AWS_ACCESS_KEY_ID +AWS_SECRET_ACCESS_KEY -- \
+  aws sts get-caller-identity</code></pre>
+            <h3>Full syntax</h3>
+            <pre><code>av inject [--replace-existing-env] [--allow-missing-keys] \
+  +KEY [+KEY...] [--] COMMAND [args...]</code></pre>
+            <ul>
+              <li>A bare command such as <code>gh</code> is resolved from <code>PATH</code>.</li>
+              <li>A target containing a slash must be an absolute path.</li>
+              <li><code>--</code> is optional, but useful when the target or its arguments could be mistaken for inject options.</li>
+              <li>Existing environment values win by default; a warning is printed for every conflict.</li>
+              <li><code>--replace-existing-env</code> lets the approved Keychain value replace an existing environment value.</li>
+              <li>A missing requested key fails by default. <code>--allow-missing-keys</code> leaves it unset.</li>
+              <li>Duplicate or invalid key names are rejected.</li>
+              <li><code>av inject</code> refuses to run as root, and the approval service must be running.</li>
+            </ul>
+            <p>The request is denied if the service cannot authenticate, policy does not allow the operation, or the user declines. On approval, <code>av</code> uses <code>exec</code>, so the target replaces the <code>av</code> process.</p>
+            <h3>Shebang use</h3>
+            <pre><code>#!/usr/local/bin/av inject +API_TOKEN /bin/sh
+set -eu
+exec curl -H "Authorization: Bearer $API_TOKEN" \
+  https://api.example.test/me</code></pre>
+            <p>The script path is included in the approval request. Keep the interpreter path absolute and the shebang to one requested-key set plus one interpreter.</p>
+          </section>
+
+          <section class="docs-section" id="harden">
+            <h2><code>av harden</code></h2>
+            <p>Apply a named hardener.</p>
+            <pre><code>av harden NAME
+av harden NAME --yes</code></pre>
+            <p>Hardeners are tool-specific migrations and launch boundaries. Depending on the tool, one can move credentials into Keychain, install or replace a launcher, change protected ownership, or enable a native credential route. Review the embedded documentation and prompts before approving system changes.</p>
+            <p>Some root-owned launchers require <code>sudo</code>; follow the selected hardener's instructions rather than running every hardener as root. <code>--yes</code> skips confirmation where supported. A successful run prints the matching <code>av doctor NAME</code> command.</p>
+            <pre><code>av hardeners --json |
+  jq '.hardeners[] |
+    {name, applicable, hardened, commands, documentation}'</code></pre>
+            <p>The source includes dedicated hardeners for AWS CLI, Homebrew, GitHub CLI, sudo, and Supabase plus generated environment wrappers for supported tools. Availability and applicability depend on the installed tool and machine.</p>
+          </section>
+
+          <section class="docs-section" id="catalogs">
+            <h2>Machine-readable catalogs</h2>
+            <p>List every detector and its embedded source documentation.</p>
+            <pre><code>av detectors --json |
+  jq '.detectors[] | {name, docs_url, documentation}'</code></pre>
+            <p>List hardener state, commands, paths, and Secret Gate routes.</p>
+            <pre><code>av hardeners --json |
+  jq '.hardeners[] | {
+    name,
+    applicable,
+    hardened,
+    stub_path,
+    target_path,
+    commands,
+    secret_gate
+  }'</code></pre>
+            <p>These are the reliable automation interfaces for discovering the catalog shipped by an installed build. Do not hard-code a copied list of detectors or hardeners.</p>
+          </section>
+
+          <section class="docs-section" id="open">
+            <h2><code>av open</code></h2>
+            <p>Open the app and show its main window, or open a specific Secret Gate by its path-safe ID.</p>
+            <pre><code>av open
+av open --secret-gate gh</code></pre>
+            <p>Gate IDs may contain ASCII letters, digits, hyphens, underscores, and periods. The option is also used by product links and generated guidance.</p>
+          </section>
+
+          <section class="docs-section" id="status">
+            <h2>Global options and exit status</h2>
+            <pre><code>av help
+av --version
+av inject --help
+av inject --version</code></pre>
+            <ul>
+              <li><code>0</code> for a completed command or approved execution.</li>
+              <li><code>1</code> for an operational failure, denied request, or unhealthy <code>doctor</code> result.</li>
+              <li><code>2</code> for top-level usage errors and invalid <code>doctor</code> selection.</li>
+            </ul>
+            <p>The target's behavior begins after a successful <code>inject</code>, because that process replaces <code>av</code>.</p>
+          </section>
+
+          <section class="docs-section docs-unsupported" id="unsupported">
+            <h2>Commands that are not in v2</h2>
+            <p>The earlier v1 manual described <code>install</code>, <code>contain</code>, <code>dotenv</code>, <code>credential-helper</code>, <code>gate</code>, and <code>trace</code>. Those commands are not part of the Automic Vault 2.1.0 dispatcher. Use <code>av help</code> from the installed build as the authoritative top-level list.</p>
+          </section>
+
+          <section class="docs-section" id="source">
+            <h2>Source of truth</h2>
+            <p>This manual was checked against the tagged 2.1.0 implementation: <a href="https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/mod.rs"><code>mod.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/scan.rs"><code>scan.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/doctor.rs"><code>doctor.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/save.rs"><code>save.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/inject.rs"><code>inject.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/open.rs"><code>open.rs</code></a>, and the <a href="https://github.com/automic-vault/automic-vault/tree/2.1.0/src/isotopes">isotope catalog</a>.</p>
+            <p>For a particular installation, prefer its <code>av help</code>, <code>av detectors --json</code>, and <code>av hardeners --json</code> output. Report discrepancies in the <a href="https://github.com/automic-vault/automic-vault/issues">issue tracker</a>.</p>
+          </section>
+        </article>
+      </div>
+    </main>
+
+    <footer class="docs-footer">
+      <p class="docs-footer-line">Run only what you mean to authorize.</p>
+      <div class="docs-footer-meta">
+        <span>&copy; 2026 Automic Vault.</span>
+        <div class="docs-footer-links">
+          <a href="/about/">About</a>
+          <a href="https://github.com/automic-vault/automic-vault/security">Security</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="/app.js?v=26"></script>
+</body>
+</html>

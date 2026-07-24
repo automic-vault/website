@@ -113,6 +113,34 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
 
         self.assertTrue(pages)
 
+    def test_docs_match_the_v2_cli_surface(self):
+        html = (ROOT / "www" / "docs" / "index.html").read_text(encoding="utf-8")
+        markdown = (ROOT / "www" / "docs" / "index.md").read_text(encoding="utf-8")
+        deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
+
+        for text in (html, markdown):
+            with self.subTest(format="html" if text is html else "markdown"):
+                for command in (
+                    "av scan",
+                    "av doctor",
+                    "av detectors --json",
+                    "av hardeners --json",
+                    "av inject",
+                    "av save",
+                    "av harden",
+                    "av open",
+                ):
+                    self.assertIn(command, text)
+                self.assertIn("does not read standard input", text)
+                self.assertIn("not part of", text)
+
+        self.assertIn('"/docs": true', deploy_script)
+        self.assertIn('"/docs/": true', deploy_script)
+        self.assertNotIn(
+            '"/docs": "https://github.com/automic-vault/automic-vault#readme"',
+            deploy_script,
+        )
+
     def test_public_assets_and_frontend_files_are_referenced(self):
         site = ROOT / "www"
         public_files = sorted((site / "assets").rglob("*"))

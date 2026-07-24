@@ -57,6 +57,6 @@ access rules you chose for that pairing.
 From the creator of Homebrew.
 
 Download: https://www.automicvault.com/Automic%20Vault.dmg
-Documentation: https://github.com/automic-vault/automic-vault#readme
+Documentation: https://www.automicvault.com/docs/
 Security: https://github.com/automic-vault/automic-vault/security
 Source: https://github.com/automic-vault/automic-vault

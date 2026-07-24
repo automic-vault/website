@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-07-24",
+    "scope": "docs",
+    "macrostructure": "Long Document",
+    "theme": "Cobalt-dark",
+    "theme_axes": "dark / grotesk-sans / cool",
+    "enrichment": "none",
+    "nav": "N5",
+    "footer": "Ft5",
+    "brief": "Source-checked Automic Vault 2.1.0 CLI manual"
+  },
+  {
     "date": "2026-07-22",
     "scope": "homepage",
     "macrostructure": "Narrative Workflow",

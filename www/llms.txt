@@ -22,12 +22,11 @@ Homepage headline: The missing security layer for CLI tools on Mac.
 - Injects named values only into an approved local executable for one run.
 - Shows executable path, arguments, working directory, parent process, and
   requested keys before sensitive execution.
-- Runs agents through a synthetic toolchain with `av contain`, routing host tool
-  requests through the local approval path.
-- Uses native helper protocols such as AWS `credential_process`, Kubernetes
-  `ExecCredential`, and registry helpers where tools support them.
-- Finds plaintext credentials in local files and supports encrypted dotenv
-  workflows.
+- Audits local credential exposure and unsafe tool configuration with `av scan`.
+- Checks hardened launchers, dependencies, ownership, permissions, content, and
+  path precedence with `av doctor`.
+- Applies tool-specific hardeners and generated environment wrappers.
+- Publishes the installed detector and hardener catalogs as JSON.
 
 ## Execution Boundary
 
@@ -42,10 +41,14 @@ Only the approved tool receives the raw secret.
 ## Commands
 
 ```sh
-printf '%s\n' "$GITHUB_TOKEN" | av save GITHUB_TOKEN
-av inject +GITHUB_TOKEN /opt/homebrew/bin/gh repo view
-av contain codex
+av scan --show-all
+av save GH_TOKEN
+av inject +GH_TOKEN gh auth status
+av doctor --json
 ```
+
+`av save` prompts through `/dev/tty`; it does not read the value from standard
+input.
 
 ## Security Boundary
 
@@ -65,7 +68,7 @@ and uses a credential.
 - [About](https://www.automicvault.com/about/): project and founder background.
 - [Privacy](https://www.automicvault.com/privacy/): website and local product data boundaries.
 - [Terms](https://www.automicvault.com/terms/): open-source licensing summary.
-- [Documentation](https://github.com/automic-vault/automic-vault#readme): CLI commands and local runtime patterns.
+- [Documentation](https://www.automicvault.com/docs/): source-checked Automic Vault 2.1.0 CLI manual.
 - [Security](https://github.com/automic-vault/automic-vault/security): security policy and reporting.
 - [Source](https://github.com/automic-vault/automic-vault): releases and implementation.
 

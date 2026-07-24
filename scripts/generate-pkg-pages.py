@@ -4460,7 +4460,7 @@ def core_security_guide_links(page: PackagePage, locale: dict[str, Any] | None =
             tx(locale, "aiAgentApprovalGatesCopy", "Put approvals in front of risky package and tool actions."),
         ),
         (
-            "https://github.com/automic-vault/automic-vault#readme",
+            "/docs/",
             tx(locale, "secretInjectionDocs", "Secret injection docs"),
             tx(locale, "secretInjectionDocsCopy", "Move supported secrets out of plaintext files and inject them into approved tools."),
         ),

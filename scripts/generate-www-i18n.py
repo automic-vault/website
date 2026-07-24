@@ -945,7 +945,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
       </section>
 """
     hero_actions = f"""          <a class="button primary" href="/Automic%20Vault.dmg">{html.escape(ui["download"])}</a>
-          <a class="button secondary" href="https://github.com/automic-vault/automic-vault#readme">{html.escape(ui["docs"])}</a>"""
+          <a class="button secondary" href="/docs/">{html.escape(ui["docs"])}</a>"""
     language_nav = language_links(path, locale, locales)
     return f"""<!DOCTYPE html>
 <html lang="{html.escape(locale.html_lang)}">
@@ -1029,7 +1029,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
         <h2 id="final-title">{html.escape(t["h1"])}</h2>
         <div class="hero-actions">
           <a class="button primary" href="/Automic%20Vault.dmg">{html.escape(ui["download"])}</a>
-          <a class="button secondary" href="https://github.com/automic-vault/automic-vault#readme">{html.escape(ui["docs"])}</a>
+          <a class="button secondary" href="/docs/">{html.escape(ui["docs"])}</a>
           <a class="button text" href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
         </div>
       </section>
@@ -1229,7 +1229,7 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
 
       <div class="boundary-hero-actions">
         <a class="boundary-button boundary-button-primary" href="/Automic%20Vault.dmg">{html.escape(landing["download"])}</a>
-        <a class="boundary-button boundary-button-secondary" href="https://github.com/automic-vault/automic-vault#readme">{html.escape(landing["docs"])}</a>
+        <a class="boundary-button boundary-button-secondary" href="/docs/">{html.escape(landing["docs"])}</a>
         <span>Free and open source · Apple Silicon · macOS 26</span>
       </div>
     </section>
@@ -1409,6 +1409,7 @@ def render_sitemap(records: list[dict[str, Any]], locales: list[Locale]) -> str:
                 continue
             entries.append(sitemap_entry(href(path, locale), lastmod, path, locales))
     preserved = [
+        ("https://www.automicvault.com/docs/", "2026-07-24"),
         ("https://www.automicvault.com/blog/", "2026-07-16"),
         ("https://www.automicvault.com/blog/mac-security-best-practices-for-agents/", "2026-07-16"),
         ("https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/", "2026-07-12"),

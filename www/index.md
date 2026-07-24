@@ -81,5 +81,5 @@ access rules you chose for that pairing.
 
 Automic Vault is free Apache-2.0 open-source software for macOS.
 
-[Documentation](https://github.com/automic-vault/automic-vault#readme) · [Security](https://github.com/automic-vault/automic-vault/security) ·
+[Documentation](https://www.automicvault.com/docs/) · [Security](https://github.com/automic-vault/automic-vault/security) ·
 [Source](https://github.com/automic-vault/automic-vault)
