@@ -214,11 +214,6 @@ if [[ "${prepare_only}" != true ]]; then
     verify_pkg_origin_secret
   fi
 
-  if [[ "${AWS_REGION}" == "us-east-1" ]]; then
-    origin_domain="${WWW_BUCKET}.s3.amazonaws.com"
-  else
-    origin_domain="${WWW_BUCKET}.s3.${AWS_REGION}.amazonaws.com"
-  fi
   pkg_origin_id="${WWW_DOMAIN}-atlas-pkg-origin"
   release_redirect_origin_id="${WWW_DOMAIN}-release-redirect-origin"
   distribution_comment="${WWW_DOMAIN} static site"
@@ -319,6 +314,26 @@ ensure_bucket() {
     --server-side-encryption-configuration \
     '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
   log_ok "S3 bucket ready"
+}
+
+configure_static_origin() {
+  local bucket_region
+  bucket_region="$(
+    aws s3api get-bucket-location \
+      --bucket "${WWW_BUCKET}" \
+      --query 'LocationConstraint' \
+      --output text
+  )"
+  if [[ -z "${bucket_region}" || "${bucket_region}" == "None" ]]; then
+    bucket_region="us-east-1"
+  fi
+
+  if [[ "${bucket_region}" == "us-east-1" ]]; then
+    origin_domain="${WWW_BUCKET}.s3.amazonaws.com"
+  else
+    origin_domain="${WWW_BUCKET}.s3.${bucket_region}.amazonaws.com"
+  fi
+  log_ok "Static origin resolved in ${bucket_region}"
 }
 
 ensure_oac() {
@@ -1786,6 +1801,7 @@ EOF
   exit 0
 fi
 ensure_bucket
+configure_static_origin
 AWS_ACCOUNT_ID="${AWS_ACCOUNT_ID:-$(aws sts get-caller-identity --query Account --output text)}"
 oac_id="$(ensure_oac)"
 ensure_release_redirect_oac

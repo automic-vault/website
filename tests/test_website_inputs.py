@@ -159,22 +159,24 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             deploy_script,
         )
 
-    def test_us_east_1_s3_bucket_uses_global_cloudfront_origin(self):
+    def test_cloudfront_origin_uses_the_bucket_region(self):
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
 
-        self.assertIn('if [[ "${AWS_REGION}" == "us-east-1" ]]', deploy_script)
+        self.assertIn("aws s3api get-bucket-location", deploy_script)
+        self.assertIn('if [[ "${bucket_region}" == "us-east-1" ]]', deploy_script)
         self.assertIn(
             'origin_domain="${WWW_BUCKET}.s3.amazonaws.com"',
             deploy_script,
         )
         self.assertIn(
-            'origin_domain="${WWW_BUCKET}.s3.${AWS_REGION}.amazonaws.com"',
+            'origin_domain="${WWW_BUCKET}.s3.${bucket_region}.amazonaws.com"',
             deploy_script,
         )
         self.assertNotIn(
-            'origin_domain="s3.amazonaws.com"',
+            'origin_domain="${WWW_BUCKET}.s3.${AWS_REGION}.amazonaws.com"',
             deploy_script,
         )
+        self.assertIn("ensure_bucket\nconfigure_static_origin", deploy_script)
 
     def test_public_assets_and_frontend_files_are_referenced(self):
         site = ROOT / "www"
