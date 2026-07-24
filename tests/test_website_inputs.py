@@ -159,16 +159,20 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             deploy_script,
         )
 
-    def test_dotted_s3_bucket_uses_path_style_cloudfront_origin(self):
+    def test_us_east_1_s3_bucket_uses_global_cloudfront_origin(self):
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
 
-        self.assertIn('origin_domain="s3.amazonaws.com"', deploy_script)
-        self.assertIn('origin_path="/${WWW_BUCKET}"', deploy_script)
-        self.assertIn('--arg origin_path "${origin_path}"', deploy_script)
-        self.assertIn("OriginPath: $origin_path", deploy_script)
-        self.assertIn(".OriginPath = $origin_path", deploy_script)
-        self.assertNotIn(
+        self.assertIn('if [[ "${AWS_REGION}" == "us-east-1" ]]', deploy_script)
+        self.assertIn(
+            'origin_domain="${WWW_BUCKET}.s3.amazonaws.com"',
+            deploy_script,
+        )
+        self.assertIn(
             'origin_domain="${WWW_BUCKET}.s3.${AWS_REGION}.amazonaws.com"',
+            deploy_script,
+        )
+        self.assertNotIn(
+            'origin_domain="s3.amazonaws.com"',
             deploy_script,
         )
 

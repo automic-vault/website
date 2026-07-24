@@ -215,11 +215,10 @@ if [[ "${prepare_only}" != true ]]; then
   fi
 
   if [[ "${AWS_REGION}" == "us-east-1" ]]; then
-    origin_domain="s3.amazonaws.com"
+    origin_domain="${WWW_BUCKET}.s3.amazonaws.com"
   else
-    origin_domain="s3.${AWS_REGION}.amazonaws.com"
+    origin_domain="${WWW_BUCKET}.s3.${AWS_REGION}.amazonaws.com"
   fi
-  origin_path="/${WWW_BUCKET}"
   pkg_origin_id="${WWW_DOMAIN}-atlas-pkg-origin"
   release_redirect_origin_id="${WWW_DOMAIN}-release-redirect-origin"
   distribution_comment="${WWW_DOMAIN} static site"
@@ -1087,7 +1086,6 @@ build_distribution_config() {
     --arg comment "${distribution_comment}" \
     --arg origin_id "${WWW_BUCKET}-origin" \
     --arg domain_name "${origin_domain}" \
-    --arg origin_path "${origin_path}" \
     --arg pkg_origin_id "${pkg_origin_id}" \
     --arg pkg_origin_domain "${WWW_PKG_ORIGIN_DOMAIN}" \
     --arg pkg_origin_header_name "${WWW_PKG_ORIGIN_HEADER_NAME}" \
@@ -1192,7 +1190,7 @@ build_distribution_config() {
         Items: [{
           Id: $origin_id,
           DomainName: $domain_name,
-          OriginPath: $origin_path,
+          OriginPath: "",
           OriginAccessControlId: $oac_id,
           S3OriginConfig: {
             OriginAccessIdentity: ""
@@ -1330,7 +1328,6 @@ upsert_distribution() {
       --arg comment "${distribution_comment}" \
       --arg origin_id "${WWW_BUCKET}-origin" \
       --arg domain_name "${origin_domain}" \
-      --arg origin_path "${origin_path}" \
       --arg pkg_origin_id "${pkg_origin_id}" \
       --arg pkg_origin_domain "${WWW_PKG_ORIGIN_DOMAIN}" \
       --arg pkg_origin_header_name "${WWW_PKG_ORIGIN_HEADER_NAME}" \
@@ -1434,7 +1431,7 @@ upsert_distribution() {
           .DistributionConfig.Origins.Items[0]
           | .Id = $origin_id
           | .DomainName = $domain_name
-          | .OriginPath = $origin_path
+          | .OriginPath = ""
           | .OriginAccessControlId = $oac_id
           | .S3OriginConfig = ((.S3OriginConfig // {}) + {OriginAccessIdentity: ""})
         ), {
