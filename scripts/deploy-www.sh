@@ -444,12 +444,12 @@ ensure_release_redirect() {
       --runtime nodejs24.x \
       --handler index.handler \
       --role "${role_arn}" \
-      --architectures arm64 \
       --timeout 10 \
       --memory-size 128 >/dev/null
     aws lambda wait function-updated --function-name "${release_redirect_function_name}"
     aws lambda update-function-code \
       --function-name "${release_redirect_function_name}" \
+      --architectures arm64 \
       --zip-file "fileb://${archive_dir}/release-redirect.zip" >/dev/null
   else
     aws lambda create-function \
