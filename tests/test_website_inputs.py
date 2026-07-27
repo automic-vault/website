@@ -35,6 +35,24 @@ class LocalReferenceParser(html.parser.HTMLParser):
 
 
 class StaticHtmlAnalyticsTests(unittest.TestCase):
+    def test_release_download_uses_private_cloudfront_lambda_origin(self):
+        subprocess.run(
+            ["node", "--test", str(ROOT / "lambda" / "release-redirect" / "index.test.mjs")],
+            cwd=ROOT,
+            check=True,
+        )
+        deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
+        self.assertIn('OriginAccessControlOriginType: "lambda"', deploy_script)
+        self.assertIn('--auth-type AWS_IAM', deploy_script)
+        self.assertNotIn('--auth-type NONE', deploy_script)
+        self.assertIn('release_behavior("av.dmg")', deploy_script)
+        self.assertIn('release_behavior("Automic*Vault.dmg")', deploy_script)
+        self.assertEqual(deploy_script.count("CustomHeaders: {Quantity: 0}"), 2)
+        update_config = deploy_script.split("aws lambda update-function-configuration", 1)[1].split("aws lambda wait", 1)[0]
+        update_code = deploy_script.split("aws lambda update-function-code", 1)[1].split("else", 1)[0]
+        self.assertNotIn("--architectures", update_config)
+        self.assertIn("--architectures arm64", update_code)
+
     def test_curated_taxonomy_overrides_fallback_package_category(self):
         renderer = load_package_renderer()
         page = renderer.PackagePage(provider="brew", name="aider", category="developer-tools")

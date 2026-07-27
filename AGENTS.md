@@ -32,9 +32,12 @@ SQLite artifact. It defaults to
 
 ## Release Artifact Boundary
 
-The product repository owns `/Automic Vault.dmg`, `/scanner.gz`, and
-`/scanner.sh`. The static website deploy excludes those objects and must not
-delete or overwrite them.
+The product repository owns the release assets. This repository owns the
+website download URLs and the Lambda that redirects both `.dmg` routes to the
+latest GitHub release asset. The static deploy must not upload a `.dmg`.
+
+The product repository still owns `/scanner.gz` and `/scanner.sh`. The static
+website deploy excludes those objects and must not delete or overwrite them.
 
 ## Deployment Safety
 
