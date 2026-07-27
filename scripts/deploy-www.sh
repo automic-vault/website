@@ -140,7 +140,7 @@ if [[ "${prepare_only}" != true ]]; then
   required_tools+=(aws)
 fi
 if [[ "${prepare_only}" != true && "${static_only}" != true ]]; then
-  required_tools+=(curl jq)
+  required_tools+=(curl jq zip)
 fi
 
 for tool in "${required_tools[@]}"; do
@@ -158,6 +158,7 @@ repo_root="$(cd "${script_dir}/.." && pwd)"
 site_dir="${repo_root}/www"
 llms_full_generator="${repo_root}/scripts/generate-llms-full.mjs"
 www_i18n_generator="${repo_root}/scripts/generate-www-i18n.py"
+release_redirect_source="${repo_root}/lambda/release-redirect/index.mjs"
 prepared_site_dir=""
 temp_paths=()
 
@@ -211,13 +212,18 @@ if [[ "${prepare_only}" != true ]]; then
 
   origin_domain="${WWW_BUCKET}.s3.${AWS_REGION}.amazonaws.com"
   pkg_origin_id="${WWW_DOMAIN}-atlas-pkg-origin"
+  release_redirect_origin_id="${WWW_DOMAIN}-release-redirect-origin"
   distribution_comment="${WWW_DOMAIN} static site"
   oac_name="${WWW_DOMAIN}-s3-oac"
+  release_redirect_oac_name="${WWW_DOMAIN//./-}-release-redirect-oac"
+  release_redirect_function_name="${WWW_DOMAIN//./-}-release-redirect"
+  release_redirect_role_name="${WWW_DOMAIN//./-}-release-redirect-role"
   redirect_function_name="${WWW_DOMAIN//./-}-redirect-to-canonical"
   response_headers_policy_name="${WWW_DOMAIN//./-}-security-headers"
   cache_policy_name="${WWW_DOMAIN//./-}-brotli-cache"
   pkg_cache_policy_name="${WWW_DOMAIN//./-}-pkg-daily-cache"
   pkg_search_cache_policy_name="${WWW_DOMAIN//./-}-pkg-search-daily-cache"
+  release_redirect_cache_policy_id="658327ea-f89d-4fab-a63d-7e88639e58f6"
 fi
 
 make_temp_file() {
@@ -342,6 +348,157 @@ ensure_oac() {
   )"
   log_ok "Created OAC ${created_id}"
   printf '%s\n' "${created_id}"
+}
+
+ensure_release_redirect_oac() {
+  local existing_id config_file
+  log_step "Preparing release redirect origin access control"
+  existing_id="$(
+    aws cloudfront list-origin-access-controls \
+      --query "OriginAccessControlList.Items[?Name==\`${release_redirect_oac_name}\`].Id | [0]" \
+      --output text
+  )"
+  if [[ -n "${existing_id}" && "${existing_id}" != "None" ]]; then
+    log_ok "Using existing release redirect OAC ${existing_id}"
+    release_redirect_oac_id="${existing_id}"
+    return
+  fi
+
+  make_temp_file config_file
+  jq -n \
+    --arg name "${release_redirect_oac_name}" \
+    '{
+      Name: $name,
+      Description: "CloudFront access to the release redirect Lambda",
+      OriginAccessControlOriginType: "lambda",
+      SigningBehavior: "always",
+      SigningProtocol: "sigv4"
+    }' >"${config_file}"
+  release_redirect_oac_id="$(aws cloudfront create-origin-access-control \
+    --origin-access-control-config "file://${config_file}" \
+    --query 'OriginAccessControl.Id' \
+    --output text)"
+  log_ok "Created release redirect OAC ${release_redirect_oac_id}"
+}
+
+ensure_release_redirect() {
+  local archive_dir function_url log_group role_arn trust_file policy_file role_created=false
+  log_step "Deploying GitHub release redirect Lambda"
+  [[ -f "${release_redirect_source}" ]] || die "Missing release redirect source: ${release_redirect_source}"
+
+  log_group="/aws/lambda/${release_redirect_function_name}"
+  if [[ "$(aws logs describe-log-groups \
+    --log-group-name-prefix "${log_group}" \
+    --query "length(logGroups[?logGroupName == \`${log_group}\`])" \
+    --output text)" == "0" ]]; then
+    aws logs create-log-group --log-group-name "${log_group}"
+  fi
+  aws logs put-retention-policy --log-group-name "${log_group}" --retention-in-days 30
+
+  make_temp_file trust_file
+  jq -n '{
+    Version: "2012-10-17",
+    Statement: [{
+      Effect: "Allow",
+      Principal: {Service: "lambda.amazonaws.com"},
+      Action: "sts:AssumeRole"
+    }]
+  }' >"${trust_file}"
+  if aws iam get-role --role-name "${release_redirect_role_name}" >/dev/null 2>&1; then
+    aws iam update-assume-role-policy \
+      --role-name "${release_redirect_role_name}" \
+      --policy-document "file://${trust_file}"
+  else
+    aws iam create-role \
+      --role-name "${release_redirect_role_name}" \
+      --assume-role-policy-document "file://${trust_file}" >/dev/null
+    role_created=true
+  fi
+  role_arn="$(aws iam get-role --role-name "${release_redirect_role_name}" --query Role.Arn --output text)"
+
+  make_temp_file policy_file
+  jq -n \
+    --arg log_arn "arn:aws:logs:${AWS_REGION}:${AWS_ACCOUNT_ID}:log-group:${log_group}:*" \
+    '{
+      Version: "2012-10-17",
+      Statement: [{
+        Effect: "Allow",
+        Action: ["logs:CreateLogStream", "logs:PutLogEvents"],
+        Resource: $log_arn
+      }]
+    }' >"${policy_file}"
+  aws iam put-role-policy \
+    --role-name "${release_redirect_role_name}" \
+    --policy-name logs \
+    --policy-document "file://${policy_file}"
+  if [[ "${role_created}" == true ]]; then
+    sleep 5
+  fi
+
+  make_temp_dir archive_dir
+  cp "${release_redirect_source}" "${archive_dir}/index.mjs"
+  (cd "${archive_dir}" && zip -q release-redirect.zip index.mjs)
+  if aws lambda get-function --function-name "${release_redirect_function_name}" >/dev/null 2>&1; then
+    aws lambda update-function-configuration \
+      --function-name "${release_redirect_function_name}" \
+      --runtime nodejs24.x \
+      --handler index.handler \
+      --role "${role_arn}" \
+      --architectures arm64 \
+      --timeout 10 \
+      --memory-size 128 >/dev/null
+    aws lambda wait function-updated --function-name "${release_redirect_function_name}"
+    aws lambda update-function-code \
+      --function-name "${release_redirect_function_name}" \
+      --zip-file "fileb://${archive_dir}/release-redirect.zip" >/dev/null
+  else
+    aws lambda create-function \
+      --function-name "${release_redirect_function_name}" \
+      --runtime nodejs24.x \
+      --handler index.handler \
+      --role "${role_arn}" \
+      --architectures arm64 \
+      --timeout 10 \
+      --memory-size 128 \
+      --zip-file "fileb://${archive_dir}/release-redirect.zip" >/dev/null
+  fi
+  aws lambda wait function-updated --function-name "${release_redirect_function_name}"
+
+  if aws lambda get-function-url-config --function-name "${release_redirect_function_name}" >/dev/null 2>&1; then
+    aws lambda update-function-url-config \
+      --function-name "${release_redirect_function_name}" \
+      --auth-type AWS_IAM >/dev/null
+  else
+    aws lambda create-function-url-config \
+      --function-name "${release_redirect_function_name}" \
+      --auth-type AWS_IAM >/dev/null
+  fi
+  function_url="$(aws lambda get-function-url-config --function-name "${release_redirect_function_name}" --query FunctionUrl --output text)"
+  release_redirect_domain="$(printf '%s\n' "${function_url#https://}" | sed 's|/$||')"
+  log_ok "Release redirect Lambda ready"
+}
+
+allow_cloudfront_release_redirect() {
+  local distribution_id="$1"
+  local source_arn="arn:aws:cloudfront::${AWS_ACCOUNT_ID}:distribution/${distribution_id}"
+  log_step "Restricting release redirect Lambda to CloudFront"
+  aws lambda remove-permission --function-name "${release_redirect_function_name}" --statement-id cloudfront-url >/dev/null 2>&1 || true
+  aws lambda remove-permission --function-name "${release_redirect_function_name}" --statement-id cloudfront-invoke >/dev/null 2>&1 || true
+  aws lambda add-permission \
+    --function-name "${release_redirect_function_name}" \
+    --statement-id cloudfront-url \
+    --action lambda:InvokeFunctionUrl \
+    --principal cloudfront.amazonaws.com \
+    --source-arn "${source_arn}" \
+    --function-url-auth-type AWS_IAM >/dev/null
+  aws lambda add-permission \
+    --function-name "${release_redirect_function_name}" \
+    --statement-id cloudfront-invoke \
+    --action lambda:InvokeFunction \
+    --principal cloudfront.amazonaws.com \
+    --source-arn "${source_arn}" \
+    --invoked-via-function-url >/dev/null
+  log_ok "Release redirect access restricted"
 }
 
 ensure_redirect_function() {
@@ -524,15 +681,6 @@ function handler(event) {
     return false;
   }
 
-  if (request.uri === "/av.dmg") {
-    return {
-      statusCode: 301,
-      statusDescription: "Moved Permanently",
-      headers: {
-        location: { value: canonicalLocation("/Automic%20Vault.dmg") }
-      }
-    };
-  }
   if (host !== canonicalHost || viewerProtocol() === "http") {
     return {
       statusCode: 301,
@@ -920,7 +1068,10 @@ build_distribution_config() {
   local cache_policy_id="$4"
   local pkg_cache_policy_id="$5"
   local pkg_search_cache_policy_id="$6"
-  local output_file="$7"
+  local release_redirect_oac_id="$7"
+  local release_redirect_domain="$8"
+  local release_redirect_cache_policy_id="$9"
+  local output_file="${10}"
 
   jq -n \
     --arg caller_reference "${WWW_DOMAIN}-$(date +%s)" \
@@ -937,6 +1088,10 @@ build_distribution_config() {
     --arg cache_policy_id "${cache_policy_id}" \
     --arg pkg_cache_policy_id "${pkg_cache_policy_id}" \
     --arg pkg_search_cache_policy_id "${pkg_search_cache_policy_id}" \
+    --arg release_origin_id "${release_redirect_origin_id}" \
+    --arg release_origin_domain "${release_redirect_domain}" \
+    --arg release_oac_id "${release_redirect_oac_id}" \
+    --arg release_cache_policy_id "${release_redirect_cache_policy_id}" \
     --arg cert_arn "${WWW_CERTIFICATE_ARN}" \
     --arg domain_a "${WWW_DOMAIN}" \
     --arg domain_b "${WWW_WWW_DOMAIN}" \
@@ -997,13 +1152,33 @@ build_distribution_config() {
           behavior("zh-hans/pkg"; $pkg_cache_policy_id),
           behavior("zh-hans/pkg/*"; $pkg_cache_policy_id)
         ];
+      def release_behavior($pattern):
+        {
+          PathPattern: $pattern,
+          TargetOriginId: $release_origin_id,
+          ViewerProtocolPolicy: "redirect-to-https",
+          AllowedMethods: {
+            Quantity: 2,
+            Items: ["HEAD", "GET"],
+            CachedMethods: {Quantity: 2, Items: ["HEAD", "GET"]}
+          },
+          Compress: false,
+          SmoothStreaming: false,
+          CachePolicyId: $release_cache_policy_id,
+          ResponseHeadersPolicyId: $response_headers_policy_id,
+          TrustedSigners: {Enabled: false, Quantity: 0},
+          TrustedKeyGroups: {Enabled: false, Quantity: 0},
+          LambdaFunctionAssociations: {Quantity: 0},
+          FunctionAssociations: {Quantity: 0},
+          FieldLevelEncryptionId: ""
+        };
       {
       CallerReference: $caller_reference,
       Comment: $comment,
       Enabled: true,
       DefaultRootObject: "index.html",
       Origins: {
-        Quantity: 2,
+        Quantity: 3,
         Items: [{
           Id: $origin_id,
           DomainName: $domain_name,
@@ -1032,6 +1207,19 @@ build_distribution_config() {
               Items: ["TLSv1.2"]
             },
             OriginReadTimeout: 30,
+            OriginKeepaliveTimeout: 5
+          }
+        }, {
+          Id: $release_origin_id,
+          DomainName: $release_origin_domain,
+          OriginPath: "",
+          OriginAccessControlId: $release_oac_id,
+          CustomOriginConfig: {
+            HTTPPort: 80,
+            HTTPSPort: 443,
+            OriginProtocolPolicy: "https-only",
+            OriginSslProtocols: {Quantity: 1, Items: ["TLSv1.2"]},
+            OriginReadTimeout: 10,
             OriginKeepaliveTimeout: 5
           }
         }]
@@ -1076,8 +1264,8 @@ build_distribution_config() {
         FieldLevelEncryptionId: ""
         },
         CacheBehaviors: {
-          Quantity: (pkg_behaviors | length),
-          Items: pkg_behaviors
+          Quantity: ((pkg_behaviors | length) + 2),
+          Items: ([release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg")] + pkg_behaviors)
         },
       CustomErrorResponses: {
         Quantity: 1,
@@ -1114,6 +1302,9 @@ upsert_distribution() {
   local cache_policy_id="$4"
   local pkg_cache_policy_id="$5"
   local pkg_search_cache_policy_id="$6"
+  local release_redirect_oac_id="$7"
+  local release_redirect_domain="$8"
+  local release_redirect_cache_policy_id="$9"
   local distribution_id etag config_file response_file
   log_step "Preparing CloudFront distribution"
   make_temp_file config_file
@@ -1138,6 +1329,10 @@ upsert_distribution() {
       --arg cache_policy_id "${cache_policy_id}" \
       --arg pkg_cache_policy_id "${pkg_cache_policy_id}" \
       --arg pkg_search_cache_policy_id "${pkg_search_cache_policy_id}" \
+      --arg release_origin_id "${release_redirect_origin_id}" \
+      --arg release_origin_domain "${release_redirect_domain}" \
+      --arg release_oac_id "${release_redirect_oac_id}" \
+      --arg release_cache_policy_id "${release_redirect_cache_policy_id}" \
       --arg cert_arn "${WWW_CERTIFICATE_ARN}" \
       --arg domain_a "${WWW_DOMAIN}" \
       --arg domain_b "${WWW_WWW_DOMAIN}" \
@@ -1198,11 +1393,31 @@ upsert_distribution() {
             behavior("zh-hans/pkg"; $pkg_cache_policy_id),
             behavior("zh-hans/pkg/*"; $pkg_cache_policy_id)
           ];
+        def release_behavior($pattern):
+          {
+            PathPattern: $pattern,
+            TargetOriginId: $release_origin_id,
+            ViewerProtocolPolicy: "redirect-to-https",
+            AllowedMethods: {
+              Quantity: 2,
+              Items: ["HEAD", "GET"],
+              CachedMethods: {Quantity: 2, Items: ["HEAD", "GET"]}
+            },
+            Compress: false,
+            SmoothStreaming: false,
+            CachePolicyId: $release_cache_policy_id,
+            ResponseHeadersPolicyId: $response_headers_policy_id,
+            TrustedSigners: {Enabled: false, Quantity: 0},
+            TrustedKeyGroups: {Enabled: false, Quantity: 0},
+            LambdaFunctionAssociations: {Quantity: 0},
+            FunctionAssociations: {Quantity: 0},
+            FieldLevelEncryptionId: ""
+          };
         .DistributionConfig.Comment = $comment
       | .DistributionConfig.DefaultRootObject = "index.html"
       | .DistributionConfig.Enabled = true
       | .DistributionConfig.PriceClass = $price_class
-      | .DistributionConfig.Origins.Quantity = 2
+      | .DistributionConfig.Origins.Quantity = 3
       | .DistributionConfig.Origins.Items = [(
           .DistributionConfig.Origins.Items[0]
           | .Id = $origin_id
@@ -1230,6 +1445,19 @@ upsert_distribution() {
               Items: ["TLSv1.2"]
             },
             OriginReadTimeout: 30,
+            OriginKeepaliveTimeout: 5
+          }
+        }, {
+          Id: $release_origin_id,
+          DomainName: $release_origin_domain,
+          OriginPath: "",
+          OriginAccessControlId: $release_oac_id,
+          CustomOriginConfig: {
+            HTTPPort: 80,
+            HTTPSPort: 443,
+            OriginProtocolPolicy: "https-only",
+            OriginSslProtocols: {Quantity: 1, Items: ["TLSv1.2"]},
+            OriginReadTimeout: 10,
             OriginKeepaliveTimeout: 5
           }
         }]
@@ -1277,8 +1505,8 @@ upsert_distribution() {
           .DistributionConfig.DefaultCacheBehavior.MaxTTL
         )
         | .DistributionConfig.CacheBehaviors = {
-            Quantity: (pkg_behaviors | length),
-            Items: pkg_behaviors
+            Quantity: ((pkg_behaviors | length) + 2),
+            Items: ([release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg")] + pkg_behaviors)
           }
       | .DistributionConfig.CustomErrorResponses = {
           Quantity: 1,
@@ -1310,7 +1538,7 @@ upsert_distribution() {
   fi
 
   log "  Creating distribution for ${WWW_DOMAIN}, ${WWW_WWW_DOMAIN}"
-  build_distribution_config "${oac_id}" "${function_arn}" "${response_headers_policy_id}" "${cache_policy_id}" "${pkg_cache_policy_id}" "${pkg_search_cache_policy_id}" "${config_file}"
+  build_distribution_config "${oac_id}" "${function_arn}" "${response_headers_policy_id}" "${cache_policy_id}" "${pkg_cache_policy_id}" "${pkg_search_cache_policy_id}" "${release_redirect_oac_id}" "${release_redirect_domain}" "${release_redirect_cache_policy_id}" "${config_file}"
   aws cloudfront create-distribution \
     --distribution-config "file://${config_file}" \
     --query 'Distribution.Id' \
@@ -1463,15 +1691,16 @@ ensure_package_origin_prefixes_absent() {
   log_ok "Package-origin prefixes are absent from S3"
 }
 
-invalidate_package_origin_paths() {
+invalidate_dynamic_paths() {
   local distribution_id="$1"
   local invalidation_id
 
-  log_step "Invalidating package-origin CloudFront paths"
+  log_step "Invalidating dynamic CloudFront paths"
   invalidation_id="$(
     aws cloudfront create-invalidation \
       --distribution-id "${distribution_id}" \
       --paths \
+        '/av.dmg' '/Automic%20Vault.dmg' \
         '/pkg' '/pkg/*' \
         '/de/pkg' '/de/pkg/*' \
         '/fr/pkg' '/fr/pkg/*' \
@@ -1484,7 +1713,7 @@ invalidate_package_origin_paths() {
   aws cloudfront wait invalidation-completed \
     --distribution-id "${distribution_id}" \
     --id "${invalidation_id}"
-  log_ok "Package-origin invalidation completed"
+  log_ok "Dynamic path invalidation completed"
 }
 
 ensure_certificate_issued() {
@@ -1547,7 +1776,10 @@ EOF
   exit 0
 fi
 ensure_bucket
+AWS_ACCOUNT_ID="${AWS_ACCOUNT_ID:-$(aws sts get-caller-identity --query Account --output text)}"
 oac_id="$(ensure_oac)"
+ensure_release_redirect_oac
+ensure_release_redirect
 ensure_redirect_function
 response_headers_policy_id="$(ensure_response_headers_policy)"
 cache_policy_id="$(ensure_cache_policy)"
@@ -1563,7 +1795,8 @@ function_arn="$(
 )"
 log_ok "Function ARN resolved"
 ensure_certificate_issued
-distribution_id="$(upsert_distribution "${oac_id}" "${function_arn}" "${response_headers_policy_id}" "${cache_policy_id}" "${pkg_cache_policy_id}" "${pkg_search_cache_policy_id}")"
+distribution_id="$(upsert_distribution "${oac_id}" "${function_arn}" "${response_headers_policy_id}" "${cache_policy_id}" "${pkg_cache_policy_id}" "${pkg_search_cache_policy_id}" "${release_redirect_oac_id}" "${release_redirect_domain}" "${release_redirect_cache_policy_id}")"
+allow_cloudfront_release_redirect "${distribution_id}"
 put_bucket_policy "${distribution_id}"
 log_step "Waiting for CloudFront deployment"
 aws cloudfront wait distribution-deployed --id "${distribution_id}"
@@ -1576,7 +1809,7 @@ if [[ "${WWW_EMERGENCY_INVALIDATE}" == "true" ]]; then
     --paths '/*' >/dev/null
   log_ok "Emergency invalidation submitted"
 else
-  invalidate_package_origin_paths "${distribution_id}"
+  invalidate_dynamic_paths "${distribution_id}"
 fi
 
 distribution_domain="$(

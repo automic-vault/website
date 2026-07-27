@@ -5,13 +5,15 @@ Static website repository for <https://www.automicvault.com/>.
 The product repository still owns release artifacts and scanner publishing.
 `~/src/av.db` owns package database generation and `/db.json` export artifacts.
 This repo owns static pages, assets, static localization, S3/CloudFront
-configuration, and the Atlas `av-web` package-origin service.
+configuration, the GitHub release redirect Lambda, and the Atlas `av-web`
+package-origin service.
 
 ## Checks
 
 ```sh
 python3 scripts/generate-www-i18n.py --check
 node scripts/generate-llms-full.mjs www /tmp/llms-full.txt
+node --test lambda/release-redirect/index.test.mjs
 scripts/deploy-www.sh --prepare-only
 ```
 
@@ -21,8 +23,9 @@ scripts/deploy-www.sh --prepare-only
 scripts/deploy-www.sh
 ```
 
-Use `--static-only` to skip CloudFront and certificate configuration. The deploy
-script excludes package-origin routes and product-owned release artifacts.
+Use `--static-only` to skip Lambda, CloudFront, and certificate configuration.
+The full deploy creates or updates the private release redirect Lambda and its
+CloudFront routes. The static sync never uploads product release artifacts.
 
 ## Package Origin
 
