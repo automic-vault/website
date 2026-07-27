@@ -47,6 +47,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertNotIn('--auth-type NONE', deploy_script)
         self.assertIn('release_behavior("av.dmg")', deploy_script)
         self.assertIn('release_behavior("Automic*Vault.dmg")', deploy_script)
+        self.assertEqual(deploy_script.count("CustomHeaders: {Quantity: 0}"), 2)
 
     def test_curated_taxonomy_overrides_fallback_package_category(self):
         renderer = load_package_renderer()

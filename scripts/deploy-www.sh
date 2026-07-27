@@ -1214,6 +1214,7 @@ build_distribution_config() {
           DomainName: $release_origin_domain,
           OriginPath: "",
           OriginAccessControlId: $release_oac_id,
+          CustomHeaders: {Quantity: 0},
           CustomOriginConfig: {
             HTTPPort: 80,
             HTTPSPort: 443,
@@ -1452,6 +1453,7 @@ upsert_distribution() {
           DomainName: $release_origin_domain,
           OriginPath: "",
           OriginAccessControlId: $release_oac_id,
+          CustomHeaders: {Quantity: 0},
           CustomOriginConfig: {
             HTTPPort: 80,
             HTTPSPort: 443,
