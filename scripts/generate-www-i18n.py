@@ -505,6 +505,77 @@ UI_COPY: dict[str, dict[str, str]] = {
     },
 }
 
+LLMS_COPY: dict[str, dict[str, str]] = {
+    "ja": {
+        "summary": "Automic Vault は CLI シークレットを平文ファイルから除き、承認済みの Mac アプリだけがローカル実行境界で使用できるようにします。",
+        "pages": "主要ページ",
+        "packagesDescription": "開発者向けパッケージ、依存関係、インストール方法、リスク情報、Automic Vault の保護状況を検索できます。",
+        "docsDescription": "Automic Vault 2.3.0 の scan、doctor、save、inject、bless、harden などを解説する英語の CLI マニュアルです。",
+        "blogDescription": "パッケージ、エディタ拡張、認証情報、ローカル実行のインシデント分析と開発者向けセキュリティガイドです。",
+        "sourceDescription": "Apache-2.0 のソースコード、タグ付きリリース、実装履歴、公開 Issue を掲載しています。",
+        "securityDescription": "現在のセキュリティ連絡先、優先言語、正規 URL、有効期限を公開しています。",
+        "facts": "基本情報",
+        "platform": "対応環境: macOS",
+        "release": "現在のドキュメント対象リリース: 2.3.0",
+        "license": "ライセンス: Apache License 2.0",
+        "pricing": "価格: 無料のオープンソースソフトウェア",
+        "founder": "創設者: Homebrew 作者の Max Howell",
+        "contact": "連絡先",
+        "securityReports": "セキュリティ報告",
+    },
+    "de": {
+        "summary": "Automic Vault entfernt Klartext-Secrets aus CLI-Tools und steuert am lokalen Ausführungsrand, welche signierten Mac-Apps sie verwenden dürfen.",
+        "pages": "Wichtige Seiten",
+        "packagesDescription": "Durchsuchbarer Katalog mit Entwicklerpaketen, Abhängigkeiten, Installationsbefehlen, Risikoinformationen und Automic-Vault-Härtung.",
+        "docsDescription": "Englisches, quellgeprüftes CLI-Handbuch für Automic Vault 2.3.0 mit scan, doctor, save, inject, bless und harden.",
+        "blogDescription": "Sicherheitsleitfäden und Analysen zu Paket-, Erweiterungs-, Credential- und lokalen Ausführungsvorfällen.",
+        "sourceDescription": "Apache-2.0-Quellcode, markierte Releases, Implementierungshistorie und öffentliche Fehlerverfolgung.",
+        "securityDescription": "Veröffentlicht den aktuellen Sicherheitskontakt, die bevorzugte Sprache, die kanonische Adresse und das Ablaufdatum.",
+        "facts": "Kernfakten",
+        "platform": "Plattform: macOS",
+        "release": "Aktuell dokumentiertes Release: 2.3.0",
+        "license": "Lizenz: Apache License 2.0",
+        "pricing": "Preis: kostenlose Open-Source-Software",
+        "founder": "Gründer: Max Howell, Schöpfer von Homebrew",
+        "contact": "Kontakt",
+        "securityReports": "Sicherheitsmeldungen",
+    },
+    "fr": {
+        "summary": "Automic Vault retire les secrets en clair des outils CLI et contrôle quelles apps Mac signées peuvent les utiliser à la limite d’exécution locale.",
+        "pages": "Pages principales",
+        "packagesDescription": "Catalogue consultable de paquets développeur, dépendances, commandes d’installation, risques et couverture de durcissement Automic Vault.",
+        "docsDescription": "Manuel CLI en anglais, vérifié sur les sources d’Automic Vault 2.3.0, couvrant scan, doctor, save, inject, bless et harden.",
+        "blogDescription": "Guides et analyses d’incidents liés aux paquets, extensions, identifiants et exécutions locales.",
+        "sourceDescription": "Code source Apache-2.0, versions étiquetées, historique d’implémentation et suivi public des problèmes.",
+        "securityDescription": "Publie le contact de sécurité actuel, la langue préférée, l’adresse canonique et la date d’expiration.",
+        "facts": "Faits essentiels",
+        "platform": "Plateforme : macOS",
+        "release": "Version actuellement documentée : 2.3.0",
+        "license": "Licence : Apache License 2.0",
+        "pricing": "Prix : logiciel open source gratuit",
+        "founder": "Fondateur : Max Howell, créateur de Homebrew",
+        "contact": "Contact",
+        "securityReports": "Signalements de sécurité",
+    },
+    "zh-Hans": {
+        "summary": "Automic Vault 从 CLI 工具中移除明文密钥，并在本地执行边界控制哪些已签名 Mac 应用可以使用它们。",
+        "pages": "主要页面",
+        "packagesDescription": "可搜索开发者软件包、依赖项、安装命令、风险信息和 Automic Vault 加固覆盖情况。",
+        "docsDescription": "经源码核对的英文 Automic Vault 2.3.0 CLI 手册，涵盖 scan、doctor、save、inject、bless 和 harden。",
+        "blogDescription": "关于软件包、扩展、凭据和本地执行事件的开发者安全指南与分析。",
+        "sourceDescription": "Apache-2.0 源代码、标签版本、实现历史和公开问题跟踪。",
+        "securityDescription": "公布当前安全联系方式、首选语言、规范地址和到期日期。",
+        "facts": "关键信息",
+        "platform": "平台：macOS",
+        "release": "当前文档版本：2.3.0",
+        "license": "许可证：Apache License 2.0",
+        "pricing": "价格：免费开源软件",
+        "founder": "创始人：Homebrew 作者 Max Howell",
+        "contact": "联系方式",
+        "securityReports": "安全报告",
+    },
+}
+
 ALIASED_TOPIC = {
     "pricing": {"ja": ("Automic Vault 価格", "Automic Vault は無料のオープンソースソフトウェアです。"), "de": ("Automic Vault Preise", "Automic Vault ist freie Open-Source-Software."), "fr": ("Tarifs Automic Vault", "Automic Vault est un logiciel open source gratuit."), "zh-Hans": ("Automic Vault 定价", "Automic Vault 是免费的开源软件。")},
     "download": {"ja": ("Automic Vault ダウンロード", "macOS 用 Automic Vault を入手し、ローカルの AI エージェント実行を保護します。"), "de": ("Automic Vault herunterladen", "Lade Automic Vault für macOS herunter und schütze lokale AI-Agent-Läufe."), "fr": ("Télécharger Automic Vault", "Téléchargez Automic Vault pour macOS et protégez les exécutions locales d'agents IA."), "zh-Hans": ("下载 Automic Vault", "获取 macOS 版 Automic Vault，保护本地 AI 代理运行。")},
@@ -967,7 +1038,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
   <meta name="twitter:image" content="{SITE_ORIGIN}/preview.jpg">
   <link rel="canonical" href="{html.escape(canonical, quote=True)}">
 {alternate_link_block(path, locales)}
-  <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
+  <link rel="alternate" type="text/plain" title="llms.txt" href="{locale_path('/llms.txt', locale)}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -1056,15 +1127,40 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
 """
 
 
-def render_llms(locale: Locale) -> str:
+def render_llms(locale: Locale, records: list[dict[str, Any]]) -> str:
     ui = ui_copy(locale.code)
-    landing = LANDING_HOME[locale.code]
-    lines = ["# Automic Vault", f'{landing["hero_h1"]} {landing["hero_action"]}', landing["hero_lede"]]
-    return "\n\n".join(lines) + (
-        f"\n\n- {ui['website']}: {href('/', locale)}"
-        f"\n- {ui['packages']}: {href('/pkg/', locale)}"
-        "\n- GitHub: https://github.com/automic-vault/automic-vault\n"
-    )
+    copy = LLMS_COPY[locale.code]
+    records_by_path = {record["path"]: record for record in records}
+    page_lines = []
+    for path in ("/", "/download/", "/about/", "/privacy/", "/terms/"):
+        translation = records_by_path[path]["translations"][locale.code]
+        page_lines.append(f'- [{translation["title"]}]({href(path, locale)}): {translation["description"]}')
+    page_lines[2:2] = [
+        f'- [{ui["docs"]}]({href("/docs/")}): {copy["docsDescription"]}',
+        f'- [{ui["packages"]}]({href("/pkg/", locale)}): {copy["packagesDescription"]}',
+        f'- [Blog]({href("/blog/")}): {copy["blogDescription"]}',
+    ]
+    page_lines.extend([
+        f'- [GitHub](https://github.com/automic-vault/automic-vault): {copy["sourceDescription"]}',
+        f'- [{ui["security"]}]({href("/.well-known/security.txt")}): {copy["securityDescription"]}',
+    ])
+    lines = [
+        "# Automic Vault",
+        f'> {copy["summary"]}',
+        f'## {copy["pages"]}',
+        *page_lines,
+        f'## {copy["facts"]}',
+        f'- {copy["platform"]}',
+        f'- {copy["release"]}',
+        f'- {copy["license"]}',
+        f'- {copy["pricing"]}',
+        f'- {copy["founder"]}',
+        f'## {copy["contact"]}',
+        f'- {ui["website"]}: {href("/", locale)}',
+        '- GitHub: https://github.com/automic-vault/automic-vault',
+        f'- {copy["securityReports"]}: https://github.com/automic-vault/automic-vault/issues',
+    ]
+    return "\n\n".join(lines) + "\n"
 
 
 def render_i18n_js(locales: list[Locale]) -> str:
@@ -1158,7 +1254,7 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
   <meta name="twitter:image" content="{SITE_ORIGIN}/preview.jpg">
   <link rel="canonical" href="{html.escape(canonical, quote=True)}">
 {alternate_link_block("/", locales)}
-  <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
+  <link rel="alternate" type="text/plain" title="llms.txt" href="{locale_path('/llms.txt', locale)}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -1376,6 +1472,7 @@ def check_curated_home_page(output: Path, locale: Locale, locales: list[Locale],
         f'<html lang="{locale.html_lang}">',
         '<body class="brew-home">',
         f'<link rel="canonical" href="{href("/", locale)}">',
+        f'<link rel="alternate" type="text/plain" title="llms.txt" href="{locale_path("/llms.txt", locale)}">',
         'class="brew-languages"',
         'src="/i18n.js"',
     ]
@@ -1409,7 +1506,7 @@ def render_sitemap(records: list[dict[str, Any]], locales: list[Locale]) -> str:
                 continue
             entries.append(sitemap_entry(href(path, locale), lastmod, path, locales))
     preserved = [
-        ("https://www.automicvault.com/docs/", "2026-07-24"),
+        ("https://www.automicvault.com/docs/", "2026-07-27"),
         ("https://www.automicvault.com/blog/", "2026-07-16"),
         ("https://www.automicvault.com/blog/mac-security-best-practices-for-agents/", "2026-07-16"),
         ("https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/", "2026-07-12"),
@@ -1420,9 +1517,9 @@ def render_sitemap(records: list[dict[str, Any]], locales: list[Locale]) -> str:
         ("https://www.automicvault.com/blog/prevent-node-ipc-npm-backdoor/", "2026-05-15"),
         ("https://www.automicvault.com/blog/prevent-bitwarden-cli-npm-compromise/", "2026-04-23"),
         ("https://www.automicvault.com/blog/prevent-litellm-pypi-compromise/", "2026-03-25"),
-        ("https://www.automicvault.com/llms.txt", "2026-06-01"),
-        ("https://www.automicvault.com/llms-full.txt", "2026-06-01"),
-        ("https://www.automicvault.com/.well-known/security.txt", "2026-06-01"),
+        ("https://www.automicvault.com/llms.txt", "2026-07-28"),
+        ("https://www.automicvault.com/llms-full.txt", "2026-07-28"),
+        ("https://www.automicvault.com/.well-known/security.txt", "2026-07-28"),
     ]
     entries.extend(sitemap_entry(loc, lastmod, None, locales) for loc, lastmod in preserved)
     return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + "\n".join(entries) + "\n</urlset>\n"
@@ -1465,7 +1562,7 @@ def generate(check: bool = False) -> int:
                 output.write_text(expected, encoding="utf-8")
     for locale in non_default_locales():
         output = SITE_DIR / locale.slug / "llms.txt"
-        expected = render_llms(locale)
+        expected = render_llms(locale, records)
         if check:
             if not output.exists() or output.read_text(encoding="utf-8") != expected:
                 failures.append(f"stale localized llms.txt: {output}")

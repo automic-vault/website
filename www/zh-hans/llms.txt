@@ -1,9 +1,45 @@
 # Automic Vault
 
-工具握有你的权限。 让它们先请求批准。
+> Automic Vault 从 CLI 工具中移除明文密钥，并在本地执行边界控制哪些已签名 Mac 应用可以使用它们。
 
-Automic Vault 控制 shell、agent 与它们所用工具之间最后一段本地路径。Keychain 中的密钥只在单次运行时提供给已批准的可执行文件，高风险命令会在执行前征求你的确认。
+## 主要页面
+
+- [Automic Vault | 阻止 AI 代理在你的 Mac 上失控](https://www.automicvault.com/zh-hans/): 让 AI 代理在安装软件或使用你的密钥前先请求批准。
+
+- [下载 Automic Vault](https://www.automicvault.com/zh-hans/download/): 获取 macOS 版 Automic Vault，保护本地 AI 代理运行。
+
+- [文档](https://www.automicvault.com/docs/): 经源码核对的英文 Automic Vault 2.3.0 CLI 手册，涵盖 scan、doctor、save、inject、bless 和 harden。
+
+- [软件包](https://www.automicvault.com/zh-hans/pkg/): 可搜索开发者软件包、依赖项、安装命令、风险信息和 Automic Vault 加固覆盖情况。
+
+- [Blog](https://www.automicvault.com/blog/): 关于软件包、扩展、凭据和本地执行事件的开发者安全指南与分析。
+
+- [关于 Automic Vault | 保护你用 brew install 装上的工具](https://www.automicvault.com/zh-hans/about/): Automic Vault 在 AI 代理使用之前，在你的 Mac 本地保护 Homebrew 工具、CLI 密钥和命令审批门。
+
+- [Automic Vault 隐私](https://www.automicvault.com/zh-hans/privacy/): Automic Vault 的本地数据边界、网站分析和隐私说明。
+
+- [Automic Vault 条款](https://www.automicvault.com/zh-hans/terms/): Automic Vault 的使用条款、开源许可证和网站说明。
+
+- [GitHub](https://github.com/automic-vault/automic-vault): Apache-2.0 源代码、标签版本、实现历史和公开问题跟踪。
+
+- [安全](https://www.automicvault.com/.well-known/security.txt): 公布当前安全联系方式、首选语言、规范地址和到期日期。
+
+## 关键信息
+
+- 平台：macOS
+
+- 当前文档版本：2.3.0
+
+- 许可证：Apache License 2.0
+
+- 价格：免费开源软件
+
+- 创始人：Homebrew 作者 Max Howell
+
+## 联系方式
 
 - 网站: https://www.automicvault.com/zh-hans/
-- 软件包: https://www.automicvault.com/zh-hans/pkg/
+
 - GitHub: https://github.com/automic-vault/automic-vault
+
+- 安全报告: https://github.com/automic-vault/automic-vault/issues

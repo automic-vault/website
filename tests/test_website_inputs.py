@@ -1,10 +1,13 @@
+import datetime
 import html.parser
 import importlib.util
 import pathlib
+import re
 import subprocess
 import sys
 import unittest
 import urllib.parse
+import xml.etree.ElementTree as ET
 from unittest import mock
 
 
@@ -177,6 +180,102 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             deploy_script,
         )
         self.assertIn("ensure_bucket\nconfigure_static_origin", deploy_script)
+
+    def test_llms_files_are_structured_and_match_the_current_docs(self):
+        docs = (ROOT / "www" / "docs" / "index.html").read_text(encoding="utf-8")
+        version_match = re.search(r'"softwareVersion": "([^"]+)"', docs)
+        self.assertIsNotNone(version_match)
+        version = version_match.group(1)
+
+        locales = ("", "de", "fr", "ja", "zh-hans")
+        for locale in locales:
+            llms_path = ROOT / "www" / locale / "llms.txt"
+            text = llms_path.read_text(encoding="utf-8")
+            lines = text.splitlines()
+            page_entries = [line for line in lines if line.startswith("- [")]
+            urls = re.findall(r"\[[^]]+\]\((https://[^)]+)\)", text)
+
+            with self.subTest(locale=locale or "en"):
+                self.assertEqual(lines[0], "# Automic Vault")
+                self.assertTrue(lines[2].startswith("> "))
+                self.assertLessEqual(len(lines[2][2:]), 200)
+                self.assertGreaterEqual(sum(line.startswith("## ") for line in lines), 3)
+                self.assertGreaterEqual(len(page_entries), 10)
+                self.assertEqual(len(page_entries), len(urls))
+                self.assertTrue(all("): " in line for line in page_entries))
+                self.assertIn(f"Automic Vault {version}", text)
+                self.assertIn("https://github.com/automic-vault/automic-vault", text)
+                if locale:
+                    self.assertIn(f"https://www.automicvault.com/{locale}/", text)
+                    self.assertIn(f"https://www.automicvault.com/{locale}/pkg/", text)
+                else:
+                    self.assertIn("https://www.automicvault.com/download/", text)
+                    self.assertIn("https://www.automicvault.com/.well-known/security.txt", text)
+
+    def test_secondary_formats_and_localized_llms_are_discoverable(self):
+        home = (ROOT / "www" / "index.html").read_text(encoding="utf-8")
+        expected_alternates = {
+            "text/markdown": "/index.md",
+            "text/plain": "/index.txt",
+            "application/json": "/index.json",
+        }
+        for media_type, href in expected_alternates.items():
+            self.assertIn(f'type="{media_type}"', home)
+            self.assertIn(f'href="{href}"', home)
+
+        current_headline = "The missing security layer for CLI tools on Mac"
+        for filename in ("index.md", "index.txt", "index.json"):
+            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
+            with self.subTest(filename=filename):
+                self.assertIn(current_headline, text)
+                self.assertNotIn("Stop AI agents running wild", text)
+
+        for locale in ("de", "fr", "ja", "zh-hans"):
+            for page in sorted((ROOT / "www" / locale).rglob("*.html")):
+                with self.subTest(page=page.relative_to(ROOT)):
+                    self.assertIn(
+                        f'<link rel="alternate" type="text/plain" title="llms.txt" href="/{locale}/llms.txt">',
+                        page.read_text(encoding="utf-8"),
+                    )
+
+    def test_crawler_and_security_metadata_are_current(self):
+        robots = (ROOT / "www" / "robots.txt").read_text(encoding="utf-8")
+        for user_agent in (
+            "GPTBot",
+            "OAI-SearchBot",
+            "ChatGPT-User",
+            "PerplexityBot",
+            "Perplexity-User",
+            "ClaudeBot",
+            "Claude-SearchBot",
+            "Claude-User",
+            "Google-Extended",
+            "Bingbot",
+        ):
+            with self.subTest(user_agent=user_agent):
+                self.assertIn(f"User-agent: {user_agent}\nAllow: /", robots)
+
+        security = (ROOT / "www" / ".well-known" / "security.txt").read_text(encoding="utf-8")
+        fields = dict(line.split(": ", 1) for line in security.splitlines())
+        expires = datetime.datetime.fromisoformat(fields["Expires"].removesuffix("Z")).date()
+        self.assertGreater(expires, datetime.date.today() + datetime.timedelta(days=180))
+        self.assertEqual(fields["Canonical"], "https://www.automicvault.com/.well-known/security.txt")
+        self.assertTrue(fields["Contact"].startswith("https://"))
+        self.assertNotIn("Policy", fields)
+
+        sitemap = ET.parse(ROOT / "www" / "sitemap.xml")
+        namespace = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+        lastmods = {
+            node.findtext("s:loc", namespaces=namespace): node.findtext("s:lastmod", namespaces=namespace)
+            for node in sitemap.findall("s:url", namespace)
+        }
+        self.assertEqual(lastmods["https://www.automicvault.com/docs/"], "2026-07-27")
+        for url in (
+            "https://www.automicvault.com/llms.txt",
+            "https://www.automicvault.com/llms-full.txt",
+            "https://www.automicvault.com/.well-known/security.txt",
+        ):
+            self.assertEqual(lastmods[url], "2026-07-28")
 
     def test_public_assets_and_frontend_files_are_referenced(self):
         site = ROOT / "www"

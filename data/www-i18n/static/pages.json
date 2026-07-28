@@ -3,7 +3,7 @@
     {
       "path": "/",
       "source": "index.html",
-      "dateModified": "2026-07-16",
+      "dateModified": "2026-07-28",
       "translations": {
         "ja": {
           "title": "Automic Vault | Mac 上で AI エージェントを暴走させない",
@@ -94,7 +94,7 @@
     {
       "path": "/about/",
       "source": "about/index.html",
-      "dateModified": "2026-06-02",
+      "dateModified": "2026-07-28",
       "translations": {
         "ja": {
           "title": "Automic Vault について | brew install したツールを安全に",

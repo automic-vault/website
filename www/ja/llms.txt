@@ -1,9 +1,45 @@
 # Automic Vault
 
-ツールはあなたの権限で動く。 使う前に承認させる。
+> Automic Vault は CLI シークレットを平文ファイルから除き、承認済みの Mac アプリだけがローカル実行境界で使用できるようにします。
 
-Automic Vault は shell や agent と、それらが使うツールの間にある最後のローカル区間を管理します。Keychain のシークレットを承認済み実行ファイルへ 1 回の実行だけ渡し、危険なコマンドは実行前に確認します。
+## 主要ページ
+
+- [Automic Vault | Mac 上で AI エージェントを暴走させない](https://www.automicvault.com/ja/): AI エージェントがソフトウェアをインストールしたり、シークレットを使ったりする前に承認を求めさせます。
+
+- [Automic Vault ダウンロード](https://www.automicvault.com/ja/download/): macOS 用 Automic Vault を入手し、ローカルの AI エージェント実行を保護します。
+
+- [ドキュメント](https://www.automicvault.com/docs/): Automic Vault 2.3.0 の scan、doctor、save、inject、bless、harden などを解説する英語の CLI マニュアルです。
+
+- [パッケージ](https://www.automicvault.com/ja/pkg/): 開発者向けパッケージ、依存関係、インストール方法、リスク情報、Automic Vault の保護状況を検索できます。
+
+- [Blog](https://www.automicvault.com/blog/): パッケージ、エディタ拡張、認証情報、ローカル実行のインシデント分析と開発者向けセキュリティガイドです。
+
+- [Automic Vault について | brew install したツールを安全に](https://www.automicvault.com/ja/about/): Automic Vault は、AI エージェントが使う前に、Homebrew ツール、CLI シークレット、コマンド承認ゲートを Mac 上でローカルに保護します。
+
+- [Automic Vault プライバシー](https://www.automicvault.com/ja/privacy/): Automic Vault のローカルデータ境界、ウェブサイト解析、プライバシー方針。
+
+- [Automic Vault 利用規約](https://www.automicvault.com/ja/terms/): Automic Vault の利用条件、オープンソースライセンス、ウェブサイト利用メモ。
+
+- [GitHub](https://github.com/automic-vault/automic-vault): Apache-2.0 のソースコード、タグ付きリリース、実装履歴、公開 Issue を掲載しています。
+
+- [セキュリティ](https://www.automicvault.com/.well-known/security.txt): 現在のセキュリティ連絡先、優先言語、正規 URL、有効期限を公開しています。
+
+## 基本情報
+
+- 対応環境: macOS
+
+- 現在のドキュメント対象リリース: 2.3.0
+
+- ライセンス: Apache License 2.0
+
+- 価格: 無料のオープンソースソフトウェア
+
+- 創設者: Homebrew 作者の Max Howell
+
+## 連絡先
 
 - ウェブサイト: https://www.automicvault.com/ja/
-- パッケージ: https://www.automicvault.com/ja/pkg/
+
 - GitHub: https://github.com/automic-vault/automic-vault
+
+- セキュリティ報告: https://github.com/automic-vault/automic-vault/issues

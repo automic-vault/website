@@ -1,9 +1,45 @@
 # Automic Vault
 
-Vos outils ont vos autorisations. Faites-leur demander l’accord.
+> Automic Vault retire les secrets en clair des outils CLI et contrôle quelles apps Mac signées peuvent les utiliser à la limite d’exécution locale.
 
-Automic Vault contrôle le dernier passage local entre les shells, les agents et les outils qu’ils utilisent. Il transmet un secret du trousseau à un exécutable approuvé pour une seule exécution et vous consulte avant une commande risquée.
+## Pages principales
+
+- [Automic Vault | Empêchez les agents IA de déraper sur votre Mac](https://www.automicvault.com/fr/): Obligez les agents IA à demander votre accord avant d’installer un logiciel ou d’utiliser vos secrets.
+
+- [Télécharger Automic Vault](https://www.automicvault.com/fr/download/): Téléchargez Automic Vault pour macOS et protégez les exécutions locales d'agents IA.
+
+- [Documentation](https://www.automicvault.com/docs/): Manuel CLI en anglais, vérifié sur les sources d’Automic Vault 2.3.0, couvrant scan, doctor, save, inject, bless et harden.
+
+- [Paquets](https://www.automicvault.com/fr/pkg/): Catalogue consultable de paquets développeur, dépendances, commandes d’installation, risques et couverture de durcissement Automic Vault.
+
+- [Blog](https://www.automicvault.com/blog/): Guides et analyses d’incidents liés aux paquets, extensions, identifiants et exécutions locales.
+
+- [À propos d'Automic Vault | Sécurisez les outils que vous installez avec brew](https://www.automicvault.com/fr/about/): Automic Vault sécurise localement sur votre Mac les outils Homebrew, les secrets CLI et les portes d'approbation des commandes avant que les agents IA les utilisent.
+
+- [Confidentialité Automic Vault](https://www.automicvault.com/fr/privacy/): Limites de données locales, analytics du site et notes de confidentialité pour Automic Vault.
+
+- [Conditions Automic Vault](https://www.automicvault.com/fr/terms/): Conditions d'utilisation, licence open source et notes du site pour Automic Vault.
+
+- [GitHub](https://github.com/automic-vault/automic-vault): Code source Apache-2.0, versions étiquetées, historique d’implémentation et suivi public des problèmes.
+
+- [Sécurité](https://www.automicvault.com/.well-known/security.txt): Publie le contact de sécurité actuel, la langue préférée, l’adresse canonique et la date d’expiration.
+
+## Faits essentiels
+
+- Plateforme : macOS
+
+- Version actuellement documentée : 2.3.0
+
+- Licence : Apache License 2.0
+
+- Prix : logiciel open source gratuit
+
+- Fondateur : Max Howell, créateur de Homebrew
+
+## Contact
 
 - Site web: https://www.automicvault.com/fr/
-- Paquets: https://www.automicvault.com/fr/pkg/
+
 - GitHub: https://github.com/automic-vault/automic-vault
+
+- Signalements de sécurité: https://github.com/automic-vault/automic-vault/issues

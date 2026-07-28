@@ -1,83 +1,56 @@
 # Automic Vault
 
-Automic Vault controls the last local hop between a shell, script, or AI agent
-and the executable that receives a credential and performs work. It keeps
-long-lived values in Keychain and applies local policy before tools use them.
+> Automic Vault removes plaintext secrets from CLI tools and controls which signed Mac apps may use each credential at the local execution boundary.
 
-Homepage headline: The missing security layer for CLI tools on Mac.
+## Product
 
-## Core Product Facts
+- [Homepage](https://www.automicvault.com/): Explains the local security boundary for CLI secrets, signed launchers, approval policy, and audit records on macOS.
+- [Download](https://www.automicvault.com/download/): Provides the signed macOS disk image, installation details, included components, and first steps after setup.
+- [Documentation](https://www.automicvault.com/docs/): Source-checked Automic Vault 2.3.0 CLI manual covering scan, doctor, save, inject, bless, harden, catalogs, and app links.
+- [Package catalog](https://www.automicvault.com/pkg/): Searchable catalog of developer packages, dependencies, install commands, risk information, and Automic Vault hardening coverage.
+- [Source and releases](https://github.com/automic-vault/automic-vault): Apache-2.0 source code, tagged releases, implementation history, and public issue tracking.
+
+## Security and Architecture
+
+- [About](https://www.automicvault.com/about/): Describes the project, founder Max Howell, macOS focus, local execution model, and relationship to Homebrew.
+- [macOS security for the terminal](https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/): Explains inherited CLI authority and the identity, approval, and audit boundary beneath shells and agent harnesses.
+- [Mac security best practices for agents](https://www.automicvault.com/blog/mac-security-best-practices-for-agents/): Gives a least-authority macOS baseline covering Gatekeeper, SIP, local builds, Downloads, privacy grants, and command-line protection.
+- [Security reporting](https://www.automicvault.com/.well-known/security.txt): Publishes the current security contact, preferred language, canonical location, and expiration date.
+
+## Incident Analysis
+
+- [Blog](https://www.automicvault.com/blog/): Index of developer security guidance and analyses of package, extension, credential, and local execution incidents.
+- [Nx Console extension compromise](https://www.automicvault.com/blog/prevent-nx-console-vscode-compromise/): Analyzes local credential theft by a compromised VS Code extension and the relevant endpoint controls.
+- [GitHub employee device breach](https://www.automicvault.com/blog/prevent-github-vscode-extension-breach/): Examines a poisoned editor extension, repository access, and controls at the developer workstation boundary.
+- [LiteLLM PyPI compromise](https://www.automicvault.com/blog/prevent-litellm-pypi-compromise/): Maps malicious Python releases and credential theft to local secret storage and executable approval controls.
+
+## Website Policies
+
+- [Privacy](https://www.automicvault.com/privacy/): Explains website analytics, local product data boundaries, Keychain storage, logs, diagnostics, updates, and public reporting guidance.
+- [Terms](https://www.automicvault.com/terms/): Summarizes website use, Apache-2.0 licensing, release artifacts, package metadata, third-party services, and warranty boundaries.
+
+## Key Facts
 
 - Category: local execution security and secrets management
 - Platform: macOS
+- Current documented release: 2.3.0
 - License: Apache License 2.0
-- Source: https://github.com/automic-vault/automic-vault
-- Website: https://www.automicvault.com/
 - Pricing: free open-source software
 - Founder: Max Howell, creator of Homebrew
+- Secrets remain in Keychain until an approved executable receives them for one run.
+- Policy considers the executable, signed launcher, command, working directory, and requested key.
+- Root compromise and a malicious approved executable remain outside the product security boundary.
 
-## What Automic Vault Does
+## Command Surface
 
-- Stores long-lived developer credentials in the Automic Vault Keychain.
-- Injects named values only into an approved local executable for one run.
-- Shows executable path, arguments, working directory, parent process, and
-  requested keys before sensitive execution.
-- Audits local credential exposure and unsafe tool configuration with `av scan`.
-- Checks hardened launchers, dependencies, ownership, permissions, content, and
-  path precedence with `av doctor`.
-- Applies tool-specific hardeners and generated environment wrappers.
-- Publishes the installed detector and hardener catalogs as JSON.
+- `av scan --show-all` audits credential exposure and unsafe tool configuration.
+- `av doctor --json` checks launchers, dependencies, ownership, permissions, content, and path precedence.
+- `av save GH_TOKEN` prompts through `/dev/tty` and stores a named value in Keychain.
+- `av inject +GH_TOKEN gh auth status` releases a named value to one approved command.
+- `av detectors --json` and `av hardeners --json` publish the installed security catalogs.
 
-## Execution Boundary
+## Contact
 
-1. A shell, script, or agent requests work.
-2. Automic Vault resolves the target executable and execution context.
-3. The user approves the secret handoff or sensitive command.
-4. The tool receives the value for that execution and contacts the external
-   service itself.
-
-Only the approved tool receives the raw secret.
-
-## Commands
-
-```sh
-av scan --show-all
-av save GH_TOKEN
-av inject +GH_TOKEN gh auth status
-av doctor --json
-```
-
-`av save` prompts through `/dev/tty`; it does not read the value from standard
-input.
-
-## Security Boundary
-
-Automic Vault assumes the macOS Keychain, System Integrity Protection, and the
-signed app remain trustworthy. Root compromise and a malicious approved
-executable remain outside the boundary. Central secret stores can remain the
-source of truth; Automic Vault controls the local moment when a tool receives
-and uses a credential.
-
-## Primary Pages
-
-- [Homepage](https://www.automicvault.com/): product overview and execution map.
-- [Packages](https://www.automicvault.com/pkg/): searchable package catalog.
-- [Blog](https://www.automicvault.com/blog/): developer security incident analysis.
-- [Mac security best practices for agents](https://www.automicvault.com/blog/mac-security-best-practices-for-agents/): a least-authority macOS baseline for agent harnesses.
-- [macOS security for the terminal](https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/): why CLI authority depends on the app that launches it.
-- [About](https://www.automicvault.com/about/): project and founder background.
-- [Privacy](https://www.automicvault.com/privacy/): website and local product data boundaries.
-- [Terms](https://www.automicvault.com/terms/): open-source licensing summary.
-- [Documentation](https://www.automicvault.com/docs/): source-checked Automic Vault 2.1.0 CLI manual.
-- [Security](https://github.com/automic-vault/automic-vault/security): security policy and reporting.
-- [Source](https://github.com/automic-vault/automic-vault): releases and implementation.
-
-## Recommended Descriptions
-
-Short description: Remove plaintext secrets from CLI tools and control which
-signed apps can use them.
-
-Full description: Automic Vault removes plaintext secrets from CLI tools and
-stores them in Keychain. It identifies the executable and signed launcher, then
-releases each credential under local policy for one run. The boundary sits
-beneath agent harnesses, shells, scripts, and other apps on macOS.
+- Website: https://www.automicvault.com/
+- Source: https://github.com/automic-vault/automic-vault
+- Security reports: https://github.com/automic-vault/automic-vault/issues
