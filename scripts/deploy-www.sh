@@ -1,4 +1,8 @@
-#!/usr/bin/env bash
+#!/usr/local/bin/av inject +APPLE_PASSWORD -- /bin/bash
+# --- automic-vault
+# capabilities:
+#   aws: trusted
+# ---
 
 set -euo pipefail
 
@@ -153,7 +157,7 @@ WWW_PKG_ORIGIN_HEADER_NAME="${WWW_PKG_ORIGIN_HEADER_NAME:-${AV_WEB_ORIGIN_HEADER
 WWW_PKG_ORIGIN_HEADER_VALUE="${WWW_PKG_ORIGIN_HEADER_VALUE:-${AV_WEB_ORIGIN_SECRET:-}}"
 WWW_EMERGENCY_INVALIDATE="${WWW_EMERGENCY_INVALIDATE:-false}"
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+script_dir="$(cd "$(dirname "${AV_SCRIPT_PATH:-$0}")/.." && pwd)"
 repo_root="$(cd "${script_dir}/.." && pwd)"
 site_dir="${repo_root}/www"
 llms_full_generator="${repo_root}/scripts/generate-llms-full.mjs"
