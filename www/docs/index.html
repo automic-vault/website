@@ -250,7 +250,7 @@ exec curl -H "Authorization: Bearer $API_TOKEN" \
 set -eu
 gh release create "$1"</code></pre>
             <p>The optional manifest must immediately follow the shebang. It may grant named Secret Gates one of <code>read-only</code>, <code>local-write</code>, <code>read-and-updates</code>, <code>trusted</code>, or <code>full</code>. Unsupported gates and access levels are rejected. These are ceilings, not blanket authority: undeclared or broader requests from the script are denied. <code>full</code> includes operations that may reveal protected values and should be granted sparingly.</p>
-            <p>Only an endorsed, code-signed calling app can use the blessing for automatic approval. With no endorsed app, each execution still requires manual approval. Blessed scripts run from a verified <code>/dev/fd/N</code> snapshot so edits cannot race approval. Use <code>${AV_SCRIPT_PATH:-$0}</code> when the script needs its canonical source path. Blessings can be inspected, narrowed, or revoked under <strong>Blessed Scripts</strong> in the app.</p>
+            <p>Only an endorsed, code-signed calling app can use the blessing for automatic approval. With no endorsed app, each execution still requires manual approval. Blessed scripts run from a verified <code>/dev/fd/N</code> snapshot so edits cannot race approval. <code>AV_SCRIPT_PATH</code> contains the canonical source path and <code>AV_SCRIPT_DIR</code> its containing directory. Blessings can be inspected, narrowed, or revoked under <strong>Blessed Scripts</strong> in the app.</p>
           </section>
 
           <section class="docs-section" id="harden">

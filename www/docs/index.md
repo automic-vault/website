@@ -221,9 +221,9 @@ be granted sparingly.
 Only an endorsed, code-signed calling app can use the blessing for automatic
 approval. With no endorsed app, each execution still requires manual approval.
 Blessed scripts run from a verified `/dev/fd/N` snapshot so edits cannot race
-approval. Use `${AV_SCRIPT_PATH:-$0}` when the script needs its canonical source
-path. Blessings can be inspected, narrowed, or revoked under **Blessed Scripts**
-in the app.
+approval. `AV_SCRIPT_PATH` contains the canonical source path and `AV_SCRIPT_DIR`
+its containing directory. Blessings can be inspected, narrowed, or revoked
+under **Blessed Scripts** in the app.
 
 ## `av harden`
 
