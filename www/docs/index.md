@@ -1,8 +1,7 @@
 # Automic Vault CLI manual
 
 This manual documents the public `av` command surface shipped by Automic Vault
-2.1.0 and still present in the current source tree. It was checked against
-`~/sync/av2` on July 24, 2026.
+2.3.0. It was checked against `~/src/av2` on July 27, 2026.
 
 The supported top-level commands are:
 
@@ -11,6 +10,7 @@ av scan [--show-all | --json]
 av doctor [COMMAND] [--json]
 av detectors --json
 av hardeners --json
+av bless PATH
 av inject +KEY [--] COMMAND
 av save KEY
 av harden NAME [--yes]
@@ -18,7 +18,7 @@ av open [--secret-gate ID]
 ```
 
 Commands from the earlier v1 CLI—including `install`, `contain`, `dotenv`,
-`credential-helper`, `gate`, and `trace`—are not part of the 2.1.0 CLI.
+`credential-helper`, `gate`, and `trace`—are not part of the 2.3.0 CLI.
 
 ## Install and verify
 
@@ -183,6 +183,48 @@ exec curl -H "Authorization: Bearer $API_TOKEN" https://api.example.test/me
 The script path is included in the approval request. Keep the interpreter path
 absolute and the shebang to one requested-key set plus one interpreter.
 
+## `av bless`
+
+Store a durable approval for an exact script and the signed apps allowed to
+launch it:
+
+```sh
+av bless ./release.sh
+```
+
+The app opens a review showing the canonical path, SHA-256 checksum, requested
+secrets, tool capabilities, and calling apps. Approving binds the blessing to
+all of them, as well as the `inject` flags and interpreter. Editing or moving
+the script makes the blessing stop matching; review and bless the new version
+explicitly.
+
+A blessable script must be a regular UTF-8 file no larger than 1 MiB and start
+with an absolute `av inject` shebang whose target interpreter is also absolute:
+
+```sh
+#!/usr/local/bin/av inject +GH_TOKEN /bin/sh
+# --- automic-vault
+# capabilities:
+#   gh: trusted
+# ---
+set -eu
+gh release create "$1"
+```
+
+The optional manifest must immediately follow the shebang. It may grant named
+Secret Gates one of `read-only`, `local-write`, `read-and-updates`, `trusted`,
+or `full`; unsupported gates or access levels are rejected. These are ceilings,
+not blanket authority: undeclared or broader requests from the script are
+denied. `full` includes operations that may reveal protected values and should
+be granted sparingly.
+
+Only an endorsed, code-signed calling app can use the blessing for automatic
+approval. With no endorsed app, each execution still requires manual approval.
+Blessed scripts run from a verified `/dev/fd/N` snapshot so edits cannot race
+approval. Use `${AV_SCRIPT_PATH:-$0}` when the script needs its canonical source
+path. Blessings can be inspected, narrowed, or revoked under **Blessed Scripts**
+in the app.
+
 ## `av harden`
 
 Apply a named hardener:
@@ -280,13 +322,14 @@ that target replaces the `av` process.
 
 This manual was checked against the following implementation files:
 
-- [`src/cli/mod.rs`](https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/mod.rs)
-- [`src/cli/scan.rs`](https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/scan.rs)
-- [`src/cli/doctor.rs`](https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/doctor.rs)
-- [`src/cli/save.rs`](https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/save.rs)
-- [`src/cli/inject.rs`](https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/inject.rs)
-- [`src/cli/open.rs`](https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/open.rs)
-- [`src/isotopes`](https://github.com/automic-vault/automic-vault/tree/2.1.0/src/isotopes)
+- [`src/cli/mod.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/mod.rs)
+- [`src/cli/scan.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/scan.rs)
+- [`src/cli/doctor.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/doctor.rs)
+- [`src/cli/save.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/save.rs)
+- [`src/cli/inject.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/inject.rs)
+- [`src/cli/bless.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/bless.rs)
+- [`src/cli/open.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/open.rs)
+- [`src/isotopes`](https://github.com/automic-vault/automic-vault/tree/2.3.0/src/isotopes)
 
 For a particular installation, prefer the installed command's `av help`,
 `av detectors --json`, and `av hardeners --json` output. Report documentation or

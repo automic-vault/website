@@ -12,16 +12,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Automic Vault CLI Manual</title>
-  <meta name="description" content="Source-checked documentation for the Automic Vault 2.1.0 CLI: scan, doctor, save, inject, harden, machine-readable catalogs, and app links.">
+  <meta name="description" content="Source-checked documentation for the Automic Vault 2.3.0 CLI: scan, doctor, save, inject, bless, harden, machine-readable catalogs, and app links.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Automic Vault CLI Manual">
-  <meta property="og:description" content="The source-checked manual for the Automic Vault 2.1.0 command line.">
+  <meta property="og:description" content="The source-checked manual for the Automic Vault 2.3.0 command line.">
   <meta property="og:url" content="https://www.automicvault.com/docs/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Automic Vault CLI Manual">
-  <meta name="twitter:description" content="The source-checked manual for the Automic Vault 2.1.0 command line.">
+  <meta name="twitter:description" content="The source-checked manual for the Automic Vault 2.3.0 command line.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/">
   <link rel="alternate" type="text/markdown" title="Markdown manual" href="/docs/index.md">
@@ -35,14 +35,14 @@
         "@id": "https://www.automicvault.com/docs/#article",
         "url": "https://www.automicvault.com/docs/",
         "headline": "Automic Vault CLI Manual",
-        "description": "Source-checked documentation for the Automic Vault 2.1.0 CLI.",
-        "dateModified": "2026-07-24",
+        "description": "Source-checked documentation for the Automic Vault 2.3.0 CLI.",
+        "dateModified": "2026-07-27",
         "author": {"@id": "https://www.automicvault.com/#organization"},
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "about": {
           "@type": "SoftwareApplication",
           "name": "Automic Vault",
-          "softwareVersion": "2.1.0",
+          "softwareVersion": "2.3.0",
           "operatingSystem": "macOS",
           "codeRepository": "https://github.com/automic-vault/automic-vault"
         },
@@ -92,11 +92,11 @@
       <header class="docs-hero">
         <div class="docs-hero-inner">
           <h1>The <code>av</code> manual.</h1>
-          <p class="lede">Source-checked documentation for the command line shipped by Automic Vault 2.1.0: audit the machine, repair hardened tools, save a named value, and release it to one approved command.</p>
+          <p class="lede">Source-checked documentation for the command line shipped by Automic Vault 2.3.0: audit the machine, repair hardened tools, save a named value, and release it to one approved command.</p>
           <ul class="docs-provenance" aria-label="Manual provenance">
             <li>macOS</li>
-            <li>CLI 2.1.0</li>
-            <li>Checked July 24, 2026</li>
+            <li>CLI 2.3.0</li>
+            <li>Checked July 27, 2026</li>
             <li><a href="/docs/index.md">Markdown</a></li>
           </ul>
         </div>
@@ -114,6 +114,7 @@
             <li><a href="#doctor">Doctor</a></li>
             <li><a href="#save">Save</a></li>
             <li><a href="#inject">Inject</a></li>
+            <li><a href="#bless">Bless</a></li>
             <li><a href="#harden">Harden</a></li>
             <li><a href="#catalogs">Catalogs</a></li>
             <li><a href="#open">Open</a></li>
@@ -162,6 +163,7 @@ av inject +GH_TOKEN gh auth status</code></pre>
               <div><dt><code>av hardeners --json</code></dt><dd>List hardener applicability, paths, commands, documentation, and Secret Gate routes.</dd></div>
               <div><dt><code>av save KEY</code></dt><dd>Read one hidden value from the terminal and store it under a valid environment key name.</dd></div>
               <div><dt><code>av inject +KEY COMMAND</code></dt><dd>Request named values and execute one approved target.</dd></div>
+              <div><dt><code>av bless PATH</code></dt><dd>Review and store durable authority for an exact script and signed calling apps.</dd></div>
               <div><dt><code>av harden NAME</code></dt><dd>Apply a reviewed tool-specific migration or launcher boundary.</dd></div>
               <div><dt><code>av open</code></dt><dd>Open the app or a specific Secret Gate.</dd></div>
             </dl>
@@ -234,6 +236,23 @@ exec curl -H "Authorization: Bearer $API_TOKEN" \
             <p>The script path is included in the approval request. Keep the interpreter path absolute and the shebang to one requested-key set plus one interpreter.</p>
           </section>
 
+          <section class="docs-section" id="bless">
+            <h2><code>av bless</code></h2>
+            <p>Store a durable approval for an exact script and the signed apps allowed to launch it.</p>
+            <pre><code>av bless ./release.sh</code></pre>
+            <p>The app opens a review showing the canonical path, SHA-256 checksum, requested secrets, tool capabilities, and calling apps. Approval also binds the <code>inject</code> flags and interpreter. Editing or moving the script makes the blessing stop matching; review and bless the new version explicitly.</p>
+            <p>A blessable script must be a regular UTF-8 file no larger than 1 MiB and start with an absolute <code>av inject</code> shebang whose target interpreter is also absolute.</p>
+            <pre><code>#!/usr/local/bin/av inject +GH_TOKEN /bin/sh
+# --- automic-vault
+# capabilities:
+#   gh: trusted
+# ---
+set -eu
+gh release create "$1"</code></pre>
+            <p>The optional manifest must immediately follow the shebang. It may grant named Secret Gates one of <code>read-only</code>, <code>local-write</code>, <code>read-and-updates</code>, <code>trusted</code>, or <code>full</code>. Unsupported gates and access levels are rejected. These are ceilings, not blanket authority: undeclared or broader requests from the script are denied. <code>full</code> includes operations that may reveal protected values and should be granted sparingly.</p>
+            <p>Only an endorsed, code-signed calling app can use the blessing for automatic approval. With no endorsed app, each execution still requires manual approval. Blessed scripts run from a verified <code>/dev/fd/N</code> snapshot so edits cannot race approval. Use <code>${AV_SCRIPT_PATH:-$0}</code> when the script needs its canonical source path. Blessings can be inspected, narrowed, or revoked under <strong>Blessed Scripts</strong> in the app.</p>
+          </section>
+
           <section class="docs-section" id="harden">
             <h2><code>av harden</code></h2>
             <p>Apply a named hardener.</p>
@@ -290,12 +309,12 @@ av inject --version</code></pre>
 
           <section class="docs-section docs-unsupported" id="unsupported">
             <h2>Commands that are not in v2</h2>
-            <p>The earlier v1 manual described <code>install</code>, <code>contain</code>, <code>dotenv</code>, <code>credential-helper</code>, <code>gate</code>, and <code>trace</code>. Those commands are not part of the Automic Vault 2.1.0 dispatcher. Use <code>av help</code> from the installed build as the authoritative top-level list.</p>
+            <p>The earlier v1 manual described <code>install</code>, <code>contain</code>, <code>dotenv</code>, <code>credential-helper</code>, <code>gate</code>, and <code>trace</code>. Those commands are not part of the Automic Vault 2.3.0 dispatcher. Use <code>av help</code> from the installed build as the authoritative top-level list.</p>
           </section>
 
           <section class="docs-section" id="source">
             <h2>Source of truth</h2>
-            <p>This manual was checked against the tagged 2.1.0 implementation: <a href="https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/mod.rs"><code>mod.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/scan.rs"><code>scan.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/doctor.rs"><code>doctor.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/save.rs"><code>save.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/inject.rs"><code>inject.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.1.0/src/cli/open.rs"><code>open.rs</code></a>, and the <a href="https://github.com/automic-vault/automic-vault/tree/2.1.0/src/isotopes">isotope catalog</a>.</p>
+            <p>This manual was checked against the tagged 2.3.0 implementation: <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/mod.rs"><code>mod.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/scan.rs"><code>scan.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/doctor.rs"><code>doctor.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/save.rs"><code>save.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/inject.rs"><code>inject.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/bless.rs"><code>bless.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/open.rs"><code>open.rs</code></a>, and the <a href="https://github.com/automic-vault/automic-vault/tree/2.3.0/src/isotopes">isotope catalog</a>.</p>
             <p>For a particular installation, prefer its <code>av help</code>, <code>av detectors --json</code>, and <code>av hardeners --json</code> output. Report discrepancies in the <a href="https://github.com/automic-vault/automic-vault/issues">issue tracker</a>.</p>
           </section>
         </article>
