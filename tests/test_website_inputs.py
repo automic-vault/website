@@ -113,8 +113,8 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             with self.subTest(page=page.relative_to(ROOT)):
                 self.assertIn('class="seo-masthead"', text)
                 self.assertIn('class="seo-footer"', text)
-                self.assertIn("styles.css?v=108", text)
-                self.assertIn("landing-pages.css?v=3", text)
+                self.assertIn("styles.css?v=128", text)
+                self.assertIn("landing-pages.css?v=5", text)
 
     def test_mobile_navigation_has_shared_behavior_and_cache_version(self):
         script = (ROOT / "www" / "app.js").read_text(encoding="utf-8")
@@ -280,7 +280,10 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
     def test_public_assets_and_frontend_files_are_referenced(self):
         site = ROOT / "www"
         public_files = sorted((site / "assets").rglob("*"))
-        public_files = [path for path in public_files if path.is_file()]
+        public_files = [
+            path for path in public_files
+            if path.is_file() and path.name != ".DS_Store"
+        ]
         public_files.extend(sorted(site.glob("*.css")))
         public_files.extend(sorted(site.glob("*.js")))
 
