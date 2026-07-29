@@ -161,7 +161,15 @@ body {
   gap: clamp(1.25rem, 2.6vw, 2.75rem);
 }
 
+.brew-nav-actions {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: var(--brand-space-lg);
+}
+
 .brew-nav-links a,
+.brew-github,
 .brew-footer-meta a,
 .brew-languages a {
   color: var(--brand-ink-soft);
@@ -175,9 +183,20 @@ body {
 }
 
 .brew-nav-links a:hover,
+.brew-github:hover,
 .brew-footer-meta a:hover,
 .brew-languages a:hover {
   color: var(--brand-ink);
+}
+
+.brew-github:active {
+  opacity: 0.72;
+}
+
+.brew-github[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .brew-download,
@@ -209,10 +228,6 @@ body {
     border-color var(--brand-dur-short) var(--brand-ease-out),
     background-color var(--brand-dur-short) var(--brand-ease-out),
     box-shadow var(--brand-dur-short) var(--brand-ease-out);
-}
-
-.brew-download {
-  justify-self: end;
 }
 
 .brew-download:hover,
@@ -1235,7 +1250,7 @@ body {
     padding-block: var(--brand-space-sm);
   }
 
-  .brew-nav > .brew-download {
+  .brew-nav-actions {
     display: none;
   }
 
