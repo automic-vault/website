@@ -1255,27 +1255,39 @@ body {
   }
 
   .brew-hero {
-    gap: var(--brand-space-2xl);
+    gap: var(--brand-space-xl);
     padding-top: 7rem;
   }
 
+  .brew-kicker {
+    margin-bottom: var(--brand-space-md);
+  }
+
   .brew-hero h1 {
-    font-size: clamp(2.75rem, 15vw, 4.5rem);
+    max-width: 100%;
+    font-size: clamp(2.5rem, 12vw, 3.25rem);
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+    text-wrap: balance;
   }
 
   .brew-hero-lede {
+    margin-top: var(--brand-space-lg);
     font-size: var(--brand-text-md);
+    line-height: 1.5;
   }
 
   .brew-hero-actions {
-    align-items: stretch;
+    display: grid;
+    justify-items: start;
     gap: var(--brand-space-sm);
+    margin-top: var(--brand-space-lg);
   }
 
   .brew-hero-actions .brew-cta,
   .brew-hero-actions .brew-text-link {
-    width: 100%;
-    justify-content: center;
+    width: auto;
+    justify-content: flex-start;
   }
 
   .brew-promises {
