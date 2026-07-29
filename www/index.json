@@ -3,7 +3,7 @@
   "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "The missing security layer for CLI tools on Mac",
+  "title": "A new kind of secrets manager for a new era of development.",
   "eyebrow": "Local execution security for macOS",
   "description": "Automic Vault removes plaintext secrets from CLI tools and controls which signed apps can use them beneath the agent harness.",
   "promises": [

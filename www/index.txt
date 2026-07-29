@@ -1,6 +1,6 @@
 Automic Vault
 
-The missing security layer for CLI tools on Mac
+A new kind of secrets manager for a new era of development.
 
 Automic Vault moves developer secrets out of plaintext files, then controls
 which signed app can run each tool with each credential. Automic Vault applies

@@ -223,7 +223,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             self.assertIn(f'type="{media_type}"', home)
             self.assertIn(f'href="{href}"', home)
 
-        current_headline = "The missing security layer for CLI tools on Mac"
+        current_headline = "A new kind of secrets manager for a new era of development."
         for filename in ("index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
             with self.subTest(filename=filename):
