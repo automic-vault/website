@@ -12,7 +12,7 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Automic Vault | Secure the tools you brew install</title>
+  <title>About Automic Vault | Local secrets security for macOS</title>
   <meta name="description" content="Automic Vault removes plaintext secrets from CLI tools and controls which signed apps can use them at the local execution boundary.">
   <link rel="canonical" href="https://www.automicvault.com/about/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/about/">
@@ -24,12 +24,12 @@
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="About Automic Vault | Secure the tools you brew install">
+  <meta property="og:title" content="About Automic Vault | Local secrets security for macOS">
   <meta property="og:description" content="Automic Vault removes plaintext secrets from CLI tools and controls which signed apps can use them at the local execution boundary.">
   <meta property="og:url" content="https://www.automicvault.com/about/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="About Automic Vault | Secure the tools you brew install">
+  <meta name="twitter:title" content="About Automic Vault | Local secrets security for macOS">
   <meta name="twitter:description" content="Automic Vault removes plaintext secrets from CLI tools and controls which signed apps can use them at the local execution boundary.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <script type="application/ld+json">
@@ -49,7 +49,7 @@
                   },
                   "knowsAbout": [
                         "AI agent security",
-                        "macOS package management",
+                        "developer tool security",
                         "developer tooling",
                         "local secrets management",
                         "credential execution policy"
@@ -96,13 +96,11 @@
                   "license": "https://www.apache.org/licenses/LICENSE-2.0",
                   "screenshot": "https://www.automicvault.com/preview.jpg",
                   "featureList": [
-                        "Plaintext secret removal for CLI tools",
-                        "Keychain-backed secret storage",
-                        "Approved secret injection into command-line tools",
-                        "Per-tool and per-launcher access policy",
-                        "AI agent secret scanner",
-                        "Shell installer tracing",
-                        "Hardened package installation roots"
+                        "Keychain-backed storage for CLI secrets",
+                        "One-run credential handoff to approved executables",
+                        "Per-tool and per-launcher access controls",
+                        "Cross-ecosystem developer threat monitoring with mitigation steps",
+                        "Local audit log for approved and denied secret requests"
                   ],
                   "offers": {
                         "@type": "Offer",
@@ -120,11 +118,11 @@
                   "@type": "Article",
                   "@id": "https://www.automicvault.com/about/#webpage",
                   "url": "https://www.automicvault.com/about/",
-                  "name": "About Automic Vault | Secure the tools you brew install",
-                  "headline": "About Automic Vault | Secure the tools you brew install",
+                  "name": "About Automic Vault | Local secrets security for macOS",
+                  "headline": "About Automic Vault | Local secrets security for macOS",
                   "description": "Automic Vault removes plaintext secrets from CLI tools and controls which signed apps can use them at the local execution boundary.",
                   "datePublished": "2026-05-15",
-                  "dateModified": "2026-07-20",
+                  "dateModified": "2026-07-31",
                   "image": "https://www.automicvault.com/preview.jpg",
                   "author": {
                         "@id": "https://www.automicvault.com/about/#max-howell"
@@ -158,7 +156,7 @@
                         {
                               "@type": "ListItem",
                               "position": 2,
-                              "name": "About Automic Vault | Secure the tools you brew install",
+                              "name": "About Automic Vault | Local secrets security for macOS",
                               "item": "https://www.automicvault.com/about/"
                         }
                   ]
@@ -193,9 +191,9 @@
       <section class="seo-hero">
         <div>
           <p class="kicker">Founder authority</p>
-          <h1>Secure the tools you brew install, from the creator of Homebrew</h1>
+          <h1>A new kind of secrets manager, from the creator of Homebrew</h1>
           <p class="lede">Automic Vault removes plaintext secrets from CLI tools and controls which signed apps can use them at the local execution boundary.</p>
-          <p class="updated">Last updated: June 3, 2026</p>
+          <p class="updated">Last updated: July 31, 2026</p>
           <div class="hero-actions">
             <a class="button primary" href="/docs/">Read the docs <span aria-hidden="true">›</span></a>
             <a class="button" href="https://github.com/automic-vault/automic-vault">View source <span aria-hidden="true">›</span></a>
@@ -209,11 +207,11 @@
         <div class="section-heading">
           <p class="kicker">Who builds it</p>
           <h2>Max Howell created Homebrew in 2009.</h2>
-          <p>Homebrew became the default way many macOS developers install command-line tools. Automic Vault comes from the same operating reality: developer machines are full of useful tools, and those tools need predictable installation, ownership, and execution boundaries.</p>
+          <p>Homebrew became the default way many macOS developers install command-line tools. Automic Vault comes from a new operating reality: those tools now run under terminals, editors, automation apps, and AI agents, while their credentials often remain readable in plaintext files.</p>
         </div>
         <div class="proof-list">
-          <article><span>Package roots</span><h3>Install paths matter</h3><p>Automic Vault keeps production installs under controlled roots and exposes stable command stubs for agent-used tools.</p></article>
-          <article><span>Runtime authority</span><h3>Execution is the boundary</h3><p>Agent security fails when credentials and tool authority are ambient. Automic Vault moves controls to the local command path.</p></article>
+          <article><span>Credential storage</span><h3>Plaintext secrets are the problem</h3><p>Automic Vault moves CLI credentials into the macOS Keychain and supplies them only to an approved executable for one run.</p></article>
+          <article><span>Runtime authority</span><h3>Execution is the boundary</h3><p>Automic Vault checks the executable, signed launcher, command, working directory, and requested key before handing over a credential.</p></article>
           <article><span>Open source</span><h3>Source stays inspectable</h3><p>The project is Apache 2.0 software on GitHub, so developers can inspect how local control is implemented.</p></article>
           <article><span>macOS first</span><h3>The platform is explicit</h3><p>Automic Vault targets the macOS developer workstation instead of pretending agent security is only a cloud policy problem.</p></article>
         </div>
@@ -240,7 +238,7 @@
         <div class="link-grid">
           <a href="../"><span>Secrets</span><strong>Remove plaintext credentials</strong><p>Keep credentials out of files and model context.</p></a>
           <a href="../#controls"><span>Policy</span><strong>Tool and launcher rules</strong><p>Choose how each signed app can use each tool and credential.</p></a>
-          <a href="../"><span>Installers</span><strong>Trace shell installers</strong><p>Inspect installer behavior before it writes to disk.</p></a>
+          <a href="../#audit"><span>Audit</span><strong>Review every secret use</strong><p>Keep a local record of approved and denied requests.</p></a>
         </div>
       </section>
     </main>
