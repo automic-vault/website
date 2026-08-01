@@ -683,7 +683,7 @@ body {
   border-color: #000;
   color: transparent;
   background:
-    url("/assets/brand-shield-v2.webp") center / 76% no-repeat,
+    url("/assets/brand-shield-v2.webp?v=3") center / 76% no-repeat,
     var(--brand-rule);
   box-shadow: 0 0 1.5rem var(--brand-shadow-soft);
   transform: translateY(-11px);

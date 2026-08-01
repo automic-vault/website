@@ -1042,8 +1042,8 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="icon" href="{root}favicon.ico" sizes="16x16 32x32 48x48">
-  <link rel="apple-touch-icon" href="{root}apple-touch-icon.png">
+  <link rel="icon" href="{root}favicon.ico?v=3" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="{root}apple-touch-icon.png?v=3">
   <link rel="stylesheet" href="{root}styles.css?v=128">
   <link rel="stylesheet" href="{root}landing-pages.css?v=5">
 {GOOGLE_ANALYTICS_TAG}
@@ -1066,7 +1066,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
   <div class="seo-shell">
     <header class="seo-masthead" id="top">
       <a class="brand" href="{locale_path('/', locale)}" aria-label="{html.escape(ui["brandHomeAria"], quote=True)}">
-        <img class="brand-mark" src="/assets/icon@2x.webp" alt="Automic Vault icon" width="54" height="54">
+        <img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="Automic Vault icon" width="54" height="54">
         <img class="brand-wordmark" src="/assets/wordmark.webp" alt="Automic Vault" width="996" height="257">
       </a>
       <nav class="seo-nav" aria-label="{html.escape(ui["mainNavigationAria"], quote=True)}">
@@ -1258,8 +1258,8 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.ico?v=3" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
   <link rel="stylesheet" href="/styles.css?v=128">
 {GOOGLE_ANALYTICS_TAG}
   <script type="application/ld+json">
@@ -1280,7 +1280,7 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
   <div class="scroll-meter" aria-hidden="true"><span></span></div>
   <header class="boundary-nav" id="top">
     <a class="boundary-brand" href="{locale_path('/', locale)}" aria-label="{html.escape(ui["brandHomeAria"], quote=True)}">
-      <img src="/assets/icon@2x.webp" alt="" width="54" height="54">
+      <img src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54">
       <span>Automic Vault</span>
     </a>
     <a class="boundary-nav-download" href="/Automic%20Vault.dmg">{html.escape(landing["nav_download"])}</a>
@@ -1302,7 +1302,7 @@ def render_home_page(record: dict[str, Any], locale: Locale, locales: list[Local
         <div class="map-hop" aria-hidden="true"><span>{html.escape(landing["request"])}</span><b>→</b></div>
         <div class="map-vault">
           <div class="map-vault-head">
-            <img src="/assets/icon@2x.webp" alt="" width="42" height="42">
+            <img src="/assets/icon@2x.webp?v=3" alt="" width="42" height="42">
             <div><strong>Automic Vault</strong><span>{html.escape(landing["vault_boundary"])}</span></div>
           </div>
           <div class="map-control">
@@ -1412,7 +1412,7 @@ contained toolchain ready · host execution requires approval</code></pre>
 
   <footer class="boundary-footer">
     <div class="boundary-footer-brand">
-      <div><img src="/assets/icon@2x.webp" alt="" width="54" height="54"><strong>Automic Vault</strong></div>
+      <div><img src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54"><strong>Automic Vault</strong></div>
       <p>{html.escape(landing["footer_tagline"])}</p>
     </div>
     <nav aria-label="Footer">
