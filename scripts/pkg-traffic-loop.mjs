@@ -234,8 +234,8 @@ Auth: ${data.authSource || "unknown"}
 
 1. Observe: run \`scripts/pkg-traffic-loop.mjs\` to refresh package page/query data from Search Console.
 2. Prioritize: pick high-score rows with real impressions, weak CTR, and reachable positions.
-3. Improve: edit \`../av.db/crates/av-web/main.rs\`, package metadata generation, or package i18n templates so the target query is answered in the HTML, markdown alternate, schema, and internal links.
-4. Verify: run \`cargo test\` from \`../av.db\`, spot-check rendered pages, and make sure the changed terms appear in title/H1/meta/markdown where appropriate.
+3. Improve: edit the package origin or metadata in \`../pkgdb\` so the target query is answered in the HTML, markdown alternate, schema, and internal links.
+4. Verify: run \`cargo test\` from \`../pkgdb\`, spot-check rendered pages, and make sure the changed terms appear in title/H1/meta/markdown where appropriate.
 5. Commit: keep each completed traffic improvement in a focused commit, deploy the package origin, then rerun this report after GSC has fresh final data.
 
 ## Top Opportunities

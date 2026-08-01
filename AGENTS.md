@@ -14,17 +14,20 @@ Work here should be limited to:
   markdown, and JSON representations of website content
 
 Do not add product runtime code, server code, package manager behavior, helper
-behavior, or app/CLI behavior to this repository.
+behavior, app/CLI behavior, or package-origin server code to this repository.
 
 ## Package Catalog Boundary
 
-The live package catalog is served by the Rust `av-web` service in `~/src/av.db`
-from its private SQLite artifact.
+The live package catalog and its Rust origin are owned by `~/src/pkgdb`.
 
 `/pkg/`, localized `/de/pkg/`, `/fr/pkg/`, `/ja/pkg/`, `/zh-hans/pkg/`, package
 sitemaps, markdown alternates, `/pkg/styles.css`, `/pkg/search.js`, and
 `/pkg/search.json` remain Atlas origin routes until the staged `pkg.so`
 redirect is explicitly enabled.
+
+This repository keeps the CloudFront behaviors that route those paths to the
+Atlas origin. Do not duplicate the package renderer, SQLite pipeline, service,
+or deployment scripts here.
 
 ## Release Artifact Boundary
 

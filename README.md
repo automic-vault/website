@@ -3,7 +3,7 @@
 Static website repository for <https://www.automicvault.com/>.
 
 The product repository still owns release artifacts and scanner publishing.
-`~/src/av.db` owns package database generation, the Rust package origin, Atlas
+`~/src/pkgdb` owns package database generation, the Rust package origin, Atlas
 deployment, and the dedicated `pkg.so` CloudFront distribution.
 This repo owns static pages, assets, static localization, S3/CloudFront
 configuration for `atomicvault.com`, and the GitHub release redirect Lambda.
@@ -47,6 +47,9 @@ For example, `/fr/pkg/brew/awscli/?source=old` redirects to
 `https://pkg.so/fr/pkg/brew/awscli/?source=old`. The switch defaults to `false`
 so a normal deployment cannot retire the old routes accidentally.
 
+Package generation and Atlas deployment run from `~/src/pkgdb` with
+`scripts/deploy-atlas.sh`.
+
 ## Package Traffic Loop
 
 Use the ops repo Search Console credentials to refresh `/pkg/` opportunities:
@@ -57,5 +60,5 @@ scripts/pkg-traffic-loop.mjs --days 90 --row-limit 25000
 
 The script writes ignored artifacts to `cache/pkg-traffic-loop.json` and
 `cache/pkg-traffic-loop.md`. Use the report to pick a high-impression package
-query, improve the package renderer or metadata in `../av.db`, verify there,
+query, improve the package renderer or metadata in `../pkgdb`, verify there,
 and commit the focused change before the next loop pass.
