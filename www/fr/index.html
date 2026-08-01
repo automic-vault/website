@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | Empêchez les agents IA de déraper sur votre Mac</title>
-  <meta name="description" content="Obligez les agents IA à demander votre accord avant d’installer un logiciel ou d’utiliser vos secrets.">
+  <title>Automic Vault | Un nouveau gestionnaire de secrets pour une nouvelle ère du développement</title>
+  <meta name="description" content="Retirez les secrets CLI des fichiers en clair et contrôlez quelles applications signées peuvent les utiliser.">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Empêchez les agents IA de déraper sur votre Mac">
-  <meta property="og:description" content="Obligez les agents IA à demander votre accord avant d’installer un logiciel ou d’utiliser vos secrets.">
+  <meta property="og:title" content="Un nouveau gestionnaire de secrets pour une nouvelle ère du développement">
+  <meta property="og:description" content="Retirez les secrets CLI des fichiers en clair et contrôlez quelles applications signées peuvent les utiliser.">
   <meta property="og:url" content="https://www.automicvault.com/fr/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Empêchez les agents IA de déraper sur votre Mac">
-  <meta name="twitter:description" content="Obligez les agents IA à demander votre accord avant d’installer un logiciel ou d’utiliser vos secrets.">
+  <meta name="twitter:title" content="Un nouveau gestionnaire de secrets pour une nouvelle ère du développement">
+  <meta name="twitter:description" content="Retirez les secrets CLI des fichiers en clair et contrôlez quelles applications signées peuvent les utiliser.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/fr/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -43,9 +43,9 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/fr/",
-    "name": "Automic Vault | Empêchez les agents IA de déraper sur votre Mac",
-    "headline": "Empêchez les agents IA de déraper sur votre Mac.",
-    "description": "Obligez les agents IA à demander votre accord avant d’installer un logiciel ou d’utiliser vos secrets.",
+    "name": "Automic Vault | Un nouveau gestionnaire de secrets pour une nouvelle ère du développement",
+    "headline": "Un nouveau type de gestionnaire de secrets pour une nouvelle ère du développement.",
+    "description": "Retirez les secrets CLI des fichiers en clair et contrôlez quelles applications signées peuvent les utiliser.",
     "inLanguage": "fr",
     "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
@@ -55,36 +55,47 @@
 <body class="brew-home">
   <header class="brew-nav">
     <a class="brew-brand" href="#top" aria-label="Accueil Automic Vault">
-      <img src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54">
+      <img src="/assets/brand-shield-v2.webp?v=3" alt="" width="54" height="54">
       <span>Automic Vault</span>
     </a>
     <nav class="brew-nav-links" aria-label="Navigation principale">
-      <a href="#controls">Contrôles</a>
-      <a href="#audit">Journal d’audit</a>
-      <a href="#threats">Menaces</a>
+      <a href="#boundary">Secrets</a>
+      <a href="#controls">Politiques</a>
+      <a href="#audit">Audit</a>
     </nav>
-    <a class="brew-download" href="/Automic%20Vault.dmg">Télécharger</a>
+    <div class="brew-nav-actions">
+      <a class="brew-github" href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      <a class="brew-download" href="/Automic%20Vault.dmg">Télécharger pour macOS</a>
+    </div>
   </header>
 
   <main>
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
-        <p class="brew-kicker">Contrôle local des agents IA</p>
-        <h1 id="hero-title">Empêchez les agents IA de <span>déraper</span> sur votre Mac.</h1>
-        <a class="brew-cta" href="/Automic%20Vault.dmg">Télécharger pour macOS</a>
+        <p class="brew-kicker">Par le créateur de Homebrew</p>
+        <h1 id="hero-title">Un nouveau type de gestionnaire de secrets <span>pour une nouvelle ère du développement.</span></h1>
+        <p class="brew-hero-lede">Automic Vault retire les secrets des outils CLI des fichiers en clair, puis contrôle quelle application signée peut exécuter chaque outil avec chaque identifiant.</p>
+        <p>N’importe quel agent. N’importe quel environnement. Zéro configuration.</p>
+        <div class="brew-hero-actions">
+          <a class="brew-cta" href="/Automic%20Vault.dmg">Télécharger pour macOS</a>
+          <a class="brew-text-link" href="#boundary">Voir la limite en action <span aria-hidden="true">→</span></a>
+        </div>
       </div>
+      <figure class="brew-hero-capture">
+        <img src="/assets/av-approve-gate.png" alt="Validation Automic Vault montrant ChatGPT qui demande un jeton GitHub, avec les choix Refuser et Approuver une fois" width="1212" height="1090" fetchpriority="high" decoding="async">
+      </figure>
       <ul class="brew-promises">
-        <li><span>01</span><strong>Contrôlez les installations de logiciels</strong></li>
-        <li><span>02</span><strong>Gardez vos secrets hors de portée</strong></li>
-        <li><span>03</span><strong>Examinez les actions sensibles</strong></li>
+        <li><span>01</span><strong>Supprimer les secrets en clair</strong><small>Les identifiants quittent les dotfiles et les configurations d’outils.</small></li>
+        <li><span>02</span><strong>Contrôler le transfert</strong><small>Seul le bon exécutable reçoit l’identifiant.</small></li>
+        <li><span>03</span><strong>Appliquer une limite locale</strong><small>Chaque lanceur rencontre la même politique.</small></li>
       </ul>
     </section>
 
-    <section class="brew-risk" aria-labelledby="risk-title">
+    <section class="brew-risk" id="boundary" aria-labelledby="risk-title">
       <div class="brew-split">
         <div class="brew-copy">
-          <p class="brew-eyebrow">Avant Automic Vault</p>
-          <h2 id="risk-title">Les agents « serviables » prennent des raccourcis dangereux.</h2>
+          <p class="brew-eyebrow">Votre agent hérite de vos accès</p>
+          <h2 id="risk-title">Un prompt ne peut pas protéger un secret que l’agent peut déjà lire.</h2>
         </div>
         <ol class="brew-session" aria-label="Session Claude qui lit et transfère des identifiants AWS locaux">
           <li class="brew-chat-message brew-chat-message-agent">
@@ -199,20 +210,21 @@ aws_secret_access_key = ••••••••••••••••••�
       </div>
     </section>
 
-    <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
-      <div class="brew-capture-stack">
-        <figure class="brew-capture">
-          <img src="/assets/approval-terminal-only.webp" alt="Porte de secret Automic Vault pour gh autorisant l’accès direct au jeton GitHub uniquement depuis Terminal.app" width="1952" height="1338" loading="lazy" decoding="async">
-          <figcaption>Validation facultative en lecture seule pour chaque outil qui gère des secrets. Accès complet, mais uniquement pour Terminal.app.</figcaption>
-        </figure>
-      </div>
+    <section class="brew-access" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
-        <h2 id="controls-title">Ajustez précisément les accès. Une règle pour vous et une autre pour les agents.</h2>
-        <p>Chaque utilisation de secret est limitée par défaut. N’assouplissez la validation que pour l’exécutable signé que vous nommez.</p>
-        <dl class="brew-control-list">
-          <div><dt>Lecture seule</dt><dd>Approuver automatiquement les requêtes sûres sans accorder d’accès en écriture.</dd></div>
-          <div><dt>Accès complet</dt><dd>Toujours approuver l’accès direct à <code>gh</code> uniquement pour une application appelante nommée, comme Terminal.app.</dd></div>
-        </dl>
+        <p class="brew-eyebrow">Accès par application</p>
+        <h2 id="controls-title">La politique suit l’outil et son lanceur.</h2>
+        <p>Terminal, Codex et un processus inconnu peuvent invoquer le même exécutable. Automic Vault identifie le lanceur signé et attribue à chaque association sa propre politique d’accès.</p>
+      </div>
+      <div class="brew-access-body">
+        <figure class="brew-access-diagram">
+          <div class="brew-access-screen"><img src="/assets/access-levels.png" alt="Automic Vault affiche Aucun accès pour les autres applications, Accès de confiance pour Terminal et Lecture seule pour ChatGPT" width="1944" height="1380" loading="lazy" decoding="async"></div>
+          <dl class="brew-access-notes">
+            <div class="brew-access-note"><dt>Aucun accès</dt><dd>L’application ne reçoit aucun accès automatique. Chaque requête demande votre validation.</dd></div>
+            <div class="brew-access-note"><dt>Accès de confiance</dt><dd>Pour un terminal où vous ne comptez jamais exécuter <code>npm i</code>. Les commandes révélant des secrets conservent toujours une validation.</dd></div>
+            <div class="brew-access-note"><dt>Lecture seule</dt><dd>Pour les outils auxquels vous accordez une confiance partielle, comme les agents. Les lectures sûres passent; les écritures demandent une validation.</dd></div>
+          </dl>
+        </figure>
       </div>
     </section>
 
@@ -244,6 +256,19 @@ aws_secret_access_key = ••••••••••••••••••�
       </div>
     </section>
 
+    <section class="brew-feature" id="terminal-security" aria-labelledby="terminal-security-title">
+      <div class="brew-copy">
+        <p class="brew-eyebrow">Indépendant de l’environnement</p>
+        <h2 id="terminal-security-title">Contrôlez la couche outil sous chaque agent.</h2>
+        <p>Les outils en ligne de commande s’exécutent avec l’autorité de l’application qui les lance. Automic Vault identifie l’outil et son lanceur signé, puis applique les règles choisies pour cette association.</p>
+        <a class="brew-text-link" href="/blog/bringing-macos-security-to-the-terminal/">Pourquoi le terminal a besoin de sa propre couche de sécurité <span aria-hidden="true">→</span></a>
+      </div>
+      <figure class="brew-capture">
+        <img src="/assets/approval-terminal-only.webp" alt="Règle Automic Vault autorisant l’accès direct de gh au jeton GitHub uniquement lorsque Terminal.app le lance" width="1952" height="1338" loading="lazy" decoding="async">
+        <figcaption>La même CLI peut recevoir des accès différents depuis Terminal, un environnement d’agent ou une autre application hôte.</figcaption>
+      </figure>
+    </section>
+
     <section class="brew-pricing" id="pricing" aria-labelledby="pricing-title">
       <h2 id="pricing-title">Gratuit et open source.</h2>
       <p>Automic Vault ne coûte rien. Pour renforcer la sécurité, l’app iPhone facultative est proposée sur abonnement payant. Elle déplace les validations de l’ordinateur qui exécute les commandes vers votre téléphone, où aucun agent ni logiciel malveillant ne peut les intercepter.</p>
@@ -255,7 +280,7 @@ aws_secret_access_key = ••••••••••••••••••�
     <a class="brew-cta" href="/Automic%20Vault.dmg">Télécharger pour macOS</a>
     <div class="brew-footer-meta">
       <a class="brew-brand" href="#top">
-        <img src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54">
+        <img src="/assets/brand-shield-v2.webp?v=3" alt="" width="54" height="54">
         <span>Automic Vault</span>
       </a>
       <nav aria-label="Navigation du pied de page">

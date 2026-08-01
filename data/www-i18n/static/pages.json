@@ -3,14 +3,14 @@
     {
       "path": "/",
       "source": "index.html",
-      "dateModified": "2026-07-28",
+      "dateModified": "2026-08-01",
       "translations": {
         "ja": {
-          "title": "Automic Vault | Mac 上で AI エージェントを暴走させない",
-          "description": "AI エージェントがソフトウェアをインストールしたり、シークレットを使ったりする前に承認を求めさせます。",
-          "kicker": "AI エージェントをローカルで制御",
-          "h1": "Mac 上で AI エージェントを暴走させない。",
-          "lede": "ソフトウェアのインストールやシークレットの使用前に承認を求めさせます。",
+          "title": "Automic Vault | 新しい時代の開発に向けた新しいシークレット管理",
+          "description": "CLI シークレットを平文ファイルから移し、どの署名済みアプリが使用できるかを制御します。",
+          "kicker": "Homebrew 開発者が提供",
+          "h1": "新しい時代の開発に向けた新しいシークレット管理。",
+          "lede": "Automic Vault は CLI ツールのシークレットを平文ファイルから移し、どの署名済みアプリが各ツールを各認証情報で実行できるかを制御します。",
           "sections": [
             [
               "ツール単位のシークレット",
@@ -27,11 +27,11 @@
           ]
         },
         "de": {
-          "title": "Automic Vault | Stoppe unkontrollierte AI-Agents auf deinem Mac",
-          "description": "Lass AI-Agents fragen, bevor sie Software installieren oder deine Secrets verwenden.",
-          "kicker": "Lokale Kontrolle für AI-Agents",
-          "h1": "Stoppe AI-Agents, die auf deinem Mac außer Kontrolle geraten.",
-          "lede": "Lass Agents fragen, bevor sie Software installieren oder deine Secrets verwenden.",
+          "title": "Automic Vault | Ein neuartiger Secrets Manager für eine neue Ära der Entwicklung",
+          "description": "Entferne CLI-Secrets aus Klartextdateien und kontrolliere, welche signierten Apps sie verwenden dürfen.",
+          "kicker": "Vom Erfinder von Homebrew",
+          "h1": "Ein neuartiger Secrets Manager für eine neue Ära der Entwicklung.",
+          "lede": "Automic Vault entfernt Secrets für CLI-Tools aus Klartextdateien und kontrolliert dann, welche signierte App jedes Tool mit welchem Credential ausführen darf.",
           "sections": [
             [
               "Tool-spezifische Secrets",
@@ -48,11 +48,11 @@
           ]
         },
         "fr": {
-          "title": "Automic Vault | Empêchez les agents IA de déraper sur votre Mac",
-          "description": "Obligez les agents IA à demander votre accord avant d’installer un logiciel ou d’utiliser vos secrets.",
-          "kicker": "Contrôle local des agents IA",
-          "h1": "Empêchez les agents IA de déraper sur votre Mac.",
-          "lede": "Obligez les agents à demander votre accord avant d’installer un logiciel ou d’utiliser vos secrets.",
+          "title": "Automic Vault | Un nouveau gestionnaire de secrets pour une nouvelle ère du développement",
+          "description": "Retirez les secrets CLI des fichiers en clair et contrôlez quelles applications signées peuvent les utiliser.",
+          "kicker": "Par le créateur de Homebrew",
+          "h1": "Un nouveau type de gestionnaire de secrets pour une nouvelle ère du développement.",
+          "lede": "Automic Vault retire les secrets des outils CLI des fichiers en clair, puis contrôle quelle application signée peut exécuter chaque outil avec chaque identifiant.",
           "sections": [
             [
               "Secrets limités aux outils",
@@ -69,11 +69,11 @@
           ]
         },
         "zh-Hans": {
-          "title": "Automic Vault | 阻止 AI 代理在你的 Mac 上失控",
-          "description": "让 AI 代理在安装软件或使用你的密钥前先请求批准。",
-          "kicker": "在本地控制 AI 代理",
-          "h1": "阻止 AI 代理在你的 Mac 上失控。",
-          "lede": "让代理在安装软件或使用你的密钥前先请求批准。",
+          "title": "Automic Vault | 面向开发新时代的新型密钥管理器",
+          "description": "将 CLI 密钥移出明文文件，并控制哪些签名应用可以使用它们。",
+          "kicker": "由 Homebrew 创始人打造",
+          "h1": "面向开发新时代的新型密钥管理器。",
+          "lede": "Automic Vault 将 CLI 工具密钥移出明文文件，并控制哪些签名应用可以使用哪些凭据运行每个工具。",
           "sections": [
             [
               "工具级密钥",

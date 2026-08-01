@@ -4,7 +4,7 @@
 
 ## Pages principales
 
-- [Automic Vault | Empêchez les agents IA de déraper sur votre Mac](https://www.automicvault.com/fr/): Obligez les agents IA à demander votre accord avant d’installer un logiciel ou d’utiliser vos secrets.
+- [Automic Vault | Un nouveau gestionnaire de secrets pour une nouvelle ère du développement](https://www.automicvault.com/fr/): Retirez les secrets CLI des fichiers en clair et contrôlez quelles applications signées peuvent les utiliser.
 
 - [Télécharger Automic Vault](https://www.automicvault.com/fr/download/): Téléchargez Automic Vault pour macOS et protégez les exécutions locales d'agents IA.
 

@@ -4,7 +4,7 @@
 
 ## Wichtige Seiten
 
-- [Automic Vault | Stoppe unkontrollierte AI-Agents auf deinem Mac](https://www.automicvault.com/de/): Lass AI-Agents fragen, bevor sie Software installieren oder deine Secrets verwenden.
+- [Automic Vault | Ein neuartiger Secrets Manager für eine neue Ära der Entwicklung](https://www.automicvault.com/de/): Entferne CLI-Secrets aus Klartextdateien und kontrolliere, welche signierten Apps sie verwenden dürfen.
 
 - [Automic Vault herunterladen](https://www.automicvault.com/de/download/): Lade Automic Vault für macOS herunter und schütze lokale AI-Agent-Läufe.
 

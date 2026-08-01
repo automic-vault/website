@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | Mac 上で AI エージェントを暴走させない</title>
-  <meta name="description" content="AI エージェントがソフトウェアをインストールしたり、シークレットを使ったりする前に承認を求めさせます。">
+  <title>Automic Vault | 新しい時代の開発に向けた新しいシークレット管理</title>
+  <meta name="description" content="CLI シークレットを平文ファイルから移し、どの署名済みアプリが使用できるかを制御します。">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Mac 上で AI エージェントを暴走させない">
-  <meta property="og:description" content="ソフトウェアのインストールやシークレットの使用前に承認を求めさせます。">
+  <meta property="og:title" content="新しい時代の開発に向けた新しいシークレット管理">
+  <meta property="og:description" content="CLI シークレットを平文ファイルから移し、どの署名済みアプリが使用できるかを制御します。">
   <meta property="og:url" content="https://www.automicvault.com/ja/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mac 上で AI エージェントを暴走させない">
-  <meta name="twitter:description" content="ソフトウェアのインストールやシークレットの使用前に承認を求めさせます。">
+  <meta name="twitter:title" content="新しい時代の開発に向けた新しいシークレット管理">
+  <meta name="twitter:description" content="CLI シークレットを平文ファイルから移し、どの署名済みアプリが使用できるかを制御します。">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/ja/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -43,9 +43,9 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/ja/",
-    "name": "Automic Vault | Mac 上で AI エージェントを暴走させない",
-    "headline": "Mac 上で AI エージェントを暴走させない。",
-    "description": "AI エージェントがソフトウェアをインストールしたり、シークレットを使ったりする前に承認を求めさせます。",
+    "name": "Automic Vault | 新しい時代の開発に向けた新しいシークレット管理",
+    "headline": "新しい時代の開発に向けた新しいシークレット管理。",
+    "description": "CLI シークレットを平文ファイルから移し、どの署名済みアプリが使用できるかを制御します。",
     "inLanguage": "ja",
     "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
@@ -55,36 +55,47 @@
 <body class="brew-home">
   <header class="brew-nav">
     <a class="brew-brand" href="#top" aria-label="Automic Vault ホーム">
-      <img src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54">
+      <img src="/assets/brand-shield-v2.webp?v=3" alt="" width="54" height="54">
       <span>Automic Vault</span>
     </a>
     <nav class="brew-nav-links" aria-label="メインナビゲーション">
-      <a href="#controls">アクセス制御</a>
-      <a href="#audit">監査ログ</a>
-      <a href="#threats">脅威</a>
+      <a href="#boundary">シークレット</a>
+      <a href="#controls">ポリシー</a>
+      <a href="#audit">監査</a>
     </nav>
-    <a class="brew-download" href="/Automic%20Vault.dmg">ダウンロード</a>
+    <div class="brew-nav-actions">
+      <a class="brew-github" href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      <a class="brew-download" href="/Automic%20Vault.dmg">macOS 版をダウンロード</a>
+    </div>
   </header>
 
   <main>
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
-        <p class="brew-kicker">AI エージェントをローカルで制御</p>
-        <h1 id="hero-title">Mac 上で AI エージェントを<span>暴走させない</span>。</h1>
-        <a class="brew-cta" href="/Automic%20Vault.dmg">macOS 版をダウンロード</a>
+        <p class="brew-kicker">Homebrew 開発者が提供</p>
+        <h1 id="hero-title">新しい時代の開発に向けた<span>新しいシークレット管理。</span></h1>
+        <p class="brew-hero-lede">Automic Vault は CLI ツールのシークレットを平文ファイルから移し、どの署名済みアプリが各ツールを各認証情報で実行できるかを制御します。</p>
+        <p>あらゆるエージェント。あらゆるハーネス。設定不要。</p>
+        <div class="brew-hero-actions">
+          <a class="brew-cta" href="/Automic%20Vault.dmg">macOS 版をダウンロード</a>
+          <a class="brew-text-link" href="#boundary">境界の動作を見る <span aria-hidden="true">→</span></a>
+        </div>
       </div>
+      <figure class="brew-hero-capture">
+        <img src="/assets/av-approve-gate.png" alt="ChatGPT が GitHub トークンを要求し、拒否と 1 回だけ承認を選べる Automic Vault の承認画面" width="1212" height="1090" fetchpriority="high" decoding="async">
+      </figure>
       <ul class="brew-promises">
-        <li><span>01</span><strong>ソフトウェアのインストールを制御</strong></li>
-        <li><span>02</span><strong>シークレットを手の届かない場所に保管</strong></li>
-        <li><span>03</span><strong>機密操作を確認</strong></li>
+        <li><span>01</span><strong>平文シークレットをなくす</strong><small>認証情報を dotfile やツール設定から移します。</small></li>
+        <li><span>02</span><strong>受け渡しを制御する</strong><small>正しい実行ファイルだけが認証情報を受け取ります。</small></li>
+        <li><span>03</span><strong>1 つのローカル境界を適用</strong><small>どの起動元にも同じポリシーが適用されます。</small></li>
       </ul>
     </section>
 
-    <section class="brew-risk" aria-labelledby="risk-title">
+    <section class="brew-risk" id="boundary" aria-labelledby="risk-title">
       <div class="brew-split">
         <div class="brew-copy">
-          <p class="brew-eyebrow">Automic Vault 導入前</p>
-          <h2 id="risk-title">「親切な」エージェントは危険な近道を選びます。</h2>
+          <p class="brew-eyebrow">エージェントはあなたのアクセス権を引き継ぐ</p>
+          <h2 id="risk-title">エージェントがすでに読めるシークレットは、プロンプトでは守れません。</h2>
         </div>
         <ol class="brew-session" aria-label="ローカルの AWS 認証情報を読み取ってアップロードする Claude セッション">
           <li class="brew-chat-message brew-chat-message-agent">
@@ -199,20 +210,21 @@ aws_secret_access_key = ••••••••••••••••••�
       </div>
     </section>
 
-    <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
-      <div class="brew-capture-stack">
-        <figure class="brew-capture">
-          <img src="/assets/approval-terminal-only.webp" alt="Terminal.app が呼び出した場合だけ gh に GitHub トークンへの直接アクセスを許可する Automic Vault のシークレットゲート" width="1952" height="1338" loading="lazy" decoding="async">
-          <figcaption>シークレットを扱うツールごとに読み取り専用の自動承認を選べます。完全アクセスは Terminal.app だけに許可します。</figcaption>
-        </figure>
-      </div>
+    <section class="brew-access" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
-        <h2 id="controls-title">アクセスを細かく調整。あなた用とエージェント用に別々のルールを設定。</h2>
-        <p>すべてのシークレット利用を既定で制限します。指定したコード署名済み実行ファイルだけ承認条件を緩和できます。</p>
-        <dl class="brew-control-list">
-          <div><dt>読み取り専用</dt><dd>安全なクエリを、書き込み権限なしで自動承認します。</dd></div>
-          <div><dt>完全アクセス</dt><dd>直接の <code>gh</code> アクセスを、Terminal.app など指定した呼び出し元アプリだけ常時承認します。</dd></div>
-        </dl>
+        <p class="brew-eyebrow">アプリごとのアクセス</p>
+        <h2 id="controls-title">ポリシーはツールと起動元に従います。</h2>
+        <p>Terminal、Codex、不明なプロセスはいずれも同じ実行ファイルを呼び出せます。Automic Vault は署名済みの起動元を識別し、組み合わせごとに独自のアクセスポリシーを適用します。</p>
+      </div>
+      <div class="brew-access-body">
+        <figure class="brew-access-diagram">
+          <div class="brew-access-screen"><img src="/assets/access-levels.png" alt="その他すべてのアプリはアクセス不可、Terminal は信頼済みアクセス、ChatGPT は読み取り専用と表示する Automic Vault" width="1944" height="1380" loading="lazy" decoding="async"></div>
+          <dl class="brew-access-notes">
+            <div class="brew-access-note"><dt>アクセス不可</dt><dd>アプリに自動アクセスはありません。すべての要求に承認が必要です。</dd></div>
+            <div class="brew-access-note"><dt>信頼済みアクセス</dt><dd><code>npm i</code> を実行しない Terminal 用です。シークレットを公開するコマンドには常に承認が残ります。</dd></div>
+            <div class="brew-access-note"><dt>読み取り専用</dt><dd>エージェントなど、ある程度信頼するツール用です。安全な読み取りは進み、書き込みには承認が必要です。</dd></div>
+          </dl>
+        </figure>
       </div>
     </section>
 
@@ -244,6 +256,19 @@ aws_secret_access_key = ••••••••••••••••••�
       </div>
     </section>
 
+    <section class="brew-feature" id="terminal-security" aria-labelledby="terminal-security-title">
+      <div class="brew-copy">
+        <p class="brew-eyebrow">ハーネスに依存しない</p>
+        <h2 id="terminal-security-title">すべてのエージェントの下にあるツール層を制御。</h2>
+        <p>コマンドラインツールは、それを起動したアプリの権限で実行されます。Automic Vault はツールと署名済みの起動元を識別し、その組み合わせに選択したアクセスルールを適用します。</p>
+        <a class="brew-text-link" href="/blog/bringing-macos-security-to-the-terminal/">Terminal に独自のセキュリティ層が必要な理由 <span aria-hidden="true">→</span></a>
+      </div>
+      <figure class="brew-capture">
+        <img src="/assets/approval-terminal-only.webp" alt="Terminal.app が起動した場合だけ gh に GitHub トークンへの直接アクセスを許可する Automic Vault のルール" width="1952" height="1338" loading="lazy" decoding="async">
+        <figcaption>同じ CLI でも、Terminal、エージェントハーネス、その他のホストアプリごとに異なるアクセスを設定できます。</figcaption>
+      </figure>
+    </section>
+
     <section class="brew-pricing" id="pricing" aria-labelledby="pricing-title">
       <h2 id="pricing-title">無料のオープンソース。</h2>
       <p>Automic Vault は無料です。さらにセキュリティを高めたい場合は、オプションの iPhone アプリを有料で購読できます。承認ゲートをコマンド実行中のコンピュータから、エージェントやマルウェアに傍受されないスマートフォンへ移します。</p>
@@ -255,7 +280,7 @@ aws_secret_access_key = ••••••••••••••••••�
     <a class="brew-cta" href="/Automic%20Vault.dmg">macOS 版をダウンロード</a>
     <div class="brew-footer-meta">
       <a class="brew-brand" href="#top">
-        <img src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54">
+        <img src="/assets/brand-shield-v2.webp?v=3" alt="" width="54" height="54">
         <span>Automic Vault</span>
       </a>
       <nav aria-label="フッターナビゲーション">

@@ -4,7 +4,7 @@
 
 ## 主要页面
 
-- [Automic Vault | 阻止 AI 代理在你的 Mac 上失控](https://www.automicvault.com/zh-hans/): 让 AI 代理在安装软件或使用你的密钥前先请求批准。
+- [Automic Vault | 面向开发新时代的新型密钥管理器](https://www.automicvault.com/zh-hans/): 将 CLI 密钥移出明文文件，并控制哪些签名应用可以使用它们。
 
 - [下载 Automic Vault](https://www.automicvault.com/zh-hans/download/): 获取 macOS 版 Automic Vault，保护本地 AI 代理运行。
 

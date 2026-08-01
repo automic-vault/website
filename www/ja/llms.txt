@@ -4,7 +4,7 @@
 
 ## 主要ページ
 
-- [Automic Vault | Mac 上で AI エージェントを暴走させない](https://www.automicvault.com/ja/): AI エージェントがソフトウェアをインストールしたり、シークレットを使ったりする前に承認を求めさせます。
+- [Automic Vault | 新しい時代の開発に向けた新しいシークレット管理](https://www.automicvault.com/ja/): CLI シークレットを平文ファイルから移し、どの署名済みアプリが使用できるかを制御します。
 
 - [Automic Vault ダウンロード](https://www.automicvault.com/ja/download/): macOS 用 Automic Vault を入手し、ローカルの AI エージェント実行を保護します。
 

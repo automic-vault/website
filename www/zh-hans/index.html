@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | 阻止 AI 代理在你的 Mac 上失控</title>
-  <meta name="description" content="让 AI 代理在安装软件或使用你的密钥前先请求批准。">
+  <title>Automic Vault | 面向开发新时代的新型密钥管理器</title>
+  <meta name="description" content="将 CLI 密钥移出明文文件，并控制哪些签名应用可以使用它们。">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="阻止 AI 代理在你的 Mac 上失控">
-  <meta property="og:description" content="让 AI 代理在安装软件或使用你的密钥前先请求批准。">
+  <meta property="og:title" content="面向开发新时代的新型密钥管理器">
+  <meta property="og:description" content="将 CLI 密钥移出明文文件，并控制哪些签名应用可以使用它们。">
   <meta property="og:url" content="https://www.automicvault.com/zh-hans/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="阻止 AI 代理在你的 Mac 上失控">
-  <meta name="twitter:description" content="让 AI 代理在安装软件或使用你的密钥前先请求批准。">
+  <meta name="twitter:title" content="面向开发新时代的新型密钥管理器">
+  <meta name="twitter:description" content="将 CLI 密钥移出明文文件，并控制哪些签名应用可以使用它们。">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/zh-hans/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -43,9 +43,9 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/zh-hans/",
-    "name": "Automic Vault | 阻止 AI 代理在你的 Mac 上失控",
-    "headline": "阻止 AI 代理在你的 Mac 上失控。",
-    "description": "让 AI 代理在安装软件或使用你的密钥前先请求批准。",
+    "name": "Automic Vault | 面向开发新时代的新型密钥管理器",
+    "headline": "面向开发新时代的新型密钥管理器。",
+    "description": "将 CLI 密钥移出明文文件，并控制哪些签名应用可以使用它们。",
     "inLanguage": "zh-Hans",
     "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
@@ -55,36 +55,47 @@
 <body class="brew-home">
   <header class="brew-nav">
     <a class="brew-brand" href="#top" aria-label="Automic Vault 首页">
-      <img src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54">
+      <img src="/assets/brand-shield-v2.webp?v=3" alt="" width="54" height="54">
       <span>Automic Vault</span>
     </a>
     <nav class="brew-nav-links" aria-label="主导航">
-      <a href="#controls">访问控制</a>
-      <a href="#audit">审计日志</a>
-      <a href="#threats">威胁</a>
+      <a href="#boundary">密钥</a>
+      <a href="#controls">策略</a>
+      <a href="#audit">审计</a>
     </nav>
-    <a class="brew-download" href="/Automic%20Vault.dmg">下载</a>
+    <div class="brew-nav-actions">
+      <a class="brew-github" href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      <a class="brew-download" href="/Automic%20Vault.dmg">下载 macOS 版</a>
+    </div>
   </header>
 
   <main>
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
-        <p class="brew-kicker">在本地控制 AI 代理</p>
-        <h1 id="hero-title">阻止 AI 代理在你的 Mac 上<span>失控</span>。</h1>
-        <a class="brew-cta" href="/Automic%20Vault.dmg">下载 macOS 版</a>
+        <p class="brew-kicker">由 Homebrew 创始人打造</p>
+        <h1 id="hero-title">面向开发新时代的<span>新型密钥管理器。</span></h1>
+        <p class="brew-hero-lede">Automic Vault 将 CLI 工具密钥移出明文文件，并控制哪些签名应用可以使用哪些凭据运行每个工具。</p>
+        <p>任何代理。任何运行框架。零配置。</p>
+        <div class="brew-hero-actions">
+          <a class="brew-cta" href="/Automic%20Vault.dmg">下载 macOS 版</a>
+          <a class="brew-text-link" href="#boundary">查看边界如何工作 <span aria-hidden="true">→</span></a>
+        </div>
       </div>
+      <figure class="brew-hero-capture">
+        <img src="/assets/av-approve-gate.png" alt="Automic Vault 审批界面显示 ChatGPT 请求 GitHub 令牌，并提供拒绝和仅批准一次选项" width="1212" height="1090" fetchpriority="high" decoding="async">
+      </figure>
       <ul class="brew-promises">
-        <li><span>01</span><strong>控制软件安装</strong></li>
-        <li><span>02</span><strong>让密钥远离代理</strong></li>
-        <li><span>03</span><strong>审查敏感操作</strong></li>
+        <li><span>01</span><strong>移除明文密钥</strong><small>凭据不再留在 dotfile 和工具配置中。</small></li>
+        <li><span>02</span><strong>控制凭据交付</strong><small>只有正确的可执行文件会获得凭据。</small></li>
+        <li><span>03</span><strong>应用统一的本地边界</strong><small>每个启动方都遵循同一策略。</small></li>
       </ul>
     </section>
 
-    <section class="brew-risk" aria-labelledby="risk-title">
+    <section class="brew-risk" id="boundary" aria-labelledby="risk-title">
       <div class="brew-split">
         <div class="brew-copy">
-          <p class="brew-eyebrow">使用 Automic Vault 之前</p>
-          <h2 id="risk-title">“乐于助人”的代理会走危险的捷径。</h2>
+          <p class="brew-eyebrow">你的代理会继承你的访问权限</p>
+          <h2 id="risk-title">如果代理已经能够读取密钥，提示词就无法保护它。</h2>
         </div>
         <ol class="brew-session" aria-label="读取并上传本地 AWS 凭据的 Claude 会话">
           <li class="brew-chat-message brew-chat-message-agent">
@@ -199,20 +210,21 @@ aws_secret_access_key = ••••••••••••••••••�
       </div>
     </section>
 
-    <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
-      <div class="brew-capture-stack">
-        <figure class="brew-capture">
-          <img src="/assets/approval-terminal-only.webp" alt="Automic Vault 密钥门仅在 Terminal.app 为调用方时允许 gh 直接访问 GitHub 令牌" width="1952" height="1338" loading="lazy" decoding="async">
-          <figcaption>按处理密钥的工具选择启用只读审批。完全访问权限，但仅限 Terminal.app。</figcaption>
-        </figure>
-      </div>
+    <section class="brew-access" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
-        <h2 id="controls-title">精细调整访问权限。你和代理各有一套规则。</h2>
-        <p>每次密钥使用默认受限。只有对指定的代码签名可执行文件才可放宽审批。</p>
-        <dl class="brew-control-list">
-          <div><dt>只读</dt><dd>自动批准安全查询，但不授予写入权限。</dd></div>
-          <div><dt>完全访问</dt><dd>仅对指定的调用应用（例如 Terminal.app）始终批准直接 <code>gh</code> 访问。</dd></div>
-        </dl>
+        <p class="brew-eyebrow">按应用控制访问</p>
+        <h2 id="controls-title">策略同时跟随工具及其启动方。</h2>
+        <p>Terminal、Codex 和未知进程都可以调用同一个可执行文件。Automic Vault 会识别签名启动方，并为每种组合应用独立的访问策略。</p>
+      </div>
+      <div class="brew-access-body">
+        <figure class="brew-access-diagram">
+          <div class="brew-access-screen"><img src="/assets/access-levels.png" alt="Automic Vault 显示其他应用无权访问、Terminal 拥有可信访问、ChatGPT 拥有只读访问" width="1944" height="1380" loading="lazy" decoding="async"></div>
+          <dl class="brew-access-notes">
+            <div class="brew-access-note"><dt>无权访问</dt><dd>应用不会获得自动访问权限，每次请求都需要你的批准。</dd></div>
+            <div class="brew-access-note"><dt>可信访问</dt><dd>适用于你绝不会运行 <code>npm i</code> 的终端。会暴露密钥的命令始终保留审批门。</dd></div>
+            <div class="brew-access-note"><dt>只读</dt><dd>适用于代理等你有限信任的工具。安全读取可以继续，写入操作需要批准。</dd></div>
+          </dl>
+        </figure>
       </div>
     </section>
 
@@ -244,6 +256,19 @@ aws_secret_access_key = ••••••••••••••••••�
       </div>
     </section>
 
+    <section class="brew-feature" id="terminal-security" aria-labelledby="terminal-security-title">
+      <div class="brew-copy">
+        <p class="brew-eyebrow">独立于运行框架</p>
+        <h2 id="terminal-security-title">控制每个代理下方的工具层。</h2>
+        <p>命令行工具以启动它们的应用所拥有的权限运行。Automic Vault 会识别工具及其签名启动方，并对该组合应用你选择的访问规则。</p>
+        <a class="brew-text-link" href="/blog/bringing-macos-security-to-the-terminal/">了解终端为何需要自己的安全层 <span aria-hidden="true">→</span></a>
+      </div>
+      <figure class="brew-capture">
+        <img src="/assets/approval-terminal-only.webp" alt="Automic Vault 规则仅在 Terminal.app 启动 gh 时允许其直接访问 GitHub 令牌" width="1952" height="1338" loading="lazy" decoding="async">
+        <figcaption>同一个 CLI 可以从 Terminal、代理运行框架或其他宿主应用获得不同的访问权限。</figcaption>
+      </figure>
+    </section>
+
     <section class="brew-pricing" id="pricing" aria-labelledby="pricing-title">
       <h2 id="pricing-title">免费且开源。</h2>
       <p>Automic Vault 免费提供。如需更高的安全性，可付费订阅可选的 iPhone 应用。它会把审批门从运行命令的电脑转移到手机上，避免被代理或恶意软件拦截。</p>
@@ -255,7 +280,7 @@ aws_secret_access_key = ••••••••••••••••••�
     <a class="brew-cta" href="/Automic%20Vault.dmg">下载 macOS 版</a>
     <div class="brew-footer-meta">
       <a class="brew-brand" href="#top">
-        <img src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54">
+        <img src="/assets/brand-shield-v2.webp?v=3" alt="" width="54" height="54">
         <span>Automic Vault</span>
       </a>
       <nav aria-label="页脚导航">
