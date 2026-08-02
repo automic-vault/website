@@ -1,7 +1,7 @@
 # Automic Vault CLI manual
 
 This manual documents the public `av` command surface shipped by Automic Vault
-2.3.0. It was checked against `~/src/av2` on July 27, 2026.
+2.9.0. It was checked against `~/src/av2` on August 2, 2026.
 
 The supported top-level commands are:
 
@@ -18,7 +18,7 @@ av open [--secret-gate ID]
 ```
 
 Commands from the earlier v1 CLI—including `install`, `contain`, `dotenv`,
-`credential-helper`, `gate`, and `trace`—are not part of the 2.3.0 CLI.
+`credential-helper`, `gate`, and `trace`—are not part of the 2.9.0 CLI.
 
 ## Install and verify
 
@@ -98,11 +98,12 @@ launcher type, owner, permissions, content, and `PATH` precedence.
 av doctor
 av doctor gh
 av doctor gh --json
+av doctor claude
+av doctor codex
 ```
 
 Without a selector, `doctor` checks applicable installed hardeners. A selector
-can be a hardener or one of its commands. Current development builds also check
-supported signed agent CLIs when they are present.
+can be a hardener, one of its commands, or a supported signed agent CLI.
 
 - Exit `0`: every selected check is healthy.
 - Exit `1`: one or more issues require attention.
@@ -111,6 +112,30 @@ supported signed agent CLIs when they are present.
 
 JSON output contains `results`; each issue includes its `kind`, message,
 remediation, and relevant stub, target, or resolved path.
+
+## Signed CLI launchers
+
+Automic Vault can bind approval policy to either a signed app bundle or a
+Developer ID-signed standalone executable. It validates the live code signature
+and stores the launcher's designated requirement, which identifies the binary
+and its signing team.
+
+A standalone executable must have a valid Developer ID Application signature,
+identifier, and Team ID. It must pass strict macOS signature validation, and it
+must enable Hardened Runtime before it can receive Secret Gate access. Unsigned
+and ad-hoc signed executables are rejected because they do not establish a vendor
+or Team identity.
+
+Run `av doctor claude` or `av doctor codex` to inspect the executable selected by
+your current `PATH`. In Automic Vault Settings, add the launcher to the relevant
+tool or blessed-script policy and select the resolved native executable rather
+than a shell or package-manager shim. Review its identifier, Team ID, path, and
+designated requirement before allowing it.
+
+If the identity cannot be verified later, automatic approval fails closed and
+requires manual approval. Code signing proves identity and integrity, not intent.
+Keep the terminal or agent app's permissions minimal because TCC remains
+app-scoped.
 
 ## `av save`
 
@@ -185,7 +210,7 @@ absolute and the shebang to one requested-key set plus one interpreter.
 
 ## `av bless`
 
-Store a durable approval for an exact script and the signed apps allowed to
+Store a durable approval for an exact script and the signed launchers allowed to
 launch it:
 
 ```sh
@@ -193,7 +218,7 @@ av bless ./release.sh
 ```
 
 The app opens a review showing the canonical path, SHA-256 checksum, requested
-secrets, tool capabilities, and calling apps. Approving binds the blessing to
+secrets, tool capabilities, and calling launchers. Approving binds the blessing to
 all of them, as well as the `inject` flags and interpreter. Editing or moving
 the script makes the blessing stop matching; review and bless the new version
 explicitly.
@@ -218,8 +243,9 @@ not blanket authority: undeclared or broader requests from the script are
 denied. `full` includes operations that may reveal protected values and should
 be granted sparingly.
 
-Only an endorsed, code-signed calling app can use the blessing for automatic
-approval. With no endorsed app, each execution still requires manual approval.
+Only an endorsed signed app bundle or Developer ID-signed standalone executable
+can use the blessing for automatic approval. With no endorsed launcher, each
+execution still requires manual approval.
 Blessed scripts run from a verified `/dev/fd/N` snapshot so edits cannot race
 approval. `AV_SCRIPT_PATH` contains the canonical source path and `AV_SCRIPT_DIR`
 its containing directory. Blessings can be inspected, narrowed, or revoked
@@ -322,14 +348,14 @@ that target replaces the `av` process.
 
 This manual was checked against the following implementation files:
 
-- [`src/cli/mod.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/mod.rs)
-- [`src/cli/scan.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/scan.rs)
-- [`src/cli/doctor.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/doctor.rs)
-- [`src/cli/save.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/save.rs)
-- [`src/cli/inject.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/inject.rs)
-- [`src/cli/bless.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/bless.rs)
-- [`src/cli/open.rs`](https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/open.rs)
-- [`src/isotopes`](https://github.com/automic-vault/automic-vault/tree/2.3.0/src/isotopes)
+- [`src/cli/mod.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/mod.rs)
+- [`src/cli/scan.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/scan.rs)
+- [`src/cli/doctor.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/doctor.rs)
+- [`src/cli/save.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/save.rs)
+- [`src/cli/inject.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/inject.rs)
+- [`src/cli/bless.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/bless.rs)
+- [`src/cli/open.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/open.rs)
+- [`src/isotopes`](https://github.com/automic-vault/automic-vault/tree/2.9.0/src/isotopes)
 
 For a particular installation, prefer the installed command's `av help`,
 `av detectors --json`, and `av hardeners --json` output. Report documentation or

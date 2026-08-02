@@ -12,16 +12,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Automic Vault CLI Manual</title>
-  <meta name="description" content="Source-checked documentation for the Automic Vault 2.3.0 CLI: scan, doctor, save, inject, bless, harden, machine-readable catalogs, and app links.">
+  <meta name="description" content="Source-checked documentation for the Automic Vault 2.9.0 CLI: scan, doctor, signed CLI launchers, save, inject, bless, harden, and machine-readable catalogs.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Automic Vault CLI Manual">
-  <meta property="og:description" content="The source-checked manual for the Automic Vault 2.3.0 command line.">
+  <meta property="og:description" content="The source-checked manual for the Automic Vault 2.9.0 command line.">
   <meta property="og:url" content="https://www.automicvault.com/docs/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Automic Vault CLI Manual">
-  <meta name="twitter:description" content="The source-checked manual for the Automic Vault 2.3.0 command line.">
+  <meta name="twitter:description" content="The source-checked manual for the Automic Vault 2.9.0 command line.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/">
   <link rel="alternate" type="text/markdown" title="Markdown manual" href="/docs/index.md">
@@ -35,14 +35,14 @@
         "@id": "https://www.automicvault.com/docs/#article",
         "url": "https://www.automicvault.com/docs/",
         "headline": "Automic Vault CLI Manual",
-        "description": "Source-checked documentation for the Automic Vault 2.3.0 CLI.",
-        "dateModified": "2026-07-27",
+        "description": "Source-checked documentation for the Automic Vault 2.9.0 CLI.",
+        "dateModified": "2026-08-02",
         "author": {"@id": "https://www.automicvault.com/#organization"},
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "about": {
           "@type": "SoftwareApplication",
           "name": "Automic Vault",
-          "softwareVersion": "2.3.0",
+          "softwareVersion": "2.9.0",
           "operatingSystem": "macOS",
           "codeRepository": "https://github.com/automic-vault/automic-vault"
         },
@@ -92,11 +92,11 @@
       <header class="docs-hero">
         <div class="docs-hero-inner">
           <h1>The <code>av</code> manual.</h1>
-          <p class="lede">Source-checked documentation for the command line shipped by Automic Vault 2.3.0: audit the machine, repair hardened tools, save a named value, and release it to one approved command.</p>
+          <p class="lede">Source-checked documentation for the command line shipped by Automic Vault 2.9.0: audit the machine, repair hardened tools, verify signed CLI launchers, save a named value, and release it to one approved command.</p>
           <ul class="docs-provenance" aria-label="Manual provenance">
             <li>macOS</li>
-            <li>CLI 2.3.0</li>
-            <li>Checked July 27, 2026</li>
+            <li>CLI 2.9.0</li>
+            <li>Checked August 2, 2026</li>
             <li><a href="/docs/index.md">Markdown</a></li>
           </ul>
         </div>
@@ -112,6 +112,7 @@
             <li><a href="#commands">Commands</a></li>
             <li><a href="#scan">Scan</a></li>
             <li><a href="#doctor">Doctor</a></li>
+            <li><a href="#signed-cli-launchers">Signed CLI launchers</a></li>
             <li><a href="#save">Save</a></li>
             <li><a href="#inject">Inject</a></li>
             <li><a href="#bless">Bless</a></li>
@@ -163,7 +164,7 @@ av inject +GH_TOKEN gh auth status</code></pre>
               <div><dt><code>av hardeners --json</code></dt><dd>List hardener applicability, paths, commands, documentation, and Secret Gate routes.</dd></div>
               <div><dt><code>av save KEY</code></dt><dd>Read one hidden value from the terminal and store it under a valid environment key name.</dd></div>
               <div><dt><code>av inject +KEY COMMAND</code></dt><dd>Request named values and execute one approved target.</dd></div>
-              <div><dt><code>av bless PATH</code></dt><dd>Review and store durable authority for an exact script and signed calling apps.</dd></div>
+              <div><dt><code>av bless PATH</code></dt><dd>Review and store durable authority for an exact script and signed launchers.</dd></div>
               <div><dt><code>av harden NAME</code></dt><dd>Apply a reviewed tool-specific migration or launcher boundary.</dd></div>
               <div><dt><code>av open</code></dt><dd>Open the app or a specific Secret Gate.</dd></div>
             </dl>
@@ -189,14 +190,26 @@ av scan --json</code></pre>
             <p>Check whether installed hardening still has the expected target, dependencies, launcher type, owner, permissions, content, and <code>PATH</code> precedence.</p>
             <pre><code>av doctor
 av doctor gh
-av doctor gh --json</code></pre>
-            <p>Without a selector, <code>doctor</code> checks applicable installed hardeners. A selector can be a hardener or one of its commands. Current development builds also check supported signed agent CLIs when they are present.</p>
+av doctor gh --json
+av doctor claude
+av doctor codex</code></pre>
+            <p>Without a selector, <code>doctor</code> checks applicable installed hardeners. A selector can be a hardener, one of its commands, or a supported signed agent CLI.</p>
             <ul>
               <li>Exit <code>0</code>: every selected check is healthy.</li>
               <li>Exit <code>1</code>: one or more issues require attention.</li>
               <li>Exit <code>2</code>: invalid arguments, an unknown selector, or a selector with no Doctor-owned checks.</li>
             </ul>
             <p>JSON output contains <code>results</code>; each issue includes its kind, message, remediation, and relevant stub, target, or resolved path.</p>
+          </section>
+
+          <section class="docs-section" id="signed-cli-launchers">
+            <h2>Signed CLI launchers</h2>
+            <p>Automic Vault can bind approval policy to either a signed app bundle or a Developer ID-signed standalone executable. It validates the live code signature and stores the launcher's designated requirement, which identifies the binary and its signing team.</p>
+            <p>A standalone executable must have a valid Developer ID Application signature, identifier, and Team ID. It must pass strict macOS signature validation, and it must enable Hardened Runtime before it can receive Secret Gate access. Unsigned and ad-hoc signed executables are rejected because they do not establish a vendor or Team identity.</p>
+            <pre><code>av doctor claude
+av doctor codex</code></pre>
+            <p>These commands inspect the executable selected by the current <code>PATH</code>. In Automic Vault Settings, add the launcher to the relevant tool or blessed-script policy and select the resolved native executable rather than a shell or package-manager shim. Review its identifier, Team ID, path, and designated requirement before allowing it.</p>
+            <p>If the identity cannot be verified later, automatic approval fails closed and requires manual approval. Code signing proves identity and integrity, not intent. Keep the terminal or agent app's permissions minimal because TCC remains app-scoped.</p>
           </section>
 
           <section class="docs-section" id="save">
@@ -238,9 +251,9 @@ exec curl -H "Authorization: Bearer $API_TOKEN" \
 
           <section class="docs-section" id="bless">
             <h2><code>av bless</code></h2>
-            <p>Store a durable approval for an exact script and the signed apps allowed to launch it.</p>
+            <p>Store a durable approval for an exact script and the signed launchers allowed to launch it.</p>
             <pre><code>av bless ./release.sh</code></pre>
-            <p>The app opens a review showing the canonical path, SHA-256 checksum, requested secrets, tool capabilities, and calling apps. Approval also binds the <code>inject</code> flags and interpreter. Editing or moving the script makes the blessing stop matching; review and bless the new version explicitly.</p>
+            <p>The app opens a review showing the canonical path, SHA-256 checksum, requested secrets, tool capabilities, and calling launchers. Approval also binds the <code>inject</code> flags and interpreter. Editing or moving the script makes the blessing stop matching; review and bless the new version explicitly.</p>
             <p>A blessable script must be a regular UTF-8 file no larger than 1 MiB and start with an absolute <code>av inject</code> shebang whose target interpreter is also absolute.</p>
             <pre><code>#!/usr/local/bin/av inject +GH_TOKEN /bin/sh
 # --- automic-vault
@@ -250,7 +263,7 @@ exec curl -H "Authorization: Bearer $API_TOKEN" \
 set -eu
 gh release create "$1"</code></pre>
             <p>The optional manifest must immediately follow the shebang. It may grant named Secret Gates one of <code>read-only</code>, <code>local-write</code>, <code>read-and-updates</code>, <code>trusted</code>, or <code>full</code>. Unsupported gates and access levels are rejected. These are ceilings, not blanket authority: undeclared or broader requests from the script are denied. <code>full</code> includes operations that may reveal protected values and should be granted sparingly.</p>
-            <p>Only an endorsed, code-signed calling app can use the blessing for automatic approval. With no endorsed app, each execution still requires manual approval. Blessed scripts run from a verified <code>/dev/fd/N</code> snapshot so edits cannot race approval. <code>AV_SCRIPT_PATH</code> contains the canonical source path and <code>AV_SCRIPT_DIR</code> its containing directory. Blessings can be inspected, narrowed, or revoked under <strong>Blessed Scripts</strong> in the app.</p>
+            <p>Only an endorsed signed app bundle or Developer ID-signed standalone executable can use the blessing for automatic approval. With no endorsed launcher, each execution still requires manual approval. Blessed scripts run from a verified <code>/dev/fd/N</code> snapshot so edits cannot race approval. <code>AV_SCRIPT_PATH</code> contains the canonical source path and <code>AV_SCRIPT_DIR</code> its containing directory. Blessings can be inspected, narrowed, or revoked under <strong>Blessed Scripts</strong> in the app.</p>
           </section>
 
           <section class="docs-section" id="harden">
@@ -309,12 +322,12 @@ av inject --version</code></pre>
 
           <section class="docs-section docs-unsupported" id="unsupported">
             <h2>Commands that are not in v2</h2>
-            <p>The earlier v1 manual described <code>install</code>, <code>contain</code>, <code>dotenv</code>, <code>credential-helper</code>, <code>gate</code>, and <code>trace</code>. Those commands are not part of the Automic Vault 2.3.0 dispatcher. Use <code>av help</code> from the installed build as the authoritative top-level list.</p>
+            <p>The earlier v1 manual described <code>install</code>, <code>contain</code>, <code>dotenv</code>, <code>credential-helper</code>, <code>gate</code>, and <code>trace</code>. Those commands are not part of the Automic Vault 2.9.0 dispatcher. Use <code>av help</code> from the installed build as the authoritative top-level list.</p>
           </section>
 
           <section class="docs-section" id="source">
             <h2>Source of truth</h2>
-            <p>This manual was checked against the tagged 2.3.0 implementation: <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/mod.rs"><code>mod.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/scan.rs"><code>scan.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/doctor.rs"><code>doctor.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/save.rs"><code>save.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/inject.rs"><code>inject.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/bless.rs"><code>bless.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.3.0/src/cli/open.rs"><code>open.rs</code></a>, and the <a href="https://github.com/automic-vault/automic-vault/tree/2.3.0/src/isotopes">isotope catalog</a>.</p>
+            <p>This manual was checked against the tagged 2.9.0 implementation: <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/mod.rs"><code>mod.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/scan.rs"><code>scan.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/doctor.rs"><code>doctor.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/save.rs"><code>save.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/inject.rs"><code>inject.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/bless.rs"><code>bless.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/open.rs"><code>open.rs</code></a>, and the <a href="https://github.com/automic-vault/automic-vault/tree/2.9.0/src/isotopes">isotope catalog</a>.</p>
             <p>For a particular installation, prefer its <code>av help</code>, <code>av detectors --json</code>, and <code>av hardeners --json</code> output. Report discrepancies in the <a href="https://github.com/automic-vault/automic-vault/issues">issue tracker</a>.</p>
           </section>
         </article>
