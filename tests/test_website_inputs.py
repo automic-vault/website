@@ -1,6 +1,5 @@
 import datetime
 import html.parser
-import importlib.util
 import pathlib
 import re
 import subprocess
@@ -8,22 +7,11 @@ import sys
 import unittest
 import urllib.parse
 import xml.etree.ElementTree as ET
-from unittest import mock
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 GA_SCRIPT = "https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"
 GA_CONFIG = "gtag('config', 'G-Y78QKG1T9Y')"
-
-
-def load_package_renderer():
-    path = ROOT / "scripts" / "generate-pkg-pages.py"
-    spec = importlib.util.spec_from_file_location("av_www_package_renderer_tests", path)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
 
 
 class LocalReferenceParser(html.parser.HTMLParser):
@@ -56,24 +44,14 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertNotIn("--architectures", update_config)
         self.assertIn("--architectures arm64", update_code)
 
-    def test_curated_taxonomy_overrides_fallback_package_category(self):
-        renderer = load_package_renderer()
-        page = renderer.PackagePage(provider="brew", name="aider", category="developer-tools")
-        taxonomy = {
-            "category": "ai",
-            "categoryPath": ["ai", "coding-agents"],
-            "categoryConfidence": "high",
-            "tags": ["ai", "coding-agent"],
-        }
+    def test_pkg_so_redirect_is_staged_and_disabled_by_default(self):
+        deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
 
-        with (
-            mock.patch.object(renderer, "load_pkg_taxonomy_index", return_value={}),
-            mock.patch.object(renderer, "taxonomy_for_package", return_value=taxonomy),
-        ):
-            renderer.apply_package_taxonomy({"brew:aider": page})
-
-        self.assertEqual(page.category, "ai")
-        self.assertEqual(page.extra["pkgTaxonomy"]["categoryPath"], ["ai", "coding-agents"])
+        self.assertIn('WWW_PKG_SO_REDIRECT="${WWW_PKG_SO_REDIRECT:-false}"', deploy_script)
+        self.assertIn("var redirectPackages = ${WWW_PKG_SO_REDIRECT};", deploy_script)
+        self.assertIn('return appendQueryString("https://pkg.so" + uri);', deploy_script)
+        self.assertIn("if (redirectPackages && isPackageOriginPath(request.uri))", deploy_script)
+        self.assertIn('statusCode: 301', deploy_script)
 
     def test_all_static_html_pages_embed_google_analytics(self):
         missing = []

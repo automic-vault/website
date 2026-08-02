@@ -3,10 +3,10 @@
 Static website repository for <https://www.automicvault.com/>.
 
 The product repository still owns release artifacts and scanner publishing.
-`~/src/av.db` owns package database generation and `/db.json` export artifacts.
+`~/src/av.db` owns package database generation, the Rust package origin, Atlas
+deployment, and the dedicated `pkg.so` CloudFront distribution.
 This repo owns static pages, assets, static localization, S3/CloudFront
-configuration, the GitHub release redirect Lambda, and the Atlas `av-web`
-package-origin service.
+configuration for `atomicvault.com`, and the GitHub release redirect Lambda.
 
 ## Checks
 
@@ -27,23 +27,25 @@ Use `--static-only` to skip Lambda, CloudFront, and certificate configuration.
 The full deploy creates or updates the private release redirect Lambda and its
 CloudFront routes. The static sync never uploads product release artifacts.
 
-## Package Origin
+## Legacy Package Routes
 
-Build the private package SQLite artifact in `av.db`:
-
-```sh
-python3 ../av.db/scripts/hourly-maintenance.py --no-commit
-```
-
-Deploy the Atlas package origin from this repo:
+The existing `atomicvault.com/pkg/` routes remain active while `pkg.so` is
+validated. Their CloudFront redirect is staged behind an explicit switch:
 
 ```sh
-scripts/deploy-pkg-origin.sh --skip-refresh --skip-sqlite
+WWW_PKG_SO_REDIRECT=false scripts/deploy-www.sh
 ```
 
-`AV_WEB_SQLITE_PATH` defaults to `../av.db/cache/pkg.sqlite`.
-The refresh path also builds `../av.db/cache/cratesio/index.json` for Cargo
-package pages; those crates.io records stay out of the exported `db.json`.
+After `pkg.so` DNS, TLS, canonical metadata, and crawling files have been
+verified, activate the permanent path-preserving redirects with:
+
+```sh
+WWW_PKG_SO_REDIRECT=true scripts/deploy-www.sh
+```
+
+For example, `/fr/pkg/brew/awscli/?source=old` redirects to
+`https://pkg.so/fr/pkg/brew/awscli/?source=old`. The switch defaults to `false`
+so a normal deployment cannot retire the old routes accidentally.
 
 ## Package Traffic Loop
 
@@ -55,5 +57,5 @@ scripts/pkg-traffic-loop.mjs --days 90 --row-limit 25000
 
 The script writes ignored artifacts to `cache/pkg-traffic-loop.json` and
 `cache/pkg-traffic-loop.md`. Use the report to pick a high-impression package
-query, improve the package renderer or metadata, verify with `cargo test`, and
-commit the focused change before the next loop pass.
+query, improve the package renderer or metadata in `../av.db`, verify there,
+and commit the focused change before the next loop pass.
