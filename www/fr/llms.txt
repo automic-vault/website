@@ -10,7 +10,7 @@
 
 - [Documentation](https://www.automicvault.com/docs/): Manuel CLI en anglais, vérifié sur les sources d’Automic Vault 2.9.0, couvrant scan, doctor, save, inject, bless et harden.
 
-- [Paquets](https://www.automicvault.com/fr/pkg/): Catalogue consultable de paquets développeur, dépendances, commandes d’installation, risques et couverture de durcissement Automic Vault.
+- [Paquets](https://pkg.so/fr/): Catalogue consultable de paquets développeur, dépendances, commandes d’installation, risques et couverture de durcissement Automic Vault.
 
 - [Blog](https://www.automicvault.com/blog/): Guides et analyses d’incidents liés aux paquets, extensions, identifiants et exécutions locales.
 

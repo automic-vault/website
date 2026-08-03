@@ -10,7 +10,7 @@
 
 - [文档](https://www.automicvault.com/docs/): 经源码核对的英文 Automic Vault 2.9.0 CLI 手册，涵盖 scan、doctor、save、inject、bless 和 harden。
 
-- [软件包](https://www.automicvault.com/zh-hans/pkg/): 可搜索开发者软件包、依赖项、安装命令、风险信息和 Automic Vault 加固覆盖情况。
+- [软件包](https://pkg.so/zh-hans/): 可搜索开发者软件包、依赖项、安装命令、风险信息和 Automic Vault 加固覆盖情况。
 
 - [Blog](https://www.automicvault.com/blog/): 关于软件包、扩展、凭据和本地执行事件的开发者安全指南与分析。
 

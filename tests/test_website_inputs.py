@@ -78,6 +78,14 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertIn("Id: $origin_id", update)
         self.assertIn("S3OriginConfig: {", update)
 
+    def test_static_pages_link_directly_to_pkg_so(self):
+        stale = []
+        for page in sorted((ROOT / "www").rglob("*.html")):
+            text = page.read_text(encoding="utf-8")
+            if re.search(r'href="(?:\.\./|/)(?:de/|fr/|ja/|zh-hans/)?pkg/', text):
+                stale.append(str(page.relative_to(ROOT)))
+        self.assertEqual(stale, [])
+
     def test_all_static_html_pages_embed_google_analytics(self):
         missing = []
         for page in sorted((ROOT / "www").rglob("*.html")):
@@ -210,10 +218,11 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                 self.assertIn("https://github.com/automic-vault/automic-vault", text)
                 if locale:
                     self.assertIn(f"https://www.automicvault.com/{locale}/", text)
-                    self.assertIn(f"https://www.automicvault.com/{locale}/pkg/", text)
+                    self.assertIn(f"https://pkg.so/{locale}/", text)
                 else:
                     self.assertIn("https://www.automicvault.com/download/", text)
                     self.assertIn("https://www.automicvault.com/.well-known/security.txt", text)
+                    self.assertIn("https://pkg.so/", text)
 
     def test_secondary_formats_and_localized_llms_are_discoverable(self):
         home = (ROOT / "www" / "index.html").read_text(encoding="utf-8")
@@ -243,6 +252,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
 
     def test_crawler_and_security_metadata_are_current(self):
         robots = (ROOT / "www" / "robots.txt").read_text(encoding="utf-8")
+        self.assertNotIn("automicvault.com/pkg/sitemap.xml", robots)
         for user_agent in (
             "GPTBot",
             "OAI-SearchBot",
@@ -326,9 +336,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                 if parsed.netloc and parsed.netloc != "www.automicvault.com":
                     continue
                 path = urllib.parse.unquote(urllib.parse.urljoin(route, parsed.path or route))
-                if path in release_artifacts or path == "/pkg/" or any(
-                    path.startswith(f"/{locale}/pkg/") for locale in ("de", "fr", "ja", "zh-hans")
-                ):
+                if path in release_artifacts:
                     continue
                 target = site / path.lstrip("/")
                 if path.endswith("/"):

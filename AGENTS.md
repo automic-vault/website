@@ -20,14 +20,11 @@ behavior, app/CLI behavior, or package-origin server code to this repository.
 
 The live package catalog and its Rust origin are owned by `~/src/pkgdb`.
 
-`/pkg/`, localized `/de/pkg/`, `/fr/pkg/`, `/ja/pkg/`, `/zh-hans/pkg/`, package
-sitemaps, markdown alternates, `/pkg/styles.css`, `/pkg/search.js`, and
-`/pkg/search.json` remain Atlas origin routes until the staged `pkg.so`
-redirect is explicitly enabled.
-
-This repository keeps the CloudFront behaviors that route those paths to the
-Atlas origin. Do not duplicate the package renderer, SQLite pipeline, service,
-or deployment scripts here.
+Legacy `/pkg/` routes, including localized variants and package assets,
+permanently redirect to `pkg.so` through this repository's CloudFront Function.
+Keep those redirects, but do not add package origins, cache behaviors, rendered
+content, or traffic tooling here. The renderer, SQLite pipeline, service,
+deployment, and Search Console work belong in `~/src/pkgdb` or the ops repo.
 
 ## Release Artifact Boundary
 

@@ -10,7 +10,7 @@
 
 - [ドキュメント](https://www.automicvault.com/docs/): Automic Vault 2.9.0 の scan、doctor、save、inject、bless、harden などを解説する英語の CLI マニュアルです。
 
-- [パッケージ](https://www.automicvault.com/ja/pkg/): 開発者向けパッケージ、依存関係、インストール方法、リスク情報、Automic Vault の保護状況を検索できます。
+- [パッケージ](https://pkg.so/ja/): 開発者向けパッケージ、依存関係、インストール方法、リスク情報、Automic Vault の保護状況を検索できます。
 
 - [Blog](https://www.automicvault.com/blog/): パッケージ、エディタ拡張、認証情報、ローカル実行のインシデント分析と開発者向けセキュリティガイドです。
 

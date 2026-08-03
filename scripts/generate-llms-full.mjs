@@ -14,7 +14,7 @@ const siteDir = path.resolve(siteDirArg);
 const outputFile = path.resolve(outputArg);
 const includeExtensions = new Set([".html", ".md", ".txt"]);
 const skippedNames = new Set(["llms-full.txt", ".DS_Store"]);
-const skippedDirectories = new Set(["assets", "pagefind", "pkg"]);
+const skippedDirectories = new Set(["assets"]);
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });

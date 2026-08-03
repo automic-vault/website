@@ -14,6 +14,7 @@ from typing import Any
 
 
 SITE_ORIGIN = "https://www.automicvault.com"
+PACKAGE_ORIGIN = "https://pkg.so"
 LOCALES_PATH = Path("data/www-i18n/locales.json")
 STATIC_PATH = Path("data/www-i18n/static/pages.json")
 SITE_DIR = Path("www")
@@ -649,6 +650,10 @@ def href(path: str, locale: Locale | None = None) -> str:
     return SITE_ORIGIN + locale_path(path, locale)
 
 
+def package_href(locale: Locale | None = None) -> str:
+    return PACKAGE_ORIGIN + locale_path("/", locale)
+
+
 def ui_copy(locale_code: str) -> dict[str, str]:
     return UI_COPY.get(locale_code, UI_COPY["en"])
 
@@ -1071,7 +1076,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
       </a>
       <nav class="seo-nav" aria-label="{html.escape(ui["mainNavigationAria"], quote=True)}">
         <a href="/Automic%20Vault.dmg">{html.escape(ui["download"])}</a>
-        <a href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
+        <a href="{package_href(locale)}">{html.escape(ui["packages"])}</a>
         <a href="/blog/">Blog</a>
         <a href="{locale_path('/about/', locale)}">{html.escape(ui["about"])}</a>
         <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
@@ -1101,7 +1106,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
         <div class="hero-actions">
           <a class="button primary" href="/Automic%20Vault.dmg">{html.escape(ui["download"])}</a>
           <a class="button secondary" href="/docs/">{html.escape(ui["docs"])}</a>
-          <a class="button text" href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
+          <a class="button text" href="{package_href(locale)}">{html.escape(ui["packages"])}</a>
         </div>
       </section>
     </main>
@@ -1111,7 +1116,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
       <nav class="footer-links" aria-label="Footer navigation">
         <a href="{locale_path('/', locale)}">{html.escape(ui["website"])}</a>
         <a href="{locale_path('/about/', locale)}">{html.escape(ui["about"])}</a>
-        <a href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
+        <a href="{package_href(locale)}">{html.escape(ui["packages"])}</a>
         <a href="/blog/">Blog</a>
         <a href="{locale_path('/privacy/', locale)}">{html.escape(ui["privacy"])}</a>
         <a href="{locale_path('/terms/', locale)}">{html.escape(ui["terms"])}</a>
@@ -1137,7 +1142,7 @@ def render_llms(locale: Locale, records: list[dict[str, Any]]) -> str:
         page_lines.append(f'- [{translation["title"]}]({href(path, locale)}): {translation["description"]}')
     page_lines[2:2] = [
         f'- [{ui["docs"]}]({href("/docs/")}): {copy["docsDescription"]}',
-        f'- [{ui["packages"]}]({href("/pkg/", locale)}): {copy["packagesDescription"]}',
+        f'- [{ui["packages"]}]({package_href(locale)}): {copy["packagesDescription"]}',
         f'- [Blog]({href("/blog/")}): {copy["blogDescription"]}',
     ]
     page_lines.extend([
@@ -1416,7 +1421,7 @@ contained toolchain ready · host execution requires approval</code></pre>
       <p>{html.escape(landing["footer_tagline"])}</p>
     </div>
     <nav aria-label="Footer">
-      <a href="{locale_path('/pkg/', locale)}">{html.escape(ui["packages"])}</a>
+      <a href="{package_href(locale)}">{html.escape(ui["packages"])}</a>
       <a href="/blog/">Blog</a>
       <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
     </nav>

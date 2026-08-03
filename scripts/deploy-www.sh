@@ -90,7 +90,7 @@ Usage: deploy-www.sh [--static-only] [--prepare-only]
 
 Options:
   --static-only  Sync prepared website files to S3 without changing CloudFront,
-                 bucket policy, package origin routing, or certificates.
+                 bucket policy, redirects, or certificates.
   --prepare-only Prepare and validate deploy-time website content without AWS
                  changes.
   -h, --help     Show this help.
@@ -235,11 +235,7 @@ trap cleanup EXIT
 prepare_site_for_upload() {
   log_step "Preparing site content"
   make_temp_dir prepared_site_dir
-  rsync -a \
-    --exclude '/pkg/' \
-    --exclude '/*/pkg/' \
-    --exclude '/pagefind/' \
-    "${site_dir}/" "${prepared_site_dir}/"
+  rsync -a "${site_dir}/" "${prepared_site_dir}/"
   node "${llms_full_generator}" "${prepared_site_dir}" "${prepared_site_dir}/llms-full.txt"
   log_ok "Site content prepared"
 }
@@ -1325,10 +1321,6 @@ put_bucket_policy() {
 sync_site() {
   local upload_site_dir="${prepared_site_dir:-${site_dir}}"
 
-  if [[ "${static_only}" != true ]]; then
-    ensure_package_origin_prefixes_absent
-  fi
-
   log_step "Syncing static assets"
   aws s3 sync "${upload_site_dir}/" "s3://${WWW_BUCKET}/" \
     --delete \
@@ -1340,9 +1332,6 @@ sync_site() {
     --exclude "scanner.sh" \
     --exclude "db.json" \
     --exclude "preview.jpg" \
-    --exclude "pkg/*" \
-    --exclude "*/pkg/*" \
-    --exclude "pagefind/*" \
     --exclude "*.html" \
     --exclude "*.xml" \
     --exclude "*.txt" \
@@ -1360,9 +1349,6 @@ sync_site() {
   aws s3 sync "${upload_site_dir}/" "s3://${WWW_BUCKET}/" \
     --exclude "*" \
     --include "*.css" \
-    --exclude "pkg/*" \
-    --exclude "*/pkg/*" \
-    --exclude "pagefind/*" \
     --cache-control "${WWW_CSS_CACHE_CONTROL}"
 
   log_step "Syncing crawlable HTML and XML content"
@@ -1373,9 +1359,6 @@ sync_site() {
     --include "*.html" \
     --include "*.xml" \
     --exclude "AGENTS.md" \
-    --exclude "pkg/*" \
-    --exclude "*/pkg/*" \
-    --exclude "pagefind/*" \
     --cache-control "${WWW_HTML_CACHE_CONTROL}"
 
   log_step "Syncing crawlable plain text content"
@@ -1385,9 +1368,6 @@ sync_site() {
     --exclude "*" \
     --include "*.txt" \
     --exclude "AGENTS.md" \
-    --exclude "pkg/*" \
-    --exclude "*/pkg/*" \
-    --exclude "pagefind/*" \
     --content-type "text/plain; charset=utf-8" \
     --cache-control "${WWW_HTML_CACHE_CONTROL}"
 
@@ -1398,9 +1378,6 @@ sync_site() {
     --exclude "*" \
     --include "*.md" \
     --exclude "AGENTS.md" \
-    --exclude "pkg/*" \
-    --exclude "*/pkg/*" \
-    --exclude "pagefind/*" \
     --content-type "text/markdown; charset=utf-8" \
     --cache-control "${WWW_HTML_CACHE_CONTROL}"
 
@@ -1411,9 +1388,6 @@ sync_site() {
     --exclude "*" \
     --include "*.json" \
     --exclude "AGENTS.md" \
-    --exclude "pkg/*" \
-    --exclude "*/pkg/*" \
-    --exclude "pagefind/*" \
     --content-type "application/json; charset=utf-8" \
     --cache-control "${WWW_HTML_CACHE_CONTROL}"
 
@@ -1421,17 +1395,6 @@ sync_site() {
   aws s3 rm "s3://${WWW_BUCKET}/AGENTS.md"
 
   log_ok "S3 content synced"
-}
-
-ensure_package_origin_prefixes_absent() {
-  log_step "Ensuring package-origin prefixes are absent from S3"
-  aws s3 rm "s3://${WWW_BUCKET}/pkg/" --recursive >/dev/null 2>&1 || true
-  aws s3 rm "s3://${WWW_BUCKET}/de/pkg/" --recursive >/dev/null 2>&1 || true
-  aws s3 rm "s3://${WWW_BUCKET}/fr/pkg/" --recursive >/dev/null 2>&1 || true
-  aws s3 rm "s3://${WWW_BUCKET}/ja/pkg/" --recursive >/dev/null 2>&1 || true
-  aws s3 rm "s3://${WWW_BUCKET}/zh-hans/pkg/" --recursive >/dev/null 2>&1 || true
-  aws s3 rm "s3://${WWW_BUCKET}/pagefind/" --recursive >/dev/null 2>&1 || true
-  log_ok "Package-origin prefixes are absent from S3"
 }
 
 invalidate_dynamic_paths() {
@@ -1444,12 +1407,6 @@ invalidate_dynamic_paths() {
       --distribution-id "${distribution_id}" \
       --paths \
         '/av.dmg' '/Automic%20Vault.dmg' \
-        '/pkg' '/pkg/*' \
-        '/de/pkg' '/de/pkg/*' \
-        '/fr/pkg' '/fr/pkg/*' \
-        '/ja/pkg' '/ja/pkg/*' \
-        '/zh-hans/pkg' '/zh-hans/pkg/*' \
-        '/pagefind' '/pagefind/*' \
       --query 'Invalidation.Id' \
       --output text
   )"

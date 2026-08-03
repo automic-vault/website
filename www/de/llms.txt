@@ -10,7 +10,7 @@
 
 - [Dokumentation](https://www.automicvault.com/docs/): Englisches, quellgeprüftes CLI-Handbuch für Automic Vault 2.9.0 mit scan, doctor, save, inject, bless und harden.
 
-- [Pakete](https://www.automicvault.com/de/pkg/): Durchsuchbarer Katalog mit Entwicklerpaketen, Abhängigkeiten, Installationsbefehlen, Risikoinformationen und Automic-Vault-Härtung.
+- [Pakete](https://pkg.so/de/): Durchsuchbarer Katalog mit Entwicklerpaketen, Abhängigkeiten, Installationsbefehlen, Risikoinformationen und Automic-Vault-Härtung.
 
 - [Blog](https://www.automicvault.com/blog/): Sicherheitsleitfäden und Analysen zu Paket-, Erweiterungs-, Credential- und lokalen Ausführungsvorfällen.
 
