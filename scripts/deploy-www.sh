@@ -1027,8 +1027,10 @@ build_distribution_config() {
           DomainName: $domain_name,
           OriginPath: "",
           OriginAccessControlId: $oac_id,
+          CustomHeaders: {Quantity: 0},
           S3OriginConfig: {
-            OriginAccessIdentity: ""
+            OriginAccessIdentity: "",
+            OriginReadTimeout: 30
           }
         }, {
           Id: $release_origin_id,
@@ -1182,8 +1184,10 @@ upsert_distribution() {
           DomainName: $domain_name,
           OriginPath: "",
           OriginAccessControlId: $oac_id,
+          CustomHeaders: {Quantity: 0},
           S3OriginConfig: {
-            OriginAccessIdentity: ""
+            OriginAccessIdentity: "",
+            OriginReadTimeout: 30
           }
         }, {
           Id: $release_origin_id,

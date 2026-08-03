@@ -38,7 +38,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertNotIn('--auth-type NONE', deploy_script)
         self.assertIn('release_behavior("av.dmg")', deploy_script)
         self.assertIn('release_behavior("Automic*Vault.dmg")', deploy_script)
-        self.assertEqual(deploy_script.count("CustomHeaders: {Quantity: 0}"), 2)
+        self.assertEqual(deploy_script.count("CustomHeaders: {Quantity: 0}"), 4)
         update_config = deploy_script.split("aws lambda update-function-configuration", 1)[1].split("aws lambda wait", 1)[0]
         update_code = deploy_script.split("aws lambda update-function-code", 1)[1].split("else", 1)[0]
         self.assertNotIn("--architectures", update_config)
