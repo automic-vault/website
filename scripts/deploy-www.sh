@@ -155,12 +155,7 @@ done
 
 WWW_PKG_ORIGIN_HEADER_NAME="${WWW_PKG_ORIGIN_HEADER_NAME:-${AV_WEB_ORIGIN_HEADER:-X-Automic-Vault-Origin}}"
 WWW_PKG_ORIGIN_HEADER_VALUE="${WWW_PKG_ORIGIN_HEADER_VALUE:-${AV_WEB_ORIGIN_SECRET:-}}"
-WWW_PKG_SO_REDIRECT="${WWW_PKG_SO_REDIRECT:-false}"
 WWW_EMERGENCY_INVALIDATE="${WWW_EMERGENCY_INVALIDATE:-false}"
-
-if [[ "${WWW_PKG_SO_REDIRECT}" != "true" && "${WWW_PKG_SO_REDIRECT}" != "false" ]]; then
-  die "WWW_PKG_SO_REDIRECT must be true or false."
-fi
 
 script_dir="$(cd "$(dirname "${AV_SCRIPT_PATH:-$0}")" && pwd)"
 repo_root="$(cd "${script_dir}/.." && pwd)"
@@ -538,7 +533,6 @@ function handler(event) {
   var request = event.request;
   var host = request.headers.host.value;
   var canonicalHost = "${WWW_CANONICAL_HOST}";
-  var redirectPackages = ${WWW_PKG_SO_REDIRECT};
 
   function preferredContentType() {
     var header = request.headers.accept && request.headers.accept.value;
@@ -729,7 +723,7 @@ function handler(event) {
     return false;
   }
 
-  if (redirectPackages && isPackageOriginPath(request.uri)) {
+  if (isPackageOriginPath(request.uri)) {
     return {
       statusCode: 301,
       statusDescription: "Moved Permanently",

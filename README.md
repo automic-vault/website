@@ -29,23 +29,16 @@ CloudFront routes. The static sync never uploads product release artifacts.
 
 ## Legacy Package Routes
 
-The existing `atomicvault.com/pkg/` routes remain active while `pkg.so` is
-validated. Their CloudFront redirect is staged behind an explicit switch:
+The `atomicvault.com/pkg/` routes permanently redirect to their canonical
+`pkg.so` pages through the viewer-request CloudFront Function. Deploy normally
+to publish the redirects:
 
 ```sh
-WWW_PKG_SO_REDIRECT=false scripts/deploy-www.sh
-```
-
-After `pkg.so` DNS, TLS, canonical metadata, and crawling files have been
-verified, activate the permanent path-preserving redirects with:
-
-```sh
-WWW_PKG_SO_REDIRECT=true scripts/deploy-www.sh
+scripts/deploy-www.sh
 ```
 
 For example, `/fr/pkg/brew/awscli/?source=old` redirects to
-`https://pkg.so/fr/pkg/brew/awscli/?source=old`. The switch defaults to `false`
-so a normal deployment cannot retire the old routes accidentally.
+`https://pkg.so/fr/pkg/brew/awscli/?source=old`.
 
 Package generation and Atlas deployment run from `~/src/pkgdb` with
 `scripts/deploy-atlas.sh`.

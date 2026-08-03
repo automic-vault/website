@@ -44,11 +44,11 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertNotIn("--architectures", update_config)
         self.assertIn("--architectures arm64", update_code)
 
-    def test_pkg_so_redirect_is_staged_and_disabled_by_default(self):
+    def test_pkg_so_redirect_is_permanent(self):
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
 
-        self.assertIn('WWW_PKG_SO_REDIRECT="${WWW_PKG_SO_REDIRECT:-false}"', deploy_script)
-        self.assertIn("var redirectPackages = ${WWW_PKG_SO_REDIRECT};", deploy_script)
+        self.assertNotIn("WWW_PKG_SO_REDIRECT", deploy_script)
+        self.assertNotIn("redirectPackages", deploy_script)
         for old_path, new_path in {
             "/pkg": "/",
             "/pkg/": "/",
@@ -64,7 +64,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             self.assertIn(f'"{old_path}": "{new_path}"', deploy_script)
         self.assertIn('return appendQueryString("https://pkg.so" + landingPages[uri]);', deploy_script)
         self.assertIn('return appendQueryString("https://pkg.so" + uri);', deploy_script)
-        self.assertIn("if (redirectPackages && isPackageOriginPath(request.uri))", deploy_script)
+        self.assertIn("if (isPackageOriginPath(request.uri))", deploy_script)
         self.assertIn('statusCode: 301', deploy_script)
 
     def test_all_static_html_pages_embed_google_analytics(self):
