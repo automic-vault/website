@@ -1,7 +1,7 @@
 #!/usr/local/bin/av inject +APPLE_PASSWORD -- /bin/bash
 # --- automic-vault
 # capabilities:
-#   aws: trusted
+#   aws: full
 # ---
 
 set -euo pipefail
