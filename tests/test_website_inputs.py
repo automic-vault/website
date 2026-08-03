@@ -67,6 +67,14 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertIn("if (isPackageOriginPath(request.uri))", deploy_script)
         self.assertIn('statusCode: 301', deploy_script)
 
+    def test_distribution_update_does_not_assume_origin_order(self):
+        deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
+        update = deploy_script.split("if distribution_id=", 1)[1].split("if ! aws cloudfront update-distribution", 1)[0]
+
+        self.assertNotIn(".DistributionConfig.Origins.Items[0]", update)
+        self.assertIn("Id: $origin_id", update)
+        self.assertIn("S3OriginConfig: {", update)
+
     def test_all_static_html_pages_embed_google_analytics(self):
         missing = []
         for page in sorted((ROOT / "www").rglob("*.html")):

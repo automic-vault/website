@@ -1471,14 +1471,15 @@ upsert_distribution() {
       | .DistributionConfig.Enabled = true
       | .DistributionConfig.PriceClass = $price_class
       | .DistributionConfig.Origins.Quantity = 3
-      | .DistributionConfig.Origins.Items = [(
-          .DistributionConfig.Origins.Items[0]
-          | .Id = $origin_id
-          | .DomainName = $domain_name
-          | .OriginPath = ""
-          | .OriginAccessControlId = $oac_id
-          | .S3OriginConfig = ((.S3OriginConfig // {}) + {OriginAccessIdentity: ""})
-        ), {
+      | .DistributionConfig.Origins.Items = [{
+          Id: $origin_id,
+          DomainName: $domain_name,
+          OriginPath: "",
+          OriginAccessControlId: $oac_id,
+          S3OriginConfig: {
+            OriginAccessIdentity: ""
+          }
+        }, {
           Id: $pkg_origin_id,
           DomainName: $pkg_origin_domain,
           OriginPath: "",
