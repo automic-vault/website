@@ -125,26 +125,12 @@ require_env() {
   fi
 }
 
-verify_pkg_origin_secret() {
-  local probe_url
-  probe_url="https://${WWW_PKG_ORIGIN_DOMAIN}/pkg/search.json"
-
-  log_step "Checking package origin shared secret"
-  if ! curl --fail --silent --show-error --max-time 15 \
-    --output /dev/null \
-    --header "${WWW_PKG_ORIGIN_HEADER_NAME}: ${WWW_PKG_ORIGIN_HEADER_VALUE}" \
-    "${probe_url}"; then
-    die "Package origin rejected WWW_PKG_ORIGIN_HEADER_VALUE at ${WWW_PKG_ORIGIN_DOMAIN}. Deploy the Atlas package origin with matching AV_WEB_ORIGIN_SECRET before running deploy-www.sh."
-  fi
-  log_ok "Package origin accepted CloudFront header"
-}
-
 required_tools=(node python3)
 if [[ "${prepare_only}" != true ]]; then
   required_tools+=(aws)
 fi
 if [[ "${prepare_only}" != true && "${static_only}" != true ]]; then
-  required_tools+=(curl jq zip)
+  required_tools+=(jq zip)
 fi
 
 for tool in "${required_tools[@]}"; do
@@ -153,8 +139,6 @@ for tool in "${required_tools[@]}"; do
   }
 done
 
-WWW_PKG_ORIGIN_HEADER_NAME="${WWW_PKG_ORIGIN_HEADER_NAME:-${AV_WEB_ORIGIN_HEADER:-X-Automic-Vault-Origin}}"
-WWW_PKG_ORIGIN_HEADER_VALUE="${WWW_PKG_ORIGIN_HEADER_VALUE:-${AV_WEB_ORIGIN_SECRET:-}}"
 WWW_EMERGENCY_INVALIDATE="${WWW_EMERGENCY_INVALIDATE:-false}"
 
 script_dir="$(cd "$(dirname "${AV_SCRIPT_PATH:-$0}")" && pwd)"
@@ -173,13 +157,6 @@ fi
 if [[ "${prepare_only}" != true ]]; then
   require_env AWS_REGION
   require_env WWW_DOMAIN
-
-  if [[ -n "${AV_WEB_ORIGIN_HEADER:-}" && "${WWW_PKG_ORIGIN_HEADER_NAME}" != "${AV_WEB_ORIGIN_HEADER}" ]]; then
-    die "WWW_PKG_ORIGIN_HEADER_NAME must match AV_WEB_ORIGIN_HEADER."
-  fi
-  if [[ -n "${AV_WEB_ORIGIN_SECRET:-}" && "${WWW_PKG_ORIGIN_HEADER_VALUE}" != "${AV_WEB_ORIGIN_SECRET}" ]]; then
-    die "WWW_PKG_ORIGIN_HEADER_VALUE must match AV_WEB_ORIGIN_SECRET."
-  fi
 
   export WWW_WWW_DOMAIN="${WWW_WWW_DOMAIN:-www.${WWW_DOMAIN}}"
   export WWW_CANONICAL_HOST="${WWW_CANONICAL_HOST:-${WWW_WWW_DOMAIN}}"
@@ -205,16 +182,12 @@ if [[ "${prepare_only}" != true ]]; then
       WWW_WWW_DOMAIN \
       WWW_CANONICAL_HOST \
       WWW_CERTIFICATE_ARN \
-      WWW_CLOUDFRONT_PRICE_CLASS \
-      WWW_PKG_ORIGIN_DOMAIN \
-      WWW_PKG_ORIGIN_HEADER_VALUE
+      WWW_CLOUDFRONT_PRICE_CLASS
     do
       require_env "${env_name}"
     done
-    verify_pkg_origin_secret
   fi
 
-  pkg_origin_id="${WWW_DOMAIN}-atlas-pkg-origin"
   release_redirect_origin_id="${WWW_DOMAIN}-release-redirect-origin"
   distribution_comment="${WWW_DOMAIN} static site"
   oac_name="${WWW_DOMAIN}-s3-oac"
@@ -224,8 +197,6 @@ if [[ "${prepare_only}" != true ]]; then
   redirect_function_name="${WWW_DOMAIN//./-}-redirect-to-canonical"
   response_headers_policy_name="${WWW_DOMAIN//./-}-security-headers"
   cache_policy_name="${WWW_DOMAIN//./-}-brotli-cache"
-  pkg_cache_policy_name="${WWW_DOMAIN//./-}-pkg-daily-cache"
-  pkg_search_cache_policy_name="${WWW_DOMAIN//./-}-pkg-search-daily-cache"
   release_redirect_cache_policy_id="658327ea-f89d-4fab-a63d-7e88639e58f6"
 fi
 
@@ -985,119 +956,6 @@ ensure_cache_policy() {
   printf '%s\n' "${policy_id}"
 }
 
-ensure_pkg_cache_policy() {
-  local policy_file policy_id etag response_file
-  log_step "Preparing CloudFront package-origin daily cache policy"
-  make_temp_file policy_file
-  make_temp_file response_file
-
-  jq -n \
-    --arg name "${pkg_cache_policy_name}" \
-    '{
-      Name: $name,
-      Comment: "Package origin cache; CloudFront checks Atlas daily",
-      DefaultTTL: 86400,
-      MaxTTL: 86400,
-      MinTTL: 0,
-      ParametersInCacheKeyAndForwardedToOrigin: {
-        EnableAcceptEncodingGzip: true,
-        EnableAcceptEncodingBrotli: true,
-        HeadersConfig: { HeaderBehavior: "none" },
-        CookiesConfig: { CookieBehavior: "none" },
-        QueryStringsConfig: { QueryStringBehavior: "none" }
-      }
-    }' >"${policy_file}"
-
-  policy_id="$(
-    aws cloudfront list-cache-policies \
-      --type custom \
-      --query "CachePolicyList.Items[?CachePolicy.CachePolicyConfig.Name == '${pkg_cache_policy_name}'].CachePolicy.Id | [0]" \
-      --output text
-  )"
-
-  if [[ "${policy_id}" == "None" ]]; then
-    policy_id="$(
-      aws cloudfront create-cache-policy \
-        --cache-policy-config "file://${policy_file}" \
-        --query 'CachePolicy.Id' \
-        --output text
-    )"
-    log_ok "Created package cache policy ${policy_id}"
-    printf '%s\n' "${policy_id}"
-    return 0
-  fi
-
-  aws cloudfront get-cache-policy-config \
-    --id "${policy_id}" >"${response_file}"
-  etag="$(jq -r '.ETag' "${response_file}")"
-  aws cloudfront update-cache-policy \
-    --id "${policy_id}" \
-    --if-match "${etag}" \
-    --cache-policy-config "file://${policy_file}" >/dev/null
-  log_ok "Package cache policy ready"
-  printf '%s\n' "${policy_id}"
-}
-
-ensure_pkg_search_cache_policy() {
-  local policy_file policy_id etag response_file
-  log_step "Preparing CloudFront package search cache policy"
-  make_temp_file policy_file
-  make_temp_file response_file
-
-  jq -n \
-    --arg name "${pkg_search_cache_policy_name}" \
-    '{
-      Name: $name,
-      Comment: "Package search cache with search query parameters",
-      DefaultTTL: 86400,
-      MaxTTL: 86400,
-      MinTTL: 0,
-      ParametersInCacheKeyAndForwardedToOrigin: {
-        EnableAcceptEncodingGzip: true,
-        EnableAcceptEncodingBrotli: true,
-        HeadersConfig: { HeaderBehavior: "none" },
-        CookiesConfig: { CookieBehavior: "none" },
-        QueryStringsConfig: {
-          QueryStringBehavior: "whitelist",
-          QueryStrings: {
-            Quantity: 4,
-            Items: ["q", "offset", "limit", "locale"]
-          }
-        }
-      }
-    }' >"${policy_file}"
-
-  policy_id="$(
-    aws cloudfront list-cache-policies \
-      --type custom \
-      --query "CachePolicyList.Items[?CachePolicy.CachePolicyConfig.Name == '${pkg_search_cache_policy_name}'].CachePolicy.Id | [0]" \
-      --output text
-  )"
-
-  if [[ "${policy_id}" == "None" ]]; then
-    policy_id="$(
-      aws cloudfront create-cache-policy \
-        --cache-policy-config "file://${policy_file}" \
-        --query 'CachePolicy.Id' \
-        --output text
-    )"
-    log_ok "Created package search cache policy ${policy_id}"
-    printf '%s\n' "${policy_id}"
-    return 0
-  fi
-
-  aws cloudfront get-cache-policy-config \
-    --id "${policy_id}" >"${response_file}"
-  etag="$(jq -r '.ETag' "${response_file}")"
-  aws cloudfront update-cache-policy \
-    --id "${policy_id}" \
-    --if-match "${etag}" \
-    --cache-policy-config "file://${policy_file}" >/dev/null
-  log_ok "Package search cache policy ready"
-  printf '%s\n' "${policy_id}"
-}
-
-
 distribution_id_for_alias() {
   local alias_csv
   alias_csv="$(
@@ -1118,28 +976,20 @@ build_distribution_config() {
   local function_arn="$2"
   local response_headers_policy_id="$3"
   local cache_policy_id="$4"
-  local pkg_cache_policy_id="$5"
-  local pkg_search_cache_policy_id="$6"
-  local release_redirect_oac_id="$7"
-  local release_redirect_domain="$8"
-  local release_redirect_cache_policy_id="$9"
-  local output_file="${10}"
+  local release_redirect_oac_id="$5"
+  local release_redirect_domain="$6"
+  local release_redirect_cache_policy_id="$7"
+  local output_file="$8"
 
   jq -n \
     --arg caller_reference "${WWW_DOMAIN}-$(date +%s)" \
     --arg comment "${distribution_comment}" \
     --arg origin_id "${WWW_BUCKET}-origin" \
     --arg domain_name "${origin_domain}" \
-    --arg pkg_origin_id "${pkg_origin_id}" \
-    --arg pkg_origin_domain "${WWW_PKG_ORIGIN_DOMAIN}" \
-    --arg pkg_origin_header_name "${WWW_PKG_ORIGIN_HEADER_NAME}" \
-    --arg pkg_origin_header_value "${WWW_PKG_ORIGIN_HEADER_VALUE}" \
     --arg oac_id "${oac_id}" \
     --arg function_arn "${function_arn}" \
     --arg response_headers_policy_id "${response_headers_policy_id}" \
     --arg cache_policy_id "${cache_policy_id}" \
-    --arg pkg_cache_policy_id "${pkg_cache_policy_id}" \
-    --arg pkg_search_cache_policy_id "${pkg_search_cache_policy_id}" \
     --arg release_origin_id "${release_redirect_origin_id}" \
     --arg release_origin_domain "${release_redirect_domain}" \
     --arg release_oac_id "${release_redirect_oac_id}" \
@@ -1149,61 +999,6 @@ build_distribution_config() {
     --arg domain_b "${WWW_WWW_DOMAIN}" \
     --arg price_class "${WWW_CLOUDFRONT_PRICE_CLASS}" \
     '
-      def behavior($pattern; $policy):
-        {
-          PathPattern: $pattern,
-          TargetOriginId: $pkg_origin_id,
-        ViewerProtocolPolicy: "allow-all",
-        AllowedMethods: {
-          Quantity: 2,
-          Items: ["HEAD", "GET"],
-          CachedMethods: {
-            Quantity: 2,
-            Items: ["HEAD", "GET"]
-          }
-        },
-        Compress: true,
-        SmoothStreaming: false,
-        CachePolicyId: $policy,
-        ResponseHeadersPolicyId: $response_headers_policy_id,
-        TrustedSigners: {
-          Enabled: false,
-          Quantity: 0
-        },
-        TrustedKeyGroups: {
-          Enabled: false,
-          Quantity: 0
-        },
-        LambdaFunctionAssociations: {
-          Quantity: 0
-        },
-        FunctionAssociations: {
-          Quantity: 1,
-          Items: [{
-            EventType: "viewer-request",
-            FunctionARN: $function_arn
-          }]
-          },
-          FieldLevelEncryptionId: ""
-        };
-      def pkg_behaviors:
-        [
-          behavior("pkg/search.json"; $pkg_search_cache_policy_id),
-          behavior("de/pkg/search.json"; $pkg_search_cache_policy_id),
-          behavior("fr/pkg/search.json"; $pkg_search_cache_policy_id),
-          behavior("ja/pkg/search.json"; $pkg_search_cache_policy_id),
-          behavior("zh-hans/pkg/search.json"; $pkg_search_cache_policy_id),
-          behavior("pkg"; $pkg_cache_policy_id),
-          behavior("pkg/*"; $pkg_cache_policy_id),
-          behavior("de/pkg"; $pkg_cache_policy_id),
-          behavior("de/pkg/*"; $pkg_cache_policy_id),
-          behavior("fr/pkg"; $pkg_cache_policy_id),
-          behavior("fr/pkg/*"; $pkg_cache_policy_id),
-          behavior("ja/pkg"; $pkg_cache_policy_id),
-          behavior("ja/pkg/*"; $pkg_cache_policy_id),
-          behavior("zh-hans/pkg"; $pkg_cache_policy_id),
-          behavior("zh-hans/pkg/*"; $pkg_cache_policy_id)
-        ];
       def release_behavior($pattern):
         {
           PathPattern: $pattern,
@@ -1230,7 +1025,7 @@ build_distribution_config() {
       Enabled: true,
       DefaultRootObject: "index.html",
       Origins: {
-        Quantity: 3,
+        Quantity: 2,
         Items: [{
           Id: $origin_id,
           DomainName: $domain_name,
@@ -1238,28 +1033,6 @@ build_distribution_config() {
           OriginAccessControlId: $oac_id,
           S3OriginConfig: {
             OriginAccessIdentity: ""
-          }
-        }, {
-          Id: $pkg_origin_id,
-          DomainName: $pkg_origin_domain,
-          OriginPath: "",
-          CustomHeaders: {
-            Quantity: 1,
-            Items: [{
-              HeaderName: $pkg_origin_header_name,
-              HeaderValue: $pkg_origin_header_value
-            }]
-          },
-          CustomOriginConfig: {
-            HTTPPort: 80,
-            HTTPSPort: 443,
-            OriginProtocolPolicy: "https-only",
-            OriginSslProtocols: {
-              Quantity: 1,
-              Items: ["TLSv1.2"]
-            },
-            OriginReadTimeout: 30,
-            OriginKeepaliveTimeout: 5
           }
         }, {
           Id: $release_origin_id,
@@ -1317,8 +1090,8 @@ build_distribution_config() {
         FieldLevelEncryptionId: ""
         },
         CacheBehaviors: {
-          Quantity: ((pkg_behaviors | length) + 2),
-          Items: ([release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg")] + pkg_behaviors)
+          Quantity: 2,
+          Items: [release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg")]
         },
       CustomErrorResponses: {
         Quantity: 1,
@@ -1353,11 +1126,9 @@ upsert_distribution() {
   local function_arn="$2"
   local response_headers_policy_id="$3"
   local cache_policy_id="$4"
-  local pkg_cache_policy_id="$5"
-  local pkg_search_cache_policy_id="$6"
-  local release_redirect_oac_id="$7"
-  local release_redirect_domain="$8"
-  local release_redirect_cache_policy_id="$9"
+  local release_redirect_oac_id="$5"
+  local release_redirect_domain="$6"
+  local release_redirect_cache_policy_id="$7"
   local distribution_id etag config_file response_file
   log_step "Preparing CloudFront distribution"
   make_temp_file config_file
@@ -1372,16 +1143,10 @@ upsert_distribution() {
       --arg comment "${distribution_comment}" \
       --arg origin_id "${WWW_BUCKET}-origin" \
       --arg domain_name "${origin_domain}" \
-      --arg pkg_origin_id "${pkg_origin_id}" \
-      --arg pkg_origin_domain "${WWW_PKG_ORIGIN_DOMAIN}" \
-      --arg pkg_origin_header_name "${WWW_PKG_ORIGIN_HEADER_NAME}" \
-      --arg pkg_origin_header_value "${WWW_PKG_ORIGIN_HEADER_VALUE}" \
       --arg oac_id "${oac_id}" \
       --arg function_arn "${function_arn}" \
       --arg response_headers_policy_id "${response_headers_policy_id}" \
       --arg cache_policy_id "${cache_policy_id}" \
-      --arg pkg_cache_policy_id "${pkg_cache_policy_id}" \
-      --arg pkg_search_cache_policy_id "${pkg_search_cache_policy_id}" \
       --arg release_origin_id "${release_redirect_origin_id}" \
       --arg release_origin_domain "${release_redirect_domain}" \
       --arg release_oac_id "${release_redirect_oac_id}" \
@@ -1391,61 +1156,6 @@ upsert_distribution() {
       --arg domain_b "${WWW_WWW_DOMAIN}" \
       --arg price_class "${WWW_CLOUDFRONT_PRICE_CLASS}" \
       '
-        def behavior($pattern; $policy):
-          {
-            PathPattern: $pattern,
-            TargetOriginId: $pkg_origin_id,
-          ViewerProtocolPolicy: "allow-all",
-          AllowedMethods: {
-            Quantity: 2,
-            Items: ["HEAD", "GET"],
-            CachedMethods: {
-              Quantity: 2,
-              Items: ["HEAD", "GET"]
-            }
-          },
-          Compress: true,
-          SmoothStreaming: false,
-          CachePolicyId: $policy,
-          ResponseHeadersPolicyId: $response_headers_policy_id,
-          TrustedSigners: {
-            Enabled: false,
-            Quantity: 0
-          },
-          TrustedKeyGroups: {
-            Enabled: false,
-            Quantity: 0
-          },
-          LambdaFunctionAssociations: {
-            Quantity: 0
-          },
-          FunctionAssociations: {
-            Quantity: 1,
-            Items: [{
-              EventType: "viewer-request",
-              FunctionARN: $function_arn
-            }]
-            },
-            FieldLevelEncryptionId: ""
-          };
-        def pkg_behaviors:
-          [
-            behavior("pkg/search.json"; $pkg_search_cache_policy_id),
-            behavior("de/pkg/search.json"; $pkg_search_cache_policy_id),
-            behavior("fr/pkg/search.json"; $pkg_search_cache_policy_id),
-            behavior("ja/pkg/search.json"; $pkg_search_cache_policy_id),
-            behavior("zh-hans/pkg/search.json"; $pkg_search_cache_policy_id),
-            behavior("pkg"; $pkg_cache_policy_id),
-            behavior("pkg/*"; $pkg_cache_policy_id),
-            behavior("de/pkg"; $pkg_cache_policy_id),
-            behavior("de/pkg/*"; $pkg_cache_policy_id),
-            behavior("fr/pkg"; $pkg_cache_policy_id),
-            behavior("fr/pkg/*"; $pkg_cache_policy_id),
-            behavior("ja/pkg"; $pkg_cache_policy_id),
-            behavior("ja/pkg/*"; $pkg_cache_policy_id),
-            behavior("zh-hans/pkg"; $pkg_cache_policy_id),
-            behavior("zh-hans/pkg/*"; $pkg_cache_policy_id)
-          ];
         def release_behavior($pattern):
           {
             PathPattern: $pattern,
@@ -1470,7 +1180,7 @@ upsert_distribution() {
       | .DistributionConfig.DefaultRootObject = "index.html"
       | .DistributionConfig.Enabled = true
       | .DistributionConfig.PriceClass = $price_class
-      | .DistributionConfig.Origins.Quantity = 3
+      | .DistributionConfig.Origins.Quantity = 2
       | .DistributionConfig.Origins.Items = [{
           Id: $origin_id,
           DomainName: $domain_name,
@@ -1478,28 +1188,6 @@ upsert_distribution() {
           OriginAccessControlId: $oac_id,
           S3OriginConfig: {
             OriginAccessIdentity: ""
-          }
-        }, {
-          Id: $pkg_origin_id,
-          DomainName: $pkg_origin_domain,
-          OriginPath: "",
-          CustomHeaders: {
-            Quantity: 1,
-            Items: [{
-              HeaderName: $pkg_origin_header_name,
-              HeaderValue: $pkg_origin_header_value
-            }]
-          },
-          CustomOriginConfig: {
-            HTTPPort: 80,
-            HTTPSPort: 443,
-            OriginProtocolPolicy: "https-only",
-            OriginSslProtocols: {
-              Quantity: 1,
-              Items: ["TLSv1.2"]
-            },
-            OriginReadTimeout: 30,
-            OriginKeepaliveTimeout: 5
           }
         }, {
           Id: $release_origin_id,
@@ -1560,8 +1248,8 @@ upsert_distribution() {
           .DistributionConfig.DefaultCacheBehavior.MaxTTL
         )
         | .DistributionConfig.CacheBehaviors = {
-            Quantity: ((pkg_behaviors | length) + 2),
-            Items: ([release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg")] + pkg_behaviors)
+            Quantity: 2,
+            Items: [release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg")]
           }
       | .DistributionConfig.CustomErrorResponses = {
           Quantity: 1,
@@ -1593,7 +1281,7 @@ upsert_distribution() {
   fi
 
   log "  Creating distribution for ${WWW_DOMAIN}, ${WWW_WWW_DOMAIN}"
-  build_distribution_config "${oac_id}" "${function_arn}" "${response_headers_policy_id}" "${cache_policy_id}" "${pkg_cache_policy_id}" "${pkg_search_cache_policy_id}" "${release_redirect_oac_id}" "${release_redirect_domain}" "${release_redirect_cache_policy_id}" "${config_file}"
+  build_distribution_config "${oac_id}" "${function_arn}" "${response_headers_policy_id}" "${cache_policy_id}" "${release_redirect_oac_id}" "${release_redirect_domain}" "${release_redirect_cache_policy_id}" "${config_file}"
   aws cloudfront create-distribution \
     --distribution-config "file://${config_file}" \
     --query 'Distribution.Id' \
@@ -1839,8 +1527,6 @@ ensure_release_redirect
 ensure_redirect_function
 response_headers_policy_id="$(ensure_response_headers_policy)"
 cache_policy_id="$(ensure_cache_policy)"
-pkg_cache_policy_id="$(ensure_pkg_cache_policy)"
-pkg_search_cache_policy_id="$(ensure_pkg_search_cache_policy)"
 log_step "Reading CloudFront function ARN"
 function_arn="$(
   aws cloudfront describe-function \
@@ -1851,7 +1537,7 @@ function_arn="$(
 )"
 log_ok "Function ARN resolved"
 ensure_certificate_issued
-distribution_id="$(upsert_distribution "${oac_id}" "${function_arn}" "${response_headers_policy_id}" "${cache_policy_id}" "${pkg_cache_policy_id}" "${pkg_search_cache_policy_id}" "${release_redirect_oac_id}" "${release_redirect_domain}" "${release_redirect_cache_policy_id}")"
+distribution_id="$(upsert_distribution "${oac_id}" "${function_arn}" "${response_headers_policy_id}" "${cache_policy_id}" "${release_redirect_oac_id}" "${release_redirect_domain}" "${release_redirect_cache_policy_id}")"
 allow_cloudfront_release_redirect "${distribution_id}"
 put_bucket_policy "${distribution_id}"
 log_step "Waiting for CloudFront deployment"

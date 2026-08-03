@@ -66,6 +66,9 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertIn('return appendQueryString("https://pkg.so" + uri);', deploy_script)
         self.assertIn("if (isPackageOriginPath(request.uri))", deploy_script)
         self.assertIn('statusCode: 301', deploy_script)
+        self.assertNotIn("WWW_PKG_ORIGIN", deploy_script)
+        self.assertNotIn("atlas-pkg-origin", deploy_script)
+        self.assertNotIn("pkg_behaviors", deploy_script)
 
     def test_distribution_update_does_not_assume_origin_order(self):
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
