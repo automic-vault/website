@@ -8,7 +8,7 @@
 
 - [Télécharger Automic Vault](https://www.automicvault.com/fr/download/): Téléchargez Automic Vault pour macOS et protégez les exécutions locales d'agents IA.
 
-- [Documentation](https://www.automicvault.com/docs/): Manuel CLI en anglais, vérifié sur les sources d’Automic Vault 2.3.0, couvrant scan, doctor, save, inject, bless et harden.
+- [Documentation](https://www.automicvault.com/docs/): Manuel CLI en anglais, vérifié sur les sources d’Automic Vault 2.9.0, couvrant scan, doctor, save, inject, bless et harden.
 
 - [Paquets](https://www.automicvault.com/fr/pkg/): Catalogue consultable de paquets développeur, dépendances, commandes d’installation, risques et couverture de durcissement Automic Vault.
 
@@ -28,7 +28,7 @@
 
 - Plateforme : macOS
 
-- Version actuellement documentée : 2.3.0
+- Version actuellement documentée : 2.9.0
 
 - Licence : Apache License 2.0
 
