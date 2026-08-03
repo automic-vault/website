@@ -49,6 +49,20 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
 
         self.assertIn('WWW_PKG_SO_REDIRECT="${WWW_PKG_SO_REDIRECT:-false}"', deploy_script)
         self.assertIn("var redirectPackages = ${WWW_PKG_SO_REDIRECT};", deploy_script)
+        for old_path, new_path in {
+            "/pkg": "/",
+            "/pkg/": "/",
+            "/de/pkg": "/de/",
+            "/de/pkg/": "/de/",
+            "/fr/pkg": "/fr/",
+            "/fr/pkg/": "/fr/",
+            "/ja/pkg": "/ja/",
+            "/ja/pkg/": "/ja/",
+            "/zh-hans/pkg": "/zh-hans/",
+            "/zh-hans/pkg/": "/zh-hans/",
+        }.items():
+            self.assertIn(f'"{old_path}": "{new_path}"', deploy_script)
+        self.assertIn('return appendQueryString("https://pkg.so" + landingPages[uri]);', deploy_script)
         self.assertIn('return appendQueryString("https://pkg.so" + uri);', deploy_script)
         self.assertIn("if (redirectPackages && isPackageOriginPath(request.uri))", deploy_script)
         self.assertIn('statusCode: 301', deploy_script)

@@ -700,6 +700,21 @@ function handler(event) {
   }
 
   function packageLocation(uri) {
+    var landingPages = {
+      "/pkg": "/",
+      "/pkg/": "/",
+      "/de/pkg": "/de/",
+      "/de/pkg/": "/de/",
+      "/fr/pkg": "/fr/",
+      "/fr/pkg/": "/fr/",
+      "/ja/pkg": "/ja/",
+      "/ja/pkg/": "/ja/",
+      "/zh-hans/pkg": "/zh-hans/",
+      "/zh-hans/pkg/": "/zh-hans/"
+    };
+    if (landingPages[uri]) {
+      return appendQueryString("https://pkg.so" + landingPages[uri]);
+    }
     return appendQueryString("https://pkg.so" + uri);
   }
 
