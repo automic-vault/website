@@ -39,7 +39,7 @@ export async function handler() {
     return {
       statusCode: 302,
       headers: {
-        "cache-control": "public, max-age=300, s-maxage=300",
+        "cache-control": "public, max-age=3600, s-maxage=3600",
         location: releaseAssetUrl(await response.json()),
       },
       body: "",
