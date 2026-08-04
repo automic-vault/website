@@ -83,6 +83,14 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertNotIn("require_env AWS_REGION", deploy_script)
         self.assertNotIn(".envrc", deploy_script)
 
+    def test_deploy_finds_certificate_for_both_aliases(self):
+        deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
+
+        self.assertIn("aws acm list-certificates", deploy_script)
+        self.assertIn("--certificate-statuses ISSUED", deploy_script)
+        self.assertIn("contains(SubjectAlternativeNameSummaries", deploy_script)
+        self.assertNotIn("require_env WWW_CERTIFICATE_ARN", deploy_script)
+
     def test_distribution_update_does_not_assume_origin_order(self):
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
         update = deploy_script.split("if distribution_id=", 1)[1].split("if ! aws cloudfront update-distribution", 1)[0]

@@ -168,6 +168,18 @@ if [[ "${prepare_only}" != true ]]; then
   export WWW_PREVIEW_CACHE_CONTROL="${WWW_PREVIEW_CACHE_CONTROL:-public, max-age=3600, must-revalidate}"
   export WWW_ASSET_CACHE_CONTROL="${WWW_ASSET_CACHE_CONTROL:-public, max-age=31536000, immutable}"
 
+  if [[ "${static_only}" != true && -z "${WWW_CERTIFICATE_ARN:-}" ]]; then
+    WWW_CERTIFICATE_ARN="$(
+      aws acm list-certificates \
+        --region us-east-1 \
+        --certificate-statuses ISSUED \
+        --query "CertificateSummaryList[?contains(SubjectAlternativeNameSummaries, \`${WWW_DOMAIN}\`) && contains(SubjectAlternativeNameSummaries, \`${WWW_WWW_DOMAIN}\`)].CertificateArn | [0]" \
+        --output text
+    )"
+    [[ "${WWW_CERTIFICATE_ARN}" != "None" ]] || die "No issued us-east-1 ACM certificate covers ${WWW_DOMAIN} and ${WWW_WWW_DOMAIN}."
+    export WWW_CERTIFICATE_ARN
+  fi
+
   for env_name in \
     WWW_BUCKET \
     WWW_HTML_CACHE_CONTROL \
@@ -182,7 +194,6 @@ if [[ "${prepare_only}" != true ]]; then
     for env_name in \
       WWW_WWW_DOMAIN \
       WWW_CANONICAL_HOST \
-      WWW_CERTIFICATE_ARN \
       WWW_CLOUDFRONT_PRICE_CLASS
     do
       require_env "${env_name}"
