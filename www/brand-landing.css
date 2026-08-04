@@ -29,13 +29,11 @@
   --brand-wash: oklch(67% 0.13 297 / 0.075);
   --brand-wash-soft: oklch(67% 0.13 297 / 0.035);
   --brand-white-wash: oklch(100% 0 0 / 0.045);
-  --brand-white-soft: oklch(100% 0 0 / 0.022);
 
   --brand-font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
   --brand-font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
   --brand-font-mono: "Geist Mono", ui-monospace, monospace;
 
-  --brand-space-2xs: 0.25rem;
   --brand-space-xs: 0.5rem;
   --brand-space-sm: 0.75rem;
   --brand-space-md: 1rem;
@@ -50,7 +48,6 @@
   --brand-text-sm: 0.875rem;
   --brand-text-md: 1rem;
   --brand-text-lg: 1.1875rem;
-  --brand-text-xl: 1.5rem;
   --brand-text-2xl: clamp(2rem, 3.4vw, 3.75rem);
   --brand-text-display: clamp(3.15rem, 6vw, 6.8rem);
 
@@ -65,7 +62,6 @@
   --brand-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --brand-dur-micro: 120ms;
   --brand-dur-short: 220ms;
-  --brand-dur-long: 420ms;
   --brand-max: 94rem;
   --brand-measure: 43rem;
   --brand-gutter: clamp(1.25rem, 4.6vw, 5rem);

@@ -297,8 +297,10 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             path for path in public_files
             if path.is_file() and path.name != ".DS_Store"
         ]
-        public_files.extend(sorted(site.glob("*.css")))
-        public_files.extend(sorted(site.glob("*.js")))
+        public_files.extend(sorted(
+            path for path in site.iterdir()
+            if path.is_file() and path.suffix in {".css", ".ico", ".jpg", ".js", ".png", ".svg", ".webp"}
+        ))
 
         source_files = []
         for directory in (site, ROOT / "scripts", ROOT / "crates", ROOT / "data"):

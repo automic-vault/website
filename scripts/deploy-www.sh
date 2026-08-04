@@ -17,11 +17,9 @@ if [[ "${use_color}" == true ]]; then
   red=$'\033[31m'
   green=$'\033[32m'
   blue=$'\033[34m'
-  yellow=$'\033[33m'
   reset=$'\033[0m'
   glyph_step="◆"
   glyph_ok="✓"
-  glyph_warn="!"
   glyph_error="✗"
 else
   bold=""
@@ -29,11 +27,9 @@ else
   red=""
   green=""
   blue=""
-  yellow=""
   reset=""
   glyph_step=">"
   glyph_ok="OK"
-  glyph_warn="WARN"
   glyph_error="ERROR"
 fi
 
@@ -58,10 +54,6 @@ log_step() {
 
 log_ok() {
   log "  ${green}${glyph_ok}${reset} $*"
-}
-
-log_warn() {
-  log "  ${yellow}${glyph_warn}${reset} $*"
 }
 
 log_error() {
@@ -1334,7 +1326,6 @@ sync_site() {
     --exclude "Automic Vault.dmg" \
     --exclude "scanner.gz" \
     --exclude "scanner.sh" \
-    --exclude "db.json" \
     --exclude "preview.jpg" \
     --exclude "*.html" \
     --exclude "*.xml" \
