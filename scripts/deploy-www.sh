@@ -682,7 +682,7 @@ function handler(event) {
     return false;
   }
 
-  if (isPackageOriginPath(request.uri)) {
+  if (request.uri === "/db.json" || isPackageOriginPath(request.uri)) {
     return {
       statusCode: 301,
       statusDescription: "Moved Permanently",

@@ -64,6 +64,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             self.assertIn(f'"{old_path}": "{new_path}"', deploy_script)
         self.assertIn('return appendQueryString("https://pkg.so" + landingPages[uri]);', deploy_script)
         self.assertIn('return appendQueryString("https://pkg.so" + uri);', deploy_script)
+        self.assertIn('request.uri === "/db.json" || isPackageOriginPath(request.uri)', deploy_script)
         self.assertIn("if (isPackageOriginPath(request.uri))", deploy_script)
         self.assertIn('statusCode: 301', deploy_script)
         self.assertNotIn("WWW_PKG_ORIGIN", deploy_script)
