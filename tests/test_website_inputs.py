@@ -71,6 +71,13 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertNotIn("atlas-pkg-origin", deploy_script)
         self.assertNotIn("pkg_behaviors", deploy_script)
 
+    def test_deploy_reads_region_from_aws_cli(self):
+        deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
+
+        self.assertIn('AWS_REGION="$(aws configure get region 2>/dev/null || true)"', deploy_script)
+        self.assertNotIn("require_env AWS_REGION", deploy_script)
+        self.assertNotIn(".envrc", deploy_script)
+
     def test_distribution_update_does_not_assume_origin_order(self):
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
         update = deploy_script.split("if distribution_id=", 1)[1].split("if ! aws cloudfront update-distribution", 1)[0]

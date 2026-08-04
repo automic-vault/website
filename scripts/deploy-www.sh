@@ -68,7 +68,7 @@ die() {
 on_error() {
   local line="$1"
   log_error "Deployment failed near line ${line}."
-  log "${dim}Deployment modes also require AWS CLI credentials and .envrc values.${reset}"
+  log "${dim}Deployment modes also require AWS CLI credentials and environment variables.${reset}"
 }
 
 trap 'on_error "$LINENO"' ERR
@@ -113,7 +113,7 @@ done
 require_env() {
   local name="$1"
   if [[ -z "${!name:-}" ]]; then
-    die "Set ${name} in .envrc."
+    die "Set ${name} in the environment."
   fi
 }
 
@@ -147,7 +147,9 @@ if [[ ! -d "${site_dir}" ]]; then
 fi
 
 if [[ "${prepare_only}" != true ]]; then
-  require_env AWS_REGION
+  AWS_REGION="$(aws configure get region 2>/dev/null || true)"
+  [[ -n "${AWS_REGION}" ]] || die "Configure a region for the active AWS CLI profile."
+  export AWS_REGION
   require_env WWW_DOMAIN
 
   export WWW_WWW_DOMAIN="${WWW_WWW_DOMAIN:-www.${WWW_DOMAIN}}"
