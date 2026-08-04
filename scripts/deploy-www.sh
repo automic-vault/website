@@ -147,14 +147,22 @@ if [[ ! -d "${site_dir}" ]]; then
 fi
 
 if [[ "${prepare_only}" != true ]]; then
-  AWS_REGION="$(aws configure get region 2>/dev/null || true)"
-  [[ -n "${AWS_REGION}" ]] || die "Configure a region for the active AWS CLI profile."
-  export AWS_REGION
   require_env WWW_DOMAIN
 
   export WWW_WWW_DOMAIN="${WWW_WWW_DOMAIN:-www.${WWW_DOMAIN}}"
   export WWW_CANONICAL_HOST="${WWW_CANONICAL_HOST:-${WWW_WWW_DOMAIN}}"
   export WWW_BUCKET="${WWW_BUCKET:-${WWW_DOMAIN}}"
+  AWS_REGION="$(
+    aws s3api get-bucket-location \
+      --bucket "${WWW_BUCKET}" \
+      --region us-east-1 \
+      --query LocationConstraint \
+      --output text 2>/dev/null || true
+  )"
+  if [[ -z "${AWS_REGION}" || "${AWS_REGION}" == "None" ]]; then
+    AWS_REGION="us-east-1"
+  fi
+  export AWS_REGION
   export WWW_CLOUDFRONT_PRICE_CLASS="${WWW_CLOUDFRONT_PRICE_CLASS:-PriceClass_100}"
   export WWW_HTML_CACHE_CONTROL="${WWW_HTML_CACHE_CONTROL:-public, max-age=60, must-revalidate}"
   export WWW_CSS_CACHE_CONTROL="${WWW_CSS_CACHE_CONTROL:-public, max-age=3600}"

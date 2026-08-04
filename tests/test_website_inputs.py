@@ -71,10 +71,15 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertNotIn("atlas-pkg-origin", deploy_script)
         self.assertNotIn("pkg_behaviors", deploy_script)
 
-    def test_deploy_reads_region_from_aws_cli(self):
+    def test_deploy_reads_region_from_bucket(self):
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
 
-        self.assertIn('AWS_REGION="$(aws configure get region 2>/dev/null || true)"', deploy_script)
+        region_setup = deploy_script.split('export WWW_BUCKET="${WWW_BUCKET:-${WWW_DOMAIN}}"', 1)[1].split(
+            "export WWW_CLOUDFRONT_PRICE_CLASS", 1
+        )[0]
+        self.assertIn("aws s3api get-bucket-location", region_setup)
+        self.assertIn("--region us-east-1", region_setup)
+        self.assertIn('AWS_REGION="us-east-1"', region_setup)
         self.assertNotIn("require_env AWS_REGION", deploy_script)
         self.assertNotIn(".envrc", deploy_script)
 
