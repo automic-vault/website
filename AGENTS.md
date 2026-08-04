@@ -3,7 +3,8 @@
 ## Scope
 
 This repository owns the Automic Vault S3-backed static website and its
-CloudFront distribution.
+CloudFront distribution, including the release redirect Lambda and deployment
+automation.
 
 Work here should be limited to:
 - HTML pages
@@ -12,28 +13,23 @@ Work here should be limited to:
 - images and other public assets
 - static metadata such as the sitemap, robots, llms, text,
   markdown, and JSON representations of website content
+- localization data and generation
+- website deployment and CloudFront configuration
+- the release redirect Lambda and its tests
 
-Do not add product runtime code, server code, package manager behavior, helper
-behavior, app/CLI behavior, or package-origin server code to this repository.
+Do not add product runtime or server behavior, package manager behavior, helper
+behavior, app/CLI behavior, or package-catalog code to this repository.
 
-## Package Catalog Boundary
+## Compatibility Boundaries
 
-The live package catalog and its Rust origin are owned by `~/src/pkgdb`.
+Keep legacy `/pkg/` redirects to `pkg.so`; do not reintroduce a package origin
+or rendered package catalog here.
 
-Legacy `/pkg/` routes, including localized variants and package assets,
-permanently redirect to `pkg.so` through this repository's CloudFront Function.
-Keep those redirects, but do not add package origins, cache behaviors, rendered
-content, or traffic tooling here. The renderer, SQLite pipeline, service,
-deployment, and Search Console work belong in `~/src/pkgdb` or the ops repo.
+The website download URLs use the Lambda to find the latest GitHub release.
+The static deploy must not upload a `.dmg`.
 
-## Release Artifact Boundary
-
-The product repository owns the release assets. This repository owns the
-website download URLs and the Lambda that redirects both `.dmg` routes to the
-latest GitHub release asset. The static deploy must not upload a `.dmg`.
-
-The product repository still owns `/scanner.gz` and `/scanner.sh`. The static
-website deploy excludes those objects and must not delete or overwrite them.
+The static deploy must preserve the externally managed `/scanner.gz` and
+`/scanner.sh` objects.
 
 ## Deployment Safety
 
