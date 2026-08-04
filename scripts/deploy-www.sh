@@ -147,8 +147,7 @@ if [[ ! -d "${site_dir}" ]]; then
 fi
 
 if [[ "${prepare_only}" != true ]]; then
-  require_env WWW_DOMAIN
-
+  export WWW_DOMAIN="${WWW_DOMAIN:-automicvault.com}"
   export WWW_WWW_DOMAIN="${WWW_WWW_DOMAIN:-www.${WWW_DOMAIN}}"
   export WWW_CANONICAL_HOST="${WWW_CANONICAL_HOST:-${WWW_WWW_DOMAIN}}"
   export WWW_BUCKET="${WWW_BUCKET:-${WWW_DOMAIN}}"
