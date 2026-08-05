@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Automic Vault Would Have Prevented the Keyv npm Worm | Automic Vault Blog</title>
+  <meta name="description" content="The Keyv npm worm used preinstall code to steal developer credentials and spread. Automic Vault would have broken its local theft path.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="How Automic Vault Would Have Prevented the Keyv npm Worm">
+  <meta property="og:description" content="The Keyv npm worm used preinstall code to steal developer credentials and spread. Automic Vault would have broken its local theft path.">
+  <meta property="og:url" content="https://www.automicvault.com/blog/prevent-keyv-npm-worm/">
+  <meta property="og:image" content="https://www.automicvault.com/assets/blog/prevent-keyv-npm-worm-og.webp">
+  <meta property="article:published_time" content="2026-08-04">
+  <meta property="article:modified_time" content="2026-08-04">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.automicvault.com/assets/blog/prevent-keyv-npm-worm-og.webp">
+  <meta name="twitter:title" content="How Automic Vault Would Have Prevented the Keyv npm Worm">
+  <meta name="twitter:description" content="The Keyv npm worm used preinstall code to steal developer credentials and spread. Automic Vault would have broken its local theft path.">
+  <link rel="canonical" href="https://www.automicvault.com/blog/prevent-keyv-npm-worm/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.automicvault.com/#organization",
+      "name": "Automic Vault",
+      "url": "https://www.automicvault.com/",
+      "logo": "https://www.automicvault.com/assets/icon@2x.webp?v=3",
+      "sameAs": [
+        "https://github.com/automic-vault/automic-vault",
+        "https://github.com/automic-vault/automic-vault",
+        "https://mxcl.dev/",
+        "https://brew.sh/"
+      ]
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://www.automicvault.com/blog/prevent-keyv-npm-worm/#article",
+      "headline": "How Automic Vault Would Have Prevented the Keyv npm Worm",
+      "description": "The Keyv npm worm used preinstall code to steal developer credentials and spread. Automic Vault would have broken its local theft path.",
+      "image": "https://www.automicvault.com/assets/blog/prevent-keyv-npm-worm-og.webp",
+      "datePublished": "2026-08-04",
+      "dateModified": "2026-08-04",
+      "author": {
+        "@id": "https://www.automicvault.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://www.automicvault.com/#organization"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://www.automicvault.com/blog/prevent-keyv-npm-worm/#webpage"
+      },
+      "about": [
+        "developer supply chain security",
+        "local developer credential protection",
+        "AI agent security",
+        "Automic Vault"
+      ],
+      "mentions": [
+        "SafeDep Keyv npm worm analysis",
+        "Aikido Keyv supply-chain analysis",
+        "Wiz Research compromised-package list",
+        "International Cyber Digest incident report"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.automicvault.com/blog/prevent-keyv-npm-worm/#webpage",
+      "url": "https://www.automicvault.com/blog/prevent-keyv-npm-worm/",
+      "name": "How Automic Vault Would Have Prevented the Keyv npm Worm",
+      "description": "The Keyv npm worm used preinstall code to steal developer credentials and spread. Automic Vault would have broken its local theft path.",
+      "isPartOf": {
+        "@id": "https://www.automicvault.com/blog/#blog"
+      },
+      "breadcrumb": {
+        "@id": "https://www.automicvault.com/blog/prevent-keyv-npm-worm/#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.automicvault.com/blog/prevent-keyv-npm-worm/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Automic Vault",
+          "item": "https://www.automicvault.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://www.automicvault.com/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How Automic Vault Would Have Prevented the Keyv npm Worm",
+          "item": "https://www.automicvault.com/blog/prevent-keyv-npm-worm/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap"
+    rel="stylesheet"
+  >
+  <link rel="icon" href="/favicon.ico?v=3" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+</head>
+<body>
+  <div class="scroll-meter" aria-hidden="true"><span></span></div>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home">
+        <img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="Automic Vault" width="54" height="54">
+        <span class="brand-type">Automic Vault</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="https://pkg.so/">Packages</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/docs/">Docs</a>
+        <a href="/Automic%20Vault.dmg">Download</a>
+        <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <header class="article-hero incident-hero">
+          <div class="article-hero-copy">
+            <p class="eyebrow">Keyv npm supply-chain worm</p>
+            <h1>How Automic Vault would have prevented the Keyv npm credential theft.</h1>
+            <p class="lede">The Keyv worm used npm install hooks to steal developer credentials, then used those credentials to poison more packages and repositories. Automic Vault would have kept protected secrets behind an explicit handoff, denying the worm the tokens it needed to steal and spread.</p>
+            <div class="hero-actions">
+              <a class="button primary" href="/Automic%20Vault.dmg">Download Automic Vault</a>
+              <a class="button secondary" href="https://github.com/automic-vault/automic-vault/security">Security model</a>
+              <a class="button text" href="/#threats">Run the scanner</a>
+            </div>
+          </div>
+          <figure class="article-hero-image">
+            <img
+              src="/assets/blog/prevent-keyv-npm-worm-og.webp"
+              alt="Automic Vault incident preview artwork for the Keyv npm supply-chain worm"
+              width="1536"
+              height="1024"
+              decoding="async"
+              fetchpriority="high"
+            >
+          </figure>
+        </header>
+
+        <section class="incident-body" aria-label="Incident analysis">
+          <p class="story-kicker">Published August 4, 2026</p>
+          <p class="incident-answer">With supported secrets moved out of plaintext files and npm installs running from a terminal with no automatic secret access, Automic Vault would have denied the worm the GitHub, npm, and AWS credentials stored behind its gate. That breaks both the credential theft and the stolen-token path used to republish packages.</p>
+
+          <section class="incident-section" aria-labelledby="facts-title">
+            <div class="section-label">
+              <h2 id="facts-title">Incident Facts</h2>
+              <span>local execution</span>
+            </div>
+            <dl class="incident-panel">
+              <div>
+                <dt>Date</dt>
+                <dd>August 4, 2026</dd>
+              </div>
+              <div>
+                <dt>Trigger</dt>
+                <dd><code>keyv@6.0.0</code> and related packages added <code>"preinstall": "node setup.mjs"</code>. The Keyv repository also contained Claude Code and VS Code hooks that ran when a developer opened it.</dd>
+              </div>
+              <div>
+                <dt>Observed scope</dt>
+                <dd>SafeDep confirmed 2,234 poisoned versions across 444 package names while the response was active. The linked breaking report described at least 868 affected packages.</dd>
+              </div>
+              <div>
+                <dt>Targets and spread</dt>
+                <dd>GitHub, npm, AWS, GCP, Azure, Kubernetes, Vault, Stripe, Slack, private keys, and database credentials. Stolen npm and GitHub tokens let the worm publish more releases and modify more repositories.</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="incident-section" aria-labelledby="what-happened-title">
+            <div class="section-label">
+              <h2 id="what-happened-title">What Happened?</h2>
+              <span>incident record</span>
+            </div>
+            <p>Attackers pushed malicious files into the Keyv source repository and published <code>keyv@6.0.0</code> through the legitimate GitHub Actions release workflow. The npm package carried valid provenance because the real workflow built the poisoned source.</p>
+            <p>A bare <code>npm install</code> ran <code>setup.mjs</code> before the install finished. The dropper fetched the Bun runtime when necessary and launched a large credential stealer. Investigators found code for harvesting package-registry tokens, GitHub credentials, cloud keys, Kubernetes and Vault access, Stripe and Slack tokens, private keys, and database URLs.</p>
+            <p>The payload then used stolen npm tokens to publish malicious patch releases of every package the victim could maintain. GitHub tokens gave it a second route: it could modify repositories and add hooks to <code>.claude/settings.json</code> and <code>.vscode/tasks.json</code>, causing code to run when another developer opened the project.</p>
+            <p>The package count changed throughout the response. SafeDep confirmed 2,234 poisoned versions across 444 names and found that heavily downloaded transitive dependencies such as <code>flat-cache</code> and <code>file-entry-cache</code> carried the same payload.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="failure-title">
+            <div class="section-label">
+              <h2 id="failure-title">Failure Point</h2>
+              <span>root cause</span>
+            </div>
+            <p>Valid provenance proved that Keyv's real release pipeline built the package. It did not prove that the source entering that pipeline was safe. Once the install hook ran, npm gave it the developer account's readable files and inherited environment.</p>
+            <p>The worm needed two local capabilities to spread: permission to read credentials and permission to use them. Automic Vault controls that boundary on a Mac by removing supported credentials from ambient files and releasing them only to an approved command launched by an identified signed app.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="prevention-controls-title">
+            <div class="section-label">
+              <h2 id="prevention-controls-title">Where Automic Vault Would Have Stopped It</h2>
+              <span>prevention</span>
+            </div>
+            <div class="incident-controls">
+            <article class="incident-control">
+              <span>01 / files</span>
+              <h3>The stealer would find fewer usable credentials</h3>
+              <p><code>av scan</code> finds exposed local credentials, while hardeners and <code>av save</code> move supported values into Keychain. Secrets removed from <code>~/.npmrc</code>, <code>~/.config/gh</code>, environment files, and cloud config are no longer readable by an npm install hook.</p>
+            </article>
+            <article class="incident-control">
+              <span>02 / secrets</span>
+              <h3>An install terminal would have no automatic handoff</h3>
+              <p>Automic Vault checks the executable, signed launcher, command, working directory, and requested key before releasing a protected secret. Under the recommended policy, the terminal used for <code>npm install</code> gets no automatic secret access, so the worm cannot silently request those values.</p>
+            </article>
+            <article class="incident-control">
+              <span>03 / execution</span>
+              <h3>Stolen-token propagation would fail</h3>
+              <p>Without a protected npm publishing token or GitHub credential, the worm cannot publish under that developer's identity or commit hooks to their repositories. Other infected machines could still spread it, but this workstation would stop contributing credentials to the chain.</p>
+            </article>
+            </div>
+          </section>
+
+          <section class="incident-section" aria-labelledby="prevention-title">
+            <div class="section-label">
+              <h2 id="prevention-title">Workstation Prevention Boundary</h2>
+              <span>local boundary</span>
+            </div>
+            <p>Automic Vault would have prevented theft of credentials that a developer had moved behind its gate, provided the install ran from a launcher with no automatic access. Protecting npm and GitHub credentials would also have cut the worm's propagation route through that developer's packages and repositories.</p>
+            <p>The poisoned package could still install and execute arbitrary code. It could read plaintext secrets left outside Automic Vault, damage user-writable files, add persistence, and reach credentials supplied by cloud metadata or container service accounts. Automic Vault is a secret handoff boundary, not a general process sandbox.</p>
+            <p>Run package installs in a dedicated terminal with low-to-no privileges in both Automic Vault and macOS TCC. On a suspected host, follow the incident responders' order of operations and hunt the reported token monitor before rotating credentials, because investigators found a dead-man switch triggered by revocation.</p>
+            <p class="incident-note">Automic Vault does not clean an infected machine or make npm, GitHub Actions, Claude Code, or VS Code immune to compromise. It prevents protected secrets from becoming ambient authority. An approved executable can still use a secret released to it, and root compromise remains outside the product boundary.</p>
+          </section>
+
+          <section class="incident-sources" aria-labelledby="sources-title">
+            <h2 id="sources-title">Sources</h2>
+            <ul>
+              <li><a href="https://safedep.io/keyv-npm-supply-chain-compromise/">SafeDep technical analysis and live package count</a></li>
+              <li><a href="https://www.aikido.dev/blog/keyv-and-friends-compromised-in-npm-supply-chain-attack">Aikido analysis of the Keyv compromise and worm</a></li>
+              <li><a href="https://github.com/wiz-sec-public/wiz-research-iocs/blob/main/reports/keyv-packages.csv">Wiz Research compromised-package list</a></li>
+              <li><a href="https://x.com/IntCyberDigest/status/2084636007790449126">International Cyber Digest breaking report</a></li>
+            </ul>
+          </section>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; 2026 Automic Vault.</p>
+      <div class="footer-links">
+        <a href="/about/">About</a>
+        <a href="https://github.com/automic-vault/automic-vault/security">Security</a>
+        <a href="/blog/">Blog</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/app.js?v=26"></script>
+</body>
+</html>

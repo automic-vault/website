@@ -20,6 +20,7 @@
 ## Incident Analysis
 
 - [Blog](https://www.automicvault.com/blog/): Index of developer security guidance and analyses of package, extension, credential, and local execution incidents.
+- [Keyv npm supply-chain worm](https://www.automicvault.com/blog/prevent-keyv-npm-worm/): Explains how protected local credentials and a low-privilege install terminal would have broken the worm's credential theft and stolen-token propagation path.
 - [Nx Console extension compromise](https://www.automicvault.com/blog/prevent-nx-console-vscode-compromise/): Analyzes local credential theft by a compromised VS Code extension and the relevant endpoint controls.
 - [GitHub employee device breach](https://www.automicvault.com/blog/prevent-github-vscode-extension-breach/): Examines a poisoned editor extension, repository access, and controls at the developer workstation boundary.
 - [LiteLLM PyPI compromise](https://www.automicvault.com/blog/prevent-litellm-pypi-compromise/): Maps malicious Python releases and credential theft to local secret storage and executable approval controls.

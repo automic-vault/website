@@ -741,7 +741,8 @@ def render_sitemap(records: list[dict[str, Any]], locales: list[Locale]) -> str:
             entries.append(sitemap_entry(href(path, locale), lastmod, path, locales))
     preserved = [
         ("https://www.automicvault.com/docs/", "2026-07-27"),
-        ("https://www.automicvault.com/blog/", "2026-07-16"),
+        ("https://www.automicvault.com/blog/", "2026-08-04"),
+        ("https://www.automicvault.com/blog/prevent-keyv-npm-worm/", "2026-08-04"),
         ("https://www.automicvault.com/blog/mac-security-best-practices-for-agents/", "2026-07-16"),
         ("https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/", "2026-07-12"),
         ("https://www.automicvault.com/blog/prevent-nx-console-vscode-compromise/", "2026-05-21"),

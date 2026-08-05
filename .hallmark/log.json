@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-08-04",
+    "scope": "blog incident",
+    "macrostructure": "Long Document",
+    "theme": "Cobalt-dark",
+    "theme_axes": "dark / grotesk-sans / cool",
+    "enrichment": "incident social card",
+    "nav": "N5",
+    "footer": "Ft5",
+    "brief": "Keyv npm supply-chain worm credential-theft analysis"
+  },
+  {
     "date": "2026-07-24",
     "scope": "docs",
     "macrostructure": "Long Document",
