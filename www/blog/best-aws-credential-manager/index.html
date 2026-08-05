@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Best AWS Credential Manager in the World | Automic Vault Blog</title>
+  <meta name="description" content="Automic Vault binds temporary AWS credentials to one verified aws process, one signed launcher, and one command policy on macOS.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="The Best Fricking AWS Credential Manager in the World">
+  <meta property="og:description" content="Temporary AWS credentials, per-launcher policy, process-bound delivery, native approval, and no ambient credential chain.">
+  <meta property="og:url" content="https://www.automicvault.com/blog/best-aws-credential-manager/">
+  <meta property="og:image" content="https://www.automicvault.com/assets/av-approve-gate.png">
+  <meta property="article:published_time" content="2026-08-05">
+  <meta property="article:modified_time" content="2026-08-05">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.automicvault.com/assets/av-approve-gate.png">
+  <meta name="twitter:title" content="The Best Fricking AWS Credential Manager in the World">
+  <meta name="twitter:description" content="Automic Vault gives each aws process temporary credentials under a policy for its command and signed launcher.">
+  <link rel="canonical" href="https://www.automicvault.com/blog/best-aws-credential-manager/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.automicvault.com/#organization",
+        "name": "Automic Vault",
+        "url": "https://www.automicvault.com/",
+        "logo": "https://www.automicvault.com/assets/icon@2x.webp?v=3",
+        "sameAs": [
+          "https://github.com/automic-vault/automic-vault",
+          "https://mxcl.dev/",
+          "https://brew.sh/"
+        ]
+      },
+      {
+        "@type": "BlogPosting",
+        "@id": "https://www.automicvault.com/blog/best-aws-credential-manager/#article",
+        "headline": "The Best Fricking AWS Credential Manager in the World",
+        "description": "Automic Vault binds temporary AWS credentials to one verified aws process, one signed launcher, and one command policy on macOS.",
+        "image": "https://www.automicvault.com/assets/av-approve-gate.png",
+        "datePublished": "2026-08-05",
+        "dateModified": "2026-08-05",
+        "author": {"@id": "https://www.automicvault.com/#organization"},
+        "publisher": {"@id": "https://www.automicvault.com/#organization"},
+        "mainEntityOfPage": {"@id": "https://www.automicvault.com/blog/best-aws-credential-manager/#webpage"},
+        "about": [
+          "AWS credentials",
+          "AWS CLI security",
+          "AI agent security",
+          "Automic Vault"
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.automicvault.com/blog/best-aws-credential-manager/#webpage",
+        "url": "https://www.automicvault.com/blog/best-aws-credential-manager/",
+        "name": "The Best Fricking AWS Credential Manager in the World",
+        "description": "Automic Vault binds temporary AWS credentials to one verified aws process, one signed launcher, and one command policy on macOS.",
+        "isPartOf": {"@id": "https://www.automicvault.com/blog/#blog"},
+        "breadcrumb": {"@id": "https://www.automicvault.com/blog/best-aws-credential-manager/#breadcrumb"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.automicvault.com/blog/best-aws-credential-manager/#breadcrumb",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Automic Vault", "item": "https://www.automicvault.com/"},
+          {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.automicvault.com/blog/"},
+          {"@type": "ListItem", "position": 3, "name": "The Best AWS Credential Manager", "item": "https://www.automicvault.com/blog/best-aws-credential-manager/"}
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico?v=3" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+</head>
+<body>
+  <div class="scroll-meter" aria-hidden="true"><span></span></div>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home">
+        <img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="Automic Vault" width="54" height="54">
+        <span class="brand-type">Automic Vault</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="https://pkg.so/">Packages</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/docs/">Docs</a>
+        <a href="/Automic%20Vault.dmg">Download</a>
+        <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <header class="article-hero incident-hero">
+          <div class="article-hero-copy">
+            <p class="eyebrow">AWS credential security</p>
+            <h1>The best fricking AWS credential manager in the world.</h1>
+            <p class="lede">Automic Vault stores long-lived keys in Keychain and gives the AWS CLI temporary credentials for one verified process under a policy for the command and signed app. Operations that require the original keys hit a large warning.</p>
+            <div class="hero-actions">
+              <a class="button primary" href="/Automic%20Vault.dmg">Download Automic Vault</a>
+              <a class="button secondary" href="https://github.com/automic-vault/automic-vault">Read the source</a>
+            </div>
+          </div>
+          <figure class="article-hero-image">
+            <img
+              src="/assets/av-approve-gate.png"
+              alt="Automic Vault asking whether ChatGPT may run an AWS EC2 delete-volume command"
+              width="1212"
+              height="1112"
+              decoding="async"
+              fetchpriority="high"
+            >
+          </figure>
+        </header>
+
+        <section class="incident-body" aria-label="Automic Vault AWS credential security">
+          <p class="story-kicker">Published August 5, 2026</p>
+          <p class="incident-answer">For Mac developers who still need AWS access keys, no other credential manager combines Keychain storage, per-command authorization, signed-launcher policy, process-bound credential delivery, short-lived sessions, MFA, roles, and a local audit record. We think that makes Automic Vault the best AWS credential manager available.</p>
+
+          <section class="incident-section" aria-labelledby="old-model-title">
+            <div class="section-label">
+              <h2 id="old-model-title">Access Keys Need a Runtime Boundary</h2>
+              <span>the missing control</span>
+            </div>
+            <p>AWS access keys often begin in <code>~/.aws/credentials</code>. Any process running as you can read that file. Moving the pair into Keychain protects storage, but a useful credential manager must still release credentials when <code>aws</code> runs.</p>
+            <p><code>aws-vault</code> set the standard here. It stores keys in a secure backend, calls AWS STS, and exposes temporary credentials to a child process through environment variables or a local metadata server. We used it. It remains good software.</p>
+            <p>Agents raised a harder question: which app launched <code>aws</code>, which operation did it request, and should that combination receive credentials without asking you? A wrapper around a shell session cannot answer that with the macOS identity and approval model.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="command-title">
+            <div class="section-label">
+              <h2 id="command-title">You Still Type <code>aws</code></h2>
+              <span>one command</span>
+            </div>
+            <pre><code>av harden aws
+aws sts get-caller-identity</code></pre>
+            <p>The hardener imports the default access key pair into the macOS Keychain and installs a protected launcher at <code>/usr/local/bin/aws</code>. Your shell, scripts, and agents keep invoking <code>aws</code>. They never receive the stored keys in their ambient environment.</p>
+            <p>The launcher registers the AWS arguments, selected profile, process ID, process start time, and a snapshot of the AWS config with the Automic Vault app. It then replaces itself with the Homebrew AWS CLI.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="helper-title">
+            <div class="section-label">
+              <h2 id="helper-title">The Credential Helper Knows Its Parent</h2>
+              <span>process-bound delivery</span>
+            </div>
+            <p>The AWS CLI receives a minimal config containing Automic Vault's <code>credential_process</code>. AWS starts the helper as a child. The helper checks that its immediate parent has the registered PID and start time, uses the expected interpreter, and still has the approved arguments.</p>
+            <p>A copied helper command cannot fetch credentials from another process. A stale registration cannot be replayed after <code>aws</code> exits. Each AWS invocation gets its own in-memory credential cache, which disappears with that process.</p>
+            <p>Automic Vault runs the credential-bearing AWS process with an empty home and disables the normal ambient provider paths. Shared credential files, instance metadata, web identity, container credentials, plugins, aliases, pager hooks, and user-supplied credential processes stay outside that process.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="sts-title">
+            <div class="section-label">
+              <h2 id="sts-title">Temporary Credentials by Default</h2>
+              <span>STS and MFA</span>
+            </div>
+            <p>The menu app calls AWS STS <code>GetSessionToken</code> and <code>AssumeRole</code> itself. Normal commands receive temporary credentials. Profiles with <code>mfa_serial</code> get an Automic Vault MFA prompt, and role profiles receive a role session rooted at the protected default keys.</p>
+            <p>AWS restricts non-MFA <code>GetSessionToken</code> credentials from IAM and most STS operations. Those commands may need the original keys. Automic Vault classifies that handoff as a secret dump and puts a large warning in the approval window. Trusted Access still asks. Full Access can allow it because Full Access means everything, and you must choose that level for the launcher or an exact blessed script.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="policy-title">
+            <div class="section-label">
+              <h2 id="policy-title">Policy Follows the Launcher</h2>
+              <span>Terminal is not your agent</span>
+            </div>
+            <p>Terminal, Codex, an editor, and an unknown process can invoke the same AWS binary. Automic Vault follows the process chain to the signed app and gives each launcher its own Secret Gate level.</p>
+            <div class="incident-controls">
+              <article class="incident-control">
+                <span>01 / read only</span>
+                <h3>Agents inspect without deploying</h3>
+                <p>Commands classified as reads can proceed. Mutations and secret-revealing operations ask first.</p>
+              </article>
+              <article class="incident-control">
+                <span>02 / trusted</span>
+                <h3>Your terminal can work</h3>
+                <p>Normal operations follow command policy. Requests that reveal long-lived keys keep the gate.</p>
+              </article>
+              <article class="incident-control">
+                <span>03 / full</span>
+                <h3>You retain the dangerous knob</h3>
+                <p>An explicit launcher rule or blessed script can do everything. The approval UI says what that means.</p>
+              </article>
+            </div>
+            <p>Every decision records the launcher, command, directory, requested keys, and result in the local Secret Usage log. The policy and record exist below the agent harness, so no agent integration has to cooperate.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="scope-title">
+            <div class="section-label">
+              <h2 id="scope-title">A Narrow Model That Fails Closed</h2>
+              <span>supported on purpose</span>
+            </div>
+            <p>Automic Vault supports the imported <code>default</code> keys, regions, MFA, and role profiles whose <code>source_profile</code> chain ends at <code>default</code>. SSO, web identity, <code>credential_source</code>, independent named static keys, and custom credential processes fail with a precise error.</p>
+            <p>The upstream AWS CLI remains a large Python program that Automic Vault cannot harden from within. End-to-end integrity depends on protecting its Homebrew distribution and interpreter. <code>av harden brew</code> is optional because developers deserve the knob, but we recommend it for the full security boundary.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="claim-title">
+            <div class="section-label">
+              <h2 id="claim-title">Yes, We Mean Best</h2>
+              <span>for AWS access keys on macOS</span>
+            </div>
+            <p>AWS Identity Center and workload identity should replace long-lived IAM user keys where they fit. Plenty of developers still have keys, MFA devices, and role chains on their Macs. Those credentials deserve more than secure storage and a shell wrapper.</p>
+            <p>Automic Vault narrows credential issuance to one live AWS process. It accounts for the signed launcher and command. It uses temporary sessions, warns before releasing long-lived keys, records the decision, and leaves the dangerous policy knobs in your hands.</p>
+            <div class="hero-actions">
+              <a class="button primary" href="/Automic%20Vault.dmg">Download Automic Vault</a>
+              <a class="button secondary" href="https://github.com/automic-vault/automic-vault#aws-without-ambient-credentials">Inspect the implementation</a>
+            </div>
+          </section>
+
+          <section class="incident-sources" aria-labelledby="sources-title">
+            <h2 id="sources-title">Sources</h2>
+            <ul>
+              <li><a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sourcing-external.html">AWS CLI: Sourcing credentials with an external process</a></li>
+              <li><a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html">AWS STS: GetSessionToken</a></li>
+              <li><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_configure-api-require.html">AWS IAM: Secure API access with MFA</a></li>
+              <li><a href="https://github.com/99designs/aws-vault">aws-vault</a></li>
+              <li><a href="https://github.com/automic-vault/automic-vault/blob/main/src/isotopes/hardeners/aws_cli.md">Automic Vault AWS hardener security model</a></li>
+            </ul>
+          </section>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; 2026 Automic Vault.</p>
+      <div class="footer-links">
+        <a href="/about/">About</a>
+        <a href="https://github.com/automic-vault/automic-vault/security">Security</a>
+        <a href="/blog/">Blog</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/app.js?v=26"></script>
+</body>
+</html>
