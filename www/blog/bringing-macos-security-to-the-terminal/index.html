@@ -201,9 +201,9 @@
               <h2 id="automic-vault-title">The Automic Vault Boundary</h2>
               <span>per-launcher policy</span>
             </div>
-            <p>Automic Vault resolves both the credential-bearing CLI and the signed launcher above it. You can allow direct access when Terminal launches a named tool, while requiring approval when Codex, another harness, or an unknown app launches the same executable.</p>
-            <p>The credential stays out of plaintext dotfiles and out of the launcher’s ambient environment. At request time, Automic Vault can show the launcher, executable, command, working directory, and key before you approve or deny the handoff. The audit log retains the same context afterward.</p>
-            <p>Automic Vault focuses on secret handoff and sensitive tool execution. General filesystem and network containment remain the responsibility of macOS and the host app. The result brings stable identity, least authority, explicit consent, and an audit trail to the terminal layer where developer credentials actually get used.</p>
+            <p>Automic Vault resolves both the credential-bearing Target and the Verified Launcher above it. You can choose Write Access when Terminal launches a named Tool while requiring Approval when Codex, another harness, or an unknown app launches the same executable.</p>
+            <p>The Credential stays out of plaintext dotfiles and out of the Launcher’s ambient environment. At request time, Automic Vault can show the Launcher, Target, command, working directory, and Secret Name before you approve or deny the Secret Application. Authorization History retains the same context afterward.</p>
+            <p>Automic Vault focuses on Secret Application and sensitive Tool execution. General filesystem and network containment remain the responsibility of macOS and the host app. The result brings stable identity, least authority, explicit consent, and bounded local history to the terminal layer where developer credentials get used.</p>
           </section>
 
           <section class="incident-sources" aria-labelledby="sources-title">

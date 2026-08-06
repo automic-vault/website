@@ -36,8 +36,8 @@ You can also download the current DMG from
 or review and run the
 [website installer](https://www.automicvault.com/install.sh).
 
-The menu bar app owns approval UI and policy. Open it before using commands that
-request approval:
+The menu bar app owns Approval UI and Authorization Policy. Open it before using
+commands that require Approval:
 
 ```sh
 av open
@@ -60,19 +60,20 @@ Remove any old plaintext export only after confirming the approved command works
 
 ## Mental model
 
-Automic Vault stores named values in the macOS Keychain. `av inject` asks the
-signed menu bar app to approve a specific request containing the resolved target,
-arguments, working directory, requested keys, and any existing environment
-conflicts. After approval, `av` replaces itself with the target process.
+Automic Vault stores named Secrets in the macOS Keychain. `av inject` submits an
+Authorization Request containing the resolved Target, arguments, working
+directory, requested Secret Names, and any existing environment conflicts. The
+app applies the Authorization Policy or asks for Approval. If allowed, `av`
+replaces itself with the Target process.
 
-This is a secret handoff boundary, not a general sandbox. The target receives the
-rest of the current environment, and an approved executable can use a released
-secret. Keep macOS, the app, and each approved target in your trust model.
+This is a Secret Application boundary, not a general sandbox. The Target receives
+the rest of the current environment and controls a Secret after receipt. Keep
+macOS, the app, and each authorized Target in your trust model.
 
 ## `av scan`
 
-Audit the current home directory for exposed credentials, unsafe tool
-configuration, and other detector findings.
+Scan the current home directory for supported credential Exposures, Hazards,
+and other Detector Findings.
 
 ```sh
 av scan
@@ -115,7 +116,7 @@ remediation, and relevant stub, target, or resolved path.
 
 ## Signed CLI launchers
 
-Automic Vault can bind approval policy to either a signed app bundle or a
+Automic Vault can bind an Authorization Policy to either a signed app bundle or a
 Developer ID-signed standalone executable. It validates the live code signature
 and stores the launcher's designated requirement, which identifies the binary
 and its signing team.
@@ -132,20 +133,20 @@ tool or blessed-script policy and select the resolved native executable rather
 than a shell or package-manager shim. Review its identifier, Team ID, path, and
 designated requirement before allowing it.
 
-If the identity cannot be verified later, automatic approval fails closed and
-requires manual approval. Code signing proves identity and integrity, not intent.
+If the identity cannot be verified later, automic authorization fails closed and
+requires Approval. Code signing proves identity and integrity, not intent.
 Keep the terminal or agent app's permissions minimal because TCC remains
 app-scoped.
 
 ## `av save`
 
-Store one named value in the Automic Vault Keychain:
+Store one named Secret in the Automic Vault Keychain:
 
 ```sh
 av save GH_TOKEN
 ```
 
-The key must be a valid environment variable name: it begins with a letter or
+The Secret Name must be a valid environment variable name: it begins with a letter or
 underscore and continues with letters, digits, or underscores. The command opens
 `/dev/tty`, disables terminal echo while reading, trims the line ending, rejects
 an empty value, and restores echo even if reading fails.
@@ -159,7 +160,7 @@ printf '%s\n' "$GH_TOKEN" | av save GH_TOKEN
 
 ## `av inject`
 
-Request one or more named Keychain values, then execute a command:
+Request one or more named Secrets, then execute a Target:
 
 ```sh
 av inject +GH_TOKEN gh auth status
@@ -183,16 +184,16 @@ Behavior:
   conflict.
 - `--replace-existing-env` lets the approved Keychain value replace an existing
   environment value.
-- A missing requested key fails the run by default.
-- `--allow-missing-keys` leaves missing keys unset; this is primarily useful for
+- A missing requested Secret fails the run by default.
+- `--allow-missing-keys` leaves missing Secrets unset; this is primarily useful for
   generated wrappers that support optional credentials.
-- Duplicate or invalid key names are rejected.
+- Duplicate or invalid Secret Names are rejected.
 - `av inject` refuses to run as root.
 - The menu bar approval service must be running.
 
-The request is denied if the approval service cannot authenticate, the policy
-does not allow the operation, or the user declines it. On approval, `av` uses
-`exec`, so the target replaces the `av` process rather than becoming a detached
+The Authorization Request is denied if the service cannot authenticate, the
+Authorization Policy does not allow the operation, or the user declines it. If
+allowed, `av` uses `exec`, so the Target replaces the `av` process rather than becoming a detached
 child.
 
 ### Shebang use
@@ -205,23 +206,21 @@ set -eu
 exec curl -H "Authorization: Bearer $API_TOKEN" https://api.example.test/me
 ```
 
-The script path is included in the approval request. Keep the interpreter path
-absolute and the shebang to one requested-key set plus one interpreter.
+The script path is included in the Authorization Request. Keep the interpreter
+path absolute and the shebang to one requested-Secret set plus one interpreter.
 
 ## `av bless`
 
-Store a durable approval for an exact script and the signed launchers allowed to
-launch it:
+Review an exact script and its Script Declaration:
 
 ```sh
 av bless ./release.sh
 ```
 
-The app opens a review showing the canonical path, SHA-256 checksum, requested
-secrets, tool capabilities, and calling launchers. Approving binds the blessing to
-all of them, as well as the `inject` flags and interpreter. Editing or moving
-the script makes the blessing stop matching; review and bless the new version
-explicitly.
+The app shows the canonical path, SHA-256 checksum, requested Secret Names,
+Capabilities, injection flags, and Target interpreter. Approval creates a
+Blessing bound to that complete review. Editing or moving the script makes the
+Blessing stop matching.
 
 A blessable script must be a regular UTF-8 file no larger than 1 MiB and start
 with an absolute `av inject` shebang whose target interpreter is also absolute:
@@ -230,22 +229,23 @@ with an absolute `av inject` shebang whose target interpreter is also absolute:
 #!/usr/local/bin/av inject +GH_TOKEN /bin/sh
 # --- automic-vault
 # capabilities:
-#   gh: trusted
+#   gh: write
 # ---
 set -eu
 gh release create "$1"
 ```
 
 The optional manifest must immediately follow the shebang. It may grant named
-Secret Gates one of `read-only`, `local-write`, `read-and-updates`, `trusted`,
-or `full`; unsupported gates or access levels are rejected. These are ceilings,
-not blanket authority: undeclared or broader requests from the script are
-denied. `full` includes operations that may reveal protected values and should
-be granted sparingly.
+Secret Gates one of `read-only`, `local-write`, `write`, or `full`; unsupported
+gates or Access Levels are rejected. `read-and-updates` and `trusted` remain
+compatibility aliases. Capabilities are ceilings: undeclared or broader requests
+from the script are denied. `full` includes Secret Disclosure and Elevated
+Secret Application and should be granted sparingly.
 
-Only an endorsed signed app bundle or Developer ID-signed standalone executable
-can use the blessing for automatic approval. With no endorsed launcher, each
-execution still requires manual approval.
+Run `av bless --endorse-launcher ./release.sh` to include a Launcher Endorsement
+in the review. Only an endorsed Verified Launcher can use the Blessing with
+automic authorization. With no Launcher Endorsement, each execution requires
+Approval. `--endorse-caller` remains a compatibility alias.
 Blessed scripts run from a verified `/dev/fd/N` snapshot so edits cannot race
 approval. `AV_SCRIPT_PATH` contains the canonical source path and `AV_SCRIPT_DIR`
 its containing directory. Blessings can be inspected, narrowed, or revoked
@@ -260,9 +260,9 @@ av harden NAME
 av harden NAME --yes
 ```
 
-Hardeners are tool-specific migrations and launch boundaries. Depending on the
-tool, a hardener can move existing credentials into Keychain, install or replace
-a launcher, change protected ownership, or enable a native credential route.
+Hardeners are Tool-specific security transformations. Depending on the Tool, a
+Hardener can move existing Credentials into Keychain, install or replace a
+Launcher, change protected ownership, or enable a native credential route.
 Review its embedded documentation and prompts before approving system changes.
 Some root-owned launchers require `sudo`; follow the selected hardener's
 instructions rather than running every hardener as root.
@@ -280,6 +280,9 @@ av hardeners --json |
 The source currently includes dedicated hardeners for AWS CLI, Homebrew, GitHub
 CLI, sudo, and Supabase plus generated environment wrappers for supported tools.
 Availability and applicability depend on the installed tool and current machine.
+
+The project [Domain Language](https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md)
+defines the security terms used throughout these docs.
 
 ## Machine-readable catalogs
 

@@ -5,55 +5,55 @@
   "license": "Apache License 2.0",
   "title": "A new kind of secrets manager for a new era of development.",
   "eyebrow": "Local execution security for macOS",
-  "description": "Automic Vault removes plaintext secrets from CLI tools and controls which signed apps can use them beneath the agent harness.",
+  "description": "Automic Vault removes plaintext credentials from developer tools and controls their application through each Verified Launcher and Target.",
   "promises": [
     "Removes credentials from dotfiles and tool configs.",
     "Gives credentials only to the right executable.",
-    "Applies one local boundary to every launcher."
+    "Applies one local boundary to every Verified Launcher."
   ],
   "risk_story": {
     "eyebrow": "A prompt cannot protect a secret the agent can already read",
     "failure": "An agent found a reusable cloud credential and uploaded it to a remote server.",
     "controlled_eyebrow": "The control point",
-    "controlled": "Automic Vault moves credentials out of readable tool configs, then checks the executable, signed launcher, command, working directory, and requested key before use."
+    "controlled": "Automic Vault moves credentials out of readable tool configs, then checks the Target, Verified Launcher, command, working directory, and requested Secret Name before use."
   },
   "approval_controls_heading": "Policy follows the tool and its launcher.",
   "approval_controls": [
     {
       "scope": "default",
-      "access": "no access",
-      "description": "The app gets no automatic access. Every request requires approval."
+      "access": "Approval Required",
+      "description": "The Launcher receives no durable policy grant. Every operation requires Approval."
     },
     {
       "scope": "per tool",
-      "access": "read only",
-      "description": "For tools you trust somewhat, like agents. Safe reads can proceed; writes require approval."
+      "access": "Read Only",
+      "description": "Recognized reads are automically authorized. Writes require Approval."
     },
     {
-      "scope": "per tool consumer",
-      "access": "trusted",
-      "description": "For a terminal where you never intend to run npm i. Commands that could reveal secrets always keep an approval gate.",
+      "scope": "per Launcher",
+      "access": "Write Access",
+      "description": "Recognized reads and writes are automically authorized. Secret Disclosure and Elevated Secret Application require Approval.",
       "footnote": "Installed packages must cross the same boundary to use protected secrets. Supply-chain attacks such as the 2025 Shai-Hulud npm worm target credentials available to developer tools. Defense in depth still matters: run npm i in a dedicated terminal with low-to-no privileges in both Automic Vault and macOS TCC."
     }
   ],
-  "audit_log": {
-    "description": "Every approved or denied, automatic or manual secret request leaves a local record.",
+  "authorization_history": {
+    "description": "Authorization requests leave bounded local history with their decision and source.",
     "fields": [
       "decision",
       "launcher",
-      "requested key",
+      "Secret Names",
       "command",
       "working directory"
     ]
   },
   "threat_monitoring": {
     "scope": "all developer ecosystems",
-    "notification": "New threats are flagged instantly.",
+    "notification": "Supported Exposures and Hazards produce Findings.",
     "mitigation": "Each finding includes clear steps to mitigate it."
   },
   "terminal_security": {
     "problem": "Command-line tools usually run with the authority of the app that launched them, such as Terminal, an AI harness, an editor, or an automation app.",
-    "control": "Automic Vault identifies the tool and its signed launcher, then applies access rules to that pairing.",
+    "control": "Automic Vault identifies the Tool and its Verified Launcher, then applies the Authorization Policy to that pairing.",
     "learn_more": "https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/"
   },
   "primary_action": {

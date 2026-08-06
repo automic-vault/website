@@ -1,10 +1,10 @@
 # Automic Vault
 
-> Automic Vault removes plaintext secrets from CLI tools and controls which signed Mac apps may use each credential at the local execution boundary.
+> Automic Vault removes plaintext credentials from developer Tools and controls their application through each Verified Launcher and Target at the Local Execution Boundary.
 
 ## Product
 
-- [Homepage](https://www.automicvault.com/): Explains the local security boundary for CLI secrets, signed launchers, approval policy, and audit records on macOS.
+- [Homepage](https://www.automicvault.com/): Explains the Local Execution Boundary, Verified Launchers, Authorization Policy, and Authorization History on macOS.
 - [Download](https://www.automicvault.com/download/): Provides the signed macOS disk image, installation details, included components, and first steps after setup.
 - [Documentation](https://www.automicvault.com/docs/): Source-checked Automic Vault 2.9.0 CLI manual covering scan, doctor, save, inject, bless, harden, catalogs, and app links.
 - [Package catalog](https://pkg.so/): Searchable catalog of developer packages, dependencies, install commands, risk information, and Automic Vault hardening coverage.
@@ -14,7 +14,7 @@
 
 - [About](https://www.automicvault.com/about/): Describes the project, founder Max Howell, macOS focus, local execution model, and relationship to Homebrew.
 - [The best AWS credential manager](https://www.automicvault.com/blog/best-aws-credential-manager/): Explains process-bound AWS credential delivery, temporary STS sessions, signed-launcher policy, MFA and role support, and the fail-closed profile model.
-- [macOS security for the terminal](https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/): Explains inherited CLI authority and the identity, approval, and audit boundary beneath shells and agent harnesses.
+- [macOS security for the terminal](https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/): Explains inherited CLI authority and the identity, Approval, and Authorization History boundary beneath shells and agent harnesses.
 - [Mac security best practices for agents](https://www.automicvault.com/blog/mac-security-best-practices-for-agents/): Gives a least-authority macOS baseline covering Gatekeeper, SIP, local builds, Downloads, privacy grants, and command-line protection.
 - [Security reporting](https://www.automicvault.com/.well-known/security.txt): Publishes the current security contact, preferred language, canonical location, and expiration date.
 
@@ -39,9 +39,9 @@
 - License: Apache License 2.0
 - Pricing: free open-source software
 - Founder: Max Howell, creator of Homebrew
-- Secrets remain in Keychain until an approved executable receives them for one run.
-- Policy considers the executable, signed launcher, command, working directory, and requested key.
-- Root compromise and a malicious approved executable remain outside the product security boundary.
+- Secrets remain in Keychain until an authorized Target receives them for one run.
+- Authorization Policy considers the Target, Verified Launcher, command, working directory, and Secret Names.
+- Root compromise and a malicious authorized Target remain outside the product security boundary.
 
 ## Command Surface
 

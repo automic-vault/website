@@ -2,15 +2,15 @@ Automic Vault
 
 A new kind of secrets manager for a new era of development.
 
-Automic Vault moves developer secrets out of plaintext files, then controls
-which signed app can run each tool with each credential. Automic Vault applies
-the same policy before an authenticated CLI deploys code or deletes cloud
+Automic Vault moves developer credentials out of plaintext files, then controls
+their application through each Tool and Verified Launcher. The same local
+boundary applies before an authenticated CLI deploys code or changes cloud
 resources, whether an agent, script, or malware launched it. No harness
 integration required.
 
 - Remove credentials from dotfiles and tool configs.
 - Give credentials only to the right executable.
-- Apply one local boundary to every launcher.
+- Apply one local boundary to every Verified Launcher.
 
 Download for macOS: https://www.automicvault.com/Automic%20Vault.dmg
 
@@ -28,26 +28,30 @@ Automic Vault controls the secret handoff
 Automic Vault moves credentials out of readable tool configs. Agents and
 untrusted software cannot find protected secrets in the files they inspect.
 
-When a tool requests a secret, Automic Vault checks the executable, signed
-launcher, command, working directory, and requested key.
+When a Tool requests a Secret, Automic Vault checks the Target, Verified
+Launcher, command, working directory, and requested Secret Name.
 
 How it works
 
-Automic Vault stores the secret in Keychain. It applies your access policy when
-a signed app launches the tool, then supplies the secret for that run. The raw
-value never enters the agent's context.
+Automic Vault stores the Secret in Keychain. It applies the Authorization Policy
+when a Verified Launcher starts the Tool, then supplies the Secret to the
+designated Target for that run. The Secret is not placed in the Launcher's
+ambient environment. The Target controls it after receipt.
 
 Policy follows the tool and its launcher
 
 Terminal, Codex, and an unknown process can invoke the same executable. Automic
-Vault identifies the signed launcher and gives each pairing its own access
-policy.
+Vault identifies the Verified Launcher and gives each pairing its own
+Authorization Policy.
 
-- No access gives the app no automatic access. Every request requires approval.
-- Read-only access is for tools you trust somewhat, like agents. Safe reads can
-  proceed; writes require approval.
-- Trusted access is for a terminal where you never intend to run npm i.†
-  Commands that could reveal secrets always keep an approval gate.
+- Approval Required gives the Launcher no durable policy grant. Every operation
+  requires Approval.
+- Read Only automically authorizes recognized reads. Writes still require
+  Approval.
+- Local Write also covers recognized operations that only change local files,
+  where the Tool supports that distinction.
+- Write Access automically authorizes recognized reads and writes. Secret
+  Disclosure and Elevated Secret Application still require Approval.†
 
 † Installed packages must cross the same boundary to use protected secrets.
 Supply-chain attacks such as the 2025 Shai-Hulud npm worm target credentials
@@ -55,15 +59,15 @@ available to developer tools. Defense in depth still matters: run npm i in a
 dedicated terminal with low-to-no privileges in both Automic Vault and macOS
 TCC.
 
-Every secret use is logged
+Authorization History stays on your Mac
 
-Approved or denied, automatic or manual: every request leaves a local record
-with the decision, launcher, requested key, command, and working directory.
+Allowed or denied, policy or Approval: requests leave a bounded local record
+with the decision, Launcher, Secret Names, command, and working directory.
 
 Know when your toolchain turns risky
 
-Automic Vault monitors developer tools across ecosystems. It flags new threats
-and shows you how to mitigate each finding.
+Automic Vault scans developer Tools across ecosystems. It reports supported
+Exposures and Hazards and shows how to mitigate each Finding.
 
 Control the tool layer beneath every agent
 
@@ -72,8 +76,8 @@ private data. Command-line tools usually run with the authority of whichever
 app launched them. That may be Terminal, an AI harness, an editor, or an
 automation app.
 
-Automic Vault identifies the tool and its signed launcher, then applies the
-access rules you chose for that pairing.
+Automic Vault identifies the Tool and its Verified Launcher, then applies the
+Authorization Policy you chose for that pairing.
 
 Read why the terminal needs its own security layer:
 https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/

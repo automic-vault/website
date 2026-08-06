@@ -155,20 +155,20 @@ av inject +GH_TOKEN gh auth status</code></pre>
 
           <section class="docs-section" id="model">
             <h2>Mental model</h2>
-            <p>Automic Vault stores named values in the macOS Keychain. <code>av inject</code> asks the signed menu bar app to approve a request containing the resolved target, arguments, working directory, requested keys, and existing environment conflicts. After approval, <code>av</code> replaces itself with the target process.</p>
-            <p>This is a secret handoff boundary, not a general sandbox. The target receives the rest of the current environment, and an approved executable can use a released secret. Keep macOS, the app, and each approved target in your trust model.</p>
+            <p>Automic Vault stores named Secrets in the macOS Keychain. <code>av inject</code> submits an Authorization Request containing the resolved Target, arguments, working directory, requested Secret Names, and existing environment conflicts. The app applies the Authorization Policy or asks for Approval. If allowed, <code>av</code> replaces itself with the Target process.</p>
+            <p>This is a Secret Application boundary, not a general sandbox. The Target receives the rest of the current environment and controls a Secret after receipt. Keep macOS, the app, and each authorized Target in your trust model.</p>
           </section>
 
           <section class="docs-section" id="commands">
             <h2>Command surface</h2>
             <dl class="docs-command-list">
-              <div><dt><code>av scan</code></dt><dd>Audit the home directory and report exposure findings.</dd></div>
+              <div><dt><code>av scan</code></dt><dd>Scan the home directory and report supported Exposure and Hazard Findings.</dd></div>
               <div><dt><code>av doctor</code></dt><dd>Validate installed hardeners, launchers, dependencies, and path precedence.</dd></div>
               <div><dt><code>av detectors --json</code></dt><dd>List the detector catalog and its embedded source documentation.</dd></div>
               <div><dt><code>av hardeners --json</code></dt><dd>List hardener applicability, paths, commands, documentation, and Secret Gate routes.</dd></div>
-              <div><dt><code>av save KEY</code></dt><dd>Read one hidden value from the terminal and store it under a valid environment key name.</dd></div>
-              <div><dt><code>av inject +KEY COMMAND</code></dt><dd>Request named values and execute one approved target.</dd></div>
-              <div><dt><code>av bless PATH</code></dt><dd>Review and store durable authority for an exact script and signed launchers.</dd></div>
+              <div><dt><code>av save KEY</code></dt><dd>Read one hidden Secret from the terminal and store it under a valid Secret Name.</dd></div>
+              <div><dt><code>av inject +KEY COMMAND</code></dt><dd>Request named Secrets and execute one authorized Target.</dd></div>
+              <div><dt><code>av bless PATH</code></dt><dd>Review an exact script and store its Blessing.</dd></div>
               <div><dt><code>av harden NAME</code></dt><dd>Apply a reviewed tool-specific migration or launcher boundary.</dd></div>
               <div><dt><code>av open</code></dt><dd>Open the app or a specific Secret Gate.</dd></div>
             </dl>
@@ -176,7 +176,7 @@ av inject +GH_TOKEN gh auth status</code></pre>
 
           <section class="docs-section" id="scan">
             <h2><code>av scan</code></h2>
-            <p>Audit the current home directory for exposed credentials, unsafe tool configuration, and other detector findings.</p>
+            <p>Scan the current home directory for supported credential Exposures, Hazards, and other Detector Findings.</p>
             <pre><code>av scan
 av scan --show-all
 av scan --json</code></pre>
@@ -208,26 +208,26 @@ av doctor codex</code></pre>
 
           <section class="docs-section" id="signed-cli-launchers">
             <h2>Signed CLI launchers</h2>
-            <p>Automic Vault can bind approval policy to either a signed app bundle or a Developer ID-signed standalone executable. It validates the live code signature and stores the launcher's designated requirement, which identifies the binary and its signing team.</p>
+            <p>Automic Vault can bind an Authorization Policy to either a signed app bundle or a Developer ID-signed standalone executable. It validates the live code signature and stores the Launcher's designated requirement, which identifies the binary and its signing team.</p>
             <p>A standalone executable must have a valid Developer ID Application signature, identifier, and Team ID. It must pass strict macOS signature validation, and it must enable Hardened Runtime before it can receive Secret Gate access. Unsigned and ad-hoc signed executables are rejected because they do not establish a vendor or Team identity.</p>
             <pre><code>av doctor claude
 av doctor codex</code></pre>
             <p>These commands inspect the executable selected by the current <code>PATH</code>. In Automic Vault Settings, add the launcher to the relevant tool or blessed-script policy and select the resolved native executable rather than a shell or package-manager shim. Review its identifier, Team ID, path, and designated requirement before allowing it.</p>
-            <p>If the identity cannot be verified later, automatic approval fails closed and requires manual approval. Code signing proves identity and integrity, not intent. Keep the terminal or agent app's permissions minimal because TCC remains app-scoped.</p>
+            <p>If the identity cannot be verified later, automic authorization fails closed and requires Approval. Code signing proves identity and integrity, not intent. Keep the terminal or agent app's permissions minimal because TCC remains app-scoped.</p>
           </section>
 
           <section class="docs-section" id="save">
             <h2><code>av save</code></h2>
-            <p>Store one named value in the Automic Vault Keychain.</p>
+            <p>Store one named Secret in the Automic Vault Keychain.</p>
             <pre><code>av save GH_TOKEN</code></pre>
-            <p>The key must be a valid environment variable name: it begins with a letter or underscore and continues with letters, digits, or underscores. The command opens <code>/dev/tty</code>, disables terminal echo while reading, trims the line ending, rejects an empty value, and restores echo even if reading fails.</p>
+            <p>The Secret Name must be a valid environment variable name: it begins with a letter or underscore and continues with letters, digits, or underscores. The command opens <code>/dev/tty</code>, disables terminal echo while reading, trims the line ending, rejects an empty value, and restores echo even if reading fails.</p>
             <pre><code># Wrong: save deliberately does not read stdin.
 printf '%s\n' "$GH_TOKEN" | av save GH_TOKEN</code></pre>
           </section>
 
           <section class="docs-section" id="inject">
             <h2><code>av inject</code></h2>
-            <p>Request one or more named Keychain values, then execute a command.</p>
+            <p>Request one or more named Secrets, then execute a Target.</p>
             <pre><code>av inject +GH_TOKEN gh auth status
 av inject +AWS_ACCESS_KEY_ID +AWS_SECRET_ACCESS_KEY -- \
   aws sts get-caller-identity</code></pre>
@@ -240,34 +240,34 @@ av inject +AWS_ACCESS_KEY_ID +AWS_SECRET_ACCESS_KEY -- \
               <li><code>--</code> is optional, but useful when the target or its arguments could be mistaken for inject options.</li>
               <li>Existing environment values win by default; a warning is printed for every conflict.</li>
               <li><code>--replace-existing-env</code> lets the approved Keychain value replace an existing environment value.</li>
-              <li>A missing requested key fails by default. <code>--allow-missing-keys</code> leaves it unset.</li>
-              <li>Duplicate or invalid key names are rejected.</li>
+              <li>A missing requested Secret fails by default. <code>--allow-missing-keys</code> leaves it unset.</li>
+              <li>Duplicate or invalid Secret Names are rejected.</li>
               <li><code>av inject</code> refuses to run as root, and the approval service must be running.</li>
             </ul>
-            <p>The request is denied if the service cannot authenticate, policy does not allow the operation, or the user declines. On approval, <code>av</code> uses <code>exec</code>, so the target replaces the <code>av</code> process.</p>
+            <p>The Authorization Request is denied if the service cannot authenticate, the Authorization Policy does not allow the operation, or the user declines. If allowed, <code>av</code> uses <code>exec</code>, so the Target replaces the <code>av</code> process.</p>
             <h3>Shebang use</h3>
             <pre><code>#!/usr/local/bin/av inject +API_TOKEN /bin/sh
 set -eu
 exec curl -H "Authorization: Bearer $API_TOKEN" \
   https://api.example.test/me</code></pre>
-            <p>The script path is included in the approval request. Keep the interpreter path absolute and the shebang to one requested-key set plus one interpreter.</p>
+            <p>The script path is included in the Authorization Request. Keep the interpreter path absolute and the shebang to one requested-Secret set plus one interpreter.</p>
           </section>
 
           <section class="docs-section" id="bless">
             <h2><code>av bless</code></h2>
-            <p>Store a durable approval for an exact script and the signed launchers allowed to launch it.</p>
+            <p>Review an exact script and its Script Declaration.</p>
             <pre><code>av bless ./release.sh</code></pre>
-            <p>The app opens a review showing the canonical path, SHA-256 checksum, requested secrets, tool capabilities, and calling launchers. Approval also binds the <code>inject</code> flags and interpreter. Editing or moving the script makes the blessing stop matching; review and bless the new version explicitly.</p>
+            <p>The app shows the canonical path, SHA-256 checksum, requested Secret Names, Capabilities, injection flags, and Target interpreter. Approval creates a Blessing bound to that complete review. Editing or moving the script makes the Blessing stop matching.</p>
             <p>A blessable script must be a regular UTF-8 file no larger than 1 MiB and start with an absolute <code>av inject</code> shebang whose target interpreter is also absolute.</p>
             <pre><code>#!/usr/local/bin/av inject +GH_TOKEN /bin/sh
 # --- automic-vault
 # capabilities:
-#   gh: trusted
+#   gh: write
 # ---
 set -eu
 gh release create "$1"</code></pre>
-            <p>The optional manifest must immediately follow the shebang. It may grant named Secret Gates one of <code>read-only</code>, <code>local-write</code>, <code>read-and-updates</code>, <code>trusted</code>, or <code>full</code>. Unsupported gates and access levels are rejected. These are ceilings, not blanket authority: undeclared or broader requests from the script are denied. <code>full</code> includes operations that may reveal protected values and should be granted sparingly.</p>
-            <p>Only an endorsed signed app bundle or Developer ID-signed standalone executable can use the blessing for automatic approval. With no endorsed launcher, each execution still requires manual approval. Blessed scripts run from a verified <code>/dev/fd/N</code> snapshot so edits cannot race approval. <code>AV_SCRIPT_PATH</code> contains the canonical source path and <code>AV_SCRIPT_DIR</code> its containing directory. Blessings can be inspected, narrowed, or revoked under <strong>Blessed Scripts</strong> in the app.</p>
+            <p>The optional manifest must immediately follow the shebang. It may grant named Secret Gates one of <code>read-only</code>, <code>local-write</code>, <code>write</code>, or <code>full</code>. <code>read-and-updates</code> and <code>trusted</code> remain compatibility aliases. Unsupported gates and Access Levels are rejected. Capabilities are ceilings: undeclared or broader requests from the script are denied. <code>full</code> includes Secret Disclosure and Elevated Secret Application and should be granted sparingly.</p>
+            <p>Run <code>av bless --endorse-launcher ./release.sh</code> to include a Launcher Endorsement in the review. Only an endorsed Verified Launcher can use the Blessing with automic authorization. With no Launcher Endorsement, each execution requires Approval. <code>--endorse-caller</code> remains a compatibility alias. Blessed scripts run from a verified <code>/dev/fd/N</code> snapshot so edits cannot race Approval. <code>AV_SCRIPT_PATH</code> contains the canonical source path and <code>AV_SCRIPT_DIR</code> its containing directory. Blessings can be inspected, narrowed, or revoked under <strong>Blessed Scripts</strong> in the app.</p>
           </section>
 
           <section class="docs-section" id="harden">
@@ -275,7 +275,7 @@ gh release create "$1"</code></pre>
             <p>Apply a named hardener.</p>
             <pre><code>av harden NAME
 av harden NAME --yes</code></pre>
-            <p>Hardeners are tool-specific migrations and launch boundaries. Depending on the tool, one can move credentials into Keychain, install or replace a launcher, change protected ownership, or enable a native credential route. Review the embedded documentation and prompts before approving system changes.</p>
+            <p>Hardeners are Tool-specific security transformations. Depending on the Tool, a Hardener can move existing Credentials into Keychain, install or replace a Launcher, change protected ownership, or enable a native credential route. Review the embedded documentation and prompts before approving system changes.</p>
             <p>Some root-owned launchers require <code>sudo</code>; follow the selected hardener's instructions rather than running every hardener as root. <code>--yes</code> skips confirmation where supported. A successful run prints the matching <code>av doctor NAME</code> command.</p>
             <pre><code>av hardeners --json |
   jq '.hardeners[] |

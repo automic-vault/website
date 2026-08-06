@@ -179,7 +179,7 @@
 
         <section class="incident-body" aria-label="Incident analysis">
           <p class="story-kicker">Published August 4, 2026</p>
-          <p class="incident-answer">With supported secrets moved out of plaintext files and npm installs running from a terminal with no automatic secret access, Automic Vault would have denied the worm the GitHub, npm, and AWS credentials stored behind its gate. That breaks both the credential theft and the stolen-token path used to republish packages.</p>
+          <p class="incident-answer">With supported Secrets moved out of plaintext files and npm installs running from a terminal set to Approval Required, Automic Vault would have denied the worm the GitHub, npm, and AWS Credentials stored behind its gates. That breaks both the credential theft and the stolen-token path used to republish packages.</p>
 
           <section class="incident-section" aria-labelledby="facts-title">
             <div class="section-label">
@@ -240,7 +240,7 @@
             <article class="incident-control">
               <span>02 / secrets</span>
               <h3>An install terminal would have no automatic handoff</h3>
-              <p>Automic Vault checks the executable, signed launcher, command, working directory, and requested key before releasing a protected secret. Under the recommended policy, the terminal used for <code>npm install</code> gets no automatic secret access, so the worm cannot silently request those values.</p>
+              <p>Automic Vault checks the Target, Verified Launcher, command, working directory, and requested Secret Names before Secret Application. Under the recommended Authorization Policy, the terminal used for <code>npm install</code> is set to Approval Required, so the worm cannot obtain those values without a human decision.</p>
             </article>
             <article class="incident-control">
               <span>03 / execution</span>

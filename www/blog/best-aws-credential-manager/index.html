@@ -12,7 +12,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Best AWS Credential Manager in the World | Automic Vault Blog</title>
-  <meta name="description" content="Automic Vault binds temporary AWS credentials to one verified aws process, one signed launcher, and one command policy on macOS.">
+  <meta name="description" content="Automic Vault binds temporary AWS credentials to one verified aws process, one Verified Launcher, and one Authorization Policy on macOS.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="The Best Fricking AWS Credential Manager in the World">
@@ -24,7 +24,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.automicvault.com/assets/av-approve-gate.png">
   <meta name="twitter:title" content="The Best Fricking AWS Credential Manager in the World">
-  <meta name="twitter:description" content="Automic Vault gives each aws process temporary credentials under a policy for its command and signed launcher.">
+  <meta name="twitter:description" content="Automic Vault gives each aws process temporary credentials under an Authorization Policy for its command and Verified Launcher.">
   <link rel="canonical" href="https://www.automicvault.com/blog/best-aws-credential-manager/">
   <script type="application/ld+json">
   {
@@ -46,7 +46,7 @@
         "@type": "BlogPosting",
         "@id": "https://www.automicvault.com/blog/best-aws-credential-manager/#article",
         "headline": "The Best Fricking AWS Credential Manager in the World",
-        "description": "Automic Vault binds temporary AWS credentials to one verified aws process, one signed launcher, and one command policy on macOS.",
+        "description": "Automic Vault binds temporary AWS credentials to one verified aws process, one Verified Launcher, and one Authorization Policy on macOS.",
         "image": "https://www.automicvault.com/assets/av-approve-gate.png",
         "datePublished": "2026-08-05",
         "dateModified": "2026-08-05",
@@ -65,7 +65,7 @@
         "@id": "https://www.automicvault.com/blog/best-aws-credential-manager/#webpage",
         "url": "https://www.automicvault.com/blog/best-aws-credential-manager/",
         "name": "The Best Fricking AWS Credential Manager in the World",
-        "description": "Automic Vault binds temporary AWS credentials to one verified aws process, one signed launcher, and one command policy on macOS.",
+        "description": "Automic Vault binds temporary AWS credentials to one verified aws process, one Verified Launcher, and one Authorization Policy on macOS.",
         "isPartOf": {"@id": "https://www.automicvault.com/blog/#blog"},
         "breadcrumb": {"@id": "https://www.automicvault.com/blog/best-aws-credential-manager/#breadcrumb"}
       },
@@ -179,7 +179,7 @@ aws sts get-caller-identity</code></pre>
               <span>STS and MFA</span>
             </div>
             <p>The menu app calls AWS STS <code>GetSessionToken</code> and <code>AssumeRole</code> itself. Normal commands receive temporary credentials. Profiles with <code>mfa_serial</code> get an Automic Vault MFA prompt, and role profiles receive a role session rooted at the protected default keys.</p>
-            <p>AWS restricts non-MFA <code>GetSessionToken</code> credentials from IAM and most STS operations. Those commands may need the original keys. Automic Vault classifies that handoff as a secret dump and puts a large warning in the approval window. Trusted Access still asks. Full Access can allow it because Full Access means everything, and you must choose that level for the launcher or an exact blessed script.</p>
+            <p>AWS restricts non-MFA <code>GetSessionToken</code> credentials from IAM and most STS operations. Those commands may need the original reusable keys. Automic Vault treats that as Elevated Secret Application and puts a large warning in the Approval window. Write Access still asks. Full Access may automically authorize the recognized operation when you choose it for the Launcher or an exact Blessed Script.</p>
           </section>
 
           <section class="incident-section" aria-labelledby="policy-title">
@@ -205,7 +205,7 @@ aws sts get-caller-identity</code></pre>
                 <p>An explicit launcher rule or blessed script can do everything. The approval UI says what that means.</p>
               </article>
             </div>
-            <p>Every decision records the launcher, command, directory, requested keys, and result in the local Secret Usage log. The policy and record exist below the agent harness, so no agent integration has to cooperate.</p>
+            <p>Authorization History records the Launcher, command, directory, requested Secret Names, and decision. The Authorization Policy and local record exist below the agent harness, so no agent integration has to cooperate.</p>
           </section>
 
           <section class="incident-section" aria-labelledby="scope-title">
@@ -223,7 +223,7 @@ aws sts get-caller-identity</code></pre>
               <span>for AWS access keys on macOS</span>
             </div>
             <p>AWS Identity Center and workload identity should replace long-lived IAM user keys where they fit. Plenty of developers still have keys, MFA devices, and role chains on their Macs. Those credentials deserve more than secure storage and a shell wrapper.</p>
-            <p>Automic Vault narrows credential issuance to one live AWS process. It accounts for the signed launcher and command. It uses temporary sessions, warns before releasing long-lived keys, records the decision, and leaves the dangerous policy knobs in your hands.</p>
+            <p>Automic Vault narrows credential issuance to one live AWS process. It accounts for the Verified Launcher and command. It uses temporary sessions, warns before Elevated Secret Application, records the Authorization Decision, and leaves the dangerous policy choices in your hands.</p>
             <div class="hero-actions">
               <a class="button primary" href="/Automic%20Vault.dmg">Download Automic Vault</a>
               <a class="button secondary" href="https://github.com/automic-vault/automic-vault#aws-without-ambient-credentials">Inspect the implementation</a>

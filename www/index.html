@@ -91,9 +91,9 @@
         "featureList": [
           "Keychain-backed storage for CLI secrets",
           "One-run credential handoff to approved executables",
-          "Per-tool and per-launcher access controls",
+          "Per-Gate and per-Launcher Authorization Policies",
           "Cross-ecosystem developer threat monitoring with mitigation steps",
-          "Local audit log for approved and denied secret requests"
+          "Local Authorization History for allowed and denied requests"
         ],
         "offers": {
           "@type": "Offer",
@@ -143,7 +143,7 @@
     <nav class="brew-nav-links" aria-label="Primary navigation">
       <a href="#boundary">Secrets</a>
       <a href="#controls">Policy</a>
-      <a href="#audit">Audit</a>
+      <a href="#audit">History</a>
     </nav>
     <div class="brew-nav-actions">
       <a class="brew-github" href="https://github.com/automic-vault/automic-vault">GitHub</a>
@@ -156,7 +156,7 @@
       <div class="brew-hero-title">
         <p class="brew-kicker">From the creator of Homebrew</p>
         <h1 id="hero-title">A new kind of secrets manager <span>for a new era of development.</span></h1>
-        <p class="brew-hero-lede">Automic Vault moves CLI tool secrets out of plaintext files, then controls which signed app can run each tool with each credential.</p>
+        <p class="brew-hero-lede">Automic Vault moves developer credentials out of plaintext files, then controls their application through each Tool and Verified Launcher.</p>
         <p>Any agent. Any harness. Zeroconf.</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">Download for macOS</a>
@@ -169,7 +169,7 @@
       <ul class="brew-promises">
         <li><span>01</span><strong>Remove plaintext secrets</strong><small>Credentials leave dotfiles and tool configs.</small></li>
         <li><span>02</span><strong>Control the handoff</strong><small>Only the right executable gets the credential.</small></li>
-        <li><span>03</span><strong>Apply one local boundary</strong><small>Every launcher meets the same policy.</small></li>
+        <li><span>03</span><strong>Apply one local boundary</strong><small>Every Verified Launcher meets its Authorization Policy.</small></li>
       </ul>
     </section>
 
@@ -271,7 +271,7 @@ aws_secret_access_key = ••••••••••••••••••�
               <span class="brew-chat-avatar" aria-hidden="true">!</span>
               <div class="brew-chat-body">
                 <span class="brew-chat-speaker">Automic Vault</span>
-                <div class="brew-chat-bubble"><strong>Human Approval required</strong></div>
+                <div class="brew-chat-bubble"><strong>Approval Required</strong></div>
               </div>
             </li>
           </ol>
@@ -283,15 +283,15 @@ aws_secret_access_key = ••••••••••••••••••�
           <p class="brew-eyebrow">The local execution boundary</p>
           <h2>Automic Vault controls the secret handoff.</h2>
           <p>Automic Vault moves credentials out of readable tool configs. Agents and untrusted software cannot find protected secrets in the files they inspect.</p>
-          <p>When a tool requests a secret, Automic Vault checks the executable, signed launcher, command, working directory, and requested key.</p>
+          <p>When a Tool requests a Secret, Automic Vault checks the Target, Verified Launcher, command, working directory, and requested Secret Name.</p>
           <div class="brew-how-it-works">
             <h3>How it works</h3>
-            <p>Automic Vault stores the secret in the macOS Keychain. It applies your access policy when a signed app launches the tool, then supplies the secret for that run. The raw value never enters the agent’s context.</p>
+            <p>Automic Vault stores the Secret in the macOS Keychain. It applies the Authorization Policy when a Verified Launcher starts the Tool, then supplies the Secret to the designated Target for that run. The Secret is not placed in the Launcher’s ambient environment. The Target controls it after receipt.</p>
           </div>
         </div>
         <figure class="brew-capture brew-capture-gate">
           <img src="./assets/av-approve-gate-gh-token.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" loading="lazy" decoding="async">
-          <figcaption>Command, working directory, and requested key—visible before anything runs.</figcaption>
+          <figcaption>Command, working directory, and requested Secret Name, visible before anything runs.</figcaption>
         </figure>
       </div>
     </section>
@@ -300,28 +300,28 @@ aws_secret_access_key = ••••••••••••••••••�
       <div class="brew-copy">
         <p class="brew-eyebrow">Access by app</p>
         <h2 id="controls-title">Policy follows the tool and its launcher.</h2>
-        <p>Terminal, Codex, and an unknown process can invoke the same executable. Automic Vault identifies the signed launcher and gives each pairing its own access policy.</p>
+        <p>Terminal, Codex, and an unknown process can invoke the same executable. Automic Vault identifies the Verified Launcher and gives each pairing its own Authorization Policy.</p>
       </div>
       <div class="brew-access-body">
       <figure class="brew-access-diagram">
         <div class="brew-access-screen">
-          <img src="./assets/access-levels.png" alt="Automic Vault showing No Access for all other apps, Trusted Access for Terminal, and Read Only Access for ChatGPT" width="1944" height="1380" loading="lazy" decoding="async">
+          <img src="./assets/access-levels.png" alt="Automic Vault Access Levels for the default policy, Terminal, and ChatGPT" width="1944" height="1380" loading="lazy" decoding="async">
           <span class="brew-access-ring brew-access-ring-none" aria-hidden="true"></span>
           <span class="brew-access-ring brew-access-ring-trusted" aria-hidden="true"></span>
           <span class="brew-access-ring brew-access-ring-read" aria-hidden="true"></span>
         </div>
         <dl class="brew-access-notes">
           <div class="brew-access-note brew-access-note-none">
-            <dt>No access</dt>
-            <dd>The app gets no automatic access. Every request requires your approval.</dd>
+            <dt>Approval Required</dt>
+            <dd>The Launcher receives no durable policy grant. Every operation requires Approval.</dd>
           </div>
           <div class="brew-access-note brew-access-note-trusted">
-            <dt>Trusted access</dt>
-            <dd>For a terminal where you never intend to run <code>npm i</code><sup><a href="#access-footnote" aria-label="See supply-chain security note">†</a></sup>. Secret-revealing commands always keep an approval gate.</dd>
+            <dt>Write Access</dt>
+            <dd>Recognized reads and writes are automically authorized. Secret Disclosure and Elevated Secret Application require Approval.<sup><a href="#access-footnote" aria-label="See supply-chain security note">†</a></sup></dd>
           </div>
           <div class="brew-access-note brew-access-note-read">
-            <dt>Read only</dt>
-            <dd>For tools you trust somewhat, like agents. Safe reads can proceed; writes require approval.</dd>
+            <dt>Read Only</dt>
+            <dd>Recognized reads are automically authorized. Writes require Approval.</dd>
           </div>
         </dl>
       </figure>
@@ -331,18 +331,18 @@ aws_secret_access_key = ••••••••••••••••••�
 
     <section class="brew-feature" id="audit" aria-labelledby="audit-title">
       <div class="brew-copy">
-        <h2 id="audit-title">Every secret use is logged.</h2>
-        <p>Approved or denied, automatic or manual: every request leaves a local record with the launcher, key, command, working directory, and decision.</p>
+        <h2 id="audit-title">Authorization History stays on your Mac.</h2>
+        <p>Allowed or denied, policy or Approval: requests leave bounded local history with the decision, Launcher, Secret Names, command, and working directory.</p>
         <ul class="brew-log-fields" aria-label="Recorded details">
           <li>Decision</li>
           <li>Launcher</li>
-          <li>Requested key</li>
+          <li>Secret Names</li>
           <li>Working directory</li>
         </ul>
       </div>
       <figure class="brew-capture">
-        <img src="./assets/secret-use-log.webp" alt="Automic Vault secret request history showing denied manual and approved automatic gh requests with launcher, key, and working directory details" width="1944" height="1380" loading="lazy" decoding="async">
-        <figcaption>Denied and approved requests share the same audit trail.</figcaption>
+        <img src="./assets/secret-use-log.webp" alt="Automic Vault Authorization History showing denied and allowed gh requests with Launcher, Secret Names, and working directory" width="1944" height="1380" loading="lazy" decoding="async">
+        <figcaption>Denied and allowed requests share the same local history.</figcaption>
       </figure>
     </section>
 
@@ -353,7 +353,7 @@ aws_secret_access_key = ••••••••••••••••••�
       </figure>
       <div class="brew-copy">
         <h2 id="threats-title">Know when your toolchain turns risky.</h2>
-        <p>Automic Vault monitors developer tools across ecosystems. It flags new threats and shows you how to mitigate each finding.</p>
+        <p>Automic Vault scans developer Tools across ecosystems. It reports supported Exposures and Hazards and shows how to mitigate each Finding.</p>
       </div>
     </section>
 
@@ -362,7 +362,7 @@ aws_secret_access_key = ••••••••••••••••••�
         <p class="brew-eyebrow">Independent of the harness</p>
         <h2 id="terminal-security-title">Control the tool layer beneath every agent.</h2>
         <p>macOS can code sign apps, sandbox them, and keep them out of one another’s private data. Command-line tools usually run with the authority of whichever app launched them.</p>
-        <p>That used to mean Terminal.app. Now it may mean an AI harness, editor, or automation app. Automic Vault identifies the tool and its signed launcher, then applies the access rules you chose for that pairing.</p>
+        <p>That used to mean Terminal.app. Now it may mean an AI harness, editor, or automation app. Automic Vault identifies the Tool and its Verified Launcher, then applies the Authorization Policy you chose for that pairing.</p>
         <a class="brew-text-link" href="/blog/bringing-macos-security-to-the-terminal/">Read why the terminal needs its own security layer <span aria-hidden="true">→</span></a>
       </div>
       <figure class="brew-capture">

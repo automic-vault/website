@@ -100,7 +100,7 @@
                         "One-run credential handoff to approved executables",
                         "Per-tool and per-launcher access controls",
                         "Cross-ecosystem developer threat monitoring with mitigation steps",
-                        "Local audit log for approved and denied secret requests"
+                        "Local Authorization History for allowed and denied requests"
                   ],
                   "offers": {
                         "@type": "Offer",
@@ -214,8 +214,8 @@
           <p>Homebrew became the default way many macOS developers install command-line tools. Automic Vault comes from a new operating reality: those tools now run under terminals, editors, automation apps, and AI agents, while their credentials often remain readable in plaintext files.</p>
         </div>
         <div class="proof-list">
-          <article><span>Credential storage</span><h3>Plaintext secrets are the problem</h3><p>Automic Vault moves CLI credentials into the macOS Keychain and supplies them only to an approved executable for one run.</p></article>
-          <article><span>Runtime authority</span><h3>Execution is the boundary</h3><p>Automic Vault checks the executable, signed launcher, command, working directory, and requested key before handing over a credential.</p></article>
+          <article><span>Credential storage</span><h3>Plaintext secrets are the problem</h3><p>Automic Vault moves CLI Credentials into the macOS Keychain and applies them only to an authorized Target for one run.</p></article>
+          <article><span>Runtime authority</span><h3>Execution is the boundary</h3><p>Automic Vault checks the Target, Verified Launcher, command, working directory, and Secret Names before applying a Credential.</p></article>
           <article><span>Open source</span><h3>Source stays inspectable</h3><p>The project is Apache 2.0 software on GitHub, so developers can inspect how local control is implemented.</p></article>
           <article><span>macOS first</span><h3>The platform is explicit</h3><p>Automic Vault targets the macOS developer workstation instead of pretending agent security is only a cloud policy problem.</p></article>
         </div>
@@ -237,12 +237,12 @@
         <div class="section-heading">
           <p class="kicker">Project position</p>
           <h2>A local execution boundary for developer tools.</h2>
-          <p>Automic Vault is a local macOS runtime layer for developer tools. It moves credentials out of plaintext files, supplies them to approved executables for one run, and applies policy based on the signed app that launched each tool.</p>
+          <p>Automic Vault is a local macOS authority layer for developer Tools. It moves Credentials out of plaintext files, applies them to authorized Targets for one run, and evaluates Authorization Policy for each Verified Launcher.</p>
         </div>
         <div class="link-grid">
           <a href="../"><span>Secrets</span><strong>Remove plaintext credentials</strong><p>Keep credentials out of files and model context.</p></a>
-          <a href="../#controls"><span>Policy</span><strong>Tool and launcher rules</strong><p>Choose how each signed app can use each tool and credential.</p></a>
-          <a href="../#audit"><span>Audit</span><strong>Review every secret use</strong><p>Keep a local record of approved and denied requests.</p></a>
+          <a href="../#controls"><span>Policy</span><strong>Gate and Launcher rules</strong><p>Choose how each Verified Launcher can use each Tool and Credential.</p></a>
+          <a href="../#audit"><span>History</span><strong>Review Authorization Decisions</strong><p>Keep bounded local history of allowed and denied requests.</p></a>
         </div>
       </section>
     </main>
