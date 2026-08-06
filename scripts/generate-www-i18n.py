@@ -493,9 +493,11 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="icon" href="{root}favicon.svg?v=4" type="image/svg+xml">
-  <link rel="icon" href="{root}favicon.ico?v=4" sizes="16x16 32x32 48x48">
-  <link rel="mask-icon" href="{root}safari-pinned-tab.svg?v=4" color="#4285f4">
+  <link rel="icon" href="{root}favicon.ico?v=5" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="{root}favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="{root}favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="mask-icon" href="{root}safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
+  <link rel="mask-icon" href="{root}safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="{root}apple-touch-icon.png?v=3">
   <link rel="stylesheet" href="{root}styles.css?v=128">
   <link rel="stylesheet" href="{root}landing-pages.css?v=5">

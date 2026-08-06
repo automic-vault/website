@@ -30,9 +30,10 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         for page in sorted((ROOT / "www").rglob("*.html")):
             text = page.read_text(encoding="utf-8")
             with self.subTest(page=page.relative_to(ROOT)):
-                self.assertIn('favicon.svg?v=4" type="image/svg+xml"', text)
-                self.assertIn('rel="mask-icon"', text)
-                self.assertIn('safari-pinned-tab.svg?v=4" color="#4285f4"', text)
+                self.assertIn('favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)"', text)
+                self.assertIn('favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)"', text)
+                self.assertIn('safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)"', text)
+                self.assertIn('safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)"', text)
 
     def test_release_download_uses_private_cloudfront_lambda_origin(self):
         subprocess.run(
