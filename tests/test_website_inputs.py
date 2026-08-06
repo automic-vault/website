@@ -26,6 +26,14 @@ class LocalReferenceParser(html.parser.HTMLParser):
 
 
 class StaticHtmlAnalyticsTests(unittest.TestCase):
+    def test_all_pages_use_the_transparent_safari_favicon(self):
+        for page in sorted((ROOT / "www").rglob("*.html")):
+            text = page.read_text(encoding="utf-8")
+            with self.subTest(page=page.relative_to(ROOT)):
+                self.assertIn('favicon.svg?v=4" type="image/svg+xml"', text)
+                self.assertIn('rel="mask-icon"', text)
+                self.assertIn('safari-pinned-tab.svg?v=4" color="#4285f4"', text)
+
     def test_release_download_uses_private_cloudfront_lambda_origin(self):
         subprocess.run(
             ["node", "--test", str(ROOT / "lambda" / "release-redirect" / "index.test.mjs")],
