@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Automic Vault 隐私 | AI 代理与开发工具安全</title>
-  <meta name="description" content="Automic Vault 的本地数据边界、网站分析和隐私说明。 在本地 Mac 上控制 Homebrew 工具、CLI 密钥和审批门。">
+  <meta name="description" content="Automic Vault Mac 应用和网站发送哪些数据、哪些数据留在本地，以及哪些分析服务会接收数据。 在本地 Mac 上控制 Homebrew 工具、CLI 密钥和审批门。">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Automic Vault 隐私 | AI 代理与开发工具安全">
-  <meta property="og:description" content="Automic Vault 的本地数据边界、网站分析和隐私说明。 在本地 Mac 上控制 Homebrew 工具、CLI 密钥和审批门。">
+  <meta property="og:description" content="Automic Vault Mac 应用和网站发送哪些数据、哪些数据留在本地，以及哪些分析服务会接收数据。 在本地 Mac 上控制 Homebrew 工具、CLI 密钥和审批门。">
   <meta property="og:url" content="https://www.automicvault.com/zh-hans/privacy/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Automic Vault 隐私 | AI 代理与开发工具安全">
-  <meta name="twitter:description" content="Automic Vault 的本地数据边界、网站分析和隐私说明。 在本地 Mac 上控制 Homebrew 工具、CLI 密钥和审批门。">
+  <meta name="twitter:description" content="Automic Vault Mac 应用和网站发送哪些数据、哪些数据留在本地，以及哪些分析服务会接收数据。 在本地 Mac 上控制 Homebrew 工具、CLI 密钥和审批门。">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/zh-hans/privacy/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/privacy/">
@@ -49,8 +49,8 @@
     "@type": "WebPage",
     "url": "https://www.automicvault.com/zh-hans/privacy/",
     "name": "Automic Vault 隐私 | AI 代理与开发工具安全",
-    "headline": "本地密钥留在本地",
-    "description": "Automic Vault 的本地数据边界、网站分析和隐私说明。 在本地 Mac 上控制 Homebrew 工具、CLI 密钥和审批门。",
+    "headline": "密钥留在本地，产品指标会离开 Mac",
+    "description": "Automic Vault Mac 应用和网站发送哪些数据、哪些数据留在本地，以及哪些分析服务会接收数据。 在本地 Mac 上控制 Homebrew 工具、CLI 密钥和审批门。",
     "inLanguage": "zh-Hans",
     "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
@@ -78,8 +78,8 @@
       <section class="poster-hero landing-page-hero" aria-labelledby="hero-title">
         <div class="poster-hero-copy">
           <p class="eyebrow">Automic Vault</p>
-          <h1 id="hero-title">本地密钥留在本地</h1>
-          <p class="poster-lede">Automic Vault 的本地数据边界、网站分析和隐私说明。</p>
+          <h1 id="hero-title">密钥留在本地，产品指标会离开 Mac</h1>
+          <p class="poster-lede">Automic Vault Mac 应用和网站发送哪些数据、哪些数据留在本地，以及哪些分析服务会接收数据。</p>
         </div>
 
         <div class="poster-hero-foot">
@@ -92,52 +92,52 @@
 
       <section class="i18n-section" aria-labelledby="section-1">
         <h2 id="section-1">产品数据</h2>
-        <p>Automic Vault 用于保护开发者机器上的密钥，并不是托管密钥服务。</p>
+        <p>密钥和授权历史记录留在 Mac 上。发布版本会把使用事件和 Mac 技术信息发送给 PostHog。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-2">
-        <h2 id="section-2">网站数据</h2>
-        <p>网站使用基础分析和公开资源，不收集产品中的密钥。</p>
+        <h2 id="section-2">应用使用情况</h2>
+        <p>应用会在偏好设置中保存一个随机安装标识符，用它关联同一次安装产生的事件。事件包括打开主窗口、触发的 Detector 数量发生变化，以及用户批准了请求。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-3">
-        <h2 id="section-3">本地运行边界</h2>
-        <p>Automic Vault 将代理可读取的文件与只提供给已批准工具的凭据分开。控制发生在 Mac 的执行路径上，而不是只依赖代理提示词。</p>
+        <h2 id="section-3">不会发送的数据</h2>
+        <p>应用不会发送密钥、密钥名称、命令、参数、工作目录、Launcher 或 Target 身份、Finding 名称或路径，也不会发送授权历史记录。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-4">
-        <h2 id="section-4">Homebrew 与 CLI</h2>
-        <p>许多开发工具来自 Homebrew、npm、PyPI 和云 CLI。Vault 会检测这些工具留下的凭据文件和高风险操作，并把审批放到实际执行位置。</p>
+        <h2 id="section-4">接收方和用途</h2>
+        <p>应用把数据发送到 us.i.posthog.com 上的 PostHog Cloud US。我们用这些数据了解功能使用情况和兼容性，不用于广告、出售数据或跨产品跟踪。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-5">
-        <h2 id="section-5">下一步</h2>
-        <p>先运行扫描器检查明文暴露，将支持的密钥移入受保护的本地存储，并保持 Automic Vault 运行，以便及时收到新的 hazard 通知。</p>
+        <h2 id="section-5">网站</h2>
+        <p>网站使用 Google Analytics。Google 会处理页面浏览记录，以及浏览器、设备、来源和网络数据。网站不会收到 Mac 应用中存储的密钥。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-6">
-        <h2 id="section-6">安装后的变化</h2>
-        <p>熟悉的 CLI 仍可继续使用。区别在于密钥不再作为容易读取的配置文件留在磁盘上，而是只交给真正需要它的已批准执行。</p>
+        <h2 id="section-6">控制方式</h2>
+        <p>当前 Mac 应用没有遥测开关。通过网络过滤器阻止 us.i.posthog.com 可以停止应用指标发送。数据删除请求可发送至 mxcl@me.com。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-7">
-        <h2 id="section-7">与中心化 vault 配合</h2>
-        <p>1Password、HashiCorp Vault 和云端密钥系统仍可作为真实来源。Automic Vault 保护的是本地 Mac 工具使用这些值的那一刻。</p>
+        <h2 id="section-7">本地运行边界</h2>
+        <p>Automic Vault 将代理可读取的文件与只提供给已批准工具的凭据分开。控制发生在 Mac 的执行路径上，而不是只依赖代理提示词。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-8">
-        <h2 id="section-8">相关页面</h2>
-        <p>文档、下载、密钥扫描器和软件包目录展示完整流程：发现暴露、加固工具、加入审批门，并持续监控开发机器。</p>
+        <h2 id="section-8">Homebrew 与 CLI</h2>
+        <p>许多开发工具来自 Homebrew、npm、PyPI 和云 CLI。Vault 会检测这些工具留下的凭据文件和高风险操作，并把审批放到实际执行位置。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-9">
-        <h2 id="section-9">持续监控</h2>
-        <p>新的软件包、过时工具和重新生成的配置文件可能在首次修复后重新带来风险。Automic Vault 会保持运行并提示新的 hazard。</p>
+        <h2 id="section-9">下一步</h2>
+        <p>先运行扫描器检查明文暴露，将支持的密钥移入受保护的本地存储，并保持 Automic Vault 运行，以便及时收到新的 hazard 通知。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-10">
-        <h2 id="section-10">可信线索</h2>
-        <p>公开仓库、安全页面、许可证以及 Max Howell 的 Homebrew 背景都可查看。本地安全边界应该能够被验证。</p>
+        <h2 id="section-10">安装后的变化</h2>
+        <p>熟悉的 CLI 仍可继续使用。区别在于密钥不再作为容易读取的配置文件留在磁盘上，而是只交给真正需要它的已批准执行。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-11">
-        <h2 id="section-11">何时使用</h2>
-        <p>在让代理处理仓库之前、使用云 CLI 之前，以及允许 npm publish、gh release 或基础设施变更等高权限命令之前使用 Automic Vault。</p>
+        <h2 id="section-11">与中心化 vault 配合</h2>
+        <p>1Password、HashiCorp Vault 和云端密钥系统仍可作为真实来源。Automic Vault 保护的是本地 Mac 工具使用这些值的那一刻。</p>
       </section>
 
       <section class="closing-cta landing-page-cta" aria-labelledby="final-title">
         <p class="eyebrow">Automic Vault</p>
-        <h2 id="final-title">本地密钥留在本地</h2>
+        <h2 id="final-title">密钥留在本地，产品指标会离开 Mac</h2>
         <div class="hero-actions">
           <a class="button primary" href="/Automic%20Vault.dmg">下载</a>
           <a class="button secondary" href="/docs/">文档</a>

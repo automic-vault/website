@@ -16,7 +16,7 @@
 
 - [Automic Vault について | brew install したツールを安全に](https://www.automicvault.com/ja/about/): Automic Vault は、AI エージェントが使う前に、Homebrew ツール、CLI シークレット、コマンド承認ゲートを Mac 上でローカルに保護します。
 
-- [Automic Vault プライバシー](https://www.automicvault.com/ja/privacy/): Automic Vault のローカルデータ境界、ウェブサイト解析、プライバシー方針。
+- [Automic Vault プライバシー](https://www.automicvault.com/ja/privacy/): Automic Vault の Mac アプリとウェブサイトが送信するデータ、ローカルに残るデータ、利用する解析サービス。
 
 - [Automic Vault 利用規約](https://www.automicvault.com/ja/terms/): Automic Vault の利用条件、オープンソースライセンス、ウェブサイト利用メモ。
 

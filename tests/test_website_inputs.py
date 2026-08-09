@@ -125,6 +125,32 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
 
         self.assertEqual(missing, [])
 
+    def test_privacy_pages_disclose_app_and_website_analytics(self):
+        pages = [ROOT / "www" / "privacy" / "index.html"]
+        pages.extend(
+            ROOT / "www" / locale / "privacy" / "index.html"
+            for locale in ("de", "fr", "ja", "zh-hans")
+        )
+
+        for page in pages:
+            text = page.read_text(encoding="utf-8")
+            with self.subTest(page=page.relative_to(ROOT)):
+                self.assertIn("PostHog", text)
+                self.assertIn("us.i.posthog.com", text)
+                self.assertIn("Google Analytics", text)
+
+        english = pages[0].read_text(encoding="utf-8")
+        for excluded_data in (
+            "No Secret values",
+            "No commands, arguments, working directories",
+            "No Finding names, file paths",
+            "No Authorization History records",
+        ):
+            self.assertIn(excluded_data, english)
+        self.assertIn("no telemetry switch", english)
+        self.assertIn('href="https://posthog.com/privacy"', english)
+        self.assertIn('href="https://policies.google.com/privacy"', english)
+
     def test_csp_allows_google_analytics_script(self):
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
         self.assertIn("script-src", deploy_script)

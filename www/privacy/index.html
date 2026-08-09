@@ -12,8 +12,8 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automic Vault Privacy for Local Mac Secrets and Website Data</title>
-  <meta name="description" content="Automic Vault privacy notes for the website and local macOS application. Automic Vault is open-source software focused on local agent security.">
+  <title>Automic Vault Privacy and Product Metrics</title>
+  <meta name="description" content="What the Automic Vault Mac app and website send, what stays local, and which analytics services receive product metrics.">
   <link rel="canonical" href="https://www.automicvault.com/privacy/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/privacy/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/privacy/">
@@ -24,13 +24,13 @@
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Automic Vault Privacy for Local Mac Secrets and Website Data">
-  <meta property="og:description" content="Privacy notes for the Automic Vault website, local macOS app, analytics, and secret handling boundaries.">
+  <meta property="og:title" content="Automic Vault Privacy and Product Metrics">
+  <meta property="og:description" content="What the Automic Vault Mac app and website send, what stays local, and which analytics services receive product metrics.">
   <meta property="og:url" content="https://www.automicvault.com/privacy/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Automic Vault Privacy for Local Mac Secrets and Website Data">
-  <meta name="twitter:description" content="Privacy notes for the Automic Vault website, local macOS app, analytics, and secret handling boundaries.">
+  <meta name="twitter:title" content="Automic Vault Privacy and Product Metrics">
+  <meta name="twitter:description" content="What the Automic Vault Mac app and website send, what stays local, and which analytics services receive product metrics.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <script type="application/ld+json">
 {
@@ -119,11 +119,11 @@
                   "@type": "Article",
                   "@id": "https://www.automicvault.com/privacy/#webpage",
                   "url": "https://www.automicvault.com/privacy/",
-                  "name": "Automic Vault Privacy for Local Mac Secrets and Website Data",
-                  "headline": "Automic Vault Privacy for Local Mac Secrets and Website Data",
-                  "description": "Automic Vault privacy notes for the website and local macOS application. Automic Vault is open-source software focused on local agent security.",
+                  "name": "Automic Vault Privacy and Product Metrics",
+                  "headline": "Automic Vault Privacy and Product Metrics",
+                  "description": "What the Automic Vault Mac app and website send, what stays local, and which analytics services receive product metrics.",
                   "datePublished": "2026-05-15",
-                  "dateModified": "2026-06-01",
+                  "dateModified": "2026-08-09",
                   "image": "https://www.automicvault.com/preview.jpg",
                   "author": {
                         "@id": "https://www.automicvault.com/about/#max-howell"
@@ -196,10 +196,10 @@
       <section class="seo-hero">
         <div>
           <p class="kicker">Privacy</p>
-          <h1>Automic Vault keeps agent credentials local</h1>
-          <p class="lede">Automic Vault protects local developer credentials. The product is open-source software for macOS, not a hosted secrets platform that stores your agent credentials in a remote account.</p>
-          <p class="updated">Last updated: June 1, 2026</p>
-          <div class="answer-box"><p>Automic Vault keeps agent credentials on the developer's Mac. The public website is static product information; the app's privacy boundary is local keychain-backed storage, approved command execution, and no raw secret handoff to AI model context.</p></div>
+          <h1>Secrets stay local. Product metrics leave the Mac.</h1>
+          <p class="lede">Automic Vault stores Secrets and Authorization History on your Mac. Release builds send a small set of product metrics to PostHog, and this website uses Google Analytics.</p>
+          <p class="updated">Last updated: August 9, 2026</p>
+          <div class="answer-box"><p>The app does not send Secrets, Secret Names, commands, paths, Findings, or Authorization History. It does send pseudonymous usage events and Mac characteristics so we can see which parts of the product people use and which systems we need to support.</p></div>
           <div class="hero-actions">
             <a class="button primary" href="/docs/">Read documentation <span aria-hidden="true">›</span></a>
             <a class="button" href="https://github.com/automic-vault/automic-vault/security">Security notes <span aria-hidden="true">›</span></a>
@@ -211,44 +211,87 @@
       </section>
       <section class="seo-section seo-split">
         <div class="section-heading">
-          <p class="kicker">Website</p>
-          <h2>The website publishes static product information.</h2>
-          <p>The public site provides documentation, downloads, and source links. It does not require an account, checkout flow, or hosted vault login.</p>
+          <p class="kicker">Mac app</p>
+          <h2>Release builds send product metrics to PostHog.</h2>
+          <p>The app creates a random installation identifier and stores it in the app's preferences. PostHog uses that identifier to connect events from the same installation. We do not connect it to a name, email address, or Automic Vault account.</p>
+        </div>
+        <table class="comparison-table">
+          <thead>
+            <tr><th scope="col">Metric</th><th scope="col">Data sent</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Usage</th><td>Main window opened, number of triggered Detectors when that count changes, and whether the user approved a request.</td></tr>
+            <tr><th scope="row">Installation</th><td>A random identifier stored in app preferences and reused across events from that installation.</td></tr>
+            <tr><th scope="row">Software</th><td>App, build, protocol, and helper versions.</td></tr>
+            <tr><th scope="row">Mac</th><td>macOS version, architecture, Mac model, processor counts, and rounded physical memory.</td></tr>
+            <tr><th scope="row">Network</th><td>PostHog receives connection metadata such as the source IP address when the app sends an event.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="seo-section seo-split">
+        <div class="section-heading">
+          <p class="kicker">Excluded data</p>
+          <h2>Security data stays inside the local boundary.</h2>
+          <p>The telemetry payload has a fixed, public implementation. It does not include the data Automic Vault protects or the details of an Authorization Request.</p>
+        </div>
+        <table class="comparison-table">
+          <thead>
+            <tr><th scope="col">Local data</th><th scope="col">Telemetry behavior</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Secrets</th><td>No Secret values, Credential values, or Secret Names.</td></tr>
+            <tr><th scope="row">Requests</th><td>No commands, arguments, working directories, Launcher identities, or Target identities.</td></tr>
+            <tr><th scope="row">Findings</th><td>No Finding names, file paths, configuration contents, or detected Secret material.</td></tr>
+            <tr><th scope="row">History</th><td>No Authorization History records or Approval details beyond the fact that an approval occurred.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="seo-section seo-split">
+        <div class="section-heading">
+          <p class="kicker">Purpose and processor</p>
+          <h2>We use the metrics to make product decisions.</h2>
+          <p>We use event counts and technical characteristics to measure feature use, investigate compatibility gaps, and decide where to spend development time. We do not sell this data, use it for advertising, or combine the installation identifier with account data.</p>
         </div>
         <div class="proof-list">
-          <article><span>No account</span><h3>No hosted login</h3><p>The website does not ask users to create an Automic Vault account to read docs or inspect source.</p></article>
-          <article><span>Downloads</span><h3>Static artifacts</h3><p>Downloads are served as static files linked from the site and repository.</p></article>
-          <article><span>Source</span><h3>Public repository</h3><p>Product source and issue tracking live in the public GitHub repository.</p></article>
-          <article><span>Secrets</span><h3>Local storage</h3><p>Automic Vault's product goal is to keep agent-facing secrets local and away from model context.</p></article>
+          <article><span>Processor</span><h3>PostHog Cloud US</h3><p>The app sends events to <code>us.i.posthog.com</code>. PostHog stores them under the project's configured retention settings and publishes its <a href="https://posthog.com/privacy">privacy notice</a>.</p></article>
+          <article><span>Profile</span><h3>No PostHog person profile</h3><p>Each event tells PostHog not to create a person profile. The persistent installation identifier still makes the event stream pseudonymous rather than anonymous.</p></article>
+          <article><span>Advertising</span><h3>No ad tracking</h3><p>Automic Vault does not use these metrics for advertising, data brokerage, or tracking across other products.</p></article>
+          <article><span>Source</span><h3>Inspect the payload</h3><p>The <a href="https://github.com/automic-vault/automic-vault/blob/main/src/menu-helper/Sources/MenubarHelper/PostHogTelemetry.swift">telemetry implementation</a> is public.</p></article>
         </div>
       </section>
       <section class="seo-section seo-split">
         <div class="section-heading">
-          <p class="kicker">Product boundary</p>
-          <h2>Secrets are local product data.</h2>
-          <p>Automic Vault moves credentials out of plaintext files and into local keychain-backed storage. Approved command-line tools receive the requested values at runtime; the website is not the secret storage surface.</p>
+          <p class="kicker">Website</p>
+          <h2>The website uses Google Analytics.</h2>
+          <p>The public site provides documentation, downloads, and source links without an account or hosted vault login. Google Analytics receives page-view, browser, device, referrer, and network data when you visit. The website never receives the Secrets stored by the Mac app.</p>
         </div>
-        <table class="comparison-table">
-          <thead>
-            <tr><th scope="col">Surface</th><th scope="col">Privacy boundary</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Website</th><td>Static pages, documentation, downloads, and public source links; no hosted vault login is required.</td></tr>
-            <tr><th scope="row">Secrets</th><td>Credentials are intended to move out of readable files and into local keychain-backed storage.</td></tr>
-            <tr><th scope="row">Agents</th><td>Models should not receive raw secret values in prompts, transcripts, or copied tool output.</td></tr>
-            <tr><th scope="row">Tools</th><td>Approved executables receive named values at runtime when the local workflow needs them.</td></tr>
-          </tbody>
-        </table>
+        <div class="proof-list">
+          <article><span>No account</span><h3>No hosted login</h3><p>You do not create an Automic Vault account to read documentation, download releases, or inspect source.</p></article>
+          <article><span>Downloads</span><h3>Static artifacts</h3><p>The site and repository link to signed release files. Download providers receive the network requests needed to serve those files.</p></article>
+          <article><span>Analytics</span><h3>Google Analytics</h3><p>Google processes website traffic data under its <a href="https://policies.google.com/privacy">privacy policy</a>. No product telemetry flows through Google Analytics.</p></article>
+          <article><span>Source</span><h3>Public repository</h3><p>Product source, releases, and issue tracking live in the public GitHub repository.</p></article>
+        </div>
+      </section>
+      <section class="seo-section seo-split">
+        <div class="section-heading">
+          <p class="kicker">Control</p>
+          <h2>The current Mac app has no telemetry switch.</h2>
+          <p>Blocking <code>us.i.posthog.com</code> in a network filter stops app telemetry. Deleting the app's preferences removes the installation identifier, but the app creates a new identifier when it next sends an event.</p>
+        </div>
+        <div class="proof-list">
+          <article><span>Deletion</span><h3>Find your installation identifier</h3><p>Run <code>defaults read com.automicvault PostHogAnonymousInstallID</code>. Send that value to <a href="mailto:mxcl@me.com">mxcl@me.com</a> if you want the matching PostHog events deleted.</p></article>
+          <article><span>Retention</span><h3>Project retention</h3><p>PostHog keeps events until the project owner deletes them or the configured retention period expires.</p></article>
+        </div>
       </section>
       <section class="seo-section">
         <div class="section-heading">
           <p class="kicker">References</p>
-          <h2>Privacy-related product details.</h2>
+          <h2>Verify the privacy boundary.</h2>
         </div>
         <div class="link-grid">
           <a href="../"><span>Secrets</span><strong>Secrets manager for AI agents</strong><p>How Automic Vault keeps credentials away from model context.</p></a>
           <a href="/docs/"><span>Docs</span><strong>Secret injection docs</strong><p>CLI documentation for saving and injecting named values.</p></a>
-          <a href="https://github.com/automic-vault/automic-vault"><span>Source</span><strong>Source code</strong><p>Inspect the implementation in the public repository.</p></a>
+          <a href="https://github.com/automic-vault/automic-vault/blob/main/src/menu-helper/Sources/MenubarHelper/PostHogTelemetry.swift"><span>Metrics</span><strong>Telemetry source</strong><p>Inspect every event and property the release build sends.</p></a>
         </div>
       </section>
       <section class="seo-section seo-split">

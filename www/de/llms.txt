@@ -16,7 +16,7 @@
 
 - [Über Automic Vault | Sichere die Tools, die du mit brew install installierst](https://www.automicvault.com/de/about/): Automic Vault sichert Homebrew-Tools, CLI-Secrets und Command-Approval-Gates lokal auf deinem Mac, bevor AI-Agents sie verwenden.
 
-- [Automic Vault Datenschutz](https://www.automicvault.com/de/privacy/): Lokale Datengrenzen, Website-Analytics und Datenschutznotizen für Automic Vault.
+- [Automic Vault Datenschutz](https://www.automicvault.com/de/privacy/): Welche Daten die Automic-Vault-App und Website senden, was lokal bleibt und welche Analysedienste Daten erhalten.
 
 - [Automic Vault Bedingungen](https://www.automicvault.com/de/terms/): Nutzungsbedingungen, Open-Source-Lizenz und Website-Hinweise für Automic Vault.
 

@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Automic Vault Datenschutz | Schutz für AI-Agents und Entwickler-Tools</title>
-  <meta name="description" content="Lokale Datengrenzen, Website-Analytics und Datenschutznotizen für Automic Vault. Kontrolliere Homebrew-Tools, CLI-Secrets und Approval Gates lokal auf dem Mac.">
+  <meta name="description" content="Welche Daten die Automic-Vault-App und Website senden, was lokal bleibt und welche Analysedienste Daten erhalten.">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Automic Vault Datenschutz | Schutz für AI-Agents und Entwickler-Tools">
-  <meta property="og:description" content="Lokale Datengrenzen, Website-Analytics und Datenschutznotizen für Automic Vault. Kontrolliere Homebrew-Tools, CLI-Secrets und Approval Gates lokal auf dem Mac.">
+  <meta property="og:description" content="Welche Daten die Automic-Vault-App und Website senden, was lokal bleibt und welche Analysedienste Daten erhalten.">
   <meta property="og:url" content="https://www.automicvault.com/de/privacy/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Automic Vault Datenschutz | Schutz für AI-Agents und Entwickler-Tools">
-  <meta name="twitter:description" content="Lokale Datengrenzen, Website-Analytics und Datenschutznotizen für Automic Vault. Kontrolliere Homebrew-Tools, CLI-Secrets und Approval Gates lokal auf dem Mac.">
+  <meta name="twitter:description" content="Welche Daten die Automic-Vault-App und Website senden, was lokal bleibt und welche Analysedienste Daten erhalten.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/de/privacy/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/privacy/">
@@ -49,8 +49,8 @@
     "@type": "WebPage",
     "url": "https://www.automicvault.com/de/privacy/",
     "name": "Automic Vault Datenschutz | Schutz für AI-Agents und Entwickler-Tools",
-    "headline": "Lokale Secrets bleiben lokal",
-    "description": "Lokale Datengrenzen, Website-Analytics und Datenschutznotizen für Automic Vault. Kontrolliere Homebrew-Tools, CLI-Secrets und Approval Gates lokal auf dem Mac.",
+    "headline": "Secrets bleiben lokal, Produktmetriken verlassen den Mac",
+    "description": "Welche Daten die Automic-Vault-App und Website senden, was lokal bleibt und welche Analysedienste Daten erhalten.",
     "inLanguage": "de",
     "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
@@ -78,8 +78,8 @@
       <section class="poster-hero landing-page-hero" aria-labelledby="hero-title">
         <div class="poster-hero-copy">
           <p class="eyebrow">Automic Vault</p>
-          <h1 id="hero-title">Lokale Secrets bleiben lokal</h1>
-          <p class="poster-lede">Lokale Datengrenzen, Website-Analytics und Datenschutznotizen für Automic Vault.</p>
+          <h1 id="hero-title">Secrets bleiben lokal, Produktmetriken verlassen den Mac</h1>
+          <p class="poster-lede">Welche Daten die Automic-Vault-App und Website senden, was lokal bleibt und welche Analysedienste Daten erhalten.</p>
         </div>
 
         <div class="poster-hero-foot">
@@ -92,52 +92,52 @@
 
       <section class="i18n-section" aria-labelledby="section-1">
         <h2 id="section-1">Produktdaten</h2>
-        <p>Automic Vault schützt Secrets auf dem Entwicklergerät und ist kein gehosteter Secret-Dienst.</p>
+        <p>Secrets und Authorization History bleiben auf dem Mac. Release-Builds senden Nutzungsereignisse und technische Mac-Daten an PostHog.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-2">
-        <h2 id="section-2">Websitedaten</h2>
-        <p>Die Website nutzt grundlegende Analytics und öffentliche Assets, sammelt aber keine Produkt-Secrets.</p>
+        <h2 id="section-2">App-Nutzung</h2>
+        <p>Die App speichert eine zufällige Installationskennung in ihren Einstellungen und verknüpft damit Ereignisse derselben Installation. Sie meldet das Öffnen des Hauptfensters, Änderungen an der Zahl ausgelöster Detectors und die Tatsache, dass ein Request genehmigt wurde.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-3">
-        <h2 id="section-3">Lokale Laufzeitgrenze</h2>
-        <p>Automic Vault trennt Dateien, die ein Agent lesen kann, von Credentials, die nur genehmigte Tools erhalten. Die Kontrolle sitzt im Ausführungspfad auf dem Mac, nicht nur in einer Agent-Anweisung.</p>
+        <h2 id="section-3">Nicht gesendete Daten</h2>
+        <p>Die App sendet keine Secrets, Secret Names, Befehle, Argumente, Arbeitsverzeichnisse, Launcher- oder Target-Identitäten, Finding-Namen oder -Pfade und keine Authorization History.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-4">
-        <h2 id="section-4">Homebrew und CLIs</h2>
-        <p>Viele Entwicklerwerkzeuge kommen über Homebrew, npm, PyPI und Cloud-CLIs. Vault erkennt Credential-Dateien und riskante Aktionen, die diese Tools hinterlassen, und setzt Freigaben an die passende Stelle.</p>
+        <h2 id="section-4">Ziel und Zweck</h2>
+        <p>Die App sendet Daten an PostHog Cloud US unter us.i.posthog.com. Wir nutzen sie für Funktionsnutzung und Kompatibilität, nicht für Werbung, Datenverkauf oder produktübergreifendes Tracking.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-5">
-        <h2 id="section-5">Nächste Schritte</h2>
-        <p>Starte zuerst den Scanner, verschiebe unterstützte Secrets in geschützten lokalen Speicher und lasse Automic Vault laufen, damit neue Hazard-Hinweise sofort sichtbar bleiben.</p>
+        <h2 id="section-5">Website</h2>
+        <p>Die Website nutzt Google Analytics. Google verarbeitet Seitenaufrufe sowie Browser-, Geräte-, Referrer- und Netzwerkdaten. Die Website erhält keine Secrets aus der Mac-App.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-6">
-        <h2 id="section-6">Was sich nach der Installation ändert</h2>
-        <p>Die bekannten CLIs bleiben nutzbar. Der Unterschied ist, dass Secrets nicht mehr als einfache Konfigurationsdateien herumliegen, sondern nur an die genehmigte Ausführung übergeben werden, die sie wirklich braucht.</p>
+        <h2 id="section-6">Kontrolle</h2>
+        <p>Die aktuelle Mac-App hat keinen Telemetrie-Schalter. Ein Netzwerkfilter für us.i.posthog.com stoppt die Produktmetriken. Löschanfragen können an mxcl@me.com gesendet werden.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-7">
-        <h2 id="section-7">Zusammenspiel mit zentralen Vaults</h2>
-        <p>1Password, HashiCorp Vault und Cloud-Secret-Systeme können weiter die Quelle der Wahrheit bleiben. Automic Vault schützt den lokalen Moment, in dem ein Mac-Tool diese Werte verwenden will.</p>
+        <h2 id="section-7">Lokale Laufzeitgrenze</h2>
+        <p>Automic Vault trennt Dateien, die ein Agent lesen kann, von Credentials, die nur genehmigte Tools erhalten. Die Kontrolle sitzt im Ausführungspfad auf dem Mac, nicht nur in einer Agent-Anweisung.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-8">
-        <h2 id="section-8">Weiterführende Seiten</h2>
-        <p>Dokumentation, Download, Secret Scanner und Paketkatalog zeigen den Weg von Erkennung zu Härtung, Approval Gates und laufender Überwachung der Entwickler-Maschine.</p>
+        <h2 id="section-8">Homebrew und CLIs</h2>
+        <p>Viele Entwicklerwerkzeuge kommen über Homebrew, npm, PyPI und Cloud-CLIs. Vault erkennt Credential-Dateien und riskante Aktionen, die diese Tools hinterlassen, und setzt Freigaben an die passende Stelle.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-9">
-        <h2 id="section-9">Laufende Überwachung</h2>
-        <p>Neue Pakete, veraltete Tools und neu erzeugte Konfigurationsdateien können nach der ersten Bereinigung wieder Risiken schaffen. Automic Vault bleibt aktiv und meldet frische Hazards.</p>
+        <h2 id="section-9">Nächste Schritte</h2>
+        <p>Starte zuerst den Scanner, verschiebe unterstützte Secrets in geschützten lokalen Speicher und lasse Automic Vault laufen, damit neue Hazard-Hinweise sofort sichtbar bleiben.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-10">
-        <h2 id="section-10">Vertrauenshinweise</h2>
-        <p>Öffentliches Repository, Sicherheitsseite, Lizenz und der Homebrew-Hintergrund von Max Howell sind verlinkt. Eine lokale Sicherheitsgrenze sollte überprüfbar sein.</p>
+        <h2 id="section-10">Was sich nach der Installation ändert</h2>
+        <p>Die bekannten CLIs bleiben nutzbar. Der Unterschied ist, dass Secrets nicht mehr als einfache Konfigurationsdateien herumliegen, sondern nur an die genehmigte Ausführung übergeben werden, die sie wirklich braucht.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-11">
-        <h2 id="section-11">Wann einsetzen</h2>
-        <p>Nutze Automic Vault vor Agent-Läufen in Repositories, vor Cloud-CLI-Arbeit und bevor Befehle wie npm publish, gh release oder Infrastrukturänderungen echte Berechtigungen ausgeben.</p>
+        <h2 id="section-11">Zusammenspiel mit zentralen Vaults</h2>
+        <p>1Password, HashiCorp Vault und Cloud-Secret-Systeme können weiter die Quelle der Wahrheit bleiben. Automic Vault schützt den lokalen Moment, in dem ein Mac-Tool diese Werte verwenden will.</p>
       </section>
 
       <section class="closing-cta landing-page-cta" aria-labelledby="final-title">
         <p class="eyebrow">Automic Vault</p>
-        <h2 id="final-title">Lokale Secrets bleiben lokal</h2>
+        <h2 id="final-title">Secrets bleiben lokal, Produktmetriken verlassen den Mac</h2>
         <div class="hero-actions">
           <a class="button primary" href="/Automic%20Vault.dmg">Herunterladen</a>
           <a class="button secondary" href="/docs/">Dokumentation</a>
