@@ -794,6 +794,7 @@ def render_sitemap(records: list[dict[str, Any]], locales: list[Locale]) -> str:
     preserved = [
         ("https://www.automicvault.com/docs/", "2026-07-27"),
         ("https://www.automicvault.com/blog/", "2026-08-14"),
+        ("https://www.automicvault.com/blog/automic-vault-vs-doppler/", "2026-08-14"),
         ("https://www.automicvault.com/blog/automic-vault-vs-bitwarden/", "2026-08-14"),
         ("https://www.automicvault.com/blog/automic-vault-vs-1password/", "2026-08-14"),
         ("https://www.automicvault.com/blog/best-aws-credential-manager/", "2026-08-05"),
