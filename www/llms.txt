@@ -12,6 +12,7 @@
 
 ## Security and Architecture
 
+- [Automic Vault vs 1Password](https://www.automicvault.com/blog/automic-vault-vs-1password/): Compares 1Password CLI sessions and newer agent integrations with Automic Vault's Tool hardening, Verified Launcher policy, and per-operation authorization.
 - [About](https://www.automicvault.com/about/): Describes the project, founder Max Howell, macOS focus, local execution model, and relationship to Homebrew.
 - [The best AWS credential manager](https://www.automicvault.com/blog/best-aws-credential-manager/): Explains process-bound AWS credential delivery, temporary STS sessions, signed-launcher policy, MFA and role support, and the fail-closed profile model.
 - [macOS security for the terminal](https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/): Explains inherited CLI authority and the identity, Approval, and Authorization History boundary beneath shells and agent harnesses.

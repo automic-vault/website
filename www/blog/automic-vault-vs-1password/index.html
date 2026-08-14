@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automic Vault vs 1Password for Developer Secrets</title>
+  <meta name="description" content="A source-checked comparison of Automic Vault and 1Password CLI: terminal sessions, agent access, tool hardening, per-operation policy, and where each fits.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="Automic Vault vs 1Password for Developer Secrets">
+  <meta property="og:description" content="1Password protects a vault. Automic Vault also decides which verified launcher may apply a secret to which developer operation.">
+  <meta property="og:url" content="https://www.automicvault.com/blog/automic-vault-vs-1password/">
+  <meta property="og:image" content="https://www.automicvault.com/assets/approval-terminal-only.webp">
+  <meta property="article:published_time" content="2026-08-14">
+  <meta property="article:modified_time" content="2026-08-14">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.automicvault.com/assets/approval-terminal-only.webp">
+  <meta name="twitter:title" content="Automic Vault vs 1Password for Developer Secrets">
+  <meta name="twitter:description" content="A precise comparison of op sessions, newer agent integrations, and Automic Vault's local execution boundary.">
+  <link rel="canonical" href="https://www.automicvault.com/blog/automic-vault-vs-1password/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.automicvault.com/#organization",
+        "name": "Automic Vault",
+        "url": "https://www.automicvault.com/",
+        "logo": "https://www.automicvault.com/assets/icon@2x.webp?v=3"
+      },
+      {
+        "@type": "BlogPosting",
+        "@id": "https://www.automicvault.com/blog/automic-vault-vs-1password/#article",
+        "headline": "Automic Vault vs 1Password for Developer Secrets",
+        "description": "A source-checked comparison of Automic Vault and 1Password CLI: terminal sessions, agent access, tool hardening, per-operation policy, and where each fits.",
+        "image": "https://www.automicvault.com/assets/approval-terminal-only.webp",
+        "datePublished": "2026-08-14",
+        "dateModified": "2026-08-14",
+        "author": {"@id": "https://www.automicvault.com/#organization"},
+        "publisher": {"@id": "https://www.automicvault.com/#organization"},
+        "mainEntityOfPage": {"@id": "https://www.automicvault.com/blog/automic-vault-vs-1password/#webpage"},
+        "about": ["1Password CLI", "developer secrets", "AI agent security", "Automic Vault"]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.automicvault.com/blog/automic-vault-vs-1password/#webpage",
+        "url": "https://www.automicvault.com/blog/automic-vault-vs-1password/",
+        "name": "Automic Vault vs 1Password for Developer Secrets",
+        "isPartOf": {"@id": "https://www.automicvault.com/blog/#blog"}
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico?v=5" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+</head>
+<body>
+  <div class="scroll-meter" aria-hidden="true"><span></span></div>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home">
+        <img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="Automic Vault" width="54" height="54">
+        <span class="brand-type">Automic Vault</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span></button>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/" aria-current="page">Blog</a><a href="/docs/">Docs</a><a href="/Automic%20Vault.dmg">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <header class="article-hero incident-hero">
+          <div class="article-hero-copy">
+            <p class="eyebrow">Secrets manager comparison</p>
+            <h1>Automic Vault vs 1Password</h1>
+            <p class="lede">1Password controls access to vaults and account sessions. Automic Vault controls Secret Use at the Mac where a developer command runs. The difference appears when an agent inherits your terminal.</p>
+            <div class="hero-actions">
+              <a class="button primary" href="/Automic%20Vault.dmg">Download Automic Vault</a>
+              <a class="button secondary" href="https://github.com/automic-vault/automic-vault">Read the source</a>
+            </div>
+          </div>
+          <figure class="article-hero-image">
+            <img src="/assets/approval-terminal-only.webp" alt="An Automic Vault policy granting Terminal access while other launchers remain gated" width="1952" height="1338" decoding="async" fetchpriority="high">
+          </figure>
+        </header>
+
+        <section class="incident-body" aria-label="Automic Vault and 1Password comparison">
+          <p class="story-kicker">Published August 14, 2026 · Source checked against current product documentation</p>
+          <p class="incident-answer">Use 1Password when you want a polished, cross-platform vault for people and teams, broad sharing, and its supported agent integrations. Use Automic Vault when the Mac itself must decide whether Terminal, Codex, an editor, or another Launcher may apply a developer Secret to a specific operation. Many developers can use both: 1Password for their human vault and Automic Vault for local developer authority.</p>
+
+          <section class="incident-section" aria-labelledby="op-session-title">
+            <div class="section-label"><h2 id="op-session-title">What <code>op</code> Authorizes</h2><span>account session</span></div>
+            <p>With the 1Password desktop integration, the first <code>op</code> command in a new terminal tab asks you to authorize one 1Password account. On macOS, authorization belongs to that terminal session and its subshells. It refreshes on use, expires after ten minutes of inactivity, and has a twelve-hour limit. Locking 1Password revokes prior authorization.</p>
+            <p>That is much better than a permanent token in an environment variable. It is still an account-level grant. During the authorized session, <code>op read</code> can print a field or write it to a file, and <code>op run</code> can inject referenced fields into a child process. 1Password's own documentation recommends a service account with access to only the required vaults when you need to limit what processes in that terminal can reach.</p>
+            <pre><code>op read op://Engineering/GitHub/token
+op run --env-file=.env.tpl -- npm test</code></pre>
+            <p>If an agent controls that authorized terminal, it can ask <code>op</code> for any item the authorized account may read. Selecting two references for <code>op run</code> limits what that child receives, but it does not stop the same agent from invoking <code>op read</code> for a different accessible item. Vault permissions and separate service accounts can reduce the set. The CLI does not classify the intended GitHub, AWS, Stripe, or package-manager operation before returning the value.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="av-request-title">
+            <div class="section-label"><h2 id="av-request-title">What Automic Vault Authorizes</h2><span>complete operation</span></div>
+            <p>Automic Vault separates Secret Availability from authorization. An unlocked Mac can make a Secret available to the policy engine, but availability grants no authority to use it.</p>
+            <p>A Tool-specific Secret Gate receives an immutable Authorization Request containing the Verified Launcher, Gate Client, exact Target, command, arguments, working directory, requested Secret Names, and process identity. The gate classifies the operation and applies a policy for that Launcher. A recognized read may proceed from Codex while a remote write asks for Approval. Terminal can have a different Access Level. Unknown operations never receive automic authorization.</p>
+            <p>The stored Secret cannot be fetched through a generic load API. Automic Vault persists and verifies an Authorization Record before the bytes leave Keychain for a Secret Application or intentional Secret Disclosure. An authorized Target can still leak a Secret after receipt; Automic Vault does not claim to make that Target trustworthy.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="launcher-title">
+            <div class="section-label"><h2 id="launcher-title">A Terminal Tab Is Not a Verified Launcher</h2><span>identity and intent</span></div>
+            <p>1Password identifies a macOS CLI session from its TTY and start time. Its prompt shows the account and process, such as Terminal or iTerm2. The authorization then extends through subshells in that tab.</p>
+            <p>Automic Vault follows the live process chain to its root Launcher and checks the Launcher's code signature, designated requirement, and Hardened Runtime posture on every request. A path, process name, icon, or PID does not establish identity. Durable authority binds one Authorization Gate to that Verified Launcher, so a rule for Terminal does not transfer to Codex or an editor.</p>
+            <p>Identity alone cannot prove intent. Automic Vault adds Tool policy: read, local write, remote write, elevated Secret Application, Secret Disclosure, and unknown risk receive different treatment. Approval binds one complete request rather than opening a reusable account session.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="hardener-title">
+            <div class="section-label"><h2 id="hardener-title">Automic Vault Also Repairs the Toolchain</h2><span>detectors, hardeners, doctor</span></div>
+            <p>A vault cannot help when Git, AWS, a package manager, or another tool still has a usable credential in a plaintext file, permissive Keychain item, helper command, or inherited environment. Automic Vault scans more than one hundred supported tool configurations for those Exposures and related Hazards.</p>
+            <p>A Hardener moves a supported Tool toward declared security invariants. It may migrate a credential, install a wrapper or signed Isotope, or configure a Tool-specific gate. Doctor then verifies the intervention's identity, ownership, permissions, dependencies, and command resolution. Your shell and agent keep using familiar commands such as <code>gh</code>, <code>aws</code>, <code>stripe</code>, or <code>supabase</code>.</p>
+            <p>1Password has its own strong developer features: Watchtower finds exposed material, Shell Plugins cover more than sixty CLIs, and Environments replace plaintext <code>.env</code> files. Those features store and deliver credentials. Automic Vault's distinctive layer is the gate beneath an existing command, where policy can account for both the signed Launcher and the operation the Tool will perform.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="agent-title">
+            <div class="section-label"><h2 id="agent-title">1Password Has Narrower Agent Paths Too</h2><span>the 2026 distinction</span></div>
+            <p>The general <code>op</code> model is no longer the whole 1Password story. The 1Password Environments MCP Server for Codex and Kiro grants runtime access scoped to an assigned task and keeps raw values out of model context. 1Password for Claude grants approved items per browser task and locks the rest of the browser vault behind Agentic Mode. These integrations address much of the risk that a broad CLI session creates.</p>
+            <p>1Password Credential Broker also verifies GitHub Actions workload identity and scopes a private-beta job to approved items. As of August 14, 2026, its published beta starts with GitHub Actions; agent support remains on the roadmap.</p>
+            <p>These are integration-specific boundaries. Automic Vault works below supported developer Tools without an agent plugin, MCP policy file, or cooperation from the harness. Its current advantage is coverage of ordinary local command execution and Tool hardening. 1Password's current advantage is a larger cross-platform ecosystem and agent integrations that keep credentials outside the model for their supported workflows.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="direct-title">
+            <div class="section-label"><h2 id="direct-title">Generic Injection Has a Deliberate Ceiling</h2><span>no magic wrapper</span></div>
+            <p>For a Tool without a Hardener, <code>av inject</code> can apply named Secrets to a Target. The Direct Secret Gate starts at Approval Required. You may grant one Verified Launcher Direct Access to one exact Secret Name, but that rule lets the Launcher choose future Targets and arguments. Automic Vault labels this Unconstrained Secret Application because a generic wrapper cannot understand every command.</p>
+            <p>A Blessed Script provides a narrower automation path. Its Blessing binds the exact file contents, canonical path, declared Secret Names, Target, injection options, and per-gate capabilities. Any content or declaration change invalidates the Blessing.</p>
+            <p>1Password service accounts solve a different scoping problem. They restrict a process to selected vaults or Environments and allowed actions, which works across operating systems and CI. They do not decide that one signed Launcher may run reads while another must ask before a remote write on the same Mac.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="choose-title">
+            <div class="section-label"><h2 id="choose-title">Which One Fits?</h2><span>different boundaries</span></div>
+            <div class="incident-controls">
+              <article class="incident-control"><span>1Password</span><h3>Human and team vault</h3><p>Choose it for cross-platform password management, sharing, service accounts, and supported Codex, Kiro, or Claude workflows.</p></article>
+              <article class="incident-control"><span>Automic Vault</span><h3>Mac execution policy</h3><p>Choose it to harden local developer Tools and bind Secret Use to a Verified Launcher, Target, and classified operation.</p></article>
+              <article class="incident-control"><span>Together</span><h3>Separate personal and developer authority</h3><p>Keep personal and shared credentials in 1Password while Automic Vault controls supported developer credentials and commands on the Mac.</p></article>
+            </div>
+            <p>Automic Vault is macOS-only and focuses on the local developer boundary. It does not replace 1Password's family sharing, browser autofill, enterprise vault administration, or broad platform support. 1Password does not make the general <code>op</code> session a per-operation authorization gate. Pick the boundary you need.</p>
+          </section>
+
+          <section class="incident-sources" aria-labelledby="sources-title">
+            <h2 id="sources-title">Primary sources</h2>
+            <ul>
+              <li><a href="https://www.1password.dev/cli/app-integration-security">1Password CLI app integration security</a></li>
+              <li><a href="https://www.1password.dev/cli/reference/commands/read">1Password CLI <code>op read</code> reference</a></li>
+              <li><a href="https://www.1password.dev/cli/reference/commands/run">1Password CLI <code>op run</code> reference</a></li>
+              <li><a href="https://www.1password.dev/service-accounts">1Password Service Accounts</a></li>
+              <li><a href="https://1password.com/blog/1password-kiro-trusted-access">1Password Environments MCP Server for Kiro and Codex</a></li>
+              <li><a href="https://1password.com/press/2026/july/1password-for-claude">1Password for Claude and Agentic Mode</a></li>
+              <li><a href="https://1password.com/blog/introducing-1password-credential-broker">1Password Credential Broker beta scope</a></li>
+              <li><a href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md">Automic Vault domain language</a></li>
+              <li><a href="https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md">Automic Vault architecture</a></li>
+            </ul>
+          </section>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer"><p>&copy; 2026 Automic Vault.</p><div class="footer-links"><a href="/about/">About</a><a href="https://github.com/automic-vault/automic-vault/security">Security</a><a href="/blog/">Blog</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></div></footer>
+  </div>
+  <script src="/app.js?v=26"></script>
+</body>
+</html>
