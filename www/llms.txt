@@ -12,6 +12,7 @@
 
 ## Security and Architecture
 
+- [Automic Vault vs HashiCorp Vault](https://www.automicvault.com/blog/automic-vault-vs-hashicorp-vault/): Compares Vault tokens, path policies, dynamic secrets, and Agent supervision with Automic Vault's local Tool hardening and execution policy.
 - [Automic Vault vs Infisical](https://www.automicvault.com/blog/automic-vault-vs-infisical/): Compares Infisical RBAC, machine identities, CLI injection, and dynamic leases with Automic Vault's Tool hardening and local execution policy.
 - [Automic Vault vs Doppler](https://www.automicvault.com/blog/automic-vault-vs-doppler/): Compares Doppler project configs, service tokens, and environment injection with Automic Vault's local hardening and operation-aware policy.
 - [Automic Vault vs Bitwarden](https://www.automicvault.com/blog/automic-vault-vs-bitwarden/): Compares Bitwarden session keys, machine accounts, and project-scoped injection with Automic Vault's local Tool hardening and operation-aware policy.
