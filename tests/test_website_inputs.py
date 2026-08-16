@@ -302,7 +302,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             self.assertIn(f'type="{media_type}"', home)
             self.assertIn(f'href="{href}"', home)
 
-        current_headline = "Control how developer credentials are used."
+        current_headline = "Turn developer credentials into bounded authority."
         for filename in ("index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
             with self.subTest(filename=filename):

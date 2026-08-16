@@ -1,10 +1,10 @@
 # Automic Vault
 
-## Control how developer credentials are used.
+## Turn developer credentials into bounded authority.
 
-Automic Vault gives verified software bounded authority to apply developer
-credentials to specific operations. It runs locally on macOS and does not
-require an agent plugin.
+Automic Vault authorizes verified software to apply credentials to one complete
+operation under local policy on your Mac. Your tools keep their normal commands;
+no agent plugin is required.
 
 - Authorize the operation: command and context matter, not only the Secret Name.
 - Scope the software: each Verified Launcher receives its own policy.
