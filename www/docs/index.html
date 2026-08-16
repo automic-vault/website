@@ -12,16 +12,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Automic Vault CLI Manual</title>
-  <meta name="description" content="Source-checked documentation for the Automic Vault 2.9.0 CLI: scan, doctor, signed CLI launchers, save, inject, bless, harden, and machine-readable catalogs.">
+  <meta name="description" content="Source-checked documentation for the Automic Vault 3.8.0 CLI: scan, doctor, Project Values, Launcher Bundles, inject, bless, harden, and machine-readable catalogs.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Automic Vault CLI Manual">
-  <meta property="og:description" content="The source-checked manual for the Automic Vault 2.9.0 command line.">
+  <meta property="og:description" content="The source-checked manual for the Automic Vault 3.8.0 command line.">
   <meta property="og:url" content="https://www.automicvault.com/docs/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Automic Vault CLI Manual">
-  <meta name="twitter:description" content="The source-checked manual for the Automic Vault 2.9.0 command line.">
+  <meta name="twitter:description" content="The source-checked manual for the Automic Vault 3.8.0 command line.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/">
   <link rel="alternate" type="text/markdown" title="Markdown manual" href="/docs/index.md">
@@ -35,14 +35,14 @@
         "@id": "https://www.automicvault.com/docs/#article",
         "url": "https://www.automicvault.com/docs/",
         "headline": "Automic Vault CLI Manual",
-        "description": "Source-checked documentation for the Automic Vault 2.9.0 CLI.",
+        "description": "Source-checked documentation for the Automic Vault 3.8.0 CLI.",
         "dateModified": "2026-08-02",
         "author": {"@id": "https://www.automicvault.com/#organization"},
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "about": {
           "@type": "SoftwareApplication",
           "name": "Automic Vault",
-          "softwareVersion": "2.9.0",
+          "softwareVersion": "3.8.0",
           "operatingSystem": "macOS",
           "codeRepository": "https://github.com/automic-vault/automic-vault"
         },
@@ -96,11 +96,11 @@
       <header class="docs-hero">
         <div class="docs-hero-inner">
           <h1>The <code>av</code> manual.</h1>
-          <p class="lede">Source-checked documentation for the command line shipped by Automic Vault 2.9.0: audit the machine, repair hardened tools, verify signed CLI launchers, save a named value, and release it to one approved command.</p>
+          <p class="lede">Source-checked documentation for the command line shipped by Automic Vault 3.8.0: audit the machine, repair hardened tools, manage Project Values and Launcher Bundles, and apply Secrets to authorized operations.</p>
           <ul class="docs-provenance" aria-label="Manual provenance">
             <li>macOS</li>
-            <li>CLI 2.9.0</li>
-            <li>Checked August 2, 2026</li>
+            <li>CLI 3.8.0</li>
+            <li>Checked August 16, 2026</li>
             <li><a href="/docs/index.md">Markdown</a></li>
           </ul>
         </div>
@@ -121,6 +121,7 @@
             <li><a href="#inject">Inject</a></li>
             <li><a href="#bless">Bless</a></li>
             <li><a href="#harden">Harden</a></li>
+            <li><a href="#unharden-brew">Unharden Homebrew</a></li>
             <li><a href="#catalogs">Catalogs</a></li>
             <li><a href="#open">Open</a></li>
             <li><a href="#status">Exit status</a></li>
@@ -132,7 +133,7 @@
         <article class="docs-content">
           <section class="docs-section" id="install">
             <h2>Install and verify</h2>
-            <p>Automic Vault requires macOS and currently expects Homebrew. Install the app, open it once, then confirm the CLI on your path.</p>
+            <p>Automic Vault requires macOS. Homebrew is one supported installation path. Install the app, open it once, then confirm the CLI on your path.</p>
             <pre><code>brew install --cask automic-vault/isotopes/automic-vault
 open /Applications/Automic\ Vault.app
 av --version
@@ -155,7 +156,7 @@ av inject +GH_TOKEN gh auth status</code></pre>
 
           <section class="docs-section" id="model">
             <h2>Mental model</h2>
-            <p>Automic Vault stores named Secrets in the macOS Keychain. <code>av inject</code> submits an Authorization Request containing the resolved Target, arguments, working directory, requested Secret Names, and existing environment conflicts. The app applies the Authorization Policy or asks for Approval. If allowed, <code>av</code> replaces itself with the Target process.</p>
+            <p>Automic Vault stores named Secret Values in the macOS Keychain. <code>av inject</code> submits an Authorization Request containing the Verified Launcher, resolved Target, arguments, working directory, requested Secret Names, selected Value sources, and existing environment conflicts. The app applies the Authorization Policy or asks for Approval. If allowed, <code>av</code> replaces itself with the Target process.</p>
             <p>This is a Secret Application boundary, not a general sandbox. The Target receives the rest of the current environment and controls a Secret after receipt. Keep macOS, the app, and each authorized Target in your trust model.</p>
           </section>
 
@@ -166,10 +167,11 @@ av inject +GH_TOKEN gh auth status</code></pre>
               <div><dt><code>av doctor</code></dt><dd>Validate installed hardeners, launchers, dependencies, and path precedence.</dd></div>
               <div><dt><code>av detectors --json</code></dt><dd>List the detector catalog and its embedded source documentation.</dd></div>
               <div><dt><code>av hardeners --json</code></dt><dd>List hardener applicability, paths, commands, documentation, and Secret Gate routes.</dd></div>
-              <div><dt><code>av save KEY</code></dt><dd>Read one hidden Secret from the terminal and store it under a valid Secret Name.</dd></div>
+              <div><dt><code>av save [--project-directory=DIR] KEY</code></dt><dd>Store a hidden Global Value or Project Value under a valid Secret Name.</dd></div>
               <div><dt><code>av inject +KEY COMMAND</code></dt><dd>Request named Secrets and execute one authorized Target.</dd></div>
               <div><dt><code>av bless PATH</code></dt><dd>Review an exact script and store its Blessing.</dd></div>
               <div><dt><code>av harden NAME</code></dt><dd>Apply a reviewed tool-specific migration or launcher boundary.</dd></div>
+              <div><dt><code>av unharden brew</code></dt><dd>Temporarily restore Homebrew for a cask migration.</dd></div>
               <div><dt><code>av open</code></dt><dd>Open the app or a specific Secret Gate.</dd></div>
             </dl>
           </section>
@@ -209,7 +211,9 @@ av doctor codex</code></pre>
           <section class="docs-section" id="signed-cli-launchers">
             <h2>Signed CLI launchers</h2>
             <p>Automic Vault can bind an Authorization Policy to either a signed app bundle or a Developer ID-signed standalone executable. It validates the live code signature and stores the Launcher's designated requirement, which identifies the binary and its signing team.</p>
-            <p>A standalone executable must have a valid Developer ID Application signature, identifier, and Team ID. It must pass strict macOS signature validation, and it must enable Hardened Runtime before it can receive Secret Gate access. Unsigned and ad-hoc signed executables are rejected because they do not establish a vendor or Team identity.</p>
+            <p>A standalone executable must have a valid Developer ID Application signature, identifier, and Team ID. It must pass strict macOS signature validation and enable Hardened Runtime before it can receive Secret Gate access. Unsigned and arbitrary ad-hoc signed executables are rejected as ordinary launchers.</p>
+            <p>For one regular single-file Mach-O CLI, the app can instead create a Launcher Bundle. Automic Vault snapshots the executable, signs the payload and launcher with Hardened Runtime, installs the bundle and command link root-owned, and enrolls that exact generation. Every authorization revalidates the live identity, nested signatures, payload digest, enrolled generation, and runtime posture. Any change hard-denies the request.</p>
+            <p>A Launcher Bundle establishes identity and integrity for the exact packaged code. It does not establish publisher trust or make the code safe. Scripts and directory-shaped tools are not supported.</p>
             <pre><code>av doctor claude
 av doctor codex</code></pre>
             <p>These commands inspect the executable selected by the current <code>PATH</code>. In Automic Vault Settings, add the launcher to the relevant tool or blessed-script policy and select the resolved native executable rather than a shell or package-manager shim. Review its identifier, Team ID, path, and designated requirement before allowing it.</p>
@@ -218,9 +222,11 @@ av doctor codex</code></pre>
 
           <section class="docs-section" id="save">
             <h2><code>av save</code></h2>
-            <p>Store one named Secret in the Automic Vault Keychain.</p>
-            <pre><code>av save GH_TOKEN</code></pre>
+            <p>Store a Global Value or Project Value for one Secret Name.</p>
+            <pre><code>av save GH_TOKEN
+av save --project-directory=. GH_TOKEN</code></pre>
             <p>The Secret Name must be a valid environment variable name: it begins with a letter or underscore and continues with letters, digits, or underscores. The command opens <code>/dev/tty</code>, disables terminal echo while reading, trims the line ending, rejects an empty value, and restores echo even if reading fails.</p>
+            <p>A Secret Name may have one Global Value and multiple Project Values. For each requested name, <code>av inject</code> selects the nearest Project Value at or above the physical working directory, then the Global Value if no Project Value matches. The Project Directory selects a value; it is not an authorization boundary. A read failure for the selected Value does not fall back to another Value.</p>
             <pre><code># Wrong: save deliberately does not read stdin.
 printf '%s\n' "$GH_TOKEN" | av save GH_TOKEN</code></pre>
           </section>
@@ -280,7 +286,16 @@ av harden NAME --yes</code></pre>
             <pre><code>av hardeners --json |
   jq '.hardeners[] |
     {name, applicable, hardened, commands, documentation}'</code></pre>
-            <p>The source includes dedicated hardeners for AWS CLI, Homebrew, GitHub CLI, sudo, and Supabase plus generated environment wrappers for supported tools. Availability and applicability depend on the installed tool and machine.</p>
+            <p>The source includes dedicated hardeners for AWS CLI, Docker, Homebrew, GitHub CLI, sudo, Stripe, and Supabase plus generated environment wrappers and direct Isotope installs for supported tools. Availability and applicability depend on the installed tool and machine.</p>
+            <p>AWS hardening installs and verifies AWS's signed CLI under <code>/opt/av/aws</code>, moves the default long-lived key pair into Secret Custody, and uses a native helper to issue short-lived STS credentials for normal invocations. Docker hardening keeps the vendor-signed Docker CLI and gates registry credential release on its live identity, ancestry, arguments, and requested registry.</p>
+          </section>
+
+          <section class="docs-section" id="unharden-brew">
+            <h2><code>av unharden brew</code></h2>
+            <p>Temporarily restore the system Homebrew launcher when a cask migration requires ordinary Homebrew behavior.</p>
+            <pre><code>av unharden brew
+av unharden brew --yes</code></pre>
+            <p>This command is intentionally limited to Homebrew. Follow the printed recovery and re-hardening instructions; do not treat it as a generic hardener rollback.</p>
           </section>
 
           <section class="docs-section" id="catalogs">
@@ -325,13 +340,13 @@ av inject --version</code></pre>
           </section>
 
           <section class="docs-section docs-unsupported" id="unsupported">
-            <h2>Commands that are not in v2</h2>
-            <p>The earlier v1 manual described <code>install</code>, <code>contain</code>, <code>dotenv</code>, <code>credential-helper</code>, <code>gate</code>, and <code>trace</code>. Those commands are not part of the Automic Vault 2.9.0 dispatcher. Use <code>av help</code> from the installed build as the authoritative top-level list.</p>
+            <h2>Commands removed after v1</h2>
+            <p>The earlier v1 manual described <code>install</code>, <code>contain</code>, <code>dotenv</code>, <code>credential-helper</code>, <code>gate</code>, and <code>trace</code>. Those commands are not part of the Automic Vault 3.8.0 dispatcher. Use <code>av help</code> from the installed build as the authoritative top-level list.</p>
           </section>
 
           <section class="docs-section" id="source">
             <h2>Source of truth</h2>
-            <p>This manual was checked against the tagged 2.9.0 implementation: <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/mod.rs"><code>mod.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/scan.rs"><code>scan.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/doctor.rs"><code>doctor.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/save.rs"><code>save.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/inject.rs"><code>inject.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/bless.rs"><code>bless.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/open.rs"><code>open.rs</code></a>, and the <a href="https://github.com/automic-vault/automic-vault/tree/2.9.0/src/isotopes">isotope catalog</a>.</p>
+            <p>This manual was checked against the tagged 3.8.0 implementation: <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/mod.rs"><code>mod.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/scan.rs"><code>scan.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/doctor.rs"><code>doctor.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/save.rs"><code>save.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/inject.rs"><code>inject.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/bless.rs"><code>bless.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/launcher_bundle.rs"><code>launcher_bundle.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/open.rs"><code>open.rs</code></a>, and the <a href="https://github.com/automic-vault/automic-vault/tree/3.8.0/src/isotopes">isotope catalog</a>.</p>
             <p>For a particular installation, prefer its <code>av help</code>, <code>av detectors --json</code>, and <code>av hardeners --json</code> output. Report discrepancies in the <a href="https://github.com/automic-vault/automic-vault/issues">issue tracker</a>.</p>
           </section>
         </article>

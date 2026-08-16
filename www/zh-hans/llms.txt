@@ -1,14 +1,14 @@
 # Automic Vault
 
-> Automic Vault 从 CLI 工具中移除明文密钥，并在本地执行边界控制哪些已签名 Mac 应用可以使用它们。
+> Automic Vault 在 Mac 上控制已验证软件如何将开发者凭据用于具体操作。
 
 ## 主要页面
 
-- [Automic Vault | 面向开发新时代的新型密钥管理器](https://www.automicvault.com/zh-hans/): 将 CLI 密钥移出明文文件，并控制哪些签名应用可以使用它们。
+- [Automic Vault | 控制开发者凭据的使用方式](https://www.automicvault.com/zh-hans/): 控制已验证软件如何将开发者凭据用于具体操作。
 
-- [下载 Automic Vault](https://www.automicvault.com/zh-hans/download/): 获取 macOS 版 Automic Vault，保护本地 AI 代理运行。
+- [下载 Automic Vault](https://www.automicvault.com/zh-hans/download/): 下载 macOS 版 Automic Vault，控制开发者凭据的使用方式。
 
-- [文档](https://www.automicvault.com/docs/): 经源码核对的英文 Automic Vault 2.9.0 CLI 手册，涵盖 scan、doctor、save、inject、bless 和 harden。
+- [文档](https://www.automicvault.com/docs/): 经源码核对的英文 Automic Vault 3.8.0 CLI 手册，涵盖 Project Values、Launcher Bundles、scan、doctor、inject、bless 和 harden。
 
 - [软件包](https://pkg.so/zh-hans/): 可搜索开发者软件包、依赖项、安装命令、风险信息和 Automic Vault 加固覆盖情况。
 
@@ -28,7 +28,7 @@
 
 - 平台：macOS
 
-- 当前文档版本：2.9.0
+- 当前文档版本：3.8.0
 
 - 许可证：Apache License 2.0
 

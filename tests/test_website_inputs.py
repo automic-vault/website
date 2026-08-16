@@ -201,7 +201,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
 
         self.assertTrue(pages)
 
-    def test_docs_match_the_v2_cli_surface(self):
+    def test_docs_match_the_current_cli_surface(self):
         html = (ROOT / "www" / "docs" / "index.html").read_text(encoding="utf-8")
         markdown = (ROOT / "www" / "docs" / "index.md").read_text(encoding="utf-8")
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
@@ -216,11 +216,14 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                     "av inject",
                     "av save",
                     "av harden",
+                    "av unharden brew",
                     "av open",
                 ):
                     self.assertIn(command, text)
                 self.assertIn("does not read standard input", text)
                 self.assertIn("not part of", text)
+                self.assertIn("--project-directory", text)
+                self.assertIn("Launcher Bundle", text)
 
         self.assertIn('"/docs": true', deploy_script)
         self.assertIn('"/docs/": true', deploy_script)
@@ -282,6 +285,14 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
 
     def test_secondary_formats_and_localized_llms_are_discoverable(self):
         home = (ROOT / "www" / "index.html").read_text(encoding="utf-8")
+        for claim in (
+            "Most secrets managers decide whether an identity may retrieve a named secret.",
+            "Project Values",
+            "Temporary Access Grant",
+            "Launcher Bundles",
+        ):
+            self.assertIn(claim, home)
+
         expected_alternates = {
             "text/markdown": "/index.md",
             "text/plain": "/index.txt",
@@ -291,7 +302,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             self.assertIn(f'type="{media_type}"', home)
             self.assertIn(f'href="{href}"', home)
 
-        current_headline = "A new kind of secrets manager for a new era of development."
+        current_headline = "Control how developer credentials are used."
         for filename in ("index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
             with self.subTest(filename=filename):

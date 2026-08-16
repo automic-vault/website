@@ -1,14 +1,14 @@
 # Automic Vault
 
-> Automic Vault retire les secrets en clair des outils CLI et contrôle quelles apps Mac signées peuvent les utiliser à la limite d’exécution locale.
+> Automic Vault contrôle sur Mac comment un logiciel vérifié applique des identifiants de développement à une opération précise.
 
 ## Pages principales
 
-- [Automic Vault | Un nouveau gestionnaire de secrets pour une nouvelle ère du développement](https://www.automicvault.com/fr/): Retirez les secrets CLI des fichiers en clair et contrôlez quelles applications signées peuvent les utiliser.
+- [Automic Vault | Contrôlez vos identifiants de développement](https://www.automicvault.com/fr/): Contrôlez comment un logiciel vérifié applique des identifiants de développement à une opération précise.
 
-- [Télécharger Automic Vault](https://www.automicvault.com/fr/download/): Téléchargez Automic Vault pour macOS et protégez les exécutions locales d'agents IA.
+- [Télécharger Automic Vault](https://www.automicvault.com/fr/download/): Téléchargez Automic Vault pour macOS et contrôlez l’utilisation des identifiants de développement.
 
-- [Documentation](https://www.automicvault.com/docs/): Manuel CLI en anglais, vérifié sur les sources d’Automic Vault 2.9.0, couvrant scan, doctor, save, inject, bless et harden.
+- [Documentation](https://www.automicvault.com/docs/): Manuel CLI en anglais, vérifié sur les sources d’Automic Vault 3.8.0, couvrant Project Values, Launcher Bundles, scan, doctor, inject, bless et harden.
 
 - [Paquets](https://pkg.so/fr/): Catalogue consultable de paquets développeur, dépendances, commandes d’installation, risques et couverture de durcissement Automic Vault.
 
@@ -28,7 +28,7 @@
 
 - Plateforme : macOS
 
-- Version actuellement documentée : 2.9.0
+- Version actuellement documentée : 3.8.0
 
 - Licence : Apache License 2.0
 

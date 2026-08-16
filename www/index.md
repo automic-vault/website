@@ -1,85 +1,99 @@
 # Automic Vault
 
-## A new kind of secrets manager for a new era of development.
+## Control how developer credentials are used.
 
-Automic Vault moves developer credentials out of plaintext files, then controls
-their application through each Tool and Verified Launcher. The same local
-boundary applies before an authenticated CLI deploys code or changes cloud
-resources, whether an agent, script, or malware launched it. No harness
-integration required.
+Automic Vault gives verified software bounded authority to apply developer
+credentials to specific operations. It runs locally on macOS and does not
+require an agent plugin.
 
-- Remove credentials from dotfiles and tool configs.
-- Give credentials only to the right executable.
-- Apply one local boundary to every Verified Launcher.
+- Authorize the operation: command and context matter, not only the Secret Name.
+- Scope the software: each Verified Launcher receives its own policy.
+- Keep the workflow: tools and agents continue using their normal commands.
 
 [Download for macOS](/Automic%20Vault.dmg)
 
-## A prompt cannot protect a secret the agent can already read
+## Retrieval is not the policy
 
-An agent can read the same credential files and run the same tools you can. A
-helpful shortcut can upload a reusable cloud credential to a remote server.
+Most secrets managers decide whether an identity may retrieve a named secret.
+Once the value is returned, their job is done.
 
-Automic Vault removes plaintext secrets from files agents can read. If an
-agent tries another route, such as `aws config export-credentials`, the command
-stops at a native approval gate.
+Automic Vault decides whether a Verified Launcher may apply the requested
+Secrets to a complete operation. Its Authorization Request includes the Tool,
+Target, command, arguments, working directory, Secret Names, and selected Secret
+Value sources.
 
-## Automic Vault controls the secret handoff
+With Read Only access, one GitHub token produces different decisions:
 
-Automic Vault moves credentials out of readable tool configs. Agents and
-untrusted software cannot find protected secrets in the files they inspect.
+```text
+gh issue list     → automically authorized
+gh issue create   → Approval required
+gh auth token     → Secret Disclosure; Approval required
+```
 
-When a Tool requests a Secret, Automic Vault checks the Target, Verified
-Launcher, command, working directory, and requested Secret Name.
+Automic Vault controls Secret Application. After the handoff, the Target
+controls the Secret.
 
-### How it works
+## Policy follows verified software
 
-Automic Vault stores the Secret in Keychain. It applies the Authorization Policy
-when a Verified Launcher starts the Tool, then supplies the Secret to the
-designated Target for that run. The Secret is not placed in the Launcher's
-ambient environment. The Target controls it after receipt.
-
-## Policy follows the tool and its launcher
-
-Terminal, Codex, and an unknown process can invoke the same executable. Automic
-Vault identifies the Verified Launcher and gives each pairing its own
+Terminal, Codex, and an unknown process can invoke the same Tool. Automic Vault
+identifies the Verified Launcher and gives each Tool–Launcher pairing its own
 Authorization Policy.
 
-- **Approval Required** gives the Launcher no durable policy grant. Every
-  operation requires Approval.
-- **Read Only** automically authorizes recognized reads. Writes still require
-  Approval.
-- **Local Write** also covers recognized operations that only change local
-  files, where the Tool supports that distinction.
+- **Approval Required** gives the Launcher no durable policy grant.
+- **Read Only** automically authorizes recognized reads.
 - **Write Access** automically authorizes recognized reads and writes. Secret
-  Disclosure and Elevated Secret Application still require Approval.†
+  Disclosure and Elevated Secret Application still require Approval.
 
-† Installed packages must cross the same boundary to use protected secrets.
-Supply-chain attacks such as the 2025 Shai-Hulud npm worm target credentials
-available to developer tools. Defense in depth still matters: run `npm i` in a
-dedicated terminal with low-to-no privileges in both Automic Vault and macOS
-TCC.
+## Project Values without project-shaped names
 
-## Authorization History stays on your Mac
+A Secret Name can have a Global Value and multiple Project Values. Automic
+Vault selects the nearest Project Value for the physical working directory, so
+projects can all request `API_TOKEN` instead of inventing prefixed names.
 
-Allowed or denied, policy or Approval: requests leave a bounded local record
-with the decision, Launcher, Secret Names, command, and working directory.
+```sh
+av save API_TOKEN
+av save --project-directory=. API_TOKEN
+av inject +API_TOKEN -- npm test
+```
 
-## Know when your toolchain turns risky
+The Project Directory selects a value; it does not grant authority. This also
+lets Automic Vault hold a project-specific dotenvx decryption key while dotenvx
+continues to manage the encrypted `.env` file.
 
-Automic Vault scans developer Tools across ecosystems. It reports supported
-Exposures and Hazards and shows how to mitigate each Finding.
+## Bounded agent and automation access
 
-## Control the tool layer beneath every agent
+Eligible Codex tasks and Claude Code sessions can receive a visible, in-memory
+Temporary Access Grant for ten minutes. The grant is scoped to one Verified
+Launcher, Tool-specific gate, runtime posture, and task. It never covers direct
+secret access, mutation, disclosure, elevated application, or unknown
+operations.
 
-macOS can code sign apps, sandbox them, and keep them out of one another’s
-private data. Command-line tools usually run with the authority of whichever
-app launched them. That may be Terminal, an AI harness, an editor, or an
-automation app.
+Blessed Scripts bind an exact path, contents, Secret Names, and declared Tool
+capabilities. Any edit invalidates the Blessing.
 
-Automic Vault identifies the Tool and its Verified Launcher, then applies the
-Authorization Policy you chose for that pairing.
+## Tool-specific protection
 
-[Read why the terminal needs its own security layer](/blog/bringing-macos-security-to-the-terminal/)
+- **AWS:** normal invocations receive short-lived STS credentials from a native
+  helper instead of ambient long-lived keys.
+- **Docker:** the gate verifies the vendor-signed Docker process, ancestry,
+  arguments, and registry before releasing credentials.
+- **Launcher Bundles:** an exact single-file Mach-O CLI snapshot is signed,
+  installed root-owned, and revalidated on every request.
+- **Homebrew:** policy can allow reads and `brew update` while installs and
+  upgrades still require Approval.
+- **Detection:** over 100 supported developer configurations are checked for
+  Exposures and Hazards.
+
+## A precise security boundary
+
+Automic Vault controls supported Secret Application and sensitive Tool
+operations at the Local Execution Boundary. It is not a system sandbox, does
+not intercept every process, and does not contain root or kernel compromise.
+Code signing proves identity and integrity, not intent. A Target can leak a
+Secret after receiving it.
+
+Authorization History stays on the Mac and records bounded details for allowed
+and denied requests. It is not a tamperproof or audit-complete log.
 
 ## From the creator of Homebrew
 

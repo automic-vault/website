@@ -1,7 +1,7 @@
 # Automic Vault CLI manual
 
 This manual documents the public `av` command surface shipped by Automic Vault
-2.9.0. It was checked against `~/src/av2` on August 2, 2026.
+3.8.0. It was checked against the 3.8.0 source on August 16, 2026.
 
 The supported top-level commands are:
 
@@ -10,19 +10,20 @@ av scan [--show-all | --json]
 av doctor [COMMAND] [--json]
 av detectors --json
 av hardeners --json
-av bless PATH
+av bless [--endorse-launcher] PATH
 av inject +KEY [--] COMMAND
-av save KEY
+av save [--project-directory=DIR] KEY
 av harden NAME [--yes]
+av unharden brew [--yes]
 av open [--secret-gate ID]
 ```
 
 Commands from the earlier v1 CLI—including `install`, `contain`, `dotenv`,
-`credential-helper`, `gate`, and `trace`—are not part of the 2.9.0 CLI.
+`credential-helper`, `gate`, and `trace`—are not part of the 3.8.0 CLI.
 
 ## Install and verify
 
-Automic Vault requires macOS and currently expects Homebrew.
+Automic Vault requires macOS. Homebrew is one supported installation path.
 
 ```sh
 brew install --cask automic-vault/isotopes/automic-vault
@@ -60,11 +61,12 @@ Remove any old plaintext export only after confirming the approved command works
 
 ## Mental model
 
-Automic Vault stores named Secrets in the macOS Keychain. `av inject` submits an
-Authorization Request containing the resolved Target, arguments, working
-directory, requested Secret Names, and any existing environment conflicts. The
-app applies the Authorization Policy or asks for Approval. If allowed, `av`
-replaces itself with the Target process.
+Automic Vault stores named Secret Values in the macOS Keychain. `av inject`
+submits an Authorization Request containing the Verified Launcher, resolved
+Target, arguments, working directory, requested Secret Names, selected Value
+sources, and any existing environment conflicts. The app applies the
+Authorization Policy or asks for Approval. If allowed, `av` replaces itself
+with the Target process.
 
 This is a Secret Application boundary, not a general sandbox. The Target receives
 the rest of the current environment and controls a Secret after receipt. Keep
@@ -122,10 +124,20 @@ and stores the launcher's designated requirement, which identifies the binary
 and its signing team.
 
 A standalone executable must have a valid Developer ID Application signature,
-identifier, and Team ID. It must pass strict macOS signature validation, and it
-must enable Hardened Runtime before it can receive Secret Gate access. Unsigned
-and ad-hoc signed executables are rejected because they do not establish a vendor
-or Team identity.
+identifier, and Team ID. It must pass strict macOS signature validation and
+enable Hardened Runtime before it can receive Secret Gate access. Unsigned and
+arbitrary ad-hoc signed executables are rejected as ordinary launchers.
+
+For one regular single-file Mach-O CLI, the app can instead create a Launcher
+Bundle. Automic Vault snapshots the executable, signs the payload and launcher
+with Hardened Runtime, installs the bundle and command link root-owned, and
+enrolls that exact generation. Every authorization revalidates the live code
+identity, nested signatures, payload digest, enrolled generation, and runtime
+posture. Any change hard-denies the request.
+
+A Launcher Bundle establishes identity and integrity for the exact packaged
+code. It does not establish publisher trust or make the code safe. Scripts and
+directory-shaped tools are not supported.
 
 Run `av doctor claude` or `av doctor codex` to inspect the executable selected by
 your current `PATH`. In Automic Vault Settings, add the launcher to the relevant
@@ -140,16 +152,23 @@ app-scoped.
 
 ## `av save`
 
-Store one named Secret in the Automic Vault Keychain:
+Store a Global Value or a Project Value for one Secret Name:
 
 ```sh
 av save GH_TOKEN
+av save --project-directory=. GH_TOKEN
 ```
 
 The Secret Name must be a valid environment variable name: it begins with a letter or
 underscore and continues with letters, digits, or underscores. The command opens
 `/dev/tty`, disables terminal echo while reading, trims the line ending, rejects
 an empty value, and restores echo even if reading fails.
+
+A Secret Name may have one Global Value and multiple Project Values. For each
+requested name, `av inject` selects the nearest Project Value at or above the
+physical working directory, then the Global Value if no Project Value matches.
+The Project Directory selects a value; it is not an authorization boundary. A
+read failure for the selected Value does not fall back to another Value.
 
 Pipes do not provide the value:
 
@@ -277,9 +296,29 @@ av hardeners --json |
   jq '.hardeners[] | {name, applicable, hardened, commands, documentation}'
 ```
 
-The source currently includes dedicated hardeners for AWS CLI, Homebrew, GitHub
-CLI, sudo, and Supabase plus generated environment wrappers for supported tools.
-Availability and applicability depend on the installed tool and current machine.
+The source includes dedicated hardeners for AWS CLI, Docker, Homebrew, GitHub
+CLI, sudo, Stripe, and Supabase plus generated environment wrappers and direct
+Isotope installs for supported tools. Availability and applicability depend on
+the installed tool and current machine.
+
+AWS hardening installs and verifies AWS's signed CLI under `/opt/av/aws`, moves
+the default long-lived key pair into Secret Custody, and uses a native helper to
+issue short-lived STS credentials for normal invocations. Docker hardening keeps
+the vendor-signed Docker CLI and gates registry credential release on its live
+identity, ancestry, arguments, and requested registry.
+
+## `av unharden brew`
+
+Temporarily restore the system Homebrew launcher when a cask migration requires
+ordinary Homebrew behavior:
+
+```sh
+av unharden brew
+av unharden brew --yes
+```
+
+This command is intentionally limited to Homebrew. Follow the printed recovery
+and re-hardening instructions; do not treat it as a generic hardener rollback.
 
 The project [Domain Language](https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md)
 defines the security terms used throughout these docs.
@@ -351,14 +390,15 @@ that target replaces the `av` process.
 
 This manual was checked against the following implementation files:
 
-- [`src/cli/mod.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/mod.rs)
-- [`src/cli/scan.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/scan.rs)
-- [`src/cli/doctor.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/doctor.rs)
-- [`src/cli/save.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/save.rs)
-- [`src/cli/inject.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/inject.rs)
-- [`src/cli/bless.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/bless.rs)
-- [`src/cli/open.rs`](https://github.com/automic-vault/automic-vault/blob/2.9.0/src/cli/open.rs)
-- [`src/isotopes`](https://github.com/automic-vault/automic-vault/tree/2.9.0/src/isotopes)
+- [`src/cli/mod.rs`](https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/mod.rs)
+- [`src/cli/scan.rs`](https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/scan.rs)
+- [`src/cli/doctor.rs`](https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/doctor.rs)
+- [`src/cli/save.rs`](https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/save.rs)
+- [`src/cli/inject.rs`](https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/inject.rs)
+- [`src/cli/bless.rs`](https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/bless.rs)
+- [`src/cli/launcher_bundle.rs`](https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/launcher_bundle.rs)
+- [`src/cli/open.rs`](https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/open.rs)
+- [`src/isotopes`](https://github.com/automic-vault/automic-vault/tree/3.8.0/src/isotopes)
 
 For a particular installation, prefer the installed command's `av help`,
 `av detectors --json`, and `av hardeners --json` output. Report documentation or

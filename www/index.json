@@ -3,59 +3,47 @@
   "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "A new kind of secrets manager for a new era of development.",
-  "eyebrow": "Local execution security for macOS",
-  "description": "Automic Vault removes plaintext credentials from developer tools and controls their application through each Verified Launcher and Target.",
-  "promises": [
-    "Removes credentials from dotfiles and tool configs.",
-    "Gives credentials only to the right executable.",
-    "Applies one local boundary to every Verified Launcher."
-  ],
-  "risk_story": {
-    "eyebrow": "A prompt cannot protect a secret the agent can already read",
-    "failure": "An agent found a reusable cloud credential and uploaded it to a remote server.",
-    "controlled_eyebrow": "The control point",
-    "controlled": "Automic Vault moves credentials out of readable tool configs, then checks the Target, Verified Launcher, command, working directory, and requested Secret Name before use."
-  },
-  "approval_controls_heading": "Policy follows the tool and its launcher.",
-  "approval_controls": [
-    {
-      "scope": "default",
-      "access": "Approval Required",
-      "description": "The Launcher receives no durable policy grant. Every operation requires Approval."
-    },
-    {
-      "scope": "per tool",
-      "access": "Read Only",
-      "description": "Recognized reads are automically authorized. Writes require Approval."
-    },
-    {
-      "scope": "per Launcher",
-      "access": "Write Access",
-      "description": "Recognized reads and writes are automically authorized. Secret Disclosure and Elevated Secret Application require Approval.",
-      "footnote": "Installed packages must cross the same boundary to use protected secrets. Supply-chain attacks such as the 2025 Shai-Hulud npm worm target credentials available to developer tools. Defense in depth still matters: run npm i in a dedicated terminal with low-to-no privileges in both Automic Vault and macOS TCC."
-    }
-  ],
-  "authorization_history": {
-    "description": "Authorization requests leave bounded local history with their decision and source.",
-    "fields": [
-      "decision",
-      "launcher",
+  "title": "Control how developer credentials are used.",
+  "description": "Automic Vault gives verified software bounded authority to apply developer credentials to specific operations.",
+  "difference": {
+    "conventional_model": "Authorize an identity to retrieve a named secret.",
+    "automic_vault_model": "Authorize a Verified Launcher to apply requested Secrets to a complete operation.",
+    "request_inputs": [
+      "Verified Launcher",
+      "Tool",
+      "Target",
+      "command and arguments",
+      "working directory",
       "Secret Names",
-      "command",
-      "working directory"
-    ]
+      "selected Secret Value sources"
+    ],
+    "boundary": "Automic Vault controls Secret Application. The Target controls a Secret after receipt."
   },
-  "threat_monitoring": {
-    "scope": "all developer ecosystems",
-    "notification": "Supported Exposures and Hazards produce Findings.",
-    "mitigation": "Each finding includes clear steps to mitigate it."
+  "operation_example": [
+    {"command": "gh issue list", "policy": "Read Only", "decision": "automically authorized", "classification": "recognized read"},
+    {"command": "gh issue create", "policy": "Read Only", "decision": "Approval required", "classification": "recognized write"},
+    {"command": "gh auth token", "policy": "Read Only", "decision": "Approval required", "classification": "Secret Disclosure"}
+  ],
+  "features": {
+    "project_values": "One Secret Name can select the nearest Project Value for the physical working directory, then a Global Value.",
+    "temporary_access_grants": "Eligible agent tasks can receive visible, in-memory ten-minute write authority for one Verified Launcher and Tool-specific gate.",
+    "blessed_scripts": "Blessings bind an exact path, contents, Secret Names, and declared Tool capabilities.",
+    "launcher_bundles": "Exact single-file Mach-O CLI snapshots can be signed, installed root-owned, enrolled, and revalidated on every request.",
+    "aws": "Normal AWS invocations receive short-lived STS credentials from a native helper.",
+    "docker": "Credential release verifies the live vendor-signed Docker process, ancestry, arguments, and requested registry.",
+    "homebrew": "Execution policy separates reads and update from installs and upgrades.",
+    "detection": "Over 100 supported developer configurations are checked for Exposures and Hazards.",
+    "authorization_history": "Allowed and denied requests leave bounded local history."
   },
-  "terminal_security": {
-    "problem": "Command-line tools usually run with the authority of the app that launched them, such as Terminal, an AI harness, an editor, or an automation app.",
-    "control": "Automic Vault identifies the Tool and its Verified Launcher, then applies the Authorization Policy to that pairing.",
-    "learn_more": "https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/"
-  },
+  "security_boundaries": [
+    "Automic Vault does not intercept every process or replace the shell.",
+    "Automic Vault does not prevent arbitrary local destruction.",
+    "Automic Vault does not contain root or kernel compromise.",
+    "Code signing proves identity and integrity, not intent.",
+    "A Target can leak a Secret after receiving it.",
+    "Project Directories and agent task identifiers are not authorization identities.",
+    "Authorization History is not tamperproof or audit-complete."
+  ],
   "primary_action": {
     "label": "Download for macOS",
     "url": "https://www.automicvault.com/Automic%20Vault.dmg"

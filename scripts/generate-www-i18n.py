@@ -44,11 +44,11 @@ class Locale:
 
 TOPICS: dict[str, dict[str, dict[str, Any]]] = {
     "download": {
-        "en": {"title": "Download Automic Vault", "description": "Download Automic Vault for macOS and protect local AI agent runs.", "kicker": "Download", "h1": "Download Automic Vault for macOS", "lede": "Install the local security layer for CLI secrets, developer tools, and AI agent actions on macOS.", "sections": [["Direct download", "Download the signed .dmg, open Automic Vault, and follow the setup guide to install the av command-line tool."], ["What is included", "The native app manages Authorization Gates, Authorization Policies, Tool Hardening, and local Authorization History."], ["After installation", "Move a Credential out of plaintext storage, choose which Verified Launchers may use it, then review each sensitive request before it runs."]]},
-        "ja": {"title": "Automic Vault ダウンロード", "description": "macOS 用 Automic Vault を入手し、ローカルの AI エージェント実行を保護します。", "kicker": "ダウンロード", "h1": "macOS 用 Automic Vault をダウンロード", "lede": "ローカルの Homebrew パッケージ、CLI シークレット、AI エージェント操作を保護する macOS セキュリティレイヤーをインストールします。", "sections": [["直接ダウンロード", ".dmg を取得するか、ターミナル用の install.sh スクリプトでインストールできます。"], ["含まれるもの", "ネイティブアプリ、av コマンドラインツール、シークレットスキャナー、Nucleus パッケージ制御が含まれます。"], ["インストール後", "まずシークレットスキャナーを実行し、平文の認証情報を確認して、対応済みのシークレットを保護されたローカル保存に移します。"]]},
-        "de": {"title": "Automic Vault herunterladen", "description": "Lade Automic Vault für macOS herunter und schütze lokale AI-Agent-Läufe.", "kicker": "Download", "h1": "Automic Vault für macOS herunterladen", "lede": "Installiere die lokale Sicherheitschicht für Homebrew-Pakete, CLI-Secrets und AI-Agent-Aktionen auf macOS.", "sections": [["Direkter Download", "Lade die .dmg-Datei herunter oder installiere über das install.sh-Skript im Terminal."], ["Was enthalten ist", "Enthalten sind die native App, das av-Kommandozeilenwerkzeug, Secret-Scanner-Workflows und Nucleus-Paketkontrollen."], ["Nach der Installation", "Starte zuerst den Secret Scanner, prüfe Klartext-Credentials und verschiebe unterstützte Secrets in geschützten lokalen Speicher."]]},
-        "fr": {"title": "Télécharger Automic Vault", "description": "Téléchargez Automic Vault pour macOS et protégez les exécutions locales d'agents IA.", "kicker": "Téléchargement", "h1": "Télécharger Automic Vault pour macOS", "lede": "Installez la couche de sécurité locale pour les paquets Homebrew, les secrets CLI et les actions d'agents IA sur macOS.", "sections": [["Téléchargement direct", "Téléchargez le .dmg ou installez depuis le terminal avec le script install.sh."], ["Ce qui est inclus", "Le téléchargement inclut l'application native, l'outil en ligne de commande av, les workflows de scanner de secrets et les contrôles de paquets Nucleus."], ["Après l'installation", "Lancez d'abord le scanner de secrets, vérifiez les identifiants en clair et déplacez les secrets pris en charge vers un stockage local protégé."]]},
-        "zh-Hans": {"title": "下载 Automic Vault", "description": "获取 macOS 版 Automic Vault，保护本地 AI 代理运行。", "kicker": "下载", "h1": "下载 macOS 版 Automic Vault", "lede": "安装用于保护 macOS 上 Homebrew 软件包、CLI 密钥和 AI 代理操作的本地安全层。", "sections": [["直接下载", "可以下载 .dmg，也可以在终端中使用 install.sh 脚本安装。"], ["包含内容", "下载内容包括原生应用、av 命令行工具、密钥扫描器工作流和 Nucleus 软件包控制。"], ["安装之后", "先运行密钥扫描器，检查明文凭据，并将支持的密钥移入受保护的本地存储。"]]},
+        "en": {"title": "Download Automic Vault", "description": "Download Automic Vault for macOS and control how developer credentials are used.", "kicker": "Download", "h1": "Download Automic Vault for macOS", "lede": "Install the local authorization boundary for developer credentials, CLI tools, automations, and AI agents.", "sections": [["Direct download", "Download the signed .dmg, open Automic Vault, and follow the setup guide to install the av command-line tool."], ["What is included", "The native app manages Authorization Gates, Project Values, Launcher Bundles, Temporary Access Grants, Tool Hardening, and local Authorization History."], ["After installation", "Run av scan, move a supported Credential out of plaintext storage, harden its Tool, then choose how much authority each Verified Launcher receives."]]},
+        "ja": {"title": "Automic Vault ダウンロード", "description": "macOS 用 Automic Vault を入手し、開発者の認証情報がどう使われるかを制御します。", "kicker": "ダウンロード", "h1": "macOS 用 Automic Vault をダウンロード", "lede": "開発者の認証情報、CLI ツール、自動化、AI エージェントのためのローカル認証境界をインストールします。", "sections": [["直接ダウンロード", "署名済み .dmg をダウンロードし、Automic Vault を開いて、セットアップガイドに従って av コマンドラインツールをインストールします。"], ["含まれるもの", "ネイティブアプリで Authorization Gates、Project Values、Launcher Bundles、Temporary Access Grants、Tool Hardening、ローカル Authorization History を管理します。"], ["インストール後", "av scan を実行し、対応済みの認証情報を平文から移し、その Tool をハードニングして、Verified Launcher ごとの権限を選びます。"]]},
+        "de": {"title": "Automic Vault herunterladen", "description": "Lade Automic Vault für macOS herunter und kontrolliere die Verwendung von Entwickler-Credentials.", "kicker": "Download", "h1": "Automic Vault für macOS herunterladen", "lede": "Installiere die lokale Autorisierungsgrenze für Entwickler-Credentials, CLI-Tools, Automationen und AI-Agents.", "sections": [["Direkter Download", "Lade die signierte .dmg-Datei herunter, öffne Automic Vault und installiere das av-Kommandozeilenwerkzeug nach der Einrichtungsanleitung."], ["Was enthalten ist", "Die native App verwaltet Authorization Gates, Project Values, Launcher Bundles, Temporary Access Grants, Tool-Härtung und lokale Authorization History."], ["Nach der Installation", "Führe av scan aus, verschiebe ein unterstütztes Credential aus dem Klartext, härte sein Tool und wähle die Berechtigung für jeden Verified Launcher."]]},
+        "fr": {"title": "Télécharger Automic Vault", "description": "Téléchargez Automic Vault pour macOS et contrôlez l’utilisation des identifiants de développement.", "kicker": "Téléchargement", "h1": "Télécharger Automic Vault pour macOS", "lede": "Installez la limite d’autorisation locale pour les identifiants de développement, les outils CLI, les automatisations et les agents IA.", "sections": [["Téléchargement direct", "Téléchargez le .dmg signé, ouvrez Automic Vault et suivez le guide pour installer l’outil en ligne de commande av."], ["Ce qui est inclus", "L’app native gère les Authorization Gates, Project Values, Launcher Bundles, Temporary Access Grants, le durcissement des outils et l’Authorization History locale."], ["Après l’installation", "Exécutez av scan, retirez un identifiant pris en charge du stockage en clair, durcissez son outil puis choisissez l’autorité de chaque Verified Launcher."]]},
+        "zh-Hans": {"title": "下载 Automic Vault", "description": "下载 macOS 版 Automic Vault，控制开发者凭据的使用方式。", "kicker": "下载", "h1": "下载 macOS 版 Automic Vault", "lede": "安装适用于开发者凭据、CLI 工具、自动化和 AI 代理的本地授权边界。", "sections": [["直接下载", "下载已签名的 .dmg，打开 Automic Vault，并按照设置指南安装 av 命令行工具。"], ["包含内容", "原生应用可管理 Authorization Gates、Project Values、Launcher Bundles、Temporary Access Grants、Tool Hardening 和本地 Authorization History。"], ["安装之后", "运行 av scan，将支持的凭据移出明文存储，加固其工具，然后选择每个 Verified Launcher 获得的权限。"]]},
     },
     "privacy": {
         "ja": {
@@ -225,16 +225,16 @@ UI_COPY: dict[str, dict[str, str]] = {
 
 LLMS_COPY: dict[str, dict[str, str]] = {
     "ja": {
-        "summary": "Automic Vault は CLI シークレットを平文ファイルから除き、承認済みの Mac アプリだけがローカル実行境界で使用できるようにします。",
+        "summary": "Automic Vault は、検証済みソフトウェアが開発者の認証情報を特定の操作に適用する権限を Mac 上で制御します。",
         "pages": "主要ページ",
         "packagesDescription": "開発者向けパッケージ、依存関係、インストール方法、リスク情報、Automic Vault の保護状況を検索できます。",
-        "docsDescription": "Automic Vault 2.9.0 の scan、doctor、save、inject、bless、harden などを解説する英語の CLI マニュアルです。",
+        "docsDescription": "Automic Vault 3.8.0 の Project Values、Launcher Bundles、scan、doctor、inject、bless、harden を解説する英語の CLI マニュアルです。",
         "blogDescription": "パッケージ、エディタ拡張、認証情報、ローカル実行のインシデント分析と開発者向けセキュリティガイドです。",
         "sourceDescription": "Apache-2.0 のソースコード、タグ付きリリース、実装履歴、公開 Issue を掲載しています。",
         "securityDescription": "現在のセキュリティ連絡先、優先言語、正規 URL、有効期限を公開しています。",
         "facts": "基本情報",
         "platform": "対応環境: macOS",
-        "release": "現在のドキュメント対象リリース: 2.9.0",
+        "release": "現在のドキュメント対象リリース: 3.8.0",
         "license": "ライセンス: Apache License 2.0",
         "pricing": "価格: 無料のオープンソースソフトウェア",
         "founder": "創設者: Homebrew 作者の Max Howell",
@@ -242,16 +242,16 @@ LLMS_COPY: dict[str, dict[str, str]] = {
         "securityReports": "セキュリティ報告",
     },
     "de": {
-        "summary": "Automic Vault entfernt Klartext-Secrets aus CLI-Tools und steuert am lokalen Ausführungsrand, welche signierten Mac-Apps sie verwenden dürfen.",
+        "summary": "Automic Vault kontrolliert auf dem Mac, wie verifizierte Software Entwickler-Credentials auf konkrete Operationen anwendet.",
         "pages": "Wichtige Seiten",
         "packagesDescription": "Durchsuchbarer Katalog mit Entwicklerpaketen, Abhängigkeiten, Installationsbefehlen, Risikoinformationen und Automic-Vault-Härtung.",
-        "docsDescription": "Englisches, quellgeprüftes CLI-Handbuch für Automic Vault 2.9.0 mit scan, doctor, save, inject, bless und harden.",
+        "docsDescription": "Englisches, quellgeprüftes CLI-Handbuch für Automic Vault 3.8.0 mit Project Values, Launcher Bundles, scan, doctor, inject, bless und harden.",
         "blogDescription": "Sicherheitsleitfäden und Analysen zu Paket-, Erweiterungs-, Credential- und lokalen Ausführungsvorfällen.",
         "sourceDescription": "Apache-2.0-Quellcode, markierte Releases, Implementierungshistorie und öffentliche Fehlerverfolgung.",
         "securityDescription": "Veröffentlicht den aktuellen Sicherheitskontakt, die bevorzugte Sprache, die kanonische Adresse und das Ablaufdatum.",
         "facts": "Kernfakten",
         "platform": "Plattform: macOS",
-        "release": "Aktuell dokumentiertes Release: 2.9.0",
+        "release": "Aktuell dokumentiertes Release: 3.8.0",
         "license": "Lizenz: Apache License 2.0",
         "pricing": "Preis: kostenlose Open-Source-Software",
         "founder": "Gründer: Max Howell, Schöpfer von Homebrew",
@@ -259,16 +259,16 @@ LLMS_COPY: dict[str, dict[str, str]] = {
         "securityReports": "Sicherheitsmeldungen",
     },
     "fr": {
-        "summary": "Automic Vault retire les secrets en clair des outils CLI et contrôle quelles apps Mac signées peuvent les utiliser à la limite d’exécution locale.",
+        "summary": "Automic Vault contrôle sur Mac comment un logiciel vérifié applique des identifiants de développement à une opération précise.",
         "pages": "Pages principales",
         "packagesDescription": "Catalogue consultable de paquets développeur, dépendances, commandes d’installation, risques et couverture de durcissement Automic Vault.",
-        "docsDescription": "Manuel CLI en anglais, vérifié sur les sources d’Automic Vault 2.9.0, couvrant scan, doctor, save, inject, bless et harden.",
+        "docsDescription": "Manuel CLI en anglais, vérifié sur les sources d’Automic Vault 3.8.0, couvrant Project Values, Launcher Bundles, scan, doctor, inject, bless et harden.",
         "blogDescription": "Guides et analyses d’incidents liés aux paquets, extensions, identifiants et exécutions locales.",
         "sourceDescription": "Code source Apache-2.0, versions étiquetées, historique d’implémentation et suivi public des problèmes.",
         "securityDescription": "Publie le contact de sécurité actuel, la langue préférée, l’adresse canonique et la date d’expiration.",
         "facts": "Faits essentiels",
         "platform": "Plateforme : macOS",
-        "release": "Version actuellement documentée : 2.9.0",
+        "release": "Version actuellement documentée : 3.8.0",
         "license": "Licence : Apache License 2.0",
         "pricing": "Prix : logiciel open source gratuit",
         "founder": "Fondateur : Max Howell, créateur de Homebrew",
@@ -276,16 +276,16 @@ LLMS_COPY: dict[str, dict[str, str]] = {
         "securityReports": "Signalements de sécurité",
     },
     "zh-Hans": {
-        "summary": "Automic Vault 从 CLI 工具中移除明文密钥，并在本地执行边界控制哪些已签名 Mac 应用可以使用它们。",
+        "summary": "Automic Vault 在 Mac 上控制已验证软件如何将开发者凭据用于具体操作。",
         "pages": "主要页面",
         "packagesDescription": "可搜索开发者软件包、依赖项、安装命令、风险信息和 Automic Vault 加固覆盖情况。",
-        "docsDescription": "经源码核对的英文 Automic Vault 2.9.0 CLI 手册，涵盖 scan、doctor、save、inject、bless 和 harden。",
+        "docsDescription": "经源码核对的英文 Automic Vault 3.8.0 CLI 手册，涵盖 Project Values、Launcher Bundles、scan、doctor、inject、bless 和 harden。",
         "blogDescription": "关于软件包、扩展、凭据和本地执行事件的开发者安全指南与分析。",
         "sourceDescription": "Apache-2.0 源代码、标签版本、实现历史和公开问题跟踪。",
         "securityDescription": "公布当前安全联系方式、首选语言、规范地址和到期日期。",
         "facts": "关键信息",
         "platform": "平台：macOS",
-        "release": "当前文档版本：2.9.0",
+        "release": "当前文档版本：3.8.0",
         "license": "许可证：Apache License 2.0",
         "pricing": "价格：免费开源软件",
         "founder": "创始人：Homebrew 作者 Max Howell",
@@ -502,7 +502,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
     if path == "/download/":
         image_alts = DOWNLOAD_IMAGE_ALTS[locale.code]
         download_gallery = f"""
-      <section class="download-gallery" aria-label="{html.escape(t["h1"], quote=True)}">
+      <div class="download-gallery" role="group" aria-label="{html.escape(t["h1"], quote=True)}">
         <figure class="download-gallery-primary">
           <img src="/assets/av-approve-gate.png" alt="{html.escape(image_alts[0], quote=True)}" width="1212" height="1090" loading="eager" decoding="async">
         </figure>
@@ -512,7 +512,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
         <figure>
           <img src="/assets/secret-use-log.webp" alt="{html.escape(image_alts[2], quote=True)}" width="1944" height="1380" loading="lazy" decoding="async">
         </figure>
-      </section>
+      </div>
 """
     hero_actions = f"""          <a class="button primary" href="/Automic%20Vault.dmg">{html.escape(ui["download"])}</a>
           <a class="button secondary" href="/docs/">{html.escape(ui["docs"])}</a>"""
@@ -600,7 +600,7 @@ def render_page(record: dict[str, Any], locale: Locale, locales: list[Locale]) -
 
       <section class="closing-cta landing-page-cta" aria-labelledby="final-title">
         <p class="eyebrow">Automic Vault</p>
-        <h2 id="final-title">{html.escape(t["h1"])}</h2>
+        <h2 id="final-title">Automic Vault · {html.escape(ui["download"])}</h2>
         <div class="hero-actions">
           <a class="button primary" href="/Automic%20Vault.dmg">{html.escape(ui["download"])}</a>
           <a class="button secondary" href="/docs/">{html.escape(ui["docs"])}</a>

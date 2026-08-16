@@ -480,6 +480,7 @@ body {
 .brew-risk,
 .brew-access,
 .brew-feature,
+.brew-capabilities,
 .brew-pricing,
 .brew-footer {
   padding-inline: var(--brand-gutter);
@@ -487,7 +488,8 @@ body {
 
 .brew-risk,
 .brew-access,
-.brew-feature {
+.brew-feature,
+.brew-capabilities {
   position: relative;
   overflow: clip;
   border-top: var(--brand-rule-hair) solid var(--brand-rule-soft);
@@ -563,6 +565,76 @@ body {
 
 .brew-how-it-works p {
   margin-top: var(--brand-space-sm);
+}
+
+.brew-operation-panel,
+.brew-command-card,
+.brew-capability-pair article,
+.brew-capability-grid article {
+  min-width: 0;
+  border: var(--brand-rule-hair) solid var(--brand-rule);
+  border-radius: var(--brand-radius-lg);
+  background: linear-gradient(145deg, var(--brand-paper-soft), var(--brand-paper-raised));
+  box-shadow: 0 28px 80px var(--brand-shadow-soft);
+}
+
+.brew-operation-panel {
+  padding: var(--brand-space-xl);
+}
+
+.brew-operation-panel > p,
+.brew-command-card > p {
+  color: var(--brand-ink-dim);
+  font-family: var(--brand-font-mono);
+  font-size: var(--brand-text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.brew-operation-list {
+  display: grid;
+  margin-top: var(--brand-space-lg);
+}
+
+.brew-operation-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--brand-space-xs) var(--brand-space-md);
+  align-items: center;
+  padding: var(--brand-space-lg) 0;
+  border-top: var(--brand-rule-hair) solid var(--brand-rule);
+}
+
+.brew-operation-list code,
+.brew-command-card code {
+  color: var(--brand-ink);
+  font-family: var(--brand-font-mono);
+  font-size: var(--brand-text-sm);
+}
+
+.brew-operation-list small {
+  color: var(--brand-ink-dim);
+  font-size: var(--brand-text-xs);
+}
+
+.brew-operation-result {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  padding: 0.4rem 0.65rem;
+  border: var(--brand-rule-hair) solid currentColor;
+  border-radius: var(--brand-radius-pill);
+  font-family: var(--brand-font-mono);
+  font-size: var(--brand-text-xs);
+  font-weight: 700;
+}
+
+.brew-operation-result-allow {
+  color: var(--brand-success);
+}
+
+.brew-operation-result-approve {
+  color: var(--brand-accent);
 }
 
 .brew-session {
@@ -996,6 +1068,93 @@ body {
   align-self: center;
 }
 
+.brew-command-card {
+  align-self: center;
+  padding: var(--brand-space-xl);
+}
+
+.brew-command-card pre {
+  overflow-x: auto;
+  line-height: 2;
+}
+
+.brew-command-card code span {
+  color: var(--brand-accent);
+}
+
+.brew-command-card > p {
+  margin-top: var(--brand-space-xl);
+  padding-top: var(--brand-space-lg);
+  border-top: var(--brand-rule-hair) solid var(--brand-rule);
+}
+
+.brew-capability-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--brand-space-lg);
+  align-self: center;
+}
+
+.brew-capability-pair article,
+.brew-capability-grid article {
+  padding: var(--brand-space-xl);
+}
+
+.brew-capability-pair h3,
+.brew-capability-grid h3 {
+  margin-top: var(--brand-space-md);
+  color: var(--brand-ink);
+  font-family: var(--brand-font-display);
+  font-size: var(--brand-text-lg);
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.brew-capability-pair article > p:last-child,
+.brew-capability-grid article > p:last-child {
+  margin-top: var(--brand-space-md);
+  color: var(--brand-ink-dim);
+  font-size: var(--brand-text-sm);
+  line-height: 1.6;
+}
+
+.brew-capability-pair code,
+.brew-capability-grid code {
+  color: var(--brand-silver);
+  font-family: var(--brand-font-mono);
+}
+
+.brew-capabilities {
+  padding-block: var(--brand-space-5xl);
+  background:
+    radial-gradient(circle at 80% 15%, var(--brand-wash-soft), transparent 28rem),
+    var(--brand-paper-raised);
+}
+
+.brew-capabilities > .brew-copy,
+.brew-capability-grid {
+  width: min(100%, var(--brand-max));
+  margin-inline: auto;
+}
+
+.brew-capabilities > .brew-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(2.5rem, 6vw, 7rem);
+  margin-bottom: var(--brand-space-3xl);
+}
+
+.brew-capabilities > .brew-copy p:last-child {
+  align-self: end;
+  margin-top: 0;
+}
+
+.brew-capability-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--brand-space-lg);
+}
+
 .brew-capture {
   min-width: 0;
   margin: 0;
@@ -1206,6 +1365,18 @@ body {
     display: block;
   }
 
+  .brew-capabilities > .brew-copy {
+    display: block;
+  }
+
+  .brew-capabilities > .brew-copy p:last-child {
+    margin-top: var(--brand-space-lg);
+  }
+
+  .brew-capability-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .brew-access > .brew-copy > p:last-child {
     margin-top: var(--brand-space-lg);
   }
@@ -1317,12 +1488,25 @@ body {
   .brew-risk,
   .brew-access,
   .brew-feature,
+  .brew-capabilities,
   .brew-pricing {
     padding-block: var(--brand-space-4xl);
   }
 
   .brew-session {
     padding: var(--brand-space-md);
+  }
+
+  .brew-operation-panel,
+  .brew-command-card,
+  .brew-capability-pair article,
+  .brew-capability-grid article {
+    padding: var(--brand-space-lg);
+  }
+
+  .brew-capability-pair,
+  .brew-capability-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .brew-chat-message {

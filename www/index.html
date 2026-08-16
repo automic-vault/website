@@ -11,18 +11,18 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | A new kind of secrets manager for a new era of development.</title>
-  <meta name="description" content="Remove plaintext secrets from CLI tools and control which signed apps can use them. Automic Vault enforces local policy beneath every agent harness.">
+  <title>Automic Vault | Control how developer credentials are used.</title>
+  <meta name="description" content="Automic Vault authorizes verified software to apply developer credentials to specific operations—locally on your Mac, without an agent plugin.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="A new kind of secrets manager for a new era of development.">
-  <meta property="og:description" content="Remove plaintext secrets from CLI tools and control which signed apps can use them.">
+  <meta property="og:title" content="Control how developer credentials are used.">
+  <meta property="og:description" content="Authorize the operation, not merely retrieval of a named secret.">
   <meta property="og:url" content="https://www.automicvault.com/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
-  <meta name="twitter:title" content="A new kind of secrets manager for a new era of development.">
-  <meta name="twitter:description" content="Remove plaintext secrets from CLI tools and control which signed apps can use them.">
+  <meta name="twitter:title" content="Control how developer credentials are used.">
+  <meta name="twitter:description" content="Authorize the operation, not merely retrieval of a named secret.">
   <link rel="canonical" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/">
@@ -49,12 +49,11 @@
         "knowsAbout": [
           "local secrets management",
           "developer tool security",
-          "credential execution policy",
+          "credential operation authorization",
           "AI agent execution control",
           "macOS security"
         ],
         "sameAs": [
-          "https://github.com/automic-vault/automic-vault",
           "https://github.com/automic-vault/automic-vault",
           "https://x.com/AutomicVault",
           "https://mxcl.dev/",
@@ -90,8 +89,12 @@
         "screenshot": "https://www.automicvault.com/preview.jpg",
         "featureList": [
           "Keychain-backed storage for CLI secrets",
-          "One-run credential handoff to approved executables",
+          "Operation-aware credential authorization",
           "Per-Gate and per-Launcher Authorization Policies",
+          "Project Values under stable Secret Names",
+          "Temporary Access Grants for eligible agent tasks",
+          "Launcher Bundles and exact Blessed Scripts",
+          "Hardened AWS and Docker credential flows",
           "Cross-ecosystem developer threat monitoring with mitigation steps",
           "Local Authorization History for allowed and denied requests"
         ],
@@ -102,18 +105,18 @@
           "availability": "https://schema.org/InStock",
           "url": "https://www.automicvault.com/#pricing"
         },
-        "description": "Automic Vault removes plaintext secrets from CLI tools and controls which signed apps can use them at the local execution boundary.",
+        "description": "Automic Vault gives verified software bounded authority to apply developer credentials to specific operations at the local execution boundary.",
         "publisher": {"@id": "https://www.automicvault.com/#organization"}
       },
       {
         "@type": "WebPage",
         "@id": "https://www.automicvault.com/#webpage",
         "url": "https://www.automicvault.com/",
-        "name": "Automic Vault | A new kind of secrets manager for a new era of development.",
-        "headline": "A new kind of secrets manager for a new era of development.",
-        "description": "Remove plaintext secrets from CLI tools and control which signed apps can use them.",
+        "name": "Automic Vault | Control how developer credentials are used.",
+        "headline": "Control how developer credentials are used.",
+        "description": "Authorize the operation, not merely retrieval of a named secret.",
         "datePublished": "2026-05-15",
-        "dateModified": "2026-07-20",
+        "dateModified": "2026-08-16",
         "image": "https://www.automicvault.com/preview.jpg",
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "isPartOf": {"@id": "https://www.automicvault.com/#website"},
@@ -132,7 +135,7 @@
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=3">
   <link rel="stylesheet" href="./styles.css?v=128">
-  <link rel="stylesheet" href="./brand-landing.css?v=26">
+  <link rel="stylesheet" href="./brand-landing.css?v=27">
 </head>
 <body class="brew-home">
   <header class="brew-nav">
@@ -141,9 +144,10 @@
       <span>Automic Vault</span>
     </a>
     <nav class="brew-nav-links" aria-label="Primary navigation">
-      <a href="#boundary">Secrets</a>
-      <a href="#controls">Policy</a>
-      <a href="#audit">History</a>
+      <a href="#difference">Difference</a>
+      <a href="#projects">Projects</a>
+      <a href="#agents">Agents</a>
+      <a href="#tools">Tools</a>
     </nav>
     <div class="brew-nav-actions">
       <a class="brew-github" href="https://github.com/automic-vault/automic-vault">GitHub</a>
@@ -155,152 +159,83 @@
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
         <p class="brew-kicker">From the creator of Homebrew</p>
-        <h1 id="hero-title">A new kind of secrets manager <span>for a new era of development.</span></h1>
-        <p class="brew-hero-lede">Automic Vault moves developer credentials out of plaintext files, then controls their application through each Tool and Verified Launcher.</p>
-        <p>Any agent. Any harness. Zeroconf.</p>
+        <h1 id="hero-title">Control how developer credentials <span>are used.</span></h1>
+        <p class="brew-hero-lede">Automic Vault gives verified software bounded authority to apply developer credentials to specific operations.</p>
+        <p>Local to your Mac. Independent of the agent harness.</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">Download for macOS</a>
-          <a class="brew-text-link" href="#boundary">See the boundary work <span aria-hidden="true">→</span></a>
+          <a class="brew-text-link" href="#difference">See how it differs <span aria-hidden="true">→</span></a>
         </div>
       </div>
       <figure class="brew-hero-capture">
         <img src="./assets/av-approve-gate.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" fetchpriority="high" decoding="async">
       </figure>
       <ul class="brew-promises">
-        <li><span>01</span><strong>Remove plaintext secrets</strong><small>Credentials leave dotfiles and tool configs.</small></li>
-        <li><span>02</span><strong>Control the handoff</strong><small>Only the right executable gets the credential.</small></li>
-        <li><span>03</span><strong>Apply one local boundary</strong><small>Every Verified Launcher meets its Authorization Policy.</small></li>
+        <li><span>01</span><strong>Authorize the operation</strong><small>The command and context matter, not only the Secret Name.</small></li>
+        <li><span>02</span><strong>Scope the software</strong><small>Each Verified Launcher receives its own policy.</small></li>
+        <li><span>03</span><strong>Keep the workflow</strong><small>Your tools and agents keep using their normal commands.</small></li>
       </ul>
     </section>
 
-    <section class="brew-risk" id="boundary" aria-labelledby="risk-title">
+    <section class="brew-risk" id="difference" aria-labelledby="difference-title">
       <div class="brew-split">
         <div class="brew-copy">
-          <p class="brew-eyebrow">Your agent inherits your access</p>
-          <h2 id="risk-title">A prompt cannot protect a secret the agent can already read.</h2>
+          <p class="brew-eyebrow">Retrieval is not the policy</p>
+          <h2 id="difference-title">The Secret is only one input to the decision.</h2>
+          <p>Most secrets managers decide whether an identity may retrieve a named secret. Once the value is returned, their job is done.</p>
+          <p>Automic Vault decides whether a Verified Launcher may apply the requested Secrets to a complete operation. The Tool, Target, command, arguments, working directory, and selected Secret Value sources travel together as one Authorization Request.</p>
         </div>
-        <ol class="brew-session" aria-label="Example Claude session that reads and uploads local AWS credentials">
-          <li class="brew-chat-message brew-chat-message-agent">
-            <span class="brew-chat-avatar" aria-hidden="true">C</span>
-            <div class="brew-chat-body">
-              <span class="brew-chat-speaker">Claude</span>
-              <div class="brew-chat-bubble"><p>Hmm… the remote server doesn’t have AWS access.</p></div>
-            </div>
-          </li>
-          <li class="brew-chat-message brew-chat-message-agent">
-            <span class="brew-chat-avatar" aria-hidden="true">C</span>
-            <div class="brew-chat-body">
-              <span class="brew-chat-speaker">Claude</span>
-              <div class="brew-chat-bubble"><p>No problem — I’ll upload the keys from here.</p></div>
-            </div>
-          </li>
-          <li class="brew-chat-message brew-chat-message-tool">
-            <span class="brew-chat-avatar" aria-hidden="true">T</span>
-            <div class="brew-chat-body">
-              <span class="brew-chat-speaker">Tool call</span>
-              <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
-            </div>
-          </li>
-          <li class="brew-chat-message brew-chat-message-result">
-            <span class="brew-chat-avatar" aria-hidden="true">R</span>
-            <div class="brew-chat-body">
-              <span class="brew-chat-speaker">Tool result</span>
-              <div class="brew-chat-bubble"><pre><code>[default]
-aws_access_key_id = AKIA••••••••••••
-aws_secret_access_key = ••••••••••••••••••••••••••••••••</code></pre></div>
-            </div>
-          </li>
-        </ol>
-      </div>
-
-      <div class="brew-exfiltration">
-        <div class="brew-alert">
-          <strong>YOUR AWS KEYS LEFT THE MAC</strong>
-          <span>The agent found a reusable cloud credential and uploaded it to a remote server.</span>
+        <div class="brew-operation-panel" role="group" aria-label="Three policy decisions for one GitHub token">
+          <p>One GitHub token · Read Only policy</p>
+          <ul class="brew-operation-list">
+            <li>
+              <code>gh issue list</code>
+              <span class="brew-operation-result brew-operation-result-allow">Authorized</span>
+              <small>Recognized read</small>
+            </li>
+            <li>
+              <code>gh issue create</code>
+              <span class="brew-operation-result brew-operation-result-approve">Approval</span>
+              <small>Recognized write</small>
+            </li>
+            <li>
+              <code>gh auth token</code>
+              <span class="brew-operation-result brew-operation-result-approve">Approval</span>
+              <small>Secret Disclosure</small>
+            </li>
+          </ul>
         </div>
-        <section class="brew-split brew-after" aria-labelledby="with-vault-title">
-          <div class="brew-copy">
-            <h2 id="with-vault-title">Automic Vault keeps your keys on your Mac.</h2>
-          </div>
-          <ol class="brew-session" aria-label="Example Claude session stopped for human approval after the local AWS credentials file is missing">
-            <li class="brew-chat-message brew-chat-message-agent">
-              <span class="brew-chat-avatar" aria-hidden="true">C</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Claude</span>
-                <div class="brew-chat-bubble"><p>Hmm… the remote server doesn’t have AWS access.</p></div>
-              </div>
-            </li>
-            <li class="brew-chat-message brew-chat-message-agent">
-              <span class="brew-chat-avatar" aria-hidden="true">C</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Claude</span>
-                <div class="brew-chat-bubble"><p>No problem — I’ll upload the keys from here.</p></div>
-              </div>
-            </li>
-            <li class="brew-chat-message brew-chat-message-tool">
-              <span class="brew-chat-avatar" aria-hidden="true">T</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Tool call</span>
-                <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
-              </div>
-            </li>
-            <li class="brew-chat-divider"><span>No plaintext credential exists for the agent to read</span></li>
-            <li class="brew-chat-message brew-chat-message-result">
-              <span class="brew-chat-avatar" aria-hidden="true">R</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Tool result</span>
-                <div class="brew-chat-bubble"><code>No such file</code></div>
-              </div>
-            </li>
-            <li class="brew-chat-message brew-chat-message-agent">
-              <span class="brew-chat-avatar" aria-hidden="true">C</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Claude</span>
-                <div class="brew-chat-bubble"><p>I’ll run the export command instead.</p></div>
-              </div>
-            </li>
-            <li class="brew-chat-message brew-chat-message-tool">
-              <span class="brew-chat-avatar" aria-hidden="true">T</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Tool call</span>
-                <div class="brew-chat-bubble"><code>aws config export-credentials</code></div>
-              </div>
-            </li>
-            <li class="brew-chat-divider"><span>The export command still requires your approval</span></li>
-            <li class="brew-chat-message brew-chat-message-approval">
-              <span class="brew-chat-avatar" aria-hidden="true">!</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Automic Vault</span>
-                <div class="brew-chat-bubble"><strong>Approval Required</strong></div>
-              </div>
-            </li>
-          </ol>
-        </section>
       </div>
 
       <div class="brew-split brew-proof">
         <div class="brew-copy">
           <p class="brew-eyebrow">The local execution boundary</p>
-          <h2>Automic Vault controls the secret handoff.</h2>
-          <p>Automic Vault moves credentials out of readable tool configs. Agents and untrusted software cannot find protected secrets in the files they inspect.</p>
-          <p>When a Tool requests a Secret, Automic Vault checks the Target, Verified Launcher, command, working directory, and requested Secret Name.</p>
+          <h2>Policy sees the whole operation.</h2>
+          <p>Automic Vault moves supported credentials out of readable tool configs. When a Tool requests a Secret, the app evaluates the complete request on the Mac where it will run.</p>
+          <ul class="brew-log-fields" aria-label="Authorization Request inputs">
+            <li>Verified Launcher</li>
+            <li>Tool and Target</li>
+            <li>Command and arguments</li>
+            <li>Working directory</li>
+            <li>Secret Names and Value sources</li>
+          </ul>
           <div class="brew-how-it-works">
-            <h3>How it works</h3>
-            <p>Automic Vault stores the Secret in the macOS Keychain. It applies the Authorization Policy when a Verified Launcher starts the Tool, then supplies the Secret to the designated Target for that run. The Secret is not placed in the Launcher’s ambient environment. The Target controls it after receipt.</p>
+            <h3>The boundary</h3>
+            <p>Automic Vault controls Secret Application. After the handoff, the Target controls the Secret in its memory, helpers, child processes, and output.</p>
           </div>
         </div>
         <figure class="brew-capture brew-capture-gate">
           <img src="./assets/av-approve-gate-gh-token.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" loading="lazy" decoding="async">
-          <figcaption>Command, working directory, and requested Secret Name, visible before anything runs.</figcaption>
+          <figcaption>Command, working directory, and requested Secret Name are visible before anything runs.</figcaption>
         </figure>
       </div>
     </section>
 
     <section class="brew-access" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
-        <p class="brew-eyebrow">Access by app</p>
-        <h2 id="controls-title">Policy follows the tool and its launcher.</h2>
-        <p>Terminal, Codex, and an unknown process can invoke the same executable. Automic Vault identifies the Verified Launcher and gives each pairing its own Authorization Policy.</p>
+        <p class="brew-eyebrow">Authority follows verified software</p>
+        <h2 id="controls-title">The same Tool can mean different trust.</h2>
+        <p>Terminal, Codex, and an unknown process can invoke the same executable. Automic Vault identifies the Verified Launcher and gives each Tool–Launcher pairing its own Authorization Policy.</p>
       </div>
       <div class="brew-access-body">
       <figure class="brew-access-diagram">
@@ -329,8 +264,63 @@ aws_secret_access_key = ••••••••••••••••••�
       </div>
     </section>
 
+    <section class="brew-feature brew-feature-reverse" id="projects" aria-labelledby="projects-title">
+      <div class="brew-command-card" role="group" aria-label="Saving and applying one Secret Name for a project">
+        <pre><code><span>$</span> av save API_TOKEN
+<span>$</span> av save --project-directory=. API_TOKEN
+
+<span>$</span> av inject +API_TOKEN -- npm test</code></pre>
+        <p>Nearest Project Value → Global Value</p>
+      </div>
+      <div class="brew-copy">
+        <p class="brew-eyebrow">Project Values</p>
+        <h2 id="projects-title">Keep the natural name. Select the right value.</h2>
+        <p>A Secret Name can have one Global Value and multiple Project Values. Automic Vault selects the nearest value for the physical working directory, so every project can request <code>API_TOKEN</code> without prefixes such as <code>ACME_STAGING_API_TOKEN</code>.</p>
+        <p>The Project Directory selects a value; it does not grant authority. The complete operation still crosses the same Authorization Gate.</p>
+        <p>This works with tools such as dotenvx: keep its project decryption key in Automic Vault, then apply it only to the reviewed dotenvx operation.</p>
+      </div>
+    </section>
+
+    <section class="brew-feature" id="agents" aria-labelledby="agents-title">
+      <div class="brew-copy">
+        <p class="brew-eyebrow">Bounded authority without prompt fatigue</p>
+        <h2 id="agents-title">Approve the task, not every write.</h2>
+        <p>An eligible Codex task or Claude Code session can receive a visible, in-memory Temporary Access Grant for ten minutes. The grant is bound to the exact Verified Launcher, Tool-specific gate, runtime posture, and agent task.</p>
+        <p>It ends on expiry, inactivity, display sleep, update, service termination, or when you click End. It never covers direct secret access, mutation, disclosure, elevated application, or unknown operations.</p>
+      </div>
+      <div class="brew-capability-pair">
+        <article>
+          <p class="brew-stage">Temporary Access Grant</p>
+          <h3>Ten minutes. One task. One Tool.</h3>
+          <p>The task identifier narrows the grant; the Verified Launcher remains the identity boundary.</p>
+        </article>
+        <article>
+          <p class="brew-stage">Blessed Script</p>
+          <h3>Exact code. Declared capabilities.</h3>
+          <p>A Blessing binds the path, contents, Secret Names, and Tool capabilities. Any edit invalidates it.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="brew-capabilities" id="tools" aria-labelledby="tools-title">
+      <div class="brew-copy">
+        <p class="brew-eyebrow">Current protection paths</p>
+        <h2 id="tools-title">Built around how developer tools actually use credentials.</h2>
+        <p>Hardening is Tool-specific because the safest handoff for AWS is not the safest handoff for Docker, Homebrew, or a project script.</p>
+      </div>
+      <div class="brew-capability-grid">
+        <article><p class="brew-stage">AWS</p><h3>Short-lived credentials per invocation</h3><p>Long-lived default keys leave <code>~/.aws/credentials</code>. Normal commands receive short-lived STS credentials from a native helper.</p></article>
+        <article><p class="brew-stage">Docker</p><h3>No ambient registry helper access</h3><p>The gate verifies the live vendor-signed Docker process, ancestry, arguments, and requested registry before release.</p></article>
+        <article><p class="brew-stage">Launcher Bundles</p><h3>Identity for a single-file Mach-O CLI</h3><p>An exact enrolled snapshot is signed, installed root-owned, and revalidated on every request.</p></article>
+        <article><p class="brew-stage">Homebrew</p><h3>Execution policy beyond secrets</h3><p>Read &amp; Update can allow inspection and <code>brew update</code> while installs and upgrades still require Approval.</p></article>
+        <article><p class="brew-stage">Direct Secret Gate</p><h3>Explicit, narrow escape hatch</h3><p>Exact Secret Name and Verified Launcher rules cover rare cases that cannot use a Tool-specific gate.</p></article>
+        <article><p class="brew-stage">Detection</p><h3>Over 100 developer configurations</h3><p>Continuous Detectors report supported Exposures and Hazards with concrete mitigation steps.</p></article>
+      </div>
+    </section>
+
     <section class="brew-feature" id="audit" aria-labelledby="audit-title">
       <div class="brew-copy">
+        <p class="brew-eyebrow">Explain every decision</p>
         <h2 id="audit-title">Authorization History stays on your Mac.</h2>
         <p>Allowed or denied, policy or Approval: requests leave bounded local history with the decision, Launcher, Secret Names, command, and working directory.</p>
         <ul class="brew-log-fields" aria-label="Recorded details">
@@ -352,22 +342,22 @@ aws_secret_access_key = ••••••••••••••••••�
         <figcaption>Each flag includes its trigger, rationale, and mitigation steps.</figcaption>
       </figure>
       <div class="brew-copy">
-        <h2 id="threats-title">Know when your toolchain turns risky.</h2>
-        <p>Automic Vault scans developer Tools across ecosystems. It reports supported Exposures and Hazards and shows how to mitigate each Finding.</p>
+        <h2 id="threats-title">Find the ambient access you forgot about.</h2>
+        <p>Automic Vault scans developer Tools across ecosystems. It reports supported plaintext, environment, Keychain, helper, launcher, and configuration Findings and shows how to mitigate each one.</p>
       </div>
     </section>
 
     <section class="brew-feature" id="terminal-security" aria-labelledby="terminal-security-title">
       <div class="brew-copy">
-        <p class="brew-eyebrow">Independent of the harness</p>
-        <h2 id="terminal-security-title">Control the tool layer beneath every agent.</h2>
-        <p>macOS can code sign apps, sandbox them, and keep them out of one another’s private data. Command-line tools usually run with the authority of whichever app launched them.</p>
-        <p>That used to mean Terminal.app. Now it may mean an AI harness, editor, or automation app. Automic Vault identifies the Tool and its Verified Launcher, then applies the Authorization Policy you chose for that pairing.</p>
-        <a class="brew-text-link" href="/blog/bringing-macos-security-to-the-terminal/">Read why the terminal needs its own security layer <span aria-hidden="true">→</span></a>
+        <p class="brew-eyebrow">A precise boundary</p>
+        <h2 id="terminal-security-title">Not a sandbox. Not a promise about the Target.</h2>
+        <p>Automic Vault controls supported Secret Application and sensitive Tool operations at the Local Execution Boundary. It does not intercept every process, prevent arbitrary local destruction, or contain root or kernel compromise.</p>
+        <p>Code signing proves identity and integrity, not intent. A Target can leak a Secret after receiving it. Project paths and agent task identifiers narrow selection or scope; neither is an authorization identity.</p>
+        <a class="brew-text-link" href="/docs/">Read the security model and CLI manual <span aria-hidden="true">→</span></a>
       </div>
       <figure class="brew-capture">
         <img src="./assets/approval-terminal-only.webp" alt="Automic Vault rule allowing direct GitHub token access to gh only when Terminal.app launches it" width="1952" height="1338" loading="lazy" decoding="async">
-        <figcaption>The same CLI can receive different access from Terminal, an agent harness, or another host app.</figcaption>
+        <figcaption>The same CLI can receive different authority from Terminal, an agent harness, or another host app.</figcaption>
       </figure>
     </section>
 
