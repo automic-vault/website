@@ -4,7 +4,7 @@
 
 ## Wichtige Seiten
 
-- [Automic Vault | Kontrolliere die Verwendung von Entwickler-Credentials](https://www.automicvault.com/de/): Kontrolliere, wie verifizierte Software Entwickler-Credentials auf konkrete Operationen anwendet.
+- [Automic Vault | Credentials gehen nur an erlaubte Operationen](https://www.automicvault.com/de/): Automic Vault prüft Tool, Verified Launcher, Befehl, Arbeitsverzeichnis und Secret Names vor der Übergabe eines Credentials.
 
 - [Automic Vault herunterladen](https://www.automicvault.com/de/download/): Lade Automic Vault für macOS herunter und kontrolliere die Verwendung von Entwickler-Credentials.
 

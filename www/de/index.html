@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | Kontrolliere die Verwendung von Entwickler-Credentials</title>
-  <meta name="description" content="Kontrolliere, wie verifizierte Software Entwickler-Credentials auf konkrete Operationen anwendet.">
+  <title>Automic Vault | Credentials gehen nur an erlaubte Operationen</title>
+  <meta name="description" content="Automic Vault prüft Tool, Verified Launcher, Befehl, Arbeitsverzeichnis und Secret Names vor der Übergabe eines Credentials.">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Kontrolliere die Verwendung von Entwickler-Credentials">
-  <meta property="og:description" content="Autorisiere die Operation, nicht nur den Abruf eines benannten Secrets.">
+  <meta property="og:title" content="Credentials gehen nur an erlaubte Operationen">
+  <meta property="og:description" content="Automic Vault prüft Software, Befehl, Arbeitsverzeichnis und Secret Names vor der Übergabe.">
   <meta property="og:url" content="https://www.automicvault.com/de/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Kontrolliere die Verwendung von Entwickler-Credentials">
-  <meta name="twitter:description" content="Autorisiere die Operation, nicht nur den Abruf eines benannten Secrets.">
+  <meta name="twitter:title" content="Credentials gehen nur an erlaubte Operationen">
+  <meta name="twitter:description" content="Automic Vault prüft Software, Befehl, Arbeitsverzeichnis und Secret Names vor der Übergabe.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/de/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -47,9 +47,9 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/de/",
-    "name": "Automic Vault | Kontrolliere die Verwendung von Entwickler-Credentials",
-    "headline": "Kontrolliere, wie Entwickler-Credentials verwendet werden.",
-    "description": "Kontrolliere, wie verifizierte Software Entwickler-Credentials auf konkrete Operationen anwendet.",
+    "name": "Automic Vault | Credentials gehen nur an erlaubte Operationen",
+    "headline": "Credentials gehen nur an erlaubte Operationen.",
+    "description": "Automic Vault prüft Tool, Verified Launcher, Befehl, Arbeitsverzeichnis und Secret Names vor der Übergabe eines Credentials.",
     "inLanguage": "de",
     "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
@@ -77,9 +77,9 @@
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
         <p class="brew-kicker">Vom Erfinder von Homebrew</p>
-        <h1 id="hero-title">Kontrolliere, wie Entwickler-Credentials <span>verwendet werden.</span></h1>
-        <p class="brew-hero-lede">Übliche Secrets Manager autorisieren den Abruf. Automic Vault autorisiert verifizierte Software, Credentials auf eine konkrete Operation anzuwenden.</p>
-        <p>Lokal auf dem Mac. Unabhängig vom Agent-Harness.</p>
+        <h1 id="hero-title">Credentials gehen nur an <span>erlaubte Operationen.</span></h1>
+        <p class="brew-hero-lede">Automic Vault entfernt unterstützte Credentials aus Klartextdateien. Es prüft Tool, Verified Launcher, Target, Befehl, Argumente, Arbeitsverzeichnis und angeforderte Secret Names vor der Übergabe.</p>
+        <p>Automic Vault läuft lokal auf dem Mac, und Agents brauchen kein Plugin.</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">Für macOS laden</a>
           <a class="brew-text-link" href="#boundary">So funktioniert die Grenze <span aria-hidden="true">→</span></a>
@@ -89,9 +89,9 @@
         <img src="/assets/av-approve-gate.png" alt="Automic-Vault-Freigabe, in der ChatGPT ein GitHub-Token mit den Optionen Ablehnen und Einmal genehmigen anfordert" width="1212" height="1090" fetchpriority="high" decoding="async">
       </figure>
       <ul class="brew-promises">
-        <li><span>01</span><strong>Klartext-Secrets entfernen</strong><small>Credentials verschwinden aus Dotfiles und Tool-Konfigurationen.</small></li>
-        <li><span>02</span><strong>Die Übergabe kontrollieren</strong><small>Nur das richtige Executable erhält das Credential.</small></li>
-        <li><span>03</span><strong>Eine lokale Grenze anwenden</strong><small>Für jeden Starter gilt dieselbe Richtlinie.</small></li>
+        <li><span>01</span><strong>Ein Credential, verschiedene Entscheidungen</strong><small><code>gh issue list</code> kann laufen; <code>gh auth token</code> braucht weiterhin Approval.</small></li>
+        <li><span>02</span><strong>Getrennte Regeln für Terminal und Codex</strong><small>Die Policy folgt jedem Verified Launcher.</small></li>
+        <li><span>03</span><strong><code>API_TOKEN</code> in mehreren Projekten</strong><small>Das Arbeitsverzeichnis wählt den passenden Project Value.</small></li>
       </ul>
     </section>
 

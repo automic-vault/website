@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | 控制开发者凭据的使用方式</title>
-  <meta name="description" content="控制已验证软件如何将开发者凭据用于具体操作。">
+  <title>Automic Vault | 凭据只交给获准操作</title>
+  <meta name="description" content="Automic Vault 在交付凭据前检查工具、Verified Launcher、命令、工作目录和 Secret Name。">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="控制开发者凭据的使用方式">
-  <meta property="og:description" content="授权具体操作，而不只是授权获取某个命名密钥。">
+  <meta property="og:title" content="凭据只交给获准操作">
+  <meta property="og:description" content="Automic Vault 在交付凭据前检查软件、命令、工作目录和 Secret Name。">
   <meta property="og:url" content="https://www.automicvault.com/zh-hans/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="控制开发者凭据的使用方式">
-  <meta name="twitter:description" content="授权具体操作，而不只是授权获取某个命名密钥。">
+  <meta name="twitter:title" content="凭据只交给获准操作">
+  <meta name="twitter:description" content="Automic Vault 在交付凭据前检查软件、命令、工作目录和 Secret Name。">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/zh-hans/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -47,9 +47,9 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/zh-hans/",
-    "name": "Automic Vault | 控制开发者凭据的使用方式",
-    "headline": "控制开发者凭据的使用方式。",
-    "description": "控制已验证软件如何将开发者凭据用于具体操作。",
+    "name": "Automic Vault | 凭据只交给获准操作",
+    "headline": "凭据只会交给你允许的操作。",
+    "description": "Automic Vault 在交付凭据前检查工具、Verified Launcher、命令、工作目录和 Secret Name。",
     "inLanguage": "zh-Hans",
     "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
@@ -77,9 +77,9 @@
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
         <p class="brew-kicker">由 Homebrew 创始人打造</p>
-        <h1 id="hero-title">控制开发者凭据的<span>使用方式。</span></h1>
-        <p class="brew-hero-lede">传统密钥管理器授权获取密钥。Automic Vault 授权已验证软件将凭据用于具体操作。</p>
-        <p>在 Mac 本地运行，不依赖代理框架。</p>
+        <h1 id="hero-title">凭据只会交给<span>你允许的操作。</span></h1>
+        <p class="brew-hero-lede">Automic Vault 将支持的凭据移出明文文件，并在交付前检查工具、Verified Launcher、Target、命令、参数、工作目录和请求的 Secret Name。</p>
+        <p>Automic Vault 在 Mac 本地运行，代理无需插件。</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">下载 macOS 版</a>
           <a class="brew-text-link" href="#boundary">查看边界如何工作 <span aria-hidden="true">→</span></a>
@@ -89,9 +89,9 @@
         <img src="/assets/av-approve-gate.png" alt="Automic Vault 审批界面显示 ChatGPT 请求 GitHub 令牌，并提供拒绝和仅批准一次选项" width="1212" height="1090" fetchpriority="high" decoding="async">
       </figure>
       <ul class="brew-promises">
-        <li><span>01</span><strong>移除明文密钥</strong><small>凭据不再留在 dotfile 和工具配置中。</small></li>
-        <li><span>02</span><strong>控制凭据交付</strong><small>只有正确的可执行文件会获得凭据。</small></li>
-        <li><span>03</span><strong>应用统一的本地边界</strong><small>每个启动方都遵循同一策略。</small></li>
+        <li><span>01</span><strong>同一凭据，不同决定</strong><small><code>gh issue list</code> 可以运行；<code>gh auth token</code> 仍需 Approval。</small></li>
+        <li><span>02</span><strong>为 Terminal 和 Codex 设置不同规则</strong><small>Policy 跟随每个 Verified Launcher。</small></li>
+        <li><span>03</span><strong>跨项目使用 <code>API_TOKEN</code></strong><small>工作目录会选择匹配的 Project Value。</small></li>
       </ul>
     </section>
 

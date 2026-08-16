@@ -4,7 +4,7 @@
 
 ## Pages principales
 
-- [Automic Vault | Contrôlez vos identifiants de développement](https://www.automicvault.com/fr/): Contrôlez comment un logiciel vérifié applique des identifiants de développement à une opération précise.
+- [Automic Vault | Les identifiants vont aux opérations autorisées](https://www.automicvault.com/fr/): Automic Vault vérifie l’outil, le Verified Launcher, la commande, le dossier courant et les Secret Names avant de transmettre un identifiant.
 
 - [Télécharger Automic Vault](https://www.automicvault.com/fr/download/): Téléchargez Automic Vault pour macOS et contrôlez l’utilisation des identifiants de développement.
 

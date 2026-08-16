@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | 開発者の認証情報がどう使われるかを制御</title>
-  <meta name="description" content="検証済みソフトウェアが開発者の認証情報を特定の操作に適用する権限を制御します。">
+  <title>Automic Vault | 認証情報は許可した操作にだけ渡す</title>
+  <meta name="description" content="Automic Vault は、ツール、Launcher、コマンド、作業ディレクトリ、Secret Name を確認してから認証情報を渡します。">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="開発者の認証情報がどう使われるかを制御">
-  <meta property="og:description" content="取得だけでなく、認証情報を適用する操作を許可します。">
+  <meta property="og:title" content="認証情報は許可した操作にだけ渡す">
+  <meta property="og:description" content="ツール、Launcher、コマンド、作業ディレクトリ、Secret Name を確認してから認証情報を渡します。">
   <meta property="og:url" content="https://www.automicvault.com/ja/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="開発者の認証情報がどう使われるかを制御">
-  <meta name="twitter:description" content="取得だけでなく、認証情報を適用する操作を許可します。">
+  <meta name="twitter:title" content="認証情報は許可した操作にだけ渡す">
+  <meta name="twitter:description" content="ツール、Launcher、コマンド、作業ディレクトリ、Secret Name を確認してから認証情報を渡します。">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/ja/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -47,9 +47,9 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/ja/",
-    "name": "Automic Vault | 開発者の認証情報がどう使われるかを制御",
-    "headline": "開発者の認証情報がどう使われるかを制御。",
-    "description": "検証済みソフトウェアが開発者の認証情報を特定の操作に適用する権限を制御します。",
+    "name": "Automic Vault | 認証情報は許可した操作にだけ渡す",
+    "headline": "認証情報は許可した操作にだけ渡す。",
+    "description": "Automic Vault は、ツール、Launcher、コマンド、作業ディレクトリ、Secret Name を確認してから認証情報を渡します。",
     "inLanguage": "ja",
     "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
@@ -77,9 +77,9 @@
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
         <p class="brew-kicker">Homebrew 開発者が提供</p>
-        <h1 id="hero-title">開発者の認証情報が<span>どう使われるかを制御。</span></h1>
-        <p class="brew-hero-lede">一般的なシークレット管理は取得を許可します。Automic Vault は、検証済みソフトウェアが認証情報を特定の操作に適用する権限を制御します。</p>
-        <p>Mac 上でローカルに動作。エージェントのハーネスに依存しません。</p>
+        <h1 id="hero-title">認証情報は<span>許可した操作にだけ渡す。</span></h1>
+        <p class="brew-hero-lede">Automic Vault は対応する認証情報を平文ファイルから移します。ツール、Verified Launcher、Target、コマンド、引数、作業ディレクトリ、要求された Secret Name を確認してから認証情報を渡します。</p>
+        <p>Mac 上でローカルに動作し、エージェント用プラグインは不要です。</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">macOS 版をダウンロード</a>
           <a class="brew-text-link" href="#boundary">境界の動作を見る <span aria-hidden="true">→</span></a>
@@ -89,9 +89,9 @@
         <img src="/assets/av-approve-gate.png" alt="ChatGPT が GitHub トークンを要求し、拒否と 1 回だけ承認を選べる Automic Vault の承認画面" width="1212" height="1090" fetchpriority="high" decoding="async">
       </figure>
       <ul class="brew-promises">
-        <li><span>01</span><strong>平文シークレットをなくす</strong><small>認証情報を dotfile やツール設定から移します。</small></li>
-        <li><span>02</span><strong>受け渡しを制御する</strong><small>正しい実行ファイルだけが認証情報を受け取ります。</small></li>
-        <li><span>03</span><strong>1 つのローカル境界を適用</strong><small>どの起動元にも同じポリシーが適用されます。</small></li>
+        <li><span>01</span><strong>同じ認証情報、異なる判断</strong><small><code>gh issue list</code> は実行でき、<code>gh auth token</code> には Approval が必要です。</small></li>
+        <li><span>02</span><strong>Terminal と Codex に別々のルール</strong><small>Verified Launcher ごとに Authorization Policy を設定します。</small></li>
+        <li><span>03</span><strong>プロジェクト間で <code>API_TOKEN</code> を共有</strong><small>作業ディレクトリに一致する Project Value を選択します。</small></li>
       </ul>
     </section>
 

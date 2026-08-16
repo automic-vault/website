@@ -4,7 +4,7 @@
 
 ## 主要ページ
 
-- [Automic Vault | 開発者の認証情報がどう使われるかを制御](https://www.automicvault.com/ja/): 検証済みソフトウェアが開発者の認証情報を特定の操作に適用する権限を制御します。
+- [Automic Vault | 認証情報は許可した操作にだけ渡す](https://www.automicvault.com/ja/): Automic Vault は、ツール、Launcher、コマンド、作業ディレクトリ、Secret Name を確認してから認証情報を渡します。
 
 - [Automic Vault ダウンロード](https://www.automicvault.com/ja/download/): macOS 用 Automic Vault を入手し、開発者の認証情報がどう使われるかを制御します。
 

@@ -18,8 +18,8 @@ av unharden brew [--yes]
 av open [--secret-gate ID]
 ```
 
-Commands from the earlier v1 CLI—including `install`, `contain`, `dotenv`,
-`credential-helper`, `gate`, and `trace`—are not part of the 3.8.0 CLI.
+The v1 CLI included `install`, `contain`, `dotenv`, `credential-helper`, `gate`,
+and `trace`. They are not part of version 3.8.0.
 
 ## Install and verify
 
@@ -125,8 +125,8 @@ and its signing team.
 
 A standalone executable must have a valid Developer ID Application signature,
 identifier, and Team ID. It must pass strict macOS signature validation and
-enable Hardened Runtime before it can receive Secret Gate access. Unsigned and
-arbitrary ad-hoc signed executables are rejected as ordinary launchers.
+enable Hardened Runtime before it can receive Secret Gate access. Automic Vault
+rejects unsigned and arbitrary ad-hoc signed executables as ordinary launchers.
 
 For one regular single-file Mach-O CLI, the app can instead create a Launcher
 Bundle. Automic Vault snapshots the executable, signs the payload and launcher
@@ -173,7 +173,7 @@ read failure for the selected Value does not fall back to another Value.
 Pipes do not provide the value:
 
 ```sh
-# Wrong: save deliberately does not read stdin.
+# Wrong: save reads from /dev/tty, not stdin.
 printf '%s\n' "$GH_TOKEN" | av save GH_TOKEN
 ```
 
@@ -212,8 +212,8 @@ Behavior:
 
 The Authorization Request is denied if the service cannot authenticate, the
 Authorization Policy does not allow the operation, or the user declines it. If
-allowed, `av` uses `exec`, so the Target replaces the `av` process rather than becoming a detached
-child.
+allowed, `av` uses `exec`. The Target replaces the `av` process and does not
+become a detached child.
 
 ### Shebang use
 
@@ -279,12 +279,12 @@ av harden NAME
 av harden NAME --yes
 ```
 
-Hardeners are Tool-specific security transformations. Depending on the Tool, a
-Hardener can move existing Credentials into Keychain, install or replace a
-Launcher, change protected ownership, or enable a native credential route.
+Each Hardener changes one Tool's credential or launcher path. It can move
+existing Credentials into Keychain, install or replace a Launcher, change
+protected ownership, or enable a native credential route.
 Review its embedded documentation and prompts before approving system changes.
-Some root-owned launchers require `sudo`; follow the selected hardener's
-instructions rather than running every hardener as root.
+Some root-owned launchers require `sudo`. Follow the selected hardener's
+instructions; do not run every hardener as root.
 
 `--yes` skips confirmation where the selected hardener supports it. A successful
 run prints the matching `av doctor NAME` command.

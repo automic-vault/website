@@ -211,12 +211,12 @@ av doctor codex</code></pre>
           <section class="docs-section" id="signed-cli-launchers">
             <h2>Signed CLI launchers</h2>
             <p>Automic Vault can bind an Authorization Policy to either a signed app bundle or a Developer ID-signed standalone executable. It validates the live code signature and stores the Launcher's designated requirement, which identifies the binary and its signing team.</p>
-            <p>A standalone executable must have a valid Developer ID Application signature, identifier, and Team ID. It must pass strict macOS signature validation and enable Hardened Runtime before it can receive Secret Gate access. Unsigned and arbitrary ad-hoc signed executables are rejected as ordinary launchers.</p>
+            <p>A standalone executable must have a valid Developer ID Application signature, identifier, and Team ID. It must pass strict macOS signature validation and enable Hardened Runtime before it can receive Secret Gate access. Automic Vault rejects unsigned and arbitrary ad-hoc signed executables as ordinary launchers.</p>
             <p>For one regular single-file Mach-O CLI, the app can instead create a Launcher Bundle. Automic Vault snapshots the executable, signs the payload and launcher with Hardened Runtime, installs the bundle and command link root-owned, and enrolls that exact generation. Every authorization revalidates the live identity, nested signatures, payload digest, enrolled generation, and runtime posture. Any change hard-denies the request.</p>
             <p>A Launcher Bundle establishes identity and integrity for the exact packaged code. It does not establish publisher trust or make the code safe. Scripts and directory-shaped tools are not supported.</p>
             <pre><code>av doctor claude
 av doctor codex</code></pre>
-            <p>These commands inspect the executable selected by the current <code>PATH</code>. In Automic Vault Settings, add the launcher to the relevant tool or blessed-script policy and select the resolved native executable rather than a shell or package-manager shim. Review its identifier, Team ID, path, and designated requirement before allowing it.</p>
+            <p>These commands inspect the executable selected by the current <code>PATH</code>. In Automic Vault Settings, add the launcher to the relevant tool or blessed-script policy. Select the resolved native executable; exclude shell and package-manager shims. Review its identifier, Team ID, path, and designated requirement before allowing it.</p>
             <p>If the identity cannot be verified later, automic authorization fails closed and requires Approval. Code signing proves identity and integrity, not intent. Keep the terminal or agent app's permissions minimal because TCC remains app-scoped.</p>
           </section>
 
@@ -227,7 +227,7 @@ av doctor codex</code></pre>
 av save --project-directory=. GH_TOKEN</code></pre>
             <p>The Secret Name must be a valid environment variable name: it begins with a letter or underscore and continues with letters, digits, or underscores. The command opens <code>/dev/tty</code>, disables terminal echo while reading, trims the line ending, rejects an empty value, and restores echo even if reading fails.</p>
             <p>A Secret Name may have one Global Value and multiple Project Values. For each requested name, <code>av inject</code> selects the nearest Project Value at or above the physical working directory, then the Global Value if no Project Value matches. The Project Directory selects a value; it is not an authorization boundary. A read failure for the selected Value does not fall back to another Value.</p>
-            <pre><code># Wrong: save deliberately does not read stdin.
+            <pre><code># Wrong: save reads from /dev/tty, not stdin.
 printf '%s\n' "$GH_TOKEN" | av save GH_TOKEN</code></pre>
           </section>
 
@@ -281,8 +281,8 @@ gh release create "$1"</code></pre>
             <p>Apply a named hardener.</p>
             <pre><code>av harden NAME
 av harden NAME --yes</code></pre>
-            <p>Hardeners are Tool-specific security transformations. Depending on the Tool, a Hardener can move existing Credentials into Keychain, install or replace a Launcher, change protected ownership, or enable a native credential route. Review the embedded documentation and prompts before approving system changes.</p>
-            <p>Some root-owned launchers require <code>sudo</code>; follow the selected hardener's instructions rather than running every hardener as root. <code>--yes</code> skips confirmation where supported. A successful run prints the matching <code>av doctor NAME</code> command.</p>
+            <p>Each Hardener changes one Tool's credential or launcher path. It can move existing Credentials into Keychain, install or replace a Launcher, change protected ownership, or enable a native credential route. Review the embedded documentation and prompts before approving system changes.</p>
+            <p>Some root-owned launchers require <code>sudo</code>. Follow the selected hardener's instructions; do not run every hardener as root. <code>--yes</code> skips confirmation where supported. A successful run prints the matching <code>av doctor NAME</code> command.</p>
             <pre><code>av hardeners --json |
   jq '.hardeners[] |
     {name, applicable, hardened, commands, documentation}'</code></pre>

@@ -6,86 +6,86 @@
       "dateModified": "2026-08-16",
       "translations": {
         "ja": {
-          "title": "Automic Vault | 開発者の認証情報がどう使われるかを制御",
-          "description": "検証済みソフトウェアが開発者の認証情報を特定の操作に適用する権限を制御します。",
+          "title": "Automic Vault | 認証情報は許可した操作にだけ渡す",
+          "description": "Automic Vault は、ツール、Launcher、コマンド、作業ディレクトリ、Secret Name を確認してから認証情報を渡します。",
           "kicker": "Homebrew 開発者が提供",
-          "h1": "開発者の認証情報がどう使われるかを制御。",
-          "lede": "一般的なシークレット管理は取得を許可します。Automic Vault は、検証済みソフトウェアが認証情報を特定の操作に適用する権限を制御します。",
+          "h1": "認証情報は許可した操作にだけ渡す。",
+          "lede": "Automic Vault は対応する認証情報を平文ファイルから移します。ツール、Verified Launcher、Target、コマンド、引数、作業ディレクトリ、要求された Secret Name を確認してから認証情報を渡します。",
           "sections": [
             [
-              "取得ではなく操作を許可",
-              "コマンド、引数、作業ディレクトリ、ツール、検証済み Launcher を一つの Authorization Request として評価します。"
+              "同じ認証情報、異なる判断",
+              "gh issue list は実行でき、gh auth token には Approval が必要です。"
             ],
             [
-              "ソフトウェアごとの権限",
-              "同じツールでも、Terminal、エージェント、不明なプロセスに異なる Authorization Policy を設定できます。"
+              "Terminal と Codex に別々のルール",
+              "Verified Launcher ごとに Authorization Policy を設定します。"
             ],
             [
-              "ローカル実行境界",
-              "Automic Vault はシークレットの受け渡しを制御します。受け取った後のシークレットは Target が制御します。"
+              "プロジェクト間で API_TOKEN を共有",
+              "作業ディレクトリに一致する Project Value を選択します。"
             ]
           ]
         },
         "de": {
-          "title": "Automic Vault | Kontrolliere die Verwendung von Entwickler-Credentials",
-          "description": "Kontrolliere, wie verifizierte Software Entwickler-Credentials auf konkrete Operationen anwendet.",
+          "title": "Automic Vault | Credentials gehen nur an erlaubte Operationen",
+          "description": "Automic Vault prüft Tool, Verified Launcher, Befehl, Arbeitsverzeichnis und Secret Names vor der Übergabe eines Credentials.",
           "kicker": "Vom Erfinder von Homebrew",
-          "h1": "Kontrolliere, wie Entwickler-Credentials verwendet werden.",
-          "lede": "Übliche Secrets Manager autorisieren den Abruf. Automic Vault autorisiert verifizierte Software, Credentials auf eine konkrete Operation anzuwenden.",
+          "h1": "Credentials gehen nur an erlaubte Operationen.",
+          "lede": "Automic Vault entfernt unterstützte Credentials aus Klartextdateien. Es prüft Tool, Verified Launcher, Target, Befehl, Argumente, Arbeitsverzeichnis und angeforderte Secret Names vor der Übergabe.",
           "sections": [
             [
-              "Die Operation autorisieren",
-              "Befehl, Argumente, Arbeitsverzeichnis, Tool und Verified Launcher werden als ein Authorization Request bewertet."
+              "Ein Credential, verschiedene Entscheidungen",
+              "gh issue list kann laufen; gh auth token braucht weiterhin Approval."
             ],
             [
-              "Berechtigung pro Software",
-              "Dasselbe Tool kann für Terminal, Agent und unbekannte Prozesse unterschiedliche Authorization Policies erhalten."
+              "Getrennte Regeln für Terminal und Codex",
+              "Die Policy folgt jedem Verified Launcher."
             ],
             [
-              "Lokale Ausführungsgrenze",
-              "Automic Vault kontrolliert die Übergabe. Nach dem Empfang kontrolliert das Target das Secret."
+              "API_TOKEN in mehreren Projekten",
+              "Das Arbeitsverzeichnis wählt den passenden Project Value."
             ]
           ]
         },
         "fr": {
-          "title": "Automic Vault | Contrôlez vos identifiants de développement",
-          "description": "Contrôlez comment un logiciel vérifié applique des identifiants de développement à une opération précise.",
+          "title": "Automic Vault | Les identifiants vont aux opérations autorisées",
+          "description": "Automic Vault vérifie l’outil, le Verified Launcher, la commande, le dossier courant et les Secret Names avant de transmettre un identifiant.",
           "kicker": "Par le créateur de Homebrew",
-          "h1": "Contrôlez l’utilisation des identifiants de développement.",
-          "lede": "Les gestionnaires de secrets classiques autorisent la récupération. Automic Vault autorise un logiciel vérifié à appliquer des identifiants à une opération précise.",
+          "h1": "Les identifiants vont uniquement aux opérations autorisées.",
+          "lede": "Automic Vault retire les identifiants pris en charge des fichiers en clair. Il vérifie l’outil, le Verified Launcher, le Target, la commande, ses arguments, le dossier courant et les Secret Names demandés avant de les transmettre.",
           "sections": [
             [
-              "Autoriser l’opération",
-              "La commande, ses arguments, le dossier courant, l’outil et le Verified Launcher forment une seule Authorization Request."
+              "Un identifiant, plusieurs décisions",
+              "gh issue list peut s’exécuter ; gh auth token exige toujours une Approval."
             ],
             [
-              "Une autorité par logiciel",
-              "Le même outil peut recevoir des Authorization Policies différentes pour le Terminal, un agent ou un processus inconnu."
+              "Des règles distinctes pour Terminal et Codex",
+              "La Policy suit chaque Verified Launcher."
             ],
             [
-              "Limite d’exécution locale",
-              "Automic Vault contrôle le transfert. Après réception, le Target contrôle le Secret."
+              "API_TOKEN dans plusieurs projets",
+              "Le dossier courant sélectionne le Project Value correspondant."
             ]
           ]
         },
         "zh-Hans": {
-          "title": "Automic Vault | 控制开发者凭据的使用方式",
-          "description": "控制已验证软件如何将开发者凭据用于具体操作。",
+          "title": "Automic Vault | 凭据只交给获准操作",
+          "description": "Automic Vault 在交付凭据前检查工具、Verified Launcher、命令、工作目录和 Secret Name。",
           "kicker": "由 Homebrew 创始人打造",
-          "h1": "控制开发者凭据的使用方式。",
-          "lede": "传统密钥管理器授权获取密钥。Automic Vault 授权已验证软件将凭据用于具体操作。",
+          "h1": "凭据只会交给你允许的操作。",
+          "lede": "Automic Vault 将支持的凭据移出明文文件，并在交付前检查工具、Verified Launcher、Target、命令、参数、工作目录和请求的 Secret Name。",
           "sections": [
             [
-              "授权操作，而非仅授权获取",
-              "命令、参数、工作目录、工具和 Verified Launcher 会作为一个 Authorization Request 进行评估。"
+              "同一凭据，不同决定",
+              "gh issue list 可以运行；gh auth token 仍需 Approval。"
             ],
             [
-              "按软件划分权限",
-              "同一工具可以为 Terminal、代理和未知进程设置不同的 Authorization Policy。"
+              "为 Terminal 和 Codex 设置不同规则",
+              "Policy 跟随每个 Verified Launcher。"
             ],
             [
-              "本地执行边界",
-              "Automic Vault 控制密钥交接；接收之后，Secret 由 Target 控制。"
+              "跨项目使用 API_TOKEN",
+              "工作目录会选择匹配的 Project Value。"
             ]
           ]
         }

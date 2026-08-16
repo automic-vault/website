@@ -1,6 +1,6 @@
 # Automic Vault
 
-> Automic Vault gives verified software bounded authority to apply developer credentials to specific operations at the Local Execution Boundary.
+> Automic Vault checks the complete Tool operation before applying developer credentials at the Local Execution Boundary.
 
 ## Product
 
@@ -45,7 +45,7 @@
 - License: Apache License 2.0
 - Pricing: free open-source software
 - Founder: Max Howell, creator of Homebrew
-- Most secrets managers authorize retrieval; Automic Vault authorizes a complete credential operation.
+- Automic Vault evaluates the complete Tool operation before applying a Secret.
 - Authorization Policy considers the Tool, Target, Verified Launcher, command, arguments, working directory, Secret Names, and selected Value sources.
 - A Secret Name can select a Global Value or the nearest Project Value without project-shaped names.
 - Eligible agent tasks can receive visible, in-memory ten-minute Temporary Access Grants with explicit exclusions.

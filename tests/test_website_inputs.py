@@ -286,7 +286,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
     def test_secondary_formats_and_localized_llms_are_discoverable(self):
         home = (ROOT / "www" / "index.html").read_text(encoding="utf-8")
         for claim in (
-            "Most secrets managers decide whether an identity may retrieve a named secret.",
+            "Most secrets managers check an identity and Secret Name before returning the stored value.",
             "Project Values",
             "Temporary Access Grant",
             "Launcher Bundles",
@@ -302,7 +302,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             self.assertIn(f'type="{media_type}"', home)
             self.assertIn(f'href="{href}"', home)
 
-        current_headline = "Turn developer credentials into bounded authority."
+        current_headline = "Credentials go only to operations you allow."
         for filename in ("index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
             with self.subTest(filename=filename):

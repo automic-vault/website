@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | Contrôlez vos identifiants de développement</title>
-  <meta name="description" content="Contrôlez comment un logiciel vérifié applique des identifiants de développement à une opération précise.">
+  <title>Automic Vault | Les identifiants vont aux opérations autorisées</title>
+  <meta name="description" content="Automic Vault vérifie l’outil, le Verified Launcher, la commande, le dossier courant et les Secret Names avant de transmettre un identifiant.">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Contrôlez l’utilisation des identifiants de développement">
-  <meta property="og:description" content="Autorisez l’opération, pas seulement la récupération d’un Secret nommé.">
+  <meta property="og:title" content="Les identifiants vont aux opérations autorisées">
+  <meta property="og:description" content="Automic Vault vérifie le logiciel, la commande, le dossier courant et les Secret Names avant le transfert.">
   <meta property="og:url" content="https://www.automicvault.com/fr/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Contrôlez l’utilisation des identifiants de développement">
-  <meta name="twitter:description" content="Autorisez l’opération, pas seulement la récupération d’un Secret nommé.">
+  <meta name="twitter:title" content="Les identifiants vont aux opérations autorisées">
+  <meta name="twitter:description" content="Automic Vault vérifie le logiciel, la commande, le dossier courant et les Secret Names avant le transfert.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/fr/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -47,9 +47,9 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "url": "https://www.automicvault.com/fr/",
-    "name": "Automic Vault | Contrôlez vos identifiants de développement",
-    "headline": "Contrôlez l’utilisation des identifiants de développement.",
-    "description": "Contrôlez comment un logiciel vérifié applique des identifiants de développement à une opération précise.",
+    "name": "Automic Vault | Les identifiants vont aux opérations autorisées",
+    "headline": "Les identifiants vont uniquement aux opérations autorisées.",
+    "description": "Automic Vault vérifie l’outil, le Verified Launcher, la commande, le dossier courant et les Secret Names avant de transmettre un identifiant.",
     "inLanguage": "fr",
     "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
@@ -77,9 +77,9 @@
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
         <p class="brew-kicker">Par le créateur de Homebrew</p>
-        <h1 id="hero-title">Contrôlez l’utilisation <span>des identifiants de développement.</span></h1>
-        <p class="brew-hero-lede">Les gestionnaires de secrets classiques autorisent la récupération. Automic Vault autorise un logiciel vérifié à appliquer des identifiants à une opération précise.</p>
-        <p>Local sur le Mac. Indépendant du harness de l’agent.</p>
+        <h1 id="hero-title">Les identifiants vont uniquement aux <span>opérations autorisées.</span></h1>
+        <p class="brew-hero-lede">Automic Vault retire les identifiants pris en charge des fichiers en clair. Il vérifie l’outil, le Verified Launcher, le Target, la commande, ses arguments, le dossier courant et les Secret Names demandés avant de les transmettre.</p>
+        <p>Automic Vault fonctionne localement sur le Mac et les agents n’ont besoin d’aucun plugin.</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">Télécharger pour macOS</a>
           <a class="brew-text-link" href="#boundary">Voir la limite en action <span aria-hidden="true">→</span></a>
@@ -89,9 +89,9 @@
         <img src="/assets/av-approve-gate.png" alt="Validation Automic Vault montrant ChatGPT qui demande un jeton GitHub, avec les choix Refuser et Approuver une fois" width="1212" height="1090" fetchpriority="high" decoding="async">
       </figure>
       <ul class="brew-promises">
-        <li><span>01</span><strong>Supprimer les secrets en clair</strong><small>Les identifiants quittent les dotfiles et les configurations d’outils.</small></li>
-        <li><span>02</span><strong>Contrôler le transfert</strong><small>Seul le bon exécutable reçoit l’identifiant.</small></li>
-        <li><span>03</span><strong>Appliquer une limite locale</strong><small>Chaque lanceur rencontre la même politique.</small></li>
+        <li><span>01</span><strong>Un identifiant, plusieurs décisions</strong><small><code>gh issue list</code> peut s’exécuter ; <code>gh auth token</code> exige toujours une Approval.</small></li>
+        <li><span>02</span><strong>Des règles distinctes pour Terminal et Codex</strong><small>La Policy suit chaque Verified Launcher.</small></li>
+        <li><span>03</span><strong><code>API_TOKEN</code> dans plusieurs projets</strong><small>Le dossier courant sélectionne le Project Value correspondant.</small></li>
       </ul>
     </section>
 

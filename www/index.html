@@ -11,18 +11,18 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | Turn developer credentials into bounded authority.</title>
-  <meta name="description" content="Automic Vault authorizes verified software to apply developer credentials to complete operations under local policy on your Mac.">
+  <title>Automic Vault | Credentials go only to operations you allow.</title>
+  <meta name="description" content="Automic Vault moves supported credentials out of plaintext files and checks the complete operation before applying one.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Turn developer credentials into bounded authority.">
-  <meta property="og:description" content="Authorize the complete operation before credentials are applied.">
+  <meta property="og:title" content="Credentials go only to operations you allow.">
+  <meta property="og:description" content="Automic Vault checks the software, command, working directory, and requested Secret Names before use.">
   <meta property="og:url" content="https://www.automicvault.com/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
-  <meta name="twitter:title" content="Turn developer credentials into bounded authority.">
-  <meta name="twitter:description" content="Authorize the complete operation before credentials are applied.">
+  <meta name="twitter:title" content="Credentials go only to operations you allow.">
+  <meta name="twitter:description" content="Automic Vault checks the software, command, working directory, and requested Secret Names before use.">
   <link rel="canonical" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/">
@@ -105,16 +105,16 @@
           "availability": "https://schema.org/InStock",
           "url": "https://www.automicvault.com/#pricing"
         },
-        "description": "Automic Vault gives verified software bounded authority to apply developer credentials to specific operations at the local execution boundary.",
+        "description": "Automic Vault checks the complete Tool operation before applying a developer credential.",
         "publisher": {"@id": "https://www.automicvault.com/#organization"}
       },
       {
         "@type": "WebPage",
         "@id": "https://www.automicvault.com/#webpage",
         "url": "https://www.automicvault.com/",
-        "name": "Automic Vault | Turn developer credentials into bounded authority.",
-        "headline": "Turn developer credentials into bounded authority.",
-        "description": "Authorize the complete operation before credentials are applied.",
+        "name": "Automic Vault | Credentials go only to operations you allow.",
+        "headline": "Credentials go only to operations you allow.",
+        "description": "Automic Vault checks the software, command, working directory, and requested Secret Names before use.",
         "datePublished": "2026-05-15",
         "dateModified": "2026-08-16",
         "image": "https://www.automicvault.com/preview.jpg",
@@ -159,9 +159,9 @@
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
         <p class="brew-kicker">From the creator of Homebrew</p>
-        <h1 id="hero-title">Turn developer credentials into <span>bounded authority.</span></h1>
-        <p class="brew-hero-lede">Automic Vault authorizes verified software to apply credentials to one complete operation under local policy on your Mac.</p>
-        <p>Your tools keep their normal commands. No agent plugin.</p>
+        <h1 id="hero-title">Credentials go only to <span>operations you allow.</span></h1>
+        <p class="brew-hero-lede">Automic Vault moves supported credentials out of plaintext files. It checks the Tool, Verified Launcher, Target, command, arguments, working directory, and requested Secret Names before applying one.</p>
+        <p>Your existing commands still work, and agents need no plugin.</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">Download for macOS</a>
           <a class="brew-text-link" href="#difference">See how it differs <span aria-hidden="true">→</span></a>
@@ -171,19 +171,19 @@
         <img src="./assets/av-approve-gate.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" fetchpriority="high" decoding="async">
       </figure>
       <ul class="brew-promises">
-        <li><span>01</span><strong>Authorize the operation</strong><small>The command and context matter, not only the Secret Name.</small></li>
-        <li><span>02</span><strong>Scope the software</strong><small>Each Verified Launcher receives its own policy.</small></li>
-        <li><span>03</span><strong>Keep the workflow</strong><small>Your tools and agents keep using their normal commands.</small></li>
+        <li><span>01</span><strong>One credential, different decisions</strong><small><code>gh issue list</code> can run while <code>gh auth token</code> still needs Approval.</small></li>
+        <li><span>02</span><strong>Terminal and Codex get separate rules</strong><small>Policy follows each Verified Launcher.</small></li>
+        <li><span>03</span><strong>Use <code>API_TOKEN</code> across projects</strong><small>The working directory selects the Project Value.</small></li>
       </ul>
     </section>
 
     <section class="brew-risk" id="difference" aria-labelledby="difference-title">
       <div class="brew-split">
         <div class="brew-copy">
-          <p class="brew-eyebrow">Retrieval is not the policy</p>
-          <h2 id="difference-title">The Secret is only one input to the decision.</h2>
-          <p>Most secrets managers decide whether an identity may retrieve a named secret. Once the value is returned, their job is done.</p>
-          <p>Automic Vault decides whether a Verified Launcher may apply the requested Secrets to a complete operation. The Tool, Target, command, arguments, working directory, and selected Secret Value sources travel together as one Authorization Request.</p>
+          <p class="brew-eyebrow">One request, one decision</p>
+          <h2 id="difference-title">Automic Vault checks the whole operation.</h2>
+          <p>Most secrets managers check an identity and Secret Name before returning the stored value.</p>
+          <p>Automic Vault checks the Verified Launcher, Tool, Target, command, arguments, working directory, Secret Names, and selected Secret Value sources. Policy evaluates the complete Authorization Request on the Mac where it will run.</p>
         </div>
         <div class="brew-operation-panel" role="group" aria-label="Three policy decisions for one GitHub token">
           <p>One GitHub token · Read Only policy</p>
@@ -210,7 +210,7 @@
       <div class="brew-split brew-proof">
         <div class="brew-copy">
           <p class="brew-eyebrow">The local execution boundary</p>
-          <h2>Policy sees the whole operation.</h2>
+          <h2>Automic Vault evaluates the whole operation.</h2>
           <p>Automic Vault moves supported credentials out of readable tool configs. When a Tool requests a Secret, the app evaluates the complete request on the Mac where it will run.</p>
           <ul class="brew-log-fields" aria-label="Authorization Request inputs">
             <li>Verified Launcher</li>
@@ -233,8 +233,8 @@
 
     <section class="brew-access" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
-        <p class="brew-eyebrow">Authority follows verified software</p>
-        <h2 id="controls-title">The same Tool can mean different trust.</h2>
+        <p class="brew-eyebrow">Policy follows verified software</p>
+        <h2 id="controls-title">Set separate rules for Terminal and Codex.</h2>
         <p>Terminal, Codex, and an unknown process can invoke the same executable. Automic Vault identifies the Verified Launcher and gives each Tool–Launcher pairing its own Authorization Policy.</p>
       </div>
       <div class="brew-access-body">
@@ -274,8 +274,8 @@
       </div>
       <div class="brew-copy">
         <p class="brew-eyebrow">Project Values</p>
-        <h2 id="projects-title">Keep the natural name. Select the right value.</h2>
-        <p>A Secret Name can have one Global Value and multiple Project Values. Automic Vault selects the nearest value for the physical working directory, so every project can request <code>API_TOKEN</code> without prefixes such as <code>ACME_STAGING_API_TOKEN</code>.</p>
+        <h2 id="projects-title">Use the same Secret Name across projects.</h2>
+        <p>A Secret Name can have one Global Value and multiple Project Values. Automic Vault selects the nearest value for the physical working directory. Every project can request <code>API_TOKEN</code>.</p>
         <p>The Project Directory selects a value; it does not grant authority. The complete operation still crosses the same Authorization Gate.</p>
         <p>This works with tools such as dotenvx: keep its project decryption key in Automic Vault, then apply it only to the reviewed dotenvx operation.</p>
       </div>
@@ -283,20 +283,20 @@
 
     <section class="brew-feature" id="agents" aria-labelledby="agents-title">
       <div class="brew-copy">
-        <p class="brew-eyebrow">Bounded authority without prompt fatigue</p>
-        <h2 id="agents-title">Approve the task, not every write.</h2>
+        <p class="brew-eyebrow">Temporary Access Grants</p>
+        <h2 id="agents-title">Give one agent task ten minutes of Write Access.</h2>
         <p>An eligible Codex task or Claude Code session can receive a visible, in-memory Temporary Access Grant for ten minutes. The grant is bound to the exact Verified Launcher, Tool-specific gate, runtime posture, and agent task.</p>
         <p>It ends on expiry, inactivity, display sleep, update, service termination, or when you click End. It never covers direct secret access, mutation, disclosure, elevated application, or unknown operations.</p>
       </div>
       <div class="brew-capability-pair">
         <article>
           <p class="brew-stage">Temporary Access Grant</p>
-          <h3>Ten minutes. One task. One Tool.</h3>
+          <h3>Ten minutes for one task and one Tool</h3>
           <p>The task identifier narrows the grant; the Verified Launcher remains the identity boundary.</p>
         </article>
         <article>
           <p class="brew-stage">Blessed Script</p>
-          <h3>Exact code. Declared capabilities.</h3>
+          <h3>Bind exact code to declared capabilities</h3>
           <p>A Blessing binds the path, contents, Secret Names, and Tool capabilities. Any edit invalidates it.</p>
         </article>
       </div>
@@ -305,22 +305,22 @@
     <section class="brew-capabilities" id="tools" aria-labelledby="tools-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">Current protection paths</p>
-        <h2 id="tools-title">Built around how developer tools actually use credentials.</h2>
-        <p>Hardening is Tool-specific because the safest handoff for AWS is not the safest handoff for Docker, Homebrew, or a project script.</p>
+        <h2 id="tools-title">Each Tool gets its own credential handoff.</h2>
+        <p>AWS, Docker, Homebrew, and project scripts use different credential paths. Each Hardener changes the path for one Tool.</p>
       </div>
       <div class="brew-capability-grid">
         <article><p class="brew-stage">AWS</p><h3>Short-lived credentials per invocation</h3><p>Long-lived default keys leave <code>~/.aws/credentials</code>. Normal commands receive short-lived STS credentials from a native helper.</p></article>
-        <article><p class="brew-stage">Docker</p><h3>No ambient registry helper access</h3><p>The gate verifies the live vendor-signed Docker process, ancestry, arguments, and requested registry before release.</p></article>
+        <article><p class="brew-stage">Docker</p><h3>Gate credentials by process and registry</h3><p>The gate verifies the live vendor-signed Docker process, ancestry, arguments, and requested registry before release.</p></article>
         <article><p class="brew-stage">Launcher Bundles</p><h3>Identity for a single-file Mach-O CLI</h3><p>An exact enrolled snapshot is signed, installed root-owned, and revalidated on every request.</p></article>
-        <article><p class="brew-stage">Homebrew</p><h3>Execution policy beyond secrets</h3><p>Read &amp; Update can allow inspection and <code>brew update</code> while installs and upgrades still require Approval.</p></article>
-        <article><p class="brew-stage">Direct Secret Gate</p><h3>Explicit, narrow escape hatch</h3><p>Exact Secret Name and Verified Launcher rules cover rare cases that cannot use a Tool-specific gate.</p></article>
+        <article><p class="brew-stage">Homebrew</p><h3>Set separate rules for reads and writes</h3><p>Read &amp; Update can allow inspection and <code>brew update</code> while installs and upgrades still require Approval.</p></article>
+        <article><p class="brew-stage">Direct Secret Gate</p><h3>Allow an exact Secret Name and Launcher</h3><p>Exact Secret Name and Verified Launcher rules cover rare cases that cannot use a Tool-specific gate.</p></article>
         <article><p class="brew-stage">Detection</p><h3>Over 100 developer configurations</h3><p>Continuous Detectors report supported Exposures and Hazards with concrete mitigation steps.</p></article>
       </div>
     </section>
 
     <section class="brew-feature" id="audit" aria-labelledby="audit-title">
       <div class="brew-copy">
-        <p class="brew-eyebrow">Explain every decision</p>
+        <p class="brew-eyebrow">Local request history</p>
         <h2 id="audit-title">Authorization History stays on your Mac.</h2>
         <p>Allowed or denied, policy or Approval: requests leave bounded local history with the decision, Launcher, Secret Names, command, and working directory.</p>
         <ul class="brew-log-fields" aria-label="Recorded details">
@@ -342,17 +342,17 @@
         <figcaption>Each flag includes its trigger, rationale, and mitigation steps.</figcaption>
       </figure>
       <div class="brew-copy">
-        <h2 id="threats-title">Find the ambient access you forgot about.</h2>
+        <h2 id="threats-title">Find plaintext and ambient credential access.</h2>
         <p>Automic Vault scans developer Tools across ecosystems. It reports supported plaintext, environment, Keychain, helper, launcher, and configuration Findings and shows how to mitigate each one.</p>
       </div>
     </section>
 
     <section class="brew-feature" id="terminal-security" aria-labelledby="terminal-security-title">
       <div class="brew-copy">
-        <p class="brew-eyebrow">A precise boundary</p>
-        <h2 id="terminal-security-title">Not a sandbox. Not a promise about the Target.</h2>
-        <p>Automic Vault controls supported Secret Application and sensitive Tool operations at the Local Execution Boundary. It does not intercept every process, prevent arbitrary local destruction, or contain root or kernel compromise.</p>
-        <p>Code signing proves identity and integrity, not intent. A Target can leak a Secret after receiving it. Project paths and agent task identifiers narrow selection or scope; neither is an authorization identity.</p>
+        <p class="brew-eyebrow">Security boundary</p>
+        <h2 id="terminal-security-title">The boundary ends at the Target.</h2>
+        <p>Automic Vault controls supported Secret Application and sensitive Tool operations at the Local Execution Boundary. macOS handles general process and filesystem security. Root or kernel compromise and arbitrary local destruction remain outside the product boundary.</p>
+        <p>Code signing proves identity and integrity, not intent. A compromised Target can leak a received Secret. Project paths select Values, and agent task identifiers narrow grants. Neither establishes identity.</p>
         <a class="brew-text-link" href="/docs/">Read the security model and CLI manual <span aria-hidden="true">→</span></a>
       </div>
       <figure class="brew-capture">

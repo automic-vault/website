@@ -1,26 +1,28 @@
 # Automic Vault
 
-## Turn developer credentials into bounded authority.
+## Credentials go only to operations you allow.
 
-Automic Vault authorizes verified software to apply credentials to one complete
-operation under local policy on your Mac. Your tools keep their normal commands;
-no agent plugin is required.
+Automic Vault moves supported credentials out of plaintext files. It checks the
+Tool, Verified Launcher, Target, command, arguments, working directory, and
+requested Secret Names before applying one. Your existing commands still work,
+and agents need no plugin.
 
-- Authorize the operation: command and context matter, not only the Secret Name.
-- Scope the software: each Verified Launcher receives its own policy.
-- Keep the workflow: tools and agents continue using their normal commands.
+- One credential, different decisions: `gh issue list` can run while
+  `gh auth token` still needs Approval.
+- Terminal and Codex get separate rules: policy follows each Verified Launcher.
+- Use `API_TOKEN` across projects: the working directory selects the Project
+  Value.
 
 [Download for macOS](/Automic%20Vault.dmg)
 
-## Retrieval is not the policy
+## How authorization works
 
-Most secrets managers decide whether an identity may retrieve a named secret.
-Once the value is returned, their job is done.
+Most secrets managers check an identity and Secret Name before returning the
+stored value.
 
-Automic Vault decides whether a Verified Launcher may apply the requested
-Secrets to a complete operation. Its Authorization Request includes the Tool,
-Target, command, arguments, working directory, Secret Names, and selected Secret
-Value sources.
+Automic Vault checks the Verified Launcher, Tool, Target, command, arguments,
+working directory, Secret Names, and selected Secret Value sources. Policy
+evaluates the complete Authorization Request on the Mac where it will run.
 
 With Read Only access, one GitHub token produces different decisions:
 
@@ -33,7 +35,7 @@ gh auth token     → Secret Disclosure; Approval required
 Automic Vault controls Secret Application. After the handoff, the Target
 controls the Secret.
 
-## Policy follows verified software
+## Set separate rules for each Verified Launcher
 
 Terminal, Codex, and an unknown process can invoke the same Tool. Automic Vault
 identifies the Verified Launcher and gives each Tool–Launcher pairing its own
@@ -44,11 +46,11 @@ Authorization Policy.
 - **Write Access** automically authorizes recognized reads and writes. Secret
   Disclosure and Elevated Secret Application still require Approval.
 
-## Project Values without project-shaped names
+## Use the same Secret Name across projects
 
 A Secret Name can have a Global Value and multiple Project Values. Automic
-Vault selects the nearest Project Value for the physical working directory, so
-projects can all request `API_TOKEN` instead of inventing prefixed names.
+Vault selects the nearest Project Value for the physical working directory.
+Every project can request `API_TOKEN`.
 
 ```sh
 av save API_TOKEN
@@ -60,7 +62,7 @@ The Project Directory selects a value; it does not grant authority. This also
 lets Automic Vault hold a project-specific dotenvx decryption key while dotenvx
 continues to manage the encrypted `.env` file.
 
-## Bounded agent and automation access
+## Give an agent task ten minutes of Write Access
 
 Eligible Codex tasks and Claude Code sessions can receive a visible, in-memory
 Temporary Access Grant for ten minutes. The grant is scoped to one Verified
@@ -71,10 +73,10 @@ operations.
 Blessed Scripts bind an exact path, contents, Secret Names, and declared Tool
 capabilities. Any edit invalidates the Blessing.
 
-## Tool-specific protection
+## Each Tool gets its own credential handoff
 
 - **AWS:** normal invocations receive short-lived STS credentials from a native
-  helper instead of ambient long-lived keys.
+  helper. Long-lived keys stay in Automic Vault.
 - **Docker:** the gate verifies the vendor-signed Docker process, ancestry,
   arguments, and registry before releasing credentials.
 - **Launcher Bundles:** an exact single-file Mach-O CLI snapshot is signed,
@@ -84,13 +86,14 @@ capabilities. Any edit invalidates the Blessing.
 - **Detection:** over 100 supported developer configurations are checked for
   Exposures and Hazards.
 
-## A precise security boundary
+## The boundary ends at the Target
 
 Automic Vault controls supported Secret Application and sensitive Tool
-operations at the Local Execution Boundary. It is not a system sandbox, does
-not intercept every process, and does not contain root or kernel compromise.
-Code signing proves identity and integrity, not intent. A Target can leak a
-Secret after receiving it.
+operations at the Local Execution Boundary. macOS handles general process and
+filesystem security. Root or kernel compromise, arbitrary local destruction,
+and the Target's behavior after Secret Application remain outside the product
+boundary. Code signing proves identity and integrity, not intent. A compromised
+Target can leak a received Secret.
 
 Authorization History stays on the Mac and records bounded details for allowed
 and denied requests. It is not a tamperproof or audit-complete log.

@@ -3,11 +3,11 @@
   "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "Turn developer credentials into bounded authority.",
-  "description": "Automic Vault authorizes verified software to apply credentials to one complete operation under local policy on your Mac.",
+  "title": "Credentials go only to operations you allow.",
+  "description": "Automic Vault checks the complete operation before applying a developer credential.",
   "difference": {
-    "conventional_model": "Authorize an identity to retrieve a named secret.",
-    "automic_vault_model": "Authorize a Verified Launcher to apply requested Secrets to a complete operation.",
+    "conventional_model": "Check an identity and Secret Name before returning the stored value.",
+    "automic_vault_model": "Check the complete operation before applying requested Secrets.",
     "request_inputs": [
       "Verified Launcher",
       "Tool",

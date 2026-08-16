@@ -4,7 +4,7 @@
 
 ## 主要页面
 
-- [Automic Vault | 控制开发者凭据的使用方式](https://www.automicvault.com/zh-hans/): 控制已验证软件如何将开发者凭据用于具体操作。
+- [Automic Vault | 凭据只交给获准操作](https://www.automicvault.com/zh-hans/): Automic Vault 在交付凭据前检查工具、Verified Launcher、命令、工作目录和 Secret Name。
 
 - [下载 Automic Vault](https://www.automicvault.com/zh-hans/download/): 下载 macOS 版 Automic Vault，控制开发者凭据的使用方式。
 

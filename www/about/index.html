@@ -13,7 +13,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Automic Vault | Local secrets security for macOS</title>
-  <meta name="description" content="Automic Vault gives verified software bounded authority to apply developer credentials to specific operations at the local execution boundary.">
+  <meta name="description" content="Automic Vault checks the complete Tool operation before applying a developer credential on your Mac.">
   <link rel="canonical" href="https://www.automicvault.com/about/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/about/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/about/">
@@ -25,12 +25,12 @@
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="About Automic Vault | Local secrets security for macOS">
-  <meta property="og:description" content="Automic Vault authorizes the operation, not merely retrieval of a named secret.">
+  <meta property="og:description" content="Automic Vault checks the software, command, working directory, and Secret Names before use.">
   <meta property="og:url" content="https://www.automicvault.com/about/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="About Automic Vault | Local secrets security for macOS">
-  <meta name="twitter:description" content="Automic Vault authorizes the operation, not merely retrieval of a named secret.">
+  <meta name="twitter:description" content="Automic Vault checks the software, command, working directory, and Secret Names before use.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <script type="application/ld+json">
 {
@@ -43,7 +43,7 @@
                   "slogan": "The missing security layer for CLI tools on Mac",
                   "url": "https://www.automicvault.com/",
                   "logo": "https://www.automicvault.com/assets/icon@2x.webp?v=3",
-                  "description": "Automic Vault gives verified software bounded authority to apply developer credentials to specific operations at the local execution boundary.",
+                  "description": "Automic Vault checks the complete Tool operation before applying a developer credential on your Mac.",
                   "founder": {
                         "@id": "https://www.automicvault.com/about/#max-howell"
                   },
@@ -109,7 +109,7 @@
                         "availability": "https://schema.org/InStock",
                         "url": "https://www.automicvault.com/#pricing"
                   },
-                  "description": "Automic Vault gives verified software bounded authority to apply developer credentials to specific operations at the local execution boundary.",
+                  "description": "Automic Vault checks the complete Tool operation before applying a developer credential on your Mac.",
                   "publisher": {
                         "@id": "https://www.automicvault.com/#organization"
                   }
@@ -120,7 +120,7 @@
                   "url": "https://www.automicvault.com/about/",
                   "name": "About Automic Vault | Local secrets security for macOS",
                   "headline": "About Automic Vault | Local secrets security for macOS",
-                  "description": "Automic Vault gives verified software bounded authority to apply developer credentials to specific operations at the local execution boundary.",
+                  "description": "Automic Vault checks the complete Tool operation before applying a developer credential on your Mac.",
                   "datePublished": "2026-05-15",
                   "dateModified": "2026-07-31",
                   "image": "https://www.automicvault.com/preview.jpg",
@@ -195,8 +195,8 @@
       <section class="seo-hero">
         <div>
           <p class="kicker">Founder authority</p>
-          <h1>Control how developer credentials are used.</h1>
-          <p class="lede">Most secrets managers authorize retrieval. Automic Vault authorizes verified software to apply credentials to a specific operation at the local execution boundary.</p>
+          <h1>Credentials go only to operations you allow.</h1>
+          <p class="lede">Automic Vault checks the Tool, Verified Launcher, Target, command, arguments, working directory, and Secret Names before applying a credential.</p>
           <p class="updated">Last updated: July 31, 2026</p>
           <div class="hero-actions">
             <a class="button primary" href="/docs/">Read the docs <span aria-hidden="true">›</span></a>
@@ -214,10 +214,10 @@
           <p>Homebrew became the default way many macOS developers install command-line tools. Automic Vault comes from a new operating reality: those tools now run under terminals, editors, automation apps, and AI agents, while their credentials often remain readable in plaintext files.</p>
         </div>
         <div class="proof-list">
-          <article><span>Credential storage</span><h3>Plaintext secrets are the problem</h3><p>Automic Vault moves CLI Credentials into the macOS Keychain and applies them only to an authorized Target for one run.</p></article>
-          <article><span>Runtime authority</span><h3>Execution is the boundary</h3><p>Automic Vault checks the Target, Verified Launcher, command, working directory, and Secret Names before applying a Credential.</p></article>
-          <article><span>Open source</span><h3>Source stays inspectable</h3><p>The project is Apache 2.0 software on GitHub, so developers can inspect how local control is implemented.</p></article>
-          <article><span>macOS first</span><h3>The platform is explicit</h3><p>Automic Vault targets the macOS developer workstation instead of pretending agent security is only a cloud policy problem.</p></article>
+          <article><span>Credential storage</span><h3>Move credentials out of plaintext files</h3><p>Automic Vault stores CLI Credentials in the macOS Keychain and applies them to an authorized Target for one run.</p></article>
+          <article><span>Runtime authority</span><h3>Check each operation before use</h3><p>Automic Vault checks the Target, Verified Launcher, command, working directory, and Secret Names before applying a Credential.</p></article>
+          <article><span>Open source</span><h3>Inspect the Apache-2.0 source</h3><p>The public GitHub repository shows how Automic Vault implements local control.</p></article>
+          <article><span>macOS first</span><h3>Enforce policy where the command runs</h3><p>Automic Vault enforces policy on the Mac where the Tool operation runs.</p></article>
         </div>
       </section>
       <section class="seo-section seo-split">
