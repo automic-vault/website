@@ -3,7 +3,7 @@
   "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "Credentials go only to operations you allow.",
+  "title": "Your secrets manager should know what the tool is doing.",
   "description": "Automic Vault checks the complete operation before applying a developer credential.",
   "difference": {
     "conventional_model": "Check an identity and Secret Name before returning the stored value.",

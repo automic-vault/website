@@ -1,6 +1,6 @@
 # Automic Vault
 
-## Credentials go only to operations you allow.
+## Your secrets manager should know what the tool is doing.
 
 Automic Vault moves supported credentials out of plaintext files. It checks the
 Tool, Verified Launcher, Target, command, arguments, working directory, and
