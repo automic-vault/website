@@ -348,7 +348,7 @@ body {
 }
 
 .brew-hero h1 span {
-  display: inline;
+  display: block;
   color: var(--brand-accent);
 }
 
