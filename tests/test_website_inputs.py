@@ -320,6 +320,27 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                         page.read_text(encoding="utf-8"),
                     )
 
+    def test_homepage_compares_secret_retrieval_with_operation_authorization(self):
+        home = (ROOT / "www" / "index.html").read_text(encoding="utf-8")
+        difference = home.split('<section class="brew-difference"', 1)[1].split('</section>', 1)[0]
+
+        self.assertRegex(home, r'class="brew-hero"[\s\S]*?</section>\s*<section class="brew-difference"')
+        self.assertNotIn("<img", difference)
+        for label in (
+            "Typical secrets manager",
+            "Unlocked and allowed?",
+            "Return the raw value",
+            "Verified Launcher",
+            "Tool and Target",
+            "Command and arguments",
+            "Working directory",
+            "Authorization Gate",
+            "Apply to Target",
+            "Ask for Approval",
+            "Deny",
+        ):
+            self.assertIn(label, home)
+
     def test_crawler_and_security_metadata_are_current(self):
         robots = (ROOT / "www" / "robots.txt").read_text(encoding="utf-8")
         self.assertNotIn("automicvault.com/pkg/sitemap.xml", robots)

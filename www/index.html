@@ -116,7 +116,7 @@
         "headline": "Your secrets manager should know what the secrets do.",
         "description": "Automic Vault checks the software, command, working directory, and requested Secret Names before use.",
         "datePublished": "2026-05-15",
-        "dateModified": "2026-08-16",
+        "dateModified": "2026-08-17",
         "image": "https://www.automicvault.com/preview.jpg",
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "isPartOf": {"@id": "https://www.automicvault.com/#website"},
@@ -134,7 +134,7 @@
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=3">
-  <link rel="stylesheet" href="./styles.css?v=128">
+  <link rel="stylesheet" href="./styles.css?v=129">
   <link rel="stylesheet" href="./brand-landing.css?v=27">
 </head>
 <body class="brew-home">
@@ -177,40 +177,54 @@
       </ul>
     </section>
 
-    <section class="brew-risk" id="difference" aria-labelledby="difference-title">
-      <div class="brew-split">
-        <div class="brew-copy">
-          <p class="brew-eyebrow">One request, one decision</p>
-          <h2 id="difference-title">Automic Vault checks the whole operation.</h2>
-          <p>Most secrets managers check an identity and Secret Name before returning the stored value.</p>
-          <p>Automic Vault checks the Verified Launcher, Tool, Target, command, arguments, working directory, Secret Names, and selected Secret Value sources. Policy evaluates the complete Authorization Request on the Mac where it will run.</p>
-        </div>
-        <div class="brew-operation-panel" role="group" aria-label="Three policy decisions for one GitHub token">
-          <p>One GitHub token · Read Only policy</p>
-          <ul class="brew-operation-list">
-            <li>
-              <code>gh issue list</code>
-              <span class="brew-operation-result brew-operation-result-allow">Authorized</span>
-              <small>Recognized read</small>
-            </li>
-            <li>
-              <code>gh issue create</code>
-              <span class="brew-operation-result brew-operation-result-approve">Approval</span>
-              <small>Recognized write</small>
-            </li>
-            <li>
-              <code>gh auth token</code>
-              <span class="brew-operation-result brew-operation-result-approve">Approval</span>
-              <small>Secret Disclosure</small>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <section class="brew-difference" id="difference" aria-labelledby="difference-title">
+      <header class="brew-difference-head brew-copy">
+        <h2 id="difference-title">Most vaults check access. We check the operation.</h2>
+        <p>Most secrets managers check an identity and Secret Name before returning the stored value. Automic Vault evaluates the complete Authorization Request before applying a Secret.</p>
+      </header>
+      <div class="brew-decision-map" role="group" aria-label="Secret retrieval compared with operation authorization">
+        <article class="brew-decision-lane brew-decision-lane-conventional">
+          <header>
+            <span>Typical secrets manager</span>
+            <h3>Is the vault open to you?</h3>
+          </header>
+          <ol class="brew-decision-simple">
+            <li><small>Request</small><strong><code>GITHUB_TOKEN</code></strong></li>
+            <li><small>Check</small><strong>Unlocked and allowed?</strong></li>
+            <li><small>Result</small><strong>Return the raw value</strong></li>
+          </ol>
+        </article>
 
+        <article class="brew-decision-lane brew-decision-lane-automic">
+          <header>
+            <span>Automic Vault</span>
+            <h3>Should this exact operation use it?</h3>
+          </header>
+          <dl class="brew-decision-context">
+            <div><dt>Who is asking?</dt><dd>Verified Launcher</dd></div>
+            <div><dt>What wants it?</dt><dd>Tool and Target</dd></div>
+            <div><dt>What will it do?</dt><dd>Command and arguments</dd></div>
+            <div><dt>Where will it run?</dt><dd>Working directory</dd></div>
+            <div><dt>Which credential?</dt><dd>Secret Names and Value sources</dd></div>
+          </dl>
+          <div class="brew-decision-gate">
+            <small>Authorization Gate</small>
+            <strong>Evaluate the complete request</strong>
+          </div>
+          <ul class="brew-decision-outcomes" aria-label="Possible authorization outcomes">
+            <li class="brew-decision-apply">Apply to Target</li>
+            <li class="brew-decision-approve">Ask for Approval</li>
+            <li class="brew-decision-deny">Deny</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="brew-risk" aria-labelledby="boundary-title">
       <div class="brew-split brew-proof">
         <div class="brew-copy">
           <p class="brew-eyebrow">The local execution boundary</p>
-          <h2>Automic Vault evaluates the whole operation.</h2>
+          <h2 id="boundary-title">The decision happens on your Mac.</h2>
           <p>Automic Vault moves supported credentials out of readable tool configs. When a Tool requests a Secret, the app evaluates the complete request on the Mac where it will run.</p>
           <ul class="brew-log-fields" aria-label="Authorization Request inputs">
             <li>Verified Launcher</li>
