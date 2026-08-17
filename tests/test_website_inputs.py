@@ -302,12 +302,15 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             self.assertIn(f'type="{media_type}"', home)
             self.assertIn(f'href="{href}"', home)
 
-        current_headline = "Your secrets manager should know what the tool is doing."
-        for filename in ("index.md", "index.txt", "index.json"):
+        current_headline = "Your secrets manager should know what the secrets do."
+        for filename in ("index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
             with self.subTest(filename=filename):
                 self.assertIn(current_headline, text)
                 self.assertNotIn("Stop AI agents running wild", text)
+
+        markdown = (ROOT / "www" / "index.md").read_text(encoding="utf-8")
+        self.assertIn("Your secrets manager should know what the secrets *do*.", markdown)
 
         for locale in ("de", "fr", "ja", "zh-hans"):
             for page in sorted((ROOT / "www" / locale).rglob("*.html")):
