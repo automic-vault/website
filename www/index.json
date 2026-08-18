@@ -27,6 +27,7 @@
   "features": {
     "project_values": "One Secret Name can select the nearest Project Value for the physical working directory, then a Global Value.",
     "temporary_access_grants": "Eligible agent tasks can receive visible, in-memory ten-minute write authority for one Verified Launcher and Tool-specific gate.",
+    "iphone_approval": "An optional iPhone app can carry every human Approval for an enrolled Mac while the Mac remains the Local Execution Boundary.",
     "blessed_scripts": "Blessings bind an exact path, contents, Secret Names, and declared Tool capabilities.",
     "launcher_bundles": "Exact single-file Mach-O CLI snapshots can be signed, installed root-owned, enrolled, and revalidated on every request.",
     "aws": "Normal AWS invocations receive short-lived STS credentials from a native helper.",
@@ -41,6 +42,8 @@
     "Automic Vault does not contain root or kernel compromise.",
     "Code signing proves identity and integrity, not intent.",
     "A Target can leak a Secret after receiving it.",
+    "iPhone Approval has no Mac allow fallback; an unavailable phone or relay leaves the request waiting for its Gate Client to cancel.",
+    "iPhone Mirroring and Show on Mac can expose Approval controls when per-device biometrics are disabled.",
     "Project Directories and agent task identifiers are not authorization identities.",
     "Authorization History is not tamperproof or audit-complete."
   ],

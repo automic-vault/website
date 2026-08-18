@@ -93,6 +93,7 @@
           "Per-Gate and per-Launcher Authorization Policies",
           "Project Values under stable Secret Names",
           "Temporary Access Grants for eligible agent tasks",
+          "Optional iPhone Approval for every human Approval",
           "Launcher Bundles and exact Blessed Scripts",
           "Hardened AWS and Docker credential flows",
           "Cross-ecosystem developer threat monitoring with mitigation steps",
@@ -116,7 +117,7 @@
         "headline": "Your secrets manager should know what the secrets do.",
         "description": "Automic Vault checks the software, command, working directory, and requested Secret Names before use.",
         "datePublished": "2026-05-15",
-        "dateModified": "2026-08-17",
+        "dateModified": "2026-08-18",
         "image": "https://www.automicvault.com/preview.jpg",
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "isPartOf": {"@id": "https://www.automicvault.com/#website"},
@@ -147,6 +148,7 @@
       <a href="#difference">Difference</a>
       <a href="#projects">Projects</a>
       <a href="#agents">Agents</a>
+      <a href="#iphone-approval">iPhone</a>
       <a href="#tools">Tools</a>
     </nav>
     <div class="brew-nav-actions">
@@ -316,6 +318,31 @@
       </div>
     </section>
 
+    <section class="brew-feature brew-feature-reverse" id="iphone-approval" aria-labelledby="iphone-approval-title">
+      <div class="brew-capability-pair">
+        <article>
+          <p class="brew-stage">1 · iPhone</p>
+          <h3>Join through iCloud Keychain</h3>
+          <p>Open Automic Vault on an iPhone using the same iCloud account, enable iPhone Approval, and allow notifications.</p>
+        </article>
+        <article>
+          <p class="brew-stage">2 · Mac</p>
+          <h3>Remove the local allow action</h3>
+          <p>Open Settings → iPhone Approval on the Mac. Once enabled, every human Approval for that Mac goes to an eligible iPhone.</p>
+        </article>
+      </div>
+      <div class="brew-copy">
+        <p class="brew-eyebrow">iPhone Approval</p>
+        <h2 id="iphone-approval-title">Keep Approval controls away from agents on your Mac.</h2>
+        <p>The iPhone carries your decision. The Mac still verifies the complete Authorization Request, rejects stale responses, records the decision, and enforces it. Secret Values and Authorization History stay on the Mac.</p>
+        <p>Routine requests can offer Approve Once in an authenticated notification. Unknown operation risk, Secret Disclosure, Unconstrained Secret Application, and security warnings require the full app. If the phone or relay is unavailable, the request waits until its Gate Client cancels. The Mac never restores an allow button.</p>
+        <div class="brew-how-it-works">
+          <h3>Mind the mirror</h3>
+          <p>iPhone Mirroring and Show on Mac can expose Approval controls on the Mac when biometrics are off. Disable them, or require Face ID or Touch ID on every eligible iPhone.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="brew-capabilities" id="tools" aria-labelledby="tools-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">Current protection paths</p>
@@ -377,7 +404,7 @@
 
     <section class="brew-pricing" id="pricing" aria-labelledby="pricing-title">
       <h2 id="pricing-title">Free and open source.</h2>
-      <p>Automic Vault costs nothing. The optional paid iPhone app moves approval gates off the computer running the commands, so a process on your Mac cannot approve its own request.</p>
+      <p>Automic Vault costs nothing. The optional paid <a href="#iphone-approval">iPhone app</a> moves every human Approval off the computer running the command.</p>
     </section>
   </main>
 

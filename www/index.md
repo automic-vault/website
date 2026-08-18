@@ -73,6 +73,29 @@ operations.
 Blessed Scripts bind an exact path, contents, Secret Names, and declared Tool
 capabilities. Any edit invalidates the Blessing.
 
+## Move every human Approval to iPhone
+
+iPhone Approval is optional and enabled per Mac. Open Automic Vault on an
+iPhone using the same iCloud Keychain account, enable iPhone Approval, and allow
+notifications. Then open **Settings → iPhone Approval** on the Mac and enable it
+there.
+
+The iPhone carries the human decision. The Mac still verifies the complete
+Authorization Request, rejects stale responses, persists the Authorization
+Record, and enforces the result. Secret Values and Authorization History stay
+on the Mac. The Mac exposes no local allow action while iPhone Approval is
+enabled.
+
+Routine requests can offer **Approve Once** in an authenticated notification.
+Requests with Unknown operation risk, Secret Disclosure, Unconstrained Secret
+Application, or a security warning open the full app. Face ID or Touch ID is
+optional per iPhone. If no phone or relay is available, the request waits until
+its Gate Client cancels.
+
+> iPhone Mirroring and **Show on Mac** can expose Approval controls on the Mac
+> when biometrics are off. Disable them, or require Face ID or Touch ID on every
+> eligible iPhone.
+
 ## Each Tool gets its own credential handoff
 
 - **AWS:** normal invocations receive short-lived STS credentials from a native

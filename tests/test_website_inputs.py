@@ -289,6 +289,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             "Most secrets managers check an identity and Secret Name before returning the stored value.",
             "Project Values",
             "Temporary Access Grant",
+            "iPhone Approval",
             "Launcher Bundles",
         ):
             self.assertIn(claim, home)
@@ -311,6 +312,19 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
 
         markdown = (ROOT / "www" / "index.md").read_text(encoding="utf-8")
         self.assertIn("Your secrets manager should know what the secrets *do*.", markdown)
+
+        for filename in ("index.html", "index.md", "index.txt", "index.json", "llms.txt"):
+            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
+            with self.subTest(filename=filename):
+                self.assertIn("iPhone Approval", text)
+
+        for claim in (
+            "same iCloud Keychain account",
+            "Face ID or Touch ID",
+            "iPhone Mirroring",
+            "no local allow action",
+        ):
+            self.assertIn(claim, home + markdown)
 
         for locale in ("de", "fr", "ja", "zh-hans"):
             for page in sorted((ROOT / "www" / locale).rglob("*.html")):
