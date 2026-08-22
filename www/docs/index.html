@@ -12,16 +12,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Automic Vault Manual</title>
-  <meta name="description" content="The source-checked Automic Vault 3.16.0 manual: app tour, screenshots, security model, approvals, Secrets, hardening, proxying, GPG Signing, and complete CLI reference.">
+  <meta name="description" content="The source-checked Automic Vault 3.16.0 manual: security boundaries, every app destination and setting, approval routes, workflows, failure modes, and complete CLI reference.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Automic Vault Manual">
-  <meta property="og:description" content="The complete source-checked guide to Automic Vault 3.16.0.">
+  <meta property="og:description" content="A security-first, source-checked guide to every major Automic Vault feature.">
   <meta property="og:url" content="https://www.automicvault.com/docs/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Automic Vault Manual">
-  <meta name="twitter:description" content="The complete source-checked guide to Automic Vault 3.16.0.">
+  <meta name="twitter:description" content="A security-first, source-checked guide to every major Automic Vault feature.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/">
   <link rel="alternate" type="text/markdown" title="Markdown manual" href="/docs/index.md">
@@ -35,7 +35,7 @@
         "@id": "https://www.automicvault.com/docs/#article",
         "url": "https://www.automicvault.com/docs/",
         "headline": "Automic Vault Manual",
-        "description": "The source-checked manual for Automic Vault 3.16.0.",
+        "description": "The source-checked security and operator manual for Automic Vault 3.16.0.",
         "dateModified": "2026-08-22",
         "author": {"@id": "https://www.automicvault.com/#organization"},
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
@@ -69,7 +69,7 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
   <link rel="stylesheet" href="/styles.css?v=128">
-  <link rel="stylesheet" href="/docs/styles.css?v=2">
+  <link rel="stylesheet" href="/docs/styles.css?v=3">
 </head>
 <body>
   <div class="site-shell" id="top">
@@ -90,7 +90,7 @@
         <div class="docs-hero-inner">
           <p class="eyebrow">Version 3.16.0 · macOS</p>
           <h1>Use the Vault.<br>Know the boundary.</h1>
-          <p class="lede">The complete guide to storing Secrets, authorizing operations, hardening developer tools, approving from Mac or iPhone, proxying credentials, and signing Git commits.</p>
+          <p class="lede">Every feature, authority boundary, safe workflow, failure mode, and command, checked against the app, CLI, tests, and canonical security model.</p>
           <ul class="docs-provenance" aria-label="Manual provenance">
             <li>Source checked</li><li>UI verified</li><li>August 22, 2026</li>
             <li><a href="/docs/index.md">Markdown</a></li>
@@ -98,35 +98,30 @@
         </div>
       </header>
       <div class="docs-layout">
-        <nav class="docs-toc" aria-label="On this page"><strong>On this page</strong><ul>
-<li><a href="#automic-vault-manual"
-id="toc-automic-vault-manual">Automic Vault manual</a>
-<ul>
-<li><a href="#install-and-verify" id="toc-install-and-verify">Install
-and verify</a></li>
-<li><a href="#start-here" id="toc-start-here">Start here</a></li>
-<li><a href="#the-security-model" id="toc-the-security-model">The
-security model</a></li>
-<li><a href="#app-tour" id="toc-app-tour">App tour</a></li>
-<li><a href="#approval-and-settings"
-id="toc-approval-and-settings">Approval and settings</a></li>
-<li><a href="#secrets-values-and-selection"
-id="toc-secrets-values-and-selection">Secrets, Values, and
-selection</a></li>
-<li><a href="#access-levels" id="toc-access-levels">Access
-Levels</a></li>
-<li><a href="#command-reference" id="toc-command-reference">Command
-reference</a></li>
-<li><a href="#common-workflows" id="toc-common-workflows">Common
-workflows</a></li>
-<li><a href="#troubleshooting"
-id="toc-troubleshooting">Troubleshooting</a></li>
-<li><a href="#source-of-truth" id="toc-source-of-truth">Source of
-truth</a></li>
-</ul></li>
-</ul></nav>
-        <article class="docs-content"><h1
-id="automic-vault-manual">Automic Vault manual</h1>
+        <nav class="docs-toc" aria-label="Documentation sections">
+          <a class="docs-toc-title" href="#automic-vault-manual">Manual</a>
+          <section class="docs-nav-group">
+            <h2>Start</h2>
+            <ul><li><a href="#install-and-verify">Install and verify</a></li><li><a href="#start-here">Start here</a></li><li><a href="#interface-map">Interface map</a></li></ul>
+          </section>
+          <section class="docs-nav-group">
+            <h2>Security foundations</h2>
+            <ul><li><a href="#security-foundations">Model</a></li><li><a href="#the-request-envelope">Request envelope</a></li><li><a href="#custody-application-and-disclosure">Custody and delivery</a></li><li><a href="#identity-and-provenance">Identity</a></li><li><a href="#authority-and-decision-sources">Decision sources</a></li><li><a href="#secure-defaults">Secure defaults</a></li><li><a href="#what-automic-vault-does-not-do">Boundaries</a></li></ul>
+          </section>
+          <section class="docs-nav-group">
+            <h2>App guide</h2>
+            <ul><li><a href="#detectors">Detectors</a></li><li><a href="#hardened-tools">Hardened Tools</a></li><li><a href="#authorization-gates">Authorization Gates</a></li><li><a href="#blessed-scripts">Blessed Scripts</a></li><li><a href="#launcher-bundles">Launcher Bundles</a></li><li><a href="#secrets">Secrets</a></li><li><a href="#active-proxies">Active Proxies</a></li><li><a href="#authorization-history">Authorization History</a></li><li><a href="#doctor">Doctor</a></li><li><a href="#settings">Settings</a></li></ul>
+          </section>
+          <section class="docs-nav-group">
+            <h2>Approval and authority</h2>
+            <ul><li><a href="#touch-id-approval">Touch ID</a></li><li><a href="#iphone-approval">iPhone</a></li><li><a href="#automic-authorization-feedback">Policy feedback</a></li><li><a href="#temporary-access-grants">Temporary grants</a></li><li><a href="#detached-processes">Detached processes</a></li><li><a href="#gpg-signing">GPG Signing</a></li><li><a href="#secret-name-access">Secret Name Access</a></li><li><a href="#about-and-menu-bar">About and menu bar</a></li></ul>
+          </section>
+          <section class="docs-nav-group">
+            <h2>Reference</h2>
+            <ul><li><a href="#secrets-values-and-selection">Values and selection</a></li><li><a href="#access-levels">Access Levels</a></li><li><a href="#command-reference">CLI reference</a></li><li><a href="#common-workflows">Workflows</a></li><li><a href="#troubleshooting">Troubleshooting</a></li><li><a href="#source-of-truth">Source of truth</a></li></ul>
+          </section>
+        </nav>
+        <article class="docs-content"><h1 id="automic-vault-manual">Automic Vault manual</h1>
 <p>This is the user and operator manual for Automic Vault 3.16.0 on
 macOS. It was checked against the installed CLI, app UI, and 3.16.0
 source on August 22, 2026.</p>
@@ -167,151 +162,482 @@ apply it only to the Target that needs it:</p>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> save GH_TOKEN</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> inject +GH_TOKEN gh auth status</span></code></pre></div>
 <p><code>av save</code> opens <code>/dev/tty</code>, turns terminal echo
-off, and <strong>does not read standard input</strong>. Do not remove the old
-credential until the approved command succeeds. For a Tool with a supplied
-hardener, prefer its Tool-specific flow:</p>
+off, and <strong>does not read standard input</strong>. Do not remove
+the old credential until the approved command succeeds. For a Tool with
+a supplied hardener, prefer its Tool-specific flow:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> hardeners <span class="at">--json</span> <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.hardeners[] | select(.applicable) | {name, hardened}&#39;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> harden gh</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> doctor gh</span></code></pre></div>
-<h2 id="the-security-model">The security model</h2>
+<h2 id="interface-map">Interface map</h2>
+<p>The main window is an operator console for exposure, authority, live
+use, and evidence. Global search filters the selected destination;
+Refresh recomputes live state. The sidebar separates four jobs:</p>
+<table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Destinations</th>
+<th>Question answered</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Discover</td>
+<td>Detectors, Doctor</td>
+<td>Where is supported insecure state, and is the protected route
+healthy?</td>
+</tr>
+<tr>
+<td>Establish authority</td>
+<td>Hardened Tools, Authorization Gates, Blessed Scripts, Launcher
+Bundles</td>
+<td>Which exact code and operations can ask for authority?</td>
+</tr>
+<tr>
+<td>Operate</td>
+<td>Secrets, Active Proxies</td>
+<td>Which named Values exist, and which proxy sessions are live?</td>
+</tr>
+<tr>
+<td>Audit and configure</td>
+<td>Authorization History, Settings</td>
+<td>Why was an operation allowed or denied, and which approval routes
+are enabled?</td>
+</tr>
+</tbody>
+</table>
+<p>Counts are live summaries, not security conclusions. A zero beside
+Active Proxies means no proxy session is registered now; it does not
+prove that no Target currently holds a Value it received earlier. A
+clean Doctor view means the checks implemented by that build passed; it
+is not a whole-machine attestation.</p>
+<h2 id="security-foundations">Security foundations</h2>
+<p>Automic Vault's security model starts with the operation, then works
+outward to identity, policy, human authority, delivery, and evidence.
+Reading the model in that order avoids the most common mistake: treating
+possession of a Secret Name or a signed process identity as permission
+by itself.</p>
+<h3 id="the-request-envelope">The request envelope</h3>
 <p>An <strong>Authorization Request</strong> is the complete immutable
-operation presented to policy. A decision is about that complete
-request, not merely a Secret Name or process identity. It can include
-the Verified Launcher and execution chain; Gate Client and Authorization
-Gate; resolved Target, command, and arguments; physical working
-directory; exact Secret Names and selected Values; runtime posture; and
-existing-environment conflicts.</p>
-<p>A <strong>Secret Gate</strong> controls Secret Application or, at
-stronger levels, Secret Disclosure and elevated operations. An
-<strong>Execution Gate</strong> controls a privileged operation without
-necessarily releasing an ordinary Secret; GPG Signing is one. The Mac is
-always the <strong>Local Execution Boundary</strong>. Approval may come
-from the Mac or an eligible iPhone, but the Mac revalidates the request
-before execution.</p>
-<p>Secret Application puts a Value into an authorized operation without
-showing it. Secret Disclosure reveals the raw Value. Automic Vault
-cannot promise that a Target will not reveal a Secret after receiving
-it: the Target controls the Value from that point onward.</p>
-<p>Automic Vault is not a sandbox, a general process-containment system,
-a defense against a compromised kernel or root account, or proof that
-signed code has good intent. Code signing establishes identity and
-integrity—not trust or intent.</p>
-<h2 id="app-tour">App tour</h2>
-<p>The main window has global search and refresh controls plus ten
-sections.</p>
+operation presented to policy. Depending on the Gate, it contains:</p>
+<ul>
+<li>the Verified Launcher and the observed execution chain;</li>
+<li>the Gate Client and selected Authorization Gate;</li>
+<li>the resolved Target executable, command, arguments, and physical
+working directory;</li>
+<li>the exact Secret Names and selected Value sources;</li>
+<li>Target runtime posture, including Hardened Runtime where
+required;</li>
+<li>environment conflicts and Gate-specific facts such as registry,
+host, or GPG payload digest.</li>
+</ul>
+<p>A decision binds to that envelope. Changing an argument, Target,
+directory, Value source, launcher generation, or relevant runtime fact
+creates a different request. A label such as “ChatGPT,” “gh,” or “read
+only” is useful UI shorthand, but is not the complete security
+decision.</p>
+<p><a href="/docs/assets/approval-request.png"><img
+src="/docs/assets/approval-request.png"
+alt="Mac Approval showing command, Secret Names, working directory, Target, Verified Launcher, execution chain, and warnings" /></a></p>
+<p>Before approving, read the request from top to bottom. Confirm the
+command is the operation you intended, the Secret Names are the minimum
+required, the working directory is expected, the full Target path is
+native and immutable enough for the policy, and the Verified Launcher is
+the app or bundle you meant to authorize. Warnings are part of the
+request, not decoration.</p>
+<h3 id="custody-application-and-disclosure">Custody, Application, and
+Disclosure</h3>
+<p><strong>Secret Custody</strong> stores a Value under macOS-backed
+protection. <strong>Secret Application</strong> places that Value into
+an authorized operation without displaying it. <strong>Secret
+Disclosure</strong> reveals the raw Value and is a stronger authority.
+These are different capabilities.</p>
+<p>A Target controls a Value after receiving it. It may log, cache,
+transform, transmit, or disclose that Value. Automic Vault narrows who
+may receive a Value and for which operation; it cannot retract a Value
+already delivered or promise that an authorized Target behaves well.</p>
+<p>An <strong>Execution Gate</strong> can authorize a privileged
+operation without releasing an ordinary Secret. GPG Signing is the
+clearest example: the private key stays in Custody and the caller
+receives a detached signature. A <strong>Secret Gate</strong> controls
+Secret Application and, only at stronger levels where defined,
+Disclosure or elevated use.</p>
+<h3 id="identity-and-provenance">Identity and provenance</h3>
+<p>A <strong>Verified Launcher</strong> is a live, revalidated code
+identity used as an input to policy. Code signing, a Launcher Bundle, a
+blessed script digest, and Hardened Runtime can strengthen identity and
+integrity. None proves benign intent.</p>
+<p>Launcher provenance is checked again at use time. A mutable wrapper,
+unexpected interpreter, replaced binary, incompatible entitlement, lost
+execution ancestry, or changed script can invalidate the route. A native
+Target or exact reviewed snapshot gives policy a stable object to
+revalidate. A shell leaves every child behind a broad interpreter
+boundary.</p>
+<h3 id="authority-and-decision-sources">Authority and decision
+sources</h3>
+<p>An operation can be allowed by <strong>Human</strong>,
+<strong>Policy</strong>, or a narrowly scoped <strong>Temporary Access
+Grant</strong>. Authorization History records the source so an operator
+can distinguish “a person allowed this exact request” from “an existing
+rule matched this request.”</p>
+<p>Approval may be carried on the Mac or an eligible iPhone. The Mac
+remains the <strong>Local Execution Boundary</strong> in both cases: it
+builds and revalidates the request, applies the decision, and performs
+the operation. Moving the human gesture to an iPhone does not move
+execution or Custody to the phone.</p>
+<h3 id="secure-defaults">Secure defaults</h3>
+<p>Defaults trade convenience for narrow authority:</p>
+<ul>
+<li>new Secret Gates begin at <strong>Read Only</strong>;</li>
+<li>GPG Signing begins at <strong>Approval Required</strong>;</li>
+<li>Direct Secret Access begins at <strong>Approval
+Required</strong>;</li>
+<li>Detached Processes is off;</li>
+<li>proxy sessions always require Approval and keep rules only in
+memory;</li>
+<li>Project Value selection never falls back after a selected Value
+fails to read;</li>
+<li>availability while locked is separate from authorization;</li>
+<li>unknown, elevated, Disclosure, Direct, and mutation operations are
+excluded from Temporary Access Grants.</li>
+</ul>
+<p>Fail-closed behavior can surface as a denial after an update, move,
+permission change, or runtime change. Diagnose the mismatch; do not
+weaken the rule merely to restore yesterday's behavior.</p>
+<h3 id="what-automic-vault-does-not-do">What Automic Vault does not
+do</h3>
+<p>Automic Vault is not a sandbox, malware detector, whole-process
+containment system, network firewall, defense against a compromised
+kernel or root account, or proof that signed code has good intent.
+Proxying does not force a Target to use the proxy. History is not a
+remote, append-only audit ledger. Project Directory is not project
+identity. Agent Task Context is not identity.</p>
+<p>Those boundaries are security properties, not disclaimers to work
+around. They tell you where another control is needed: sandbox the
+Target, restrict network egress, protect the administrator account, ship
+logs remotely, or use a dedicated short-lived credential system when the
+threat model requires it.</p>
+<h2 id="app-guide">App guide</h2>
+<p>The screenshots use a harmless sample Secret Name; stored Values
+remain hidden.</p>
 <h3 id="detectors">Detectors</h3>
-<p>Detectors find supported credential Exposures, configuration Hazards,
-and other security-relevant state. Each Finding includes severity,
-affected paths, explanation, remediation, and source-linked
-documentation. A clean scan is not proof that no credential exists
-outside the covered detectors.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/detectors.png"
-alt="Detectors list and source-linked Finding details" /></p>
+<p>Detectors inspect supported credential locations and configurations
+for <strong>Exposures</strong>, <strong>Hazards</strong>, and other
+security-relevant Findings. The catalog in 3.16.0 contains 157
+detectors. A selected detector explains its trigger conditions,
+sensitive files, current result, remediation, and source-linked
+rationale.</p>
+<p><a href="/docs/assets/detectors.png"><img
+src="/docs/assets/detectors.png"
+alt="Detector catalog with a passing plaintext-credential check and its source-linked rationale" /></a></p>
+<p><strong>Security basis.</strong> Detection and remediation are
+separate operations. A Finding records evidence about known state. The
+operator reviews any credential move, configuration rewrite, or
+authority change as a separate Tool-specific migration.</p>
+<p><strong>Workflow.</strong> Start with <code>av scan --show-all</code>
+for a human report. Use the app to read the selected detector's paths
+and explanation. If a hardener is available, review it under Hardened
+Tools before running <code>av harden TOOL</code>. Re-run the exact
+detector and Doctor afterward.</p>
+<p><strong>Limits and failure modes.</strong> Coverage is catalog-bound.
+A clean result means the detector's trigger did not fire against the
+files it could inspect; it does not prove the credential exists nowhere
+else. Missing permissions, absent Tools, parse failures, and unsupported
+versions must be interpreted from the Finding, not collapsed into
+“secure.”</p>
 <h3 id="hardened-tools">Hardened Tools</h3>
-<p>Hardened Tools shows each installed hardener, protected launcher or
-native credential route, current Target, embedded reference, and recent
-access.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/hardened-tools.png"
-alt="Hardened Tools list with selected tool status" /></p>
+<p>Hardened Tools shows installed hardeners and native protected routes.
+A detail view identifies the current launcher or Target, current result,
+what the hardener changes, why that design was chosen, caveats, and
+recent use.</p>
+<p><a href="/docs/assets/hardened-tools.png"><img
+src="/docs/assets/hardened-tools.png"
+alt="AWS hardener status with installed Target and embedded security reference" /></a></p>
+<p><strong>Security basis.</strong> A hardener removes a known plaintext
+or ambient-credential path and replaces it with a route Automic Vault
+can identify and authorize. The route is Tool-specific: AWS can issue
+short-lived STS credentials; Docker can bind access to a registry
+operation; GitHub can classify read and write API operations. Tool
+semantics provide narrower authority than generic environment
+injection.</p>
+<p><strong>Workflow.</strong> Read the complete embedded reference,
+check applicability with <code>av hardeners --json</code>, run
+<code>av harden TOOL</code>, then run <code>av doctor TOOL</code>.
+Confirm <code>command -v TOOL</code> resolves to the protected launcher
+described by the hardener. Keep the original credential until the
+protected read path succeeds; remove it only after verification.</p>
+<p><strong>State changes.</strong> Depending on the Tool, hardening can
+move a credential into Custody, install a signed vendor distribution,
+replace a command with a small launcher, change protected ownership, or
+configure a native credential-helper route. Run the hardener as the
+current user and elevate only the steps that ask for
+<code>sudo</code>.</p>
+<p><strong>Limits and rollback.</strong> Hardening protects the
+credential route, not the Tool's intent. A Tool can still disclose a
+Value after receiving it. Read each hardener's rollback notes. In
+3.16.0, <code>av unharden</code> exists only for Homebrew.</p>
 <h3 id="authorization-gates">Authorization Gates</h3>
-<p>A Gate shows its request type, Secret patterns, Targets, default rule
-for all other apps, per-launcher overrides, and Hardened Runtime
-requirement.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/authorization-gates.png"
-alt="Authorization Gate policy and verified app overrides" /></p>
+<p>Authorization Gates are the operator's view of policy. Each Gate
+identifies the request type, protected Secret patterns, allowed Targets,
+the default rule for all other apps, Hardened Runtime requirements, and
+exact per-launcher overrides.</p>
+<p><a href="/docs/assets/authorization-gates.png"><img
+src="/docs/assets/authorization-gates.png"
+alt="GitHub Secret Gate with default policy and a verified ChatGPT override" /></a></p>
+<p><strong>Security basis.</strong> A Gate evaluates the complete
+request envelope. The same Secret Name can therefore be Read Only for
+one Verified Launcher, Approval Required for every other app, and
+unavailable to a Target whose runtime or path does not match.
+Per-launcher policy narrows authority while live identity and request
+validation remain in force.</p>
+<p><strong>Workflow.</strong> Select the Gate for the Tool, inspect
+Targets and Secret patterns, then review <strong>All Other Apps</strong>
+before adding an override. Begin at the least powerful Access Level that
+supports the workflow. Trigger a harmless read and inspect Authorization
+History to confirm the matching rule.</p>
+<p><strong>Failure modes.</strong> A denial after an app or Tool update
+can mean the selected binary, code signature, runtime, or enrolled
+generation changed. A missing Gate can mean the Tool is not installed or
+its hardener has not established the route. Fix the Tool-specific Gate
+mismatch instead of substituting broad Direct Access.</p>
 <h3 id="blessed-scripts">Blessed Scripts</h3>
-<p>A Blessing binds a reviewed path, SHA-256 digest, Script Declaration,
-Secret Names, Capabilities, interpreter, and optional Launcher
-Endorsements. Changing or moving the script invalidates it. When a
-baseline exists, the app shows the diff before replacement.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/blessed-scripts.png"
-alt="Blessed Script checksum, Secret Names, capabilities, and launchers" /></p>
+<p>A Blessing binds a reviewed script to its canonical path, SHA-256
+digest, interpreter, Script Declaration, Secret Names, declared
+Capabilities, and optional Launcher Endorsements. The app shows the
+exact enrolled state and can revoke or replace it.</p>
+<p><a href="/docs/assets/blessed-scripts.png"><img
+src="/docs/assets/blessed-scripts.png"
+alt="Blessed deployment script with digest, Secret Names, capabilities, and calling-app policy" /></a></p>
+<p><strong>Security basis.</strong> Scripts are mutable text and usually
+run through a powerful interpreter. Automic Vault therefore approves a
+verified snapshot rather than trusting the filename. Execution uses a
+checked <code>/dev/fd/N</code> snapshot so a file cannot be swapped
+between verification and execution. <code>AV_SCRIPT_PATH</code> and
+<code>AV_SCRIPT_DIR</code> identify the canonical source.</p>
+<p><strong>Workflow.</strong> Put the absolute <code>av inject</code>
+shebang first, place the optional Script Declaration immediately after
+it, review requested Secret Names and capability ceilings, then run
+<code>av bless PATH</code>. Use <code>--endorse-launcher</code> only
+when the exact Verified Launcher should receive automic authorization
+for the script.</p>
+<p><strong>Changes and revocation.</strong> Editing, replacing, or
+moving the script invalidates the Blessing. Re-blessing is a new
+security decision; review the displayed diff. Revocation removes policy
+but does not undo external actions from earlier runs.</p>
+<p><strong>Limits.</strong> A capability is a ceiling, not a grant. A
+blessed script can still misuse every operation inside its approved
+ceiling, and an interpreter remains a large Target. Keep scripts short,
+deterministic, and narrow.</p>
 <h3 id="launcher-bundles">Launcher Bundles</h3>
-<p>A Launcher Bundle packages one regular single-file Mach-O CLI into a
-signed, Hardened Runtime app. Automic Vault snapshots the payload, shows
-hashes and entitlements, installs root-owned app and command link, and
-enrolls that exact generation. JIT, unsigned-executable-memory, and
-library-validation exceptions are explicit review choices.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/launcher-bundles.png"
-alt="Create Launcher Bundle sheet" /></p>
-<p>Deleting one revokes enrollment and launcher rules before moving it
-to Trash. A Launcher Bundle establishes identity and integrity; it does
-not make code safe.</p>
+<p>A Launcher Bundle packages one regular, single-file Mach-O CLI into a
+signed, Hardened Runtime app and installs a command link for it. The
+detail view exposes the bundle identifier, signing mode, installed
+location, command, selected-source and signed-payload hashes,
+entitlements, and enrolled generation.</p>
+<p><a href="/docs/assets/launcher-bundles.png"><img
+src="/docs/assets/launcher-bundles.png"
+alt="Enrolled Launcher Bundle with installed command, pinned hashes, signing, and entitlements" /></a></p>
+<p><strong>Security basis.</strong> A mutable developer CLI often lacks
+the stable app identity needed for launcher policy. Bundling creates an
+exact signed snapshot, installs it under protected ownership, and
+enrolls that generation. Automic Vault verifies the digest, signature,
+enrollment, and runtime again when it is used.</p>
+<p><strong>Workflow.</strong> Choose the actual Mach-O executable, name
+the bundle and command, review compatibility exceptions, prepare the
+snapshot, approve installation, and verify the installed hashes in the
+detail view. Rebuild and re-enroll after an update; do not silently
+replace the payload in place.</p>
+<p><strong>Compatibility exceptions.</strong> JIT, unsigned executable
+memory, and disabled library validation widen the attack surface. Enable
+only the exception the CLI provably requires. A payload with different
+entitlements represents a different review decision.</p>
+<p><strong>Deletion and limits.</strong> Deleting revokes enrollment and
+related launcher rules before the bundle is moved to Trash. A Launcher
+Bundle establishes identity and integrity. It supplies no trust
+judgment, safety review, or sandbox.</p>
 <h3 id="secrets">Secrets</h3>
-<p>A Secret Name may have one Global Value and multiple Project Values.
-The app never shows stored Values after saving. It can replace or delete
-Values, change availability, rename the Secret, and remove the final
-Value and Direct Rules.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/secrets.png"
-alt="Add Secret sheet with empty secure Value field" /></p>
+<p>Secrets is the inventory of Secret Names and their Value sources. The
+app shows availability and source labels, but never redisplays stored
+Values. One Secret Name can have a Global Value and multiple Project
+Values.</p>
+<p><a href="/docs/assets/secrets.png"><img
+src="/docs/assets/secrets.png"
+alt="A harmless sample Secret with its hidden Global Value, availability, and Direct Access state" /></a></p>
+<p><strong>Security basis.</strong> Operators can reason about names,
+sources, selection, and authority without turning routine administration
+into Disclosure. Replace is a write-only operation: enter the new Value,
+but do not reveal the old one.</p>
+<p><strong>Workflow.</strong> Search by Secret Name, verify the selected
+Value sources, inspect availability, and review Direct Secret Access.
+Use <code>av save</code> for terminal entry; use the app to replace,
+delete, rename, or change availability. After renaming, recheck scripts,
+Gates, and integrations that requested the old name.</p>
+<p><strong>Destructive changes.</strong> Deleting the final Value
+removes the Secret and its Direct Rules. A rename changes the requested
+name and can break consumers. These actions do not remove copies already
+received by Targets or stored elsewhere.</p>
+<p><strong>Limits.</strong> Availability is not authorization, and a
+Secret Name is not a credential type. Automic Vault does not infer that
+two differently named Values are equivalent or rotate an external
+credential when a stored Value is replaced.</p>
 <h3 id="active-proxies">Active Proxies</h3>
-<p>Active Proxies shows Target, PID, Secret Names, start time, request
-count, permitted origins, and individual requests. Terminating a session
-ends its memory-only rules, random Secret References, and Proxy
-Credential.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/active-proxy.png"
-alt="Harmless active proxy session with sample Secret Name" /></p>
+<p>Active Proxies lists live proxy sessions with Target, PID, authorized
+Secret Names, start time, request count, allowed origins, and individual
+requests.</p>
+<p><a href="/docs/assets/active-proxy.png"><img
+src="/docs/assets/active-proxy.png"
+alt="Harmless live proxy session for a sleep process and sample Secret Name" /></a></p>
+<p><strong>Security basis.</strong> <code>av proxy</code> gives the
+Target random Secret References and a session Proxy Credential instead
+of raw Values. Destination rules are created only after approval and
+stay in memory, scoped to the session and origin.</p>
+<p><strong>Workflow.</strong> Confirm the Target and Secret Names in the
+session Approval, watch origins appear as the Target uses them, and
+terminate the session when the task ends. An unexpected origin is a
+reason to stop and investigate, not a prompt to approve broadly.</p>
+<p><strong>Termination.</strong> Terminating ends the registered
+session, references, Proxy Credential, and memory-only rules. It does
+not recall a bearer credential from a destination that already received
+it or terminate unrelated Target state.</p>
+<p><strong>Limits.</strong> A Target may bypass configured proxies or
+open another network path. Proxying narrows delivery and supports
+origin-specific decisions; it is not network containment.</p>
 <h3 id="authorization-history">Authorization History</h3>
-<p>History records recent allowed and denied operations with decision,
-source, command, reason, Verified Launcher, Secret Names and sources,
-Gate Client, Target, runtime, and working directory.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/authorization-history.png"
-alt="Authorization History detail for a sample proxy approval" /></p>
-<p>History is local and bounded—not a tamper-proof, append-only,
-complete forensic log. An allowed Secret Use is persisted and verified
-before release, but an administrator can still alter local state.</p>
+<p>Authorization History records recent allowed and denied requests with
+decision, decision source, command, reason, Verified Launcher, Secret
+Names and selected sources, Gate Client, Target, runtime, and working
+directory.</p>
+<p><a href="/docs/assets/authorization-history.png"><img
+src="/docs/assets/authorization-history.png"
+alt="Authorization History filtered to a complete sample proxy decision" /></a></p>
+<p><strong>Security basis.</strong> A decision without its inputs is not
+explainable. History keeps enough of the request envelope to answer why
+a rule matched, why a human was asked, and which Value source was
+selected. An allowed Secret Use is persisted and verified before
+release.</p>
+<p><strong>Workflow.</strong> Filter by Tool, launcher, command, Secret
+Name, or decision. Compare the <strong>Decision source</strong> and
+reason with current Gate policy. For a denial, fix the first mismatched
+invariant: Target, runtime, launcher, Value source, or operation. Do not
+widen every rule.</p>
+<p><strong>Assurance boundary.</strong> History is local and bounded. It
+is not append-only, tamper-proof, remotely replicated, or guaranteed to
+contain every event after an administrator changes local state. Export
+security evidence elsewhere when the audit requirement exceeds this
+local operator record.</p>
 <h3 id="doctor">Doctor</h3>
-<p>Doctor verifies protected ownership, launchers, dependencies, Target
-selection, file content, permissions, and PATH precedence, with
-remediation beside failures.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/doctor.png"
-alt="Doctor showing healthy installation state" /></p>
+<p>Doctor verifies the installed protected route: ownership, launchers,
+dependencies, Target selection, exact file content, permissions,
+configuration, and PATH precedence. Healthy Tools disappear from the
+problem list; failures include a reason and remediation.</p>
+<p><a href="/docs/assets/doctor.png"><img src="/docs/assets/doctor.png"
+alt="Doctor with no unresolved installation problems" /></a></p>
+<p><strong>Security basis.</strong> Policy is only as strong as the
+route that reaches it. A correct Gate cannot protect a command if PATH
+resolves to an unprotected binary, a launcher is writable, or the
+expected credential remains in plaintext.</p>
+<p><strong>Workflow.</strong> Run <code>av doctor</code> after
+installation, hardening, Tool updates, PATH changes, and policy
+failures. Use <code>av doctor TOOL --json</code> in diagnostics, but
+present the human remediation before changing ownership or files.</p>
+<p><strong>Limits.</strong> Doctor checks known invariants for supported
+Tools. It is not a malware scan, filesystem integrity monitor, code
+review, or proof that every process on the Mac is healthy.</p>
 <h3 id="settings">Settings</h3>
-<p>Settings controls Approval routes, feedback, retained launcher
-provenance, GPG Signing, <code>av list</code> policy, and app
-information.</p>
-<h2 id="approval-and-settings">Approval and settings</h2>
-<p>Review the command, Secret Names, working directory, full Target
-path, Verified Launcher, execution-chain roles, security posture, and
-warnings before allowing.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/approval-request.png"
-alt="Mac Approval request showing a complete sample operation" /></p>
+<p>Settings controls human Approval routes, feedback for automic
+authorization, retained launcher provenance, GPG Signing,
+<code>av list</code> policy, and version/runtime information. Each
+control changes a different boundary; enabling one does not implicitly
+enable another.</p>
+<p>Use Settings after reading the corresponding section below.
+Security-sensitive changes require Approval or system authentication
+where the control demands it.</p>
+<h2 id="approval-and-authority">Approval and authority</h2>
 <h3 id="touch-id-approval">Touch ID Approval</h3>
-<p>Touch ID Approval is Mac-local and fresh-biometric-only. It allows
-neither login password nor Apple Watch fallback and is separate from
-iPhone Approval.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/touch-id-approval.png"
-alt="Touch ID Approval disabled" /></p>
+<p>Touch ID Approval authorizes an exact request on the Mac with a fresh
+biometric. It accepts neither the login password nor Apple Watch
+fallback, and pointer or keyboard automation cannot activate the allow
+action.</p>
+<p><a href="/docs/assets/touch-id-approval.png"><img
+src="/docs/assets/touch-id-approval.png"
+alt="Touch ID Approval disabled, with its explicit local-authority guarantee" /></a></p>
+<p><strong>Why it exists.</strong> A local approval button can share the
+same input surface as an agent. Fresh Touch ID supplies a human gesture
+the agent cannot synthesize while keeping the decision at the Local
+Execution Boundary.</p>
+<p><strong>Failure modes.</strong> Touch ID availability, enrollment,
+lockout, and hardware state can make Approval unavailable. Disabling the
+setting returns to the configured non-biometric route; it does not
+create a password fallback inside Touch ID Approval.</p>
 <h3 id="iphone-approval">iPhone Approval</h3>
 <p>An eligible iPhone on the same iCloud Keychain account can carry
-human Approval while the Mac remains the Local Execution Boundary. When
-enabled with an eligible phone, the Mac exposes no pointer or keyboard
-allow action. The phone requires Face ID or Touch ID; Approval is
-unavailable through iPhone Mirroring.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/iphone-approval.png"
-alt="iPhone Approval disabled" /></p>
-<p>Recovery uses system authentication, rotates the account key, and
-invalidates all registered phones and Macs. Treat recovery as a security
-event.</p>
+human Approval while the Mac remains the Local Execution Boundary.</p>
+<p><a href="/docs/assets/iphone-approval.png"><img
+src="/docs/assets/iphone-approval.png"
+alt="iPhone Approval disabled with physical-separation guidance" /></a></p>
+<p><strong>Security basis.</strong> When an eligible phone route is
+enabled, the Mac exposes no local pointer or keyboard allow action. The
+phone requires Face ID or Touch ID. iPhone Mirroring and Show on Mac are
+treated as paths that can expose controls to an agent; Approval is
+unavailable through those surfaces.</p>
+<p><strong>Recovery.</strong> Recovery uses system authentication,
+rotates the account key, and invalidates registered phones and Macs.
+Treat recovery as a security event and re-enroll only devices you
+control.</p>
+<p><strong>Availability.</strong> Network, relay, iCloud Keychain,
+device lock, and biometric state can prevent the phone from carrying
+Approval. Unavailability is not a reason for the Mac to manufacture a
+weaker local allow action.</p>
 <h3 id="automic-authorization-feedback">Automic Authorization
 feedback</h3>
-<p>Allowed operations can show a notification, flash the menu bar, or
-show nothing. History is still recorded. This does not suppress prompts
-or denial notices.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/automic-authorization.png"
-alt="Automic Authorization feedback choices" /></p>
+<p>Policy-authorized operations can show a notification, flash the menu
+bar, or show nothing. This controls feedback, not authority.</p>
+<p><a href="/docs/assets/automic-authorization.png"><img
+src="/docs/assets/automic-authorization.png"
+alt="Automic Authorization feedback options with Flash Menu Bar selected" /></a></p>
+<p>Authorization History remains populated in every mode. Approval
+prompts and policy-denial notices are unaffected. Choose quieter
+feedback only after the team knows where to inspect History; silence is
+not an audit control.</p>
+<h3 id="temporary-access-grants">Temporary Access Grants</h3>
+<p>For a supported agent workflow, the Approval menu can grant ten
+minutes of memory-only <strong>Write Access</strong> instead of
+approving only once.</p>
+<p><a href="/docs/assets/temporary-access-grant.png"><img
+src="/docs/assets/temporary-access-grant.png"
+alt="A GitHub write request whose approval menu can issue a task-scoped temporary grant" /></a></p>
+<p>The grant binds to the exact Tool-specific Gate, Verified Launcher,
+accepted runtime, and Agent Task Context. It excludes Direct Access,
+Secret mutation, Disclosure, elevated operations, and unknown
+operations. The task label narrows matching but is forgeable context,
+not identity. The Verified Launcher and live request checks remain
+essential.</p>
+<p>End a grant from the menu bar when the task finishes. Grants expire
+after ten minutes and disappear on app restart. A grant cannot
+retroactively authorize a request outside its captured scope.</p>
 <h3 id="detached-processes">Detached Processes</h3>
-<p>Retained Launcher Provenance lets eligible detached descendants
-retain a verified launcher chain after the original exits. It is off by
-default. Enabling changes authority and needs Approval; disabling is
-immediate. It retains neither a prior decision nor blanket process-tree
-access.</p>
-<p><img loading="lazy" decoding="async" src="/docs/assets/detached-processes.png"
-alt="Detached Processes disabled" /></p>
+<p>Detached Processes controls <strong>Retained Launcher
+Provenance</strong>: whether an eligible live descendant may keep the
+verified launcher chain after its original parent exits.</p>
+<p><a href="/docs/assets/detached-processes.png"><img
+src="/docs/assets/detached-processes.png"
+alt="Detached Processes off by default with the authority-extension warning" /></a></p>
+<p><strong>Security tradeoff.</strong> Enabling extends authority after
+the observed parent chain disappears. Same-user code injection can pass
+that retained authority to injected code. An enrolled Launcher Bundle
+payload is one unit for this setting.</p>
+<p><strong>Scope.</strong> Retention is execution-scoped. It keeps
+neither an old authorization decision nor blanket authority for new
+processes or Gates. Enabling requires Approval; disabling is immediate.
+Leave it off unless a real daemon or detached worker cannot preserve the
+original launcher chain another way.</p>
 <h3 id="gpg-signing">GPG Signing</h3>
 <p>GPG Signing stores an armored OpenPGP private key in Secret Custody
 and routes Git through <code>av-gpg</code> and <code>av gpg-sign</code>.
-Git never receives the private key.</p>
+Git receives a detached signature, never the private key.</p>
+<p><a href="/docs/assets/gpg-signing.png"><img
+src="/docs/assets/gpg-signing.png"
+alt="GPG Signing Execution Gate with exact launcher overrides set to Allow Signing" /></a></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> gpg.program av-gpg</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> gpg.format openpgp</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> commit.gpgSign true</span></code></pre></div>
@@ -319,42 +645,80 @@ Git never receives the private key.</p>
 private key is never displayed; the public key can be copied. Alternate
 access can be limited to exact Verified Launchers. The Execution Gate
 offers <strong>Approval Required</strong> and <strong>Allow
-Signing</strong>. Signing binds Approval to the payload SHA-256 and
-returns only a detached signature.</p>
+Signing</strong>. Approval binds to the payload SHA-256;
+<code>av gpg-sign</code> reads at most 16 MiB and returns
+GnuPG-compatible status plus the detached signature.</p>
+<p><strong>Limits.</strong> A valid signature proves possession of the
+signing authority for that payload, not that the commit is safe or
+reviewed. Protect Git configuration and verify the repository and
+payload shown by the workflow.</p>
 <h3 id="secret-name-access">Secret Name Access</h3>
-<p>Exact Verified Apps may run <code>av list</code> without Approval;
-all others require it. This permits listing names only—not reading,
-changing, applying, or disclosing their Values.</p>
+<p>Exact Verified Apps may run <code>av list</code> without an Approval
+window; all other apps require Approval.</p>
+<p><a href="/docs/assets/secret-name-access.png"><img
+src="/docs/assets/secret-name-access.png"
+alt="Secret Name Access with two exact verified apps allowed to run av list" /></a></p>
+<p>This capability lists Secret Names only. It does not read, change,
+apply, or disclose Values and grants no Direct Access. Remove an app
+when its listing use ends; a similarly named or newly signed app does
+not inherit the exact rule.</p>
 <h3 id="about-and-menu-bar">About and menu bar</h3>
-<p>About shows the app version and GUI PATH captured before shell
-startup. The menu bar provides Open Automic Vault, Check for Updates,
-and Quit, and surfaces live Secret Uses and Temporary Access Grants
-without displaying Values.</p>
+<p>About reports the running version and GUI PATH captured before shell
+startup. Use both when diagnosing a mismatch between the app and an
+interactive shell.</p>
+<p><a href="/docs/assets/about.png"><img src="/docs/assets/about.png"
+alt="About showing Automic Vault 3.16.0 and the pre-shell GUI PATH" /></a></p>
+<p>The menu bar opens the main window, checks for updates, quits the
+service, and surfaces live Secret Uses and Temporary Access Grants
+without displaying Values. Quitting ends memory-only grants and proxy
+state; it does not undo operations or revoke Values already delivered to
+Targets.</p>
 <h2 id="secrets-values-and-selection">Secrets, Values, and
 selection</h2>
 <div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> save GH_TOKEN</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> save <span class="at">--project-directory</span><span class="op">=</span>. GH_TOKEN</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> save <span class="at">--project-directory</span><span class="op">=</span>/absolute/project AWS_PROFILE</span></code></pre></div>
+<h3 id="saving-safely">Saving safely</h3>
 <p>A Secret Name is a letter or underscore followed by letters, digits,
-or underscores. <code>save</code> canonicalizes an existing Project
+or underscores. <code>av save</code> canonicalizes an existing Project
 Directory, rejects the filesystem root, reads one hidden non-empty Value
-from <code>/dev/tty</code>, trims its line ending, and restores echo
-even on failure.</p>
-<p>For each name, Automic Vault selects the nearest Project Value at or
-above the physical canonical working directory on the same filesystem;
-otherwise it uses the Global Value. Project Directory is a selector—not
-project identity or an authorization boundary. A selected Value read
-failure never falls back.</p>
+from <code>/dev/tty</code>, trims its line ending, and restores terminal
+echo even on failure. It does not read stdin, so a pipeline neither
+supplies a Value nor provides a safe import mechanism.</p>
+<p>Save the replacement before deleting the old credential. Test a
+harmless read through the protected route, inspect History, then remove
+the plaintext source. For a supported Tool, prefer its hardener because
+the hardener knows the native credential format and can validate the
+migration.</p>
+<h3 id="value-selection">Value selection</h3>
+<p>For each requested name, Automic Vault selects the nearest Project
+Value at or above the physical canonical working directory on the same
+filesystem. If none matches, it selects the Global Value. The selection
+happens before policy so the Authorization Request can identify the
+chosen source.</p>
+<p>Project Directory is a selector, not project identity, a repository
+trust signal, or an authorization boundary. Symlinks and logical shell
+paths do not create a second identity. A selected Value read failure
+never falls back to a broader Global Value; fallback after failure could
+silently substitute the wrong account.</p>
+<h3 id="availability">Availability</h3>
 <p>Availability is independent of authorization. <strong>When
 Unlocked</strong> requires an unlocked Keychain. <strong>Available While
-Locked</strong> permits use after the first unlock following boot.
-Neither setting grants an operation.</p>
+Locked</strong> permits an already-authorized app to use the Value after
+the first unlock following boot. Neither setting grants a request,
+widens a Gate, or bypasses Approval.</p>
+<h3 id="direct-secret-access">Direct Secret Access</h3>
+<p>The Direct Secret Gate binds exact Secret Names to one Verified
+Launcher, but is broad with respect to Target and arguments. It permits
+Secret Application only; it does not list, mutate, or disclose Values.
+Prefer a Tool-specific Gate whose classifier understands read, write,
+host, registry, or other operation semantics.</p>
 <h2 id="access-levels">Access Levels</h2>
 <table>
 <thead>
 <tr>
 <th>Access Level</th>
-<th>Meaning</th>
+<th>Authority</th>
 </tr>
 </thead>
 <tbody>
@@ -364,44 +728,42 @@ Neither setting grants an operation.</p>
 </tr>
 <tr>
 <td>Read Only</td>
-<td>Apply Secrets to read-only operations allowed by the Gate.</td>
+<td>Apply Secrets only to operations the Tool-specific Gate classifies
+as read-only.</td>
 </tr>
 <tr>
 <td>Read &amp; Update</td>
-<td>Homebrew-only update authority.</td>
+<td>Homebrew-only authority for reads and the supported update
+path.</td>
 </tr>
 <tr>
 <td>Local Write</td>
-<td>Permit local writes without broader remote authority.</td>
+<td>Permit supported local writes without broader remote authority.</td>
 </tr>
 <tr>
 <td>Write Access</td>
-<td>Permit the Gate's write operations.</td>
+<td>Permit write operations recognized by that Tool-specific Gate.</td>
 </tr>
 <tr>
 <td>Full Access</td>
-<td>Strongest supported operations, potentially Disclosure or elevated
-application.</td>
+<td>Strongest supported Gate authority, potentially including elevated
+Application or Disclosure where explicitly defined.</td>
 </tr>
 <tr>
 <td>Direct Access</td>
-<td>Apply exact names through the Direct Gate for one Verified
-Launcher.</td>
+<td>Apply exact names through the Direct Gate for one Verified Launcher;
+no Target or argument classifier.</td>
 </tr>
 </tbody>
 </table>
+<p>Access Levels are Gate vocabulary, not interchangeable global roles.
+<strong>Write Access</strong> for GitHub and <strong>Write
+Access</strong> for another Tool are evaluated by different classifiers.
+Unknown operations fail closed or require Approval rather than
+inheriting the nearest-sounding label.</p>
 <p>New Secret Gates default to Read Only; GPG Signing to Approval
 Required; Homebrew to Read &amp; Update; Direct access to Approval
 Required.</p>
-<p>The Direct Secret Gate is broad: exact names and one Verified
-Launcher, but no Target or argument restriction. It permits neither
-listing nor changing Values. Prefer a Tool-specific Gate.</p>
-<p>A <strong>Temporary Access Grant</strong> provides ten minutes of
-memory-only Write Access, bound to the exact Tool-specific Gate,
-Verified Launcher, accepted runtime, and Agent Task Context. It excludes
-Direct Access, mutation, Disclosure, elevated and unknown operations.
-Task context is a forgeable narrowing label, not identity. End a grant
-anytime; grants vanish on expiry or app restart.</p>
 <h2 id="command-reference">Command reference</h2>
 <pre class="text"><code>av scan [--show-all|--json]
 av doctor [&lt;tool&gt;] [--json]
@@ -573,6 +935,11 @@ disabled by <code>NO_COLOR</code> or <code>TERM=dumb</code>. Exit
 operational failure, denial, or unhealthy Doctor; <code>2</code>
 top-level usage or invalid Doctor selection.</p>
 <h2 id="common-workflows">Common workflows</h2>
+<p>Every migration follows the same safe sequence: observe the current
+state, read the Tool-specific design, establish the protected route,
+verify a harmless operation, inspect the decision, and only then remove
+the old credential. Do not turn a migration into an outage by deleting
+the only working copy first.</p>
 <h3 id="github-cli">GitHub CLI</h3>
 <div class="sourceCode" id="cb19"><pre
 class="sourceCode sh"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> scan <span class="at">--json</span> <span class="at">--detector</span> gh-cli-hosts-token</span>
@@ -582,6 +949,11 @@ class="sourceCode sh"><code class="sourceCode bash"><span id="cb19-1"><a href="#
 <p>Inspect the <code>gh</code> Secret Gate before automic authorization.
 Direct <code>inject</code> works, but the Tool-specific Gate can narrow
 policy by operation.</p>
+<p>Use <code>gh auth status</code> as the first test because it is
+read-only. A repository creation, release, issue edit, or
+token-management call is a write and should remain Approval Required
+until the exact launcher and workflow justify a narrow rule or Temporary
+Access Grant.</p>
 <h3 id="aws-cli">AWS CLI</h3>
 <div class="sourceCode" id="cb20"><pre
 class="sourceCode sh"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> harden aws</span>
@@ -590,6 +962,10 @@ class="sourceCode sh"><code class="sourceCode bash"><span id="cb20-1"><a href="#
 <p>The AWS route installs and verifies AWS's signed CLI under
 <code>/opt/av/aws</code>, moves the default long-lived pair into
 Custody, and issues short-lived STS credentials.</p>
+<p>Verify the account and ARN returned by
+<code>sts get-caller-identity</code> before any write. The short-lived
+session narrows credential lifetime; IAM still decides what the
+resulting AWS identity can do.</p>
 <h3 id="docker">Docker</h3>
 <div class="sourceCode" id="cb21"><pre
 class="sourceCode sh"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> harden docker</span>
@@ -598,33 +974,121 @@ class="sourceCode sh"><code class="sourceCode bash"><span id="cb21-1"><a href="#
 <p>Docker hardening retains the vendor-signed CLI and gates registry
 credentials on live identity, ancestry, arguments, and requested
 registry.</p>
+<p>Test against a non-sensitive image first. Registry authorization is
+separate from container isolation: a successful protected pull says
+nothing about the image's safety.</p>
+<h3 id="project-specific-values">Project-specific Values</h3>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">&quot;</span><span class="va">$PWD</span><span class="st">/example-project&quot;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> save <span class="at">--project-directory</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$PWD</span><span class="st">/example-project&quot;</span> GH_TOKEN</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">&quot;</span><span class="va">$PWD</span><span class="st">/example-project&quot;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> inject +GH_TOKEN gh auth status</span></code></pre></div>
+<p>Confirm History names the expected Project Value source. A nested
+Project Value wins over a broader ancestor; a directory on another
+filesystem never matches. Moving a checkout can therefore change
+selection without changing its Git remote. Treat the canonical physical
+directory as configuration, not identity.</p>
+<h3 id="one-off-environment-application">One-off environment
+application</h3>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> inject +SENTRY_AUTH_TOKEN sentry-cli info</span></code></pre></div>
+<p>Use <code>inject</code> when no narrower native or Tool-specific
+route exists. Inspect existing environment conflicts; by default an
+already exported value wins with a warning.
+<code>--replace-existing-env</code> is an explicit precedence decision,
+not a routine flag.</p>
+<h3 id="proxy-only-delivery">Proxy-only delivery</h3>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> proxy +VARLOCK_SAMPLE_SECRET <span class="at">--</span> /path/to/target</span></code></pre></div>
+<p>Approve the session, then approve only expected destinations as they
+appear. Terminate the session from Active Proxies when the task ends.
+Use a real Secret Name in practice; the sample above documents shape
+without exposing a credential.</p>
+<h3 id="blessing-a-release-script">Blessing a release script</h3>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 700 ./release.sh</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> bless ./release.sh</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="ex">./release.sh</span> v3.16.1</span></code></pre></div>
+<p>Review the digest, interpreter, Secret Names, and capability ceilings
+in Blessed Scripts before the first run. If an edit is intentional,
+inspect the complete diff and create a new Blessing. If an edit is
+unexpected, revoke and investigate.</p>
+<h3 id="enrolling-an-unsigned-developer-cli">Enrolling an unsigned
+developer CLI</h3>
+<p>Open <strong>Launcher Bundles</strong>, choose the regular
+single-file Mach-O executable, review its hashes and entitlements, and
+install the generated bundle. Point policy at the installed command. On
+update, prepare and enroll a new generation; the old digest must not
+silently become the new trusted payload.</p>
 <h3 id="gpg-signed-commits">GPG-signed commits</h3>
 <p>Configure GPG Signing and <code>av-gpg</code>, then verify:</p>
-<div class="sourceCode" id="cb22"><pre
-class="sourceCode sh"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--allow-empty</span> <span class="at">-m</span> <span class="st">&#39;verify signing&#39;</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--show-signature</span> <span class="at">-1</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--allow-empty</span> <span class="at">-m</span> <span class="st">&#39;verify signing&#39;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--show-signature</span> <span class="at">-1</span></span></code></pre></div>
+<p>Check the signer fingerprint and payload in Git's output.
+<strong>Allow Signing</strong> is appropriate only for an exact Verified
+Launcher whose commit workflow you accept; otherwise retain Approval
+Required.</p>
 <h2 id="troubleshooting">Troubleshooting</h2>
-<ul>
-<li><strong>No response:</strong> run <code>av open</code>; inspect
-History for exact denial details.</li>
-<li><strong>Wrong executable:</strong> compare
-<code>command -v TOOL</code> with <code>av doctor TOOL</code>; authorize
-the native executable, not a shell or mutable shim.</li>
-<li><strong>Wrong Project Value:</strong> confirm canonical working and
-Project Directories are on one filesystem and the latter is an
-ancestor.</li>
-<li><strong>Environment value wins:</strong> remove the export or
-deliberately use <code>--replace-existing-env</code> after reviewing
-precedence.</li>
-<li><strong>Blessing stopped matching:</strong> review the diff and
-re-bless only if correct; edits and moves invalidate identity.</li>
-<li><strong>Launcher Bundle denied after update:</strong> create and
-review a new generation; digest, signature, enrollment, and runtime
-mismatches fail closed.</li>
-<li><strong>Security issue:</strong> follow <a
+<h3 id="approval-does-not-appear">Approval does not appear</h3>
+<p>Run <code>av open</code> and confirm the installed app version
+matches <code>av --version</code>. Inspect Authorization History for a
+policy denial that occurred before human Approval was eligible. If
+iPhone Approval is enabled, check phone eligibility, relay and iCloud
+Keychain state, device lock, and biometric availability; do not expect a
+local allow button to appear as fallback.</p>
+<h3 id="the-wrong-executable-runs">The wrong executable runs</h3>
+<p>Compare <code>command -v TOOL</code>, the Target in the Approval
+request, and <code>av doctor TOOL</code>. Shell hashes, aliases, shims,
+package-manager links, and GUI PATH can all differ. Authorize the native
+executable or protected launcher described by the hardener; a mutable
+shell is too broad a Target.</p>
+<h3 id="the-wrong-project-value-is-selected">The wrong Project Value is
+selected</h3>
+<p>Compare the physical canonical working directory with every Project
+Directory. The selected directory must be an ancestor on the same
+filesystem; the nearest match wins. Symlink spelling, repository remote,
+branch, and logical <code>$PWD</code> do not establish selection.
+History records the source chosen for the request.</p>
+<h3 id="an-environment-value-wins">An environment value wins</h3>
+<p><code>av inject</code> preserves an existing environment value by
+default and warns. Remove the export at its source, or use
+<code>--replace-existing-env</code> only after confirming that Automic
+Vault should override it. Do not suppress the warning without
+understanding which credential the Target would otherwise receive.</p>
+<h3 id="a-blessing-stopped-matching">A Blessing stopped matching</h3>
+<p>Path, file type, size, interpreter, declaration, and content all
+participate in the reviewed state. Compare the app's baseline with the
+current file. Re-bless only an intentional change; an unexplained
+mismatch is evidence to investigate.</p>
+<h3 id="a-launcher-bundle-is-denied-after-update">A Launcher Bundle is
+denied after update</h3>
+<p>Digest, signature, enrollment, entitlements, runtime, and protected
+ownership fail closed. Prepare and review a new generation. Do not
+replace the enrolled payload in place or add a broad compatibility
+exception merely to make the new binary run.</p>
+<h3 id="proxy-traffic-does-not-appear">Proxy traffic does not
+appear</h3>
+<p>The Target may ignore proxy variables, use a protocol the proxy does
+not handle, inherit conflicting network configuration, or open another
+channel. Confirm the session is live and the process shown in Active
+Proxies is the process making the request. Treat bypass as outside proxy
+containment, not as a UI refresh bug.</p>
+<h3 id="doctor-reports-healthy-but-the-workflow-fails">Doctor reports
+healthy but the workflow fails</h3>
+<p>Doctor validates known installation invariants. The request can still
+be denied by Gate policy, launcher identity, runtime, Value selection,
+or Tool semantics, and the external service can reject the resulting
+credential. Read History and the Tool's own error separately.</p>
+<h3 id="collecting-a-safe-diagnostic">Collecting a safe diagnostic</h3>
+<p>Record <code>av --version</code>, the relevant
+<code>av doctor TOOL --json</code> result, the detector or hardener
+name, and a redacted History entry. Never paste Values, private keys,
+proxy credentials, Secret References, session tokens, or live
+authorization artifacts into an issue.</p>
+<p>For a suspected vulnerability, follow <a
 href="https://www.automicvault.com/.well-known/security.txt">security.txt</a>
-and never post Values, private keys, or live credentials.</li>
-</ul>
+instead of the public issue tracker.</p>
 <h2 id="source-of-truth">Source of truth</h2>
 <p>This manual was checked against the CLI parser, implementations, app
 UI, catalogs, tests, and canonical security documents for 3.16.0. For an
