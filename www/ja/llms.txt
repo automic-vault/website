@@ -8,7 +8,7 @@
 
 - [Automic Vault ダウンロード](https://www.automicvault.com/ja/download/): macOS 用 Automic Vault を入手し、開発者の認証情報がどう使われるかを制御します。
 
-- [ドキュメント](https://www.automicvault.com/docs/): Automic Vault 3.8.0 の Project Values、Launcher Bundles、scan、doctor、inject、bless、harden を解説する英語の CLI マニュアルです。
+- [ドキュメント](https://www.automicvault.com/docs/): Automic Vault 3.16.0 のアプリ、Approval、Project Values、Launcher Bundles、プロキシ、GPG Signing、CLI 全体を解説する英語のマニュアルです。
 
 - [パッケージ](https://pkg.so/ja/): 開発者向けパッケージ、依存関係、インストール方法、リスク情報、Automic Vault の保護状況を検索できます。
 
@@ -28,7 +28,7 @@
 
 - 対応環境: macOS
 
-- 現在のドキュメント対象リリース: 3.8.0
+- 現在のドキュメント対象リリース: Automic Vault 3.16.0
 
 - ライセンス: Apache License 2.0
 

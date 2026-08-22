@@ -8,7 +8,7 @@
 
 - [Automic Vault herunterladen](https://www.automicvault.com/de/download/): Lade Automic Vault für macOS herunter und kontrolliere die Verwendung von Entwickler-Credentials.
 
-- [Dokumentation](https://www.automicvault.com/docs/): Englisches, quellgeprüftes CLI-Handbuch für Automic Vault 3.8.0 mit Project Values, Launcher Bundles, scan, doctor, inject, bless und harden.
+- [Dokumentation](https://www.automicvault.com/docs/): Englisches, quellgeprüftes Handbuch für Automic Vault 3.16.0 mit App, Approval, Project Values, Launcher Bundles, Proxy, GPG Signing und vollständiger CLI.
 
 - [Pakete](https://pkg.so/de/): Durchsuchbarer Katalog mit Entwicklerpaketen, Abhängigkeiten, Installationsbefehlen, Risikoinformationen und Automic-Vault-Härtung.
 
@@ -28,7 +28,7 @@
 
 - Plattform: macOS
 
-- Aktuell dokumentiertes Release: 3.8.0
+- Aktuell dokumentiertes Release: Automic Vault 3.16.0
 
 - Lizenz: Apache License 2.0
 

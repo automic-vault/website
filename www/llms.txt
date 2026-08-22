@@ -6,7 +6,7 @@
 
 - [Homepage](https://www.automicvault.com/): Explains operation authorization, Verified Launcher policy, Project Values, bounded agent access, iPhone Approval, and Tool-specific hardening on macOS.
 - [Download](https://www.automicvault.com/download/): Provides the signed macOS disk image, installation details, included components, and first steps after setup.
-- [Documentation](https://www.automicvault.com/docs/): Source-checked Automic Vault 3.8.0 CLI manual covering Project Values, Launcher Bundles, scan, doctor, inject, bless, harden, catalogs, and app links.
+- [Documentation](https://www.automicvault.com/docs/): Source-checked Automic Vault 3.16.0 manual covering the app, Approval, Project Values, Launcher Bundles, proxying, GPG Signing, hardening, catalogs, and the complete CLI.
 - [Package catalog](https://pkg.so/): Searchable catalog of developer packages, dependencies, install commands, risk information, and Automic Vault hardening coverage.
 - [Source and releases](https://github.com/automic-vault/automic-vault): Apache-2.0 source code, tagged releases, implementation history, and public issue tracking.
 
@@ -41,7 +41,7 @@
 
 - Category: local execution security and secrets management
 - Platform: macOS
-- Current documented release: 3.8.0
+- Current documented release: Automic Vault 3.16.0
 - License: Apache License 2.0
 - Pricing: free open-source software
 - Founder: Max Howell, creator of Homebrew

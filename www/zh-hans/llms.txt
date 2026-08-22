@@ -8,7 +8,7 @@
 
 - [下载 Automic Vault](https://www.automicvault.com/zh-hans/download/): 下载 macOS 版 Automic Vault，控制开发者凭据的使用方式。
 
-- [文档](https://www.automicvault.com/docs/): 经源码核对的英文 Automic Vault 3.8.0 CLI 手册，涵盖 Project Values、Launcher Bundles、scan、doctor、inject、bless 和 harden。
+- [文档](https://www.automicvault.com/docs/): 经源码核对的英文 Automic Vault 3.16.0 手册，涵盖应用、Approval、Project Values、Launcher Bundles、代理、GPG Signing 和完整 CLI。
 
 - [软件包](https://pkg.so/zh-hans/): 可搜索开发者软件包、依赖项、安装命令、风险信息和 Automic Vault 加固覆盖情况。
 
@@ -28,7 +28,7 @@
 
 - 平台：macOS
 
-- 当前文档版本：3.8.0
+- 当前文档版本：Automic Vault 3.16.0
 
 - 许可证：Apache License 2.0
 

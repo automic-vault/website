@@ -11,17 +11,17 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault CLI Manual</title>
-  <meta name="description" content="Source-checked documentation for the Automic Vault 3.8.0 CLI: scan, doctor, Project Values, Launcher Bundles, inject, bless, harden, and machine-readable catalogs.">
+  <title>Automic Vault Manual</title>
+  <meta name="description" content="The source-checked Automic Vault 3.16.0 manual: app tour, screenshots, security model, approvals, Secrets, hardening, proxying, GPG Signing, and complete CLI reference.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Automic Vault CLI Manual">
-  <meta property="og:description" content="The source-checked manual for the Automic Vault 3.8.0 command line.">
+  <meta property="og:title" content="Automic Vault Manual">
+  <meta property="og:description" content="The complete source-checked guide to Automic Vault 3.16.0.">
   <meta property="og:url" content="https://www.automicvault.com/docs/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Automic Vault CLI Manual">
-  <meta name="twitter:description" content="The source-checked manual for the Automic Vault 3.8.0 command line.">
+  <meta name="twitter:title" content="Automic Vault Manual">
+  <meta name="twitter:description" content="The complete source-checked guide to Automic Vault 3.16.0.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/">
   <link rel="alternate" type="text/markdown" title="Markdown manual" href="/docs/index.md">
@@ -34,15 +34,15 @@
         "@type": "TechArticle",
         "@id": "https://www.automicvault.com/docs/#article",
         "url": "https://www.automicvault.com/docs/",
-        "headline": "Automic Vault CLI Manual",
-        "description": "Source-checked documentation for the Automic Vault 3.8.0 CLI.",
-        "dateModified": "2026-08-02",
+        "headline": "Automic Vault Manual",
+        "description": "The source-checked manual for Automic Vault 3.16.0.",
+        "dateModified": "2026-08-22",
         "author": {"@id": "https://www.automicvault.com/#organization"},
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "about": {
           "@type": "SoftwareApplication",
           "name": "Automic Vault",
-          "softwareVersion": "3.8.0",
+          "softwareVersion": "3.16.0",
           "operatingSystem": "macOS",
           "codeRepository": "https://github.com/automic-vault/automic-vault"
         },
@@ -69,301 +69,595 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
   <link rel="stylesheet" href="/styles.css?v=128">
-  <link rel="stylesheet" href="/docs/styles.css?v=1">
+  <link rel="stylesheet" href="/docs/styles.css?v=2">
 </head>
 <body>
   <div class="site-shell" id="top">
     <header class="masthead">
       <a class="brand" href="/" aria-label="Automic Vault home">
-        <img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="Automic Vault" width="54" height="54">
+        <img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54">
         <span class="brand-type">Automic Vault</span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-      </button>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span></button>
       <nav class="nav" aria-label="Main navigation">
-        <a href="/">Home</a>
-        <a href="https://pkg.so/">Packages</a>
-        <a href="/blog/">Blog</a>
-        <a href="/docs/" aria-current="page">Docs</a>
-        <a href="/download/">Download</a>
+        <a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a>
+        <a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a>
         <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
       </nav>
     </header>
-
     <main>
       <header class="docs-hero">
         <div class="docs-hero-inner">
-          <h1>The <code>av</code> manual.</h1>
-          <p class="lede">Source-checked documentation for the command line shipped by Automic Vault 3.8.0: audit the machine, repair hardened tools, manage Project Values and Launcher Bundles, and apply Secrets to authorized operations.</p>
+          <p class="eyebrow">Version 3.16.0 · macOS</p>
+          <h1>Use the Vault.<br>Know the boundary.</h1>
+          <p class="lede">The complete guide to storing Secrets, authorizing operations, hardening developer tools, approving from Mac or iPhone, proxying credentials, and signing Git commits.</p>
           <ul class="docs-provenance" aria-label="Manual provenance">
-            <li>macOS</li>
-            <li>CLI 3.8.0</li>
-            <li>Checked August 16, 2026</li>
+            <li>Source checked</li><li>UI verified</li><li>August 22, 2026</li>
             <li><a href="/docs/index.md">Markdown</a></li>
           </ul>
         </div>
       </header>
-
       <div class="docs-layout">
-        <nav class="docs-toc" aria-label="On this page">
-          <strong>On this page</strong>
-          <ol>
-            <li><a href="#install">Install</a></li>
-            <li><a href="#quick-start">Quick start</a></li>
-            <li><a href="#model">Mental model</a></li>
-            <li><a href="#commands">Commands</a></li>
-            <li><a href="#scan">Scan</a></li>
-            <li><a href="#doctor">Doctor</a></li>
-            <li><a href="#signed-cli-launchers">Signed CLI launchers</a></li>
-            <li><a href="#save">Save</a></li>
-            <li><a href="#inject">Inject</a></li>
-            <li><a href="#bless">Bless</a></li>
-            <li><a href="#harden">Harden</a></li>
-            <li><a href="#unharden-brew">Unharden Homebrew</a></li>
-            <li><a href="#catalogs">Catalogs</a></li>
-            <li><a href="#open">Open</a></li>
-            <li><a href="#status">Exit status</a></li>
-            <li><a href="#unsupported">Unsupported</a></li>
-            <li><a href="#source">Source</a></li>
-          </ol>
-        </nav>
+        <nav class="docs-toc" aria-label="On this page"><strong>On this page</strong><ul>
+<li><a href="#automic-vault-manual"
+id="toc-automic-vault-manual">Automic Vault manual</a>
+<ul>
+<li><a href="#install-and-verify" id="toc-install-and-verify">Install
+and verify</a></li>
+<li><a href="#start-here" id="toc-start-here">Start here</a></li>
+<li><a href="#the-security-model" id="toc-the-security-model">The
+security model</a></li>
+<li><a href="#app-tour" id="toc-app-tour">App tour</a></li>
+<li><a href="#approval-and-settings"
+id="toc-approval-and-settings">Approval and settings</a></li>
+<li><a href="#secrets-values-and-selection"
+id="toc-secrets-values-and-selection">Secrets, Values, and
+selection</a></li>
+<li><a href="#access-levels" id="toc-access-levels">Access
+Levels</a></li>
+<li><a href="#command-reference" id="toc-command-reference">Command
+reference</a></li>
+<li><a href="#common-workflows" id="toc-common-workflows">Common
+workflows</a></li>
+<li><a href="#troubleshooting"
+id="toc-troubleshooting">Troubleshooting</a></li>
+<li><a href="#source-of-truth" id="toc-source-of-truth">Source of
+truth</a></li>
+</ul></li>
+</ul></nav>
+        <article class="docs-content"><h1
+id="automic-vault-manual">Automic Vault manual</h1>
+<p>This is the user and operator manual for Automic Vault 3.16.0 on
+macOS. It was checked against the installed CLI, app UI, and 3.16.0
+source on August 22, 2026.</p>
+<p>Automic Vault does more than store a Secret. It authorizes a complete
+operation: the Verified Launcher, Gate Client, Target, command and
+arguments, working directory, requested Secret Names, and selected Value
+sources. If allowed, it applies the Secret to the Target without
+displaying the stored Value.</p>
+<ul>
+<li><a href="https://www.automicvault.com/download/">Download</a></li>
+<li><a href="https://github.com/automic-vault/automic-vault">Source and
+releases</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md">Canonical
+Domain Language</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md">Architecture
+and security boundaries</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/positioning.md">Product
+positioning</a></li>
+</ul>
+<h2 id="install-and-verify">Install and verify</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install <span class="at">--cask</span> automic-vault/isotopes/automic-vault</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">open</span> /Applications/Automic\ Vault.app</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> <span class="at">--version</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> help</span></code></pre></div>
+<p>You may instead use the <a
+href="https://github.com/automic-vault/automic-vault/releases/latest">latest
+release</a> or review the <a
+href="https://www.automicvault.com/install.sh">website installer</a>.
+The menu bar app owns Approval UI and Authorization Policy. Open it
+before an operation that needs Approval: <code>av open</code>.</p>
+<h2 id="start-here">Start here</h2>
+<p>Scan the Mac, save one Value through the hidden terminal prompt, and
+apply it only to the Target that needs it:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> scan <span class="at">--show-all</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> save GH_TOKEN</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> inject +GH_TOKEN gh auth status</span></code></pre></div>
+<p><code>av save</code> opens <code>/dev/tty</code>, turns terminal echo
+off, and <strong>does not read standard input</strong>. Do not remove the old
+credential until the approved command succeeds. For a Tool with a supplied
+hardener, prefer its Tool-specific flow:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> hardeners <span class="at">--json</span> <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.hardeners[] | select(.applicable) | {name, hardened}&#39;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> harden gh</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> doctor gh</span></code></pre></div>
+<h2 id="the-security-model">The security model</h2>
+<p>An <strong>Authorization Request</strong> is the complete immutable
+operation presented to policy. A decision is about that complete
+request, not merely a Secret Name or process identity. It can include
+the Verified Launcher and execution chain; Gate Client and Authorization
+Gate; resolved Target, command, and arguments; physical working
+directory; exact Secret Names and selected Values; runtime posture; and
+existing-environment conflicts.</p>
+<p>A <strong>Secret Gate</strong> controls Secret Application or, at
+stronger levels, Secret Disclosure and elevated operations. An
+<strong>Execution Gate</strong> controls a privileged operation without
+necessarily releasing an ordinary Secret; GPG Signing is one. The Mac is
+always the <strong>Local Execution Boundary</strong>. Approval may come
+from the Mac or an eligible iPhone, but the Mac revalidates the request
+before execution.</p>
+<p>Secret Application puts a Value into an authorized operation without
+showing it. Secret Disclosure reveals the raw Value. Automic Vault
+cannot promise that a Target will not reveal a Secret after receiving
+it: the Target controls the Value from that point onward.</p>
+<p>Automic Vault is not a sandbox, a general process-containment system,
+a defense against a compromised kernel or root account, or proof that
+signed code has good intent. Code signing establishes identity and
+integrity—not trust or intent.</p>
+<h2 id="app-tour">App tour</h2>
+<p>The main window has global search and refresh controls plus ten
+sections.</p>
+<h3 id="detectors">Detectors</h3>
+<p>Detectors find supported credential Exposures, configuration Hazards,
+and other security-relevant state. Each Finding includes severity,
+affected paths, explanation, remediation, and source-linked
+documentation. A clean scan is not proof that no credential exists
+outside the covered detectors.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/detectors.png"
+alt="Detectors list and source-linked Finding details" /></p>
+<h3 id="hardened-tools">Hardened Tools</h3>
+<p>Hardened Tools shows each installed hardener, protected launcher or
+native credential route, current Target, embedded reference, and recent
+access.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/hardened-tools.png"
+alt="Hardened Tools list with selected tool status" /></p>
+<h3 id="authorization-gates">Authorization Gates</h3>
+<p>A Gate shows its request type, Secret patterns, Targets, default rule
+for all other apps, per-launcher overrides, and Hardened Runtime
+requirement.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/authorization-gates.png"
+alt="Authorization Gate policy and verified app overrides" /></p>
+<h3 id="blessed-scripts">Blessed Scripts</h3>
+<p>A Blessing binds a reviewed path, SHA-256 digest, Script Declaration,
+Secret Names, Capabilities, interpreter, and optional Launcher
+Endorsements. Changing or moving the script invalidates it. When a
+baseline exists, the app shows the diff before replacement.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/blessed-scripts.png"
+alt="Blessed Script checksum, Secret Names, capabilities, and launchers" /></p>
+<h3 id="launcher-bundles">Launcher Bundles</h3>
+<p>A Launcher Bundle packages one regular single-file Mach-O CLI into a
+signed, Hardened Runtime app. Automic Vault snapshots the payload, shows
+hashes and entitlements, installs root-owned app and command link, and
+enrolls that exact generation. JIT, unsigned-executable-memory, and
+library-validation exceptions are explicit review choices.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/launcher-bundles.png"
+alt="Create Launcher Bundle sheet" /></p>
+<p>Deleting one revokes enrollment and launcher rules before moving it
+to Trash. A Launcher Bundle establishes identity and integrity; it does
+not make code safe.</p>
+<h3 id="secrets">Secrets</h3>
+<p>A Secret Name may have one Global Value and multiple Project Values.
+The app never shows stored Values after saving. It can replace or delete
+Values, change availability, rename the Secret, and remove the final
+Value and Direct Rules.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/secrets.png"
+alt="Add Secret sheet with empty secure Value field" /></p>
+<h3 id="active-proxies">Active Proxies</h3>
+<p>Active Proxies shows Target, PID, Secret Names, start time, request
+count, permitted origins, and individual requests. Terminating a session
+ends its memory-only rules, random Secret References, and Proxy
+Credential.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/active-proxy.png"
+alt="Harmless active proxy session with sample Secret Name" /></p>
+<h3 id="authorization-history">Authorization History</h3>
+<p>History records recent allowed and denied operations with decision,
+source, command, reason, Verified Launcher, Secret Names and sources,
+Gate Client, Target, runtime, and working directory.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/authorization-history.png"
+alt="Authorization History detail for a sample proxy approval" /></p>
+<p>History is local and bounded—not a tamper-proof, append-only,
+complete forensic log. An allowed Secret Use is persisted and verified
+before release, but an administrator can still alter local state.</p>
+<h3 id="doctor">Doctor</h3>
+<p>Doctor verifies protected ownership, launchers, dependencies, Target
+selection, file content, permissions, and PATH precedence, with
+remediation beside failures.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/doctor.png"
+alt="Doctor showing healthy installation state" /></p>
+<h3 id="settings">Settings</h3>
+<p>Settings controls Approval routes, feedback, retained launcher
+provenance, GPG Signing, <code>av list</code> policy, and app
+information.</p>
+<h2 id="approval-and-settings">Approval and settings</h2>
+<p>Review the command, Secret Names, working directory, full Target
+path, Verified Launcher, execution-chain roles, security posture, and
+warnings before allowing.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/approval-request.png"
+alt="Mac Approval request showing a complete sample operation" /></p>
+<h3 id="touch-id-approval">Touch ID Approval</h3>
+<p>Touch ID Approval is Mac-local and fresh-biometric-only. It allows
+neither login password nor Apple Watch fallback and is separate from
+iPhone Approval.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/touch-id-approval.png"
+alt="Touch ID Approval disabled" /></p>
+<h3 id="iphone-approval">iPhone Approval</h3>
+<p>An eligible iPhone on the same iCloud Keychain account can carry
+human Approval while the Mac remains the Local Execution Boundary. When
+enabled with an eligible phone, the Mac exposes no pointer or keyboard
+allow action. The phone requires Face ID or Touch ID; Approval is
+unavailable through iPhone Mirroring.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/iphone-approval.png"
+alt="iPhone Approval disabled" /></p>
+<p>Recovery uses system authentication, rotates the account key, and
+invalidates all registered phones and Macs. Treat recovery as a security
+event.</p>
+<h3 id="automic-authorization-feedback">Automic Authorization
+feedback</h3>
+<p>Allowed operations can show a notification, flash the menu bar, or
+show nothing. History is still recorded. This does not suppress prompts
+or denial notices.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/automic-authorization.png"
+alt="Automic Authorization feedback choices" /></p>
+<h3 id="detached-processes">Detached Processes</h3>
+<p>Retained Launcher Provenance lets eligible detached descendants
+retain a verified launcher chain after the original exits. It is off by
+default. Enabling changes authority and needs Approval; disabling is
+immediate. It retains neither a prior decision nor blanket process-tree
+access.</p>
+<p><img loading="lazy" decoding="async" src="/docs/assets/detached-processes.png"
+alt="Detached Processes disabled" /></p>
+<h3 id="gpg-signing">GPG Signing</h3>
+<p>GPG Signing stores an armored OpenPGP private key in Secret Custody
+and routes Git through <code>av-gpg</code> and <code>av gpg-sign</code>.
+Git never receives the private key.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> gpg.program av-gpg</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> gpg.format openpgp</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> commit.gpgSign true</span></code></pre></div>
+<p>Settings can import a key or generate an alternate EdDSA key. The
+private key is never displayed; the public key can be copied. Alternate
+access can be limited to exact Verified Launchers. The Execution Gate
+offers <strong>Approval Required</strong> and <strong>Allow
+Signing</strong>. Signing binds Approval to the payload SHA-256 and
+returns only a detached signature.</p>
+<h3 id="secret-name-access">Secret Name Access</h3>
+<p>Exact Verified Apps may run <code>av list</code> without Approval;
+all others require it. This permits listing names only—not reading,
+changing, applying, or disclosing their Values.</p>
+<h3 id="about-and-menu-bar">About and menu bar</h3>
+<p>About shows the app version and GUI PATH captured before shell
+startup. The menu bar provides Open Automic Vault, Check for Updates,
+and Quit, and surfaces live Secret Uses and Temporary Access Grants
+without displaying Values.</p>
+<h2 id="secrets-values-and-selection">Secrets, Values, and
+selection</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> save GH_TOKEN</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> save <span class="at">--project-directory</span><span class="op">=</span>. GH_TOKEN</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> save <span class="at">--project-directory</span><span class="op">=</span>/absolute/project AWS_PROFILE</span></code></pre></div>
+<p>A Secret Name is a letter or underscore followed by letters, digits,
+or underscores. <code>save</code> canonicalizes an existing Project
+Directory, rejects the filesystem root, reads one hidden non-empty Value
+from <code>/dev/tty</code>, trims its line ending, and restores echo
+even on failure.</p>
+<p>For each name, Automic Vault selects the nearest Project Value at or
+above the physical canonical working directory on the same filesystem;
+otherwise it uses the Global Value. Project Directory is a selector—not
+project identity or an authorization boundary. A selected Value read
+failure never falls back.</p>
+<p>Availability is independent of authorization. <strong>When
+Unlocked</strong> requires an unlocked Keychain. <strong>Available While
+Locked</strong> permits use after the first unlock following boot.
+Neither setting grants an operation.</p>
+<h2 id="access-levels">Access Levels</h2>
+<table>
+<thead>
+<tr>
+<th>Access Level</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Approval Required</td>
+<td>Every matching request needs human Approval.</td>
+</tr>
+<tr>
+<td>Read Only</td>
+<td>Apply Secrets to read-only operations allowed by the Gate.</td>
+</tr>
+<tr>
+<td>Read &amp; Update</td>
+<td>Homebrew-only update authority.</td>
+</tr>
+<tr>
+<td>Local Write</td>
+<td>Permit local writes without broader remote authority.</td>
+</tr>
+<tr>
+<td>Write Access</td>
+<td>Permit the Gate's write operations.</td>
+</tr>
+<tr>
+<td>Full Access</td>
+<td>Strongest supported operations, potentially Disclosure or elevated
+application.</td>
+</tr>
+<tr>
+<td>Direct Access</td>
+<td>Apply exact names through the Direct Gate for one Verified
+Launcher.</td>
+</tr>
+</tbody>
+</table>
+<p>New Secret Gates default to Read Only; GPG Signing to Approval
+Required; Homebrew to Read &amp; Update; Direct access to Approval
+Required.</p>
+<p>The Direct Secret Gate is broad: exact names and one Verified
+Launcher, but no Target or argument restriction. It permits neither
+listing nor changing Values. Prefer a Tool-specific Gate.</p>
+<p>A <strong>Temporary Access Grant</strong> provides ten minutes of
+memory-only Write Access, bound to the exact Tool-specific Gate,
+Verified Launcher, accepted runtime, and Agent Task Context. It excludes
+Direct Access, mutation, Disclosure, elevated and unknown operations.
+Task context is a forgeable narrowing label, not identity. End a grant
+anytime; grants vanish on expiry or app restart.</p>
+<h2 id="command-reference">Command reference</h2>
+<pre class="text"><code>av scan [--show-all|--json]
+av doctor [&lt;tool&gt;] [--json]
+av detectors --json
+av hardeners --json
+av bless [--endorse-launcher] &lt;path&gt;
+av inject +KEY... [--] &lt;command&gt;
+av inject -- &lt;command&gt;
+av proxy +KEY... [--] &lt;command&gt;
+av list
+av save [--project-directory=DIR] KEY
+av harden &lt;tool&gt; [-y|--yes]
+av unharden brew [-y|--yes]
+av gpg-sign [GPG options]
+av open [--secret-gate &lt;id&gt;]
+av help
+av --version</code></pre>
+<p>Old v1 commands <code>install</code>, <code>contain</code>,
+<code>dotenv</code>, <code>credential-helper</code>, <code>gate</code>,
+and <code>trace</code> are not part of 3.16.0.</p>
+<h3 id="av-scan"><code>av scan</code></h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> scan</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> scan <span class="at">--show-all</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> scan <span class="at">--json</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> scan <span class="at">--json</span> <span class="at">--detector</span> aws-cli-credentials-file</span></code></pre></div>
+<p>The human report omits medium and low severity unless
+<code>--show-all</code> is set. JSON contains <code>findings</code> and
+<code>gui_path</code>. A completed scan exits <code>0</code> even with
+Findings; consume the report, not status, as the audit result. Repeat
+<code>--detector NAME</code> with JSON to limit automation.</p>
+<h3 id="av-doctor"><code>av doctor</code></h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> doctor</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> doctor gh</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> doctor gh <span class="at">--json</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> doctor codex</span></code></pre></div>
+<p>Without a selector it checks applicable hardeners. A selector can be
+a hardener, one of its commands, or a supported signed agent CLI. JSON
+contains <code>results</code>. Exit <code>0</code> means healthy,
+<code>1</code> means attention needed, and <code>2</code> means invalid
+or unknown selection.</p>
+<h3 id="machine-readable-catalogs">Machine-readable catalogs</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> detectors <span class="at">--json</span> <span class="kw">|</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">jq</span> <span class="st">&#39;.detectors[] | {name, docs_url, documentation}&#39;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> hardeners <span class="at">--json</span> <span class="kw">|</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">jq</span> <span class="st">&#39;.hardeners[] | {</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="st">    name, applicable, hardened, commands, stub_path, target_path, secret_gate</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="st">  }&#39;</span></span></code></pre></div>
+<p>These are authoritative for the installed build. 3.16.0 ships 157
+detectors and 50 hardeners. The <code>documentation</code> field
+contains the source-checked behavior and security model. Generated
+environment wrappers warn that the Target can read injected credentials;
+dedicated/native routes may provide narrower boundaries.</p>
+<details>
+<summary>3.16.0 hardener names</summary>
 
-        <article class="docs-content">
-          <section class="docs-section" id="install">
-            <h2>Install and verify</h2>
-            <p>Automic Vault requires macOS. Homebrew is one supported installation path. Install the app, open it once, then confirm the CLI on your path.</p>
-            <pre><code>brew install --cask automic-vault/isotopes/automic-vault
-open /Applications/Automic\ Vault.app
-av --version
-av help</code></pre>
-            <p>You can also use the <a href="https://github.com/automic-vault/automic-vault/releases/latest">current GitHub release</a> or review and run the <a href="/install.sh">website installer</a>. The menu bar app owns approval UI and policy; open it before a command needs approval.</p>
-            <pre><code>av open</code></pre>
-          </section>
+<p><code>akamai</code>, <code>algolia</code>, <code>argocd</code>,
+<code>ast-cli</code>, <code>aws</code>, <code>brew</code>,
+<code>buf</code>, <code>censys</code>, <code>checkov</code>,
+<code>circleci</code>, <code>civo</code>, <code>cloudsmith-cli</code>,
+<code>codex</code>, <code>composer</code>, <code>docker</code>,
+<code>doctl</code>, <code>flyctl</code>, <code>gh</code>,
+<code>glab</code>, <code>gotify</code>, <code>gptcommit</code>,
+<code>grafanactl</code>, <code>hcloud</code>, <code>heroku</code>,
+<code>huggingface-cli</code>, <code>jfrog-cli</code>, <code>k6</code>,
+<code>luarocks</code>, <code>minio-mc</code>, <code>netlify-cli</code>,
+<code>node</code>, <code>pnpm</code>, <code>pulumi</code>,
+<code>qwen-code</code>, <code>runpodctl</code>, <code>s3cmd</code>,
+<code>sentry-cli</code>, <code>snowflake-cli</code>, <code>snyk</code>,
+<code>stripe</code>, <code>sudo</code>, <code>supabase</code>,
+<code>transifex-cli</code>, <code>travis</code>, <code>twine</code>,
+<code>vagrant</code>, <code>vault</code>, <code>virustotal-cli</code>,
+<code>vultr</code>, <code>wsk</code>.</p>
+</details>
 
-          <section class="docs-section" id="quick-start">
-            <h2>Five-minute path</h2>
-            <p>Run the complete exposure report, save one value through the hidden terminal prompt, then release it only to the command that needs it.</p>
-            <pre><code>av scan --show-all
-av save GH_TOKEN
-av inject +GH_TOKEN gh auth status</code></pre>
-            <div class="docs-note">
-              <strong><code>save</code> does not read standard input.</strong>
-              <p>It opens <code>/dev/tty</code> and disables terminal echo while reading. Remove an old plaintext export only after confirming the approved command works.</p>
-            </div>
-          </section>
-
-          <section class="docs-section" id="model">
-            <h2>Mental model</h2>
-            <p>Automic Vault stores named Secret Values in the macOS Keychain. <code>av inject</code> submits an Authorization Request containing the Verified Launcher, resolved Target, arguments, working directory, requested Secret Names, selected Value sources, and existing environment conflicts. The app applies the Authorization Policy or asks for Approval. If allowed, <code>av</code> replaces itself with the Target process.</p>
-            <p>This is a Secret Application boundary, not a general sandbox. The Target receives the rest of the current environment and controls a Secret after receipt. Keep macOS, the app, and each authorized Target in your trust model.</p>
-          </section>
-
-          <section class="docs-section" id="commands">
-            <h2>Command surface</h2>
-            <dl class="docs-command-list">
-              <div><dt><code>av scan</code></dt><dd>Scan the home directory and report supported Exposure and Hazard Findings.</dd></div>
-              <div><dt><code>av doctor</code></dt><dd>Validate installed hardeners, launchers, dependencies, and path precedence.</dd></div>
-              <div><dt><code>av detectors --json</code></dt><dd>List the detector catalog and its embedded source documentation.</dd></div>
-              <div><dt><code>av hardeners --json</code></dt><dd>List hardener applicability, paths, commands, documentation, and Secret Gate routes.</dd></div>
-              <div><dt><code>av save [--project-directory=DIR] KEY</code></dt><dd>Store a hidden Global Value or Project Value under a valid Secret Name.</dd></div>
-              <div><dt><code>av inject +KEY COMMAND</code></dt><dd>Request named Secrets and execute one authorized Target.</dd></div>
-              <div><dt><code>av bless PATH</code></dt><dd>Review an exact script and store its Blessing.</dd></div>
-              <div><dt><code>av harden NAME</code></dt><dd>Apply a reviewed tool-specific migration or launcher boundary.</dd></div>
-              <div><dt><code>av unharden brew</code></dt><dd>Temporarily restore Homebrew for a cask migration.</dd></div>
-              <div><dt><code>av open</code></dt><dd>Open the app or a specific Secret Gate.</dd></div>
-            </dl>
-          </section>
-
-          <section class="docs-section" id="scan">
-            <h2><code>av scan</code></h2>
-            <p>Scan the current home directory for supported credential Exposures, Hazards, and other Detector Findings.</p>
-            <pre><code>av scan
-av scan --show-all
-av scan --json</code></pre>
-            <ul>
-              <li>The default human report hides medium- and low-severity findings.</li>
-              <li><code>--show-all</code> includes those lower-severity findings.</li>
-              <li><code>--json</code> writes an object containing <code>findings</code> and <code>gui_path</code>.</li>
-              <li>A completed scan exits <code>0</code> even when it finds problems. Treat the report, not the status code, as the audit result.</li>
-            </ul>
-            <p>Each finding includes a source, severity, explanation, remediation, affected paths, and a source-linked detector document.</p>
-          </section>
-
-          <section class="docs-section" id="doctor">
-            <h2><code>av doctor</code></h2>
-            <p>Check whether installed hardening still has the expected target, dependencies, launcher type, owner, permissions, content, and <code>PATH</code> precedence.</p>
-            <pre><code>av doctor
-av doctor gh
-av doctor gh --json
-av doctor claude
-av doctor codex</code></pre>
-            <p>Without a selector, <code>doctor</code> checks applicable installed hardeners. A selector can be a hardener, one of its commands, or a supported signed agent CLI.</p>
-            <ul>
-              <li>Exit <code>0</code>: every selected check is healthy.</li>
-              <li>Exit <code>1</code>: one or more issues require attention.</li>
-              <li>Exit <code>2</code>: invalid arguments, an unknown selector, or a selector with no Doctor-owned checks.</li>
-            </ul>
-            <p>JSON output contains <code>results</code>; each issue includes its kind, message, remediation, and relevant stub, target, or resolved path.</p>
-          </section>
-
-          <section class="docs-section" id="signed-cli-launchers">
-            <h2>Signed CLI launchers</h2>
-            <p>Automic Vault can bind an Authorization Policy to either a signed app bundle or a Developer ID-signed standalone executable. It validates the live code signature and stores the Launcher's designated requirement, which identifies the binary and its signing team.</p>
-            <p>A standalone executable must have a valid Developer ID Application signature, identifier, and Team ID. It must pass strict macOS signature validation and enable Hardened Runtime before it can receive Secret Gate access. Automic Vault rejects unsigned and arbitrary ad-hoc signed executables as ordinary launchers.</p>
-            <p>For one regular single-file Mach-O CLI, the app can instead create a Launcher Bundle. Automic Vault snapshots the executable, signs the payload and launcher with Hardened Runtime, installs the bundle and command link root-owned, and enrolls that exact generation. Every authorization revalidates the live identity, nested signatures, payload digest, enrolled generation, and runtime posture. Any change hard-denies the request.</p>
-            <p>A Launcher Bundle establishes identity and integrity for the exact packaged code. It does not establish publisher trust or make the code safe. Scripts and directory-shaped tools are not supported.</p>
-            <pre><code>av doctor claude
-av doctor codex</code></pre>
-            <p>These commands inspect the executable selected by the current <code>PATH</code>. In Automic Vault Settings, add the launcher to the relevant tool or blessed-script policy. Select the resolved native executable; exclude shell and package-manager shims. Review its identifier, Team ID, path, and designated requirement before allowing it.</p>
-            <p>If the identity cannot be verified later, automic authorization fails closed and requires Approval. Code signing proves identity and integrity, not intent. Keep the terminal or agent app's permissions minimal because TCC remains app-scoped.</p>
-          </section>
-
-          <section class="docs-section" id="save">
-            <h2><code>av save</code></h2>
-            <p>Store a Global Value or Project Value for one Secret Name.</p>
-            <pre><code>av save GH_TOKEN
-av save --project-directory=. GH_TOKEN</code></pre>
-            <p>The Secret Name must be a valid environment variable name: it begins with a letter or underscore and continues with letters, digits, or underscores. The command opens <code>/dev/tty</code>, disables terminal echo while reading, trims the line ending, rejects an empty value, and restores echo even if reading fails.</p>
-            <p>A Secret Name may have one Global Value and multiple Project Values. For each requested name, <code>av inject</code> selects the nearest Project Value at or above the physical working directory, then the Global Value if no Project Value matches. The Project Directory selects a value; it is not an authorization boundary. A read failure for the selected Value does not fall back to another Value.</p>
-            <pre><code># Wrong: save reads from /dev/tty, not stdin.
-printf '%s\n' "$GH_TOKEN" | av save GH_TOKEN</code></pre>
-          </section>
-
-          <section class="docs-section" id="inject">
-            <h2><code>av inject</code></h2>
-            <p>Request one or more named Secrets, then execute a Target.</p>
-            <pre><code>av inject +GH_TOKEN gh auth status
-av inject +AWS_ACCESS_KEY_ID +AWS_SECRET_ACCESS_KEY -- \
-  aws sts get-caller-identity</code></pre>
-            <h3>Full syntax</h3>
-            <pre><code>av inject [--replace-existing-env] [--allow-missing-keys] \
-  +KEY [+KEY...] [--] COMMAND [args...]</code></pre>
-            <ul>
-              <li>A bare command such as <code>gh</code> is resolved from <code>PATH</code>.</li>
-              <li>A target containing a slash must be an absolute path.</li>
-              <li><code>--</code> is optional, but useful when the target or its arguments could be mistaken for inject options.</li>
-              <li>Existing environment values win by default; a warning is printed for every conflict.</li>
-              <li><code>--replace-existing-env</code> lets the approved Keychain value replace an existing environment value.</li>
-              <li>A missing requested Secret fails by default. <code>--allow-missing-keys</code> leaves it unset.</li>
-              <li>Duplicate or invalid Secret Names are rejected.</li>
-              <li><code>av inject</code> refuses to run as root, and the approval service must be running.</li>
-            </ul>
-            <p>The Authorization Request is denied if the service cannot authenticate, the Authorization Policy does not allow the operation, or the user declines. If allowed, <code>av</code> uses <code>exec</code>, so the Target replaces the <code>av</code> process.</p>
-            <h3>Shebang use</h3>
-            <pre><code>#!/usr/local/bin/av inject +API_TOKEN /bin/sh
-set -eu
-exec curl -H "Authorization: Bearer $API_TOKEN" \
-  https://api.example.test/me</code></pre>
-            <p>The script path is included in the Authorization Request. Keep the interpreter path absolute and the shebang to one requested-Secret set plus one interpreter.</p>
-          </section>
-
-          <section class="docs-section" id="bless">
-            <h2><code>av bless</code></h2>
-            <p>Review an exact script and its Script Declaration.</p>
-            <pre><code>av bless ./release.sh</code></pre>
-            <p>The app shows the canonical path, SHA-256 checksum, requested Secret Names, Capabilities, injection flags, and Target interpreter. Approval creates a Blessing bound to that complete review. Editing or moving the script makes the Blessing stop matching.</p>
-            <p>A blessable script must be a regular UTF-8 file no larger than 1 MiB and start with an absolute <code>av inject</code> shebang whose target interpreter is also absolute.</p>
-            <pre><code>#!/usr/local/bin/av inject +GH_TOKEN /bin/sh
-# --- automic-vault
-# capabilities:
-#   gh: write
-# ---
-set -eu
-gh release create "$1"</code></pre>
-            <p>The optional manifest must immediately follow the shebang. It may grant named Secret Gates one of <code>read-only</code>, <code>local-write</code>, <code>write</code>, or <code>full</code>. <code>read-and-updates</code> and <code>trusted</code> remain compatibility aliases. Unsupported gates and Access Levels are rejected. Capabilities are ceilings: undeclared or broader requests from the script are denied. <code>full</code> includes Secret Disclosure and Elevated Secret Application and should be granted sparingly.</p>
-            <p>Run <code>av bless --endorse-launcher ./release.sh</code> to include a Launcher Endorsement in the review. Only an endorsed Verified Launcher can use the Blessing with automic authorization. With no Launcher Endorsement, each execution requires Approval. <code>--endorse-caller</code> remains a compatibility alias. Blessed scripts run from a verified <code>/dev/fd/N</code> snapshot so edits cannot race Approval. <code>AV_SCRIPT_PATH</code> contains the canonical source path and <code>AV_SCRIPT_DIR</code> its containing directory. Blessings can be inspected, narrowed, or revoked under <strong>Blessed Scripts</strong> in the app.</p>
-          </section>
-
-          <section class="docs-section" id="harden">
-            <h2><code>av harden</code></h2>
-            <p>Apply a named hardener.</p>
-            <pre><code>av harden NAME
-av harden NAME --yes</code></pre>
-            <p>Each Hardener changes one Tool's credential or launcher path. It can move existing Credentials into Keychain, install or replace a Launcher, change protected ownership, or enable a native credential route. Review the embedded documentation and prompts before approving system changes.</p>
-            <p>Some root-owned launchers require <code>sudo</code>. Follow the selected hardener's instructions; do not run every hardener as root. <code>--yes</code> skips confirmation where supported. A successful run prints the matching <code>av doctor NAME</code> command.</p>
-            <pre><code>av hardeners --json |
-  jq '.hardeners[] |
-    {name, applicable, hardened, commands, documentation}'</code></pre>
-            <p>The source includes dedicated hardeners for AWS CLI, Docker, Homebrew, GitHub CLI, sudo, Stripe, and Supabase plus generated environment wrappers and direct Isotope installs for supported tools. Availability and applicability depend on the installed tool and machine.</p>
-            <p>AWS hardening installs and verifies AWS's signed CLI under <code>/opt/av/aws</code>, moves the default long-lived key pair into Secret Custody, and uses a native helper to issue short-lived STS credentials for normal invocations. Docker hardening keeps the vendor-signed Docker CLI and gates registry credential release on its live identity, ancestry, arguments, and requested registry.</p>
-          </section>
-
-          <section class="docs-section" id="unharden-brew">
-            <h2><code>av unharden brew</code></h2>
-            <p>Temporarily restore the system Homebrew launcher when a cask migration requires ordinary Homebrew behavior.</p>
-            <pre><code>av unharden brew
-av unharden brew --yes</code></pre>
-            <p>This command is intentionally limited to Homebrew. Follow the printed recovery and re-hardening instructions; do not treat it as a generic hardener rollback.</p>
-          </section>
-
-          <section class="docs-section" id="catalogs">
-            <h2>Machine-readable catalogs</h2>
-            <p>List every detector and its embedded source documentation.</p>
-            <pre><code>av detectors --json |
-  jq '.detectors[] | {name, docs_url, documentation}'</code></pre>
-            <p>List hardener state, commands, paths, and Secret Gate routes.</p>
-            <pre><code>av hardeners --json |
-  jq '.hardeners[] | {
-    name,
-    applicable,
-    hardened,
-    stub_path,
-    target_path,
-    commands,
-    secret_gate
-  }'</code></pre>
-            <p>These are the reliable automation interfaces for discovering the catalog shipped by an installed build. Do not hard-code a copied list of detectors or hardeners.</p>
-          </section>
-
-          <section class="docs-section" id="open">
-            <h2><code>av open</code></h2>
-            <p>Open the app and show its main window, or open a specific Secret Gate by its path-safe ID.</p>
-            <pre><code>av open
-av open --secret-gate gh</code></pre>
-            <p>Gate IDs may contain ASCII letters, digits, hyphens, underscores, and periods. The option is also used by product links and generated guidance.</p>
-          </section>
-
-          <section class="docs-section" id="status">
-            <h2>Global options and exit status</h2>
-            <pre><code>av help
-av --version
-av inject --help
-av inject --version</code></pre>
-            <ul>
-              <li><code>0</code> for a completed command or approved execution.</li>
-              <li><code>1</code> for an operational failure, denied request, or unhealthy <code>doctor</code> result.</li>
-              <li><code>2</code> for top-level usage errors and invalid <code>doctor</code> selection.</li>
-            </ul>
-            <p>The target's behavior begins after a successful <code>inject</code>, because that process replaces <code>av</code>.</p>
-          </section>
-
-          <section class="docs-section docs-unsupported" id="unsupported">
-            <h2>Commands removed after v1</h2>
-            <p>The earlier v1 manual described <code>install</code>, <code>contain</code>, <code>dotenv</code>, <code>credential-helper</code>, <code>gate</code>, and <code>trace</code>. Those commands are not part of the Automic Vault 3.8.0 dispatcher. Use <code>av help</code> from the installed build as the authoritative top-level list.</p>
-          </section>
-
-          <section class="docs-section" id="source">
-            <h2>Source of truth</h2>
-            <p>This manual was checked against the tagged 3.8.0 implementation: <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/mod.rs"><code>mod.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/scan.rs"><code>scan.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/doctor.rs"><code>doctor.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/save.rs"><code>save.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/inject.rs"><code>inject.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/bless.rs"><code>bless.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/launcher_bundle.rs"><code>launcher_bundle.rs</code></a>, <a href="https://github.com/automic-vault/automic-vault/blob/3.8.0/src/cli/open.rs"><code>open.rs</code></a>, and the <a href="https://github.com/automic-vault/automic-vault/tree/3.8.0/src/isotopes">isotope catalog</a>.</p>
-            <p>For a particular installation, prefer its <code>av help</code>, <code>av detectors --json</code>, and <code>av hardeners --json</code> output. Report discrepancies in the <a href="https://github.com/automic-vault/automic-vault/issues">issue tracker</a>.</p>
-          </section>
-        </article>
+<h3 id="av-save-and-av-list"><code>av save</code> and
+<code>av list</code></h3>
+<pre class="text"><code>av save [--project-directory DIR] KEY
+av save [--project-directory=DIR] KEY
+av list
+av ls</code></pre>
+<p><code>list</code> shows names, never Values, and accepts no
+arguments. A pipeline does not provide a Value to <code>save</code>:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wrong: save reads /dev/tty, not stdin.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">&#39;%s\n&#39;</span> <span class="st">&quot;</span><span class="va">$GH_TOKEN</span><span class="st">&quot;</span> <span class="kw">|</span> <span class="ex">av</span> save GH_TOKEN</span></code></pre></div>
+<h3 id="av-inject"><code>av inject</code></h3>
+<pre class="text"><code>av inject [--replace-existing-env] [--allow-missing-keys] \
+  +KEY [+KEY...] [--] COMMAND [args...]
+av inject -- COMMAND [args...]</code></pre>
+<p>Bare commands resolve through PATH; a Target containing
+<code>/</code> must be absolute. Existing environment values win with a
+warning unless <code>--replace-existing-env</code> is used. Missing
+requested Secrets fail unless <code>--allow-missing-keys</code> leaves
+them unset. Duplicate/invalid names and root are rejected. On success,
+<code>exec</code> replaces <code>av</code> with the Target. Legacy
+<code>--allow-existing-env</code>, <code>--force</code>,
+<code>--import</code>, and <code>--migrate</code> are rejected.</p>
+<h4 id="shebang-and-blessing-workflow">Shebang and Blessing
+workflow</h4>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/local/bin/av inject +GH_TOKEN /bin/sh</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># --- automic-vault</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># capabilities:</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   gh: write</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ---</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-eu</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> release create <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span></span></code></pre></div>
+<p>A blessable script is a regular UTF-8 file up to 1 MiB with absolute
+<code>av</code> and interpreter paths. The optional manifest immediately
+follows the shebang. Capabilities are ceilings, not grants. Execution
+uses a verified <code>/dev/fd/N</code> snapshot;
+<code>AV_SCRIPT_PATH</code> and <code>AV_SCRIPT_DIR</code> identify its
+canonical source.</p>
+<h3 id="av-proxy"><code>av proxy</code></h3>
+<pre class="text"><code>av proxy [--replace-existing-env] +KEY [+KEY...] [--] COMMAND [args...]</code></pre>
+<p>Every session needs Approval. The Target receives random session
+Secret References and a Proxy Credential, not raw Values. Automic Vault
+replaces common uppercase/lowercase proxy variables, empties
+<code>NO_PROXY</code>, and sets standard CA variables. Conflicts fail
+unless <code>--replace-existing-env</code> is used.</p>
+<p>Destination rules are memory-only and scoped per session and origin.
+A Target can bypass configured proxies; bearer credentials remain bearer
+credentials at the destination. Proxying is narrower delivery, not
+containment. Root is denied.</p>
+<h3 id="av-bless"><code>av bless</code></h3>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> bless ./release.sh</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> bless <span class="at">--endorse-launcher</span> ./release.sh</span></code></pre></div>
+<p>Approval binds the complete reviewed script. An endorsement allows
+only that Verified Launcher to use automic authorization; without it
+every run needs Approval. <code>--endorse-caller</code> is a
+compatibility alias. The UI inspects, narrows, replaces, and revokes
+Blessings.</p>
+<h3 id="av-harden-and-av-unharden-brew"><code>av harden</code> and
+<code>av unharden brew</code></h3>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> harden gh</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> harden aws <span class="at">--yes</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> unharden brew <span class="at">--yes</span></span></code></pre></div>
+<p>A hardener may move a credential, install or replace a launcher,
+protect ownership, install a signed Tool, or enable a native route. Read
+its embedded documentation; some operations require <code>sudo</code>,
+but do not run all hardeners as root. <code>-y</code>/<code>--yes</code>
+skips supported confirmations. Aliases include <code>homebrew</code>,
+<code>gh-cli</code>, <code>stripe-cli</code>, <code>supabase-cli</code>,
+and <code>fly</code>. <code>unharden</code> is Homebrew-only.</p>
+<h3 id="av-gpg-sign-and-av-open"><code>av gpg-sign</code> and
+<code>av open</code></h3>
+<p><code>av gpg-sign</code> is Git plumbing, not an interactive
+interface. It accepts forwarded GnuPG options, reads at most 16 MiB,
+binds to payload SHA-256, and returns a detached signature and GnuPG
+status. Configure it in Settings.</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> open</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> open <span class="at">--secret-gate</span> gh</span></code></pre></div>
+<p>Gate IDs use only ASCII letters, digits, hyphens, underscores, and
+periods.</p>
+<h3 id="global-behavior-and-exit-status">Global behavior and exit
+status</h3>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> help</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> <span class="at">--version</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> inject <span class="at">--help</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> proxy <span class="at">--help</span></span></code></pre></div>
+<p>Not every subcommand has dedicated <code>--help</code>. Color is
+disabled by <code>NO_COLOR</code> or <code>TERM=dumb</code>. Exit
+<code>0</code> is completion/approved execution; <code>1</code>
+operational failure, denial, or unhealthy Doctor; <code>2</code>
+top-level usage or invalid Doctor selection.</p>
+<h2 id="common-workflows">Common workflows</h2>
+<h3 id="github-cli">GitHub CLI</h3>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> scan <span class="at">--json</span> <span class="at">--detector</span> gh-cli-hosts-token</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> harden gh</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> doctor gh</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> auth status</span></code></pre></div>
+<p>Inspect the <code>gh</code> Secret Gate before automic authorization.
+Direct <code>inject</code> works, but the Tool-specific Gate can narrow
+policy by operation.</p>
+<h3 id="aws-cli">AWS CLI</h3>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> harden aws</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> doctor aws</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="ex">aws</span> sts get-caller-identity</span></code></pre></div>
+<p>The AWS route installs and verifies AWS's signed CLI under
+<code>/opt/av/aws</code>, moves the default long-lived pair into
+Custody, and issues short-lived STS credentials.</p>
+<h3 id="docker">Docker</h3>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> harden docker</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">av</span> doctor docker</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull registry.example.test/team/image:latest</span></code></pre></div>
+<p>Docker hardening retains the vendor-signed CLI and gates registry
+credentials on live identity, ancestry, arguments, and requested
+registry.</p>
+<h3 id="gpg-signed-commits">GPG-signed commits</h3>
+<p>Configure GPG Signing and <code>av-gpg</code>, then verify:</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--allow-empty</span> <span class="at">-m</span> <span class="st">&#39;verify signing&#39;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--show-signature</span> <span class="at">-1</span></span></code></pre></div>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<ul>
+<li><strong>No response:</strong> run <code>av open</code>; inspect
+History for exact denial details.</li>
+<li><strong>Wrong executable:</strong> compare
+<code>command -v TOOL</code> with <code>av doctor TOOL</code>; authorize
+the native executable, not a shell or mutable shim.</li>
+<li><strong>Wrong Project Value:</strong> confirm canonical working and
+Project Directories are on one filesystem and the latter is an
+ancestor.</li>
+<li><strong>Environment value wins:</strong> remove the export or
+deliberately use <code>--replace-existing-env</code> after reviewing
+precedence.</li>
+<li><strong>Blessing stopped matching:</strong> review the diff and
+re-bless only if correct; edits and moves invalidate identity.</li>
+<li><strong>Launcher Bundle denied after update:</strong> create and
+review a new generation; digest, signature, enrollment, and runtime
+mismatches fail closed.</li>
+<li><strong>Security issue:</strong> follow <a
+href="https://www.automicvault.com/.well-known/security.txt">security.txt</a>
+and never post Values, private keys, or live credentials.</li>
+</ul>
+<h2 id="source-of-truth">Source of truth</h2>
+<p>This manual was checked against the CLI parser, implementations, app
+UI, catalogs, tests, and canonical security documents for 3.16.0. For an
+installed build prefer <code>av --version</code>, <code>av help</code>,
+<code>av detectors --json</code>, and
+<code>av hardeners --json</code>.</p>
+<ul>
+<li><a
+href="https://github.com/automic-vault/automic-vault/blob/3.16.0/src/cli/mod.rs">CLI
+source</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/tree/3.16.0/src">App
+and CLI source</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/tree/3.16.0/src/detectors">Detectors</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/tree/3.16.0/src/isotopes">Hardeners</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md">Domain
+Language</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md">Architecture</a></li>
+</ul>
+<p>Report discrepancies in the <a
+href="https://github.com/automic-vault/automic-vault/issues">issue
+tracker</a>.</p></article>
       </div>
     </main>
-
     <footer class="docs-footer">
-      <p class="docs-footer-line">Run only what you mean to authorize.</p>
+      <p class="docs-footer-line">Authorize the operation, not just the identity.</p>
       <div class="docs-footer-meta">
-        <span>&copy; 2026 Automic Vault.</span>
-        <div class="docs-footer-links">
-          <a href="/about/">About</a>
-          <a href="https://github.com/automic-vault/automic-vault/security">Security</a>
-          <a href="/privacy/">Privacy</a>
-          <a href="/terms/">Terms</a>
-          <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
-        </div>
+        <div class="docs-footer-links"><a href="#top">Back to top</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a><a href="/privacy/">Privacy</a></div>
+        <span>Automic Vault 3.16.0 manual</span>
       </div>
     </footer>
   </div>
