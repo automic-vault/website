@@ -1,24 +1,34 @@
 #!/usr/bin/env node
 
 import { execFileSync } from "node:child_process";
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const avRoot = path.resolve(root, "../av");
 const docsDir = path.join(root, "www", "docs");
 const manual = readFileSync(path.join(root, "scripts", "docs-manual.md"), "utf8");
 const version = manual.match(/Automic Vault ([\d.]+) on/)?.[1];
 
 if (!version) throw new Error("Could not read the documented version");
 
-const cliVersion = execFileSync("av", ["--version"], { encoding: "utf8" }).trim().split(" ").at(-1);
-if (cliVersion !== version) throw new Error(`Manual is ${version}, but installed av is ${cliVersion}`);
+const manifest = path.join(avRoot, "Cargo.toml");
+const sourceVersion = readFileSync(manifest, "utf8").match(/^version = "([\d.]+)"/m)?.[1];
+if (sourceVersion !== version) throw new Error(`Manual is ${version}, but sibling checkout is ${sourceVersion}`);
 
-const hardeners = JSON.parse(execFileSync("av", ["hardeners", "--json"], {
-  encoding: "utf8",
-  maxBuffer: 16 * 1024 * 1024,
-})).hardeners;
+const hardenerSourceDir = path.join(avRoot, "src", "isotopes", "hardeners");
+const sourceNames = { aws_cli: "aws", gh_cli: "gh", homebrew: "brew", oxide_cli: "oxide-cli", stripe_cli: "stripe" };
+const hardeners = readdirSync(hardenerSourceDir)
+  .filter(filename => filename.endsWith(".md"))
+  .sort()
+  .map(filename => {
+    const stem = path.basename(filename, ".md");
+    return {
+      name: sourceNames[stem] ?? stem.replaceAll("_", "-"),
+      documentation: readFileSync(path.join(hardenerSourceDir, filename), "utf8"),
+    };
+  });
 
 const pages = [
   {
@@ -110,9 +120,10 @@ function titleCase(name) {
     hcloud: "Hetzner Cloud", "huggingface-cli": "Hugging Face CLI", "jfrog-cli": "JFrog CLI",
     k6: "Grafana k6", luarocks: "LuaRocks", "minio-mc": "MinIO Client",
     "netlify-cli": "Netlify CLI", node: "npm", pnpm: "pnpm", "qwen-code": "Qwen Code",
-    "runpodctl": "RunPod CLI", s3cmd: "s3cmd", "sentry-cli": "Sentry CLI",
+    "runpodctl": "RunPod CLI", s3cmd: "s3cmd", "sentry-cli": "Sentry CLI", goat: "goat",
     "snowflake-cli": "Snowflake CLI", stripe: "Stripe CLI", sudo: "sudo", supabase: "Supabase",
-    "transifex-cli": "Transifex CLI", vault: "HashiCorp Vault",
+    "transifex-cli": "Transifex CLI", vault: "HashiCorp Vault", ordercli: "ordercli",
+    "oxide-cli": "Oxide CLI", opentofu: "OpenTofu",
     "virustotal-cli": "VirusTotal CLI", vultr: "Vultr CLI", wsk: "OpenWhisk",
   };
   return exact[name] ?? name.split("-").map(word => word[0].toUpperCase() + word.slice(1)).join(" ");
@@ -228,7 +239,6 @@ for (const page of pages) {
   writeFileSync(path.join(dir, "index.html"), htmlPage({ ...page, markdown }));
 }
 
-const featuredCount = 8;
 const hardenerList = items => items.map(({ name }) => `- [${titleCase(name)}](./${name}/) — \`av harden ${name}\``).join("\n");
 const catalogMarkdown = `# Hardener reference
 
@@ -240,15 +250,9 @@ av harden TOOL
 av doctor TOOL
 \`\`\`
 
-## Tool-specific hardeners
+## Hardeners
 
-${hardenerList(hardeners.slice(0, featuredCount))}
-
-## Environment-wrapper hardeners
-
-These hardeners install a protected launcher for the Tool and migrate supported credentials into Automic Vault.
-
-${hardenerList(hardeners.slice(featuredCount))}
+${hardenerList(hardeners)}
 `;
 
 const hardenerIndex = path.join(docsDir, "hardeners");
@@ -257,8 +261,8 @@ writeFileSync(path.join(hardenerIndex, "index.md"), catalogMarkdown);
 writeFileSync(path.join(hardenerIndex, "index.html"), htmlPage({
   slug: "hardeners",
   title: "Hardener reference",
-  lede: `The complete ${version} catalog: what each hardener changes, protects, and cannot protect.`,
-  description: `Reference for all ${hardeners.length} Automic Vault ${version} hardeners.`,
+  lede: `Hardener documentation rendered from the Automic Vault ${version} source checkout.`,
+  description: `Static reference pages rendered from the Automic Vault ${version} hardener Markdown sources.`,
   markdown: catalogMarkdown,
 }));
 

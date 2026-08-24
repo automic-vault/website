@@ -13,7 +13,8 @@ python3 -m unittest discover -s tests
 scripts/deploy-www.sh --prepare-only
 ```
 
-Regenerate the versioned manual and hardener pages with `node scripts/generate-docs.mjs`.
+Regenerate the versioned manual and hardener pages from the sibling
+`../av/src/isotopes/hardeners/*.md` files with `node scripts/generate-docs.mjs`.
 
 ## Deploy
 

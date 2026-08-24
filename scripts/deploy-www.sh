@@ -1368,6 +1368,7 @@ sync_site() {
 
   log_step "Syncing crawlable HTML and XML content"
   aws s3 sync "${upload_site_dir}/" "s3://${WWW_BUCKET}/" \
+    --delete \
     --exclude ".DS_Store" \
     --exclude "*/.DS_Store" \
     --exclude "*" \
@@ -1388,6 +1389,7 @@ sync_site() {
 
   log_step "Syncing crawlable markdown content"
   aws s3 sync "${upload_site_dir}/" "s3://${WWW_BUCKET}/" \
+    --delete \
     --exclude ".DS_Store" \
     --exclude "*/.DS_Store" \
     --exclude "*" \

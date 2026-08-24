@@ -236,11 +236,12 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             deploy_script,
         )
 
-    def test_every_hardener_has_html_and_markdown(self):
+    def test_every_source_hardener_has_html_and_markdown(self):
         hardeners = ROOT / "www" / "docs" / "hardeners"
         pages = sorted(path.parent for path in hardeners.glob("*/index.html"))
+        sources = sorted((ROOT.parent / "av" / "src" / "isotopes" / "hardeners").glob("*.md"))
 
-        self.assertEqual(len(pages), 50)
+        self.assertEqual(len(pages), len(sources))
         catalog = (hardeners / "index.html").read_text(encoding="utf-8")
         for page in pages:
             name = page.name
@@ -250,6 +251,18 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                 self.assertTrue(markdown.exists())
                 self.assertIn(f'href="/docs/hardeners/{name}/index.md"', html)
                 self.assertIn(f'href="./{name}/"', catalog)
+
+        generator = (ROOT / "scripts" / "generate-docs.mjs").read_text(encoding="utf-8")
+        self.assertIn('path.resolve(root, "../av")', generator)
+        self.assertIn('"src", "isotopes", "hardeners"', generator)
+        self.assertIn('filename.endsWith(".md")', generator)
+        self.assertNotIn('execFileSync("av"', generator)
+        self.assertIn("Foodora access token", (hardeners / "ordercli" / "index.html").read_text(encoding="utf-8"))
+
+        deploy = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
+        for marker in ("Syncing crawlable HTML and XML content", "Syncing crawlable markdown content"):
+            sync = deploy.split(marker, 1)[1].split("log_step", 1)[0]
+            self.assertIn("--delete", sync)
 
     def test_docs_sidebar_marks_the_page_and_lists_its_sections(self):
         app = (ROOT / "www" / "docs" / "app" / "index.html").read_text(encoding="utf-8")
