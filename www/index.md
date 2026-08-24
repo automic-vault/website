@@ -1,6 +1,6 @@
 # Automic Vault
 
-## Your secrets manager should know what the secrets *do*.
+## Automic Vault is the secret manager for developers who want control over what their secrets *do*.
 
 Automic Vault moves supported credentials out of plaintext files. It checks the
 Tool, Verified Launcher, Target, command, arguments, working directory, and

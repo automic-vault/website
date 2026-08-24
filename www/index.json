@@ -3,7 +3,7 @@
   "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "Your secrets manager should know what the secrets do.",
+  "title": "Automic Vault is the secret manager for developers who want control over what their secrets do.",
   "description": "Automic Vault checks the complete operation before applying a developer credential.",
   "difference": {
     "conventional_model": "Check an identity and Secret Name before returning the stored value.",
