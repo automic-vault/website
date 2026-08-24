@@ -1368,13 +1368,18 @@ sync_site() {
 
   log_step "Syncing crawlable HTML and XML content"
   aws s3 sync "${upload_site_dir}/" "s3://${WWW_BUCKET}/" \
-    --delete \
     --exclude ".DS_Store" \
     --exclude "*/.DS_Store" \
     --exclude "*" \
     --include "*.html" \
     --include "*.xml" \
     --exclude "AGENTS.md" \
+    --cache-control "${WWW_HTML_CACHE_CONTROL}"
+
+  aws s3 sync "${upload_site_dir}/docs/hardeners/" "s3://${WWW_BUCKET}/docs/hardeners/" \
+    --delete \
+    --exclude "*" \
+    --include "*.html" \
     --cache-control "${WWW_HTML_CACHE_CONTROL}"
 
   log_step "Syncing crawlable plain text content"
@@ -1389,12 +1394,18 @@ sync_site() {
 
   log_step "Syncing crawlable markdown content"
   aws s3 sync "${upload_site_dir}/" "s3://${WWW_BUCKET}/" \
-    --delete \
     --exclude ".DS_Store" \
     --exclude "*/.DS_Store" \
     --exclude "*" \
     --include "*.md" \
     --exclude "AGENTS.md" \
+    --content-type "text/markdown; charset=utf-8" \
+    --cache-control "${WWW_HTML_CACHE_CONTROL}"
+
+  aws s3 sync "${upload_site_dir}/docs/hardeners/" "s3://${WWW_BUCKET}/docs/hardeners/" \
+    --delete \
+    --exclude "*" \
+    --include "*.md" \
     --content-type "text/markdown; charset=utf-8" \
     --cache-control "${WWW_HTML_CACHE_CONTROL}"
 

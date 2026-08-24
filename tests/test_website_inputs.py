@@ -260,9 +260,10 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertIn("Foodora access token", (hardeners / "ordercli" / "index.html").read_text(encoding="utf-8"))
 
         deploy = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
-        for marker in ("Syncing crawlable HTML and XML content", "Syncing crawlable markdown content"):
-            sync = deploy.split(marker, 1)[1].split("log_step", 1)[0]
-            self.assertIn("--delete", sync)
+        hardener_sync = '"${upload_site_dir}/docs/hardeners/" "s3://${WWW_BUCKET}/docs/hardeners/"'
+        self.assertEqual(deploy.count(hardener_sync), 2)
+        for sync in deploy.split(hardener_sync)[1:]:
+            self.assertIn("--delete", sync.split("log_step", 1)[0])
 
     def test_docs_sidebar_marks_the_page_and_lists_its_sections(self):
         app = (ROOT / "www" / "docs" / "app" / "index.html").read_text(encoding="utf-8")
