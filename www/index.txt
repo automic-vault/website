@@ -67,7 +67,12 @@ iPhone Mirroring and Show on Mac can expose Approval controls on the Mac when
 biometrics are off. Disable them, or require Face ID or Touch ID on every
 eligible iPhone.
 
-Each Tool gets its own credential handoff
+Deeper than agent-harness guardrails
+
+Harness guardrails govern one harness. Automic Vault works deeper: its
+Hardeners reconfigure or patch the credential-bearing Tool itself, so the same
+gate applies when Terminal, Codex, another harness, or an unknown process
+invokes it.
 
 - AWS normal invocations receive short-lived STS credentials from a native helper.
   Long-lived keys stay in Automic Vault.

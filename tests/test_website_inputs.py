@@ -347,6 +347,11 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             markdown,
         )
 
+        for filename in ("index.html", "index.md", "index.txt", "index.json"):
+            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
+            with self.subTest(filename=filename):
+                self.assertIn("credential-bearing Tool", text)
+
         for filename in ("index.html", "index.md", "index.txt", "index.json", "llms.txt"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
             with self.subTest(filename=filename):
