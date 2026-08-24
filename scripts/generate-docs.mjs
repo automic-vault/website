@@ -126,17 +126,25 @@ function renderMarkdown(markdown) {
   }).trim();
 }
 
-function nav(current) {
+function nav(current, article, title) {
   const links = manualLinks.map(([slug, label]) => {
     const selected = current === slug || (current.startsWith("hardeners/") && slug === "hardeners");
     return `<li><a href="${route(slug)}"${selected ? ' aria-current="page"' : ""}>${label}</a></li>`;
   }).join("");
+  const headings = [...article.matchAll(/<h([23]) id="([^"]+)">([\s\S]*?)<\/h\1>/g)]
+    .filter(([, , , label], index) => index > 0 || label.replace(/<[^>]+>/g, "").trim() !== title)
+    .map(([, level, id, label]) => `<li class="docs-nav-depth-${level}"><a href="#${id}">${label}</a></li>`)
+    .join("");
   return `<nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
           <section class="docs-nav-group">
             <h2>Documentation</h2>
             <ul>${links}</ul>
           </section>
+${headings ? `          <section class="docs-nav-group">
+            <h2>On this page</h2>
+            <ul>${headings}</ul>
+          </section>` : ""}
         </nav>`;
 }
 
@@ -185,7 +193,7 @@ function htmlPage({ slug, title, lede, description, markdown }) {
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
   <link rel="stylesheet" href="/styles.css?v=128">
-  <link rel="stylesheet" href="/docs/styles.css?v=4">
+  <link rel="stylesheet" href="/docs/styles.css?v=5">
 </head>
 <body>
   <div class="site-shell" id="top">
@@ -197,7 +205,7 @@ function htmlPage({ slug, title, lede, description, markdown }) {
     <main>
       <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault ${version} · macOS</p><h1>${title}</h1><p class="lede">${lede}</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="${markdownRoute}">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
-        ${nav(slug)}
+        ${nav(slug, article, title)}
         <article class="docs-content">${article}
 <p class="docs-source-link"><a href="${markdownRoute}">Read this page as Markdown</a></p></article>
       </div>

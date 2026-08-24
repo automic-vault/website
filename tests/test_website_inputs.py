@@ -251,6 +251,14 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                 self.assertIn(f'href="/docs/hardeners/{name}/index.md"', html)
                 self.assertIn(f'href="./{name}/"', catalog)
 
+    def test_docs_sidebar_marks_the_page_and_lists_its_sections(self):
+        app = (ROOT / "www" / "docs" / "app" / "index.html").read_text(encoding="utf-8")
+
+        self.assertIn('<a href="/docs/app/" aria-current="page">App guide</a>', app)
+        self.assertIn("On this page", app)
+        self.assertIn('<a href="#detectors">Detectors</a>', app)
+        self.assertIn('<a href="#settings">Settings</a>', app)
+
     def test_cloudfront_origin_uses_the_bucket_region(self):
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
 
