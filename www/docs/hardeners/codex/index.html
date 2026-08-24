@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Codex hardener — Automic Vault</title>
+  <meta name="description" content="How Automic Vault 3.16.0 hardens Codex.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="Codex hardener">
+  <meta property="og:description" content="How Automic Vault 3.16.0 hardens Codex.">
+  <meta property="og:url" content="https://www.automicvault.com/docs/hardeners/codex/">
+  <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Codex hardener">
+  <meta name="twitter:description" content="How Automic Vault 3.16.0 hardens Codex.">
+  <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
+  <link rel="canonical" href="https://www.automicvault.com/docs/hardeners/codex/">
+  <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/hardeners/codex/index.md">
+  <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/codex/","headline":"Codex hardener","description":"How Automic Vault 3.16.0 hardens Codex.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico?v=5" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+  <link rel="stylesheet" href="/docs/styles.css?v=4">
+</head>
+<body>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home"><img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54"><span class="brand-type">Automic Vault</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span></button>
+      <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
+    </header>
+    <main>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>Codex hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the codex hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/hardeners/codex/index.md">Markdown</a></li></ul></div></header>
+      <div class="docs-layout">
+        <nav class="docs-toc" aria-label="Documentation sections">
+          <a class="docs-toc-title" href="/docs/">Manual</a>
+          <section class="docs-nav-group">
+            <h2>Documentation</h2>
+            <ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/security/">Security foundations</a></li><li><a href="/docs/app/">App guide</a></li><li><a href="/docs/authority/">Approval and authority</a></li><li><a href="/docs/cli/">CLI reference</a></li><li><a href="/docs/workflows/">Workflows</a></li><li><a href="/docs/troubleshooting/">Troubleshooting</a></li><li><a href="/docs/hardeners/" aria-current="page">Hardeners</a></li></ul>
+          </section>
+        </nav>
+        <article class="docs-content"><h1 id="codex-hardener">Codex hardener</h1>
+<p>Run <code>av harden codex</code> to apply this hardener and
+<code>av doctor codex</code> to verify it.</p>
+<h2 id="how-automic-vault-hardens-codex">How Automic Vault Hardens
+Codex</h2>
+<p><code>av harden codex</code> performs Codex's supported
+credential-storage migration:</p>
+<ol type="1">
+<li>Refuse to proceed while ChatGPT.app is running.</li>
+<li>Show the complete plan and ask for confirmation.</li>
+<li>Atomically set <code>cli_auth_credentials_store = "keyring"</code>
+in <code>${CODEX_HOME:-$HOME/.codex}/config.toml</code>.</li>
+<li>Run <code>codex login</code> and confirm it with
+<code>codex login status</code>.</li>
+<li>Only after successful verification, delete the old plaintext
+<code>auth.json</code>.</li>
+</ol>
+<p>If login or verification fails, Automic Vault restores the original
+configuration and keeps <code>auth.json</code>. It also refuses to
+execute a <code>codex</code> binary that does not carry OpenAI's
+expected code signature.</p>
+<p>API-key and access-token logins preserve their existing method by
+passing the credential to Codex over stdin. Mixed, malformed, Bedrock,
+and agent-identity credential files fail closed for manual
+migration.</p>
+<h2 id="chatgpt-desktop">ChatGPT Desktop</h2>
+<p>Codex CLI, the IDE extension, and Codex inside the ChatGPT desktop
+app share Codex configuration layers. The desktop app's Codex surface
+may therefore ask you to sign in again after this change. OpenAI's
+documentation does not specify whether this CLI credential-storage
+setting affects the desktop app's existing session, so close the app
+before changing it and expect to reauthenticate.</p>
+<h2 id="caveats">Caveats</h2>
+<ul>
+<li><code>keyring</code> fails closed when the OS credential store is
+unavailable; <code>auto</code> can fall back to plaintext
+<code>auth.json</code>.</li>
+<li>A failed login never removes the existing
+<code>auth.json</code>.</li>
+<li>A project-level <code>.codex/config.toml</code> has higher
+precedence than the user file.</li>
+</ul>
+<p class="docs-source-link"><a href="/docs/hardeners/codex/index.md">Read this page as Markdown</a></p></article>
+      </div>
+    </main>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/codex/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+  </div>
+  <script src="/app.js?v=26"></script>
+</body>
+</html>

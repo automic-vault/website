@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>GitHub CLI hardener — Automic Vault</title>
+  <meta name="description" content="How Automic Vault 3.16.0 hardens GitHub CLI.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="GitHub CLI hardener">
+  <meta property="og:description" content="How Automic Vault 3.16.0 hardens GitHub CLI.">
+  <meta property="og:url" content="https://www.automicvault.com/docs/hardeners/gh/">
+  <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub CLI hardener">
+  <meta name="twitter:description" content="How Automic Vault 3.16.0 hardens GitHub CLI.">
+  <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
+  <link rel="canonical" href="https://www.automicvault.com/docs/hardeners/gh/">
+  <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/hardeners/gh/index.md">
+  <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/gh/","headline":"GitHub CLI hardener","description":"How Automic Vault 3.16.0 hardens GitHub CLI.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico?v=5" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+  <link rel="stylesheet" href="/docs/styles.css?v=4">
+</head>
+<body>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home"><img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54"><span class="brand-type">Automic Vault</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span></button>
+      <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
+    </header>
+    <main>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>GitHub CLI hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the gh hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/hardeners/gh/index.md">Markdown</a></li></ul></div></header>
+      <div class="docs-layout">
+        <nav class="docs-toc" aria-label="Documentation sections">
+          <a class="docs-toc-title" href="/docs/">Manual</a>
+          <section class="docs-nav-group">
+            <h2>Documentation</h2>
+            <ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/security/">Security foundations</a></li><li><a href="/docs/app/">App guide</a></li><li><a href="/docs/authority/">Approval and authority</a></li><li><a href="/docs/cli/">CLI reference</a></li><li><a href="/docs/workflows/">Workflows</a></li><li><a href="/docs/troubleshooting/">Troubleshooting</a></li><li><a href="/docs/hardeners/" aria-current="page">Hardeners</a></li></ul>
+          </section>
+        </nav>
+        <article class="docs-content"><h1 id="github-cli-hardener">GitHub CLI hardener</h1>
+<p>Run <code>av harden gh</code> to apply this hardener and
+<code>av doctor gh</code> to verify it.</p>
+<h2 id="how-automic-vault-hardens-gh">How Automic Vault Hardens
+<code>gh</code></h2>
+<p>We provide a <a
+href="https://github.com/automic-vault/gh-cli">patched version</a> of
+<code>gh</code>. <code>av harden gh</code> installs it from our <a
+href="https://github.com/automic-vault/homebrew-isotopes">tap</a> when
+Homebrew is available, or installs the same signed release directly at
+<code>/usr/local/bin/gh</code>. The patches are concerned with:</p>
+<ol type="1">
+<li>Is codesigned such that <code>gh</code> (and only <code>gh</code>)
+can access its secure credentials.</li>
+<li>Ensures that authenticated <code>gh</code> usage goes via the
+Automic Vault Secret Gate system.</li>
+</ol>
+<h2 id="credential-migration">Credential Migration</h2>
+<p>Use <code>av harden gh</code> to install the Isotope and migrate
+existing <code>gh</code> credentials into Automic Vault. Direct installs
+are updated by running the same command when <code>av doctor gh</code>
+reports a new release.</p>
+<h2 id="secret-gate">Secret Gate</h2>
+<p>The menu bar app creates a <code>gh</code> Secret Gate as soon as the
+hardened CLI is installed. Configure its default and per-Launcher Access
+Levels there. Read Only automically authorizes known read-only commands
+and <code>gh api</code> GET requests. Local Write also authorizes
+<code>repo clone</code>, <code>pr checkout</code>,
+<code>gist clone</code>, and download commands, which can change local
+files but do not mutate GitHub. Write Access authorizes recognized
+remote writes, but Secret Disclosure through <code>gh auth token</code>
+or <code>gh auth status --show-token</code> still requires approval.</p>
+<h2 id="details">Details</h2>
+<ul>
+<li>The migration covers standard <code>hosts.yml</code> token entries
+and legacy macOS Keychain items named <code>gh:&lt;host&gt;</code>.</li>
+<li>Existing Git configuration can still delegate GitHub credentials to
+<code>gh auth git-credential</code>; the hardened <code>gh</code> helper
+path requests the token through Automic Vault.</li>
+<li><code>av harden gh-cli</code> remains accepted as a compatibility
+alias.</li>
+</ul>
+<p class="docs-source-link"><a href="/docs/hardeners/gh/index.md">Read this page as Markdown</a></p></article>
+      </div>
+    </main>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/gh/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+  </div>
+  <script src="/app.js?v=26"></script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Homebrew hardener — Automic Vault</title>
+  <meta name="description" content="How Automic Vault 3.16.0 hardens Homebrew.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="Homebrew hardener">
+  <meta property="og:description" content="How Automic Vault 3.16.0 hardens Homebrew.">
+  <meta property="og:url" content="https://www.automicvault.com/docs/hardeners/brew/">
+  <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Homebrew hardener">
+  <meta name="twitter:description" content="How Automic Vault 3.16.0 hardens Homebrew.">
+  <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
+  <link rel="canonical" href="https://www.automicvault.com/docs/hardeners/brew/">
+  <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/hardeners/brew/index.md">
+  <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/brew/","headline":"Homebrew hardener","description":"How Automic Vault 3.16.0 hardens Homebrew.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico?v=5" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+  <link rel="stylesheet" href="/docs/styles.css?v=4">
+</head>
+<body>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home"><img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54"><span class="brand-type">Automic Vault</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span></button>
+      <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
+    </header>
+    <main>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>Homebrew hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the brew hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/hardeners/brew/index.md">Markdown</a></li></ul></div></header>
+      <div class="docs-layout">
+        <nav class="docs-toc" aria-label="Documentation sections">
+          <a class="docs-toc-title" href="/docs/">Manual</a>
+          <section class="docs-nav-group">
+            <h2>Documentation</h2>
+            <ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/security/">Security foundations</a></li><li><a href="/docs/app/">App guide</a></li><li><a href="/docs/authority/">Approval and authority</a></li><li><a href="/docs/cli/">CLI reference</a></li><li><a href="/docs/workflows/">Workflows</a></li><li><a href="/docs/troubleshooting/">Troubleshooting</a></li><li><a href="/docs/hardeners/" aria-current="page">Hardeners</a></li></ul>
+          </section>
+        </nav>
+        <article class="docs-content"><h1 id="homebrew-hardener">Homebrew hardener</h1>
+<p>Run <code>av harden brew</code> to apply this hardener and
+<code>av doctor brew</code> to verify it.</p>
+<h2 id="summary">Summary</h2>
+<ul>
+<li>Only <code>brew</code> can alter <code>/opt/homebrew</code>.</li>
+<li>Hardened Homebrew manages formulae and a narrow class of CLI-only
+casks.</li>
+<li>Homebrew services are incompatible with hardened Homebrew.</li>
+<li>Approval gates can be configured to stop agents installing things
+behind your back.</li>
+</ul>
+<p><strong>Homebrew shell completions are unavailable while
+hardened.</strong> Completion files remain protected inside
+<code>/opt/homebrew</code>; the launcher never copies them into a
+user-owned location or weakens shell ownership checks.</p>
+<h2 id="what-it-does">What it Does</h2>
+<p>Installs <code>/usr/local/bin/brew</code> as a small setuid/setgid
+Automic Vault launcher for <code>/opt/homebrew/bin/brew</code>.</p>
+<p>The root phase creates the <code>automic</code> user and
+<code>vault</code> group when needed, owns <code>/opt/homebrew</code> as
+<code>automic:vault</code>, and installs the launcher as
+<code>06755 automic:vault</code>.</p>
+<h2 id="rationale">Rationale</h2>
+<p>Modern macOS has numerous protections to prevent malware or agents
+from altering installed sofware.</p>
+<p>These protections apply to <code>.apps</code> and other bundle types,
+not to command line tools. Command line tools are protected by their
+parent <code>.app</code> which is often a Terminal but nowadays is often
+an Agent Harness.</p>
+<p>Thus we need to apply UNIX security permissions to our command line
+tools to ensure what is installed <em>remains what is installed</em>.
+Automic Vault hardening is that solution.</p>
+<h2 id="details">Details</h2>
+<ul>
+<li><p>This targets Apple Silicon Homebrew at
+<code>/opt/homebrew</code>.</p></li>
+<li><p>Existing <code>/usr/local/bin/brew</code> files are left alone
+unless they are already the Automic Vault brew stub.</p></li>
+<li><p>Hardening copies missing files from the invoking user's
+<code>~/.homebrew</code> into the hardened account, preserving
+configuration already created there. This includes Homebrew's tap trust
+store.</p></li>
+<li><p>The invoking user's <code>~/Library/Caches/Homebrew</code>
+contents are merged into the hardened cache and removed from their
+original location instead of being downloaded again.</p></li>
+<li><p><code>/usr/local/bin</code> must precede
+<code>/opt/homebrew/bin</code> in <code>PATH</code>. After hardening,
+run <code>hash -r</code> or start a new shell so it does not keep using
+a cached path to the original <code>brew</code> executable.</p></li>
+<li><p>Shell startup must evaluate the hardened launcher's environment
+instead of invoking <code>/opt/homebrew/bin/brew</code> directly:</p>
+<pre class="sh"><code>eval &quot;$(/usr/local/bin/brew shellenv)&quot;</code></pre>
+<p>For compatibility with existing startup files,
+<code>brew shellenv zsh</code> is normalized to generic shell output and
+does not add Homebrew's protected zsh completion directory to
+<code>fpath</code>.</p></li>
+<li><p>Every Launcher invocation is authorized by the menu bar app
+before Homebrew runs. Read &amp; Update automically authorizes
+recognized inspection commands and <code>brew update</code>; Homebrew
+may perform the same update while running an inspection command.
+Installs and upgrades require Approval at this level. Approval Required
+prompts for every command. Full Access automically authorizes every
+recognized command; unknown commands still require Approval.</p></li>
+<li><p>The launcher fails closed when the approval service is
+unavailable.</p></li>
+<li><p>The stub clears the environment, restores only safe
+terminal/locale values, and executes <code>/opt/homebrew/bin/brew</code>
+directly.</p></li>
+<li><p>Do not add <code>/opt/homebrew/share/zsh/site-functions</code> to
+<code>fpath</code> or bypass zsh's ownership checks. Older user-owned
+Automic Vault completion mirrors are no longer updated and may be
+removed.</p></li>
+</ul>
+<h2 id="caveats">Caveats</h2>
+<ul>
+<li>Hardening refuses to run while any Homebrew service is loaded or
+registered. Stop each service with
+<code>/opt/homebrew/bin/brew services stop &lt;formula&gt;</code> before
+hardening.</li>
+<li>If the protected <code>automic</code> account cannot read the
+current working directory, the hardened launcher runs Homebrew from
+<code>/</code> instead.</li>
+</ul>
+<h2 id="casks">Casks</h2>
+<p><strong>Application and installer casks are categorically
+incompatible with this hardener.</strong> A normal cask is not confined
+to the Homebrew prefix: it may modify <code>/Applications</code>,
+<code>/Library</code>, launch services, system plugins, privileged
+packages, and user data. Running that package manager as the protected
+<code>automic</code> account also makes its nested <code>sudo</code>
+operations authenticate the wrong identity. Pretending this is the same
+ownership model as a formula weakens the security guarantee and still
+fails for ordinary casks.</p>
+<p>The sole exception is a CLI-only cask from the official
+<code>homebrew/cask</code> repository. It must declare one or more
+<code>binary</code> artifacts whose sources remain inside its staged
+Caskroom and whose targets are directly inside
+<code>/opt/homebrew/bin</code>. Generated shell completions may remain
+protected inside the Homebrew prefix but are not added to shell paths.
+<code>zap</code> metadata may be present, but <code>--zap</code> is
+rejected and never runs. Cask dependencies and every app, package,
+installer, script, flight block, service, plugin, arbitrary artifact,
+completion-file, manpage, or external target are rejected.</p>
+<p>Cask mutations must use <code>--cask</code> and name every cask
+explicitly. The launcher checks Homebrew's effective JSON metadata after
+approval and validates the protected installation receipt before
+upgrades, reinstalls, or removals. Homebrew's own in-process
+forbidden-artifact check is also enabled for the actual installation.
+Path-based casks, custom destination flags, bulk cask upgrades, and
+<code>brew bundle</code> are unavailable. Commands without
+<code>--cask</code> remain pinned to <code>--formula</code>.</p>
+<p>Hardening refuses to proceed while
+<code>/opt/homebrew/Caskroom</code> contains anything other than
+validated CLI-only casks. For an existing hardened installation, run
+<code>av unharden brew</code>, follow its explicit sudo step, remove or
+migrate incompatible casks using <code>/opt/homebrew/bin/brew</code>,
+then run <code>av harden brew</code> again. Homebrew is user-writable
+between those commands; do not run hardened tools or expose credentials
+through them during that migration window.</p>
+<p class="docs-source-link"><a href="/docs/hardeners/brew/index.md">Read this page as Markdown</a></p></article>
+      </div>
+    </main>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/brew/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+  </div>
+  <script src="/app.js?v=26"></script>
+</body>
+</html>

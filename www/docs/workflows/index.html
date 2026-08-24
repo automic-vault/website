@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Common workflows — Automic Vault</title>
+  <meta name="description" content="Common Automic Vault workflows for protected developer credentials.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="Common workflows">
+  <meta property="og:description" content="Common Automic Vault workflows for protected developer credentials.">
+  <meta property="og:url" content="https://www.automicvault.com/docs/workflows/">
+  <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Common workflows">
+  <meta name="twitter:description" content="Common Automic Vault workflows for protected developer credentials.">
+  <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
+  <link rel="canonical" href="https://www.automicvault.com/docs/workflows/">
+  <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/workflows/index.md">
+  <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/workflows/","headline":"Common workflows","description":"Common Automic Vault workflows for protected developer credentials.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico?v=5" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+  <link rel="stylesheet" href="/docs/styles.css?v=4">
+</head>
+<body>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home"><img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54"><span class="brand-type">Automic Vault</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span></button>
+      <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
+    </header>
+    <main>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>Common workflows</h1><p class="lede">Known-good paths for GitHub, AWS, Docker, Project Values, proxying, scripts, and signing.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/workflows/index.md">Markdown</a></li></ul></div></header>
+      <div class="docs-layout">
+        <nav class="docs-toc" aria-label="Documentation sections">
+          <a class="docs-toc-title" href="/docs/">Manual</a>
+          <section class="docs-nav-group">
+            <h2>Documentation</h2>
+            <ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/security/">Security foundations</a></li><li><a href="/docs/app/">App guide</a></li><li><a href="/docs/authority/">Approval and authority</a></li><li><a href="/docs/cli/">CLI reference</a></li><li><a href="/docs/workflows/" aria-current="page">Workflows</a></li><li><a href="/docs/troubleshooting/">Troubleshooting</a></li><li><a href="/docs/hardeners/">Hardeners</a></li></ul>
+          </section>
+        </nav>
+        <article class="docs-content"><h2 id="common-workflows">Common workflows</h2>
+<p>Every migration follows the same safe sequence: observe the current
+state, read the Tool-specific design, establish the protected route,
+verify a harmless operation, inspect the decision, and only then remove
+the old credential. Do not turn a migration into an outage by deleting
+the only working copy first.</p>
+<h3 id="github-cli">GitHub CLI</h3>
+<pre class="sh"><code>av scan --json --detector gh-cli-hosts-token
+av harden gh
+av doctor gh
+gh auth status</code></pre>
+<p>Inspect the <code>gh</code> Secret Gate before automic authorization.
+Direct <code>inject</code> works, but the Tool-specific Gate can narrow
+policy by operation.</p>
+<p>Use <code>gh auth status</code> as the first test because it is
+read-only. A repository creation, release, issue edit, or
+token-management call is a write and should remain Approval Required
+until the exact launcher and workflow justify a narrow rule or Temporary
+Access Grant.</p>
+<h3 id="aws-cli">AWS CLI</h3>
+<pre class="sh"><code>av harden aws
+av doctor aws
+aws sts get-caller-identity</code></pre>
+<p>The AWS route installs and verifies AWS's signed CLI under
+<code>/opt/av/aws</code>, moves the default long-lived pair into
+Custody, and issues short-lived STS credentials.</p>
+<p>Verify the account and ARN returned by
+<code>sts get-caller-identity</code> before any write. The short-lived
+session narrows credential lifetime; IAM still decides what the
+resulting AWS identity can do.</p>
+<h3 id="docker">Docker</h3>
+<pre class="sh"><code>av harden docker
+av doctor docker
+docker pull registry.example.test/team/image:latest</code></pre>
+<p>Docker hardening retains the vendor-signed CLI and gates registry
+credentials on live identity, ancestry, arguments, and requested
+registry.</p>
+<p>Test against a non-sensitive image first. Registry authorization is
+separate from container isolation: a successful protected pull says
+nothing about the image's safety.</p>
+<h3 id="project-specific-values">Project-specific Values</h3>
+<pre class="sh"><code>mkdir -p &quot;$PWD/example-project&quot;
+av save --project-directory=&quot;$PWD/example-project&quot; GH_TOKEN
+cd &quot;$PWD/example-project&quot;
+av inject +GH_TOKEN gh auth status</code></pre>
+<p>Confirm History names the expected Project Value source. A nested
+Project Value wins over a broader ancestor; a directory on another
+filesystem never matches. Moving a checkout can therefore change
+selection without changing its Git remote. Treat the canonical physical
+directory as configuration, not identity.</p>
+<h3 id="one-off-environment-application">One-off environment
+application</h3>
+<pre class="sh"><code>av inject +SENTRY_AUTH_TOKEN sentry-cli info</code></pre>
+<p>Use <code>inject</code> when no narrower native or Tool-specific
+route exists. Inspect existing environment conflicts; by default an
+already exported value wins with a warning.
+<code>--replace-existing-env</code> is an explicit precedence decision,
+not a routine flag.</p>
+<h3 id="proxy-only-delivery">Proxy-only delivery</h3>
+<pre class="sh"><code>av proxy +VARLOCK_SAMPLE_SECRET -- /path/to/target</code></pre>
+<p>Approve the session, then approve only expected destinations as they
+appear. Terminate the session from Active Proxies when the task ends.
+Use a real Secret Name in practice; the sample above documents shape
+without exposing a credential.</p>
+<h3 id="blessing-a-release-script">Blessing a release script</h3>
+<pre class="sh"><code>chmod 700 ./release.sh
+av bless ./release.sh
+./release.sh v3.16.1</code></pre>
+<p>Review the digest, interpreter, Secret Names, and capability ceilings
+in Blessed Scripts before the first run. If an edit is intentional,
+inspect the complete diff and create a new Blessing. If an edit is
+unexpected, revoke and investigate.</p>
+<h3 id="enrolling-an-unsigned-developer-cli">Enrolling an unsigned
+developer CLI</h3>
+<p>Open <strong>Launcher Bundles</strong>, choose the regular
+single-file Mach-O executable, review its hashes and entitlements, and
+install the generated bundle. Point policy at the installed command. On
+update, prepare and enroll a new generation; the old digest must not
+silently become the new trusted payload.</p>
+<h3 id="gpg-signed-commits">GPG-signed commits</h3>
+<p>Configure GPG Signing and <code>av-gpg</code>, then verify:</p>
+<pre class="sh"><code>git commit --allow-empty -m &#39;verify signing&#39;
+git log --show-signature -1</code></pre>
+<p>Check the signer fingerprint and payload in Git's output.
+<strong>Allow Signing</strong> is appropriate only for an exact Verified
+Launcher whose commit workflow you accept; otherwise retain Approval
+Required.</p>
+<p class="docs-source-link"><a href="/docs/workflows/index.md">Read this page as Markdown</a></p></article>
+      </div>
+    </main>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/workflows/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+  </div>
+  <script src="/app.js?v=26"></script>
+</body>
+</html>

@@ -548,6 +548,7 @@
 }
 
 .docs-nav-group {
+  grid-column: 1 / -1;
   min-width: 0;
 }
 
@@ -598,6 +599,12 @@
 
 .docs-content blockquote > :first-child {
   margin-block-start: 0;
+}
+
+.docs-source-link {
+  margin-block-start: var(--space-2xl) !important;
+  padding-block-start: var(--space-lg);
+  border-top: var(--rule-hair) solid var(--color-rule);
 }
 
 @media (min-width: 60rem) {

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Approval, authority, and secrets — Automic Vault</title>
+  <meta name="description" content="Automic Vault Approval, authorization, Secret Values, and Access Levels.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="Approval, authority, and secrets">
+  <meta property="og:description" content="Automic Vault Approval, authorization, Secret Values, and Access Levels.">
+  <meta property="og:url" content="https://www.automicvault.com/docs/authority/">
+  <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Approval, authority, and secrets">
+  <meta name="twitter:description" content="Automic Vault Approval, authorization, Secret Values, and Access Levels.">
+  <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
+  <link rel="canonical" href="https://www.automicvault.com/docs/authority/">
+  <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/authority/index.md">
+  <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/authority/","headline":"Approval, authority, and secrets","description":"Automic Vault Approval, authorization, Secret Values, and Access Levels.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico?v=5" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+  <link rel="stylesheet" href="/docs/styles.css?v=4">
+</head>
+<body>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home"><img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54"><span class="brand-type">Automic Vault</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span></button>
+      <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
+    </header>
+    <main>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>Approval, authority, and secrets</h1><p class="lede">Approval routes, temporary authority, Secret Value selection, and Access Levels.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/authority/index.md">Markdown</a></li></ul></div></header>
+      <div class="docs-layout">
+        <nav class="docs-toc" aria-label="Documentation sections">
+          <a class="docs-toc-title" href="/docs/">Manual</a>
+          <section class="docs-nav-group">
+            <h2>Documentation</h2>
+            <ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/security/">Security foundations</a></li><li><a href="/docs/app/">App guide</a></li><li><a href="/docs/authority/" aria-current="page">Approval and authority</a></li><li><a href="/docs/cli/">CLI reference</a></li><li><a href="/docs/workflows/">Workflows</a></li><li><a href="/docs/troubleshooting/">Troubleshooting</a></li><li><a href="/docs/hardeners/">Hardeners</a></li></ul>
+          </section>
+        </nav>
+        <article class="docs-content"><h2 id="approval-and-authority">Approval and authority</h2>
+<h3 id="touch-id-approval">Touch ID Approval</h3>
+<p>Touch ID Approval authorizes an exact request on the Mac with a fresh
+biometric. It accepts neither the login password nor Apple Watch
+fallback, and pointer or keyboard automation cannot activate the allow
+action.</p>
+<p><a href="/docs/assets/touch-id-approval.png"><img
+src="/docs/assets/touch-id-approval.png"
+alt="Touch ID Approval disabled, with its explicit local-authority guarantee" /></a></p>
+<p><strong>Why it exists.</strong> A local approval button can share the
+same input surface as an agent. Fresh Touch ID supplies a human gesture
+the agent cannot synthesize while keeping the decision at the Local
+Execution Boundary.</p>
+<p><strong>Failure modes.</strong> Touch ID availability, enrollment,
+lockout, and hardware state can make Approval unavailable. Disabling the
+setting returns to the configured non-biometric route; it does not
+create a password fallback inside Touch ID Approval.</p>
+<h3 id="iphone-approval">iPhone Approval</h3>
+<p>An eligible iPhone on the same iCloud Keychain account can carry
+human Approval while the Mac remains the Local Execution Boundary.</p>
+<p><a href="/docs/assets/iphone-approval.png"><img
+src="/docs/assets/iphone-approval.png"
+alt="iPhone Approval disabled with physical-separation guidance" /></a></p>
+<p><strong>Security basis.</strong> When an eligible phone route is
+enabled, the Mac exposes no local pointer or keyboard allow action. The
+phone requires Face ID or Touch ID. iPhone Mirroring and Show on Mac are
+treated as paths that can expose controls to an agent; Approval is
+unavailable through those surfaces.</p>
+<p><strong>Recovery.</strong> Recovery uses system authentication,
+rotates the account key, and invalidates registered phones and Macs.
+Treat recovery as a security event and re-enroll only devices you
+control.</p>
+<p><strong>Availability.</strong> Network, relay, iCloud Keychain,
+device lock, and biometric state can prevent the phone from carrying
+Approval. Unavailability is not a reason for the Mac to manufacture a
+weaker local allow action.</p>
+<h3 id="automic-authorization-feedback">Automic Authorization
+feedback</h3>
+<p>Policy-authorized operations can show a notification, flash the menu
+bar, or show nothing. This controls feedback, not authority.</p>
+<p><a href="/docs/assets/automic-authorization.png"><img
+src="/docs/assets/automic-authorization.png"
+alt="Automic Authorization feedback options with Flash Menu Bar selected" /></a></p>
+<p>Authorization History remains populated in every mode. Approval
+prompts and policy-denial notices are unaffected. Choose quieter
+feedback only after the team knows where to inspect History; silence is
+not an audit control.</p>
+<h3 id="temporary-access-grants">Temporary Access Grants</h3>
+<p>For a supported agent workflow, the Approval menu can grant ten
+minutes of memory-only <strong>Write Access</strong> instead of
+approving only once.</p>
+<p><a href="/docs/assets/temporary-access-grant.png"><img
+src="/docs/assets/temporary-access-grant.png"
+alt="A GitHub write request whose approval menu can issue a task-scoped temporary grant" /></a></p>
+<p>The grant binds to the exact Tool-specific Gate, Verified Launcher,
+accepted runtime, and Agent Task Context. It excludes Direct Access,
+Secret mutation, Disclosure, elevated operations, and unknown
+operations. The task label narrows matching but is forgeable context,
+not identity. The Verified Launcher and live request checks remain
+essential.</p>
+<p>End a grant from the menu bar when the task finishes. Grants expire
+after ten minutes and disappear on app restart. A grant cannot
+retroactively authorize a request outside its captured scope.</p>
+<h3 id="detached-processes">Detached Processes</h3>
+<p>Detached Processes controls <strong>Retained Launcher
+Provenance</strong>: whether an eligible live descendant may keep the
+verified launcher chain after its original parent exits.</p>
+<p><a href="/docs/assets/detached-processes.png"><img
+src="/docs/assets/detached-processes.png"
+alt="Detached Processes off by default with the authority-extension warning" /></a></p>
+<p><strong>Security tradeoff.</strong> Enabling extends authority after
+the observed parent chain disappears. Same-user code injection can pass
+that retained authority to injected code. An enrolled Launcher Bundle
+payload is one unit for this setting.</p>
+<p><strong>Scope.</strong> Retention is execution-scoped. It keeps
+neither an old authorization decision nor blanket authority for new
+processes or Gates. Enabling requires Approval; disabling is immediate.
+Leave it off unless a real daemon or detached worker cannot preserve the
+original launcher chain another way.</p>
+<h3 id="gpg-signing">GPG Signing</h3>
+<p>GPG Signing stores an armored OpenPGP private key in Secret Custody
+and routes Git through <code>av-gpg</code> and <code>av gpg-sign</code>.
+Git receives a detached signature, never the private key.</p>
+<p><a href="/docs/assets/gpg-signing.png"><img
+src="/docs/assets/gpg-signing.png"
+alt="GPG Signing Execution Gate with exact launcher overrides set to Allow Signing" /></a></p>
+<pre class="sh"><code>git config --global gpg.program av-gpg
+git config --global gpg.format openpgp
+git config --global commit.gpgSign true</code></pre>
+<p>Settings can import a key or generate an alternate EdDSA key. The
+private key is never displayed; the public key can be copied. Alternate
+access can be limited to exact Verified Launchers. The Execution Gate
+offers <strong>Approval Required</strong> and <strong>Allow
+Signing</strong>. Approval binds to the payload SHA-256;
+<code>av gpg-sign</code> reads at most 16 MiB and returns
+GnuPG-compatible status plus the detached signature.</p>
+<p><strong>Limits.</strong> A valid signature proves possession of the
+signing authority for that payload, not that the commit is safe or
+reviewed. Protect Git configuration and verify the repository and
+payload shown by the workflow.</p>
+<h3 id="secret-name-access">Secret Name Access</h3>
+<p>Exact Verified Apps may run <code>av list</code> without an Approval
+window; all other apps require Approval.</p>
+<p><a href="/docs/assets/secret-name-access.png"><img
+src="/docs/assets/secret-name-access.png"
+alt="Secret Name Access with two exact verified apps allowed to run av list" /></a></p>
+<p>This capability lists Secret Names only. It does not read, change,
+apply, or disclose Values and grants no Direct Access. Remove an app
+when its listing use ends; a similarly named or newly signed app does
+not inherit the exact rule.</p>
+<h3 id="about-and-menu-bar">About and menu bar</h3>
+<p>About reports the running version and GUI PATH captured before shell
+startup. Use both when diagnosing a mismatch between the app and an
+interactive shell.</p>
+<p><a href="/docs/assets/about.png"><img src="/docs/assets/about.png"
+alt="About showing Automic Vault 3.16.0 and the pre-shell GUI PATH" /></a></p>
+<p>The menu bar opens the main window, checks for updates, quits the
+service, and surfaces live Secret Uses and Temporary Access Grants
+without displaying Values. Quitting ends memory-only grants and proxy
+state; it does not undo operations or revoke Values already delivered to
+Targets.</p>
+<h2 id="secrets-values-and-selection">Secrets, Values, and
+selection</h2>
+<pre class="sh"><code>av save GH_TOKEN
+av save --project-directory=. GH_TOKEN
+av save --project-directory=/absolute/project AWS_PROFILE</code></pre>
+<h3 id="saving-safely">Saving safely</h3>
+<p>A Secret Name is a letter or underscore followed by letters, digits,
+or underscores. <code>av save</code> canonicalizes an existing Project
+Directory, rejects the filesystem root, reads one hidden non-empty Value
+from <code>/dev/tty</code>, trims its line ending, and restores terminal
+echo even on failure. It does not read stdin, so a pipeline neither
+supplies a Value nor provides a safe import mechanism.</p>
+<p>Save the replacement before deleting the old credential. Test a
+harmless read through the protected route, inspect History, then remove
+the plaintext source. For a supported Tool, prefer its hardener because
+the hardener knows the native credential format and can validate the
+migration.</p>
+<h3 id="value-selection">Value selection</h3>
+<p>For each requested name, Automic Vault selects the nearest Project
+Value at or above the physical canonical working directory on the same
+filesystem. If none matches, it selects the Global Value. The selection
+happens before policy so the Authorization Request can identify the
+chosen source.</p>
+<p>Project Directory is a selector, not project identity, a repository
+trust signal, or an authorization boundary. Symlinks and logical shell
+paths do not create a second identity. A selected Value read failure
+never falls back to a broader Global Value; fallback after failure could
+silently substitute the wrong account.</p>
+<h3 id="availability">Availability</h3>
+<p>Availability is independent of authorization. <strong>When
+Unlocked</strong> requires an unlocked Keychain. <strong>Available While
+Locked</strong> permits an already-authorized app to use the Value after
+the first unlock following boot. Neither setting grants a request,
+widens a Gate, or bypasses Approval.</p>
+<h3 id="direct-secret-access">Direct Secret Access</h3>
+<p>The Direct Secret Gate binds exact Secret Names to one Verified
+Launcher, but is broad with respect to Target and arguments. It permits
+Secret Application only; it does not list, mutate, or disclose Values.
+Prefer a Tool-specific Gate whose classifier understands read, write,
+host, registry, or other operation semantics.</p>
+<h2 id="access-levels">Access Levels</h2>
+<table>
+<thead>
+<tr>
+<th>Access Level</th>
+<th>Authority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Approval Required</td>
+<td>Every matching request needs human Approval.</td>
+</tr>
+<tr>
+<td>Read Only</td>
+<td>Apply Secrets only to operations the Tool-specific Gate classifies
+as read-only.</td>
+</tr>
+<tr>
+<td>Read &amp; Update</td>
+<td>Homebrew-only authority for reads and the supported update
+path.</td>
+</tr>
+<tr>
+<td>Local Write</td>
+<td>Permit supported local writes without broader remote authority.</td>
+</tr>
+<tr>
+<td>Write Access</td>
+<td>Permit write operations recognized by that Tool-specific Gate.</td>
+</tr>
+<tr>
+<td>Full Access</td>
+<td>Strongest supported Gate authority, potentially including elevated
+Application or Disclosure where explicitly defined.</td>
+</tr>
+<tr>
+<td>Direct Access</td>
+<td>Apply exact names through the Direct Gate for one Verified Launcher;
+no Target or argument classifier.</td>
+</tr>
+</tbody>
+</table>
+<p>Access Levels are Gate vocabulary, not interchangeable global roles.
+<strong>Write Access</strong> for GitHub and <strong>Write
+Access</strong> for another Tool are evaluated by different classifiers.
+Unknown operations fail closed or require Approval rather than
+inheriting the nearest-sounding label.</p>
+<p>New Secret Gates default to Read Only; GPG Signing to Approval
+Required; Homebrew to Read &amp; Update; Direct access to Approval
+Required.</p>
+<p class="docs-source-link"><a href="/docs/authority/index.md">Read this page as Markdown</a></p></article>
+      </div>
+    </main>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/authority/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+  </div>
+  <script src="/app.js?v=26"></script>
+</body>
+</html>

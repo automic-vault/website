@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Troubleshooting — Automic Vault</title>
+  <meta name="description" content="Troubleshooting and source references for Automic Vault.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="Troubleshooting">
+  <meta property="og:description" content="Troubleshooting and source references for Automic Vault.">
+  <meta property="og:url" content="https://www.automicvault.com/docs/troubleshooting/">
+  <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Troubleshooting">
+  <meta name="twitter:description" content="Troubleshooting and source references for Automic Vault.">
+  <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
+  <link rel="canonical" href="https://www.automicvault.com/docs/troubleshooting/">
+  <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/troubleshooting/index.md">
+  <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/troubleshooting/","headline":"Troubleshooting","description":"Troubleshooting and source references for Automic Vault.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico?v=5" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+  <link rel="stylesheet" href="/docs/styles.css?v=4">
+</head>
+<body>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home"><img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54"><span class="brand-type">Automic Vault</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span></button>
+      <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
+    </header>
+    <main>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>Troubleshooting</h1><p class="lede">Diagnose Approval, executable, Value selection, launcher, proxy, and Doctor failures.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/troubleshooting/index.md">Markdown</a></li></ul></div></header>
+      <div class="docs-layout">
+        <nav class="docs-toc" aria-label="Documentation sections">
+          <a class="docs-toc-title" href="/docs/">Manual</a>
+          <section class="docs-nav-group">
+            <h2>Documentation</h2>
+            <ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/security/">Security foundations</a></li><li><a href="/docs/app/">App guide</a></li><li><a href="/docs/authority/">Approval and authority</a></li><li><a href="/docs/cli/">CLI reference</a></li><li><a href="/docs/workflows/">Workflows</a></li><li><a href="/docs/troubleshooting/" aria-current="page">Troubleshooting</a></li><li><a href="/docs/hardeners/">Hardeners</a></li></ul>
+          </section>
+        </nav>
+        <article class="docs-content"><h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="approval-does-not-appear">Approval does not appear</h3>
+<p>Run <code>av open</code> and confirm the installed app version
+matches <code>av --version</code>. Inspect Authorization History for a
+policy denial that occurred before human Approval was eligible. If
+iPhone Approval is enabled, check phone eligibility, relay and iCloud
+Keychain state, device lock, and biometric availability; do not expect a
+local allow button to appear as fallback.</p>
+<h3 id="the-wrong-executable-runs">The wrong executable runs</h3>
+<p>Compare <code>command -v TOOL</code>, the Target in the Approval
+request, and <code>av doctor TOOL</code>. Shell hashes, aliases, shims,
+package-manager links, and GUI PATH can all differ. Authorize the native
+executable or protected launcher described by the hardener; a mutable
+shell is too broad a Target.</p>
+<h3 id="the-wrong-project-value-is-selected">The wrong Project Value is
+selected</h3>
+<p>Compare the physical canonical working directory with every Project
+Directory. The selected directory must be an ancestor on the same
+filesystem; the nearest match wins. Symlink spelling, repository remote,
+branch, and logical <code>$PWD</code> do not establish selection.
+History records the source chosen for the request.</p>
+<h3 id="an-environment-value-wins">An environment value wins</h3>
+<p><code>av inject</code> preserves an existing environment value by
+default and warns. Remove the export at its source, or use
+<code>--replace-existing-env</code> only after confirming that Automic
+Vault should override it. Do not suppress the warning without
+understanding which credential the Target would otherwise receive.</p>
+<h3 id="a-blessing-stopped-matching">A Blessing stopped matching</h3>
+<p>Path, file type, size, interpreter, declaration, and content all
+participate in the reviewed state. Compare the app's baseline with the
+current file. Re-bless only an intentional change; an unexplained
+mismatch is evidence to investigate.</p>
+<h3 id="a-launcher-bundle-is-denied-after-update">A Launcher Bundle is
+denied after update</h3>
+<p>Digest, signature, enrollment, entitlements, runtime, and protected
+ownership fail closed. Prepare and review a new generation. Do not
+replace the enrolled payload in place or add a broad compatibility
+exception merely to make the new binary run.</p>
+<h3 id="proxy-traffic-does-not-appear">Proxy traffic does not
+appear</h3>
+<p>The Target may ignore proxy variables, use a protocol the proxy does
+not handle, inherit conflicting network configuration, or open another
+channel. Confirm the session is live and the process shown in Active
+Proxies is the process making the request. Treat bypass as outside proxy
+containment, not as a UI refresh bug.</p>
+<h3 id="doctor-reports-healthy-but-the-workflow-fails">Doctor reports
+healthy but the workflow fails</h3>
+<p>Doctor validates known installation invariants. The request can still
+be denied by Gate policy, launcher identity, runtime, Value selection,
+or Tool semantics, and the external service can reject the resulting
+credential. Read History and the Tool's own error separately.</p>
+<h3 id="collecting-a-safe-diagnostic">Collecting a safe diagnostic</h3>
+<p>Record <code>av --version</code>, the relevant
+<code>av doctor TOOL --json</code> result, the detector or hardener
+name, and a redacted History entry. Never paste Values, private keys,
+proxy credentials, Secret References, session tokens, or live
+authorization artifacts into an issue.</p>
+<p>For a suspected vulnerability, follow <a
+href="https://www.automicvault.com/.well-known/security.txt">security.txt</a>
+instead of the public issue tracker.</p>
+<h2 id="source-of-truth">Source of truth</h2>
+<p>This manual was checked against the CLI parser, implementations, app
+UI, catalogs, tests, and canonical security documents for 3.16.0. For an
+installed build prefer <code>av --version</code>, <code>av help</code>,
+<code>av detectors --json</code>, and
+<code>av hardeners --json</code>.</p>
+<ul>
+<li><a
+href="https://github.com/automic-vault/automic-vault/blob/3.16.0/src/cli/mod.rs">CLI
+source</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/tree/3.16.0/src">App
+and CLI source</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/tree/3.16.0/src/detectors">Detectors</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/tree/3.16.0/src/isotopes">Hardeners</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md">Domain
+Language</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md">Architecture</a></li>
+</ul>
+<p>Report discrepancies in the <a
+href="https://github.com/automic-vault/automic-vault/issues">issue
+tracker</a>.</p>
+<p class="docs-source-link"><a href="/docs/troubleshooting/index.md">Read this page as Markdown</a></p></article>
+      </div>
+    </main>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/troubleshooting/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+  </div>
+  <script src="/app.js?v=26"></script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>AWS hardener — Automic Vault</title>
+  <meta name="description" content="How Automic Vault 3.16.0 hardens AWS.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="AWS hardener">
+  <meta property="og:description" content="How Automic Vault 3.16.0 hardens AWS.">
+  <meta property="og:url" content="https://www.automicvault.com/docs/hardeners/aws/">
+  <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AWS hardener">
+  <meta name="twitter:description" content="How Automic Vault 3.16.0 hardens AWS.">
+  <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
+  <link rel="canonical" href="https://www.automicvault.com/docs/hardeners/aws/">
+  <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/hardeners/aws/index.md">
+  <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/aws/","headline":"AWS hardener","description":"How Automic Vault 3.16.0 hardens AWS.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico?v=5" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+  <link rel="stylesheet" href="/docs/styles.css?v=4">
+</head>
+<body>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home"><img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54"><span class="brand-type">Automic Vault</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span></button>
+      <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
+    </header>
+    <main>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>AWS hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the aws hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/hardeners/aws/index.md">Markdown</a></li></ul></div></header>
+      <div class="docs-layout">
+        <nav class="docs-toc" aria-label="Documentation sections">
+          <a class="docs-toc-title" href="/docs/">Manual</a>
+          <section class="docs-nav-group">
+            <h2>Documentation</h2>
+            <ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/security/">Security foundations</a></li><li><a href="/docs/app/">App guide</a></li><li><a href="/docs/authority/">Approval and authority</a></li><li><a href="/docs/cli/">CLI reference</a></li><li><a href="/docs/workflows/">Workflows</a></li><li><a href="/docs/troubleshooting/">Troubleshooting</a></li><li><a href="/docs/hardeners/" aria-current="page">Hardeners</a></li></ul>
+          </section>
+        </nav>
+        <article class="docs-content"><h1 id="aws-hardener">AWS hardener</h1>
+<p>Run <code>av harden aws</code> to apply this hardener and
+<code>av doctor aws</code> to verify it.</p>
+<h2 id="what-it-does">What It Does</h2>
+<p><code>av harden aws</code> moves the default AWS access key pair out
+of <code>~/.aws/credentials</code> and into the macOS login keychain. It
+downloads AWS's official macOS installer package, verifies it, extracts
+its payload without running the installer or its scripts, and installs
+it under <code>/opt/av/aws</code>. <code>/usr/local/bin/aws</code>
+remains a one-line Automic Vault launcher.</p>
+<p>Automic Vault uses the official release instead of Homebrew's formula
+because AWS signs and notarizes that complete distribution, ships a
+native universal executable with Hardened Runtime, and publishes it
+directly. Homebrew rebuilds AWS CLI around a separately managed Python
+runtime and can lag the official release, adding independently mutable
+components to the credential-bearing Target.</p>
+<p>The launcher registers its official-release generation, exact AWS
+arguments, selected profile, process ID, process start time, and a
+snapshot of the AWS config with the menu app before replacing itself
+with <code>/opt/av/aws/current/aws</code>. The AWS CLI receives a
+minimal config containing Automic Vault's
+<code>credential_process</code>; that helper only works as an immediate
+child of the registered, still-running AWS process.</p>
+<p>The menu app implements STS <code>GetSessionToken</code> and
+<code>AssumeRole</code> directly. It caches resulting credentials only
+for the lifetime of that registered AWS process. Nothing is written to
+disk and credentials are not shared between AWS invocations.</p>
+<h2 id="how-it-protects-you">How It Protects You</h2>
+<p>The real AWS CLI runs with an empty home, no shared credentials file,
+disabled instance metadata, no pager, and a generated config held in an
+unlinked file descriptor. Ambient AWS credentials, credential processes,
+SSO/login state, web identity, container credentials, plugins, aliases,
+and pager hooks are not available inside the credential-bearing
+process.</p>
+<p>The Hardener verifies all of the following before activation:</p>
+<ul>
+<li>HTTPS-only download from AWS's fixed release URL, with no
+redirects;</li>
+<li>Apple trust, AWS's Developer ID Installer team, notarization, and
+timestamp;</li>
+<li>the <code>com.amazon.aws.cli2</code> package identity and bounded
+payload size/count;</li>
+<li>every native payload component's Amazon Developer ID Application
+signature, secure timestamp, and Hardened Runtime;</li>
+<li>absence of dangerous runtime exceptions;</li>
+<li>regular-file/directory-only extraction, single-link files, and safe
+paths;</li>
+<li>an atomic, root-owned, non-user-writable, versioned installation
+plus a complete content manifest.</li>
+</ul>
+<p>The helper then verifies all of the following before returning
+credentials:</p>
+<ul>
+<li>its immediate parent has the registered PID and process start
+time;</li>
+<li>the parent is the signed native executable from the approved
+official release;</li>
+<li>the live parent arguments exactly match the approved snapshot.</li>
+</ul>
+<p>Previously hardened Homebrew installations continue to use their
+interpreter binding until re-hardened. The helper negotiates that legacy
+protocol only when the exact legacy launcher is still installed. Once
+the official launcher replaces it, Homebrew generation registration and
+credential retrieval fail closed.</p>
+<p>Normal commands receive temporary credentials. AWS does not permit
+non-MFA <code>GetSessionToken</code> credentials to call IAM or most STS
+operations, so a base profile without MFA or a role receives the
+original long-lived keys for those operations. The approval window warns
+that this is Elevated Secret Application. Write Access still prompts,
+while Full Access may automically authorize the recognized
+operation.</p>
+<h2 id="supported-profiles">Supported Profiles</h2>
+<p>Automic Vault intentionally supports one narrow profile model:</p>
+<ul>
+<li>the imported <code>default</code> keys;</li>
+<li><code>region</code>;</li>
+<li><code>mfa_serial</code>, entered in Automic Vault's own prompt;</li>
+<li>role profiles using <code>role_arn</code> and
+<code>source_profile</code>, ultimately rooted at
+<code>default</code>.</li>
+</ul>
+<p><code>mfa_process</code>, SSO, web identity,
+<code>credential_process</code>, <code>credential_source</code>,
+independent named static keys, incomplete roles, and source-profile
+cycles fail closed with a precise error.</p>
+<h2 id="caveats">Caveats</h2>
+<ul>
+<li>This assumes <code>/opt/av/aws</code>,
+<code>/usr/local/bin/av</code>, and
+<code>/usr/local/bin/aws</code>.</li>
+<li><code>/usr/local/bin</code> must precede other AWS installations in
+<code>PATH</code>; an absolute call to another AWS CLI bypasses the
+wrapper but cannot use Automic Vault's generation-bound credential
+helper.</li>
+<li><code>av harden aws</code> verifies the running app and installed
+CLI, then requests elevation to copy and reverify the package, extract
+it without scripts, protect and atomically activate the release, and
+replace <code>/usr/local/bin/aws</code>.</li>
+<li><code>av doctor aws</code> checks AWS's official v2 changelog and
+directs you back to the Hardener when a newer release is available.</li>
+<li>The AWS process can use any credential it receives for the lifetime
+and IAM scope of that credential. Automic Vault confines issuance to the
+approved invocation; it cannot harden the upstream AWS CLI process
+itself.</li>
+</ul>
+<h2 id="hardener-migration-notes">Hardener Migration Notes</h2>
+<p><code>av doctor aws</code> recognizes both the exact previously
+released <code>aws-vault</code> launcher and the native-helper Homebrew
+launcher as requiring re-hardening. Modified launchers remain invalid
+rather than being treated as an upgrade. <code>av harden aws</code>
+preserves existing Keychain credentials and gate policy, supports
+idempotent re-hardening, and refuses a signed release downgrade.</p>
+<p class="docs-source-link"><a href="/docs/hardeners/aws/index.md">Read this page as Markdown</a></p></article>
+      </div>
+    </main>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/aws/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+  </div>
+  <script src="/app.js?v=26"></script>
+</body>
+</html>

@@ -202,8 +202,12 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertTrue(pages)
 
     def test_docs_match_the_current_cli_surface(self):
-        html = (ROOT / "www" / "docs" / "index.html").read_text(encoding="utf-8")
-        markdown = (ROOT / "www" / "docs" / "index.md").read_text(encoding="utf-8")
+        page_dirs = [
+            ROOT / "www" / "docs" / slug
+            for slug in ("", "security", "app", "authority", "cli", "workflows", "troubleshooting")
+        ]
+        html = "\n".join((page / "index.html").read_text(encoding="utf-8") for page in page_dirs)
+        markdown = "\n".join((page / "index.md").read_text(encoding="utf-8") for page in page_dirs)
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
 
         for text in (html, markdown):
@@ -231,6 +235,21 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             '"/docs": "https://github.com/automic-vault/automic-vault#readme"',
             deploy_script,
         )
+
+    def test_every_hardener_has_html_and_markdown(self):
+        hardeners = ROOT / "www" / "docs" / "hardeners"
+        pages = sorted(path.parent for path in hardeners.glob("*/index.html"))
+
+        self.assertEqual(len(pages), 50)
+        catalog = (hardeners / "index.html").read_text(encoding="utf-8")
+        for page in pages:
+            name = page.name
+            markdown = page / "index.md"
+            html = (page / "index.html").read_text(encoding="utf-8")
+            with self.subTest(hardener=name):
+                self.assertTrue(markdown.exists())
+                self.assertIn(f'href="/docs/hardeners/{name}/index.md"', html)
+                self.assertIn(f'href="./{name}/"', catalog)
 
     def test_cloudfront_origin_uses_the_bucket_region(self):
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
@@ -387,7 +406,12 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             node.findtext("s:loc", namespaces=namespace): node.findtext("s:lastmod", namespaces=namespace)
             for node in sitemap.findall("s:url", namespace)
         }
-        self.assertEqual(lastmods["https://www.automicvault.com/docs/"], "2026-07-27")
+        self.assertEqual(lastmods["https://www.automicvault.com/docs/"], "2026-08-23")
+        for route in ("security", "app", "authority", "cli", "workflows", "troubleshooting", "hardeners"):
+            self.assertEqual(
+                lastmods[f"https://www.automicvault.com/docs/{route}/"],
+                "2026-08-23",
+            )
         for url in (
             "https://www.automicvault.com/llms.txt",
             "https://www.automicvault.com/llms-full.txt",
