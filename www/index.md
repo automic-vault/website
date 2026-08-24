@@ -1,11 +1,11 @@
 # Automic Vault
 
-## Automic Vault is the secret manager for developers who want control over what their secrets *do*.
+## Your secrets manager should know what the secrets *do*.
 
-Automic Vault moves supported credentials out of plaintext files. It checks the
-Tool, Verified Launcher, Target, command, arguments, working directory, and
-requested Secret Names before applying one. Your existing commands still work,
-and agents need no plugin.
+Automic Vault is the secret manager for developers. It moves supported
+credentials out of plaintext files and checks the Tool, Verified Launcher,
+Target, command, arguments, working directory, and requested Secret Names before
+applying one. Your existing commands still work, and agents need no plugin.
 
 - One credential, different decisions: `gh issue list` can run while
   `gh auth token` still needs Approval.
