@@ -94,7 +94,7 @@
           "Project Values under stable Secret Names",
           "Temporary Access Grants for eligible agent tasks",
           "Optional iPhone Approval for every human Approval",
-          "Launcher Bundles and exact Blessed Scripts",
+          "Launcher Bundles and reentrant Blessed Scripts",
           "Hardened AWS and Docker credential flows",
           "Cross-ecosystem developer threat monitoring with mitigation steps",
           "Local Authorization History for allowed and denied requests"
@@ -117,7 +117,7 @@
         "headline": "Your secrets manager should know what the secrets do.",
         "description": "Automic Vault is the secret manager for developers. It checks the complete operation before applying a developer credential.",
         "datePublished": "2026-05-15",
-        "dateModified": "2026-08-24",
+        "dateModified": "2026-08-28",
         "image": "https://www.automicvault.com/preview.jpg",
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "isPartOf": {"@id": "https://www.automicvault.com/#website"},
@@ -315,6 +315,27 @@
           <h3>Bind exact code to declared capabilities</h3>
           <p>A Blessing binds the path, contents, Secret Names, and Tool capabilities. Any edit invalidates it.</p>
         </article>
+      </div>
+    </section>
+
+    <section class="brew-feature brew-feature-reverse" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
+      <div class="brew-command-card" role="group" aria-label="A reentrant Blessed Script requesting agent input through fixed subcommands">
+        <pre><code><span>$</span> ./release continue
+
+Agent input required:
+  ./release agent:github-context
+  ./release agent:cdn-status
+
+Write NOTES.md, then run:
+  ./release continue</code></pre>
+        <p>Fixed entry points · Secret Values stay inside the script</p>
+      </div>
+      <div class="brew-copy">
+        <p class="brew-eyebrow">Reentrant Blessed Scripts</p>
+        <h2 id="reentrant-scripts-title">Give agents precise, vetted capabilities.</h2>
+        <p>A reentrant Blessed Script runs deterministic work until it needs agent input, then exits with a prompt that names the required output, fixed subcommands, and the command that resumes the workflow.</p>
+        <p>Automic Vault authorizes every invocation separately. The agent can inspect context and return a result through those reviewed entry points without general access to the underlying Tools, MCP servers, or Secret Values. The script validates the output before it acts.</p>
+        <a class="brew-text-link" href="https://github.com/automic-vault/automic-vault#reentrant-blessed-scripts">See the release workflow in the source <span aria-hidden="true">→</span></a>
       </div>
     </section>
 

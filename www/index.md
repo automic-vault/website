@@ -73,6 +73,19 @@ operations.
 Blessed Scripts bind an exact path, contents, Secret Names, and declared Tool
 capabilities. Any edit invalidates the Blessing.
 
+## Give agents precise, vetted capabilities
+
+A reentrant Blessed Script runs deterministic work until it needs agent input,
+then exits with a prompt that names the required output, fixed subcommands, and
+the command that resumes the workflow.
+
+Automic Vault authorizes every invocation separately. The agent can inspect
+context and return a result through those reviewed entry points without general
+access to the underlying Tools, MCP servers, or Secret Values. The script
+validates the output before it acts.
+
+[See the release workflow in the source](https://github.com/automic-vault/automic-vault#reentrant-blessed-scripts).
+
 ## Move every human Approval to iPhone
 
 iPhone Approval is optional and enabled per Mac. Open Automic Vault on an

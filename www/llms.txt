@@ -4,7 +4,7 @@
 
 ## Product
 
-- [Homepage](https://www.automicvault.com/): Explains operation authorization, Verified Launcher policy, Project Values, bounded agent access, iPhone Approval, and Tool-specific hardening on macOS.
+- [Homepage](https://www.automicvault.com/): Explains operation authorization, Verified Launcher policy, Project Values, reentrant Blessed Scripts, bounded agent access, iPhone Approval, and Tool-specific hardening on macOS.
 - [Download](https://www.automicvault.com/download/): Provides the signed macOS disk image, installation details, included components, and first steps after setup.
 - [Documentation](https://www.automicvault.com/docs/): Entry point for the source-checked Automic Vault 3.16.0 manual.
 - [Security foundations](https://www.automicvault.com/docs/security/): Defines request, identity, authority, Secret delivery, secure defaults, and product boundaries.
@@ -56,6 +56,7 @@
 - Authorization Policy considers the Tool, Target, Verified Launcher, command, arguments, working directory, Secret Names, and selected Value sources.
 - A Secret Name can select a Global Value or the nearest Project Value without project-shaped names.
 - Eligible agent tasks can receive visible, in-memory ten-minute Temporary Access Grants with explicit exclusions.
+- Reentrant Blessed Scripts give agents fixed, reviewed entry points without general Tool, MCP, or Secret Value access.
 - Optional iPhone Approval moves every human Approval for an enrolled Mac to eligible iPhones while the Mac keeps policy, Secret custody, history, and enforcement.
 - Secrets remain in Keychain until an authorized Target receives them. The Target controls them after receipt.
 - Root compromise and a malicious authorized Target remain outside the product security boundary.

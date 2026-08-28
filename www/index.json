@@ -30,6 +30,7 @@
     "temporary_access_grants": "Eligible agent tasks can receive visible, in-memory ten-minute write authority for one Verified Launcher and Tool-specific gate.",
     "iphone_approval": "An optional iPhone app can carry every human Approval for an enrolled Mac while the Mac remains the Local Execution Boundary.",
     "blessed_scripts": "Blessings bind an exact path, contents, Secret Names, and declared Tool capabilities.",
+    "reentrant_blessed_scripts": "Agents use fixed, reviewed script entry points without general access to the underlying Tools, MCP servers, or Secret Values. Automic Vault authorizes every invocation separately.",
     "launcher_bundles": "Exact single-file Mach-O CLI snapshots can be signed, installed root-owned, enrolled, and revalidated on every request.",
     "aws": "Normal AWS invocations receive short-lived STS credentials from a native helper.",
     "docker": "Credential release verifies the live vendor-signed Docker process, ancestry, arguments, and requested registry.",
