@@ -60,7 +60,7 @@
           <section class="docs-nav-group">
             <h2>On this page</h2>
             <ul><li class="docs-nav-depth-3"><a href="#github-cli">GitHub CLI</a></li><li class="docs-nav-depth-3"><a href="#aws-cli">AWS CLI</a></li><li class="docs-nav-depth-3"><a href="#docker">Docker</a></li><li class="docs-nav-depth-3"><a href="#project-specific-values">Project-specific Values</a></li><li class="docs-nav-depth-3"><a href="#one-off-environment-application">One-off environment
-application</a></li><li class="docs-nav-depth-3"><a href="#proxy-only-delivery">Proxy-only delivery</a></li><li class="docs-nav-depth-3"><a href="#blessing-a-release-script">Blessing a release script</a></li><li class="docs-nav-depth-3"><a href="#enrolling-an-unsigned-developer-cli">Enrolling an unsigned
+application</a></li><li class="docs-nav-depth-3"><a href="#proxy-only-delivery">Proxy-only delivery</a></li><li class="docs-nav-depth-3"><a href="#blessing-a-release-script">Blessing a release script</a></li><li class="docs-nav-depth-3"><a href="#reentrant-blessed-scripts">Reentrant Blessed Scripts</a></li><li class="docs-nav-depth-3"><a href="#enrolling-an-unsigned-developer-cli">Enrolling an unsigned
 developer CLI</a></li><li class="docs-nav-depth-3"><a href="#gpg-signed-commits">GPG-signed commits</a></li></ul>
           </section>
         </nav>
@@ -136,6 +136,35 @@ av bless ./release.sh
 in Blessed Scripts before the first run. If an edit is intentional,
 inspect the complete diff and create a new Blessing. If an edit is
 unexpected, revoke and investigate.</p>
+<h3 id="reentrant-blessed-scripts">Reentrant Blessed Scripts</h3>
+<p>A reentrant Blessed Script does deterministic work until it needs
+agent input, then prints a prompt and exits. The prompt should name the
+exact output to produce, fixed script subcommands that expose reviewed
+capabilities, and the command that continues the next deterministic
+step.</p>
+<p>Automic Vault authorizes every invocation separately. An agent cannot
+carry an earlier decision into reentry or expand the Script Declaration.
+Keep Secret Values and privileged operations inside the script, treat
+agent output as untrusted input, and validate it before use.</p>
+<pre class="sh"><code>SELF=&quot;${AV_SCRIPT_PATH:-$0}&quot;
+
+case &quot;${1:-continue}&quot; in
+  agent:github-context)
+    gh release list --repo &quot;$REPOSITORY&quot; --limit 5
+    ;;
+  continue)
+    if [[ ! -s &quot;$NOTES&quot; ]]; then
+      printf &#39;Write release notes to %s, then run: %s continue\n&#39; &quot;$NOTES&quot; &quot;$SELF&quot;
+      exit 75
+    fi
+    # Validate the notes and remote state before publishing.
+    gh release create &quot;$VERSION&quot; --notes-file &quot;$NOTES&quot;
+    ;;
+esac</code></pre>
+<p>See the <a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/examples/reentrant-release.sh">full
+defensive example</a> for input checks, digest verification, conditional
+writes, and idempotent retries.</p>
 <h3 id="enrolling-an-unsigned-developer-cli">Enrolling an unsigned
 developer CLI</h3>
 <p>Open <strong>Launcher Bundles</strong>, choose the regular

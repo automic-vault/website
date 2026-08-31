@@ -912,6 +912,39 @@ Review the digest, interpreter, Secret Names, and capability ceilings in Blessed
 Scripts before the first run. If an edit is intentional, inspect the complete
 diff and create a new Blessing. If an edit is unexpected, revoke and investigate.
 
+### Reentrant Blessed Scripts
+
+A reentrant Blessed Script does deterministic work until it needs agent input,
+then prints a prompt and exits. The prompt should name the exact output to
+produce, fixed script subcommands that expose reviewed capabilities, and the
+command that continues the next deterministic step.
+
+Automic Vault authorizes every invocation separately. An agent cannot carry an
+earlier decision into reentry or expand the Script Declaration. Keep Secret
+Values and privileged operations inside the script, treat agent output as
+untrusted input, and validate it before use.
+
+```sh
+SELF="${AV_SCRIPT_PATH:-$0}"
+
+case "${1:-continue}" in
+  agent:github-context)
+    gh release list --repo "$REPOSITORY" --limit 5
+    ;;
+  continue)
+    if [[ ! -s "$NOTES" ]]; then
+      printf 'Write release notes to %s, then run: %s continue\n' "$NOTES" "$SELF"
+      exit 75
+    fi
+    # Validate the notes and remote state before publishing.
+    gh release create "$VERSION" --notes-file "$NOTES"
+    ;;
+esac
+```
+
+See the [full defensive example](https://github.com/automic-vault/automic-vault/blob/main/docs/examples/reentrant-release.sh)
+for input checks, digest verification, conditional writes, and idempotent retries.
+
 ### Enrolling an unsigned developer CLI
 
 Open **Launcher Bundles**, choose the regular single-file Mach-O executable,
