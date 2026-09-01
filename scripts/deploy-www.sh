@@ -1,4 +1,4 @@
-#!/usr/local/bin/av inject +APPLE_PASSWORD -- /bin/bash
+#!/usr/local/bin/av inject -- /bin/bash
 # --- automic-vault
 # capabilities:
 #   aws: full
