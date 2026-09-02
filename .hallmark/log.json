@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-09-02",
+    "scope": "homepage",
+    "macrostructure": "Split Studio",
+    "theme": "Cobalt-dark",
+    "theme_axes": "dark / grotesk-sans / cool",
+    "enrichment": "real product captures and operation authorization diagram",
+    "nav": "N5",
+    "footer": "Ft5",
+    "brief": "Agent autonomy landing page led by full access with operation-scoped credential control"
+  },
+  {
     "date": "2026-08-17",
     "scope": "homepage section",
     "macrostructure": "Split Studio",

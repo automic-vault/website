@@ -3,8 +3,10 @@
   "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "Your secrets manager should know what the secrets do.",
-  "description": "Automic Vault is the secret manager for developers. It checks the complete operation before applying a developer credential.",
+  "eyebrow": "From the creator of Homebrew",
+  "title": "Run agents full access. Don’t lose sleep.",
+  "tagline": "The missing secrets manager for developers.",
+  "description": "Automic Vault keeps developer credentials on your Mac and authorizes the exact operation before a supported Tool can use them.",
   "difference": {
     "conventional_model": "Check an identity and Secret Name before returning the stored value.",
     "automic_vault_model": "Check the complete operation before applying requested Secrets.",

@@ -1,21 +1,18 @@
 # Automic Vault
 
-## Your secrets manager should know what the secrets *do*.
+From the creator of Homebrew
 
-Automic Vault is the secret manager for developers. It moves supported
-credentials out of plaintext files and checks the Tool, Verified Launcher,
-Target, command, arguments, working directory, and requested Secret Names before
-applying one. Your existing commands still work, and agents need no plugin.
+## Run agents full access. Don’t lose sleep.
 
-- One credential, different decisions: `gh issue list` can run while
-  `gh auth token` still needs Approval.
-- Terminal and Codex get separate rules: policy follows each Verified Launcher.
-- Use `API_TOKEN` across projects: the working directory selects the Project
-  Value.
+**The missing secrets manager for developers.**
+
+Automic Vault keeps developer credentials on your Mac and authorizes the exact
+operation before a supported Tool can use them. Your existing commands keep
+working, and agents need no Automic Vault plugin.
 
 [Download for macOS](/Automic%20Vault.dmg)
 
-## How authorization works
+## Full access shouldn’t mean ambient credentials
 
 Most secrets managers check an identity and Secret Name before returning the
 stored value.
@@ -35,34 +32,7 @@ gh auth token     → Secret Disclosure; Approval required
 Automic Vault controls Secret Application. After the handoff, the Target
 controls the Secret.
 
-## Set separate rules for each Verified Launcher
-
-Terminal, Codex, and an unknown process can invoke the same Tool. Automic Vault
-identifies the Verified Launcher and gives each Tool–Launcher pairing its own
-Authorization Policy.
-
-- **Approval Required** gives the Launcher no durable policy grant.
-- **Read Only** automically authorizes recognized reads.
-- **Write Access** automically authorizes recognized reads and writes. Secret
-  Disclosure and Elevated Secret Application still require Approval.
-
-## Use the same Secret Name across projects
-
-A Secret Name can have a Global Value and multiple Project Values. Automic
-Vault selects the nearest Project Value for the physical working directory.
-Every project can request `API_TOKEN`.
-
-```sh
-av save API_TOKEN
-av save --project-directory=. API_TOKEN
-av inject +API_TOKEN -- npm test
-```
-
-The Project Directory selects a value; it does not grant authority. This also
-lets Automic Vault hold a project-specific dotenvx decryption key while dotenvx
-continues to manage the encrypted `.env` file.
-
-## Give an agent task ten minutes of Write Access
+## Ten minutes. One task. One Tool.
 
 Eligible Codex tasks and Claude Code sessions can receive a visible, in-memory
 Temporary Access Grant for ten minutes. The grant is scoped to one Verified
@@ -73,18 +43,23 @@ operations.
 Blessed Scripts bind an exact path, contents, Secret Names, and declared Tool
 capabilities. Any edit invalidates the Blessing.
 
-## Give agents precise, vetted capabilities
+## Credentials stay on your Mac until an authorized operation needs them
 
-A reentrant Blessed Script runs deterministic work until it needs agent input,
-then exits with a prompt that names the required output, fixed subcommands, and
-the command that resumes the workflow.
+Automic Vault moves supported credentials out of readable Tool configuration.
+The Mac verifies the Launcher, Tool, Target, command, arguments, working
+directory, requested Secret Names, and selected Value sources. Your existing
+commands keep working, and agents need no Automic Vault plugin.
 
-Automic Vault authorizes every invocation separately. The agent can inspect
-context and return a result through those reviewed entry points without general
-access to the underlying Tools, MCP servers, or Secret Values. The script
-validates the output before it acts.
+## Set separate rules for Terminal and Codex
 
-[Design a reentrant Blessed Script](/docs/reentrant-scripts/).
+Terminal, Codex, and an unknown process can invoke the same Tool. Automic Vault
+identifies the Verified Launcher and gives each Tool–Launcher pairing its own
+Authorization Policy.
+
+- **Approval Required** gives the Launcher no durable policy grant.
+- **Read Only** automically authorizes recognized reads.
+- **Write Access** automically authorizes recognized reads and writes. Secret
+  Disclosure and Elevated Secret Application still require Approval.
 
 ## Move every human Approval to iPhone
 
@@ -109,7 +84,36 @@ its Gate Client cancels.
 > when biometrics are off. Disable them, or require Face ID or Touch ID on every
 > eligible iPhone.
 
-## Deeper than agent-harness guardrails
+## One Secret Name. The right Project Value.
+
+A Secret Name can have a Global Value and multiple Project Values. Automic
+Vault selects the nearest Project Value for the physical working directory.
+Every project can request `API_TOKEN`.
+
+```sh
+av save API_TOKEN
+av save --project-directory=. API_TOKEN
+av inject +API_TOKEN -- npm test
+```
+
+The Project Directory selects a value; it does not grant authority. This also
+lets Automic Vault hold a project-specific dotenvx decryption key while dotenvx
+continues to manage the encrypted `.env` file.
+
+## When full access is too broad, expose one reviewed path
+
+A reentrant Blessed Script runs deterministic work until it needs agent input,
+then exits with a prompt that names the required output, fixed subcommands, and
+the command that resumes the workflow.
+
+Automic Vault authorizes every invocation separately. The agent can inspect
+context and return a result through those reviewed entry points without general
+access to the underlying Tools, MCP servers, or Secret Values. The script
+validates the output before it acts.
+
+[Design a reentrant Blessed Script](/docs/reentrant-scripts/).
+
+## Controls live below the agent harness
 
 Harness guardrails govern one harness. Automic Vault works deeper: its
 Hardeners reconfigure or patch the credential-bearing Tool itself, so the same
@@ -127,7 +131,14 @@ invokes it.
 - **Detection:** over 100 supported developer configurations are checked for
   Exposures and Hazards.
 
-## The boundary ends at the Target
+## Every decision leaves local evidence
+
+Allowed or denied, policy or Approval: requests leave bounded Authorization
+History on your Mac with the decision, Launcher, Secret Names, command, and
+working directory. Detectors report supported Exposures and Hazards with
+concrete mitigation steps.
+
+## Automic Vault does not make full access harmless
 
 Automic Vault controls supported Secret Application and sensitive Tool
 operations at the Local Execution Boundary. macOS handles general process and
@@ -139,7 +150,7 @@ Target can leak a received Secret.
 Authorization History stays on the Mac and records bounded details for allowed
 and denied requests. It is not a tamperproof or audit-complete log.
 
-## From the creator of Homebrew
+## Free. Open source. Built for macOS.
 
 Automic Vault is free Apache-2.0 open-source software for macOS.
 
