@@ -12,6 +12,7 @@
 - [Approval and authority](https://www.automicvault.com/docs/authority/): Covers Approval routes, temporary authority, Secret Values, and Access Levels.
 - [CLI reference](https://www.automicvault.com/docs/cli/): Documents commands, machine-readable catalogs, and exit behavior.
 - [Workflows](https://www.automicvault.com/docs/workflows/): Gives known-good paths for GitHub, AWS, Docker, proxying, scripts, and GPG signing.
+- [Reentrant Blessed Scripts](https://www.automicvault.com/docs/reentrant-scripts/): Explains agent prompt handoffs, capability and Secret boundaries, intermediate context, state validation, and safe retries.
 - [Troubleshooting](https://www.automicvault.com/docs/troubleshooting/): Diagnoses common Approval, Target, Value selection, Launcher, proxy, and Doctor failures.
 - [Hardener reference](https://www.automicvault.com/docs/hardeners/): Publishes static HTML and Markdown pages for hardeners documented in the source checkout.
 - [Package catalog](https://pkg.so/): Searchable catalog of developer packages, dependencies, install commands, risk information, and Automic Vault hardening coverage.

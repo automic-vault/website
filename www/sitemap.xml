@@ -272,7 +272,11 @@
   </url>
   <url>
     <loc>https://www.automicvault.com/docs/workflows/</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-09-01</lastmod>
+  </url>
+  <url>
+    <loc>https://www.automicvault.com/docs/reentrant-scripts/</loc>
+    <lastmod>2026-09-01</lastmod>
   </url>
   <url>
     <loc>https://www.automicvault.com/docs/troubleshooting/</loc>
@@ -356,11 +360,11 @@
   </url>
   <url>
     <loc>https://www.automicvault.com/llms.txt</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-09-01</lastmod>
   </url>
   <url>
     <loc>https://www.automicvault.com/llms-full.txt</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-09-01</lastmod>
   </url>
   <url>
     <loc>https://www.automicvault.com/.well-known/security.txt</loc>

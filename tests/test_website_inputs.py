@@ -204,7 +204,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
     def test_docs_match_the_current_cli_surface(self):
         page_dirs = [
             ROOT / "www" / "docs" / slug
-            for slug in ("", "security", "app", "authority", "cli", "workflows", "troubleshooting")
+            for slug in ("", "security", "app", "authority", "cli", "workflows", "reentrant-scripts", "troubleshooting")
         ]
         html = "\n".join((page / "index.html").read_text(encoding="utf-8") for page in page_dirs)
         markdown = "\n".join((page / "index.md").read_text(encoding="utf-8") for page in page_dirs)
@@ -267,11 +267,19 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
 
     def test_docs_sidebar_marks_the_page_and_lists_its_sections(self):
         app = (ROOT / "www" / "docs" / "app" / "index.html").read_text(encoding="utf-8")
+        reentrant = (ROOT / "www" / "docs" / "reentrant-scripts" / "index.html").read_text(encoding="utf-8")
+        reentrant_markdown = (ROOT / "www" / "docs" / "reentrant-scripts" / "index.md").read_text(encoding="utf-8")
 
         self.assertIn('<a href="/docs/app/" aria-current="page">App guide</a>', app)
+        self.assertIn('<a href="/docs/reentrant-scripts/">Reentrant scripts</a>', app)
         self.assertIn("On this page", app)
         self.assertIn('<a href="#detectors">Detectors</a>', app)
         self.assertIn('<a href="#settings">Settings</a>', app)
+        self.assertIn('<a href="/docs/reentrant-scripts/" aria-current="page">Reentrant scripts</a>', reentrant)
+        self.assertIn('<a href="#return-the-prompt-to-the-agent">', reentrant)
+        self.assertTrue(reentrant_markdown.startswith("## Reentrant Blessed Scripts\n"))
+        self.assertEqual(reentrant_markdown.count("## Reentrant Blessed Scripts"), 1)
+        self.assertNotIn("Enrolling an unsigned developer CLI", reentrant_markdown)
 
     def test_cloudfront_origin_uses_the_bucket_region(self):
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
@@ -439,17 +447,19 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             for node in sitemap.findall("s:url", namespace)
         }
         self.assertEqual(lastmods["https://www.automicvault.com/docs/"], "2026-08-23")
-        for route in ("security", "app", "authority", "cli", "workflows", "troubleshooting", "hardeners"):
+        for route in ("security", "app", "authority", "cli", "troubleshooting", "hardeners"):
             self.assertEqual(
                 lastmods[f"https://www.automicvault.com/docs/{route}/"],
                 "2026-08-23",
             )
-        for url in (
-            "https://www.automicvault.com/llms.txt",
-            "https://www.automicvault.com/llms-full.txt",
-            "https://www.automicvault.com/.well-known/security.txt",
-        ):
-            self.assertEqual(lastmods[url], "2026-07-28")
+        for route in ("workflows", "reentrant-scripts"):
+            self.assertEqual(
+                lastmods[f"https://www.automicvault.com/docs/{route}/"],
+                "2026-09-01",
+            )
+        for url in ("https://www.automicvault.com/llms.txt", "https://www.automicvault.com/llms-full.txt"):
+            self.assertEqual(lastmods[url], "2026-09-01")
+        self.assertEqual(lastmods["https://www.automicvault.com/.well-known/security.txt"], "2026-07-28")
 
     def test_public_assets_and_frontend_files_are_referenced(self):
         site = ROOT / "www"

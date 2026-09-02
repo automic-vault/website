@@ -797,7 +797,8 @@ def render_sitemap(records: list[dict[str, Any]], locales: list[Locale]) -> str:
         ("https://www.automicvault.com/docs/app/", "2026-08-23"),
         ("https://www.automicvault.com/docs/authority/", "2026-08-23"),
         ("https://www.automicvault.com/docs/cli/", "2026-08-23"),
-        ("https://www.automicvault.com/docs/workflows/", "2026-08-23"),
+        ("https://www.automicvault.com/docs/workflows/", "2026-09-01"),
+        ("https://www.automicvault.com/docs/reentrant-scripts/", "2026-09-01"),
         ("https://www.automicvault.com/docs/troubleshooting/", "2026-08-23"),
         ("https://www.automicvault.com/docs/hardeners/", "2026-08-23"),
         ("https://www.automicvault.com/blog/", "2026-08-14"),
@@ -818,8 +819,8 @@ def render_sitemap(records: list[dict[str, Any]], locales: list[Locale]) -> str:
         ("https://www.automicvault.com/blog/prevent-node-ipc-npm-backdoor/", "2026-05-15"),
         ("https://www.automicvault.com/blog/prevent-bitwarden-cli-npm-compromise/", "2026-04-23"),
         ("https://www.automicvault.com/blog/prevent-litellm-pypi-compromise/", "2026-03-25"),
-        ("https://www.automicvault.com/llms.txt", "2026-07-28"),
-        ("https://www.automicvault.com/llms-full.txt", "2026-07-28"),
+        ("https://www.automicvault.com/llms.txt", "2026-09-01"),
+        ("https://www.automicvault.com/llms-full.txt", "2026-09-01"),
         ("https://www.automicvault.com/.well-known/security.txt", "2026-07-28"),
     ]
     entries.extend(sitemap_entry(loc, lastmod, None, locales) for loc, lastmod in preserved)

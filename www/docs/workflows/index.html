@@ -27,7 +27,7 @@
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/workflows/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/workflows/","headline":"Common workflows","description":"Common Automic Vault workflows for protected developer credentials.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/workflows/","headline":"Common workflows","description":"Common Automic Vault workflows for protected developer credentials.","dateModified":"2026-09-01","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,7 +55,7 @@
           <a class="docs-toc-title" href="/docs/">Manual</a>
           <section class="docs-nav-group">
             <h2>Documentation</h2>
-            <ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/security/">Security foundations</a></li><li><a href="/docs/app/">App guide</a></li><li><a href="/docs/authority/">Approval and authority</a></li><li><a href="/docs/cli/">CLI reference</a></li><li><a href="/docs/workflows/" aria-current="page">Workflows</a></li><li><a href="/docs/troubleshooting/">Troubleshooting</a></li><li><a href="/docs/hardeners/">Hardeners</a></li></ul>
+            <ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/security/">Security foundations</a></li><li><a href="/docs/app/">App guide</a></li><li><a href="/docs/authority/">Approval and authority</a></li><li><a href="/docs/cli/">CLI reference</a></li><li><a href="/docs/workflows/" aria-current="page">Workflows</a></li><li><a href="/docs/reentrant-scripts/">Reentrant scripts</a></li><li><a href="/docs/troubleshooting/">Troubleshooting</a></li><li><a href="/docs/hardeners/">Hardeners</a></li></ul>
           </section>
           <section class="docs-nav-group">
             <h2>On this page</h2>
@@ -137,34 +137,11 @@ in Blessed Scripts before the first run. If an edit is intentional,
 inspect the complete diff and create a new Blessing. If an edit is
 unexpected, revoke and investigate.</p>
 <h3 id="reentrant-blessed-scripts">Reentrant Blessed Scripts</h3>
-<p>A reentrant Blessed Script does deterministic work until it needs
-agent input, then prints a prompt and exits. The prompt should name the
-exact output to produce, fixed script subcommands that expose reviewed
-capabilities, and the command that continues the next deterministic
-step.</p>
-<p>Automic Vault authorizes every invocation separately. An agent cannot
-carry an earlier decision into reentry or expand the Script Declaration.
-Keep Secret Values and privileged operations inside the script, treat
-agent output as untrusted input, and validate it before use.</p>
-<pre class="sh"><code>SELF=&quot;${AV_SCRIPT_PATH:-$0}&quot;
-
-case &quot;${1:-continue}&quot; in
-  agent:github-context)
-    gh release list --repo &quot;$REPOSITORY&quot; --limit 5
-    ;;
-  continue)
-    if [[ ! -s &quot;$NOTES&quot; ]]; then
-      printf &#39;Write release notes to %s, then run: %s continue\n&#39; &quot;$NOTES&quot; &quot;$SELF&quot;
-      exit 75
-    fi
-    # Validate the notes and remote state before publishing.
-    gh release create &quot;$VERSION&quot; --notes-file &quot;$NOTES&quot;
-    ;;
-esac</code></pre>
-<p>See the <a
-href="https://github.com/automic-vault/automic-vault/blob/main/docs/examples/reentrant-release.sh">full
-defensive example</a> for input checks, digest verification, conditional
-writes, and idempotent retries.</p>
+<p>A reentrant Blessed Script pauses deterministic work for agent
+judgment, then resumes through fixed entry points under the same
+Blessing. See <a href="../reentrant-scripts/">Reentrant Blessed
+Scripts</a> for prompt handoffs, capability design, Secret exposure,
+state, validation, and retries.</p>
 <h3 id="enrolling-an-unsigned-developer-cli">Enrolling an unsigned
 developer CLI</h3>
 <p>Open <strong>Launcher Bundles</strong>, choose the regular

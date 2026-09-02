@@ -84,7 +84,7 @@ context and return a result through those reviewed entry points without general
 access to the underlying Tools, MCP servers, or Secret Values. The script
 validates the output before it acts.
 
-[See the release workflow in the source](https://github.com/automic-vault/automic-vault#reentrant-blessed-scripts).
+[Design a reentrant Blessed Script](/docs/reentrant-scripts/).
 
 ## Move every human Approval to iPhone
 

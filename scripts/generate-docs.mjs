@@ -77,7 +77,17 @@ const pages = [
     lede: "Known-good paths for GitHub, AWS, Docker, Project Values, proxying, scripts, and signing.",
     description: "Common Automic Vault workflows for protected developer credentials.",
     start: "## Common workflows",
+    end: "## Reentrant Blessed Scripts",
+    dateModified: "2026-09-01",
+  },
+  {
+    slug: "reentrant-scripts",
+    title: "Reentrant Blessed Scripts",
+    lede: "Design reviewed agent workflows that pause for judgment, return a precise prompt, and resume without widening authority.",
+    description: "How to design reentrant Automic Vault Blessed Scripts for agent handoffs, least authority, Secret safety, and resumable operations.",
+    start: "## Reentrant Blessed Scripts",
     end: "## Troubleshooting",
+    dateModified: "2026-09-01",
   },
   {
     slug: "troubleshooting",
@@ -96,13 +106,18 @@ const manualLinks = [
   ["authority", "Approval and authority"],
   ["cli", "CLI reference"],
   ["workflows", "Workflows"],
+  ["reentrant-scripts", "Reentrant scripts"],
   ["troubleshooting", "Troubleshooting"],
   ["hardeners", "Hardeners"],
 ];
 
 function section(start, end) {
-  const from = typeof start === "number" ? start : manual.indexOf(start);
-  const to = end ? manual.indexOf(end) : manual.length;
+  const headingOffset = heading => {
+    const offset = manual.indexOf(`\n${heading}\n`);
+    return offset < 0 ? -1 : offset + 1;
+  };
+  const from = typeof start === "number" ? start : headingOffset(start);
+  const to = end ? headingOffset(end) : manual.length;
   if (from < 0 || to < 0) throw new Error(`Missing manual boundary: ${start} / ${end}`);
   return manual.slice(from, to).trim();
 }
@@ -159,7 +174,7 @@ ${headings ? `          <section class="docs-nav-group">
         </nav>`;
 }
 
-function htmlPage({ slug, title, lede, description, markdown }) {
+function htmlPage({ slug, title, lede, description, markdown, dateModified = "2026-08-23" }) {
   const pageRoute = route(slug);
   const markdownRoute = `${pageRoute}index.md`;
   const article = renderMarkdown(markdown);
@@ -192,7 +207,7 @@ function htmlPage({ slug, title, lede, description, markdown }) {
   <link rel="alternate" type="text/markdown" title="Markdown" href="${markdownRoute}">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com${pageRoute}","headline":${JSON.stringify(title)},"description":${JSON.stringify(description)},"dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "${version}","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com${pageRoute}","headline":${JSON.stringify(title)},"description":${JSON.stringify(description)},"dateModified":"${dateModified}","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "${version}","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
