@@ -87,7 +87,7 @@ const pages = [
     description: "How to design reentrant Automic Vault Blessed Scripts for agent handoffs, least authority, Secret safety, and resumable operations.",
     start: "## Reentrant Blessed Scripts",
     end: "## Troubleshooting",
-    dateModified: "2026-09-01",
+    dateModified: "2026-09-02",
   },
   {
     slug: "troubleshooting",

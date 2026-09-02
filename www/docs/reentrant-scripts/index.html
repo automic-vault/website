@@ -27,7 +27,7 @@
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/reentrant-scripts/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/reentrant-scripts/","headline":"Reentrant Blessed Scripts","description":"How to design reentrant Automic Vault Blessed Scripts for agent handoffs, least authority, Secret safety, and resumable operations.","dateModified":"2026-09-01","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/reentrant-scripts/","headline":"Reentrant Blessed Scripts","description":"How to design reentrant Automic Vault Blessed Scripts for agent handoffs, least authority, Secret safety, and resumable operations.","dateModified":"2026-09-02","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,7 +66,7 @@ before writing prompts</a></li><li class="docs-nav-depth-3"><a href="#keep-secre
 away from the agent step</a></li><li class="docs-nav-depth-3"><a href="#inventory-what-the-agent-may-need-later">Inventory what the
 agent may need later</a></li><li class="docs-nav-depth-3"><a href="#persist-non-secret-workflow-state">Persist non-secret workflow
 state</a></li><li class="docs-nav-depth-3"><a href="#validate-agent-output-as-untrusted-input">Validate agent output
-as untrusted input</a></li><li class="docs-nav-depth-3"><a href="#make-resume-and-retry-safe">Make resume and retry safe</a></li><li class="docs-nav-depth-3"><a href="#example-reentry-sequence">Example reentry sequence</a></li><li class="docs-nav-depth-3"><a href="#review-checklist">Review checklist</a></li></ul>
+as untrusted input</a></li><li class="docs-nav-depth-3"><a href="#make-resume-and-retry-safe">Make resume and retry safe</a></li><li class="docs-nav-depth-3"><a href="#example-reentry-sequence">Example reentry sequence</a></li><li class="docs-nav-depth-3"><a href="#review-checklist">Review checklist</a></li><li class="docs-nav-depth-3"><a href="#faq">FAQ</a></li></ul>
           </section>
         </nav>
         <article class="docs-content"><h2 id="reentrant-blessed-scripts">Reentrant Blessed Scripts</h2>
@@ -399,6 +399,26 @@ destinations.</li>
 <li>Repeating <code>continue</code> is safe after interruption.</li>
 <li>Unexpected state stops the workflow with a precise diagnostic.</li>
 </ul>
+<h3 id="faq">FAQ</h3>
+<h4
+id="how-does-this-differ-from-telling-the-agent-to-call-a-sequence-of-scripts">How
+does this differ from telling the agent to call a sequence of
+scripts?</h4>
+<p>A reentrant Blessed Script keeps the workflow's control flow in the
+exact code reviewed by the Blessing:</p>
+<ul>
+<li>The script evaluates conditions deterministically. The agent
+supplies bounded judgment or data instead of deciding how an
+<code>if</code> statement should branch.</li>
+<li>The script enforces step order and checks preconditions. The agent
+cannot skip a required step or run later steps first.</li>
+<li>One state machine can select different reviewed paths from validated
+inputs and verified external state without asking the agent to assemble
+a new sequence.</li>
+</ul>
+<p>A series of scripts still fits independent steps where the agent
+should choose what runs next. Use one reentrant script when order and
+branch selection belong in the reviewed automation.</p>
 <p class="docs-source-link"><a href="/docs/reentrant-scripts/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>

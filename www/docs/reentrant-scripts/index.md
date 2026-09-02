@@ -315,3 +315,21 @@ writes, and idempotent retries.
 - Each side effect has a remote verification and conflict path.
 - Repeating `continue` is safe after interruption.
 - Unexpected state stops the workflow with a precise diagnostic.
+
+### FAQ
+
+#### How does this differ from telling the agent to call a sequence of scripts?
+
+A reentrant Blessed Script keeps the workflow's control flow in the exact code
+reviewed by the Blessing:
+
+- The script evaluates conditions deterministically. The agent supplies bounded
+  judgment or data instead of deciding how an `if` statement should branch.
+- The script enforces step order and checks preconditions. The agent cannot skip
+  a required step or run later steps first.
+- One state machine can select different reviewed paths from validated inputs
+  and verified external state without asking the agent to assemble a new sequence.
+
+A series of scripts still fits independent steps where the agent should choose
+what runs next. Use one reentrant script when order and branch selection belong
+in the reviewed automation.

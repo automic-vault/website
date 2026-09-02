@@ -277,6 +277,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertIn('<a href="#settings">Settings</a>', app)
         self.assertIn('<a href="/docs/reentrant-scripts/" aria-current="page">Reentrant scripts</a>', reentrant)
         self.assertIn('<a href="#return-the-prompt-to-the-agent">', reentrant)
+        self.assertIn("How does this differ from telling the agent to call a sequence of scripts?", reentrant_markdown)
         self.assertTrue(reentrant_markdown.startswith("## Reentrant Blessed Scripts\n"))
         self.assertEqual(reentrant_markdown.count("## Reentrant Blessed Scripts"), 1)
         self.assertNotIn("Enrolling an unsigned developer CLI", reentrant_markdown)
@@ -452,11 +453,8 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                 lastmods[f"https://www.automicvault.com/docs/{route}/"],
                 "2026-08-23",
             )
-        for route in ("workflows", "reentrant-scripts"):
-            self.assertEqual(
-                lastmods[f"https://www.automicvault.com/docs/{route}/"],
-                "2026-09-01",
-            )
+        self.assertEqual(lastmods["https://www.automicvault.com/docs/workflows/"], "2026-09-01")
+        self.assertEqual(lastmods["https://www.automicvault.com/docs/reentrant-scripts/"], "2026-09-02")
         for url in ("https://www.automicvault.com/llms.txt", "https://www.automicvault.com/llms-full.txt"):
             self.assertEqual(lastmods[url], "2026-09-01")
         self.assertEqual(lastmods["https://www.automicvault.com/.well-known/security.txt"], "2026-07-28")
