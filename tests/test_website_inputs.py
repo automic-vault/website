@@ -336,7 +336,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
     def test_secondary_formats_and_localized_llms_are_discoverable(self):
         home = (ROOT / "www" / "index.html").read_text(encoding="utf-8")
         for claim in (
-            "Most secrets managers check an identity and Secret Name before returning the stored value.",
+            "Most secrets managers ask whether you can fetch a value.",
             "Project Values",
             "Temporary Access Grant",
             "iPhone Approval",
@@ -353,27 +353,30 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             self.assertIn(f'type="{media_type}"', home)
             self.assertIn(f'href="{href}"', home)
 
-        current_headline = "Run agents full access. Don’t lose sleep."
+        current_headline = "Full-access agents. Supply-chain attacks through npm i. Apps you’ve never run before."
         for filename in ("index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
+            searchable_text = re.sub(r"\s+", " ", text.replace("`", ""))
             with self.subTest(filename=filename):
-                self.assertIn(current_headline, text)
+                self.assertIn(current_headline, searchable_text)
 
         markdown = (ROOT / "www" / "index.md").read_text(encoding="utf-8")
-        self.assertIn("Run agents full access. Don’t lose sleep.", markdown)
+        self.assertIn("Full-access agents. Supply-chain attacks through", markdown)
+        self.assertIn("Apps you’ve never run before.", markdown)
 
         for filename in ("index.html", "index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
             with self.subTest(filename=filename):
                 self.assertIn("The missing secrets manager for developers.", text)
 
-        current_lede = "Give agents read-only access to command-line tools like"
+        current_lede = "Give agents Read Only access to command-line tools like"
         for filename in ("index.html", "index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
+            searchable_text = re.sub(r"\s+", " ", text.replace("`", ""))
             with self.subTest(filename=filename):
-                self.assertIn(current_lede, text)
+                self.assertIn(current_lede, searchable_text)
 
-        zeroconf_claim = "Zeroconf above the boundary"
+        zeroconf_claim = "Zeroconf Above the Boundary"
         for filename in ("index.html", "index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
             with self.subTest(filename=filename):
