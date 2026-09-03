@@ -29,13 +29,6 @@ gh auth token     → Secret Disclosure; Approval required
 Automic Vault controls Secret Application. After the handoff, the Target
 controls the Secret.
 
-Ten minutes. One task. One Tool. That’s it.
-
-Sometimes the agent needs Write Access. Give this task ten active minutes for
-this Tool, then get out of the way. The Temporary Access Grant is visible,
-lives in memory, and can be ended immediately. Disclosure, mutation, elevated
-application, and Unknown operations still stop for Approval.
-
 Your credentials stay home.
 
 Automic Vault moves supported credentials out of files your Tools—and your

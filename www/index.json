@@ -32,7 +32,6 @@
   "features": {
     "tool_hardening": "Hardeners reconfigure or patch a supported credential-bearing Tool so its Authorization Gate applies below any one agent harness.",
     "project_values": "One Secret Name can select the nearest Project Value for the physical working directory, then a Global Value.",
-    "temporary_access_grants": "Eligible agent tasks can receive visible, in-memory ten-minute write authority for one Verified Launcher and Tool-specific gate.",
     "iphone_approval": "An optional iPhone app can carry every human Approval for an enrolled Mac while the Mac remains the Local Execution Boundary.",
     "blessed_scripts": "Blessings bind an exact path, contents, Secret Names, and declared Tool capabilities.",
     "reentrant_blessed_scripts": "Agents use fixed, reviewed script entry points without general access to the underlying Tools, MCP servers, or Secret Values. Automic Vault authorizes every invocation separately.",

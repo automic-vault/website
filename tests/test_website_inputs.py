@@ -338,7 +338,6 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         for claim in (
             "Most secrets managers ask whether you can fetch a value.",
             "Project Values",
-            "Temporary Access Grant",
             "iPhone Approval",
             "Launcher Bundles",
         ):

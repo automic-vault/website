@@ -623,8 +623,7 @@ body {
 .brew-operation-panel,
 .brew-command-card,
 .brew-capability-pair article,
-.brew-capability-grid article,
-.brew-grant-scope {
+.brew-capability-grid article {
   min-width: 0;
   border: var(--brand-rule-hair) solid var(--brand-rule);
   border-radius: var(--brand-radius-md);
@@ -1120,29 +1119,6 @@ body {
   align-self: center;
 }
 
-.brew-grant-scope {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-self: center;
-  margin: 0;
-  overflow: hidden;
-}
-
-.brew-grant-scope > div {
-  min-width: 0;
-  padding: var(--brand-space-lg) var(--brand-space-xl);
-  border-top: var(--brand-rule-hair) solid var(--brand-rule);
-}
-
-.brew-grant-scope > div:nth-child(-n + 2) {
-  border-top: 0;
-}
-
-.brew-grant-scope > div:nth-child(even) {
-  border-inline-start: var(--brand-rule-hair) solid var(--brand-rule);
-}
-
-.brew-grant-scope dt,
 .brew-tool-list dt {
   color: var(--brand-accent);
   font-family: var(--brand-font-mono);
@@ -1150,13 +1126,6 @@ body {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-}
-
-.brew-grant-scope dd {
-  margin-top: var(--brand-space-xs);
-  color: var(--brand-ink);
-  font-size: var(--brand-text-sm);
-  line-height: 1.5;
 }
 
 .brew-command-card {
@@ -1637,24 +1606,8 @@ body {
   .brew-operation-panel,
   .brew-command-card,
   .brew-capability-pair article,
-  .brew-capability-grid article,
-  .brew-grant-scope > div {
+  .brew-capability-grid article {
     padding: var(--brand-space-lg);
-  }
-
-  .brew-grant-scope {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .brew-grant-scope > div,
-  .brew-grant-scope > div:nth-child(-n + 2),
-  .brew-grant-scope > div:nth-child(even) {
-    border-top: var(--brand-rule-hair) solid var(--brand-rule);
-    border-inline-start: 0;
-  }
-
-  .brew-grant-scope > div:first-child {
-    border-top: 0;
   }
 
   .brew-tool-list > div {
