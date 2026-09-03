@@ -489,6 +489,38 @@ body {
   line-height: 1.45;
 }
 
+.brew-objection {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.6fr) minmax(0, 1.4fr);
+  gap: var(--brand-space-xl);
+  align-items: baseline;
+  width: min(100%, var(--brand-max));
+  margin-inline: auto;
+  padding-bottom: var(--brand-space-xl);
+  border-bottom: var(--brand-rule-hair) solid var(--brand-rule);
+}
+
+.brew-objection strong {
+  color: var(--brand-ink);
+  font-family: var(--brand-font-display);
+  font-size: clamp(1.5rem, 2.4vw, 2.5rem);
+  font-weight: 680;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.brew-objection span {
+  max-width: 62ch;
+  color: var(--brand-ink-soft);
+  font-size: var(--brand-text-lg);
+  line-height: 1.55;
+}
+
+.brew-objection em {
+  color: var(--brand-accent);
+  font-weight: 650;
+}
+
 .brew-risk,
 .brew-access,
 .brew-feature,
@@ -1496,6 +1528,11 @@ body {
 }
 
 @media (max-width: 40rem) {
+  .brew-objection {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--brand-space-md);
+  }
+
   .brew-nav {
     grid-template-columns: auto auto;
     justify-content: space-between;

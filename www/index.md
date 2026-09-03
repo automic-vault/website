@@ -11,6 +11,11 @@ they need more, a human must approve it on your Mac or a connected iPhone.
 
 [Download for macOS](/Automic%20Vault.dmg)
 
+**Deeper than guardrails.** Zeroconf above the boundary: supported tools work
+with any agent, any harness, *any app*. Hardeners move those tools into a
+hardened state at the packaging layer, with their credentials stored in Automic
+Vault.
+
 ## Full access shouldn’t mean ambient credentials
 
 Most secrets managers check an identity and Secret Name before returning the

@@ -7,6 +7,7 @@
   "title": "Run agents full access. Don’t lose sleep.",
   "tagline": "The missing secrets manager for developers.",
   "description": "Give agents read-only access to command-line tools like gh and aws. When they need more, a human must approve it on your Mac or a connected iPhone.",
+  "positioning": "Deeper than guardrails. Zeroconf above the boundary: supported tools work with any agent, any harness, any app. Hardeners move those tools into a hardened state at the packaging layer, with their credentials stored in Automic Vault.",
   "difference": {
     "conventional_model": "Check an identity and Secret Name before returning the stored value.",
     "automic_vault_model": "Check the complete operation before applying requested Secrets.",

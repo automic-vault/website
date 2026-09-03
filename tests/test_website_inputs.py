@@ -373,6 +373,12 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             with self.subTest(filename=filename):
                 self.assertIn(current_lede, text)
 
+        zeroconf_claim = "Zeroconf above the boundary"
+        for filename in ("index.html", "index.md", "index.txt", "index.json"):
+            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
+            with self.subTest(filename=filename):
+                self.assertIn(zeroconf_claim, text)
+
         for filename in ("index.html", "index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
             with self.subTest(filename=filename):
