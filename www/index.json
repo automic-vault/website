@@ -6,7 +6,7 @@
   "eyebrow": "From the creator of Homebrew",
   "title": "Run agents full access. Don’t lose sleep.",
   "tagline": "The missing secrets manager for developers.",
-  "description": "Automic Vault keeps developer credentials on your Mac and authorizes the exact operation before a supported Tool can use them.",
+  "description": "Give agents read-only access to command-line tools like gh and aws. When they need more, a human must approve it on your Mac or a connected iPhone.",
   "difference": {
     "conventional_model": "Check an identity and Secret Name before returning the stored value.",
     "automic_vault_model": "Check the complete operation before applying requested Secrets.",

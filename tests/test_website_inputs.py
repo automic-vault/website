@@ -367,6 +367,12 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             with self.subTest(filename=filename):
                 self.assertIn("The missing secrets manager for developers.", text)
 
+        current_lede = "Give agents read-only access to command-line tools like"
+        for filename in ("index.html", "index.md", "index.txt", "index.json"):
+            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
+            with self.subTest(filename=filename):
+                self.assertIn(current_lede, text)
+
         for filename in ("index.html", "index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
             with self.subTest(filename=filename):

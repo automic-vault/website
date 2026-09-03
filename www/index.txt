@@ -6,9 +6,8 @@ Run agents full access. Don’t lose sleep.
 
 The missing secrets manager for developers.
 
-Automic Vault keeps developer credentials on your Mac and authorizes the exact
-operation before a supported Tool can use them. Your existing commands keep
-working, and agents need no Automic Vault plugin.
+Give agents read-only access to command-line tools like gh and aws. When they
+need more, a human must approve it on your Mac or a connected iPhone.
 
 Download for macOS: https://www.automicvault.com/Automic%20Vault.dmg
 
