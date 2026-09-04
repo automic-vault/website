@@ -1,7 +1,7 @@
 /* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5
  * Hallmark · genre: modern-minimal · macrostructure: Split Studio · theme: Cobalt-dark
  * enrichment: real product captures + operation diagram · nav: N5 · footer: Ft5 · designed-as-app
- * variation: compact threat beats + oversized two-line install resolution
+ * variation: compact threat beats + separated oversized two-line install resolution
  * audience: macOS developers and agent users · use: download Automic Vault · tone: mxcl/direct
  * contrast: pass (40–41) · slop: pass (42–45) · honest: pass (46) · chrome: pass (47)
  * tokens: pass (48) · responsive: pass (49) · mobile: pass (34, 49, 50–57)
@@ -364,7 +364,7 @@ body {
 
 .brew-hero-resolution {
   display: block;
-  margin-top: var(--brand-space-md);
+  margin-top: var(--brand-space-2xl);
   color: var(--brand-ink);
   font-size: clamp(2.75rem, 4.6vw, 5.75rem);
   font-weight: 780;
@@ -1562,7 +1562,7 @@ body {
   }
 
   .brew-hero-resolution {
-    margin-top: var(--brand-space-lg);
+    margin-top: var(--brand-space-xl);
     font-size: clamp(2.65rem, 13vw, 4.25rem);
     line-height: 0.96;
   }
