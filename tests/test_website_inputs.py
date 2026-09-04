@@ -359,8 +359,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             "Compromised",
             "The apps are…",
             "Vibe-coded",
-            "It’s fine if you’ve got:",
-            "Automic Vault",
+            "Don’t lose sleep with Automic Vault",
         )
         for filename in ("index.html", "index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")

@@ -12,9 +12,7 @@ The apps are…
 
 ## Vibe-coded
 
-It’s fine if you’ve got:
-
-## Automic Vault
+## Don’t lose sleep with Automic Vault
 
 [Download for macOS](/Automic%20Vault.dmg)
 
