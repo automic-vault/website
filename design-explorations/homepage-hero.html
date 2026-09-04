@@ -100,13 +100,16 @@
     .va-line { display: grid; grid-template-columns: 118px 1fr; align-items: baseline; padding-bottom: 13px; border-bottom: 1px solid var(--av-rule-soft); }
     .va-cue { color: var(--av-dim); font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
     .va-statement { color: var(--av-ink); font-size: clamp(26px, 3.2vw, 48px); font-weight: 760; letter-spacing: -0.045em; line-height: 0.96; }
-    .va-line:nth-child(odd) .va-statement { color: var(--av-accent); }
-    .va-line:last-child { border-bottom: 0; }
-    .va-line:last-child .va-statement { color: var(--av-ink); }
-    .va-side { align-self: center; padding: 24px; border-left: 1px solid var(--av-rule); }
-    .va-side p { margin: 0 0 20px; color: var(--av-soft); font-size: 14px; line-height: 1.6; }
-    .va-side strong { display: block; margin-bottom: 8px; color: var(--av-ink); font-size: 18px; line-height: 1.15; }
-    .va-side .av-actions { margin-top: 24px; }
+    .va-statement { color: var(--av-accent); }
+    .va-resolution { margin: 10px 0 2px 118px; color: var(--av-ink); font-size: clamp(34px, 4vw, 60px); font-weight: 780; letter-spacing: -0.055em; line-height: 0.94; }
+    .va-resolution span { display: block; }
+    .va-resolution .va-embrace { margin-bottom: 4px; font-style: italic; }
+    .va-resolution b { color: var(--av-accent); font-weight: inherit; white-space: nowrap; }
+    .va-download { display: grid; justify-items: start; gap: 14px; margin: 22px 0 0 118px; }
+    .va-download p { margin: 0; color: var(--av-soft); font-size: 13px; line-height: 1.45; }
+    .va-download strong { color: var(--av-ink); }
+    .va-side { align-self: center; min-width: 0; }
+    .va-side img { display: block; width: 100%; border-radius: 10px; filter: drop-shadow(0 24px 38px oklch(1% 0.01 274 / 0.48)); }
 
     .vb-shell { position: relative; min-height: 610px; overflow: hidden; padding: 22px; color: var(--av-ink); background: radial-gradient(circle at 82% 20%, oklch(68% 0.19 298 / 0.18), transparent 30%), var(--av-paper); }
     .vb-shell > * { position: relative; }
@@ -116,6 +119,7 @@
     .vb-copy h3 { max-width: 9ch; margin: 0; color: var(--av-ink); font-size: clamp(48px, 6vw, 78px); font-weight: 800; letter-spacing: -0.06em; line-height: 0.88; }
     .vb-copy h3 span { color: var(--av-accent); }
     .vb-copy > p { max-width: 46ch; margin: 24px 0 0; color: var(--av-soft); font-size: 15px; line-height: 1.55; }
+    .vb-copy > p strong { color: var(--av-ink); }
     .vb-copy .av-actions { margin-top: 28px; }
     .vb-policy { overflow: hidden; border: 1px solid var(--av-rule); border-radius: 10px; background: var(--av-paper-2); }
     .vb-policy-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; border-bottom: 1px solid var(--av-rule); color: var(--av-dim); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -184,6 +188,7 @@
       .av-button { padding: 0 12px; }
       .va-main, .vb-main, .vc-main, .vd-main { padding-inline: 12px; }
       .va-line { grid-template-columns: 80px 1fr; }
+      .va-resolution, .va-download { margin-left: 80px; }
       .vd-map { grid-template-columns: 1fr; gap: 10px; }
       .vd-arrow { transform: rotate(90deg); }
       .vd-boundary { grid-column: 1; }
@@ -197,7 +202,7 @@
     <header class="doc-header">
       <div class="doc-eyebrow">Design exploration</div>
       <h1 class="doc-title">Homepage hero — four directions</h1>
-      <p class="doc-subtitle">Four first-screen structures using the current Automic Vault copy, product capture, cobalt-dark palette, and compact CTA voice.</p>
+      <p class="doc-subtitle">Four first-screen structures using the rebased “Full access / Compromised / Vibe-coded” cadence, install resolution, compatibility line, and current product capture.</p>
       <div class="doc-meta">
         <div><b>Spec</b> www/index.html + design.md</div>
         <div><b>Generated</b> 2026-09-04</div>
@@ -210,12 +215,12 @@
       <div class="variant-head">
         <div class="variant-letter">A</div>
         <div class="variant-meta">
-          <h2>Threat Ledger</h2>
-          <p class="variant-tradeoff"><b>Optimizes for</b> memorable voice and dramatic pacing <b>· Tradeoff</b> the product mechanism arrives second.</p>
+          <h2>Cadence Stack</h2>
+          <p class="variant-tradeoff"><b>Optimizes for</b> preserving the authored escalation and resolution <b>· Tradeoff</b> product mechanics remain below the fold.</p>
         </div>
       </div>
       <div class="preview-frame">
-        <div class="preview-frame-bar">Variant A · editorial threat ledger</div>
+        <div class="preview-frame-bar">Variant A · authored cadence beside product proof</div>
         <div class="preview va-shell">
           <nav class="av-nav" aria-label="Preview navigation">
             <div class="av-brand"><img src="../www/assets/brand-shield-v2.webp" alt="" /><span>Automic Vault</span></div>
@@ -224,24 +229,20 @@
           </nav>
           <div class="va-main">
             <div class="va-ledger">
-              <div class="va-line"><span class="va-cue">You got</span><span class="va-statement">Full-access agents</span></div>
-              <div class="va-line"><span class="va-cue">You got</span><span class="va-statement">Supply-chain attacks</span></div>
-              <div class="va-line"><span class="va-cue">You got</span><span class="va-statement">Apps Reddit promised were safe</span></div>
-              <div class="va-line"><span class="va-cue">But you also got</span><span class="va-statement">Automic Vault</span></div>
-              <div class="va-line"><span class="va-cue">So</span><span class="va-statement">You’re good.</span></div>
+              <div class="va-line"><span class="va-cue">The agents have…</span><span class="va-statement">Full access</span></div>
+              <div class="va-line"><span class="va-cue">The supply chain is…</span><span class="va-statement">Compromised</span></div>
+              <div class="va-line"><span class="va-cue">The apps are…</span><span class="va-statement">Vibe-coded</span></div>
+              <div class="va-resolution"><span class="va-embrace">Embrace it.</span><span>Install <b>Automic Vault</b></span></div>
+              <div class="va-download"><span class="av-button">Download for macOS</span><p>Any agent. Any CLI. Any app. <strong>No agent setup required.</strong></p></div>
             </div>
-            <aside class="va-side">
-              <strong>The missing secrets manager for developers.</strong>
-              <p>Give agents Read Only access to command-line tools like <code>gh</code> and <code>aws</code>. When they need more, you approve it on your Mac or iPhone.</p>
-              <div class="av-actions"><span class="av-button">Download for macOS</span><span class="av-text-link">See how it works →</span></div>
-            </aside>
+            <figure class="va-side"><img src="../www/assets/av-approve-gate.png" alt="Automic Vault approval gate showing ChatGPT requesting permission to delete an AWS volume" /></figure>
           </div>
         </div>
       </div>
       <div class="variant-analysis">
-        <div class="analysis-block"><h3>What works</h3><p>The current voice becomes a readable, deliberate sequence instead of one large block. The final beat lands hard.</p></div>
-        <div class="analysis-block is-risk"><h3>What risks</h3><p>A first-time visitor still has to read the sidecar before understanding what the product controls.</p></div>
-        <div class="analysis-block is-pick"><h3>Pick this if</h3><p>The homepage should sound unmistakably like Automic Vault before it explains itself.</p></div>
+        <div class="analysis-block"><h3>What works</h3><p>This is closest to the rebased intent: three compact setup beats, a larger italic turn, then a direct install command beside the real app.</p></div>
+        <div class="analysis-block is-risk"><h3>What risks</h3><p>The product’s read/write distinction still is not explicit in the first screen.</p></div>
+        <div class="analysis-block is-pick"><h3>Pick this if</h3><p>The revised cadence is the concept, and the exploration should mainly improve its staging.</p></div>
       </div>
     </section>
 
@@ -249,12 +250,12 @@
       <div class="variant-head">
         <div class="variant-letter">B</div>
         <div class="variant-meta">
-          <h2>Answer First</h2>
-          <p class="variant-tradeoff"><b>Optimizes for</b> instant product comprehension <b>· Tradeoff</b> less narrative surprise and brand mischief.</p>
+          <h2>Resolution First</h2>
+          <p class="variant-tradeoff"><b>Optimizes for</b> putting the install command and compatibility promise first <b>· Tradeoff</b> the three setup beats become supporting context.</p>
         </div>
       </div>
       <div class="preview-frame">
-        <div class="preview-frame-bar">Variant B · product answer plus policy proof</div>
+        <div class="preview-frame-bar">Variant B · install resolution plus policy proof</div>
         <div class="preview vb-shell">
           <nav class="av-nav" aria-label="Preview navigation">
             <div class="av-brand"><img src="../www/assets/brand-shield-v2.webp" alt="" /><span>Automic Vault</span></div>
@@ -263,9 +264,9 @@
           </nav>
           <div class="vb-main">
             <div class="vb-copy">
-              <p class="vb-kicker">The missing secrets manager for developers</p>
-              <h3><span>Read?</span> Fine.<br />Write? Ask.</h3>
-              <p>Give agents Read Only access to command-line tools like <code>gh</code> and <code>aws</code>. When they need more, you approve it on your Mac or iPhone.</p>
+              <p class="vb-kicker">Full access · Compromised · Vibe-coded</p>
+              <h3><span>Embrace it.</span><br />Install Automic Vault.</h3>
+              <p><strong>Any agent. Any CLI. Any app. No agent setup required.</strong> Give agents Read Only access to command-line tools like <code>gh</code> and <code>aws</code>. When they need more, you approve it on your Mac or iPhone.</p>
               <div class="av-actions"><span class="av-button">Download for macOS</span><span class="av-text-link">See how it works →</span></div>
             </div>
             <div class="vb-policy" aria-label="Example authorization decisions">
@@ -278,9 +279,9 @@
         </div>
       </div>
       <div class="variant-analysis">
-        <div class="analysis-block"><h3>What works</h3><p>The category, rule, and concrete command outcomes all fit in one screen. It answers “what is this?” fastest.</p></div>
-        <div class="analysis-block is-risk"><h3>What risks</h3><p>The clean explainer shape is less provocative than the current homepage voice.</p></div>
-        <div class="analysis-block is-pick"><h3>Pick this if</h3><p>Conversion depends on developers understanding the read/write boundary within seconds.</p></div>
+        <div class="analysis-block"><h3>What works</h3><p>The revised resolution is the headline, while the policy card immediately substantiates why installing matters.</p></div>
+        <div class="analysis-block is-risk"><h3>What risks</h3><p>Leading with the answer gives up the tension and comic timing of the authored setup.</p></div>
+        <div class="analysis-block is-pick"><h3>Pick this if</h3><p>The install command should dominate, with the read/write boundary as immediate proof.</p></div>
       </div>
     </section>
 
@@ -289,7 +290,7 @@
         <div class="variant-letter">C</div>
         <div class="variant-meta">
           <h2>Approval Moment</h2>
-          <p class="variant-tradeoff"><b>Optimizes for</b> credibility through real product proof <b>· Tradeoff</b> the wider policy model is only implied.</p>
+          <p class="variant-tradeoff"><b>Optimizes for</b> making the real approval UI prove the new install resolution <b>· Tradeoff</b> the three setup beats compress into a strapline.</p>
         </div>
       </div>
       <div class="preview-frame">
@@ -302,9 +303,9 @@
           </nav>
           <div class="vc-main">
             <div class="vc-copy">
-              <p class="vc-kicker">Approval Required</p>
-              <h3>This exact operation. Your call.</h3>
-              <p>Most secrets managers ask whether you can fetch a value. Automic Vault asks whether this exact operation should get it.</p>
+              <p class="vc-kicker">Full access · Compromised · Vibe-coded</p>
+              <h3>Embrace it. Install Automic Vault.</h3>
+              <p>Any agent. Any CLI. Any app. <strong>No agent setup required.</strong></p>
               <div class="av-actions"><span class="av-button">Download for macOS</span><span class="av-text-link">See how it works →</span></div>
             </div>
             <figure class="vc-capture">
@@ -315,7 +316,7 @@
         </div>
       </div>
       <div class="variant-analysis">
-        <div class="analysis-block"><h3>What works</h3><p>The real interface proves the product exists and makes operation-aware approval tangible without a diagram.</p></div>
+        <div class="analysis-block"><h3>What works</h3><p>The product capture makes “Install Automic Vault” feel like a concrete answer rather than a brand flourish.</p></div>
         <div class="analysis-block is-risk"><h3>What risks</h3><p>One dramatic write request may make Automic Vault feel like an approval app rather than a broader authority system.</p></div>
         <div class="analysis-block is-pick"><h3>Pick this if</h3><p>The strongest sales asset is the approval experience itself.</p></div>
       </div>
@@ -325,12 +326,12 @@
       <div class="variant-head">
         <div class="variant-letter">D</div>
         <div class="variant-meta">
-          <h2>Authority Map</h2>
-          <p class="variant-tradeoff"><b>Optimizes for</b> systems-level clarity and technical trust <b>· Tradeoff</b> the opening feels more architectural than emotional.</p>
+          <h2>Threat-to-Gate Map</h2>
+          <p class="variant-tradeoff"><b>Optimizes for</b> connecting the three new setup beats to the authorization boundary <b>· Tradeoff</b> the resolution becomes architectural rather than theatrical.</p>
         </div>
       </div>
       <div class="preview-frame">
-        <div class="preview-frame-bar">Variant D · the local execution boundary visualized</div>
+        <div class="preview-frame-bar">Variant D · the rebased threats routed through the boundary</div>
         <div class="preview vd-shell">
           <nav class="av-nav" aria-label="Preview navigation">
             <div class="av-brand"><img src="../www/assets/brand-shield-v2.webp" alt="" /><span>Automic Vault</span></div>
@@ -339,17 +340,17 @@
           </nav>
           <div class="vd-main">
             <div class="vd-copy">
-              <h3>Run the agent. <span>Keep the keys.</span></h3>
-              <p>Automic Vault moves supported credentials out of files your Tools—and your agents—can read. Your commands keep working. Agents need no Automic Vault plugin.</p>
+              <h3>The agents have… <span>Full access.</span></h3>
+              <p>The supply chain is… compromised. The apps are… vibe-coded. <strong>Embrace it. Install Automic Vault.</strong></p>
               <div class="av-actions"><span class="av-button">Download for macOS</span><span class="av-text-link">See how it works →</span></div>
             </div>
             <div>
               <div class="vd-map" aria-label="Authorization flow">
                 <div class="vd-column">
-                  <div class="vd-label">Launcher</div>
-                  <div class="vd-node"><b>Terminal</b>Write Access</div>
-                  <div class="vd-node"><b>Codex</b>Read Only</div>
-                  <div class="vd-node"><b>Unknown</b>Ask every time</div>
+                  <div class="vd-label">What changed</div>
+                  <div class="vd-node"><b>Agents</b>Full access</div>
+                  <div class="vd-node"><b>Supply chain</b>Compromised</div>
+                  <div class="vd-node"><b>Apps</b>Vibe-coded</div>
                 </div>
                 <div class="vd-arrow">→</div>
                 <div class="vd-gate">
@@ -373,7 +374,7 @@
         </div>
       </div>
       <div class="variant-analysis">
-        <div class="analysis-block"><h3>What works</h3><p>The diagram makes “zeroconf above the boundary” visible and distinguishes Launcher policy from Tool execution.</p></div>
+        <div class="analysis-block"><h3>What works</h3><p>The rebased setup lines become inputs to a visible Authorization Gate, preserving their voice while explaining the product’s intervention.</p></div>
         <div class="analysis-block is-risk"><h3>What risks</h3><p>The technical density asks more attention from visitors who only want a simple benefit.</p></div>
         <div class="analysis-block is-pick"><h3>Pick this if</h3><p>The homepage should win trust from security-minded developers through architecture first.</p></div>
       </div>
@@ -383,10 +384,10 @@
       <h2>How to pick a direction</h2>
       <p class="decision-sub">Choose the first question the hero should answer.</p>
       <div class="decision-grid">
-        <div class="decision-cell"><b>A · Voice</b><span>“Why should I care?” — memorable threat framing.</span></div>
-        <div class="decision-cell"><b>B · Comprehension</b><span>“What does it do?” — direct rule plus proof.</span></div>
-        <div class="decision-cell"><b>C · Credibility</b><span>“Is this real?” — the product experience leads.</span></div>
-        <div class="decision-cell"><b>D · Trust</b><span>“Where is the boundary?” — the architecture leads.</span></div>
+        <div class="decision-cell"><b>A · Cadence</b><span>Keep the rebased writing and improve its stagecraft.</span></div>
+        <div class="decision-cell"><b>B · Conversion</b><span>Lead with “Install Automic Vault” and justify it immediately.</span></div>
+        <div class="decision-cell"><b>C · Credibility</b><span>Let the real approval experience prove the resolution.</span></div>
+        <div class="decision-cell"><b>D · Trust</b><span>Connect each new threat beat to the authorization boundary.</span></div>
       </div>
     </section>
   </main>
