@@ -373,6 +373,12 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             with self.subTest(filename=filename):
                 self.assertIn("The missing secrets manager for developers.", text)
 
+        compatibility_line = "Any agent. Any CLI. Any app. No agent setup required."
+        for filename in ("index.html", "index.md", "index.txt", "index.json"):
+            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
+            with self.subTest(filename=filename):
+                self.assertIn(compatibility_line, text)
+
         current_lede = "Give agents Read Only access to command-line tools like"
         for filename in ("index.html", "index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")

@@ -368,9 +368,22 @@ body {
 .brew-hero-actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--brand-space-lg);
   margin-top: var(--brand-space-xl);
+}
+
+.brew-hero-download {
+  display: grid;
+  justify-items: start;
+}
+
+.brew-hero-download p {
+  max-width: 28rem;
+  margin: var(--brand-space-md) 0 0;
+  color: var(--brand-ink-dim);
+  font-size: var(--brand-text-sm);
+  line-height: 1.5;
 }
 
 .brew-text-link {

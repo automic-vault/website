@@ -11,6 +11,7 @@
     {"cue": "But you also got", "statement": "Automic Vault"},
     {"cue": "So", "statement": "You’re good"}
   ],
+  "compatibility_line": "Any agent. Any CLI. Any app. No agent setup required.",
   "category_line": "The missing secrets manager for developers.",
   "description": "Give agents Read Only access to command-line tools like gh and aws. When they need more, you approve it on your Mac or iPhone.",
   "positioning": "Automic Vault is Zeroconf Above the Boundary: any agent, any harness, any app. Hardeners reconfigure or patch the credential-bearing Tool itself, with its credentials stored in Automic Vault.",

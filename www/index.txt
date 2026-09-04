@@ -17,6 +17,8 @@ You’re good
 
 Download for macOS: https://www.automicvault.com/Automic%20Vault.dmg
 
+Any agent. Any CLI. Any app. No agent setup required.
+
 The missing secrets manager for developers. Give agents Read Only access to
 command-line tools like gh and aws. When they need more, you approve it on your
 Mac or iPhone.
