@@ -353,9 +353,12 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             self.assertIn(f'href="{href}"', home)
 
         current_statements = (
-            "Full-access agents",
-            "Supply-chain attacks",
-            "Apps Reddit promised were safe",
+            "The Agents:",
+            "Full access",
+            "The Supply Chain:",
+            "Compromised",
+            "The Apps:",
+            "Vibe-coded",
             "Automic Vault",
             "You’re good",
         )

@@ -3,11 +3,11 @@
   "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "Full-access agents. Supply-chain attacks. Apps Reddit promised were safe. But you also got Automic Vault. So you’re good.",
+  "title": "The Agents: Full access. The Supply Chain: Compromised. The Apps: Vibe-coded. But you also got Automic Vault. So you’re good.",
   "hero_sequence": [
-    {"cue": "You got", "statement": "Full-access agents"},
-    {"cue": "You got", "statement": "Supply-chain attacks"},
-    {"cue": "You got", "statement": "Apps Reddit promised were safe"},
+    {"cue": "The Agents:", "statement": "Full access"},
+    {"cue": "The Supply Chain:", "statement": "Compromised"},
+    {"cue": "The Apps:", "statement": "Vibe-coded"},
     {"cue": "But you also got", "statement": "Automic Vault"},
     {"cue": "So", "statement": "You’re good"}
   ],

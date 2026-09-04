@@ -1,16 +1,16 @@
 # Automic Vault
 
-You got
+The Agents:
 
-## Full-access agents
+## Full access
 
-You got
+The Supply Chain:
 
-## Supply-chain attacks
+## Compromised
 
-You got
+The Apps:
 
-## Apps Reddit promised were safe
+## Vibe-coded
 
 But you also got
 
