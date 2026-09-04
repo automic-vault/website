@@ -1,18 +1,18 @@
 # Automic Vault
 
-The agents have
+The agents have…
 
 ## Full access
 
-The supply chain is
+The supply chain is…
 
 ## Compromised
 
-The apps are
+The apps are…
 
 ## Vibe-coded
 
-Protect Yourself With
+It’s fine. Just use…
 
 ## Automic Vault
 
