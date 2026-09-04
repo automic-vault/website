@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-09-04",
+    "scope": "homepage hero",
+    "macrostructure": "Split Studio",
+    "theme": "Cobalt-dark",
+    "theme_axes": "dark / grotesk-sans / cool",
+    "enrichment": "real product capture",
+    "nav": "N5",
+    "footer": "Ft5",
+    "variation": "full-weight white setup lines with consistently lilac punch lines",
+    "brief": "promote the hero setup phrases from eyebrow labels into headline copy"
+  },
+  {
     "date": "2026-09-03",
     "scope": "homepage",
     "macrostructure": "Split Studio",
