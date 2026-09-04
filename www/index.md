@@ -1,24 +1,20 @@
 # Automic Vault
 
-The Agents
+The agents have
 
 ## Full access
 
-The Supply Chain
+The supply chain is
 
 ## Compromised
 
-The Apps
+The apps are
 
 ## Vibe-coded
 
-But there’s
+Protect Yourself With
 
 ## Automic Vault
-
-Which means
-
-## Carry on
 
 [Download for macOS](/Automic%20Vault.dmg)
 

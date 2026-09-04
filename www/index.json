@@ -3,13 +3,12 @@
   "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "The Agents. Full access. The Supply Chain. Compromised. The Apps. Vibe-coded. But there’s Automic Vault. Which means carry on.",
+  "title": "The agents have full access. The supply chain is compromised. The apps are vibe-coded. Protect Yourself With Automic Vault.",
   "hero_sequence": [
-    {"cue": "The Agents", "statement": "Full access"},
-    {"cue": "The Supply Chain", "statement": "Compromised"},
-    {"cue": "The Apps", "statement": "Vibe-coded"},
-    {"cue": "But there’s", "statement": "Automic Vault"},
-    {"cue": "Which means", "statement": "Carry on"}
+    {"cue": "The agents have", "statement": "Full access"},
+    {"cue": "The supply chain is", "statement": "Compromised"},
+    {"cue": "The apps are", "statement": "Vibe-coded"},
+    {"cue": "Protect Yourself With", "statement": "Automic Vault"}
   ],
   "compatibility_line": "Any agent. Any CLI. Any app. No agent setup required.",
   "category_line": "The missing secrets manager for developers.",

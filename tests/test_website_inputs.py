@@ -353,16 +353,14 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             self.assertIn(f'href="{href}"', home)
 
         current_statements = (
-            "The Agents",
+            "The agents have",
             "Full access",
-            "The Supply Chain",
+            "The supply chain is",
             "Compromised",
-            "The Apps",
+            "The apps are",
             "Vibe-coded",
-            "But there’s",
+            "Protect Yourself With",
             "Automic Vault",
-            "Which means",
-            "Carry on",
         )
         for filename in ("index.html", "index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
