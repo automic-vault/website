@@ -12,7 +12,9 @@ The apps are…
 
 ## Vibe-coded
 
-## Don’t lose sleep with Automic Vault
+## Embrace it.
+
+## Install Automic Vault
 
 [Download for macOS](/Automic%20Vault.dmg)
 

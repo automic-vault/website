@@ -3,12 +3,12 @@
   "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "The agents have… full access. The supply chain is… compromised. The apps are… vibe-coded. Don’t lose sleep with Automic Vault.",
+  "title": "The agents have… full access. The supply chain is… compromised. The apps are… vibe-coded. Embrace it. Install Automic Vault.",
   "hero_sequence": [
     {"cue": "The agents have…", "statement": "Full access"},
     {"cue": "The supply chain is…", "statement": "Compromised"},
     {"cue": "The apps are…", "statement": "Vibe-coded"},
-    {"statement": "Don’t lose sleep with Automic Vault"}
+    {"cue": "Embrace it.", "statement": "Install Automic Vault"}
   ],
   "compatibility_line": "Any agent. Any CLI. Any app. No agent setup required.",
   "category_line": "The missing secrets manager for developers.",
