@@ -1,12 +1,24 @@
 # Automic Vault
 
-From the creator of Homebrew
+You got
 
-## Full-access agents. Supply-chain attacks through `npm i`. Apps you’ve never run before.
+## Full-access agents
 
-**Keep shipping.**
+You got
 
-Automic Vault has your back.
+## Supply-chain attacks
+
+You got
+
+## Apps Reddit promised were safe
+
+But you also got
+
+## Automic Vault
+
+So
+
+## You’re good
 
 [Download for macOS](/Automic%20Vault.dmg)
 

@@ -3,10 +3,14 @@
   "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "eyebrow": "From the creator of Homebrew",
-  "title": "Full-access agents. Supply-chain attacks through npm i. Apps you’ve never run before.",
-  "tagline": "Keep shipping.",
-  "assurance": "Automic Vault has your back.",
+  "title": "Full-access agents. Supply-chain attacks. Apps Reddit promised were safe. But you also got Automic Vault. So you’re good.",
+  "hero_sequence": [
+    {"cue": "You got", "statement": "Full-access agents"},
+    {"cue": "You got", "statement": "Supply-chain attacks"},
+    {"cue": "You got", "statement": "Apps Reddit promised were safe"},
+    {"cue": "But you also got", "statement": "Automic Vault"},
+    {"cue": "So", "statement": "You’re good"}
+  ],
   "category_line": "The missing secrets manager for developers.",
   "description": "Give agents Read Only access to command-line tools like gh and aws. When they need more, you approve it on your Mac or iPhone.",
   "positioning": "Automic Vault is Zeroconf Above the Boundary: any agent, any harness, any app. Hardeners reconfigure or patch the credential-bearing Tool itself, with its credentials stored in Automic Vault.",

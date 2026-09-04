@@ -352,16 +352,21 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             self.assertIn(f'type="{media_type}"', home)
             self.assertIn(f'href="{href}"', home)
 
-        current_headline = "Full-access agents. Supply-chain attacks through npm i. Apps you’ve never run before."
-        for filename in ("index.txt", "index.json"):
+        current_statements = (
+            "Full-access agents",
+            "Supply-chain attacks",
+            "Apps Reddit promised were safe",
+            "Automic Vault",
+            "You’re good",
+        )
+        for filename in ("index.html", "index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
             searchable_text = re.sub(r"\s+", " ", text.replace("`", ""))
             with self.subTest(filename=filename):
-                self.assertIn(current_headline, searchable_text)
+                for statement in current_statements:
+                    self.assertIn(statement, searchable_text)
 
         markdown = (ROOT / "www" / "index.md").read_text(encoding="utf-8")
-        self.assertIn("Full-access agents. Supply-chain attacks through", markdown)
-        self.assertIn("Apps you’ve never run before.", markdown)
 
         for filename in ("index.html", "index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
