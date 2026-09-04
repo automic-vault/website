@@ -12,7 +12,7 @@ The apps are…
 
 ## Vibe-coded
 
-It’s fine. Just use…
+It’s fine if you’ve got:
 
 ## Automic Vault
 
