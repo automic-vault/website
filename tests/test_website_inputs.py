@@ -353,14 +353,16 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             self.assertIn(f'href="{href}"', home)
 
         current_statements = (
-            "The Agents:",
+            "The Agents",
             "Full access",
-            "The Supply Chain:",
+            "The Supply Chain",
             "Compromised",
-            "The Apps:",
+            "The Apps",
             "Vibe-coded",
+            "But there’s",
             "Automic Vault",
-            "You’re good",
+            "Which means",
+            "Carry on",
         )
         for filename in ("index.html", "index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
@@ -379,8 +381,9 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         compatibility_line = "Any agent. Any CLI. Any app. No agent setup required."
         for filename in ("index.html", "index.md", "index.txt", "index.json"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
+            searchable_text = re.sub(r"<[^>]+>", "", text.replace("**", ""))
             with self.subTest(filename=filename):
-                self.assertIn(compatibility_line, text)
+                self.assertIn(compatibility_line, searchable_text)
 
         current_lede = "Give agents Read Only access to command-line tools like"
         for filename in ("index.html", "index.md", "index.txt", "index.json"):

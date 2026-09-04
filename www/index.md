@@ -1,28 +1,28 @@
 # Automic Vault
 
-The Agents:
+The Agents
 
 ## Full access
 
-The Supply Chain:
+The Supply Chain
 
 ## Compromised
 
-The Apps:
+The Apps
 
 ## Vibe-coded
 
-But you also got
+But there’s
 
 ## Automic Vault
 
-So
+Which means
 
-## You’re good
+## Carry on
 
 [Download for macOS](/Automic%20Vault.dmg)
 
-Any agent. Any CLI. Any app. No agent setup required.
+Any agent. Any CLI. Any app. **No agent setup required.**
 
 **The missing secrets manager for developers.** Give agents Read Only access to
 command-line tools like `gh` and `aws`. When they need more, you approve it on
