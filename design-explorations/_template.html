@@ -1,0 +1,170 @@
+<!--
+  AUTOMIC VAULT DESIGN EXPLORATION TEMPLATE
+  Chrome adapted from design.md and www/tokens.css on 2026-09-04.
+  Replace the {{ PLACEHOLDERS }} and duplicate the variant section as needed.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ TITLE }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@600;700&amp;display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand-50: oklch(97% 0.008 255);
+      --brand-100: oklch(93% 0.014 255);
+      --brand-300: oklch(68% 0.15 246);
+      --brand-500: oklch(48% 0.16 246);
+      --brand-700: oklch(34% 0.12 246);
+      --accent-50: oklch(97% 0.025 82);
+      --accent-500: oklch(56% 0.12 82);
+      --accent-700: oklch(39% 0.1 82);
+      --ink: oklch(13% 0.008 255);
+      --ink-soft: oklch(34% 0.014 255);
+      --ink-mute: oklch(50% 0.014 255);
+      --line: oklch(86% 0.01 255);
+      --line-soft: oklch(92% 0.008 255);
+      --paper: #fff;
+      --bg: oklch(97.5% 0.006 255);
+      --shadow-sm: 0 1px 2px oklch(13% 0.008 255 / 0.05);
+      --shadow-md: 0 16px 44px -28px oklch(13% 0.008 255 / 0.28), 0 2px 5px oklch(13% 0.008 255 / 0.05);
+      --font-ui: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "Geist Mono", "SFMono-Regular", Consolas, monospace;
+      --radius-md: 8px;
+      --radius-lg: 10px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-ui);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: linear-gradient(oklch(13% 0.008 255 / 0.025) 1px, transparent 1px), linear-gradient(90deg, oklch(13% 0.008 255 / 0.025) 1px, transparent 1px);
+      background-size: 32px 32px;
+      content: "";
+      pointer-events: none;
+    }
+    .page { max-width: 1320px; margin: 0 auto; padding: 72px 48px 160px; }
+    .doc-header { margin-bottom: 80px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+    .doc-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding: 6px 12px;
+      border: 1px solid var(--brand-100);
+      border-radius: 999px;
+      color: var(--brand-700);
+      background: var(--brand-50);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .doc-eyebrow::before { width: 6px; height: 6px; border-radius: 999px; background: var(--brand-500); content: ""; }
+    .doc-title { max-width: 900px; margin: 0 0 16px; color: var(--ink); font-size: clamp(2.75rem, 5vw + 1rem, 5.25rem); font-weight: 800; letter-spacing: -0.04em; line-height: 0.98; }
+    .doc-subtitle { max-width: 720px; margin: 0 0 32px; color: var(--ink-soft); font-size: 19px; line-height: 1.45; }
+    .doc-meta { display: flex; flex-wrap: wrap; gap: 24px; color: var(--ink-mute); font-family: var(--font-mono); font-size: 12px; }
+    .doc-meta > div { display: flex; gap: 6px; }
+    .doc-meta b { color: var(--ink-soft); font-weight: 700; }
+    .variant { margin-bottom: 96px; }
+    .variant:last-child { margin-bottom: 0; }
+    .variant-head { display: grid; grid-template-columns: 64px 1fr; gap: 20px; align-items: start; margin-bottom: 28px; }
+    .variant-letter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--brand-500);
+      border-radius: 999px;
+      color: var(--brand-700);
+      background: var(--paper);
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .variant-meta h2 { margin: 4px 0 6px; color: var(--ink); font-size: 26px; font-weight: 700; letter-spacing: -0.025em; }
+    .variant-tradeoff { max-width: 760px; margin: 0; color: var(--ink-soft); font-size: 15px; }
+    .variant-tradeoff b { color: var(--brand-700); font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+    .preview-frame { position: relative; overflow: hidden; margin-left: 84px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper); box-shadow: var(--shadow-md); }
+    .preview-frame::before { position: absolute; top: 14px; left: 16px; z-index: 2; width: 10px; height: 10px; border-radius: 999px; background: var(--line); box-shadow: 18px 0 0 var(--line), 36px 0 0 var(--line); content: ""; }
+    .preview-frame-bar { padding: 14px 16px 14px 76px; border-bottom: 1px solid var(--line-soft); color: var(--ink-mute); background: var(--brand-50); font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+    .preview { min-height: 200px; padding: 0; }
+    .variant-analysis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 24px 0 0 84px; }
+    .analysis-block { padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper); box-shadow: var(--shadow-sm); }
+    .analysis-block h4 { margin: 0 0 6px; color: var(--brand-700); font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .analysis-block.is-risk h4 { color: #9f2d1d; }
+    .analysis-block.is-pick h4 { color: var(--accent-700); }
+    .analysis-block p { margin: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.55; }
+    .decision { margin-top: 120px; padding: 40px 48px; border-radius: var(--radius-lg); color: white; background: var(--ink); }
+    .decision h3 { margin: 0 0 8px; font-size: 28px; font-weight: 800; letter-spacing: -0.03em; }
+    .decision-sub { margin: 0 0 28px; color: oklch(94% 0.01 82 / 0.7); font-size: 14px; }
+    .decision-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .decision-cell b { display: block; margin-bottom: 6px; color: oklch(78% 0.13 246); font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .decision-cell span { color: oklch(94% 0.01 82 / 0.88); font-size: 15px; line-height: 1.45; }
+
+    @media (max-width: 900px) {
+      .page { padding: 40px 20px 80px; }
+      .doc-title { font-size: 36px; }
+      .variant-head { grid-template-columns: 48px 1fr; gap: 12px; }
+      .preview-frame, .variant-analysis { margin-left: 0; }
+      .variant-analysis { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="doc-header">
+      <div class="doc-eyebrow">Design exploration</div>
+      <h1 class="doc-title">{{ TITLE }}</h1>
+      <p class="doc-subtitle">{{ SUBTITLE }}</p>
+      <div class="doc-meta">
+        <div><b>Spec</b> {{ SPEC_PATH }}</div>
+        <div><b>Generated</b> {{ DATE }}</div>
+        <div><b>Surface</b> {{ SURFACE }}</div>
+        <div><b>Variants</b> {{ VARIANT_COUNT }}</div>
+      </div>
+    </header>
+
+    <section class="variant">
+      <div class="variant-head">
+        <div class="variant-letter">A</div>
+        <div class="variant-meta">
+          <h2>{{ VARIANT_A_NAME }}</h2>
+          <p class="variant-tradeoff"><b>Optimizes for</b> {{ A_OPTIMIZES_FOR }} <b>· Tradeoff</b> {{ A_TRADEOFF }}</p>
+        </div>
+      </div>
+      <div class="preview-frame">
+        <div class="preview-frame-bar">Variant A · preview</div>
+        <div class="preview">{{ VARIANT_A_PREVIEW }}</div>
+      </div>
+      <div class="variant-analysis">
+        <div class="analysis-block"><h4>What works</h4><p>{{ A_WHAT_WORKS }}</p></div>
+        <div class="analysis-block is-risk"><h4>What risks</h4><p>{{ A_RISKS }}</p></div>
+        <div class="analysis-block is-pick"><h4>Pick this if</h4><p>{{ A_PICK_IF }}</p></div>
+      </div>
+    </section>
+
+    {{ ADDITIONAL_VARIANTS }}
+
+    <section class="decision">
+      <h3>How to pick a direction</h3>
+      <p class="decision-sub">A one-line rubric for choosing what to take forward.</p>
+      <div class="decision-grid">{{ DECISION_CELLS }}</div>
+    </section>
+  </main>
+</body>
+</html>
