@@ -4,7 +4,7 @@
 
 ## Pages principales
 
-- [Automic Vault | Les identifiants vont aux opérations autorisées](https://www.automicvault.com/fr/): Automic Vault vérifie l’outil, le Verified Launcher, la commande, le dossier courant et les Secret Names avant de transmettre un identifiant.
+- [Automic Vault | Votre gestionnaire de secrets devrait savoir à quoi ils servent.](https://www.automicvault.com/fr/): Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.
 
 - [Télécharger Automic Vault](https://www.automicvault.com/fr/download/): Téléchargez Automic Vault pour macOS et contrôlez l’utilisation des identifiants de développement.
 

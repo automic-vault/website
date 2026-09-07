@@ -3,89 +3,121 @@
     {
       "path": "/",
       "source": "index.html",
-      "dateModified": "2026-08-16",
+      "dateModified": "2026-09-07",
       "translations": {
         "ja": {
-          "title": "Automic Vault | 認証情報は許可した操作にだけ渡す",
-          "description": "Automic Vault は、ツール、Launcher、コマンド、作業ディレクトリ、Secret Name を確認してから認証情報を渡します。",
+          "title": "Automic Vault | シークレットの用途まで確認する、シークレットマネージャー。",
+          "description": "CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。",
           "kicker": "Homebrew 開発者が提供",
-          "h1": "認証情報は許可した操作にだけ渡す。",
-          "lede": "Automic Vault は対応する認証情報を平文ファイルから移します。ツール、Verified Launcher、Target、コマンド、引数、作業ディレクトリ、要求された Secret Name を確認してから認証情報を渡します。",
+          "h1": "シークレットの用途まで確認する、シークレットマネージャー。",
+          "lede": "CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。",
           "sections": [
             [
-              "同じ認証情報、異なる判断",
-              "gh issue list は実行でき、gh auth token には Approval が必要です。"
+              "コマンドラインを安全に使う",
+              "ツールや依存パッケージ、エージェントがファイルや認証情報ヘルパーから読み出せる認証情報を検出します。各 Finding には原因と対策を表示します。対応する Tool を Hardener で保護すると、認証情報を macOS の Data Protection Keychain に移し、使用時に Authorization Gate で確認します。 Scan で問題が見つからなくても、確認できたのは対応する検査項目だけです。Mac 全体の安全を保証するものではありません。"
             ],
             [
-              "Terminal と Codex に別々のルール",
-              "Verified Launcher ごとに Authorization Policy を設定します。"
+              "ツールやエージェントに許可する操作を選ぶ",
+              "エージェントには GitHub の Issue 閲覧を許可し、書き込みは承認が必要な設定にできます。ターミナルには別のルールを設定できます。AV は Verified Launcher ごとに操作全体を確認します。Write Access でも、Secret の開示や強力な認証情報の使用には Approval が必要です。Unknown の操作は人が判断します。対象のエージェントタスクには、1 つの Gate で有効時間 10 分の Write Access を付与し、延長・一時停止・終了できます。 コード署名が示すのは識別情報と完全性であり、意図ではありません。タスク ID は一時的な権限の対象を絞るための情報で、本人性を証明しません。"
             ],
             [
-              "プロジェクト間で API_TOKEN を共有",
-              "作業ディレクトリに一致する Project Value を選択します。"
+              "エージェントに必要な能力を渡す",
+              "エージェントがリリースノートを作成し、レビュー済みスクリプトが GitHub への公開と CDN の更新を行います。Blessed Script は、確認した正確な内容と宣言済みの権限に結び付きます。再入可能なスクリプトは、決められた入口からエージェントに情報を渡し、入力を待って処理を再開します。AV は呼び出しごとに認可します。編集すると Blessing は無効になります。 エージェントの出力は使用前に検証してください。Secret Values はスクリプトの実行内に留めます。Blessing 自体がコードの安全性を保証するわけではありません。"
+            ],
+            [
+              "プロジェクトの秘密情報を平文ファイルに置かない",
+              "複数のプロジェクトで同じ Secret Name を使い、プロジェクトごとに異なる Project Value を保存できます。AV は物理ディレクトリをたどって最も近い値を選び、該当する値がなければ Global Value を使います。対応する HTTP クライアントでは、Secret Proxy が一時参照をアプリに渡し、承認済みの宛先にだけ実際の認証情報を適用します。 ディレクトリは値の選択に使い、権限は付与しません。ポリシーは同じ Secret Name の全 Values に適用されます。プロキシの参照は所持者が使用でき、セッションで付与済みの宛先へのアクセスに使えます。"
+            ],
+            [
+              "複数の Mac の操作を承認する",
+              "同じ iCloud キーチェーンのアカウントに属する対象の iPhone から、登録済み Mac のリクエストを確認できます。各 Mac は Secrets、ポリシー、Authorization History を保持し、その Mac 上で判断を適用します。Mac ごとに Touch ID Approval を有効にして、生体認証による承認を使うこともできます。 iPhone Approval を有効にすると、Mac 上のマウスやキーボードによる許可操作はなくなります。iPhone Mirroring と Show on Mac を無効にするか、対象の全 iPhone で Face ID または Touch ID を必須にしてください。リレー障害で代替手段が有効になることはありません。"
             ]
           ]
         },
         "de": {
-          "title": "Automic Vault | Credentials gehen nur an erlaubte Operationen",
-          "description": "Automic Vault prüft Tool, Verified Launcher, Befehl, Arbeitsverzeichnis und Secret Names vor der Übergabe eines Credentials.",
+          "title": "Automic Vault | Dein Secrets Manager sollte wissen, was die Secrets tun.",
+          "description": "Schütze CLI-Credentials, gib Agents begrenzte Fähigkeiten und genehmige Operationen auf deinen Macs.",
           "kicker": "Vom Erfinder von Homebrew",
-          "h1": "Credentials gehen nur an erlaubte Operationen.",
-          "lede": "Automic Vault entfernt unterstützte Credentials aus Klartextdateien. Es prüft Tool, Verified Launcher, Target, Befehl, Argumente, Arbeitsverzeichnis und angeforderte Secret Names vor der Übergabe.",
+          "h1": "Dein Secrets Manager sollte wissen, was die Secrets tun.",
+          "lede": "Schütze CLI-Credentials, gib Agents begrenzte Fähigkeiten und genehmige Operationen auf deinen Macs.",
           "sections": [
             [
-              "Ein Credential, verschiedene Entscheidungen",
-              "gh issue list kann laufen; gh auth token braucht weiterhin Approval."
+              "Sichere deine Kommandozeile",
+              "Finde Credentials, die Tools, Abhängigkeiten und Agents aus Dateien oder Credential-Helpern lesen können. Jedes Finding erklärt das Problem und eine mögliche Abhilfe. Ein Hardener verschiebt unterstützte Credentials in die macOS Data Protection Keychain und richtet ein Authorization Gate am Ort der Verwendung ein. Ein sauberer Scan deckt nur die unterstützten Prüfungen ab. Er bestätigt nicht, dass der ganze Mac sicher ist."
             ],
             [
-              "Getrennte Regeln für Terminal und Codex",
-              "Die Policy folgt jedem Verified Launcher."
+              "Bestimme, was Tools und Agents tun dürfen",
+              "Lass einen Agent GitHub-Issues lesen, während Schreibzugriffe deine Approval brauchen. Für dein Terminal gelten eigene Regeln. AV prüft die vollständige Operation für jeden Verified Launcher. Write Access umfasst weder die Offenlegung von Secrets noch die Anwendung mächtigerer Credentials; Unknown-Operationen brauchen immer Approval. Für eine geeignete Agent-Aufgabe kannst du zehn aktive Minuten Write Access an einem Gate gewähren, verlängern, pausieren oder beenden. Code Signing bestätigt Identität und Integrität, nicht die Absicht. Aufgabenkennungen grenzen temporäre Grants ein; sie sind keine Identität."
             ],
             [
-              "API_TOKEN in mehreren Projekten",
-              "Das Arbeitsverzeichnis wählt den passenden Project Value."
+              "Gib Agents die Fähigkeiten, die sie brauchen",
+              "Ein Agent schreibt Release Notes; ein geprüftes Skript veröffentlicht auf GitHub und aktualisiert das CDN. Ein Blessed Script bindet deine Prüfung an exakten Inhalt und deklarierte Fähigkeiten. Ein reentrantes Skript hält für Agent-Eingaben an und bietet feste Einstiegspunkte. AV autorisiert jeden Aufruf einzeln. Änderungen machen die Blessing ungültig. Prüfe Agent-Ausgaben vor der Verwendung. Secret Values bleiben in der Skriptausführung. Eine Blessing macht Code nicht vertrauenswürdig."
+            ],
+            [
+              "Halte Projekt-Secrets aus Klartextdateien heraus",
+              "Nutze denselben Secret Name in mehreren Projekten mit jeweils einem Project Value. AV wählt das nächstgelegene passende physische Verzeichnis; ohne passenden Project Value gilt der Global Value. Für kompatible HTTP-Clients gibt der Secret Proxy der Anwendung eine temporäre Referenz und setzt das Credential nur für genehmigte Ziele ein. Verzeichnisse wählen Values, gewähren aber keine Berechtigung. Eine Policy gilt für alle Values eines Secret Name. Proxy-Referenzen sind Bearer-Werte und können bereits gewährten Session-Zugriff ausüben."
+            ],
+            [
+              "Genehmige Operationen auf deinen Macs",
+              "Prüfe Anfragen deiner registrierten Macs auf berechtigten iPhones im selben iCloud-Keychain-Konto. Jeder Mac behält seine Secrets, Policy und Authorization History und setzt die Entscheidung lokal durch. Zusätzlich kannst du Touch ID Approval für biometrische Freigaben auf einem Mac aktivieren. iPhone Approval entfernt maus- und tastaturgesteuerte Freigaben auf dem Mac. Deaktiviere iPhone Mirroring und Show on Mac oder verlange Face ID oder Touch ID auf jedem berechtigten iPhone. Ein Relay-Ausfall aktiviert keine Ausweichmöglichkeit."
             ]
           ]
         },
         "fr": {
-          "title": "Automic Vault | Les identifiants vont aux opérations autorisées",
-          "description": "Automic Vault vérifie l’outil, le Verified Launcher, la commande, le dossier courant et les Secret Names avant de transmettre un identifiant.",
+          "title": "Automic Vault | Votre gestionnaire de secrets devrait savoir à quoi ils servent.",
+          "description": "Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.",
           "kicker": "Par le créateur de Homebrew",
-          "h1": "Les identifiants vont uniquement aux opérations autorisées.",
-          "lede": "Automic Vault retire les identifiants pris en charge des fichiers en clair. Il vérifie l’outil, le Verified Launcher, le Target, la commande, ses arguments, le dossier courant et les Secret Names demandés avant de les transmettre.",
+          "h1": "Votre gestionnaire de secrets devrait savoir à quoi ils servent.",
+          "lede": "Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.",
           "sections": [
             [
-              "Un identifiant, plusieurs décisions",
-              "gh issue list peut s’exécuter ; gh auth token exige toujours une Approval."
+              "Sécurisez votre ligne de commande",
+              "Repérez les identifiants que les outils, dépendances et agents peuvent lire dans vos fichiers ou assistants d’identification. Chaque Finding explique le problème et une solution. Un Hardener place les identifiants pris en charge dans le trousseau de protection des données de macOS et installe un Authorization Gate au point d’utilisation. Un Scan sans Finding couvre seulement les vérifications prises en charge. Il ne certifie pas la sécurité de tout votre Mac."
             ],
             [
-              "Des règles distinctes pour Terminal et Codex",
-              "La Policy suit chaque Verified Launcher."
+              "Décidez de ce que vos outils et agents peuvent faire",
+              "Laissez un agent lire les issues GitHub, tout en exigeant votre Approval pour écrire. Votre terminal peut avoir d’autres règles. AV vérifie l’opération complète pour chaque Verified Launcher. Write Access exige toujours une Approval pour divulguer un Secret ou utiliser un identifiant plus puissant. Les opérations Unknown exigent une décision humaine. Pour une tâche éligible, accordez dix minutes actives de Write Access sur un gate, puis prolongez, suspendez ou terminez cet accès. La signature du code établit l’identité et l’intégrité, pas l’intention. L’identifiant de tâche limite un accès temporaire sans constituer une identité."
             ],
             [
-              "API_TOKEN dans plusieurs projets",
-              "Le dossier courant sélectionne le Project Value correspondant."
+              "Donnez aux agents les capacités nécessaires",
+              "Un agent prépare les notes de version ; un script vérifié publie sur GitHub et actualise votre CDN. Un Blessed Script lie votre revue au contenu exact et aux capacités déclarées. Un script réentrant attend une contribution de l’agent et expose des points d’entrée fixes. AV autorise chaque invocation. Toute modification invalide la Blessing. Validez les résultats de l’agent avant de les utiliser. Gardez les Secret Values dans l’exécution du script. Une Blessing ne rend pas le code digne de confiance."
+            ],
+            [
+              "Gardez les secrets des projets hors des fichiers en clair",
+              "Utilisez le même Secret Name dans plusieurs projets avec un Project Value différent pour chacun. AV choisit le dossier physique correspondant le plus proche, ou le Global Value si aucun Project Value ne correspond. Pour les clients HTTP compatibles, le Secret Proxy fournit une référence temporaire à l’application et applique l’identifiant réel uniquement aux destinations approuvées. Les dossiers sélectionnent les Values sans accorder d’autorité. La même policy couvre toutes les Values d’un Secret Name. Les références du proxy sont des valeurs au porteur permettant l’accès déjà accordé à la session."
+            ],
+            [
+              "Approuvez les opérations de vos Macs",
+              "Examinez les demandes de vos Macs inscrits sur les iPhones éligibles du même compte de trousseau iCloud. Chaque Mac conserve ses Secrets, sa policy et son Authorization History, et applique la décision localement. Vous pouvez aussi activer Touch ID Approval sur un Mac pour autoriser uniquement par biométrie. iPhone Approval retire les actions d’autorisation par souris et clavier sur le Mac. Désactivez iPhone Mirroring et Show on Mac, ou exigez Face ID ou Touch ID sur chaque iPhone éligible. Une panne du relais n’active aucun mode de secours."
             ]
           ]
         },
         "zh-Hans": {
-          "title": "Automic Vault | 凭据只交给获准操作",
-          "description": "Automic Vault 在交付凭据前检查工具、Verified Launcher、命令、工作目录和 Secret Name。",
+          "title": "Automic Vault | 你的密钥管理器应该了解密钥的用途。",
+          "description": "保护命令行凭据，为代理授予有限的能力，并审批多台 Mac 上的操作。",
           "kicker": "由 Homebrew 创始人打造",
-          "h1": "凭据只会交给你允许的操作。",
-          "lede": "Automic Vault 将支持的凭据移出明文文件，并在交付前检查工具、Verified Launcher、Target、命令、参数、工作目录和请求的 Secret Name。",
+          "h1": "你的密钥管理器应该了解密钥的用途。",
+          "lede": "保护命令行凭据，为代理授予有限的能力，并审批多台 Mac 上的操作。",
           "sections": [
             [
-              "同一凭据，不同决定",
-              "gh issue list 可以运行；gh auth token 仍需 Approval。"
+              "保护你的命令行",
+              "找出工具、依赖和代理能从文件或凭据助手中读取的凭据。每项 Finding 都说明问题和缓解方法。Hardener 会将支持的凭据移入 macOS 数据保护钥匙串，并在使用时通过 Authorization Gate 检查。 干净的 Scan 仅表示支持的检查没有发现问题，并不保证整台 Mac 安全。"
             ],
             [
-              "为 Terminal 和 Codex 设置不同规则",
-              "Policy 跟随每个 Verified Launcher。"
+              "决定工具和代理可以做什么",
+              "允许代理读取 GitHub issue，同时要求写入操作经过你的 Approval。终端可以使用不同规则。AV 按 Verified Launcher 检查完整操作。Write Access 仍要求密钥披露和使用更强大凭据的操作获得 Approval。Unknown 操作始终需要人工判断。符合条件的代理任务可在一个 Gate 获得十分钟有效时间的 Write Access，你可以延长、暂停或结束授权。 代码签名证明身份和完整性，而非意图。任务标识符缩小临时授权范围，并不证明身份。"
             ],
             [
-              "跨项目使用 API_TOKEN",
-              "工作目录会选择匹配的 Project Value。"
+              "赋予代理所需的能力",
+              "让代理准备发布说明，由审核过的脚本发布到 GitHub 并更新 CDN。Blessed Script 将审核绑定到确切内容和声明的能力。可重入脚本通过固定入口提供上下文，等待代理输入后继续执行。AV 对每次调用分别授权；修改脚本会使 Blessing 失效。 使用代理输出前必须验证。让 Secret Values 留在脚本执行范围内。Blessing 本身并不让代码变得可信。"
+            ],
+            [
+              "让项目密钥远离明文文件",
+              "多个项目可以使用相同 Secret Name，但各自保存不同的 Project Value。AV 选择最近匹配的物理目录对应的值；没有匹配项时使用 Global Value。对于兼容的 HTTP 客户端，Secret Proxy 向应用提供临时引用，并仅向获批目的地应用真实凭据。 目录选择 Values，不授予权限。同一 Secret Name 下的所有 Values 受相同策略约束。代理引用属于持有者凭据，可以使用会话已获准的访问权限。"
+            ],
+            [
+              "审批多台 Mac 上的操作",
+              "在同一 iCloud 钥匙串账户下符合条件的 iPhone 上查看已登记 Mac 的请求。每台 Mac 保留自己的 Secrets、策略和 Authorization History，并在本机执行决定。你也可以在某台 Mac 上启用 Touch ID Approval，通过生物识别允许操作。 iPhone Approval 会移除 Mac 上通过鼠标和键盘允许操作的入口。请关闭 iPhone Mirroring 和 Show on Mac，或要求每台符合条件的 iPhone 使用 Face ID 或 Touch ID。中继不可用不会启用替代方式。"
             ]
           ]
         }
