@@ -28,14 +28,8 @@ CloudFront routes. The static sync never uploads product release artifacts.
 
 ## Homepage screenshots
 
-The landing pages use real product captures, with no CLI examples. One visible
-slot is waiting for a capture (marked `data-screenshot-needed` in each page):
-
-- **Multi-Mac Approval:** pending iPhone requests from two named Macs, plus one
-  expanded request with its originating Mac, operation, and real Approval controls.
-  Use demo requests with no private data.
-
-Replace the slot with the supplied capture, including intrinsic dimensions and
-an accurate alt description. Keep the captions and all five language versions
-aligned. New Japanese acquisition copy still needs native-language review before
-publication.
+The landing pages use real product captures, with no CLI examples. All five
+sections have screenshots, including Project Values and pending iPhone requests
+from two Macs. Keep captures, intrinsic dimensions, alt descriptions, and captions
+aligned across all five languages. New Japanese acquisition copy still needs
+native-language review before publication.

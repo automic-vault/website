@@ -369,13 +369,13 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                         page.read_text(encoding="utf-8"),
                     )
 
-    def test_homepages_use_screenshots_or_capture_briefs_without_cli_examples(self):
+    def test_homepages_use_screenshots_without_cli_examples(self):
         section_ids = ("command-line", "controls", "reentrant-scripts", "projects", "iphone-approval")
         for locale in ("", "de", "fr", "ja", "zh-hans"):
             home = (ROOT / "www" / locale / "index.html").read_text(encoding="utf-8")
             main = home.split('<main ', 1)[1].split('</main>', 1)[0]
             with self.subTest(locale=locale):
-                self.assertIn('brand-landing.css?v=39', home)
+                self.assertIn('brand-landing.css?v=40', home)
                 ids = set(re.findall(r'\bid="([^"]+)"', home))
                 self.assertTrue(set(re.findall(r'href="#([^"]+)"', home)) <= ids)
                 self.assertNotRegex(main, r"<(?:pre|code)\b")
@@ -384,12 +384,8 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                 for section_id in section_ids:
                     section = main.split(f'id="{section_id}"', 1)[1].split('</section>', 1)[0]
                     self.assertIn('<figure', section)
-                    if 'data-screenshot-needed=' in section:
-                        self.assertRegex(section, r'<h3>[^<]+</h3>')
-                        self.assertRegex(section, r'<p>[^<]+</p>')
-                    else:
-                        self.assertRegex(section, r'<img[^>]+alt="[^"]+"')
-                self.assertEqual(main.count('data-screenshot-needed='), 1)
+                    self.assertRegex(section, r'<img[^>]+alt="[^"]+"')
+                self.assertNotIn('data-screenshot-needed=', main)
                 self.assertIn('id="terminal-security"', main)
 
     def test_crawler_and_security_metadata_are_current(self):
