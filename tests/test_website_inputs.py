@@ -389,7 +389,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                         self.assertRegex(section, r'<p>[^<]+</p>')
                     else:
                         self.assertRegex(section, r'<img[^>]+alt="[^"]+"')
-                self.assertEqual(main.count('data-screenshot-needed='), 2)
+                self.assertEqual(main.count('data-screenshot-needed='), 1)
                 self.assertIn('id="terminal-security"', main)
 
     def test_crawler_and_security_metadata_are_current(self):
