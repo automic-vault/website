@@ -364,7 +364,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             home = (ROOT / "www" / locale / "index.html").read_text(encoding="utf-8")
             main = home.split('<main ', 1)[1].split('</main>', 1)[0]
             with self.subTest(locale=locale):
-                self.assertIn('brand-landing.css?v=40', home)
+                self.assertIn('brand-landing.css?v=41', home)
                 ids = set(re.findall(r'\bid="([^"]+)"', home))
                 self.assertTrue(set(re.findall(r'href="#([^"]+)"', home)) <= ids)
                 self.assertNotRegex(main, r"<(?:pre|code)\b")
