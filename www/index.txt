@@ -1,112 +1,75 @@
-Automic Vault
+# Automic Vault
 
-The agents have…
-Full access
+> Your secrets manager should know what the secrets do.
 
-The supply chain is…
-Compromised
+Automic Vault for macOS
 
-The apps are…
-Vibe-coded
+Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.
 
-Embrace it.
-Install Automic Vault
+Free and open source. Your existing commands keep working. No agent plugin required.
 
-Download for macOS: https://www.automicvault.com/Automic%20Vault.dmg
+Download for macOS: https://www.automicvault.com/Automic%20Vault.dmg · Read the docs: https://www.automicvault.com/docs/
 
-Any agent. Any CLI. Any app. No agent setup required.
+## Secure your command line
 
-The missing secrets manager for developers. Give agents Read Only access to
-command-line tools like gh and aws. When they need more, you approve it on your
-Mac or iPhone.
+Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.
 
-Read? Fine. Write? Ask.
+Harden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.
 
-Most secrets managers ask whether you can fetch a value. Automic Vault asks
-whether this exact operation should get it. Same credential. Very different
-question.
+A clean Scan covers the checks AV supports. It does not certify your whole machine as secure.
 
-With Read Only access, one GitHub token produces different decisions:
+Find your tools: https://www.automicvault.com/docs/hardeners/
 
-gh issue list     → automically authorized
-gh issue create   → Approval required
-gh auth token     → Secret Disclosure; Approval required
+## Decide what your tools and agents can do
 
-Automic Vault controls Secret Application. After the handoff, the Target
-controls the Secret.
+Let your agent read GitHub issues while writes need your Approval. Give your terminal a different policy. Each Authorization Gate applies the rules you choose for each Verified Launcher.
 
-Your credentials stay home.
+AV checks the complete operation before applying a credential. Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.
 
-Automic Vault moves supported credentials out of files your Tools—and your
-agents—can read. The Mac checks who is asking, what will run, where it will run,
-and which Secret Names it needs. Your commands keep working. Agents need no
-Automic Vault plugin.
+For an eligible agent task, grant ten active minutes of Write Access at one gate. You can extend, suspend, or end that grant from its visible controls.
 
-Terminal is you. Codex isn’t.
+Code signing establishes software identity and integrity, not intent. Task identifiers narrow temporary grants; they do not establish identity.
 
-Same Tool. Different Launcher. Different rules. Give Terminal Write Access,
-keep Codex Read Only, and make Unknown processes ask every time.
+Choose how much authority to give: https://www.automicvault.com/docs/authority/
 
-Put Approval in your pocket.
+## Give agents the capabilities they need
 
-Turn on iPhone Approval and move every human Approval to your iPhone. The Mac still verifies the request,
-records the decision, and enforces it. The Mac has no local allow action.
-Secret Values and Authorization History stay on the Mac. No phone? Nothing
-runs.
+Let an agent prepare release notes while a reviewed script publishes to GitHub and updates your CDN. A Blessed Script binds exact contents and declared capabilities to your review.
 
-iPhone Mirroring and Show on Mac can expose Approval controls on the Mac when
-biometrics are off. Disable them, or require Face ID or Touch ID on every
-eligible iPhone.
+A reentrant script pauses for agent input, exposes fixed entry points for context, then continues the deterministic work. AV authorizes each invocation. Editing the script invalidates its Blessing.
 
-Same name. Right secret.
+Validate agent output before using it. Keep Secret Values within the script’s execution; a Blessing does not make its code trustworthy.
 
-Every project can ask for API_TOKEN. The physical working directory selects the
-nearest Project Value, then falls back to the Global Value. The path picks a
-Value. It never grants authority.
+Build a reviewed agent workflow: https://www.automicvault.com/docs/reentrant-scripts/
 
-Give agents a door. Not the keys.
+## Keep project secrets out of plaintext files
 
-A reentrant Blessed Script exposes fixed, reviewed entry points. The agent gets
-the context it needs, returns a result, and carries on. Every invocation is
-authorized separately. The agent never gets general access to the underlying
-Tools, MCP servers, or Secret Values.
+Use the same Secret Name across projects with a different Project Value for each. AV selects the nearest matching physical directory, or the Global Value when no Project Value matches.
 
-Guide: https://www.automicvault.com/docs/reentrant-scripts/
+For compatible HTTP clients, the Secret Proxy gives your application a temporary reference and applies the real credential only to approved destinations.
 
-Not another harness guardrail.
+Directories select Values; they grant no authority. Policy covers all Values of a Secret Name. Proxy references are bearer values that can exercise already-granted session access.
 
-Automic Vault is Zeroconf Above the Boundary: any agent, any harness, any app.
-Hardeners reconfigure or patch the credential-bearing Tool itself, with its
-credentials stored in Automic Vault.
+Understand Project Values: https://www.automicvault.com/docs/authority/ · Explore credential proxying: https://www.automicvault.com/docs/workflows/
 
-- AWS uses short-lived credentials. Long-lived default keys leave
-  ~/.aws/credentials.
-- Docker checks the live vendor-signed process, ancestry, arguments, and
-  registry.
-- Homebrew separates reading and updating from installing.
-- Launcher Bundles give exact single-file Mach-O snapshots a revalidated
-  identity.
-- Detectors find supported Exposures and Hazards, plus what to do about them.
+## Approve operations across your Macs
 
-Receipts. Kept locally.
+Review requests from your enrolled Macs on eligible iPhones using the same iCloud Keychain account. See the operation you’re being asked to allow, wherever it originated.
 
-Allowed, denied, policy, or human Approval: it lands in bounded Authorization
-History on your Mac with the Launcher, Secret Names, command, and working
-directory. Enough to understand what happened. Not a tamperproof or
-audit-complete forensic ledger.
+Each Mac keeps its Secrets, policy, and Authorization History, and enforces the decision locally. You can also enable Touch ID Approval on a Mac for biometric-only allow actions.
 
-We’re not magic.
+iPhone Approval removes pointer- and keyboard-driven allow actions on the Mac. Disable iPhone Mirroring and Show on Mac, or require Face ID or Touch ID on every eligible iPhone. An unavailable relay never enables a fallback.
 
-Automic Vault protects supported credentials and sensitive Tool operations at
-the Local Execution Boundary. It does not stop root, kernel compromise, or an
-agent deleting your files with some other command. Once a Target gets a Secret,
-the Target controls it. Code signing proves what ran—not whether it’s nice.
+Set up iPhone and Touch ID Approval: https://www.automicvault.com/docs/authority/
 
-Free. Open source. macOS.
+## Know the boundary
 
-The Mac app costs nothing and ships under Apache-2.0. The optional paid iPhone
-app moves human Approval off the machine running the agent.
+AV protects supported credentials and sensitive Tool operations against code running with your normal user privileges. Root or kernel compromise, arbitrary local destruction, and a Target’s behavior after receiving a Secret remain outside that boundary.
 
-Documentation: https://www.automicvault.com/docs/
-Security: https://github.com/automic-vault/automic-vault/security
-Source: https://github.com/automic-vault/automic-vault
+Authorization History keeps local records of allowed and denied requests. AV persists and verifies the record of an allowed Secret Use before releasing the Secret. History is bounded; it is not a tamper-resistant or complete forensic log.
+
+Read the security model: https://www.automicvault.com/docs/security/ · Canonical definitions: https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md
+
+## Free. Open source. macOS.
+
+The Mac app costs nothing and ships under Apache-2.0. Optional iPhone Approval requires an active subscription to send allow responses. Denying a request does not require a subscription.

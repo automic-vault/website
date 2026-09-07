@@ -4,7 +4,7 @@
 
 ## 主要ページ
 
-- [Automic Vault | 認証情報は許可した操作にだけ渡す](https://www.automicvault.com/ja/): Automic Vault は、ツール、Launcher、コマンド、作業ディレクトリ、Secret Name を確認してから認証情報を渡します。
+- [Automic Vault | シークレットの用途まで確認する、シークレットマネージャー。](https://www.automicvault.com/ja/): CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。
 
 - [Automic Vault ダウンロード](https://www.automicvault.com/ja/download/): macOS 用 Automic Vault を入手し、開発者の認証情報がどう使われるかを制御します。
 

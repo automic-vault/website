@@ -1,5 +1,6 @@
 import datetime
 import html.parser
+import json
 import pathlib
 import re
 import subprocess
@@ -346,85 +347,20 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
 
     def test_secondary_formats_and_localized_llms_are_discoverable(self):
         home = (ROOT / "www" / "index.html").read_text(encoding="utf-8")
-        for claim in (
-            "Most secrets managers ask whether you can fetch a value.",
-            "Project Values",
-            "iPhone Approval",
-            "Launcher Bundles",
-        ):
-            self.assertIn(claim, home)
-
-        expected_alternates = {
+        for media_type, href in {
             "text/markdown": "/index.md",
             "text/plain": "/index.txt",
             "application/json": "/index.json",
-        }
-        for media_type, href in expected_alternates.items():
+        }.items():
             self.assertIn(f'type="{media_type}"', home)
             self.assertIn(f'href="{href}"', home)
 
-        current_statements = (
-            "The agents have…",
-            "Full access",
-            "The supply chain is…",
-            "Compromised",
-            "The apps are…",
-            "Vibe-coded",
-            "Embrace it.",
-            "Install Automic Vault",
-        )
-        for filename in ("index.html", "index.md", "index.txt", "index.json"):
+        overview = json.loads((ROOT / "www" / "index.json").read_text())
+        for filename in ("index.html", "index.md", "index.txt"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            searchable_text = re.sub(r"\s+", " ", text.replace("`", ""))
-            with self.subTest(filename=filename):
-                for statement in current_statements:
-                    self.assertIn(statement, searchable_text)
-
-        markdown = (ROOT / "www" / "index.md").read_text(encoding="utf-8")
-
-        for filename in ("index.html", "index.md", "index.txt", "index.json"):
-            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            with self.subTest(filename=filename):
-                self.assertIn("The missing secrets manager for developers.", text)
-
-        compatibility_line = "Any agent. Any CLI. Any app. No agent setup required."
-        for filename in ("index.html", "index.md", "index.txt", "index.json"):
-            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            searchable_text = re.sub(r"<[^>]+>", "", text.replace("**", ""))
-            with self.subTest(filename=filename):
-                self.assertIn(compatibility_line, searchable_text)
-
-        current_lede = "Give agents Read Only access to command-line tools like"
-        for filename in ("index.html", "index.md", "index.txt", "index.json"):
-            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            searchable_text = re.sub(r"\s+", " ", text.replace("`", ""))
-            with self.subTest(filename=filename):
-                self.assertIn(current_lede, searchable_text)
-
-        zeroconf_claim = "Zeroconf Above the Boundary"
-        for filename in ("index.html", "index.md", "index.txt", "index.json"):
-            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            with self.subTest(filename=filename):
-                self.assertIn(zeroconf_claim, text)
-
-        for filename in ("index.html", "index.md", "index.txt", "index.json"):
-            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            with self.subTest(filename=filename):
-                self.assertIn("credential-bearing Tool", text)
-
-        for filename in ("index.html", "index.md", "index.txt", "index.json", "llms.txt"):
-            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            with self.subTest(filename=filename):
-                self.assertIn("iPhone Approval", text)
-
-        for claim in (
-            "same iCloud Keychain account",
-            "Face ID or Touch ID",
-            "iPhone Mirroring",
-            "no local allow action",
-        ):
-            self.assertIn(claim, home + markdown)
-
+            for section in overview["sections"][1:]:
+                with self.subTest(filename=filename, section=section["title"]):
+                    self.assertIn(section["title"], text)
         for locale in ("de", "fr", "ja", "zh-hans"):
             for page in sorted((ROOT / "www" / locale).rglob("*.html")):
                 with self.subTest(page=page.relative_to(ROOT)):
@@ -433,26 +369,28 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                         page.read_text(encoding="utf-8"),
                     )
 
-    def test_homepage_compares_secret_retrieval_with_operation_authorization(self):
-        home = (ROOT / "www" / "index.html").read_text(encoding="utf-8")
-        difference = home.split('<section class="brew-difference"', 1)[1].split('</section>', 1)[0]
-
-        self.assertRegex(home, r'class="brew-hero"[\s\S]*?</section>\s*<section class="brew-difference"')
-        self.assertNotIn("<img", difference)
-        for label in (
-            "Typical secrets manager",
-            "Unlocked and allowed?",
-            "Return the raw value",
-            "Verified Launcher",
-            "Tool and Target",
-            "Command and arguments",
-            "Working directory",
-            "Authorization Gate",
-            "Apply to Target",
-            "Ask for Approval",
-            "Deny",
-        ):
-            self.assertIn(label, home)
+    def test_homepages_use_screenshots_or_capture_briefs_without_cli_examples(self):
+        section_ids = ("command-line", "controls", "reentrant-scripts", "projects", "iphone-approval")
+        for locale in ("", "de", "fr", "ja", "zh-hans"):
+            home = (ROOT / "www" / locale / "index.html").read_text(encoding="utf-8")
+            main = home.split('<main ', 1)[1].split('</main>', 1)[0]
+            with self.subTest(locale=locale):
+                self.assertIn('brand-landing.css?v=39', home)
+                ids = set(re.findall(r'\bid="([^"]+)"', home))
+                self.assertTrue(set(re.findall(r'href="#([^"]+)"', home)) <= ids)
+                self.assertNotRegex(main, r"<(?:pre|code)\b")
+                positions = [main.index(f'id="{section_id}"') for section_id in section_ids]
+                self.assertEqual(positions, sorted(positions))
+                for section_id in section_ids:
+                    section = main.split(f'id="{section_id}"', 1)[1].split('</section>', 1)[0]
+                    self.assertIn('<figure', section)
+                    if 'data-screenshot-needed=' in section:
+                        self.assertRegex(section, r'<h3>[^<]+</h3>')
+                        self.assertRegex(section, r'<p>[^<]+</p>')
+                    else:
+                        self.assertRegex(section, r'<img[^>]+alt="[^"]+"')
+                self.assertEqual(main.count('data-screenshot-needed='), 2)
+                self.assertIn('id="terminal-security"', main)
 
     def test_crawler_and_security_metadata_are_current(self):
         robots = (ROOT / "www" / "robots.txt").read_text(encoding="utf-8")

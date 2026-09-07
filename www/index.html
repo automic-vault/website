@@ -12,17 +12,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Automic Vault | Your secrets manager should know what the secrets do.</title>
-  <meta name="description" content="Give agents Read Only access to command-line tools like gh and aws. When they need more, you approve it on your Mac or iPhone.">
+  <meta name="description" content="Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="The agents have… full access. The supply chain is… compromised. The apps are… vibe-coded. Embrace it. Install Automic Vault.">
-  <meta property="og:description" content="Give agents Read Only access to command-line tools like gh and aws. When they need more, you approve it on your Mac or iPhone.">
+  <meta property="og:title" content="Your secrets manager should know what the secrets do.">
+  <meta property="og:description" content="Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.">
   <meta property="og:url" content="https://www.automicvault.com/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
-  <meta name="twitter:title" content="The agents have… full access. The supply chain is… compromised. The apps are… vibe-coded. Embrace it. Install Automic Vault.">
-  <meta name="twitter:description" content="Give agents Read Only access to command-line tools like gh and aws. When they need more, you approve it on your Mac or iPhone.">
+  <meta name="twitter:title" content="Your secrets manager should know what the secrets do.">
+  <meta name="twitter:description" content="Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.">
   <link rel="canonical" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/">
@@ -44,7 +44,7 @@
         "name": "Automic Vault",
         "url": "https://www.automicvault.com/",
         "logo": "https://www.automicvault.com/assets/icon@2x.webp?v=3",
-        "description": "Automic Vault is the missing secrets manager for developers running agents with full access on macOS.",
+        "description": "Automic Vault protects developer credentials and authorizes complete Tool operations on macOS.",
         "founder": {"@id": "https://www.automicvault.com/about/#max-howell"},
         "knowsAbout": [
           "local secrets management",
@@ -92,7 +92,7 @@
           "Operation-aware credential authorization",
           "Per-Gate and per-Launcher Authorization Policies",
           "Project Values under stable Secret Names",
-          "Optional iPhone Approval for every human Approval",
+          "iPhone and Touch ID Approval across enrolled Macs",
           "Launcher Bundles and reentrant Blessed Scripts",
           "Hardened AWS and Docker credential flows",
           "Cross-ecosystem developer threat monitoring with mitigation steps",
@@ -105,7 +105,7 @@
           "availability": "https://schema.org/InStock",
           "url": "https://www.automicvault.com/#pricing"
         },
-        "description": "Give agents Read Only access to command-line tools like gh and aws. When they need more, you approve it on your Mac or iPhone.",
+        "description": "Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.",
         "publisher": {"@id": "https://www.automicvault.com/#organization"}
       },
       {
@@ -113,10 +113,10 @@
         "@id": "https://www.automicvault.com/#webpage",
         "url": "https://www.automicvault.com/",
         "name": "Automic Vault",
-        "headline": "The agents have… full access. The supply chain is… compromised. The apps are… vibe-coded. Embrace it. Install Automic Vault.",
-        "description": "Give agents Read Only access to command-line tools like gh and aws. When they need more, you approve it on your Mac or iPhone.",
+        "headline": "Your secrets manager should know what the secrets do.",
+        "description": "Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.",
         "datePublished": "2026-05-15",
-        "dateModified": "2026-09-04",
+        "dateModified": "2026-09-07",
         "image": "https://www.automicvault.com/preview.jpg",
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "isPartOf": {"@id": "https://www.automicvault.com/#website"},
@@ -135,17 +135,18 @@
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=3">
   <link rel="stylesheet" href="./styles.css?v=129">
-  <link rel="stylesheet" href="./brand-landing.css?v=38">
+  <link rel="stylesheet" href="./brand-landing.css?v=39">
 </head>
 <body class="brew-home">
+  <a class="brew-skip-link" href="#main-content">Skip to content</a>
   <header class="brew-nav">
     <a class="brew-brand" href="#top" aria-label="Automic Vault home">
       <img src="./assets/brand-shield-v2.webp?v=3" alt="" width="54" height="54">
       <span>Automic Vault</span>
     </a>
     <nav class="brew-nav-links" aria-label="Primary navigation">
-      <a href="#difference">How it works</a>
-      <a href="#controls">Controls</a>
+      <a href="#command-line">What you can do</a>
+      <a href="/docs/">Docs</a>
       <a href="#terminal-security">Safety</a>
     </nav>
     <div class="brew-nav-actions">
@@ -154,240 +155,122 @@
     </div>
   </header>
 
-  <main>
+  <main class="brew-usecases" id="main-content">
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
-        <h1 id="hero-title">
-          <span class="brew-hero-beat"><span class="brew-hero-cue">The agents have…</span><span class="brew-hero-statement">Full access</span></span>
-          <span class="brew-hero-beat"><span class="brew-hero-cue">The supply chain is…</span><span class="brew-hero-statement">Compromised</span></span>
-          <span class="brew-hero-beat"><span class="brew-hero-cue">The apps are…</span><span class="brew-hero-statement">Vibe-coded</span></span>
-          <span class="brew-hero-resolution"><span class="brew-hero-resolution-line brew-hero-embrace">Embrace it.</span><span class="brew-hero-resolution-line">Install <span class="brew-hero-product">Automic Vault</span></span></span>
-        </h1>
+        <p class="brew-eyebrow">Automic Vault for macOS</p>
+        <h1 id="hero-title">Your secrets manager should know what the secrets <em>do</em>.</h1>
+        <p class="brew-hero-summary">Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.</p>
         <div class="brew-hero-actions">
-          <div class="brew-hero-download">
-            <a class="brew-cta" href="/Automic%20Vault.dmg">Download for macOS</a>
-            <p>Any agent. Any CLI. Any app. <strong>No agent setup required.</strong></p>
-          </div>
-          <a class="brew-text-link" href="#difference">See how it works <span aria-hidden="true">→</span></a>
+          <a class="brew-cta" href="/Automic%20Vault.dmg">Download for macOS</a>
+          <a class="brew-text-link" href="/docs/">Read the docs <span aria-hidden="true">→</span></a>
         </div>
-      </div>
-      <figure class="brew-hero-capture">
-        <img src="./assets/av-approve-gate.png" alt="Automic Vault approval gate showing ChatGPT requesting permission to delete an AWS volume, with Deny and Approve Once controls" width="1212" height="1090" fetchpriority="high" decoding="async">
-      </figure>
-    </section>
-
-    <section class="brew-difference" id="difference" aria-labelledby="difference-title">
-      <p class="brew-objection"><strong>The missing secrets manager for developers.</strong> <span>Give agents Read Only access to command-line tools like <code>gh</code> and <code>aws</code>. When they need more, you approve it on your Mac or iPhone.</span></p>
-      <header class="brew-difference-head brew-copy">
-        <h2 id="difference-title">Read? Fine. Write? Ask.</h2>
-        <p>Most secrets managers ask whether you can fetch a value. Automic Vault asks whether this exact operation should get it. Same credential. Very different question.</p>
-      </header>
-      <div class="brew-decision-map" role="group" aria-label="Secret retrieval compared with operation authorization">
-        <article class="brew-decision-lane brew-decision-lane-conventional">
-          <header>
-            <span>Typical secrets manager</span>
-            <h3>Is the vault open to you?</h3>
-          </header>
-          <ol class="brew-decision-simple">
-            <li><small>Request</small><strong><code>GITHUB_TOKEN</code></strong></li>
-            <li><small>Check</small><strong>Unlocked and allowed?</strong></li>
-            <li><small>Result</small><strong>Return the raw value</strong></li>
-          </ol>
-        </article>
-
-        <article class="brew-decision-lane brew-decision-lane-automic">
-          <header>
-            <span>Automic Vault</span>
-            <h3>Should this exact operation use it?</h3>
-          </header>
-          <dl class="brew-decision-context">
-            <div><dt>Who is asking?</dt><dd>Verified Launcher</dd></div>
-            <div><dt>What wants it?</dt><dd>Tool and Target</dd></div>
-            <div><dt>What will it do?</dt><dd>Command and arguments</dd></div>
-            <div><dt>Where will it run?</dt><dd>Working directory</dd></div>
-            <div><dt>Which credential?</dt><dd>Secret Names and Value sources</dd></div>
-          </dl>
-          <div class="brew-decision-gate">
-            <small>Authorization Gate</small>
-            <strong>Evaluate the complete request</strong>
-          </div>
-          <ul class="brew-decision-outcomes" aria-label="Possible authorization outcomes">
-            <li class="brew-decision-apply">Apply to Target</li>
-            <li class="brew-decision-approve">Ask for Approval</li>
-            <li class="brew-decision-deny">Deny</li>
-          </ul>
-        </article>
+        <p class="brew-hero-note">Free and open source. Your existing commands keep working. No agent plugin required.</p>
       </div>
     </section>
 
-    <section class="brew-feature brew-feature-reverse" aria-labelledby="custody-title">
-      <figure class="brew-capture brew-capture-gate">
-        <img src="./assets/av-approve-gate-gh-token.png" alt="Automic Vault approval gate showing ChatGPT requesting a GitHub token, with Deny and Approve Once controls" width="1212" height="1090" loading="lazy" decoding="async">
-        <figcaption>You see the command, working directory, and Secret Name before anything runs.</figcaption>
-      </figure>
+    <section class="brew-feature" id="command-line" aria-labelledby="command-line-title">
       <div class="brew-copy">
-        <h2 id="custody-title">Your credentials stay home.</h2>
-        <p>Automic Vault moves supported credentials out of files your Tools—and your agents—can read. The Mac checks who is asking, what will run, where it will run, and which Secret Names it needs.</p>
-        <p>Your commands keep working. Agents need no Automic Vault plugin.</p>
-        <div class="brew-how-it-works">
-          <h3>After the handoff</h3>
-          <p>Automic Vault controls Secret Application. After the handoff, the Target controls the Secret.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="brew-access" id="controls" aria-labelledby="controls-title">
-      <div class="brew-copy">
-        <h2 id="controls-title">Terminal is you. Codex isn’t.</h2>
-        <p>Same Tool. Different Launcher. Different rules. Give Terminal Write Access, keep Codex Read Only, and make Unknown processes ask every time.</p>
-      </div>
-      <div class="brew-access-body">
-      <figure class="brew-access-diagram">
-        <div class="brew-access-screen">
-          <img src="./assets/access-levels.png" alt="Automic Vault Access Levels for the default policy, Terminal, and ChatGPT" width="1944" height="1380" loading="lazy" decoding="async">
-          <span class="brew-access-ring brew-access-ring-none" aria-hidden="true"></span>
-          <span class="brew-access-ring brew-access-ring-trusted" aria-hidden="true"></span>
-          <span class="brew-access-ring brew-access-ring-read" aria-hidden="true"></span>
-        </div>
-        <dl class="brew-access-notes">
-          <div class="brew-access-note brew-access-note-none">
-            <dt>Approval Required</dt>
-            <dd>No standing permission. Every operation asks.</dd>
-          </div>
-          <div class="brew-access-note brew-access-note-trusted">
-            <dt>Write Access</dt>
-            <dd>Recognized reads and writes run. Secret Disclosure and Elevated Secret Application still ask.<sup><a href="#access-footnote" aria-label="See supply-chain security note">†</a></sup></dd>
-          </div>
-          <div class="brew-access-note brew-access-note-read">
-            <dt>Read Only</dt>
-            <dd>Recognized reads run. Writes ask.</dd>
-          </div>
-        </dl>
-      </figure>
-      <p class="brew-access-footnote" id="access-footnote"><span aria-hidden="true">†</span> Installed packages must cross the same boundary to use protected secrets. Supply-chain attacks such as the 2025 <a href="https://github.blog/security/supply-chain-security/our-plan-for-a-more-secure-npm-supply-chain/">Shai-Hulud npm worm</a> target credentials available to developer tools. Defense in depth still matters: run <code>npm i</code> in a dedicated terminal with low-to-no privileges in both Automic Vault and macOS TCC.</p>
-      </div>
-    </section>
-
-    <section class="brew-feature brew-feature-reverse" id="iphone-approval" aria-labelledby="iphone-approval-title">
-      <div class="brew-capability-pair">
-        <article>
-          <p class="brew-stage">1 · iPhone</p>
-          <h3>Pair the iPhone</h3>
-          <p>Use the same iCloud Keychain account, turn on iPhone Approval, and allow notifications.</p>
-        </article>
-        <article>
-          <p class="brew-stage">2 · Mac</p>
-          <h3>Move Approval off the Mac</h3>
-          <p>Open Settings → iPhone Approval. From then on, every human Approval goes to an eligible iPhone.</p>
-        </article>
-      </div>
-      <div class="brew-copy">
-        <h2 id="iphone-approval-title">Put Approval in your pocket.</h2>
-        <p>Move every human Approval to your iPhone. The Mac still verifies the request, records the decision, and enforces it. The Mac has no local allow action.</p>
-        <p>Routine request? Approve from the notification. Disclosure, unconstrained application, Unknown risk, or a warning? Open the app. No phone? Nothing runs.</p>
-        <div class="brew-how-it-works">
-          <h3>Mind the mirror</h3>
-          <p>iPhone Mirroring and Show on Mac can expose Approval controls on the Mac when biometrics are off. Disable them, or require Face ID or Touch ID on every eligible iPhone.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="brew-feature" id="projects" aria-labelledby="projects-title">
-      <div class="brew-copy">
-        <h2 id="projects-title">Same name. Right secret.</h2>
-        <p>Every project can ask for <code>API_TOKEN</code>. The physical working directory selects the nearest Project Value, then falls back to the Global Value.</p>
-        <p>The path picks a Value. It never grants authority. The operation still crosses the same Authorization Gate.</p>
-      </div>
-      <div class="brew-command-card" role="group" aria-label="Saving and applying one Secret Name for a project">
-        <pre><code><span>$</span> av save API_TOKEN
-<span>$</span> av save --project-directory=. API_TOKEN
-
-<span>$</span> av inject +API_TOKEN -- npm test</code></pre>
-        <p>Nearest Project Value → Global Value</p>
-      </div>
-    </section>
-
-    <section class="brew-feature brew-feature-reverse" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
-      <div class="brew-command-card" role="group" aria-label="A reentrant Blessed Script requesting agent input through fixed subcommands">
-        <pre><code><span>$</span> ./release continue
-
-Agent input required:
-  ./release agent:github-context
-  ./release agent:cdn-status
-
-Write NOTES.md, then run:
-  ./release continue</code></pre>
-        <p>Fixed entry points · Secret Values stay inside the script</p>
-      </div>
-      <div class="brew-copy">
-        <h2 id="reentrant-scripts-title">Give agents a door. Not the keys.</h2>
-        <p>A reentrant Blessed Script exposes fixed, reviewed entry points. The agent gets the context it needs, returns a result, and carries on.</p>
-        <p>Every invocation is authorized separately. The agent never gets general access to the underlying Tools, MCP servers, or Secret Values.</p>
-        <a class="brew-text-link" href="/docs/reentrant-scripts/">Build the door <span aria-hidden="true">→</span></a>
-      </div>
-    </section>
-
-    <section class="brew-capabilities" id="tools" aria-labelledby="tools-title">
-      <div class="brew-copy">
-        <h2 id="tools-title">Not another harness guardrail.</h2>
-        <p>Automic Vault is Zeroconf Above the Boundary: any agent, any harness, any app. Hardeners reconfigure or patch the credential-bearing Tool itself, with its credentials stored in Automic Vault.</p>
-        <p>AWS, Docker, Homebrew, and project scripts each hide credentials differently. So each Hardener goes to the packaging layer and fixes that Tool there.</p>
-      </div>
-      <dl class="brew-tool-list">
-        <div><dt>AWS</dt><dd><strong>Short-lived credentials, every time.</strong> Long-lived default keys leave <code>~/.aws/credentials</code>.</dd></div>
-        <div><dt>Docker</dt><dd><strong>Right process. Right registry.</strong> The gate checks the live vendor-signed process, ancestry, arguments, and registry.</dd></div>
-        <div><dt>Homebrew</dt><dd><strong>Reading is not installing.</strong> Inspection and <code>brew update</code> can run while installs still ask.</dd></div>
-        <div><dt>Launcher Bundles</dt><dd><strong>An identity for one-file CLIs.</strong> Exact enrolled Mach-O snapshots are installed root-owned and revalidated.</dd></div>
-        <div><dt>Detection</dt><dd><strong>Find the loose keys first.</strong> Detectors report supported Exposures and Hazards, plus what to do about them.</dd></div>
-      </dl>
-    </section>
-
-    <section class="brew-feature" id="audit" aria-labelledby="audit-title">
-      <div class="brew-copy">
-        <h2 id="audit-title">Receipts. Kept locally.</h2>
-        <p>Allowed, denied, policy, or human Approval: it lands in bounded Authorization History on your Mac with the Launcher, Secret Names, command, and working directory.</p>
-        <p>Enough to understand what happened. Not a tamperproof forensic ledger. Detectors also find supported plaintext and ambient credentials before an agent does.</p>
-        <ul class="brew-log-fields" aria-label="Recorded details">
-          <li>Decision</li>
-          <li>Launcher</li>
-          <li>Secret Names</li>
-          <li>Working directory</li>
-        </ul>
-      </div>
-      <div class="brew-proof-stack">
-        <figure class="brew-capture">
-          <img src="./assets/secret-use-log.webp" alt="Automic Vault Authorization History showing denied and allowed gh requests with Launcher, Secret Names, and working directory" width="1944" height="1380" loading="lazy" decoding="async">
-          <figcaption>Allowed or denied, the receipt stays on your Mac.</figcaption>
-        </figure>
-        <figure class="brew-capture">
-          <img src="./assets/threat-monitor.webp" alt="Automic Vault Detectors screen showing Homebrew flagged as mutable with trigger conditions, rationale, and a hardening command" width="1944" height="1380" loading="lazy" decoding="async">
-          <figcaption>Every Finding says what tripped it and what to do next.</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section class="brew-feature" id="terminal-security" aria-labelledby="terminal-security-title">
-      <div class="brew-copy">
-        <h2 id="terminal-security-title">We’re not magic.</h2>
-        <p>Automic Vault protects supported credentials and sensitive Tool operations. It does not stop root, kernel compromise, or an agent deleting your files with some other command.</p>
-        <p>Once a Target gets a Secret, the Target controls it. Code signing proves what ran—not whether it’s nice.</p>
-        <a class="brew-text-link" href="/docs/">Read the actual security model <span aria-hidden="true">→</span></a>
+        <h2 id="command-line-title">Secure your command line</h2>
+        <p>Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.</p>
+        <p>Harden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.</p>
+        <a class="brew-text-link" href="/docs/hardeners/">Find your tools <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">A clean Scan covers the checks AV supports. It does not certify your whole machine as secure.</p>
       </div>
       <figure class="brew-capture">
-        <img src="./assets/approval-terminal-only.webp" alt="Automic Vault rule allowing direct GitHub token access to gh only when Terminal.app launches it" width="1952" height="1338" loading="lazy" decoding="async">
-        <figcaption>Same CLI. Different Launcher. Different authority.</figcaption>
+        <img src="/docs/assets/detectors.png" alt="Automic Vault Detectors showing supported tools, hardener availability, and the selected detector’s trigger conditions" width="1440" height="900" decoding="async" fetchpriority="high">
+        <figcaption>See what AV checks and which tools have a Hardener.</figcaption>
       </figure>
+    </section>
+
+    <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
+      <div class="brew-copy">
+        <h2 id="controls-title">Decide what your tools and agents can do</h2>
+        <p>Let your agent read GitHub issues while writes need your Approval. Give your terminal a different policy. Each Authorization Gate applies the rules you choose for each Verified Launcher.</p>
+        <p>AV checks the complete operation before applying a credential. Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.</p>
+        <p>For an eligible agent task, grant ten active minutes of Write Access at one gate. You can extend, suspend, or end that grant from its visible controls.</p>
+        <a class="brew-text-link" href="/docs/authority/">Choose how much authority to give <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">Code signing establishes software identity and integrity, not intent. Task identifiers narrow temporary grants; they do not establish identity.</p>
+      </div>
+      <figure class="brew-capture">
+        <img src="/docs/assets/authorization-gates.png" alt="GitHub Authorization Gate with Read Only access for ChatGPT and Approval Required for other eligible apps" width="1440" height="900" loading="lazy" decoding="async">
+        <figcaption>One Tool, with a policy for each Verified Launcher.</figcaption>
+      </figure>
+    </section>
+
+    <section class="brew-feature" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
+      <div class="brew-copy">
+        <h2 id="reentrant-scripts-title">Give agents the capabilities they need</h2>
+        <p>Let an agent prepare release notes while a reviewed script publishes to GitHub and updates your CDN. A Blessed Script binds exact contents and declared capabilities to your review.</p>
+        <p>A reentrant script pauses for agent input, exposes fixed entry points for context, then continues the deterministic work. AV authorizes each invocation. Editing the script invalidates its Blessing.</p>
+        <a class="brew-text-link" href="/docs/reentrant-scripts/">Build a reviewed agent workflow <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">Validate agent output before using it. Keep Secret Values within the script’s execution; a Blessing does not make its code trustworthy.</p>
+      </div>
+      <figure class="brew-capture brew-capture-script">
+        <img src="/assets/blessed-script-approval.png" alt="Blessed Script Approval showing the exact publication script, AWS and GitHub Write Access capabilities, its Verified Launcher, and iPhone or Touch ID Approval" width="1452" height="1382" loading="lazy" decoding="async">
+        <figcaption>Review the script’s capabilities and the software launching it.</figcaption>
+      </figure>
+    </section>
+
+    <section class="brew-feature brew-feature-reverse" id="projects" aria-labelledby="projects-title">
+      <div class="brew-copy">
+        <h2 id="projects-title">Keep project secrets out of plaintext files</h2>
+        <p>Use the same Secret Name across projects with a different Project Value for each. AV selects the nearest matching physical directory, or the Global Value when no Project Value matches.</p>
+        <p>For compatible HTTP clients, the Secret Proxy gives your application a temporary reference and applies the real credential only to approved destinations.</p>
+        <a class="brew-text-link" href="/docs/authority/">Understand Project Values <span aria-hidden="true">→</span></a>
+        <a class="brew-text-link" href="/docs/workflows/">Explore credential proxying <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">Directories select Values; they grant no authority. Policy covers all Values of a Secret Name. Proxy references are bearer values that can exercise already-granted session access.</p>
+      </div>
+      <figure class="brew-capture" data-screenshot-needed="project-values">
+        <div class="brew-screenshot-slot">
+          <span class="brew-eyebrow">Screenshot needed</span>
+          <h3>One Secret Name, two projects</h3>
+          <p>Capture the Secrets view with one Secret selected. Show a Global Value and two Project Values with recognizable project paths. Keep all Secret Values hidden.</p>
+        </div>
+        <figcaption>Requested capture: Project Value selection in the Mac app.</figcaption>
+      </figure>
+    </section>
+
+    <section class="brew-feature" id="iphone-approval" aria-labelledby="iphone-approval-title">
+      <div class="brew-copy">
+        <h2 id="iphone-approval-title">Approve operations across your Macs</h2>
+        <p>Review requests from your enrolled Macs on eligible iPhones using the same iCloud Keychain account. See the operation you’re being asked to allow, wherever it originated.</p>
+        <p>Each Mac keeps its Secrets, policy, and Authorization History, and enforces the decision locally. You can also enable Touch ID Approval on a Mac for biometric-only allow actions.</p>
+        <a class="brew-text-link" href="/docs/authority/">Set up iPhone and Touch ID Approval <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">iPhone Approval removes pointer- and keyboard-driven allow actions on the Mac. Disable iPhone Mirroring and Show on Mac, or require Face ID or Touch ID on every eligible iPhone. An unavailable relay never enables a fallback.</p>
+      </div>
+      <figure class="brew-capture" data-screenshot-needed="multi-mac-approval">
+        <div class="brew-screenshot-slot">
+          <span class="brew-eyebrow">Screenshot needed</span>
+          <h3>Two Macs, one iPhone</h3>
+          <p>Capture the iPhone’s pending requests from two clearly named Macs. Include an expanded request showing its originating Mac and operation, with the real Approval controls. Use demo requests with no private data.</p>
+        </div>
+        <figcaption>Requested capture: real iPhone Approval across two enrolled Macs.</figcaption>
+      </figure>
+    </section>
+
+    <section class="brew-feature brew-security" id="terminal-security" aria-labelledby="terminal-security-title">
+      <div class="brew-copy">
+        <h2 id="terminal-security-title">Know the boundary</h2>
+        <p>AV protects supported credentials and sensitive Tool operations against code running with your normal user privileges. Root or kernel compromise, arbitrary local destruction, and a Target’s behavior after receiving a Secret remain outside that boundary.</p>
+        <a class="brew-text-link" href="/docs/security/">Read the security model <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="brew-copy">
+        <h3>See how your credentials were used</h3>
+        <p>Authorization History keeps local records of allowed and denied requests. AV persists and verifies the record of an allowed Secret Use before releasing the Secret. History is bounded; it is not a tamper-resistant or complete forensic log.</p>
+        <a class="brew-text-link" href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md">Canonical definitions <span aria-hidden="true">→</span></a>
+      </div>
     </section>
 
     <section class="brew-pricing" id="pricing" aria-labelledby="pricing-title">
       <h2 id="pricing-title">Free. Open source. macOS.</h2>
-      <p>The Mac app costs nothing and ships under Apache-2.0. The optional paid <a href="#iphone-approval">iPhone app</a> moves human Approval off the machine running the agent.</p>
+      <p>The Mac app costs nothing and ships under Apache-2.0. Optional iPhone Approval requires an active subscription to send allow responses. Denying a request does not require a subscription.</p>
     </section>
   </main>
 
   <footer class="brew-footer">
     <div class="brew-footer-lead">
-      <p class="brew-footer-statement">Run the agent. Keep the keys.</p>
+      <p class="brew-footer-statement">Your tools. Your authority.</p>
       <a class="brew-cta" href="/Automic%20Vault.dmg">Download for macOS</a>
     </div>
     <div class="brew-footer-meta">

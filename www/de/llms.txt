@@ -4,7 +4,7 @@
 
 ## Wichtige Seiten
 
-- [Automic Vault | Credentials gehen nur an erlaubte Operationen](https://www.automicvault.com/de/): Automic Vault prüft Tool, Verified Launcher, Befehl, Arbeitsverzeichnis und Secret Names vor der Übergabe eines Credentials.
+- [Automic Vault | Dein Secrets Manager sollte wissen, was die Secrets tun.](https://www.automicvault.com/de/): Schütze CLI-Credentials, gib Agents begrenzte Fähigkeiten und genehmige Operationen auf deinen Macs.
 
 - [Automic Vault herunterladen](https://www.automicvault.com/de/download/): Lade Automic Vault für macOS herunter und kontrolliere die Verwendung von Entwickler-Credentials.
 

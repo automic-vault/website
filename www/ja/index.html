@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | 認証情報は許可した操作にだけ渡す</title>
-  <meta name="description" content="Automic Vault は、ツール、Launcher、コマンド、作業ディレクトリ、Secret Name を確認してから認証情報を渡します。">
+  <title>Automic Vault | シークレットの用途まで確認する、シークレットマネージャー。</title>
+  <meta name="description" content="CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="認証情報は許可した操作にだけ渡す">
-  <meta property="og:description" content="ツール、Launcher、コマンド、作業ディレクトリ、Secret Name を確認してから認証情報を渡します。">
+  <meta property="og:title" content="シークレットの用途まで確認する、シークレットマネージャー。">
+  <meta property="og:description" content="CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。">
   <meta property="og:url" content="https://www.automicvault.com/ja/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="認証情報は許可した操作にだけ渡す">
-  <meta name="twitter:description" content="ツール、Launcher、コマンド、作業ディレクトリ、Secret Name を確認してから認証情報を渡します。">
+  <meta name="twitter:title" content="シークレットの用途まで確認する、シークレットマネージャー。">
+  <meta name="twitter:description" content="CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/ja/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -33,7 +33,8 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
-  <link rel="stylesheet" href="/styles.css?v=128">
+  <link rel="stylesheet" href="/styles.css?v=129">
+  <link rel="stylesheet" href="/brand-landing.css?v=39">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
   <script>
@@ -43,29 +44,34 @@
     gtag('config', 'G-Y78QKG1T9Y');
   </script>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "url": "https://www.automicvault.com/ja/",
-    "name": "Automic Vault | 認証情報は許可した操作にだけ渡す",
-    "headline": "認証情報は許可した操作にだけ渡す。",
-    "description": "Automic Vault は、ツール、Launcher、コマンド、作業ディレクトリ、Secret Name を確認してから認証情報を渡します。",
-    "inLanguage": "ja",
-    "image": "https://www.automicvault.com/preview.jpg",
-    "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "url": "https://www.automicvault.com/ja/",
+  "name": "Automic Vault | シークレットの用途まで確認する、シークレットマネージャー。",
+  "headline": "シークレットの用途まで確認する、シークレットマネージャー。",
+  "description": "CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。",
+  "inLanguage": "ja",
+  "image": "https://www.automicvault.com/preview.jpg",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Automic Vault",
+    "url": "https://www.automicvault.com/"
   }
+}
   </script>
 </head>
 <body class="brew-home">
+  <a class="brew-skip-link" href="#main-content">本文へ移動</a>
   <header class="brew-nav">
     <a class="brew-brand" href="#top" aria-label="Automic Vault ホーム">
       <img src="/assets/brand-shield-v2.webp?v=3" alt="" width="54" height="54">
       <span>Automic Vault</span>
     </a>
     <nav class="brew-nav-links" aria-label="メインナビゲーション">
-      <a href="#boundary">シークレット</a>
-      <a href="#controls">ポリシー</a>
-      <a href="#audit">監査</a>
+      <a href="#command-line">できること</a>
+      <a href="/docs/">ドキュメント</a>
+      <a href="#terminal-security">安全性</a>
     </nav>
     <div class="brew-nav-actions">
       <a class="brew-github" href="https://github.com/automic-vault/automic-vault">GitHub</a>
@@ -73,209 +79,109 @@
     </div>
   </header>
 
-  <main>
+  <main class="brew-usecases" id="main-content">
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
-        <p class="brew-kicker">Homebrew 開発者が提供</p>
-        <h1 id="hero-title">認証情報は<span>許可した操作にだけ渡す。</span></h1>
-        <p class="brew-hero-lede">Automic Vault は対応する認証情報を平文ファイルから移します。ツール、Verified Launcher、Target、コマンド、引数、作業ディレクトリ、要求された Secret Name を確認してから認証情報を渡します。</p>
-        <p>Mac 上でローカルに動作し、エージェント用プラグインは不要です。</p>
+        <p class="brew-eyebrow">Automic Vault · macOS</p>
+        <h1 id="hero-title">シークレットの用途まで確認する、シークレットマネージャー。</h1>
+        <p class="brew-hero-summary">CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">macOS 版をダウンロード</a>
-          <a class="brew-text-link" href="#boundary">境界の動作を見る <span aria-hidden="true">→</span></a>
+          <a class="brew-text-link" href="/docs/">ドキュメントを読む <span aria-hidden="true">→</span></a>
         </div>
-      </div>
-      <figure class="brew-hero-capture">
-        <img src="/assets/av-approve-gate.png" alt="ChatGPT が GitHub トークンを要求し、拒否と 1 回だけ承認を選べる Automic Vault の承認画面" width="1212" height="1090" fetchpriority="high" decoding="async">
-      </figure>
-      <ul class="brew-promises">
-        <li><span>01</span><strong>同じ認証情報、異なる判断</strong><small><code>gh issue list</code> は実行でき、<code>gh auth token</code> には Approval が必要です。</small></li>
-        <li><span>02</span><strong>Terminal と Codex に別々のルール</strong><small>Verified Launcher ごとに Authorization Policy を設定します。</small></li>
-        <li><span>03</span><strong>プロジェクト間で <code>API_TOKEN</code> を共有</strong><small>作業ディレクトリに一致する Project Value を選択します。</small></li>
-      </ul>
-    </section>
-
-    <section class="brew-risk" id="boundary" aria-labelledby="risk-title">
-      <div class="brew-split">
-        <div class="brew-copy">
-          <p class="brew-eyebrow">エージェントはあなたのアクセス権を引き継ぐ</p>
-          <h2 id="risk-title">エージェントがすでに読めるシークレットは、プロンプトでは守れません。</h2>
-        </div>
-        <ol class="brew-session" aria-label="ローカルの AWS 認証情報を読み取ってアップロードする Claude セッション">
-          <li class="brew-chat-message brew-chat-message-agent">
-            <span class="brew-chat-avatar" aria-hidden="true">C</span>
-            <div class="brew-chat-body">
-              <span class="brew-chat-speaker">Claude</span>
-              <div class="brew-chat-bubble"><p>うーん… リモートサーバーには AWS へのアクセス権がありません。</p></div>
-            </div>
-          </li>
-          <li class="brew-chat-message brew-chat-message-agent">
-            <span class="brew-chat-avatar" aria-hidden="true">C</span>
-            <div class="brew-chat-body">
-              <span class="brew-chat-speaker">Claude</span>
-              <div class="brew-chat-bubble"><p>問題ありません。ここからキーをアップロードします。</p></div>
-            </div>
-          </li>
-          <li class="brew-chat-message brew-chat-message-tool">
-            <span class="brew-chat-avatar" aria-hidden="true">T</span>
-            <div class="brew-chat-body">
-              <span class="brew-chat-speaker">ツール呼び出し</span>
-              <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
-            </div>
-          </li>
-          <li class="brew-chat-message brew-chat-message-result">
-            <span class="brew-chat-avatar" aria-hidden="true">R</span>
-            <div class="brew-chat-body">
-              <span class="brew-chat-speaker">ツール結果</span>
-              <div class="brew-chat-bubble"><pre><code>[default]
-aws_access_key_id = AKIA••••••••••••
-aws_secret_access_key = ••••••••••••••••••••••••••••••••</code></pre></div>
-            </div>
-          </li>
-        </ol>
-      </div>
-
-      <div class="brew-exfiltration">
-        <div class="brew-alert">
-          <strong>シークレット流出</strong>
-          <span>再利用可能なクラウド認証情報が信頼境界を越えました。</span>
-        </div>
-        <section class="brew-split brew-after" aria-label="Automic Vault 導入後">
-          <div class="brew-copy">
-            <p class="brew-eyebrow">Automic Vault 導入後</p>
-          </div>
-          <ol class="brew-session" aria-label="ローカルの AWS 認証情報ファイルが見つからず、人の承認で停止する Claude セッション">
-            <li class="brew-chat-message brew-chat-message-agent">
-              <span class="brew-chat-avatar" aria-hidden="true">C</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Claude</span>
-                <div class="brew-chat-bubble"><p>うーん… リモートサーバーには AWS へのアクセス権がありません。</p></div>
-              </div>
-            </li>
-            <li class="brew-chat-message brew-chat-message-agent">
-              <span class="brew-chat-avatar" aria-hidden="true">C</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Claude</span>
-                <div class="brew-chat-bubble"><p>問題ありません。ここからキーをアップロードします。</p></div>
-              </div>
-            </li>
-            <li class="brew-chat-message brew-chat-message-tool">
-              <span class="brew-chat-avatar" aria-hidden="true">T</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">ツール呼び出し</span>
-                <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
-              </div>
-            </li>
-            <li class="brew-chat-divider"><span>Automic Vault が平文シークレットを排除</span></li>
-            <li class="brew-chat-message brew-chat-message-result">
-              <span class="brew-chat-avatar" aria-hidden="true">R</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">ツール結果</span>
-                <div class="brew-chat-bubble"><code>ファイルがありません</code></div>
-              </div>
-            </li>
-            <li class="brew-chat-message brew-chat-message-agent">
-              <span class="brew-chat-avatar" aria-hidden="true">C</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Claude</span>
-                <div class="brew-chat-bubble"><p>代わりにエクスポートコマンドを実行します。</p></div>
-              </div>
-            </li>
-            <li class="brew-chat-message brew-chat-message-tool">
-              <span class="brew-chat-avatar" aria-hidden="true">T</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">ツール呼び出し</span>
-                <div class="brew-chat-bubble"><code>aws config export-credentials</code></div>
-              </div>
-            </li>
-            <li class="brew-chat-divider"><span>Automic Vault がシークレット流出経路へのアクセスを制御</span></li>
-            <li class="brew-chat-message brew-chat-message-approval">
-              <span class="brew-chat-avatar" aria-hidden="true">!</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Automic Vault</span>
-                <div class="brew-chat-bubble"><strong>人の承認が必要</strong></div>
-              </div>
-            </li>
-          </ol>
-        </section>
-      </div>
-
-      <div class="brew-split brew-proof">
-        <div class="brew-copy">
-          <p class="brew-eyebrow">シークレットの暗号化だけでは不十分</p>
-          <h2>人の承認が必要</h2>
-          <p>シークレットが機密性の高い操作に使えるなら、暗号化だけでは半分しか守れません。</p>
-          <p>Automic Vault はシークレットを保護するだけでなく、その<em>利用</em>も制御します。</p>
-        </div>
-        <figure class="brew-capture brew-capture-gate">
-          <img src="/assets/av-approve-gate.png" alt="ChatGPT が GitHub トークンを要求し、拒否と 1 回だけ承認を選べる Automic Vault の承認画面" width="1212" height="1090" loading="lazy" decoding="async">
-          <figcaption>実行前にコマンド、作業ディレクトリ、要求キーを確認できます。</figcaption>
-        </figure>
+        <p class="brew-hero-note">無料・オープンソース。普段のコマンドをそのまま使えます。エージェント用プラグインは不要です。</p>
       </div>
     </section>
 
-    <section class="brew-access" id="controls" aria-labelledby="controls-title">
+    <section class="brew-feature" id="command-line" aria-labelledby="command-line-title">
       <div class="brew-copy">
-        <p class="brew-eyebrow">アプリごとのアクセス</p>
-        <h2 id="controls-title">ポリシーはツールと起動元に従います。</h2>
-        <p>Terminal、Codex、不明なプロセスはいずれも同じ実行ファイルを呼び出せます。Automic Vault は署名済みの起動元を識別し、組み合わせごとに独自のアクセスポリシーを適用します。</p>
-      </div>
-      <div class="brew-access-body">
-        <figure class="brew-access-diagram">
-          <div class="brew-access-screen"><img src="/assets/access-levels.png" alt="その他すべてのアプリはアクセス不可、Terminal は信頼済みアクセス、ChatGPT は読み取り専用と表示する Automic Vault" width="1944" height="1380" loading="lazy" decoding="async"></div>
-          <dl class="brew-access-notes">
-            <div class="brew-access-note"><dt>アクセス不可</dt><dd>アプリに自動アクセスはありません。すべての要求に承認が必要です。</dd></div>
-            <div class="brew-access-note"><dt>信頼済みアクセス</dt><dd><code>npm i</code> を実行しない Terminal 用です。シークレットを公開するコマンドには常に承認が残ります。</dd></div>
-            <div class="brew-access-note"><dt>読み取り専用</dt><dd>エージェントなど、ある程度信頼するツール用です。安全な読み取りは進み、書き込みには承認が必要です。</dd></div>
-          </dl>
-        </figure>
-      </div>
-    </section>
-
-    <section class="brew-feature" id="audit" aria-labelledby="audit-title">
-      <div class="brew-copy">
-        <h2 id="audit-title">シークレットの利用をすべて記録します。</h2>
-        <p>承認か拒否か、自動か手動かを問わず、すべての要求について起動元、キー、コマンド、作業ディレクトリ、判断をローカルに記録します。</p>
-        <ul class="brew-log-fields" aria-label="記録内容">
-          <li>判断</li>
-          <li>起動元</li>
-          <li>要求キー</li>
-          <li>作業ディレクトリ</li>
-        </ul>
+        <h2 id="command-line-title">コマンドラインを安全に使う</h2>
+        <p>ツールや依存パッケージ、エージェントがファイルや認証情報ヘルパーから読み出せる認証情報を検出します。各 Finding には原因と対策を表示します。対応する Tool を Hardener で保護すると、認証情報を macOS の Data Protection Keychain に移し、使用時に Authorization Gate で確認します。</p>
+        <a class="brew-text-link" href="/docs/hardeners/">対応するツールを見る <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">Scan で問題が見つからなくても、確認できたのは対応する検査項目だけです。Mac 全体の安全を保証するものではありません。</p>
       </div>
       <figure class="brew-capture">
-        <img src="/assets/secret-use-log.webp" alt="起動元、キー、作業ディレクトリとともに手動拒否と自動承認の gh 要求を示す Automic Vault の履歴" width="1944" height="1380" loading="lazy" decoding="async">
-        <figcaption>拒否と承認の要求を同じ監査証跡に記録します。</figcaption>
+        <img src="/docs/assets/detectors.png" alt="Detector ごとの検査内容と、Hardener の対応状況を確認できます。" width="1440" height="900" decoding="async" fetchpriority="high">
+        <figcaption>Detector ごとの検査内容と、Hardener の対応状況を確認できます。</figcaption>
       </figure>
     </section>
 
-    <section class="brew-feature brew-feature-reverse" id="threats" aria-labelledby="threats-title">
-      <figure class="brew-capture">
-        <img src="/assets/threat-monitor.webp" alt="Homebrew を変更可能として検出し、条件、理由、強化コマンドを示す Automic Vault の検出画面" width="1944" height="1380" loading="lazy" decoding="async">
-        <figcaption>各検出項目に条件、理由、対処手順を示します。</figcaption>
-      </figure>
+    <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
-        <h2 id="threats-title">開発環境の脅威を継続的に監視</h2>
-        <p>Automic Vault はあらゆるエコシステムの開発ツールを監視します。新しい脅威を即座に検出し、それぞれの対処手順を示します。</p>
+        <h2 id="controls-title">ツールやエージェントに許可する操作を選ぶ</h2>
+        <p>エージェントには GitHub の Issue 閲覧を許可し、書き込みは承認が必要な設定にできます。ターミナルには別のルールを設定できます。AV は Verified Launcher ごとに操作全体を確認します。Write Access でも、Secret の開示や強力な認証情報の使用には Approval が必要です。Unknown の操作は人が判断します。対象のエージェントタスクには、1 つの Gate で有効時間 10 分の Write Access を付与し、延長・一時停止・終了できます。</p>
+        <a class="brew-text-link" href="/docs/authority/">権限の設定を読む <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">コード署名が示すのは識別情報と完全性であり、意図ではありません。タスク ID は一時的な権限の対象を絞るための情報で、本人性を証明しません。</p>
       </div>
+      <figure class="brew-capture">
+        <img src="/docs/assets/authorization-gates.png" alt="同じ Tool でも、Verified Launcher ごとにルールを設定できます。" width="1440" height="900" loading="lazy" decoding="async">
+        <figcaption>同じ Tool でも、Verified Launcher ごとにルールを設定できます。</figcaption>
+      </figure>
     </section>
 
-    <section class="brew-feature" id="terminal-security" aria-labelledby="terminal-security-title">
+    <section class="brew-feature" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
       <div class="brew-copy">
-        <p class="brew-eyebrow">ハーネスに依存しない</p>
-        <h2 id="terminal-security-title">すべてのエージェントの下にあるツール層を制御。</h2>
-        <p>コマンドラインツールは、それを起動したアプリの権限で実行されます。Automic Vault はツールと署名済みの起動元を識別し、その組み合わせに選択したアクセスルールを適用します。</p>
-        <a class="brew-text-link" href="/blog/bringing-macos-security-to-the-terminal/">Terminal に独自のセキュリティ層が必要な理由 <span aria-hidden="true">→</span></a>
+        <h2 id="reentrant-scripts-title">エージェントに必要な能力を渡す</h2>
+        <p>エージェントがリリースノートを作成し、レビュー済みスクリプトが GitHub への公開と CDN の更新を行います。Blessed Script は、確認した正確な内容と宣言済みの権限に結び付きます。再入可能なスクリプトは、決められた入口からエージェントに情報を渡し、入力を待って処理を再開します。AV は呼び出しごとに認可します。編集すると Blessing は無効になります。</p>
+        <a class="brew-text-link" href="/docs/reentrant-scripts/">レビュー済みワークフローを作る <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">エージェントの出力は使用前に検証してください。Secret Values はスクリプトの実行内に留めます。Blessing 自体がコードの安全性を保証するわけではありません。</p>
       </div>
-      <figure class="brew-capture">
-        <img src="/assets/approval-terminal-only.webp" alt="Terminal.app が起動した場合だけ gh に GitHub トークンへの直接アクセスを許可する Automic Vault のルール" width="1952" height="1338" loading="lazy" decoding="async">
-        <figcaption>同じ CLI でも、Terminal、エージェントハーネス、その他のホストアプリごとに異なるアクセスを設定できます。</figcaption>
+      <figure class="brew-capture brew-capture-script">
+        <img src="/assets/blessed-script-approval.png" alt="スクリプトの権限と、それを起動するソフトウェアを確認します。" width="1452" height="1382" loading="lazy" decoding="async">
+        <figcaption>スクリプトの権限と、それを起動するソフトウェアを確認します。</figcaption>
       </figure>
+    </section>
+
+    <section class="brew-feature brew-feature-reverse" id="projects" aria-labelledby="projects-title">
+      <div class="brew-copy">
+        <h2 id="projects-title">プロジェクトの秘密情報を平文ファイルに置かない</h2>
+        <p>複数のプロジェクトで同じ Secret Name を使い、プロジェクトごとに異なる Project Value を保存できます。AV は物理ディレクトリをたどって最も近い値を選び、該当する値がなければ Global Value を使います。対応する HTTP クライアントでは、Secret Proxy が一時参照をアプリに渡し、承認済みの宛先にだけ実際の認証情報を適用します。</p>
+        <a class="brew-text-link" href="/docs/authority/">Project Values の仕組みを読む <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">ディレクトリは値の選択に使い、権限は付与しません。ポリシーは同じ Secret Name の全 Values に適用されます。プロキシの参照は所持者が使用でき、セッションで付与済みの宛先へのアクセスに使えます。</p>
+      </div>
+      <figure class="brew-capture" data-screenshot-needed="project-values">
+        <div class="brew-screenshot-slot">
+          <span class="brew-eyebrow">スクリーンショット撮影予定</span>
+          <h3>1 つの Secret Name、2 つのプロジェクト</h3>
+          <p>Secret を 1 つ選択し、Global Value と 2 つの Project Value を表示してください。プロジェクトのパスは区別できるものにし、Secret Values はすべて隠してください。</p>
+        </div>
+        <figcaption>撮影予定：Mac アプリの Project Values。</figcaption>
+      </figure>
+    </section>
+
+    <section class="brew-feature" id="iphone-approval" aria-labelledby="iphone-approval-title">
+      <div class="brew-copy">
+        <h2 id="iphone-approval-title">複数の Mac の操作を承認する</h2>
+        <p>同じ iCloud キーチェーンのアカウントに属する対象の iPhone から、登録済み Mac のリクエストを確認できます。各 Mac は Secrets、ポリシー、Authorization History を保持し、その Mac 上で判断を適用します。Mac ごとに Touch ID Approval を有効にして、生体認証による承認を使うこともできます。</p>
+        <a class="brew-text-link" href="/docs/authority/">iPhone と Touch ID Approval を設定する <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">iPhone Approval を有効にすると、Mac 上のマウスやキーボードによる許可操作はなくなります。iPhone Mirroring と Show on Mac を無効にするか、対象の全 iPhone で Face ID または Touch ID を必須にしてください。リレー障害で代替手段が有効になることはありません。</p>
+      </div>
+      <figure class="brew-capture" data-screenshot-needed="multi-mac-approval">
+        <div class="brew-screenshot-slot">
+          <span class="brew-eyebrow">スクリーンショット撮影予定</span>
+          <h3>2 台の Mac、1 台の iPhone</h3>
+          <p>名前で区別できる 2 台の Mac からの保留中リクエストを iPhone に表示してください。1 件を展開し、送信元 Mac、操作内容、実際の承認コントロールを写してください。個人情報を含まないデモ用リクエストを使ってください。</p>
+        </div>
+        <figcaption>撮影予定：登録した 2 台の Mac に対する iPhone Approval。</figcaption>
+      </figure>
+    </section>
+
+    <section class="brew-feature brew-security" id="terminal-security" aria-labelledby="terminal-security-title">
+      <div class="brew-copy">
+        <h2 id="terminal-security-title">保護できる範囲を知る</h2>
+        <p>AV は、通常のユーザー権限で動くコードから、対応する認証情報と機密性の高い Tool 操作を保護します。root やカーネルの侵害、任意のローカル破壊、Secret を受け取った後の Target の動作は保護範囲外です。</p>
+        <a class="brew-text-link" href="/docs/security/">セキュリティモデルを読む <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="brew-copy">
+        <h3>認証情報の使用状況を確認する</h3>
+        <p>Authorization History は、許可・拒否されたリクエストをローカルに記録します。AV は許可された Secret Use の記録を保存・検証してから Secret を渡します。履歴には保存上限があり、改ざん耐性や完全なフォレンジック記録は保証しません。</p>
+        <a class="brew-text-link" href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md">正規の用語定義 <span aria-hidden="true">→</span></a>
+      </div>
     </section>
 
     <section class="brew-pricing" id="pricing" aria-labelledby="pricing-title">
-      <h2 id="pricing-title">無料のオープンソース。</h2>
-      <p>Automic Vault は無料です。さらにセキュリティを高めたい場合は、オプションの iPhone アプリを有料で購読できます。承認ゲートをコマンド実行中のコンピュータから、エージェントやマルウェアに傍受されないスマートフォンへ移します。</p>
+      <h2 id="pricing-title">無料。オープンソース。macOS。</h2>
+      <p>Mac アプリは無料で、Apache-2.0 ライセンスで公開しています。オプションの iPhone Approval で許可応答を送信するには、有効なサブスクリプションが必要です。拒否にはサブスクリプションは不要です。</p>
     </section>
   </main>
 

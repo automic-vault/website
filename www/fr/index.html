@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | Les identifiants vont aux opérations autorisées</title>
-  <meta name="description" content="Automic Vault vérifie l’outil, le Verified Launcher, la commande, le dossier courant et les Secret Names avant de transmettre un identifiant.">
+  <title>Automic Vault | Votre gestionnaire de secrets devrait savoir à quoi ils servent.</title>
+  <meta name="description" content="Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Les identifiants vont aux opérations autorisées">
-  <meta property="og:description" content="Automic Vault vérifie le logiciel, la commande, le dossier courant et les Secret Names avant le transfert.">
+  <meta property="og:title" content="Votre gestionnaire de secrets devrait savoir à quoi ils servent.">
+  <meta property="og:description" content="Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.">
   <meta property="og:url" content="https://www.automicvault.com/fr/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Les identifiants vont aux opérations autorisées">
-  <meta name="twitter:description" content="Automic Vault vérifie le logiciel, la commande, le dossier courant et les Secret Names avant le transfert.">
+  <meta name="twitter:title" content="Votre gestionnaire de secrets devrait savoir à quoi ils servent.">
+  <meta name="twitter:description" content="Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/fr/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -33,7 +33,8 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
-  <link rel="stylesheet" href="/styles.css?v=128">
+  <link rel="stylesheet" href="/styles.css?v=129">
+  <link rel="stylesheet" href="/brand-landing.css?v=39">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
   <script>
@@ -43,29 +44,34 @@
     gtag('config', 'G-Y78QKG1T9Y');
   </script>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "url": "https://www.automicvault.com/fr/",
-    "name": "Automic Vault | Les identifiants vont aux opérations autorisées",
-    "headline": "Les identifiants vont uniquement aux opérations autorisées.",
-    "description": "Automic Vault vérifie l’outil, le Verified Launcher, la commande, le dossier courant et les Secret Names avant de transmettre un identifiant.",
-    "inLanguage": "fr",
-    "image": "https://www.automicvault.com/preview.jpg",
-    "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "url": "https://www.automicvault.com/fr/",
+  "name": "Automic Vault | Votre gestionnaire de secrets devrait savoir à quoi ils servent.",
+  "headline": "Votre gestionnaire de secrets devrait savoir à quoi ils servent.",
+  "description": "Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.",
+  "inLanguage": "fr",
+  "image": "https://www.automicvault.com/preview.jpg",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Automic Vault",
+    "url": "https://www.automicvault.com/"
   }
+}
   </script>
 </head>
 <body class="brew-home">
+  <a class="brew-skip-link" href="#main-content">Aller au contenu</a>
   <header class="brew-nav">
     <a class="brew-brand" href="#top" aria-label="Accueil Automic Vault">
       <img src="/assets/brand-shield-v2.webp?v=3" alt="" width="54" height="54">
       <span>Automic Vault</span>
     </a>
     <nav class="brew-nav-links" aria-label="Navigation principale">
-      <a href="#boundary">Secrets</a>
-      <a href="#controls">Politiques</a>
-      <a href="#audit">Audit</a>
+      <a href="#command-line">Usages</a>
+      <a href="/docs/">Documentation</a>
+      <a href="#terminal-security">Sécurité</a>
     </nav>
     <div class="brew-nav-actions">
       <a class="brew-github" href="https://github.com/automic-vault/automic-vault">GitHub</a>
@@ -73,209 +79,109 @@
     </div>
   </header>
 
-  <main>
+  <main class="brew-usecases" id="main-content">
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
-        <p class="brew-kicker">Par le créateur de Homebrew</p>
-        <h1 id="hero-title">Les identifiants vont uniquement aux <span>opérations autorisées.</span></h1>
-        <p class="brew-hero-lede">Automic Vault retire les identifiants pris en charge des fichiers en clair. Il vérifie l’outil, le Verified Launcher, le Target, la commande, ses arguments, le dossier courant et les Secret Names demandés avant de les transmettre.</p>
-        <p>Automic Vault fonctionne localement sur le Mac et les agents n’ont besoin d’aucun plugin.</p>
+        <p class="brew-eyebrow">Automic Vault · macOS</p>
+        <h1 id="hero-title">Votre gestionnaire de secrets devrait savoir à quoi ils servent.</h1>
+        <p class="brew-hero-summary">Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">Télécharger pour macOS</a>
-          <a class="brew-text-link" href="#boundary">Voir la limite en action <span aria-hidden="true">→</span></a>
+          <a class="brew-text-link" href="/docs/">Lire la documentation <span aria-hidden="true">→</span></a>
         </div>
-      </div>
-      <figure class="brew-hero-capture">
-        <img src="/assets/av-approve-gate.png" alt="Validation Automic Vault montrant ChatGPT qui demande un jeton GitHub, avec les choix Refuser et Approuver une fois" width="1212" height="1090" fetchpriority="high" decoding="async">
-      </figure>
-      <ul class="brew-promises">
-        <li><span>01</span><strong>Un identifiant, plusieurs décisions</strong><small><code>gh issue list</code> peut s’exécuter ; <code>gh auth token</code> exige toujours une Approval.</small></li>
-        <li><span>02</span><strong>Des règles distinctes pour Terminal et Codex</strong><small>La Policy suit chaque Verified Launcher.</small></li>
-        <li><span>03</span><strong><code>API_TOKEN</code> dans plusieurs projets</strong><small>Le dossier courant sélectionne le Project Value correspondant.</small></li>
-      </ul>
-    </section>
-
-    <section class="brew-risk" id="boundary" aria-labelledby="risk-title">
-      <div class="brew-split">
-        <div class="brew-copy">
-          <p class="brew-eyebrow">Votre agent hérite de vos accès</p>
-          <h2 id="risk-title">Un prompt ne peut pas protéger un secret que l’agent peut déjà lire.</h2>
-        </div>
-        <ol class="brew-session" aria-label="Session Claude qui lit et transfère des identifiants AWS locaux">
-          <li class="brew-chat-message brew-chat-message-agent">
-            <span class="brew-chat-avatar" aria-hidden="true">C</span>
-            <div class="brew-chat-body">
-              <span class="brew-chat-speaker">Claude</span>
-              <div class="brew-chat-bubble"><p>Hmm… le serveur distant n’a pas accès à AWS.</p></div>
-            </div>
-          </li>
-          <li class="brew-chat-message brew-chat-message-agent">
-            <span class="brew-chat-avatar" aria-hidden="true">C</span>
-            <div class="brew-chat-body">
-              <span class="brew-chat-speaker">Claude</span>
-              <div class="brew-chat-bubble"><p>Pas de problème — je vais transférer les clés depuis ici.</p></div>
-            </div>
-          </li>
-          <li class="brew-chat-message brew-chat-message-tool">
-            <span class="brew-chat-avatar" aria-hidden="true">T</span>
-            <div class="brew-chat-body">
-              <span class="brew-chat-speaker">Appel d’outil</span>
-              <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
-            </div>
-          </li>
-          <li class="brew-chat-message brew-chat-message-result">
-            <span class="brew-chat-avatar" aria-hidden="true">R</span>
-            <div class="brew-chat-body">
-              <span class="brew-chat-speaker">Résultat de l’outil</span>
-              <div class="brew-chat-bubble"><pre><code>[default]
-aws_access_key_id = AKIA••••••••••••
-aws_secret_access_key = ••••••••••••••••••••••••••••••••</code></pre></div>
-            </div>
-          </li>
-        </ol>
-      </div>
-
-      <div class="brew-exfiltration">
-        <div class="brew-alert">
-          <strong>SECRET EXFILTRÉ</strong>
-          <span>Un identifiant cloud réutilisable vient de franchir la frontière de confiance.</span>
-        </div>
-        <section class="brew-split brew-after" aria-label="Après Automic Vault">
-          <div class="brew-copy">
-            <p class="brew-eyebrow">Après Automic Vault</p>
-          </div>
-          <ol class="brew-session" aria-label="Session Claude arrêtée pour validation humaine après l’absence du fichier d’identifiants AWS local">
-            <li class="brew-chat-message brew-chat-message-agent">
-              <span class="brew-chat-avatar" aria-hidden="true">C</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Claude</span>
-                <div class="brew-chat-bubble"><p>Hmm… le serveur distant n’a pas accès à AWS.</p></div>
-              </div>
-            </li>
-            <li class="brew-chat-message brew-chat-message-agent">
-              <span class="brew-chat-avatar" aria-hidden="true">C</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Claude</span>
-                <div class="brew-chat-bubble"><p>Pas de problème — je vais transférer les clés depuis ici.</p></div>
-              </div>
-            </li>
-            <li class="brew-chat-message brew-chat-message-tool">
-              <span class="brew-chat-avatar" aria-hidden="true">T</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Appel d’outil</span>
-                <div class="brew-chat-bubble"><code>Read(~/.aws/credentials)</code></div>
-              </div>
-            </li>
-            <li class="brew-chat-divider"><span>Automic Vault élimine les secrets en clair</span></li>
-            <li class="brew-chat-message brew-chat-message-result">
-              <span class="brew-chat-avatar" aria-hidden="true">R</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Résultat de l’outil</span>
-                <div class="brew-chat-bubble"><code>Fichier introuvable</code></div>
-              </div>
-            </li>
-            <li class="brew-chat-message brew-chat-message-agent">
-              <span class="brew-chat-avatar" aria-hidden="true">C</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Claude</span>
-                <div class="brew-chat-bubble"><p>Je vais exécuter la commande d’export à la place.</p></div>
-              </div>
-            </li>
-            <li class="brew-chat-message brew-chat-message-tool">
-              <span class="brew-chat-avatar" aria-hidden="true">T</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Appel d’outil</span>
-                <div class="brew-chat-bubble"><code>aws config export-credentials</code></div>
-              </div>
-            </li>
-            <li class="brew-chat-divider"><span>Automic Vault contrôle l’accès aux voies d’exfiltration des secrets</span></li>
-            <li class="brew-chat-message brew-chat-message-approval">
-              <span class="brew-chat-avatar" aria-hidden="true">!</span>
-              <div class="brew-chat-body">
-                <span class="brew-chat-speaker">Automic Vault</span>
-                <div class="brew-chat-bubble"><strong>Validation humaine requise</strong></div>
-              </div>
-            </li>
-          </ol>
-        </section>
-      </div>
-
-      <div class="brew-split brew-proof">
-        <div class="brew-copy">
-          <p class="brew-eyebrow">Chiffrer les secrets ne suffit pas</p>
-          <h2>Validation humaine requise</h2>
-          <p>Chiffrer les secrets ne représente que la moitié du travail lorsqu’ils peuvent servir à effectuer des actions sensibles.</p>
-          <p>Automic Vault ne se contente pas de protéger vos secrets ; il contrôle leur <em>utilisation</em>.</p>
-        </div>
-        <figure class="brew-capture brew-capture-gate">
-          <img src="/assets/av-approve-gate.png" alt="Validation Automic Vault montrant ChatGPT qui demande un jeton GitHub, avec les choix Refuser et Approuver une fois" width="1212" height="1090" loading="lazy" decoding="async">
-          <figcaption>Commande, dossier de travail et clé demandée sont visibles avant l’exécution.</figcaption>
-        </figure>
+        <p class="brew-hero-note">Gratuit et open source. Gardez vos commandes habituelles. Aucun plugin pour agent requis.</p>
       </div>
     </section>
 
-    <section class="brew-access" id="controls" aria-labelledby="controls-title">
+    <section class="brew-feature" id="command-line" aria-labelledby="command-line-title">
       <div class="brew-copy">
-        <p class="brew-eyebrow">Accès par application</p>
-        <h2 id="controls-title">La politique suit l’outil et son lanceur.</h2>
-        <p>Terminal, Codex et un processus inconnu peuvent invoquer le même exécutable. Automic Vault identifie le lanceur signé et attribue à chaque association sa propre politique d’accès.</p>
-      </div>
-      <div class="brew-access-body">
-        <figure class="brew-access-diagram">
-          <div class="brew-access-screen"><img src="/assets/access-levels.png" alt="Automic Vault affiche Aucun accès pour les autres applications, Accès de confiance pour Terminal et Lecture seule pour ChatGPT" width="1944" height="1380" loading="lazy" decoding="async"></div>
-          <dl class="brew-access-notes">
-            <div class="brew-access-note"><dt>Aucun accès</dt><dd>L’application ne reçoit aucun accès automatique. Chaque requête demande votre validation.</dd></div>
-            <div class="brew-access-note"><dt>Accès de confiance</dt><dd>Pour un terminal où vous ne comptez jamais exécuter <code>npm i</code>. Les commandes révélant des secrets conservent toujours une validation.</dd></div>
-            <div class="brew-access-note"><dt>Lecture seule</dt><dd>Pour les outils auxquels vous accordez une confiance partielle, comme les agents. Les lectures sûres passent; les écritures demandent une validation.</dd></div>
-          </dl>
-        </figure>
-      </div>
-    </section>
-
-    <section class="brew-feature" id="audit" aria-labelledby="audit-title">
-      <div class="brew-copy">
-        <h2 id="audit-title">Chaque utilisation de secret est journalisée.</h2>
-        <p>Approuvée ou refusée, automatique ou manuelle : chaque demande laisse un enregistrement local avec le lanceur, la clé, la commande, le dossier de travail et la décision.</p>
-        <ul class="brew-log-fields" aria-label="Détails enregistrés">
-          <li>Décision</li>
-          <li>Lanceur</li>
-          <li>Clé demandée</li>
-          <li>Dossier de travail</li>
-        </ul>
+        <h2 id="command-line-title">Sécurisez votre ligne de commande</h2>
+        <p>Repérez les identifiants que les outils, dépendances et agents peuvent lire dans vos fichiers ou assistants d’identification. Chaque Finding explique le problème et une solution. Un Hardener place les identifiants pris en charge dans le trousseau de protection des données de macOS et installe un Authorization Gate au point d’utilisation.</p>
+        <a class="brew-text-link" href="/docs/hardeners/">Trouver vos outils <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">Un Scan sans Finding couvre seulement les vérifications prises en charge. Il ne certifie pas la sécurité de tout votre Mac.</p>
       </div>
       <figure class="brew-capture">
-        <img src="/assets/secret-use-log.webp" alt="Historique Automic Vault montrant des requêtes gh manuelles refusées et automatiques approuvées avec le lanceur, la clé et le dossier de travail" width="1944" height="1380" loading="lazy" decoding="async">
-        <figcaption>Les demandes refusées et approuvées partagent la même piste d’audit.</figcaption>
+        <img src="/docs/assets/detectors.png" alt="Les Detectors indiquent les vérifications et les Hardeners disponibles." width="1440" height="900" decoding="async" fetchpriority="high">
+        <figcaption>Les Detectors indiquent les vérifications et les Hardeners disponibles.</figcaption>
       </figure>
     </section>
 
-    <section class="brew-feature brew-feature-reverse" id="threats" aria-labelledby="threats-title">
-      <figure class="brew-capture">
-        <img src="/assets/threat-monitor.webp" alt="Écran des détecteurs Automic Vault signalant Homebrew comme modifiable avec les conditions, la justification et une commande de renforcement" width="1944" height="1380" loading="lazy" decoding="async">
-        <figcaption>Chaque signalement indique son déclencheur, sa justification et les étapes de correction.</figcaption>
-      </figure>
+    <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
-        <h2 id="threats-title">Surveillance continue des menaces dans vos environnements de développement</h2>
-        <p>Automic Vault surveille les outils de développement dans tous les écosystèmes. Les nouvelles menaces sont signalées immédiatement avec des étapes claires pour les corriger.</p>
+        <h2 id="controls-title">Décidez de ce que vos outils et agents peuvent faire</h2>
+        <p>Laissez un agent lire les issues GitHub, tout en exigeant votre Approval pour écrire. Votre terminal peut avoir d’autres règles. AV vérifie l’opération complète pour chaque Verified Launcher. Write Access exige toujours une Approval pour divulguer un Secret ou utiliser un identifiant plus puissant. Les opérations Unknown exigent une décision humaine. Pour une tâche éligible, accordez dix minutes actives de Write Access sur un gate, puis prolongez, suspendez ou terminez cet accès.</p>
+        <a class="brew-text-link" href="/docs/authority/">Choisir les autorisations <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">La signature du code établit l’identité et l’intégrité, pas l’intention. L’identifiant de tâche limite un accès temporaire sans constituer une identité.</p>
       </div>
+      <figure class="brew-capture">
+        <img src="/docs/assets/authorization-gates.png" alt="Un outil, avec une règle pour chaque Verified Launcher." width="1440" height="900" loading="lazy" decoding="async">
+        <figcaption>Un outil, avec une règle pour chaque Verified Launcher.</figcaption>
+      </figure>
     </section>
 
-    <section class="brew-feature" id="terminal-security" aria-labelledby="terminal-security-title">
+    <section class="brew-feature" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
       <div class="brew-copy">
-        <p class="brew-eyebrow">Indépendant de l’environnement</p>
-        <h2 id="terminal-security-title">Contrôlez la couche outil sous chaque agent.</h2>
-        <p>Les outils en ligne de commande s’exécutent avec l’autorité de l’application qui les lance. Automic Vault identifie l’outil et son lanceur signé, puis applique les règles choisies pour cette association.</p>
-        <a class="brew-text-link" href="/blog/bringing-macos-security-to-the-terminal/">Pourquoi le terminal a besoin de sa propre couche de sécurité <span aria-hidden="true">→</span></a>
+        <h2 id="reentrant-scripts-title">Donnez aux agents les capacités nécessaires</h2>
+        <p>Un agent prépare les notes de version ; un script vérifié publie sur GitHub et actualise votre CDN. Un Blessed Script lie votre revue au contenu exact et aux capacités déclarées. Un script réentrant attend une contribution de l’agent et expose des points d’entrée fixes. AV autorise chaque invocation. Toute modification invalide la Blessing.</p>
+        <a class="brew-text-link" href="/docs/reentrant-scripts/">Créer un workflow vérifié <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">Validez les résultats de l’agent avant de les utiliser. Gardez les Secret Values dans l’exécution du script. Une Blessing ne rend pas le code digne de confiance.</p>
       </div>
-      <figure class="brew-capture">
-        <img src="/assets/approval-terminal-only.webp" alt="Règle Automic Vault autorisant l’accès direct de gh au jeton GitHub uniquement lorsque Terminal.app le lance" width="1952" height="1338" loading="lazy" decoding="async">
-        <figcaption>La même CLI peut recevoir des accès différents depuis Terminal, un environnement d’agent ou une autre application hôte.</figcaption>
+      <figure class="brew-capture brew-capture-script">
+        <img src="/assets/blessed-script-approval.png" alt="Examinez les capacités du script et le logiciel qui le lance." width="1452" height="1382" loading="lazy" decoding="async">
+        <figcaption>Examinez les capacités du script et le logiciel qui le lance.</figcaption>
       </figure>
+    </section>
+
+    <section class="brew-feature brew-feature-reverse" id="projects" aria-labelledby="projects-title">
+      <div class="brew-copy">
+        <h2 id="projects-title">Gardez les secrets des projets hors des fichiers en clair</h2>
+        <p>Utilisez le même Secret Name dans plusieurs projets avec un Project Value différent pour chacun. AV choisit le dossier physique correspondant le plus proche, ou le Global Value si aucun Project Value ne correspond. Pour les clients HTTP compatibles, le Secret Proxy fournit une référence temporaire à l’application et applique l’identifiant réel uniquement aux destinations approuvées.</p>
+        <a class="brew-text-link" href="/docs/authority/">Comprendre les Project Values <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">Les dossiers sélectionnent les Values sans accorder d’autorité. La même policy couvre toutes les Values d’un Secret Name. Les références du proxy sont des valeurs au porteur permettant l’accès déjà accordé à la session.</p>
+      </div>
+      <figure class="brew-capture" data-screenshot-needed="project-values">
+        <div class="brew-screenshot-slot">
+          <span class="brew-eyebrow">Capture à fournir</span>
+          <h3>Un Secret Name, deux projets</h3>
+          <p>Montrez un Secret sélectionné avec un Global Value et deux Project Values, accompagnés de chemins de projets reconnaissables. Masquez toutes les Secret Values.</p>
+        </div>
+        <figcaption>Capture demandée : les Project Values dans l’app Mac.</figcaption>
+      </figure>
+    </section>
+
+    <section class="brew-feature" id="iphone-approval" aria-labelledby="iphone-approval-title">
+      <div class="brew-copy">
+        <h2 id="iphone-approval-title">Approuvez les opérations de vos Macs</h2>
+        <p>Examinez les demandes de vos Macs inscrits sur les iPhones éligibles du même compte de trousseau iCloud. Chaque Mac conserve ses Secrets, sa policy et son Authorization History, et applique la décision localement. Vous pouvez aussi activer Touch ID Approval sur un Mac pour autoriser uniquement par biométrie.</p>
+        <a class="brew-text-link" href="/docs/authority/">Configurer iPhone et Touch ID Approval <span aria-hidden="true">→</span></a>
+        <p class="brew-boundary">iPhone Approval retire les actions d’autorisation par souris et clavier sur le Mac. Désactivez iPhone Mirroring et Show on Mac, ou exigez Face ID ou Touch ID sur chaque iPhone éligible. Une panne du relais n’active aucun mode de secours.</p>
+      </div>
+      <figure class="brew-capture" data-screenshot-needed="multi-mac-approval">
+        <div class="brew-screenshot-slot">
+          <span class="brew-eyebrow">Capture à fournir</span>
+          <h3>Deux Macs, un iPhone</h3>
+          <p>Montrez les demandes en attente de deux Macs clairement nommés sur l’iPhone. Développez une demande pour montrer le Mac d’origine, l’opération et les vrais contrôles d’Approval. Utilisez des demandes de démonstration sans données privées.</p>
+        </div>
+        <figcaption>Capture demandée : iPhone Approval pour deux Macs inscrits.</figcaption>
+      </figure>
+    </section>
+
+    <section class="brew-feature brew-security" id="terminal-security" aria-labelledby="terminal-security-title">
+      <div class="brew-copy">
+        <h2 id="terminal-security-title">Comprenez les limites</h2>
+        <p>AV protège les identifiants pris en charge et les opérations sensibles des outils contre le code exécuté avec vos droits habituels. La compromission root ou du noyau, la destruction locale arbitraire et le comportement d’un Target après réception d’un Secret restent hors de cette protection.</p>
+        <a class="brew-text-link" href="/docs/security/">Lire le modèle de sécurité <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="brew-copy">
+        <h3>Consultez l’utilisation de vos identifiants</h3>
+        <p>Authorization History conserve localement les demandes autorisées et refusées. AV enregistre et vérifie le Record d’un Secret Use autorisé avant de transmettre le Secret. Cet historique est limité, sans garantie de résistance aux altérations ni d’exhaustivité forensique.</p>
+        <a class="brew-text-link" href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md">Définitions canoniques <span aria-hidden="true">→</span></a>
+      </div>
     </section>
 
     <section class="brew-pricing" id="pricing" aria-labelledby="pricing-title">
-      <h2 id="pricing-title">Gratuit et open source.</h2>
-      <p>Automic Vault ne coûte rien. Pour renforcer la sécurité, l’app iPhone facultative est proposée sur abonnement payant. Elle déplace les validations de l’ordinateur qui exécute les commandes vers votre téléphone, où aucun agent ni logiciel malveillant ne peut les intercepter.</p>
+      <h2 id="pricing-title">Gratuit. Open source. macOS.</h2>
+      <p>L’app Mac est gratuite sous Apache-2.0. L’option iPhone Approval nécessite un abonnement actif pour envoyer une réponse d’autorisation. Refuser ne nécessite aucun abonnement.</p>
     </section>
   </main>
 
