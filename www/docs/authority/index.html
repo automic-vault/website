@@ -100,6 +100,11 @@ control.</p>
 device lock, and biometric state can prevent the phone from carrying
 Approval. Unavailability is not a reason for the Mac to manufacture a
 weaker local allow action.</p>
+<p><strong>Remote work from a locked Mac.</strong> iPhone Approval does
+not unlock the Mac's Keychain. Before leaving an agent running remotely,
+configure <a href="#availability">Available While Locked</a> for each
+Secret it needs. A Secret that requires an unlocked Mac can stop the
+request before Approval, so you receive no phone notification.</p>
 <h3 id="automic-authorization-feedback">Automic Authorization
 feedback</h3>
 <p>Policy-authorized operations can show a notification, flash the menu
@@ -214,11 +219,27 @@ paths do not create a second identity. A selected Value read failure
 never falls back to a broader Global Value; fallback after failure could
 silently substitute the wrong account.</p>
 <h3 id="availability">Availability</h3>
-<p>Availability is independent of authorization. <strong>When
-Unlocked</strong> requires an unlocked Keychain. <strong>Available While
-Locked</strong> permits an already-authorized app to use the Value after
-the first unlock following boot. Neither setting grants a request,
-widens a Gate, or bypasses Approval.</p>
+<p>Secret Availability controls whether Keychain can supply a Secret in
+the Mac's current lock state. <strong>When Unlocked</strong> keeps it
+unavailable while the Mac is locked. <strong>Available While
+Locked</strong> makes it available after the first unlock following a
+restart. The Secret Gate still verifies and authorizes every operation.
+See the canonical <a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md#secret-availability">Secret
+Availability definition</a>.</p>
+<p>To prepare for remote work, unlock the Mac, run <code>av open</code>,
+open <strong>Secrets</strong>, and select the Secret. Enable
+<strong>Available While Locked</strong> for each Secret your remote
+workflow needs. For GitHub, check the relevant <code>GH_TOKEN_…</code>
+account and host entries. The setting applies to every Value of that
+Secret; enable it only for Secrets you need while locked.</p>
+<p>iPhone Approval can carry a required human decision while the Mac is
+locked, but cannot make a When Unlocked Secret available. Policy may
+authorize a read without prompting. Keep the Mac and originating process
+running, then test a read such as <code>gh auth status</code> from the
+same remote agent while the Mac is locked. This setting does not wake or
+start a Mac after shutdown or remove the need for its first unlock after
+restarting.</p>
 <h3 id="direct-secret-access">Direct Secret Access</h3>
 <p>The Direct Secret Gate binds exact Secret Names to one Verified
 Launcher, but is broad with respect to Target and arguments. It permits

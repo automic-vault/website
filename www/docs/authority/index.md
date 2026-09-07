@@ -37,6 +37,12 @@ re-enroll only devices you control.
 state can prevent the phone from carrying Approval. Unavailability is not a
 reason for the Mac to manufacture a weaker local allow action.
 
+**Remote work from a locked Mac.** iPhone Approval does not unlock the Mac's
+Keychain. Before leaving an agent running remotely, configure
+[Available While Locked](#availability) for each Secret it needs. A Secret that
+requires an unlocked Mac can stop the request before Approval, so you receive
+no phone notification.
+
 ### Automic Authorization feedback
 
 Policy-authorized operations can show a notification, flash the menu bar, or
@@ -164,10 +170,25 @@ Global Value; fallback after failure could silently substitute the wrong account
 
 ### Availability
 
-Availability is independent of authorization. **When Unlocked** requires an
-unlocked Keychain. **Available While Locked** permits an already-authorized app
-to use the Value after the first unlock following boot. Neither setting grants a
-request, widens a Gate, or bypasses Approval.
+Secret Availability controls whether Keychain can supply a Secret in the Mac's
+current lock state. **When Unlocked** keeps it unavailable while the Mac is
+locked. **Available While Locked** makes it available after the first unlock
+following a restart. The Secret Gate still verifies and authorizes every
+operation. See the canonical
+[Secret Availability definition](https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md#secret-availability).
+
+To prepare for remote work, unlock the Mac, run `av open`, open **Secrets**, and
+select the Secret. Enable **Available While Locked** for each Secret your remote
+workflow needs. For GitHub, check the relevant `GH_TOKEN_…` account and host
+entries. The setting applies to every Value of that Secret; enable it only for
+Secrets you need while locked.
+
+iPhone Approval can carry a required human decision while the Mac is locked,
+but cannot make a When Unlocked Secret available. Policy may authorize a read
+without prompting. Keep the Mac and originating process running, then test a
+read such as `gh auth status` from the same remote agent while the Mac is locked.
+This setting does not wake or start a Mac after shutdown or remove the need for
+its first unlock after restarting.
 
 ### Direct Secret Access
 
