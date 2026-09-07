@@ -2,7 +2,7 @@
 
 > Your secrets manager should know what the secrets do.
 
-Automic Vault for macOS
+From the Creator of Homebrew
 
 Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.
 
