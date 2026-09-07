@@ -29,7 +29,7 @@
   "sections": [
     {
       "title": "Your secrets manager should know what the secrets do.",
-      "description": "Automic Vault for macOS\n\nSecure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.\n\nFree and open source. Your existing commands keep working. No agent plugin required.",
+      "description": "From the Creator of Homebrew\n\nSecure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.\n\nFree and open source. Your existing commands keep working. No agent plugin required.",
       "links": [
         {
           "label": "Download for macOS",
