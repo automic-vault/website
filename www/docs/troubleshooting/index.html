@@ -59,7 +59,8 @@
           </section>
           <section class="docs-nav-group">
             <h2>On this page</h2>
-            <ul><li class="docs-nav-depth-3"><a href="#approval-does-not-appear">Approval does not appear</a></li><li class="docs-nav-depth-3"><a href="#the-wrong-executable-runs">The wrong executable runs</a></li><li class="docs-nav-depth-3"><a href="#the-wrong-project-value-is-selected">The wrong Project Value is
+            <ul><li class="docs-nav-depth-3"><a href="#approval-does-not-appear">Approval does not appear</a></li><li class="docs-nav-depth-3"><a href="#github-works-unlocked-but-fails-while-the-mac-is-locked">GitHub
+works unlocked but fails while the Mac is locked</a></li><li class="docs-nav-depth-3"><a href="#the-wrong-executable-runs">The wrong executable runs</a></li><li class="docs-nav-depth-3"><a href="#the-wrong-project-value-is-selected">The wrong Project Value is
 selected</a></li><li class="docs-nav-depth-3"><a href="#an-environment-value-wins">An environment value wins</a></li><li class="docs-nav-depth-3"><a href="#a-blessing-stopped-matching">A Blessing stopped matching</a></li><li class="docs-nav-depth-3"><a href="#a-launcher-bundle-is-denied-after-update">A Launcher Bundle is
 denied after update</a></li><li class="docs-nav-depth-3"><a href="#proxy-traffic-does-not-appear">Proxy traffic does not
 appear</a></li><li class="docs-nav-depth-3"><a href="#doctor-reports-healthy-but-the-workflow-fails">Doctor reports
@@ -69,11 +70,32 @@ healthy but the workflow fails</a></li><li class="docs-nav-depth-3"><a href="#co
         <article class="docs-content"><h2 id="troubleshooting">Troubleshooting</h2>
 <h3 id="approval-does-not-appear">Approval does not appear</h3>
 <p>Run <code>av open</code> and confirm the installed app version
-matches <code>av --version</code>. Inspect Authorization History for a
-policy denial that occurred before human Approval was eligible. If
-iPhone Approval is enabled, check phone eligibility, relay and iCloud
-Keychain state, device lock, and biometric availability; do not expect a
-local allow button to appear as fallback.</p>
+matches <code>av --version</code>. If the Mac is locked, first check <a
+href="../authority/#availability">Secret Availability</a>. A Secret
+configured as When Unlocked can stop the request before Automic Vault
+sends a phone notification. Inspect Authorization History for a policy
+denial that occurred before human Approval was eligible. If iPhone
+Approval is enabled, check phone eligibility, relay and iCloud Keychain
+state, device lock, and biometric availability; do not expect a local
+allow button to appear as fallback.</p>
+<h3 id="github-works-unlocked-but-fails-while-the-mac-is-locked">GitHub
+works unlocked but fails while the Mac is locked</h3>
+<p>If <code>gh auth status</code> reports an "invalid token" only while
+locked, retry while the Mac is unlocked before logging in again. Some
+app versions report an unavailable Secret as a missing token. Keychain
+error <code>-25308</code> can also indicate that Secret inventory access
+is unavailable; it does not establish that GitHub revoked the token.</p>
+<p>For remote use, follow the <a
+href="../authority/#availability">Available While Locked setup</a>.
+iPhone Approval cannot override a Secret's availability setting. No
+phone notification may arrive because the request fails before
+Approval.</p>
+<p>Unlock the Mac for login or credential changes that fail with
+<code>-25308</code>. Saves require a complete Secret inventory, which
+may remain unavailable while locked even when the particular Secret
+allows use while locked. Enabling Available While Locked supports
+authorized Secret use; it does not guarantee that login or credential
+changes can complete remotely while locked.</p>
 <h3 id="the-wrong-executable-runs">The wrong executable runs</h3>
 <p>Compare <code>command -v TOOL</code>, the Target in the Approval
 request, and <code>av doctor TOOL</code>. Shell hashes, aliases, shims,

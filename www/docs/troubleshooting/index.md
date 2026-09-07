@@ -3,10 +3,32 @@
 ### Approval does not appear
 
 Run `av open` and confirm the installed app version matches `av --version`.
+If the Mac is locked, first check
+[Secret Availability](../authority/#availability). A Secret configured as When
+Unlocked can stop the request before Automic Vault sends a phone notification.
 Inspect Authorization History for a policy denial that occurred before human
 Approval was eligible. If iPhone Approval is enabled, check phone eligibility,
 relay and iCloud Keychain state, device lock, and biometric availability; do not
 expect a local allow button to appear as fallback.
+
+### GitHub works unlocked but fails while the Mac is locked
+
+If `gh auth status` reports an "invalid token" only while locked, retry while
+the Mac is unlocked before logging in again. Some app versions report an
+unavailable Secret as a missing token. Keychain error `-25308` can also indicate
+that Secret inventory access is unavailable; it does not establish that GitHub
+revoked the token.
+
+For remote use, follow the
+[Available While Locked setup](../authority/#availability). iPhone Approval
+cannot override a Secret's availability setting. No phone notification may
+arrive because the request fails before Approval.
+
+Unlock the Mac for login or credential changes that fail with `-25308`. Saves
+require a complete Secret inventory, which may remain unavailable while locked
+even when the particular Secret allows use while locked. Enabling Available
+While Locked supports authorized Secret use; it does not guarantee that login
+or credential changes can complete remotely while locked.
 
 ### The wrong executable runs
 
