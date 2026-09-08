@@ -369,16 +369,18 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                         page.read_text(encoding="utf-8"),
                     )
 
-    def test_homepages_use_screenshots_without_cli_examples(self):
+    def test_homepages_use_screenshots_with_standalone_scanner_command(self):
         section_ids = ("command-line", "controls", "reentrant-scripts", "projects", "iphone-approval")
         for locale in ("", "de", "fr", "ja", "zh-hans"):
             home = (ROOT / "www" / locale / "index.html").read_text(encoding="utf-8")
             main = home.split('<main ', 1)[1].split('</main>', 1)[0]
             with self.subTest(locale=locale):
-                self.assertIn('brand-landing.css?v=41', home)
+                self.assertIn('brand-landing.css?v=42', home)
                 ids = set(re.findall(r'\bid="([^"]+)"', home))
                 self.assertTrue(set(re.findall(r'href="#([^"]+)"', home)) <= ids)
-                self.assertNotRegex(main, r"<(?:pre|code)\b")
+                self.assertEqual(re.findall(r'<code>(.*?)</code>', main), [
+                    'curl -fsSL https://www.automicvault.com/scanner.sh | bash',
+                ])
                 positions = [main.index(f'id="{section_id}"') for section_id in section_ids]
                 self.assertEqual(positions, sorted(positions))
                 for section_id in section_ids:

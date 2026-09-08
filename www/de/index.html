@@ -34,7 +34,7 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
   <link rel="stylesheet" href="/styles.css?v=129">
-  <link rel="stylesheet" href="/brand-landing.css?v=41">
+  <link rel="stylesheet" href="/brand-landing.css?v=42">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
   <script>
@@ -98,6 +98,8 @@
         <h2 id="command-line-title">Sichere deine Kommandozeile</h2>
         <p>Finde Credentials, die Tools, Abhängigkeiten und Agents aus Dateien oder Credential-Helpern lesen können. Jedes Finding erklärt das Problem und eine mögliche Abhilfe. Ein Hardener verschiebt unterstützte Credentials in die macOS Data Protection Keychain und richtet ein Authorization Gate am Ort der Verwendung ein.</p>
         <a class="brew-text-link" href="/docs/hardeners/">Unterstützte Tools finden <span aria-hidden="true">→</span></a>
+        <p class="brew-scanner-command">Ohne Installation scannen:<code>curl -fsSL https://www.automicvault.com/scanner.sh | bash</code></p>
+        <p class="brew-scanner-note">Lädt einen kleinen eigenständigen Scanner aus dem Quellcode der neuesten Veröffentlichung herunter, prüft seine Signatur und führt ihn in einer Sandbox mit reinem Lesezugriff und ohne Netzwerkzugriff aus.</p>
         <p class="brew-boundary">Ein sauberer Scan deckt nur die unterstützten Prüfungen ab. Er bestätigt nicht, dass der ganze Mac sicher ist.</p>
       </div>
       <figure class="brew-capture">

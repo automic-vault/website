@@ -1782,6 +1782,10 @@ body {
 .brew-usecases .brew-feature-reverse > .brew-capture { grid-column: 1; grid-row: 1; }
 .brew-usecases .brew-text-link { margin-top: var(--brand-space-lg); }
 .brew-usecases .brew-copy > .brew-text-link { display: flex; width: fit-content; }
+.brew-usecases .brew-scanner-command,
+.brew-usecases .brew-scanner-note { font-size: var(--brand-text-sm); }
+.brew-usecases .brew-scanner-note { margin-top: var(--brand-space-sm); }
+.brew-scanner-command code { display: block; margin-top: var(--brand-space-sm); font-family: var(--brand-font-mono); font-size: var(--brand-text-xs); overflow-wrap: anywhere; }
 .brew-usecases .brew-boundary { border-top: 1px solid var(--brand-rule); padding-top: var(--brand-space-lg); font-size: var(--brand-text-sm); }
 .brew-usecases .brew-capture figcaption { font-size: var(--brand-text-sm); color: var(--brand-ink-soft); }
 .brew-usecases .brew-capture-script { max-width: 36rem; justify-self: center; }

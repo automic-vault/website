@@ -43,7 +43,7 @@
     },
     {
       "title": "Secure your command line",
-      "description": "Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.\n\nHarden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.\n\nA clean Scan covers the checks AV supports. It does not certify your whole machine as secure.",
+      "description": "Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.\n\nHarden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.\n\nA clean Scan covers the checks AV supports. It does not certify your whole machine as secure.\n\nScan without installing:\ncurl -fsSL https://www.automicvault.com/scanner.sh | bash\n\nDownloads a small standalone scanner built from the latest release sources, verifies its signature, and runs it in a read-only sandbox with no network access.",
       "links": [
         {
           "label": "Find your tools",

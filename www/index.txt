@@ -12,6 +12,14 @@ Download for macOS: https://www.automicvault.com/Automic%20Vault.dmg · Read the
 
 ## Secure your command line
 
+Scan without installing:
+
+```sh
+curl -fsSL https://www.automicvault.com/scanner.sh | bash
+```
+
+Downloads a small standalone scanner built from the latest release sources, verifies its signature, and runs it in a read-only sandbox with no network access.
+
 Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.
 
 Harden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.

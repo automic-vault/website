@@ -135,7 +135,7 @@
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=3">
   <link rel="stylesheet" href="./styles.css?v=129">
-  <link rel="stylesheet" href="./brand-landing.css?v=41">
+  <link rel="stylesheet" href="./brand-landing.css?v=42">
 </head>
 <body class="brew-home">
   <a class="brew-skip-link" href="#main-content">Skip to content</a>
@@ -175,6 +175,8 @@
         <p>Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.</p>
         <p>Harden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.</p>
         <a class="brew-text-link" href="/docs/hardeners/">Find your tools <span aria-hidden="true">→</span></a>
+        <p class="brew-scanner-command">Scan without installing:<code>curl -fsSL https://www.automicvault.com/scanner.sh | bash</code></p>
+        <p class="brew-scanner-note">Downloads a small standalone scanner built from the latest release sources, verifies its signature, and runs it in a read-only sandbox with no network access.</p>
         <p class="brew-boundary">A clean Scan covers the checks AV supports. It does not certify your whole machine as secure.</p>
       </div>
       <figure class="brew-capture">

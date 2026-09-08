@@ -34,7 +34,7 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
   <link rel="stylesheet" href="/styles.css?v=129">
-  <link rel="stylesheet" href="/brand-landing.css?v=41">
+  <link rel="stylesheet" href="/brand-landing.css?v=42">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
   <script>
@@ -98,6 +98,8 @@
         <h2 id="command-line-title">コマンドラインを安全に使う</h2>
         <p>ツールや依存パッケージ、エージェントがファイルや認証情報ヘルパーから読み出せる認証情報を検出します。各 Finding には原因と対策を表示します。対応する Tool を Hardener で保護すると、認証情報を macOS の Data Protection Keychain に移し、使用時に Authorization Gate で確認します。</p>
         <a class="brew-text-link" href="/docs/hardeners/">対応するツールを見る <span aria-hidden="true">→</span></a>
+        <p class="brew-scanner-command">インストールせずにスキャン：<code>curl -fsSL https://www.automicvault.com/scanner.sh | bash</code></p>
+        <p class="brew-scanner-note">最新リリースのソースからビルドした小さな単体スキャナーをダウンロードし、署名を検証してから、ネットワークにアクセスできない読み取り専用のサンドボックス内で実行します。</p>
         <p class="brew-boundary">Scan で問題が見つからなくても、確認できたのは対応する検査項目だけです。Mac 全体の安全を保証するものではありません。</p>
       </div>
       <figure class="brew-capture">
