@@ -34,7 +34,7 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
   <link rel="stylesheet" href="/styles.css?v=129">
-  <link rel="stylesheet" href="/brand-landing.css?v=42">
+  <link rel="stylesheet" href="/brand-landing.css?v=43">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
   <script>
@@ -98,7 +98,16 @@
         <h2 id="command-line-title">Sécurisez votre ligne de commande</h2>
         <p>Repérez les identifiants que les outils, dépendances et agents peuvent lire dans vos fichiers ou assistants d’identification. Chaque Finding explique le problème et une solution. Un Hardener place les identifiants pris en charge dans le trousseau de protection des données de macOS et installe un Authorization Gate au point d’utilisation.</p>
         <a class="brew-text-link" href="/docs/hardeners/">Trouver vos outils <span aria-hidden="true">→</span></a>
-        <p class="brew-scanner-command">Scanner sans installation :<code>curl -fsSL https://www.automicvault.com/scanner.sh | bash</code></p>
+        <div class="brew-scanner-terminal">
+          <div class="brew-scanner-toolbar">
+            <span>Scanner sans installation</span>
+            <button class="brew-copy-command" type="button" disabled data-copied="Copié" data-failed="Échec">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>
+              <span role="status" aria-live="polite">Copier</span>
+            </button>
+          </div>
+          <div class="brew-scanner-command"><span aria-hidden="true">$</span><code>curl -fsSL https://www.automicvault.com/scanner.sh | bash</code></div>
+        </div>
         <p class="brew-scanner-note">Télécharge un petit scanner autonome compilé à partir des sources de la dernière version, vérifie sa signature et l’exécute dans un bac à sable en lecture seule, sans accès réseau.</p>
         <p class="brew-boundary">Un Scan sans Finding couvre seulement les vérifications prises en charge. Il ne certifie pas la sécurité de tout votre Mac.</p>
       </div>
@@ -209,6 +218,7 @@
     </nav>
   </footer>
 
+  <script src="/app.js?v=2" defer></script>
   <script src="/i18n.js" defer></script>
 </body>
 </html>

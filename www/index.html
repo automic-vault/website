@@ -135,7 +135,7 @@
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=3">
   <link rel="stylesheet" href="./styles.css?v=129">
-  <link rel="stylesheet" href="./brand-landing.css?v=42">
+  <link rel="stylesheet" href="./brand-landing.css?v=43">
 </head>
 <body class="brew-home">
   <a class="brew-skip-link" href="#main-content">Skip to content</a>
@@ -175,7 +175,16 @@
         <p>Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.</p>
         <p>Harden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.</p>
         <a class="brew-text-link" href="/docs/hardeners/">Find your tools <span aria-hidden="true">→</span></a>
-        <p class="brew-scanner-command">Scan without installing:<code>curl -fsSL https://www.automicvault.com/scanner.sh | bash</code></p>
+        <div class="brew-scanner-terminal">
+          <div class="brew-scanner-toolbar">
+            <span>Scan without installing</span>
+            <button class="brew-copy-command" type="button" disabled data-copied="Copied" data-failed="Copy failed">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>
+              <span role="status" aria-live="polite">Copy</span>
+            </button>
+          </div>
+          <div class="brew-scanner-command"><span aria-hidden="true">$</span><code>curl -fsSL https://www.automicvault.com/scanner.sh | bash</code></div>
+        </div>
         <p class="brew-scanner-note">Downloads a small standalone scanner built from the latest release sources, verifies its signature, and runs it in a read-only sandbox with no network access.</p>
         <p class="brew-boundary">A clean Scan covers the checks AV supports. It does not certify your whole machine as secure.</p>
       </div>
@@ -294,6 +303,7 @@
     </div>
   </footer>
 
+  <script src="/app.js?v=2" defer></script>
   <script src="/i18n.js" defer></script>
 </body>
 </html>

@@ -370,12 +370,13 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                     )
 
     def test_homepages_use_screenshots_with_standalone_scanner_command(self):
+        subprocess.run(["node", "--test", str(ROOT / "tests" / "copy-command.test.mjs")], check=True)
         section_ids = ("command-line", "controls", "reentrant-scripts", "projects", "iphone-approval")
         for locale in ("", "de", "fr", "ja", "zh-hans"):
             home = (ROOT / "www" / locale / "index.html").read_text(encoding="utf-8")
             main = home.split('<main ', 1)[1].split('</main>', 1)[0]
             with self.subTest(locale=locale):
-                self.assertIn('brand-landing.css?v=42', home)
+                self.assertIn('brand-landing.css?v=43', home)
                 ids = set(re.findall(r'\bid="([^"]+)"', home))
                 self.assertTrue(set(re.findall(r'href="#([^"]+)"', home)) <= ids)
                 self.assertEqual(re.findall(r'<code>(.*?)</code>', main), [
