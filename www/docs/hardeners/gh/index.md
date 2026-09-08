@@ -4,14 +4,19 @@ Run `av harden gh` to apply this hardener and `av doctor gh` to verify it.
 
 ## How Automic Vault Hardens `gh`
 
+The official macOS `gh` executable is Developer ID signed. Upstream still
+delegates Keychain reads to `/usr/bin/security` and provides `gh auth token`,
+which prints the credential to standard output. Code signing establishes the
+executable's identity and integrity; it does not authorize credential use.
+
 We provide a [patched version] of `gh`. `av harden gh` installs it from our
 [tap] when Homebrew is available, or installs the same signed release directly
-at `/usr/local/bin/gh`. The patches are concerned with:
+at `/usr/local/bin/gh`. The Isotope:
 
-1. Is codesigned such that `gh` (and only `gh`) can access its
-   secure credentials.
-2. Ensures that authenticated `gh` usage goes via the Automic Vault Secret Gate
-   system.
+1. Is Automic Vault-signed so the gate can bind the Gate Client and Target.
+2. Keeps the credential in Automic Vault custody instead of an upstream
+   `gh:<host>` Keychain item accessible through `/usr/bin/security`.
+3. Routes authenticated operations through the `gh` Secret Gate.
 
 [patched version]: https://github.com/automic-vault/gh-cli
 [tap]: https://github.com/automic-vault/homebrew-isotopes
@@ -40,3 +45,14 @@ Write Access authorizes recognized remote writes, but Secret Disclosure through
   git-credential`; the hardened `gh` helper path requests the token through
   Automic Vault.
 - `av harden gh-cli` remains accepted as a compatibility alias.
+
+## Using GitHub while the Mac is locked
+
+iPhone Approval cannot unlock a Secret configured as When Unlocked. For a remote
+agent, enable **Available While Locked** on the relevant GitHub Secrets while
+the Mac is unlocked. The Secret Gate still authorizes each operation.
+
+If `gh auth status` reports an invalid token only while locked, or login fails
+with Keychain error `-25308`, follow the
+[locked-Mac setup and troubleshooting guide](https://github.com/automic-vault/automic-vault/blob/main/docs/authorization.md#remote-work-from-a-locked-mac).
+Login and credential changes can still require an unlocked Mac.

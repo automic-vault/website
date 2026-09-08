@@ -12,22 +12,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Homebrew hardener — Automic Vault</title>
-  <meta name="description" content="How Automic Vault 3.16.0 hardens Homebrew.">
+  <meta name="description" content="How Automic Vault 4.6.0 hardens Homebrew.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Homebrew hardener">
-  <meta property="og:description" content="How Automic Vault 3.16.0 hardens Homebrew.">
+  <meta property="og:description" content="How Automic Vault 4.6.0 hardens Homebrew.">
   <meta property="og:url" content="https://www.automicvault.com/docs/hardeners/brew/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Homebrew hardener">
-  <meta name="twitter:description" content="How Automic Vault 3.16.0 hardens Homebrew.">
+  <meta name="twitter:description" content="How Automic Vault 4.6.0 hardens Homebrew.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/hardeners/brew/">
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/hardeners/brew/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/brew/","headline":"Homebrew hardener","description":"How Automic Vault 3.16.0 hardens Homebrew.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/brew/","headline":"Homebrew hardener","description":"How Automic Vault 4.6.0 hardens Homebrew.","dateModified":"2026-09-08","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.6.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>Homebrew hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the brew hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/hardeners/brew/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.6.0 · macOS</p><h1>Homebrew hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the brew hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/hardeners/brew/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -67,12 +67,18 @@
 <code>av doctor brew</code> to verify it.</p>
 <h2 id="summary">Summary</h2>
 <ul>
+<li>Homebrew hardening is defense in depth for most Isotopes. Automic
+Vault already verifies their code-signing identity before Secret
+Application.</li>
+<li>It gates <code>brew install</code> and other Homebrew writes, and
+prevents same-user code from modifying installed command-line tools such
+as <code>node</code>.</li>
+<li>Environment-wrapper hardeners do not have the same Isotope identity
+boundary and are gradually being phased out.</li>
 <li>Only <code>brew</code> can alter <code>/opt/homebrew</code>.</li>
 <li>Hardened Homebrew manages formulae and a narrow class of CLI-only
 casks.</li>
 <li>Homebrew services are incompatible with hardened Homebrew.</li>
-<li>Approval gates can be configured to stop agents installing things
-behind your back.</li>
 </ul>
 <p><strong>Homebrew shell completions are unavailable while
 hardened.</strong> Completion files remain protected inside
@@ -86,15 +92,22 @@ Automic Vault launcher for <code>/opt/homebrew/bin/brew</code>.</p>
 <code>automic:vault</code>, and installs the launcher as
 <code>06755 automic:vault</code>.</p>
 <h2 id="rationale">Rationale</h2>
-<p>Modern macOS has numerous protections to prevent malware or agents
-from altering installed sofware.</p>
-<p>These protections apply to <code>.apps</code> and other bundle types,
-not to command line tools. Command line tools are protected by their
-parent <code>.app</code> which is often a Terminal but nowadays is often
-an Agent Harness.</p>
-<p>Thus we need to apply UNIX security permissions to our command line
-tools to ensure what is installed <em>remains what is installed</em>.
-Automic Vault hardening is that solution.</p>
+<p>Most Isotopes are code signed. Before Automic Vault applies a Secret
+to one of them, its Secret Gate verifies the Isotope's code-signing
+identity. Malware that modifies or replaces the Isotope therefore cannot
+use it to obtain the Secret. Homebrew hardening adds defense in depth
+for these tools; it is not their primary Secret Application
+boundary.</p>
+<p>Homebrew hardening still adds an Execution Gate for
+<code>brew install</code> and other writes. It also makes
+<code>/opt/homebrew</code> unavailable for same-user modification, so
+malware or an agent cannot replace an installed command-line tool such
+as <code>node</code>. This protects the integrity of Homebrew-installed
+tools whether or not they use a Secret.</p>
+<p>Environment-wrapper hardeners are the exception. They wrap mutable
+upstream commands rather than rely on a signed Isotope identity, so
+protecting their installed Targets remains more important until those
+wrappers are phased out.</p>
 <h2 id="details">Details</h2>
 <ul>
 <li><p>This targets Apple Silicon Homebrew at
@@ -185,7 +198,7 @@ through them during that migration window.</p>
 <p class="docs-source-link"><a href="/docs/hardeners/brew/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/brew/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/brew/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.6.0 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

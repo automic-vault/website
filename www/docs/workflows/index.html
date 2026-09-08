@@ -27,7 +27,7 @@
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/workflows/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/workflows/","headline":"Common workflows","description":"Common Automic Vault workflows for protected developer credentials.","dateModified":"2026-09-01","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/workflows/","headline":"Common workflows","description":"Common Automic Vault workflows for protected developer credentials.","dateModified":"2026-09-08","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.6.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>Common workflows</h1><p class="lede">Known-good paths for GitHub, AWS, Docker, Project Values, proxying, scripts, and signing.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/workflows/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.6.0 · macOS</p><h1>Common workflows</h1><p class="lede">Known-good paths for GitHub, AWS, Docker, Project Values, proxying, scripts, and signing.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/workflows/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -60,7 +60,8 @@
           <section class="docs-nav-group">
             <h2>On this page</h2>
             <ul><li class="docs-nav-depth-3"><a href="#github-cli">GitHub CLI</a></li><li class="docs-nav-depth-3"><a href="#aws-cli">AWS CLI</a></li><li class="docs-nav-depth-3"><a href="#docker">Docker</a></li><li class="docs-nav-depth-3"><a href="#project-specific-values">Project-specific Values</a></li><li class="docs-nav-depth-3"><a href="#one-off-environment-application">One-off environment
-application</a></li><li class="docs-nav-depth-3"><a href="#proxy-only-delivery">Proxy-only delivery</a></li><li class="docs-nav-depth-3"><a href="#blessing-a-release-script">Blessing a release script</a></li><li class="docs-nav-depth-3"><a href="#reentrant-blessed-scripts">Reentrant Blessed Scripts</a></li><li class="docs-nav-depth-3"><a href="#enrolling-an-unsigned-developer-cli">Enrolling an unsigned
+application</a></li><li class="docs-nav-depth-3"><a href="#exact-bytes-through-file-descriptors">Exact bytes through file
+descriptors</a></li><li class="docs-nav-depth-3"><a href="#copy-selected-v1-secrets">Copy selected v1 Secrets</a></li><li class="docs-nav-depth-3"><a href="#proxy-only-delivery">Proxy-only delivery</a></li><li class="docs-nav-depth-3"><a href="#blessing-a-release-script">Blessing a release script</a></li><li class="docs-nav-depth-3"><a href="#reentrant-blessed-scripts">Reentrant Blessed Scripts</a></li><li class="docs-nav-depth-3"><a href="#enrolling-an-unsigned-developer-cli">Enrolling an unsigned
 developer CLI</a></li><li class="docs-nav-depth-3"><a href="#gpg-signed-commits">GPG-signed commits</a></li></ul>
           </section>
         </nav>
@@ -122,6 +123,48 @@ route exists. Inspect existing environment conflicts; by default an
 already exported value wins with a warning.
 <code>--replace-existing-env</code> is an explicit precedence decision,
 not a routine flag.</p>
+<h3 id="exact-bytes-through-file-descriptors">Exact bytes through file
+descriptors</h3>
+<pre class="sh"><code>av inject --mode=fd +DEPLOY_PRIVATE_KEY:3 +API_TOKEN:4 -- /path/to/consumer</code></pre>
+<p>Use a consumer that reads the private key from FD 3 and the token
+from FD 4. Approve the mappings and selected Value sources. Each
+read-only anonymous pipe delivers the stored bytes, then EOF. The
+requested names are removed from the consumer's environment. Keep both
+descriptors unused before starting <code>av</code>.</p>
+<p>This requires fresh Approval even inside a Blessed Script. Values
+must fit available pipe buffers; see <a
+href="/docs/cli/#file-descriptor-delivery">FD delivery</a> for
+validation, inheritance, and failure behavior.</p>
+<h3 id="copy-selected-v1-secrets">Copy selected v1 Secrets</h3>
+<p>4.6.0's <code>av save --stdin</code> can import exact bytes from
+selected v1.25.0 legacy login-Keychain items. Review the <a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/migrating-from-v1.md">manual
+copy guide</a> and save its <a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/examples/migrate-av-v1.swift">Swift
+script</a> before running, using the Keychain file v1 used and your
+Secret Names:</p>
+<pre class="sh"><code>xcrun swift migrate-av-v1.swift &quot;$HOME/Library/Keychains/login.keychain-db&quot; FOO BILLING_PEM</code></pre>
+<p>Run as your normal user with the current app open and Apple's Swift
+toolchain installed. The script reads ordinary v1 <code>av save</code>
+items from service <code>com.automicvault.isotope</code> through the
+Keychain API, then pipes them into the current app's import Approval. It
+leaves source items and access controls intact. A legacy Keychain prompt
+may need a one-time Allow.</p>
+<p>The script creates or updates Global Values under the same names.
+Check for existing destination names and review replacement Approvals. A
+failed or denied import stops before the next item; earlier successful
+imports remain. Test one item with its intended consumer before copying
+the rest.</p>
+<p>This copies stored Values only. It does not migrate credential gates,
+authorization rules, generation/history, or v1's separate Data
+Protection Keychain dotenv-key store, and does not provide a supported
+upgrade/rollback path. v1 trimmed surrounding whitespace when saving;
+copying cannot recover bytes already removed. The script rejects empty,
+non-UTF-8, NUL-containing, or larger-than-1-MiB Values. Do not replace
+the Keychain read with <code>security -w</code>, whose text/hex
+formatting and added newline can change multiline bytes.</p>
+<p>Encrypted backup and recovery remain tracked in <a
+href="https://github.com/automic-vault/automic-vault/issues/317">#317</a>.</p>
 <h3 id="proxy-only-delivery">Proxy-only delivery</h3>
 <pre class="sh"><code>av proxy +VARLOCK_SAMPLE_SECRET -- /path/to/target</code></pre>
 <p>Approve the session, then approve only expected destinations as they
@@ -160,7 +203,7 @@ Required.</p>
 <p class="docs-source-link"><a href="/docs/workflows/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/workflows/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/workflows/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.6.0 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

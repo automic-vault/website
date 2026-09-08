@@ -26,7 +26,9 @@ const hardeners = readdirSync(hardenerSourceDir)
     const stem = path.basename(filename, ".md");
     return {
       name: sourceNames[stem] ?? stem.replaceAll("_", "-"),
-      documentation: readFileSync(path.join(hardenerSourceDir, filename), "utf8"),
+      documentation: readFileSync(path.join(hardenerSourceDir, filename), "utf8")
+        .replace(/\]\((\.\.?\/[^)\s]+)\)/g, (_, href) =>
+          `](${new URL(href, "https://github.com/automic-vault/automic-vault/blob/main/src/isotopes/hardeners/")})`),
     };
   });
 
@@ -78,7 +80,7 @@ const pages = [
     description: "Common Automic Vault workflows for protected developer credentials.",
     start: "## Common workflows",
     end: "## Reentrant Blessed Scripts",
-    dateModified: "2026-09-01",
+    dateModified: "2026-09-08",
   },
   {
     slug: "reentrant-scripts",
@@ -174,7 +176,7 @@ ${headings ? `          <section class="docs-nav-group">
         </nav>`;
 }
 
-function htmlPage({ slug, title, lede, description, markdown, dateModified = "2026-08-23" }) {
+function htmlPage({ slug, title, lede, description, markdown, dateModified = "2026-09-08" }) {
   const pageRoute = route(slug);
   const markdownRoute = `${pageRoute}index.md`;
   const article = renderMarkdown(markdown);

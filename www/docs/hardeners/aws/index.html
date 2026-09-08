@@ -12,22 +12,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>AWS hardener — Automic Vault</title>
-  <meta name="description" content="How Automic Vault 3.16.0 hardens AWS.">
+  <meta name="description" content="How Automic Vault 4.6.0 hardens AWS.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="AWS hardener">
-  <meta property="og:description" content="How Automic Vault 3.16.0 hardens AWS.">
+  <meta property="og:description" content="How Automic Vault 4.6.0 hardens AWS.">
   <meta property="og:url" content="https://www.automicvault.com/docs/hardeners/aws/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AWS hardener">
-  <meta name="twitter:description" content="How Automic Vault 3.16.0 hardens AWS.">
+  <meta name="twitter:description" content="How Automic Vault 4.6.0 hardens AWS.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/hardeners/aws/">
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/hardeners/aws/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/aws/","headline":"AWS hardener","description":"How Automic Vault 3.16.0 hardens AWS.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/aws/","headline":"AWS hardener","description":"How Automic Vault 4.6.0 hardens AWS.","dateModified":"2026-09-08","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.6.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>AWS hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the aws hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/hardeners/aws/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.6.0 · macOS</p><h1>AWS hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the aws hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/hardeners/aws/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -85,6 +85,11 @@ with <code>/opt/av/aws/current/aws</code>. The AWS CLI receives a
 minimal config containing Automic Vault's
 <code>credential_process</code>; that helper only works as an immediate
 child of the registered, still-running AWS process.</p>
+<p>Credential-free metadata invocations (<code>aws --version</code>,
+<code>aws help</code>, and
+<code>aws &lt;service&gt; [operation] help</code>) skip Secret Use and
+run with an empty AWS configuration and a fixed system executable
+path.</p>
 <p>The menu app implements STS <code>GetSessionToken</code> and
 <code>AssumeRole</code> directly. It caches resulting credentials only
 for the lifetime of that registered AWS process. Nothing is written to
@@ -98,8 +103,10 @@ and pager hooks are not available inside the credential-bearing
 process.</p>
 <p>The Hardener verifies all of the following before activation:</p>
 <ul>
-<li>HTTPS-only download from AWS's fixed release URL, with no
+<li>HTTPS-only download from AWS's version-specific release URL, with no
 redirects;</li>
+<li>an exact match between the requested changelog version and signed
+package version;</li>
 <li>Apple trust, AWS's Developer ID Installer team, notarization, and
 timestamp;</li>
 <li>the <code>com.amazon.aws.cli2</code> package identity and bounded
@@ -161,7 +168,8 @@ CLI, then requests elevation to copy and reverify the package, extract
 it without scripts, protect and atomically activate the release, and
 replace <code>/usr/local/bin/aws</code>.</li>
 <li><code>av doctor aws</code> checks AWS's official v2 changelog and
-directs you back to the Hardener when a newer release is available.</li>
+versioned macOS package availability, then directs you back to the
+Hardener when a newer downloadable release is available.</li>
 <li>The AWS process can use any credential it receives for the lifetime
 and IAM scope of that credential. Automic Vault confines issuance to the
 approved invocation; it cannot harden the upstream AWS CLI process
@@ -177,7 +185,7 @@ idempotent re-hardening, and refuses a signed release downgrade.</p>
 <p class="docs-source-link"><a href="/docs/hardeners/aws/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/aws/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/aws/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.6.0 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

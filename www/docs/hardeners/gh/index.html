@@ -12,22 +12,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>GitHub CLI hardener — Automic Vault</title>
-  <meta name="description" content="How Automic Vault 3.16.0 hardens GitHub CLI.">
+  <meta name="description" content="How Automic Vault 4.6.0 hardens GitHub CLI.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="GitHub CLI hardener">
-  <meta property="og:description" content="How Automic Vault 3.16.0 hardens GitHub CLI.">
+  <meta property="og:description" content="How Automic Vault 4.6.0 hardens GitHub CLI.">
   <meta property="og:url" content="https://www.automicvault.com/docs/hardeners/gh/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="GitHub CLI hardener">
-  <meta name="twitter:description" content="How Automic Vault 3.16.0 hardens GitHub CLI.">
+  <meta name="twitter:description" content="How Automic Vault 4.6.0 hardens GitHub CLI.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/hardeners/gh/">
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/hardeners/gh/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/gh/","headline":"GitHub CLI hardener","description":"How Automic Vault 3.16.0 hardens GitHub CLI.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/gh/","headline":"GitHub CLI hardener","description":"How Automic Vault 4.6.0 hardens GitHub CLI.","dateModified":"2026-09-08","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.6.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>GitHub CLI hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the gh hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/hardeners/gh/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.6.0 · macOS</p><h1>GitHub CLI hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the gh hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/hardeners/gh/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -60,7 +60,8 @@
           <section class="docs-nav-group">
             <h2>On this page</h2>
             <ul><li class="docs-nav-depth-2"><a href="#how-automic-vault-hardens-gh">How Automic Vault Hardens
-<code>gh</code></a></li><li class="docs-nav-depth-2"><a href="#credential-migration">Credential Migration</a></li><li class="docs-nav-depth-2"><a href="#secret-gate">Secret Gate</a></li><li class="docs-nav-depth-2"><a href="#details">Details</a></li></ul>
+<code>gh</code></a></li><li class="docs-nav-depth-2"><a href="#credential-migration">Credential Migration</a></li><li class="docs-nav-depth-2"><a href="#secret-gate">Secret Gate</a></li><li class="docs-nav-depth-2"><a href="#details">Details</a></li><li class="docs-nav-depth-2"><a href="#using-github-while-the-mac-is-locked">Using GitHub while the Mac
+is locked</a></li></ul>
           </section>
         </nav>
         <article class="docs-content"><h1 id="github-cli-hardener">GitHub CLI hardener</h1>
@@ -68,17 +69,26 @@
 <code>av doctor gh</code> to verify it.</p>
 <h2 id="how-automic-vault-hardens-gh">How Automic Vault Hardens
 <code>gh</code></h2>
+<p>The official macOS <code>gh</code> executable is Developer ID signed.
+Upstream still delegates Keychain reads to
+<code>/usr/bin/security</code> and provides <code>gh auth token</code>,
+which prints the credential to standard output. Code signing establishes
+the executable's identity and integrity; it does not authorize
+credential use.</p>
 <p>We provide a <a
 href="https://github.com/automic-vault/gh-cli">patched version</a> of
 <code>gh</code>. <code>av harden gh</code> installs it from our <a
 href="https://github.com/automic-vault/homebrew-isotopes">tap</a> when
 Homebrew is available, or installs the same signed release directly at
-<code>/usr/local/bin/gh</code>. The patches are concerned with:</p>
+<code>/usr/local/bin/gh</code>. The Isotope:</p>
 <ol type="1">
-<li>Is codesigned such that <code>gh</code> (and only <code>gh</code>)
-can access its secure credentials.</li>
-<li>Ensures that authenticated <code>gh</code> usage goes via the
-Automic Vault Secret Gate system.</li>
+<li>Is Automic Vault-signed so the gate can bind the Gate Client and
+Target.</li>
+<li>Keeps the credential in Automic Vault custody instead of an upstream
+<code>gh:&lt;host&gt;</code> Keychain item accessible through
+<code>/usr/bin/security</code>.</li>
+<li>Routes authenticated operations through the <code>gh</code> Secret
+Gate.</li>
 </ol>
 <h2 id="credential-migration">Credential Migration</h2>
 <p>Use <code>av harden gh</code> to install the Isotope and migrate
@@ -105,10 +115,22 @@ path requests the token through Automic Vault.</li>
 <li><code>av harden gh-cli</code> remains accepted as a compatibility
 alias.</li>
 </ul>
+<h2 id="using-github-while-the-mac-is-locked">Using GitHub while the Mac
+is locked</h2>
+<p>iPhone Approval cannot unlock a Secret configured as When Unlocked.
+For a remote agent, enable <strong>Available While Locked</strong> on
+the relevant GitHub Secrets while the Mac is unlocked. The Secret Gate
+still authorizes each operation.</p>
+<p>If <code>gh auth status</code> reports an invalid token only while
+locked, or login fails with Keychain error <code>-25308</code>, follow
+the <a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/authorization.md#remote-work-from-a-locked-mac">locked-Mac
+setup and troubleshooting guide</a>. Login and credential changes can
+still require an unlocked Mac.</p>
 <p class="docs-source-link"><a href="/docs/hardeners/gh/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/gh/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/gh/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.6.0 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

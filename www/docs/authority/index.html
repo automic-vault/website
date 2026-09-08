@@ -27,7 +27,7 @@
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/authority/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/authority/","headline":"Approval, authority, and secrets","description":"Automic Vault Approval, authorization, Secret Values, and Access Levels.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/authority/","headline":"Approval, authority, and secrets","description":"Automic Vault Approval, authorization, Secret Values, and Access Levels.","dateModified":"2026-09-08","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.6.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>Approval, authority, and secrets</h1><p class="lede">Approval routes, temporary authority, Secret Value selection, and Access Levels.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/authority/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.6.0 · macOS</p><h1>Approval, authority, and secrets</h1><p class="lede">Approval routes, temporary authority, Secret Value selection, and Access Levels.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/authority/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -193,10 +193,29 @@ av save --project-directory=/absolute/project AWS_PROFILE</code></pre>
 <h3 id="saving-safely">Saving safely</h3>
 <p>A Secret Name is a letter or underscore followed by letters, digits,
 or underscores. <code>av save</code> canonicalizes an existing Project
-Directory, rejects the filesystem root, reads one hidden non-empty Value
-from <code>/dev/tty</code>, trims its line ending, and restores terminal
-echo even on failure. It does not read stdin, so a pipeline neither
-supplies a Value nor provides a safe import mechanism.</p>
+Directory, rejects the filesystem root, and requires Approval before
+creating or updating a Value. Without an input flag it reads one hidden
+line from <code>/dev/tty</code> and removes the terminal line
+ending.</p>
+<p>For multiline input, including a PEM:</p>
+<pre class="sh"><code>av save --multiline --project-directory=. DEPLOY_PRIVATE_KEY</code></pre>
+<p>Input stays hidden. Press Ctrl-D after the final newline to finish,
+or Ctrl-D twice to finish without a final newline. Ctrl-C cancels
+without saving. This mode preserves received whitespace, but terminal
+line editing, line-length limits, and newline processing still
+apply.</p>
+<p>For exact bytes from a pipe or an existing readable descriptor:</p>
+<pre class="sh"><code>av save --stdin DEPLOY_PRIVATE_KEY &lt;&amp;3</code></pre>
+<p><code>--stdin</code> reads to EOF without trimming or newline
+conversion and refuses terminal stdin. Both flags work with Global
+Values and <code>--project-directory</code>; they cannot be combined.
+Input must be nonempty UTF-8 without NUL bytes, at most 1 MiB. Keep the
+producer's Secret output out of arguments, environment variables, logs,
+and plaintext files. Review the destination: an approved save can
+replace an existing Global Value or the specified Project Value.</p>
+<p>See <a href="/docs/workflows/#copy-selected-v1-secrets">copying
+selected v1 Values</a> for a manual legacy Keychain copy procedure and
+its limits.</p>
 <p>Save the replacement before deleting the old credential. Test a
 harmless read through the protected route, inspect History, then remove
 the plaintext source. For a supported Tool, prefer its hardener because
@@ -221,10 +240,12 @@ the first unlock following boot. Neither setting grants a request,
 widens a Gate, or bypasses Approval.</p>
 <h3 id="direct-secret-access">Direct Secret Access</h3>
 <p>The Direct Secret Gate binds exact Secret Names to one Verified
-Launcher, but is broad with respect to Target and arguments. It permits
-Secret Application only; it does not list, mutate, or disclose Values.
-Prefer a Tool-specific Gate whose classifier understands read, write,
-host, registry, or other operation semantics.</p>
+Launcher, but is broad with respect to Target and arguments. Direct
+Access Rules authorize environment-mode injection; FD delivery requires
+fresh human Approval. They permit Secret Application only; it does not
+list, mutate, or disclose Values. Prefer a Tool-specific Gate whose
+classifier understands read, write, host, registry, or other operation
+semantics.</p>
 <h2 id="access-levels">Access Levels</h2>
 <table>
 <thead>
@@ -279,7 +300,7 @@ Required.</p>
 <p class="docs-source-link"><a href="/docs/authority/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/authority/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/authority/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.6.0 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

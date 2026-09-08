@@ -8,9 +8,10 @@ av hardeners --json
 av bless [--endorse-launcher] <path>
 av inject +KEY... [--] <command>
 av inject -- <command>
+av inject --mode=fd +KEY:FD... -- <command>
 av proxy +KEY... [--] <command>
 av list
-av save [--project-directory=DIR] KEY
+av save [--multiline | --stdin] [--project-directory=DIR] KEY
 av harden <tool> [-y|--yes]
 av unharden brew [-y|--yes]
 av gpg-sign [GPG options]
@@ -20,7 +21,7 @@ av --version
 ```
 
 Old v1 commands `install`, `contain`, `dotenv`, `credential-helper`, `gate`, and
-`trace` are not part of 3.16.0.
+`trace` are not part of 4.6.0.
 
 ### `av scan`
 
@@ -62,41 +63,34 @@ av hardeners --json |
   }'
 ```
 
-These are authoritative for the installed build. 3.16.0 ships 157 detectors and
-50 hardeners. The `documentation` field contains the source-checked behavior and
+These are authoritative for the installed build. The `documentation` field
+contains the source-checked behavior and
 security model. Generated environment wrappers warn that the Target can read
 injected credentials; dedicated/native routes may provide narrower boundaries.
 
-<details>
-<summary>3.16.0 hardener names</summary>
-
-`akamai`, `algolia`, `argocd`, `ast-cli`, `aws`, `brew`, `buf`, `censys`,
-`checkov`, `circleci`, `civo`, `cloudsmith-cli`, `codex`, `composer`, `docker`,
-`doctl`, `flyctl`, `gh`, `glab`, `gotify`, `gptcommit`, `grafanactl`, `hcloud`,
-`heroku`, `huggingface-cli`, `jfrog-cli`, `k6`, `luarocks`, `minio-mc`,
-`netlify-cli`, `node`, `pnpm`, `pulumi`, `qwen-code`, `runpodctl`, `s3cmd`,
-`sentry-cli`, `snowflake-cli`, `snyk`, `stripe`, `sudo`, `supabase`,
-`transifex-cli`, `travis`, `twine`, `vagrant`, `vault`, `virustotal-cli`,
-`vultr`, `wsk`.
-
-</details>
+See the [hardener reference](/docs/hardeners/) for the rendered documentation.
 
 ### `av save` and `av list`
 
 ```text
-av save [--project-directory DIR] KEY
-av save [--project-directory=DIR] KEY
+av save [--multiline | --stdin] [--project-directory DIR] KEY
+av save [--multiline | --stdin] [--project-directory=DIR] KEY
 av list
 av ls
 ```
 
-`list` shows names, never Values, and accepts no arguments. A pipeline does not
-provide a Value to `save`:
+`list` shows names, never Values, and accepts no arguments. `save` defaults to a
+hidden single line; select `--multiline` for hidden multiline entry or `--stdin`
+for exact redirected input. Both modes require import Approval:
 
 ```sh
-# Wrong: save reads /dev/tty, not stdin.
-printf '%s\n' "$GH_TOKEN" | av save GH_TOKEN
+av save --multiline DEPLOY_PRIVATE_KEY
+av save --stdin --project-directory=. API_TOKEN <&3
 ```
+
+The second example assumes a trusted producer has supplied readable FD 3.
+Input is nonempty UTF-8 without NUL bytes, at most 1 MiB. See
+[saving safely](/docs/authority/#saving-safely) for EOF and replacement behavior.
 
 ### `av inject`
 
@@ -104,14 +98,46 @@ printf '%s\n' "$GH_TOKEN" | av save GH_TOKEN
 av inject [--replace-existing-env] [--allow-missing-keys] \
   +KEY [+KEY...] [--] COMMAND [args...]
 av inject -- COMMAND [args...]
+av inject --mode=fd +KEY:FD [+KEY:FD...] -- COMMAND [args...]
 ```
 
 Bare commands resolve through PATH; a Target containing `/` must be absolute.
-Existing environment values win with a warning unless
+In the default environment mode (`--mode=env`), existing environment values win with a warning unless
 `--replace-existing-env` is used. Missing requested Secrets fail unless
 `--allow-missing-keys` leaves them unset. Duplicate/invalid names and root are
 rejected. On success, `exec` replaces `av` with the Target. Legacy
 `--allow-existing-env`, `--force`, `--import`, and `--migrate` are rejected.
+
+#### File descriptor delivery
+
+Available since 4.6.0:
+
+```sh
+av inject --mode=fd +FOO:3 +BAR:4 -- /path/to/consumer
+```
+
+The consumer must read the indicated descriptors. Each Secret arrives through
+its own read-only anonymous pipe as exact stored UTF-8 bytes, then EOF. There
+is no bundle format, trimming, or added newline. Consumed bytes are not replayed.
+Automic Vault removes the requested Secret Names from the Target's environment,
+including existing values, and preserves stdin/stdout/stderr and unrelated
+environment entries.
+
+Every invocation requires fresh human Approval. Direct Access Rules,
+Blessings, Tool-specific policies, and Temporary Access Grants do not authorize
+FD delivery. Approval shows the mappings and selected Value sources;
+Authorization History records them before release. Update the app and CLI
+together: older apps reject this operation.
+
+Descriptors must be distinct, unused decimal integers of 3 or higher, without
+leading zeros. Every Secret requires a mapping. Duplicate names, missing
+Secrets, `--allow-missing-keys`, `--replace-existing-env`, and FD shebangs are
+rejected. If a Value exceeds available pipe capacity, the command fails before
+starting the Target; this ceiling can be smaller than the 1 MiB save limit.
+
+The Target can copy the bytes or pass descriptors to its children. FD delivery
+does not provide encrypted backup/recovery or restore whitespace lost during an
+earlier import. See the [repository guide](https://github.com/automic-vault/automic-vault/blob/main/docs/direct-secret-access.md#apply-secrets-through-file-descriptors).
 
 #### Shebang and Blessing workflow
 
@@ -129,6 +155,10 @@ A blessable script is a regular UTF-8 file up to 1 MiB with absolute `av` and
 interpreter paths. The optional manifest immediately follows the shebang.
 Capabilities are ceilings, not grants. Execution uses a verified `/dev/fd/N`
 snapshot; `AV_SCRIPT_PATH` and `AV_SCRIPT_DIR` identify its canonical source.
+
+FD mode in an `av inject` shebang is currently unsupported. A Blessed Script
+can invoke `av inject --mode=fd` as a command, but each invocation still needs
+fresh human Approval.
 
 ### `av proxy`
 
