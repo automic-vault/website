@@ -93,6 +93,14 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertNotIn("require_env AWS_REGION", deploy_script)
         self.assertNotIn(".envrc", deploy_script)
 
+    def test_static_sync_preserves_release_managed_artifacts(self):
+        deploy = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
+        static_sync = deploy.split("sync_site() {", 1)[1].split('log_step "Uploading social preview"', 1)[0]
+        self.assertIn("--delete", static_sync)
+        for name in ("Automic Vault.dmg", "install.sh", "scanner.gz", "scanner.tgz", "scanner.sh"):
+            with self.subTest(name=name):
+                self.assertIn(f'--exclude "{name}"', static_sync)
+
     def test_deploy_finds_certificate_for_both_aliases(self):
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
 
@@ -457,7 +465,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
     def test_local_html_references_resolve(self):
         site = ROOT / "www"
         missing = []
-        release_artifacts = {"/Automic Vault.dmg", "/install.sh", "/scanner.gz", "/scanner.sh"}
+        release_artifacts = {"/Automic Vault.dmg", "/install.sh", "/scanner.gz", "/scanner.tgz", "/scanner.sh"}
 
         for page in sorted(site.rglob("*.html")):
             parser = LocalReferenceParser()

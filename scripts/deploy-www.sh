@@ -734,7 +734,7 @@ function handler(event) {
   if (isPackageOriginPath(request.uri)) {
     return request;
   }
-  if (request.uri === "/install.sh" || request.uri === "/scanner.sh" || request.uri === "/scanner.gz") {
+  if (request.uri === "/install.sh" || request.uri === "/scanner.sh" || request.uri === "/scanner.gz" || request.uri === "/scanner.tgz") {
     return request;
   }
 
@@ -1344,7 +1344,9 @@ sync_site() {
     --exclude ".DS_Store" \
     --exclude "*/.DS_Store" \
     --exclude "Automic Vault.dmg" \
+    --exclude "install.sh" \
     --exclude "scanner.gz" \
+    --exclude "scanner.tgz" \
     --exclude "scanner.sh" \
     --exclude "preview.jpg" \
     --exclude "*.html" \

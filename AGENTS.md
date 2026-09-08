@@ -28,8 +28,8 @@ or rendered package catalog here.
 The website download URLs use the Lambda to find the latest GitHub release.
 The static deploy must not upload a `.dmg`.
 
-The static deploy must preserve the externally managed `/scanner.gz` and
-`/scanner.sh` objects.
+The static deploy must preserve the externally managed `/install.sh`,
+`/scanner.gz`, `/scanner.tgz`, and `/scanner.sh` objects.
 
 ## Deployment Safety
 
