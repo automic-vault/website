@@ -12,22 +12,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Automic Vault manual — Automic Vault</title>
-  <meta name="description" content="The source-checked Automic Vault 3.16.0 manual for macOS.">
+  <meta name="description" content="The source-checked Automic Vault 4.6.0 manual for macOS.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Automic Vault manual">
-  <meta property="og:description" content="The source-checked Automic Vault 3.16.0 manual for macOS.">
+  <meta property="og:description" content="The source-checked Automic Vault 4.6.0 manual for macOS.">
   <meta property="og:url" content="https://www.automicvault.com/docs/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Automic Vault manual">
-  <meta name="twitter:description" content="The source-checked Automic Vault 3.16.0 manual for macOS.">
+  <meta name="twitter:description" content="The source-checked Automic Vault 4.6.0 manual for macOS.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/">
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/","headline":"Automic Vault manual","description":"The source-checked Automic Vault 3.16.0 manual for macOS.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/","headline":"Automic Vault manual","description":"The source-checked Automic Vault 4.6.0 manual for macOS.","dateModified":"2026-09-08","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.6.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>Automic Vault manual</h1><p class="lede">Install Automic Vault, understand the operator console, and find the right reference.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.6.0 · macOS</p><h1>Automic Vault manual</h1><p class="lede">Install Automic Vault, understand the operator console, and find the right reference.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -63,9 +63,11 @@
           </section>
         </nav>
         <article class="docs-content"><h1 id="automic-vault-manual">Automic Vault manual</h1>
-<p>This is the user and operator manual for Automic Vault 3.16.0 on
-macOS. It was checked against the installed CLI, app UI, and 3.16.0
-source on August 22, 2026.</p>
+<p>This is the user and operator manual for Automic Vault 4.6.0 on
+macOS. The multiline input, exact-input saving, and FD delivery sections
+were checked against the 4.6.0 source on September 8, 2026. UI
+screenshots show 3.16.0; use the installed build's help and catalogs for
+its current command surface.</p>
 <p>Automic Vault does more than store a Secret. It authorizes a complete
 operation: the Verified Launcher, Gate Client, Target, command and
 arguments, working directory, requested Secret Names, and selected Value
@@ -102,8 +104,10 @@ apply it only to the Target that needs it:</p>
 <pre class="sh"><code>av scan --show-all
 av save GH_TOKEN
 av inject +GH_TOKEN gh auth status</code></pre>
-<p><code>av save</code> opens <code>/dev/tty</code>, turns terminal echo
-off, and <strong>does not read standard input</strong>. Do not remove
+<p><code>av save</code> defaults to hidden single-line terminal input.
+Since 4.6.0, <code>--multiline</code> accepts hidden multiline input and
+<code>--stdin</code> reads exact redirected input to EOF. See <a
+href="/docs/authority/#saving-safely">saving safely</a>. Do not remove
 the old credential until the approved command succeeds. For a Tool with
 a supplied hardener, prefer its Tool-specific flow:</p>
 <pre class="sh"><code>av hardeners --json | jq &#39;.hardeners[] | select(.applicable) | {name, hardened}&#39;
@@ -155,7 +159,7 @@ is not a whole-machine attestation.</p>
 <p class="docs-source-link"><a href="/docs/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.6.0 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

@@ -6,7 +6,7 @@
 
 - [Homepage](https://www.automicvault.com/): Explains operation authorization, Verified Launcher policy, Project Values, reentrant Blessed Scripts, bounded agent access, iPhone Approval, and Tool-specific hardening on macOS.
 - [Download](https://www.automicvault.com/download/): Provides the signed macOS disk image, installation details, included components, and first steps after setup.
-- [Documentation](https://www.automicvault.com/docs/): Entry point for the source-checked Automic Vault 3.16.0 manual.
+- [Documentation](https://www.automicvault.com/docs/): Entry point for the source-checked Automic Vault 4.6.0 manual.
 - [Security foundations](https://www.automicvault.com/docs/security/): Defines request, identity, authority, Secret delivery, secure defaults, and product boundaries.
 - [App guide](https://www.automicvault.com/docs/app/): Explains every destination in the macOS operator console.
 - [Approval and authority](https://www.automicvault.com/docs/authority/): Covers Approval routes, temporary authority, Secret Values, and Access Levels.
@@ -49,7 +49,7 @@
 
 - Category: local execution security and secrets management
 - Platform: macOS
-- Current documented release: Automic Vault 3.16.0
+- Current documented release: Automic Vault 4.6.0
 - License: Apache License 2.0
 - Pricing: free open-source software
 - Founder: Max Howell, creator of Homebrew

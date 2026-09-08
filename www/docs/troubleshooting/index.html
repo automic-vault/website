@@ -27,7 +27,7 @@
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/troubleshooting/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/troubleshooting/","headline":"Troubleshooting","description":"Troubleshooting and source references for Automic Vault.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/troubleshooting/","headline":"Troubleshooting","description":"Troubleshooting and source references for Automic Vault.","dateModified":"2026-09-08","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.6.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>Troubleshooting</h1><p class="lede">Diagnose Approval, executable, Value selection, launcher, proxy, and Doctor failures.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/troubleshooting/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.6.0 · macOS</p><h1>Troubleshooting</h1><p class="lede">Diagnose Approval, executable, Value selection, launcher, proxy, and Doctor failures.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/troubleshooting/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -60,7 +60,8 @@
           <section class="docs-nav-group">
             <h2>On this page</h2>
             <ul><li class="docs-nav-depth-3"><a href="#approval-does-not-appear">Approval does not appear</a></li><li class="docs-nav-depth-3"><a href="#the-wrong-executable-runs">The wrong executable runs</a></li><li class="docs-nav-depth-3"><a href="#the-wrong-project-value-is-selected">The wrong Project Value is
-selected</a></li><li class="docs-nav-depth-3"><a href="#an-environment-value-wins">An environment value wins</a></li><li class="docs-nav-depth-3"><a href="#a-blessing-stopped-matching">A Blessing stopped matching</a></li><li class="docs-nav-depth-3"><a href="#a-launcher-bundle-is-denied-after-update">A Launcher Bundle is
+selected</a></li><li class="docs-nav-depth-3"><a href="#an-environment-value-wins">An environment value wins</a></li><li class="docs-nav-depth-3"><a href="#fd-delivery-fails-before-the-consumer-starts">FD delivery fails
+before the consumer starts</a></li><li class="docs-nav-depth-3"><a href="#a-blessing-stopped-matching">A Blessing stopped matching</a></li><li class="docs-nav-depth-3"><a href="#a-launcher-bundle-is-denied-after-update">A Launcher Bundle is
 denied after update</a></li><li class="docs-nav-depth-3"><a href="#proxy-traffic-does-not-appear">Proxy traffic does not
 appear</a></li><li class="docs-nav-depth-3"><a href="#doctor-reports-healthy-but-the-workflow-fails">Doctor reports
 healthy but the workflow fails</a></li><li class="docs-nav-depth-3"><a href="#collecting-a-safe-diagnostic">Collecting a safe diagnostic</a></li><li class="docs-nav-depth-2"><a href="#source-of-truth">Source of truth</a></li></ul>
@@ -88,11 +89,24 @@ filesystem; the nearest match wins. Symlink spelling, repository remote,
 branch, and logical <code>$PWD</code> do not establish selection.
 History records the source chosen for the request.</p>
 <h3 id="an-environment-value-wins">An environment value wins</h3>
-<p><code>av inject</code> preserves an existing environment value by
-default and warns. Remove the export at its source, or use
-<code>--replace-existing-env</code> only after confirming that Automic
-Vault should override it. Do not suppress the warning without
+<p>Environment-mode <code>av inject</code> preserves an existing
+environment value by default and warns. Remove the export at its source,
+or use <code>--replace-existing-env</code> only after confirming that
+Automic Vault should override it. Do not suppress the warning without
 understanding which credential the Target would otherwise receive.</p>
+<p>FD mode instead removes the requested names from the environment,
+including existing values, and delivers the stored Values on the
+specified descriptors.</p>
+<h3 id="fd-delivery-fails-before-the-consumer-starts">FD delivery fails
+before the consumer starts</h3>
+<p>Check that each mapping names a distinct, unused descriptor of 3 or
+higher. <code>av</code> refuses to overwrite inherited descriptors. Pick
+unused numbers that the consumer supports. A Value that exceeds
+available pipe capacity also fails before Target execution, even if it
+fits the separate 1 MiB save limit.</p>
+<p>FD delivery requires fresh human Approval. A Direct Access Rule or
+Blessing does not bypass that prompt, and an FD-mode shebang is
+unsupported.</p>
 <h3 id="a-blessing-stopped-matching">A Blessing stopped matching</h3>
 <p>Path, file type, size, interpreter, declaration, and content all
 participate in the reviewed state. Compare the app's baseline with the
@@ -127,22 +141,28 @@ authorization artifacts into an issue.</p>
 href="https://www.automicvault.com/.well-known/security.txt">security.txt</a>
 instead of the public issue tracker.</p>
 <h2 id="source-of-truth">Source of truth</h2>
-<p>This manual was checked against the CLI parser, implementations, app
-UI, catalogs, tests, and canonical security documents for 3.16.0. For an
-installed build prefer <code>av --version</code>, <code>av help</code>,
+<p>The saving and FD delivery sections were checked against the 4.6.0
+source and tests. The linked v1 copy script was tested with disposable
+legacy Keychain fixtures and the actual save implementation using
+isolated test storage; it is not a full v1 upgrade test. UI screenshots
+come from 3.16.0. For your installed build, prefer
+<code>av --version</code>, <code>av help</code>,
 <code>av detectors --json</code>, and
 <code>av hardeners --json</code>.</p>
 <ul>
 <li><a
-href="https://github.com/automic-vault/automic-vault/blob/3.16.0/src/cli/mod.rs">CLI
+href="https://github.com/automic-vault/automic-vault/releases/tag/4.6.0">4.6.0
+release</a></li>
+<li><a
+href="https://github.com/automic-vault/automic-vault/blob/4.6.0/src/cli/mod.rs">CLI
 source</a></li>
 <li><a
-href="https://github.com/automic-vault/automic-vault/tree/3.16.0/src">App
+href="https://github.com/automic-vault/automic-vault/tree/4.6.0/src">App
 and CLI source</a></li>
 <li><a
-href="https://github.com/automic-vault/automic-vault/tree/3.16.0/src/detectors">Detectors</a></li>
+href="https://github.com/automic-vault/automic-vault/tree/4.6.0/src/detectors">Detectors</a></li>
 <li><a
-href="https://github.com/automic-vault/automic-vault/tree/3.16.0/src/isotopes">Hardeners</a></li>
+href="https://github.com/automic-vault/automic-vault/tree/4.6.0/src/isotopes">Hardeners</a></li>
 <li><a
 href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md">Domain
 Language</a></li>
@@ -155,7 +175,7 @@ tracker</a>.</p>
 <p class="docs-source-link"><a href="/docs/troubleshooting/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/troubleshooting/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/troubleshooting/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.6.0 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

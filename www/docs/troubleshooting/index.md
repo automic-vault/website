@@ -24,10 +24,23 @@ not establish selection. History records the source chosen for the request.
 
 ### An environment value wins
 
-`av inject` preserves an existing environment value by default and warns. Remove
+Environment-mode `av inject` preserves an existing environment value by default and warns. Remove
 the export at its source, or use `--replace-existing-env` only after confirming
 that Automic Vault should override it. Do not suppress the warning without
 understanding which credential the Target would otherwise receive.
+
+FD mode instead removes the requested names from the environment, including
+existing values, and delivers the stored Values on the specified descriptors.
+
+### FD delivery fails before the consumer starts
+
+Check that each mapping names a distinct, unused descriptor of 3 or higher.
+`av` refuses to overwrite inherited descriptors. Pick unused numbers that the
+consumer supports. A Value that exceeds available pipe capacity also fails
+before Target execution, even if it fits the separate 1 MiB save limit.
+
+FD delivery requires fresh human Approval. A Direct Access Rule or Blessing
+does not bypass that prompt, and an FD-mode shebang is unsupported.
 
 ### A Blessing stopped matching
 
@@ -69,15 +82,17 @@ the public issue tracker.
 
 ## Source of truth
 
-This manual was checked against the CLI parser, implementations, app UI,
-catalogs, tests, and canonical security documents for 3.16.0. For an installed
-build prefer `av --version`, `av help`, `av detectors --json`, and
-`av hardeners --json`.
+The saving and FD delivery sections were checked against the 4.6.0 source and
+tests. The linked v1 copy script was tested with disposable legacy Keychain
+fixtures and the actual save implementation using isolated test storage; it is
+not a full v1 upgrade test. UI screenshots come from 3.16.0. For your installed
+build, prefer `av --version`, `av help`, `av detectors --json`, and `av hardeners --json`.
 
-- [CLI source](https://github.com/automic-vault/automic-vault/blob/3.16.0/src/cli/mod.rs)
-- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/3.16.0/src)
-- [Detectors](https://github.com/automic-vault/automic-vault/tree/3.16.0/src/detectors)
-- [Hardeners](https://github.com/automic-vault/automic-vault/tree/3.16.0/src/isotopes)
+- [4.6.0 release](https://github.com/automic-vault/automic-vault/releases/tag/4.6.0)
+- [CLI source](https://github.com/automic-vault/automic-vault/blob/4.6.0/src/cli/mod.rs)
+- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/4.6.0/src)
+- [Detectors](https://github.com/automic-vault/automic-vault/tree/4.6.0/src/detectors)
+- [Hardeners](https://github.com/automic-vault/automic-vault/tree/4.6.0/src/isotopes)
 - [Domain Language](https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md)
 - [Architecture](https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md)
 
