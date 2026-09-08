@@ -5,8 +5,8 @@ The screenshots use a harmless sample Secret Name; stored Values remain hidden.
 ### Detectors
 
 Detectors inspect supported credential locations and configurations for
-**Exposures**, **Hazards**, and other security-relevant Findings. The catalog in
-3.16.0 contains 157 detectors. A selected detector explains its trigger
+**Exposures**, **Hazards**, and other security-relevant Findings. Run
+`av detectors --json` for the installed catalog. A selected detector explains its trigger
 conditions, sensitive files, current result, remediation, and source-linked
 rationale.
 
@@ -56,7 +56,8 @@ for `sudo`.
 
 **Limits and rollback.** Hardening protects the credential route, not the Tool's
 intent. A Tool can still disclose a Value after receiving it. Read each
-hardener's rollback notes. In 3.16.0, `av unharden` exists only for Homebrew.
+hardener's rollback notes. `av unharden` supports Homebrew; use the installed
+hardener documentation for other recovery procedures.
 
 ### Authorization Gates
 
@@ -151,7 +152,8 @@ authority without turning routine administration into Disclosure. Replace is a
 write-only operation: enter the new Value, but do not reveal the old one.
 
 **Workflow.** Search by Secret Name, verify the selected Value sources, inspect
-availability, and review Direct Secret Access. Use `av save` for terminal entry;
+availability, and review Direct Secret Access. Use `av save` for terminal entry,
+`--multiline` for hidden multiline input, or `--stdin` for exact redirected input;
 use the app to replace, delete, rename, or change availability. After renaming,
 recheck scripts, Gates, and integrations that requested the old name.
 

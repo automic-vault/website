@@ -12,22 +12,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Command reference — Automic Vault</title>
-  <meta name="description" content="Command reference for the Automic Vault 3.16.0 CLI.">
+  <meta name="description" content="Command reference for the Automic Vault 4.6.0 CLI.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Command reference">
-  <meta property="og:description" content="Command reference for the Automic Vault 3.16.0 CLI.">
+  <meta property="og:description" content="Command reference for the Automic Vault 4.6.0 CLI.">
   <meta property="og:url" content="https://www.automicvault.com/docs/cli/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Command reference">
-  <meta name="twitter:description" content="Command reference for the Automic Vault 3.16.0 CLI.">
+  <meta name="twitter:description" content="Command reference for the Automic Vault 4.6.0 CLI.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/cli/">
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/cli/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/cli/","headline":"Command reference","description":"Command reference for the Automic Vault 3.16.0 CLI.","dateModified":"2026-08-23","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "3.16.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/cli/","headline":"Command reference","description":"Command reference for the Automic Vault 4.6.0 CLI.","dateModified":"2026-09-08","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.6.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 3.16.0 · macOS</p><h1>Command reference</h1><p class="lede">The supported CLI surface, machine-readable catalogs, and exit behavior.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/cli/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.6.0 · macOS</p><h1>Command reference</h1><p class="lede">The supported CLI surface, machine-readable catalogs, and exit behavior.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/cli/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -74,9 +74,10 @@ av hardeners --json
 av bless [--endorse-launcher] &lt;path&gt;
 av inject +KEY... [--] &lt;command&gt;
 av inject -- &lt;command&gt;
+av inject --mode=fd +KEY:FD... -- &lt;command&gt;
 av proxy +KEY... [--] &lt;command&gt;
 av list
-av save [--project-directory=DIR] KEY
+av save [--multiline | --stdin] [--project-directory=DIR] KEY
 av harden &lt;tool&gt; [-y|--yes]
 av unharden brew [-y|--yes]
 av gpg-sign [GPG options]
@@ -85,7 +86,7 @@ av help
 av --version</code></pre>
 <p>Old v1 commands <code>install</code>, <code>contain</code>,
 <code>dotenv</code>, <code>credential-helper</code>, <code>gate</code>,
-and <code>trace</code> are not part of 3.16.0.</p>
+and <code>trace</code> are not part of 4.6.0.</p>
 <h3 id="av-scan"><code>av scan</code></h3>
 <pre class="sh"><code>av scan
 av scan --show-all
@@ -114,55 +115,69 @@ av hardeners --json |
   jq &#39;.hardeners[] | {
     name, applicable, hardened, commands, stub_path, target_path, secret_gate
   }&#39;</code></pre>
-<p>These are authoritative for the installed build. 3.16.0 ships 157
-detectors and 50 hardeners. The <code>documentation</code> field
-contains the source-checked behavior and security model. Generated
-environment wrappers warn that the Target can read injected credentials;
-dedicated/native routes may provide narrower boundaries.</p>
-<details>
-<summary>3.16.0 hardener names</summary>
-
-<p><code>akamai</code>, <code>algolia</code>, <code>argocd</code>,
-<code>ast-cli</code>, <code>aws</code>, <code>brew</code>,
-<code>buf</code>, <code>censys</code>, <code>checkov</code>,
-<code>circleci</code>, <code>civo</code>, <code>cloudsmith-cli</code>,
-<code>codex</code>, <code>composer</code>, <code>docker</code>,
-<code>doctl</code>, <code>flyctl</code>, <code>gh</code>,
-<code>glab</code>, <code>gotify</code>, <code>gptcommit</code>,
-<code>grafanactl</code>, <code>hcloud</code>, <code>heroku</code>,
-<code>huggingface-cli</code>, <code>jfrog-cli</code>, <code>k6</code>,
-<code>luarocks</code>, <code>minio-mc</code>, <code>netlify-cli</code>,
-<code>node</code>, <code>pnpm</code>, <code>pulumi</code>,
-<code>qwen-code</code>, <code>runpodctl</code>, <code>s3cmd</code>,
-<code>sentry-cli</code>, <code>snowflake-cli</code>, <code>snyk</code>,
-<code>stripe</code>, <code>sudo</code>, <code>supabase</code>,
-<code>transifex-cli</code>, <code>travis</code>, <code>twine</code>,
-<code>vagrant</code>, <code>vault</code>, <code>virustotal-cli</code>,
-<code>vultr</code>, <code>wsk</code>.</p>
-</details>
-
+<p>These are authoritative for the installed build. The
+<code>documentation</code> field contains the source-checked behavior
+and security model. Generated environment wrappers warn that the Target
+can read injected credentials; dedicated/native routes may provide
+narrower boundaries.</p>
+<p>See the <a href="/docs/hardeners/">hardener reference</a> for the
+rendered documentation.</p>
 <h3 id="av-save-and-av-list"><code>av save</code> and
 <code>av list</code></h3>
-<pre class="text"><code>av save [--project-directory DIR] KEY
-av save [--project-directory=DIR] KEY
+<pre class="text"><code>av save [--multiline | --stdin] [--project-directory DIR] KEY
+av save [--multiline | --stdin] [--project-directory=DIR] KEY
 av list
 av ls</code></pre>
 <p><code>list</code> shows names, never Values, and accepts no
-arguments. A pipeline does not provide a Value to <code>save</code>:</p>
-<pre class="sh"><code># Wrong: save reads /dev/tty, not stdin.
-printf &#39;%s\n&#39; &quot;$GH_TOKEN&quot; | av save GH_TOKEN</code></pre>
+arguments. <code>save</code> defaults to a hidden single line; select
+<code>--multiline</code> for hidden multiline entry or
+<code>--stdin</code> for exact redirected input. Both modes require
+import Approval:</p>
+<pre class="sh"><code>av save --multiline DEPLOY_PRIVATE_KEY
+av save --stdin --project-directory=. API_TOKEN &lt;&amp;3</code></pre>
+<p>The second example assumes a trusted producer has supplied readable
+FD 3. Input is nonempty UTF-8 without NUL bytes, at most 1 MiB. See <a
+href="/docs/authority/#saving-safely">saving safely</a> for EOF and
+replacement behavior.</p>
 <h3 id="av-inject"><code>av inject</code></h3>
 <pre class="text"><code>av inject [--replace-existing-env] [--allow-missing-keys] \
   +KEY [+KEY...] [--] COMMAND [args...]
-av inject -- COMMAND [args...]</code></pre>
+av inject -- COMMAND [args...]
+av inject --mode=fd +KEY:FD [+KEY:FD...] -- COMMAND [args...]</code></pre>
 <p>Bare commands resolve through PATH; a Target containing
-<code>/</code> must be absolute. Existing environment values win with a
+<code>/</code> must be absolute. In the default environment mode
+(<code>--mode=env</code>), existing environment values win with a
 warning unless <code>--replace-existing-env</code> is used. Missing
 requested Secrets fail unless <code>--allow-missing-keys</code> leaves
 them unset. Duplicate/invalid names and root are rejected. On success,
 <code>exec</code> replaces <code>av</code> with the Target. Legacy
 <code>--allow-existing-env</code>, <code>--force</code>,
 <code>--import</code>, and <code>--migrate</code> are rejected.</p>
+<h4 id="file-descriptor-delivery">File descriptor delivery</h4>
+<p>Available since 4.6.0:</p>
+<pre class="sh"><code>av inject --mode=fd +FOO:3 +BAR:4 -- /path/to/consumer</code></pre>
+<p>The consumer must read the indicated descriptors. Each Secret arrives
+through its own read-only anonymous pipe as exact stored UTF-8 bytes,
+then EOF. There is no bundle format, trimming, or added newline.
+Consumed bytes are not replayed. Automic Vault removes the requested
+Secret Names from the Target's environment, including existing values,
+and preserves stdin/stdout/stderr and unrelated environment entries.</p>
+<p>Every invocation requires fresh human Approval. Direct Access Rules,
+Blessings, Tool-specific policies, and Temporary Access Grants do not
+authorize FD delivery. Approval shows the mappings and selected Value
+sources; Authorization History records them before release. Update the
+app and CLI together: older apps reject this operation.</p>
+<p>Descriptors must be distinct, unused decimal integers of 3 or higher,
+without leading zeros. Every Secret requires a mapping. Duplicate names,
+missing Secrets, <code>--allow-missing-keys</code>,
+<code>--replace-existing-env</code>, and FD shebangs are rejected. If a
+Value exceeds available pipe capacity, the command fails before starting
+the Target; this ceiling can be smaller than the 1 MiB save limit.</p>
+<p>The Target can copy the bytes or pass descriptors to its children. FD
+delivery does not provide encrypted backup/recovery or restore
+whitespace lost during an earlier import. See the <a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/direct-secret-access.md#apply-secrets-through-file-descriptors">repository
+guide</a>.</p>
 <h4 id="shebang-and-blessing-workflow">Shebang and Blessing
 workflow</h4>
 <pre class="sh"><code>#!/usr/local/bin/av inject +GH_TOKEN /bin/sh
@@ -178,6 +193,10 @@ follows the shebang. Capabilities are ceilings, not grants. Execution
 uses a verified <code>/dev/fd/N</code> snapshot;
 <code>AV_SCRIPT_PATH</code> and <code>AV_SCRIPT_DIR</code> identify its
 canonical source.</p>
+<p>FD mode in an <code>av inject</code> shebang is currently
+unsupported. A Blessed Script can invoke
+<code>av inject --mode=fd</code> as a command, but each invocation still
+needs fresh human Approval.</p>
 <h3 id="av-proxy"><code>av proxy</code></h3>
 <pre class="text"><code>av proxy [--replace-existing-env] +KEY [+KEY...] [--] COMMAND [args...]</code></pre>
 <p>Every session needs Approval. The Target receives random session
@@ -233,7 +252,7 @@ top-level usage or invalid Doctor selection.</p>
 <p class="docs-source-link"><a href="/docs/cli/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/cli/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 3.16.0 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/cli/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.6.0 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

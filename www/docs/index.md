@@ -1,7 +1,9 @@
 # Automic Vault manual
 
-This is the user and operator manual for Automic Vault 3.16.0 on macOS. It was
-checked against the installed CLI, app UI, and 3.16.0 source on August 22, 2026.
+This is the user and operator manual for Automic Vault 4.6.0 on macOS. The
+multiline input, exact-input saving, and FD delivery sections were checked
+against the 4.6.0 source on September 8, 2026. UI screenshots show 3.16.0;
+use the installed build's help and catalogs for its current command surface.
 
 Automic Vault does more than store a Secret. It authorizes a complete operation:
 the Verified Launcher, Gate Client, Target, command and arguments, working
@@ -39,7 +41,9 @@ av save GH_TOKEN
 av inject +GH_TOKEN gh auth status
 ```
 
-`av save` opens `/dev/tty`, turns terminal echo off, and **does not read standard input**.
+`av save` defaults to hidden single-line terminal input. Since 4.6.0,
+`--multiline` accepts hidden multiline input and `--stdin` reads exact redirected
+input to EOF. See [saving safely](/docs/authority/#saving-safely).
 Do not remove the old credential until the approved command succeeds.
 For a Tool with a supplied hardener, prefer its Tool-specific flow:
 
