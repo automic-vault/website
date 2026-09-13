@@ -209,17 +209,19 @@ Do not widen every rule.
 
 **After 4.8.2:** `av history` reads the same local history
 through the signed CLI. It shows the newest 50 records by default; `--since 7d`
-requests a longer window. Each read requires Approval unless that exact
+selects a seven-day window. Each read requires Approval unless that exact
 Verified Launcher has Authorization History Access in its own Settings row.
 The `av list` grant does not apply. See the [CLI reference](/docs/cli/#av-history).
 An unverifiable Launcher cannot use the automatic grant and needs Approval.
 
 **Assurance boundary.** History is local and bounded. It is not append-only,
 tamper-proof, remotely replicated, or guaranteed to contain every event after an
-administrator changes local state. The post-4.8.2 rolling store holds
-separately encrypted rows in one SQLite file for up to 30 days or 25 MiB of
-encrypted payloads, whichever bound comes first. Older Keychain and
-UserDefaults copies remain after migration and can outlive those limits.
+administrator changes local state. The post-4.8.2 rolling store makes
+separately encrypted rows in one SQLite file available for up to 30 days or
+25 MiB of encrypted payloads, whichever bound comes first. Expired ciphertext
+may remain in a dormant database until the next read or write prunes it.
+Older Keychain and UserDefaults copies remain after migration and can outlive
+those limits.
 Export security evidence elsewhere when the audit requirement exceeds this
 local operator record.
 

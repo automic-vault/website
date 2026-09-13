@@ -423,16 +423,16 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             node.findtext("s:loc", namespaces=namespace): node.findtext("s:lastmod", namespaces=namespace)
             for node in sitemap.findall("s:url", namespace)
         }
-        self.assertEqual(lastmods["https://www.automicvault.com/docs/"], "2026-09-08")
+        self.assertEqual(lastmods["https://www.automicvault.com/docs/"], "2026-09-13")
         for route in ("security", "app", "authority", "cli", "troubleshooting", "hardeners"):
             self.assertEqual(
                 lastmods[f"https://www.automicvault.com/docs/{route}/"],
-                "2026-09-08",
+                "2026-09-13",
             )
-        self.assertEqual(lastmods["https://www.automicvault.com/docs/workflows/"], "2026-09-08")
-        self.assertEqual(lastmods["https://www.automicvault.com/docs/reentrant-scripts/"], "2026-09-02")
-        for url in ("https://www.automicvault.com/llms.txt", "https://www.automicvault.com/llms-full.txt"):
-            self.assertEqual(lastmods[url], "2026-09-08")
+        self.assertEqual(lastmods["https://www.automicvault.com/docs/workflows/"], "2026-09-13")
+        self.assertEqual(lastmods["https://www.automicvault.com/docs/reentrant-scripts/"], "2026-09-13")
+        self.assertEqual(lastmods["https://www.automicvault.com/llms.txt"], "2026-09-13")
+        self.assertEqual(lastmods["https://www.automicvault.com/llms-full.txt"], "2026-09-08")
         self.assertEqual(lastmods["https://www.automicvault.com/.well-known/security.txt"], "2026-07-28")
 
     def test_public_assets_and_frontend_files_are_referenced(self):
