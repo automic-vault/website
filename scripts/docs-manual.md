@@ -1,9 +1,10 @@
 # Automic Vault manual
 
-This is the user and operator manual for Automic Vault 4.6.0 on macOS. The
+This is the user and operator manual for Automic Vault 4.8.2 on macOS. The
 multiline input, exact-input saving, and FD delivery sections were checked
 against the 4.6.0 source on September 8, 2026. UI screenshots show 3.16.0;
 use the installed build's help and catalogs for its current command surface.
+The `av history` sections preview an unreleased draft PR.
 
 Automic Vault does more than store a Secret. It authorizes a complete operation:
 the Verified Launcher, Gate Client, Target, command and arguments, working
@@ -384,10 +385,21 @@ the **Decision source** and reason with current Gate policy. For a denial, fix t
 first mismatched invariant: Target, runtime, launcher, Value source, or operation.
 Do not widen every rule.
 
+**In development, not in 4.8.2:** `av history` reads the same local history
+through the signed CLI. It shows the newest 50 records by default; `--since 7d`
+requests a longer window. Each read requires Approval unless that exact
+Verified Launcher has Authorization History Access in its own Settings row.
+The `av list` grant does not apply. See the [CLI reference](/docs/cli/#av-history).
+An unverifiable Launcher is denied.
+
 **Assurance boundary.** History is local and bounded. It is not append-only,
 tamper-proof, remotely replicated, or guaranteed to contain every event after an
-administrator changes local state. Export security evidence elsewhere when the
-audit requirement exceeds this local operator record.
+administrator changes local state. The in-development rolling store holds
+separately encrypted rows in one SQLite file for up to 30 days or 25 MiB of
+encrypted payloads, whichever bound comes first. Older Keychain and
+UserDefaults copies remain after migration and can outlive those limits.
+Export security evidence elsewhere when the audit requirement exceeds this
+local operator record.
 
 ### Doctor
 
@@ -414,8 +426,9 @@ process on the Mac is healthy.
 
 Settings controls human Approval routes, feedback for automic authorization,
 retained launcher provenance, GPG Signing, `av list` policy, and version/runtime
-information. Each control changes a different boundary; enabling one does not
-implicitly enable another.
+information. The in-development build adds a separate `av history` grant. Each
+control changes a different boundary; enabling one does not implicitly enable
+another.
 
 Use Settings after reading the corresponding section below. Security-sensitive
 changes require Approval or system authentication where the control demands it.
@@ -538,6 +551,19 @@ require Approval.
 This capability lists Secret Names only. It does not read, change, apply, or
 disclose Values and grants no Direct Access. Remove an app when its listing use
 ends; a similarly named or newly signed app does not inherit the exact rule.
+
+### Authorization History Access (in development)
+
+An exact Verified Launcher may read local Authorization History with
+`av history` without an Approval prompt only after you add it to the separate
+Authorization History Access row in Settings. Other Verified Launchers require
+Approval for each read; unverifiable Launchers are denied. The grant exposes
+cumulative request metadata, including Secret
+Names and software identities, but never Secret Values. It does not permit
+`av list`, and a Secret Name Access grant does not permit `av history`.
+
+The Mac records each successful history read before returning records. Remove
+the Launcher from this row when it no longer needs unattended access.
 
 ### About and menu bar
 
@@ -669,7 +695,10 @@ av --version
 ```
 
 Old v1 commands `install`, `contain`, `dotenv`, `credential-helper`, `gate`, and
-`trace` are not part of 4.6.0.
+`trace` are not part of 4.8.2.
+
+The in-development build also adds `av history [--json] [--since <duration>]`.
+It is not available in the 4.8.2 release.
 
 ### `av scan`
 
@@ -739,6 +768,28 @@ av save --stdin --project-directory=. API_TOKEN <&3
 The second example assumes a trusted producer has supplied readable FD 3.
 Input is nonempty UTF-8 without NUL bytes, at most 1 MiB. See
 [saving safely](/docs/authority/#saving-safely) for EOF and replacement behavior.
+
+### `av history`
+
+This command is in development and is not part of the 4.8.2 release.
+
+```sh
+av history
+av history --since 7d --json
+```
+
+The default table shows the newest 50 Authorization Records. `--since` accepts
+a positive whole number followed by `s`, `m`, `h`, `d`, or `w`, up to 30 days;
+`--json` emits machine-readable records with display-safe commands. The Mac
+filters the window before disclosure. A reply over 1 MiB fails instead of
+dropping records, so request a narrower window. The successful read appears
+in its own result.
+
+Each invocation requires Approval unless the exact Verified Launcher has
+Authorization History Access in Settings. This grant is independent of
+`av list`'s Secret Name Access. An unverifiable Launcher is denied. History
+contains request metadata and Secret
+Names, never Secret Values; it is not a tamper-proof audit trail.
 
 ### `av inject`
 
@@ -1472,16 +1523,17 @@ the public issue tracker.
 ## Source of truth
 
 The saving and FD delivery sections were checked against the 4.6.0 source and
-tests. The linked v1 copy script was tested with disposable legacy Keychain
+tests. The `av history` sections describe an [unreleased draft PR](https://github.com/automic-vault/automic-vault/pull/339), not 4.8.2.
+The linked v1 copy script was tested with disposable legacy Keychain
 fixtures and the actual save implementation using isolated test storage; it is
 not a full v1 upgrade test. UI screenshots come from 3.16.0. For your installed
 build, prefer `av --version`, `av help`, `av detectors --json`, and `av hardeners --json`.
 
-- [4.6.0 release](https://github.com/automic-vault/automic-vault/releases/tag/4.6.0)
-- [CLI source](https://github.com/automic-vault/automic-vault/blob/4.6.0/src/cli/mod.rs)
-- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/4.6.0/src)
-- [Detectors](https://github.com/automic-vault/automic-vault/tree/4.6.0/src/detectors)
-- [Hardeners](https://github.com/automic-vault/automic-vault/tree/4.6.0/src/isotopes)
+- [4.8.2 release](https://github.com/automic-vault/automic-vault/releases/tag/4.8.2)
+- [CLI source](https://github.com/automic-vault/automic-vault/blob/4.8.2/src/cli/mod.rs)
+- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/4.8.2/src)
+- [Detectors](https://github.com/automic-vault/automic-vault/tree/4.8.2/src/detectors)
+- [Hardeners](https://github.com/automic-vault/automic-vault/tree/4.8.2/src/isotopes)
 - [Domain Language](https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md)
 - [Architecture](https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md)
 

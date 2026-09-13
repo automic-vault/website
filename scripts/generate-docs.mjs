@@ -80,7 +80,7 @@ const pages = [
     description: "Common Automic Vault workflows for protected developer credentials.",
     start: "## Common workflows",
     end: "## Reentrant Blessed Scripts",
-    dateModified: "2026-09-08",
+    dateModified: "2026-09-13",
   },
   {
     slug: "reentrant-scripts",
@@ -89,7 +89,7 @@ const pages = [
     description: "How to design reentrant Automic Vault Blessed Scripts for agent handoffs, least authority, Secret safety, and resumable operations.",
     start: "## Reentrant Blessed Scripts",
     end: "## Troubleshooting",
-    dateModified: "2026-09-02",
+    dateModified: "2026-09-13",
   },
   {
     slug: "troubleshooting",
@@ -176,7 +176,7 @@ ${headings ? `          <section class="docs-nav-group">
         </nav>`;
 }
 
-function htmlPage({ slug, title, lede, description, markdown, dateModified = "2026-09-08" }) {
+function htmlPage({ slug, title, lede, description, markdown, dateModified = "2026-09-13" }) {
   const pageRoute = route(slug);
   const markdownRoute = `${pageRoute}index.md`;
   const article = renderMarkdown(markdown);

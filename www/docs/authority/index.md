@@ -117,6 +117,19 @@ This capability lists Secret Names only. It does not read, change, apply, or
 disclose Values and grants no Direct Access. Remove an app when its listing use
 ends; a similarly named or newly signed app does not inherit the exact rule.
 
+### Authorization History Access (in development)
+
+An exact Verified Launcher may read local Authorization History with
+`av history` without an Approval prompt only after you add it to the separate
+Authorization History Access row in Settings. Other Verified Launchers require
+Approval for each read; unverifiable Launchers are denied. The grant exposes
+cumulative request metadata, including Secret
+Names and software identities, but never Secret Values. It does not permit
+`av list`, and a Secret Name Access grant does not permit `av history`.
+
+The Mac records each successful history read before returning records. Remove
+the Launcher from this row when it no longer needs unattended access.
+
 ### About and menu bar
 
 About reports the running version and GUI PATH captured before shell startup.

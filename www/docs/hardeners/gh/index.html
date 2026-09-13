@@ -12,22 +12,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>GitHub CLI hardener — Automic Vault</title>
-  <meta name="description" content="How Automic Vault 4.6.0 hardens GitHub CLI.">
+  <meta name="description" content="How Automic Vault 4.8.2 hardens GitHub CLI.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="GitHub CLI hardener">
-  <meta property="og:description" content="How Automic Vault 4.6.0 hardens GitHub CLI.">
+  <meta property="og:description" content="How Automic Vault 4.8.2 hardens GitHub CLI.">
   <meta property="og:url" content="https://www.automicvault.com/docs/hardeners/gh/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="GitHub CLI hardener">
-  <meta name="twitter:description" content="How Automic Vault 4.6.0 hardens GitHub CLI.">
+  <meta name="twitter:description" content="How Automic Vault 4.8.2 hardens GitHub CLI.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/hardeners/gh/">
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/hardeners/gh/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/gh/","headline":"GitHub CLI hardener","description":"How Automic Vault 4.6.0 hardens GitHub CLI.","dateModified":"2026-09-08","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.6.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/gh/","headline":"GitHub CLI hardener","description":"How Automic Vault 4.8.2 hardens GitHub CLI.","dateModified":"2026-09-13","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.8.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.6.0 · macOS</p><h1>GitHub CLI hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the gh hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/hardeners/gh/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.8.2 · macOS</p><h1>GitHub CLI hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the gh hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/hardeners/gh/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -104,7 +104,15 @@ and <code>gh api</code> GET requests. Local Write also authorizes
 <code>gist clone</code>, and download commands, which can change local
 files but do not mutate GitHub. Write Access authorizes recognized
 remote writes, but Secret Disclosure through <code>gh auth token</code>
-or <code>gh auth status --show-token</code> still requires approval.</p>
+or <code>gh auth status --show-token</code> still requires Approval. The
+gate also classifies the entire <code>gh auth git-credential</code>
+command family as Secret Disclosure, including <code>get</code>,
+<code>store</code>, <code>erase</code>, and future protocol operations.
+Full Access includes recognized Secret Disclosure. In-process aliases,
+unrecognized commands, and argument forms the gate cannot classify
+require Approval at every Access Level because they may disclose the
+token. Ordinary recognized read and write commands retain their Access
+Levels.</p>
 <h2 id="details">Details</h2>
 <ul>
 <li>The migration covers standard <code>hosts.yml</code> token entries
@@ -130,7 +138,7 @@ still require an unlocked Mac.</p>
 <p class="docs-source-link"><a href="/docs/hardeners/gh/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/gh/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.6.0 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/gh/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.8.2 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

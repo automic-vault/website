@@ -21,7 +21,10 @@ av --version
 ```
 
 Old v1 commands `install`, `contain`, `dotenv`, `credential-helper`, `gate`, and
-`trace` are not part of 4.6.0.
+`trace` are not part of 4.8.2.
+
+The in-development build also adds `av history [--json] [--since <duration>]`.
+It is not available in the 4.8.2 release.
 
 ### `av scan`
 
@@ -91,6 +94,28 @@ av save --stdin --project-directory=. API_TOKEN <&3
 The second example assumes a trusted producer has supplied readable FD 3.
 Input is nonempty UTF-8 without NUL bytes, at most 1 MiB. See
 [saving safely](/docs/authority/#saving-safely) for EOF and replacement behavior.
+
+### `av history`
+
+This command is in development and is not part of the 4.8.2 release.
+
+```sh
+av history
+av history --since 7d --json
+```
+
+The default table shows the newest 50 Authorization Records. `--since` accepts
+a positive whole number followed by `s`, `m`, `h`, `d`, or `w`, up to 30 days;
+`--json` emits machine-readable records with display-safe commands. The Mac
+filters the window before disclosure. A reply over 1 MiB fails instead of
+dropping records, so request a narrower window. The successful read appears
+in its own result.
+
+Each invocation requires Approval unless the exact Verified Launcher has
+Authorization History Access in Settings. This grant is independent of
+`av list`'s Secret Name Access. An unverifiable Launcher is denied. History
+contains request metadata and Secret
+Names, never Secret Values; it is not a tamper-proof audit trail.
 
 ### `av inject`
 
