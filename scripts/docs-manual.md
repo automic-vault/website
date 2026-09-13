@@ -4,7 +4,7 @@ This is the user and operator manual for Automic Vault 4.8.2 on macOS. The
 multiline input, exact-input saving, and FD delivery sections were checked
 against the 4.6.0 source on September 8, 2026. UI screenshots show 3.16.0;
 use the installed build's help and catalogs for its current command surface.
-The `av history` sections preview an unreleased draft PR.
+The `av history` sections describe code merged after 4.8.2, not that release.
 
 Automic Vault does more than store a Secret. It authorizes a complete operation:
 the Verified Launcher, Gate Client, Target, command and arguments, working
@@ -385,7 +385,7 @@ the **Decision source** and reason with current Gate policy. For a denial, fix t
 first mismatched invariant: Target, runtime, launcher, Value source, or operation.
 Do not widen every rule.
 
-**In development, not in 4.8.2:** `av history` reads the same local history
+**After 4.8.2:** `av history` reads the same local history
 through the signed CLI. It shows the newest 50 records by default; `--since 7d`
 requests a longer window. Each read requires Approval unless that exact
 Verified Launcher has Authorization History Access in its own Settings row.
@@ -394,7 +394,7 @@ An unverifiable Launcher is denied.
 
 **Assurance boundary.** History is local and bounded. It is not append-only,
 tamper-proof, remotely replicated, or guaranteed to contain every event after an
-administrator changes local state. The in-development rolling store holds
+administrator changes local state. The post-4.8.2 rolling store holds
 separately encrypted rows in one SQLite file for up to 30 days or 25 MiB of
 encrypted payloads, whichever bound comes first. Older Keychain and
 UserDefaults copies remain after migration and can outlive those limits.
@@ -426,7 +426,7 @@ process on the Mac is healthy.
 
 Settings controls human Approval routes, feedback for automic authorization,
 retained launcher provenance, GPG Signing, `av list` policy, and version/runtime
-information. The in-development build adds a separate `av history` grant. Each
+information. The post-4.8.2 build adds a separate `av history` grant. Each
 control changes a different boundary; enabling one does not implicitly enable
 another.
 
@@ -552,7 +552,9 @@ This capability lists Secret Names only. It does not read, change, apply, or
 disclose Values and grants no Direct Access. Remove an app when its listing use
 ends; a similarly named or newly signed app does not inherit the exact rule.
 
-### Authorization History Access (in development)
+### Authorization History Access
+
+This grant was added after 4.8.2 and is not in that release.
 
 An exact Verified Launcher may read local Authorization History with
 `av history` without an Approval prompt only after you add it to the separate
@@ -697,7 +699,7 @@ av --version
 Old v1 commands `install`, `contain`, `dotenv`, `credential-helper`, `gate`, and
 `trace` are not part of 4.8.2.
 
-The in-development build also adds `av history [--json] [--since <duration>]`.
+The source after 4.8.2 also adds `av history [--json] [--since <duration>]`.
 It is not available in the 4.8.2 release.
 
 ### `av scan`
@@ -771,7 +773,7 @@ Input is nonempty UTF-8 without NUL bytes, at most 1 MiB. See
 
 ### `av history`
 
-This command is in development and is not part of the 4.8.2 release.
+This command was merged after 4.8.2 and is not part of that release.
 
 ```sh
 av history
@@ -1523,7 +1525,7 @@ the public issue tracker.
 ## Source of truth
 
 The saving and FD delivery sections were checked against the 4.6.0 source and
-tests. The `av history` sections describe an [unreleased draft PR](https://github.com/automic-vault/automic-vault/pull/339), not 4.8.2.
+tests. The `av history` sections describe a [merged PR](https://github.com/automic-vault/automic-vault/pull/339), not 4.8.2.
 The linked v1 copy script was tested with disposable legacy Keychain
 fixtures and the actual save implementation using isolated test storage; it is
 not a full v1 upgrade test. UI screenshots come from 3.16.0. For your installed

@@ -4,7 +4,7 @@ This is the user and operator manual for Automic Vault 4.8.2 on macOS. The
 multiline input, exact-input saving, and FD delivery sections were checked
 against the 4.6.0 source on September 8, 2026. UI screenshots show 3.16.0;
 use the installed build's help and catalogs for its current command surface.
-The `av history` sections preview an unreleased draft PR.
+The `av history` sections describe code merged after 4.8.2, not that release.
 
 Automic Vault does more than store a Secret. It authorizes a complete operation:
 the Verified Launcher, Gate Client, Target, command and arguments, working

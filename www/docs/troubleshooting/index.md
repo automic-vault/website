@@ -83,7 +83,7 @@ the public issue tracker.
 ## Source of truth
 
 The saving and FD delivery sections were checked against the 4.6.0 source and
-tests. The `av history` sections describe an [unreleased draft PR](https://github.com/automic-vault/automic-vault/pull/339), not 4.8.2.
+tests. The `av history` sections describe a [merged PR](https://github.com/automic-vault/automic-vault/pull/339), not 4.8.2.
 The linked v1 copy script was tested with disposable legacy Keychain
 fixtures and the actual save implementation using isolated test storage; it is
 not a full v1 upgrade test. UI screenshots come from 3.16.0. For your installed

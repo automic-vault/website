@@ -117,7 +117,9 @@ This capability lists Secret Names only. It does not read, change, apply, or
 disclose Values and grants no Direct Access. Remove an app when its listing use
 ends; a similarly named or newly signed app does not inherit the exact rule.
 
-### Authorization History Access (in development)
+### Authorization History Access
+
+This grant was added after 4.8.2 and is not in that release.
 
 An exact Verified Launcher may read local Authorization History with
 `av history` without an Approval prompt only after you add it to the separate

@@ -23,7 +23,7 @@ av --version
 Old v1 commands `install`, `contain`, `dotenv`, `credential-helper`, `gate`, and
 `trace` are not part of 4.8.2.
 
-The in-development build also adds `av history [--json] [--since <duration>]`.
+The source after 4.8.2 also adds `av history [--json] [--since <duration>]`.
 It is not available in the 4.8.2 release.
 
 ### `av scan`
@@ -97,7 +97,7 @@ Input is nonempty UTF-8 without NUL bytes, at most 1 MiB. See
 
 ### `av history`
 
-This command is in development and is not part of the 4.8.2 release.
+This command was merged after 4.8.2 and is not part of that release.
 
 ```sh
 av history

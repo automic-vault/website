@@ -207,7 +207,7 @@ the **Decision source** and reason with current Gate policy. For a denial, fix t
 first mismatched invariant: Target, runtime, launcher, Value source, or operation.
 Do not widen every rule.
 
-**In development, not in 4.8.2:** `av history` reads the same local history
+**After 4.8.2:** `av history` reads the same local history
 through the signed CLI. It shows the newest 50 records by default; `--since 7d`
 requests a longer window. Each read requires Approval unless that exact
 Verified Launcher has Authorization History Access in its own Settings row.
@@ -216,7 +216,7 @@ An unverifiable Launcher is denied.
 
 **Assurance boundary.** History is local and bounded. It is not append-only,
 tamper-proof, remotely replicated, or guaranteed to contain every event after an
-administrator changes local state. The in-development rolling store holds
+administrator changes local state. The post-4.8.2 rolling store holds
 separately encrypted rows in one SQLite file for up to 30 days or 25 MiB of
 encrypted payloads, whichever bound comes first. Older Keychain and
 UserDefaults copies remain after migration and can outlive those limits.
@@ -248,7 +248,7 @@ process on the Mac is healthy.
 
 Settings controls human Approval routes, feedback for automic authorization,
 retained launcher provenance, GPG Signing, `av list` policy, and version/runtime
-information. The in-development build adds a separate `av history` grant. Each
+information. The post-4.8.2 build adds a separate `av history` grant. Each
 control changes a different boundary; enabling one does not implicitly enable
 another.
 
