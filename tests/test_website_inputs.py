@@ -432,7 +432,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertEqual(lastmods["https://www.automicvault.com/docs/workflows/"], "2026-09-13")
         self.assertEqual(lastmods["https://www.automicvault.com/docs/reentrant-scripts/"], "2026-09-13")
         self.assertEqual(lastmods["https://www.automicvault.com/llms.txt"], "2026-09-13")
-        self.assertEqual(lastmods["https://www.automicvault.com/llms-full.txt"], "2026-09-08")
+        self.assertEqual(lastmods["https://www.automicvault.com/llms-full.txt"], "2026-09-13")
         self.assertEqual(lastmods["https://www.automicvault.com/.well-known/security.txt"], "2026-07-28")
 
     def test_public_assets_and_frontend_files_are_referenced(self):

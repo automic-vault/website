@@ -142,12 +142,14 @@ href="https://www.automicvault.com/.well-known/security.txt">security.txt</a>
 instead of the public issue tracker.</p>
 <h2 id="source-of-truth">Source of truth</h2>
 <p>The saving and FD delivery sections were checked against the 4.6.0
-source and tests. The <code>av history</code> sections describe a <a
-href="https://github.com/automic-vault/automic-vault/pull/339">merged
-PR</a>, not 4.8.2. The linked v1 copy script was tested with disposable
-legacy Keychain fixtures and the actual save implementation using
-isolated test storage; it is not a full v1 upgrade test. UI screenshots
-come from 3.16.0. For your installed build, prefer
+source and tests. The <code>av history</code> command came from <a
+href="https://github.com/automic-vault/automic-vault/pull/338">PR
+#338</a>, and rolling retention and <code>--since</code> came from <a
+href="https://github.com/automic-vault/automic-vault/pull/339">PR
+#339</a>. Neither is part of 4.8.2. The linked v1 copy script was tested
+with disposable legacy Keychain fixtures and the actual save
+implementation using isolated test storage; it is not a full v1 upgrade
+test. UI screenshots come from 3.16.0. For your installed build, prefer
 <code>av --version</code>, <code>av help</code>,
 <code>av detectors --json</code>, and
 <code>av hardeners --json</code>.</p>

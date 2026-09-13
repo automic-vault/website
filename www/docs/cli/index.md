@@ -98,6 +98,7 @@ Input is nonempty UTF-8 without NUL bytes, at most 1 MiB. See
 ### `av history`
 
 This command was merged after 4.8.2 and is not part of that release.
+The menu bar app must be running; use `av open` before reading history.
 
 ```sh
 av history

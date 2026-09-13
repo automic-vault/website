@@ -776,6 +776,7 @@ Input is nonempty UTF-8 without NUL bytes, at most 1 MiB. See
 ### `av history`
 
 This command was merged after 4.8.2 and is not part of that release.
+The menu bar app must be running; use `av open` before reading history.
 
 ```sh
 av history
@@ -1527,7 +1528,9 @@ the public issue tracker.
 ## Source of truth
 
 The saving and FD delivery sections were checked against the 4.6.0 source and
-tests. The `av history` sections describe a [merged PR](https://github.com/automic-vault/automic-vault/pull/339), not 4.8.2.
+tests. The `av history` command came from [PR #338](https://github.com/automic-vault/automic-vault/pull/338),
+and rolling retention and `--since` came from [PR #339](https://github.com/automic-vault/automic-vault/pull/339).
+Neither is part of 4.8.2.
 The linked v1 copy script was tested with disposable legacy Keychain
 fixtures and the actual save implementation using isolated test storage; it is
 not a full v1 upgrade test. UI screenshots come from 3.16.0. For your installed

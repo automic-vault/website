@@ -820,7 +820,7 @@ def render_sitemap(records: list[dict[str, Any]], locales: list[Locale]) -> str:
         ("https://www.automicvault.com/blog/prevent-bitwarden-cli-npm-compromise/", "2026-04-23"),
         ("https://www.automicvault.com/blog/prevent-litellm-pypi-compromise/", "2026-03-25"),
         ("https://www.automicvault.com/llms.txt", "2026-09-13"),
-        ("https://www.automicvault.com/llms-full.txt", "2026-09-08"),
+        ("https://www.automicvault.com/llms-full.txt", "2026-09-13"),
         ("https://www.automicvault.com/.well-known/security.txt", "2026-07-28"),
     ]
     entries.extend(sitemap_entry(loc, lastmod, None, locales) for loc, lastmod in preserved)
