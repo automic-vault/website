@@ -124,9 +124,9 @@ This grant was added after 4.8.2 and is not in that release.
 An exact Verified Launcher may read local Authorization History with
 `av history` without an Approval prompt only after you add it to the separate
 Authorization History Access row in Settings. Other Verified Launchers require
-Approval for each read; unverifiable Launchers are denied. The grant exposes
-cumulative request metadata, including Secret
-Names and software identities, but never Secret Values. It does not permit
+Approval for each read; unverifiable Launchers also need Approval. The grant
+exposes cumulative request metadata, including Secret Names and software
+identities, but never Secret Values. It does not permit
 `av list`, and a Secret Name Access grant does not permit `av history`.
 
 The Mac records each successful history read before returning records. Remove

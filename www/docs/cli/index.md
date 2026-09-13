@@ -113,7 +113,7 @@ in its own result.
 
 Each invocation requires Approval unless the exact Verified Launcher has
 Authorization History Access in Settings. This grant is independent of
-`av list`'s Secret Name Access. An unverifiable Launcher is denied. History
+`av list`'s Secret Name Access. An unverifiable Launcher needs Approval. History
 contains request metadata and Secret
 Names, never Secret Values; it is not a tamper-proof audit trail.
 

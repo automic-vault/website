@@ -212,7 +212,7 @@ through the signed CLI. It shows the newest 50 records by default; `--since 7d`
 requests a longer window. Each read requires Approval unless that exact
 Verified Launcher has Authorization History Access in its own Settings row.
 The `av list` grant does not apply. See the [CLI reference](/docs/cli/#av-history).
-An unverifiable Launcher is denied.
+An unverifiable Launcher cannot use the automatic grant and needs Approval.
 
 **Assurance boundary.** History is local and bounded. It is not append-only,
 tamper-proof, remotely replicated, or guaranteed to contain every event after an

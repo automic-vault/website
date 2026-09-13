@@ -158,8 +158,8 @@ its own result.</p>
 <p>Each invocation requires Approval unless the exact Verified Launcher
 has Authorization History Access in Settings. This grant is independent
 of <code>av list</code>'s Secret Name Access. An unverifiable Launcher
-is denied. History contains request metadata and Secret Names, never
-Secret Values; it is not a tamper-proof audit trail.</p>
+needs Approval. History contains request metadata and Secret Names,
+never Secret Values; it is not a tamper-proof audit trail.</p>
 <h3 id="av-inject"><code>av inject</code></h3>
 <pre class="text"><code>av inject [--replace-existing-env] [--allow-missing-keys] \
   +KEY [+KEY...] [--] COMMAND [args...]

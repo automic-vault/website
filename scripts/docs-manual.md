@@ -390,7 +390,7 @@ through the signed CLI. It shows the newest 50 records by default; `--since 7d`
 requests a longer window. Each read requires Approval unless that exact
 Verified Launcher has Authorization History Access in its own Settings row.
 The `av list` grant does not apply. See the [CLI reference](/docs/cli/#av-history).
-An unverifiable Launcher is denied.
+An unverifiable Launcher cannot use the automatic grant and needs Approval.
 
 **Assurance boundary.** History is local and bounded. It is not append-only,
 tamper-proof, remotely replicated, or guaranteed to contain every event after an
@@ -559,9 +559,9 @@ This grant was added after 4.8.2 and is not in that release.
 An exact Verified Launcher may read local Authorization History with
 `av history` without an Approval prompt only after you add it to the separate
 Authorization History Access row in Settings. Other Verified Launchers require
-Approval for each read; unverifiable Launchers are denied. The grant exposes
-cumulative request metadata, including Secret
-Names and software identities, but never Secret Values. It does not permit
+Approval for each read; unverifiable Launchers also need Approval. The grant
+exposes cumulative request metadata, including Secret Names and software
+identities, but never Secret Values. It does not permit
 `av list`, and a Secret Name Access grant does not permit `av history`.
 
 The Mac records each successful history read before returning records. Remove
@@ -789,7 +789,7 @@ in its own result.
 
 Each invocation requires Approval unless the exact Verified Launcher has
 Authorization History Access in Settings. This grant is independent of
-`av list`'s Secret Name Access. An unverifiable Launcher is denied. History
+`av list`'s Secret Name Access. An unverifiable Launcher needs Approval. History
 contains request metadata and Secret
 Names, never Secret Values; it is not a tamper-proof audit trail.
 
