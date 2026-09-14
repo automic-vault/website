@@ -27,7 +27,7 @@
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/authority/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/authority/","headline":"Approval, authority, and secrets","description":"Automic Vault Approval, authorization, Secret Values, and Access Levels.","dateModified":"2026-09-08","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.6.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/authority/","headline":"Approval, authority, and secrets","description":"Automic Vault Approval, authorization, Secret Values, and Access Levels.","dateModified":"2026-09-13","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.8.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.6.0 · macOS</p><h1>Approval, authority, and secrets</h1><p class="lede">Approval routes, temporary authority, Secret Value selection, and Access Levels.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/authority/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.8.2 · macOS</p><h1>Approval, authority, and secrets</h1><p class="lede">Approval routes, temporary authority, Secret Value selection, and Access Levels.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/authority/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -60,7 +60,7 @@
           <section class="docs-nav-group">
             <h2>On this page</h2>
             <ul><li class="docs-nav-depth-2"><a href="#approval-and-authority">Approval and authority</a></li><li class="docs-nav-depth-3"><a href="#touch-id-approval">Touch ID Approval</a></li><li class="docs-nav-depth-3"><a href="#iphone-approval">iPhone Approval</a></li><li class="docs-nav-depth-3"><a href="#automic-authorization-feedback">Automic Authorization
-feedback</a></li><li class="docs-nav-depth-3"><a href="#temporary-access-grants">Temporary Access Grants</a></li><li class="docs-nav-depth-3"><a href="#detached-processes">Detached Processes</a></li><li class="docs-nav-depth-3"><a href="#gpg-signing">GPG Signing</a></li><li class="docs-nav-depth-3"><a href="#secret-name-access">Secret Name Access</a></li><li class="docs-nav-depth-3"><a href="#about-and-menu-bar">About and menu bar</a></li><li class="docs-nav-depth-2"><a href="#secrets-values-and-selection">Secrets, Values, and
+feedback</a></li><li class="docs-nav-depth-3"><a href="#temporary-access-grants">Temporary Access Grants</a></li><li class="docs-nav-depth-3"><a href="#detached-processes">Detached Processes</a></li><li class="docs-nav-depth-3"><a href="#gpg-signing">GPG Signing</a></li><li class="docs-nav-depth-3"><a href="#secret-name-access">Secret Name Access</a></li><li class="docs-nav-depth-3"><a href="#authorization-history-access">Authorization History Access</a></li><li class="docs-nav-depth-3"><a href="#about-and-menu-bar">About and menu bar</a></li><li class="docs-nav-depth-2"><a href="#secrets-values-and-selection">Secrets, Values, and
 selection</a></li><li class="docs-nav-depth-3"><a href="#saving-safely">Saving safely</a></li><li class="docs-nav-depth-3"><a href="#value-selection">Value selection</a></li><li class="docs-nav-depth-3"><a href="#availability">Availability</a></li><li class="docs-nav-depth-3"><a href="#direct-secret-access">Direct Secret Access</a></li><li class="docs-nav-depth-2"><a href="#access-levels">Access Levels</a></li></ul>
           </section>
         </nav>
@@ -174,6 +174,19 @@ alt="Secret Name Access with two exact verified apps allowed to run av list" /><
 apply, or disclose Values and grants no Direct Access. Remove an app
 when its listing use ends; a similarly named or newly signed app does
 not inherit the exact rule.</p>
+<h3 id="authorization-history-access">Authorization History Access</h3>
+<p>This grant was added after 4.8.2 and is not in that release.</p>
+<p>An exact Verified Launcher may read local Authorization History with
+<code>av history</code> without an Approval prompt only after you add it
+to the separate Authorization History Access row in Settings. Other
+Verified Launchers require Approval for each read; unverifiable
+Launchers also need Approval. The grant exposes cumulative request
+metadata, including Secret Names and software identities, but never
+Secret Values. It does not permit <code>av list</code>, and a Secret
+Name Access grant does not permit <code>av history</code>.</p>
+<p>The Mac records each successful history read before returning
+records. Remove the Launcher from this row when it no longer needs
+unattended access.</p>
 <h3 id="about-and-menu-bar">About and menu bar</h3>
 <p>About reports the running version and GUI PATH captured before shell
 startup. Use both when diagnosing a mismatch between the app and an
@@ -300,7 +313,7 @@ Required.</p>
 <p class="docs-source-link"><a href="/docs/authority/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/authority/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.6.0 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/authority/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.8.2 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

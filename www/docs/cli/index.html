@@ -12,22 +12,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Command reference — Automic Vault</title>
-  <meta name="description" content="Command reference for the Automic Vault 4.6.0 CLI.">
+  <meta name="description" content="Command reference for the Automic Vault 4.8.2 CLI.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Command reference">
-  <meta property="og:description" content="Command reference for the Automic Vault 4.6.0 CLI.">
+  <meta property="og:description" content="Command reference for the Automic Vault 4.8.2 CLI.">
   <meta property="og:url" content="https://www.automicvault.com/docs/cli/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Command reference">
-  <meta name="twitter:description" content="Command reference for the Automic Vault 4.6.0 CLI.">
+  <meta name="twitter:description" content="Command reference for the Automic Vault 4.8.2 CLI.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/cli/">
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/cli/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/cli/","headline":"Command reference","description":"Command reference for the Automic Vault 4.6.0 CLI.","dateModified":"2026-09-08","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.6.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/cli/","headline":"Command reference","description":"Command reference for the Automic Vault 4.8.2 CLI.","dateModified":"2026-09-13","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.8.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.6.0 · macOS</p><h1>Command reference</h1><p class="lede">The supported CLI surface, machine-readable catalogs, and exit behavior.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="/docs/cli/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.8.2 · macOS</p><h1>Command reference</h1><p class="lede">The supported CLI surface, machine-readable catalogs, and exit behavior.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/cli/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -60,7 +60,7 @@
           <section class="docs-nav-group">
             <h2>On this page</h2>
             <ul><li class="docs-nav-depth-3"><a href="#av-scan"><code>av scan</code></a></li><li class="docs-nav-depth-3"><a href="#av-doctor"><code>av doctor</code></a></li><li class="docs-nav-depth-3"><a href="#machine-readable-catalogs">Machine-readable catalogs</a></li><li class="docs-nav-depth-3"><a href="#av-save-and-av-list"><code>av save</code> and
-<code>av list</code></a></li><li class="docs-nav-depth-3"><a href="#av-inject"><code>av inject</code></a></li><li class="docs-nav-depth-3"><a href="#av-proxy"><code>av proxy</code></a></li><li class="docs-nav-depth-3"><a href="#av-bless"><code>av bless</code></a></li><li class="docs-nav-depth-3"><a href="#av-harden-and-av-unharden-brew"><code>av harden</code> and
+<code>av list</code></a></li><li class="docs-nav-depth-3"><a href="#av-history"><code>av history</code></a></li><li class="docs-nav-depth-3"><a href="#av-inject"><code>av inject</code></a></li><li class="docs-nav-depth-3"><a href="#av-proxy"><code>av proxy</code></a></li><li class="docs-nav-depth-3"><a href="#av-bless"><code>av bless</code></a></li><li class="docs-nav-depth-3"><a href="#av-harden-and-av-unharden-brew"><code>av harden</code> and
 <code>av unharden brew</code></a></li><li class="docs-nav-depth-3"><a href="#av-gpg-sign-and-av-open"><code>av gpg-sign</code> and
 <code>av open</code></a></li><li class="docs-nav-depth-3"><a href="#global-behavior-and-exit-status">Global behavior and exit
 status</a></li></ul>
@@ -86,7 +86,10 @@ av help
 av --version</code></pre>
 <p>Old v1 commands <code>install</code>, <code>contain</code>,
 <code>dotenv</code>, <code>credential-helper</code>, <code>gate</code>,
-and <code>trace</code> are not part of 4.6.0.</p>
+and <code>trace</code> are not part of 4.8.2.</p>
+<p>The source after 4.8.2 also adds
+<code>av history [--json] [--since &lt;duration&gt;]</code>. It is not
+available in the 4.8.2 release.</p>
 <h3 id="av-scan"><code>av scan</code></h3>
 <pre class="sh"><code>av scan
 av scan --show-all
@@ -139,6 +142,25 @@ av save --stdin --project-directory=. API_TOKEN &lt;&amp;3</code></pre>
 FD 3. Input is nonempty UTF-8 without NUL bytes, at most 1 MiB. See <a
 href="/docs/authority/#saving-safely">saving safely</a> for EOF and
 replacement behavior.</p>
+<h3 id="av-history"><code>av history</code></h3>
+<p>This command was merged after 4.8.2 and is not part of that release.
+The menu bar app must be running; use <code>av open</code> before
+reading history.</p>
+<pre class="sh"><code>av history
+av history --since 7d --json</code></pre>
+<p>The default table shows the newest 50 Authorization Records.
+<code>--since</code> accepts a positive whole number followed by
+<code>s</code>, <code>m</code>, <code>h</code>, <code>d</code>, or
+<code>w</code>, up to 30 days; <code>--json</code> emits
+machine-readable records with display-safe commands. The Mac filters the
+window before disclosure. A reply over 1 MiB fails instead of dropping
+records, so request a narrower window. The successful read appears in
+its own result.</p>
+<p>Each invocation requires Approval unless the exact Verified Launcher
+has Authorization History Access in Settings. This grant is independent
+of <code>av list</code>'s Secret Name Access. An unverifiable Launcher
+needs Approval. History contains request metadata and Secret Names,
+never Secret Values; it is not a tamper-proof audit trail.</p>
 <h3 id="av-inject"><code>av inject</code></h3>
 <pre class="text"><code>av inject [--replace-existing-env] [--allow-missing-keys] \
   +KEY [+KEY...] [--] COMMAND [args...]
@@ -252,7 +274,7 @@ top-level usage or invalid Doctor selection.</p>
 <p class="docs-source-link"><a href="/docs/cli/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/cli/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.6.0 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/cli/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.8.2 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

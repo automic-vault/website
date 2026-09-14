@@ -83,16 +83,19 @@ the public issue tracker.
 ## Source of truth
 
 The saving and FD delivery sections were checked against the 4.6.0 source and
-tests. The linked v1 copy script was tested with disposable legacy Keychain
+tests. The `av history` command came from [PR #338](https://github.com/automic-vault/automic-vault/pull/338),
+and rolling retention and `--since` came from [PR #339](https://github.com/automic-vault/automic-vault/pull/339).
+Neither is part of 4.8.2.
+The linked v1 copy script was tested with disposable legacy Keychain
 fixtures and the actual save implementation using isolated test storage; it is
 not a full v1 upgrade test. UI screenshots come from 3.16.0. For your installed
 build, prefer `av --version`, `av help`, `av detectors --json`, and `av hardeners --json`.
 
-- [4.6.0 release](https://github.com/automic-vault/automic-vault/releases/tag/4.6.0)
-- [CLI source](https://github.com/automic-vault/automic-vault/blob/4.6.0/src/cli/mod.rs)
-- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/4.6.0/src)
-- [Detectors](https://github.com/automic-vault/automic-vault/tree/4.6.0/src/detectors)
-- [Hardeners](https://github.com/automic-vault/automic-vault/tree/4.6.0/src/isotopes)
+- [4.8.2 release](https://github.com/automic-vault/automic-vault/releases/tag/4.8.2)
+- [CLI source](https://github.com/automic-vault/automic-vault/blob/4.8.2/src/cli/mod.rs)
+- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/4.8.2/src)
+- [Detectors](https://github.com/automic-vault/automic-vault/tree/4.8.2/src/detectors)
+- [Hardeners](https://github.com/automic-vault/automic-vault/tree/4.8.2/src/isotopes)
 - [Domain Language](https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md)
 - [Architecture](https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md)
 

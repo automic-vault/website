@@ -37,7 +37,7 @@ const pages = [
     slug: "",
     title: "Automic Vault manual",
     lede: "Install Automic Vault, understand the operator console, and find the right reference.",
-    description: `The source-checked Automic Vault ${version} manual for macOS.`,
+    description: `Automic Vault ${version} manual for macOS, with selected source checks from 4.6.0 and marked post-release features.`,
     start: 0,
     end: "## Security foundations",
   },
@@ -80,7 +80,7 @@ const pages = [
     description: "Common Automic Vault workflows for protected developer credentials.",
     start: "## Common workflows",
     end: "## Reentrant Blessed Scripts",
-    dateModified: "2026-09-08",
+    dateModified: "2026-09-13",
   },
   {
     slug: "reentrant-scripts",
@@ -89,7 +89,7 @@ const pages = [
     description: "How to design reentrant Automic Vault Blessed Scripts for agent handoffs, least authority, Secret safety, and resumable operations.",
     start: "## Reentrant Blessed Scripts",
     end: "## Troubleshooting",
-    dateModified: "2026-09-02",
+    dateModified: "2026-09-13",
   },
   {
     slug: "troubleshooting",
@@ -176,7 +176,7 @@ ${headings ? `          <section class="docs-nav-group">
         </nav>`;
 }
 
-function htmlPage({ slug, title, lede, description, markdown, dateModified = "2026-09-08" }) {
+function htmlPage({ slug, title, lede, description, markdown, dateModified = "2026-09-13" }) {
   const pageRoute = route(slug);
   const markdownRoute = `${pageRoute}index.md`;
   const article = renderMarkdown(markdown);
@@ -231,7 +231,7 @@ function htmlPage({ slug, title, lede, description, markdown, dateModified = "20
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault ${version} · macOS</p><h1>${title}</h1><p class="lede">${lede}</p><ul class="docs-provenance" aria-label="Page formats"><li>Source checked</li><li><a href="${markdownRoute}">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault ${version} · macOS</p><h1>${title}</h1><p class="lede">${lede}</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="${markdownRoute}">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         ${nav(slug, article, title)}
         <article class="docs-content">${article}
