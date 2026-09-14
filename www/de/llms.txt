@@ -4,11 +4,11 @@
 
 ## Wichtige Seiten
 
-- [Automic Vault | Credentials gehen nur an erlaubte Operationen](https://www.automicvault.com/de/): Automic Vault prüft Tool, Verified Launcher, Befehl, Arbeitsverzeichnis und Secret Names vor der Übergabe eines Credentials.
+- [Automic Vault | Dein Secrets Manager sollte wissen, was die Secrets tun.](https://www.automicvault.com/de/): Schütze CLI-Credentials, gib Agents begrenzte Fähigkeiten und genehmige Operationen auf deinen Macs.
 
 - [Automic Vault herunterladen](https://www.automicvault.com/de/download/): Lade Automic Vault für macOS herunter und kontrolliere die Verwendung von Entwickler-Credentials.
 
-- [Dokumentation](https://www.automicvault.com/docs/): Englisches, quellgeprüftes Handbuch für Automic Vault 3.16.0 mit App, Approval, Project Values, Launcher Bundles, Proxy, GPG Signing und vollständiger CLI.
+- [Dokumentation](https://www.automicvault.com/docs/): Englisches Handbuch für Automic Vault 4.8.2; einzelne Abschnitte wurden anhand des Quellcodes von 4.6.0 geprüft.
 
 - [Pakete](https://pkg.so/de/): Durchsuchbarer Katalog mit Entwicklerpaketen, Abhängigkeiten, Installationsbefehlen, Risikoinformationen und Automic-Vault-Härtung.
 
@@ -28,7 +28,7 @@
 
 - Plattform: macOS
 
-- Aktuell dokumentiertes Release: Automic Vault 3.16.0
+- Aktuell dokumentiertes Release: Automic Vault 4.8.2
 
 - Lizenz: Apache License 2.0
 

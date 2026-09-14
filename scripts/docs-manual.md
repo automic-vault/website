@@ -1,7 +1,10 @@
 # Automic Vault manual
 
-This is the user and operator manual for Automic Vault 3.16.0 on macOS. It was
-checked against the installed CLI, app UI, and 3.16.0 source on August 22, 2026.
+This is the user and operator manual for Automic Vault 4.8.2 on macOS. The
+multiline input, exact-input saving, and FD delivery sections were checked
+against the 4.6.0 source on September 8, 2026. UI screenshots show 3.16.0;
+use the installed build's help and catalogs for its current command surface.
+The `av history` sections describe code merged after 4.8.2, not that release.
 
 Automic Vault does more than store a Secret. It authorizes a complete operation:
 the Verified Launcher, Gate Client, Target, command and arguments, working
@@ -39,7 +42,9 @@ av save GH_TOKEN
 av inject +GH_TOKEN gh auth status
 ```
 
-`av save` opens `/dev/tty`, turns terminal echo off, and **does not read standard input**.
+`av save` defaults to hidden single-line terminal input. Since 4.6.0,
+`--multiline` accepts hidden multiline input and `--stdin` reads exact redirected
+input to EOF. See [saving safely](/docs/authority/#saving-safely).
 Do not remove the old credential until the approved command succeeds.
 For a Tool with a supplied hardener, prefer its Tool-specific flow:
 
@@ -178,8 +183,8 @@ The screenshots use a harmless sample Secret Name; stored Values remain hidden.
 ### Detectors
 
 Detectors inspect supported credential locations and configurations for
-**Exposures**, **Hazards**, and other security-relevant Findings. The catalog in
-3.16.0 contains 157 detectors. A selected detector explains its trigger
+**Exposures**, **Hazards**, and other security-relevant Findings. Run
+`av detectors --json` for the installed catalog. A selected detector explains its trigger
 conditions, sensitive files, current result, remediation, and source-linked
 rationale.
 
@@ -229,7 +234,8 @@ for `sudo`.
 
 **Limits and rollback.** Hardening protects the credential route, not the Tool's
 intent. A Tool can still disclose a Value after receiving it. Read each
-hardener's rollback notes. In 3.16.0, `av unharden` exists only for Homebrew.
+hardener's rollback notes. `av unharden` supports Homebrew; use the installed
+hardener documentation for other recovery procedures.
 
 ### Authorization Gates
 
@@ -324,7 +330,8 @@ authority without turning routine administration into Disclosure. Replace is a
 write-only operation: enter the new Value, but do not reveal the old one.
 
 **Workflow.** Search by Secret Name, verify the selected Value sources, inspect
-availability, and review Direct Secret Access. Use `av save` for terminal entry;
+availability, and review Direct Secret Access. Use `av save` for terminal entry,
+`--multiline` for hidden multiline input, or `--stdin` for exact redirected input;
 use the app to replace, delete, rename, or change availability. After renaming,
 recheck scripts, Gates, and integrations that requested the old name.
 
@@ -378,10 +385,23 @@ the **Decision source** and reason with current Gate policy. For a denial, fix t
 first mismatched invariant: Target, runtime, launcher, Value source, or operation.
 Do not widen every rule.
 
+**After 4.8.2:** `av history` reads the same local history
+through the signed CLI. It shows the newest 50 records by default; `--since 7d`
+selects a seven-day window. Each read requires Approval unless that exact
+Verified Launcher has Authorization History Access in its own Settings row.
+The `av list` grant does not apply. See the [CLI reference](/docs/cli/#av-history).
+An unverifiable Launcher cannot use the automatic grant and needs Approval.
+
 **Assurance boundary.** History is local and bounded. It is not append-only,
 tamper-proof, remotely replicated, or guaranteed to contain every event after an
-administrator changes local state. Export security evidence elsewhere when the
-audit requirement exceeds this local operator record.
+administrator changes local state. The post-4.8.2 rolling store makes
+separately encrypted rows in one SQLite file available for up to 30 days or
+25 MiB of encrypted payloads, whichever bound comes first. Expired ciphertext
+may remain in a dormant database until the next read or write prunes it.
+Older Keychain and UserDefaults copies remain after migration and can outlive
+those limits.
+Export security evidence elsewhere when the audit requirement exceeds this
+local operator record.
 
 ### Doctor
 
@@ -408,8 +428,9 @@ process on the Mac is healthy.
 
 Settings controls human Approval routes, feedback for automic authorization,
 retained launcher provenance, GPG Signing, `av list` policy, and version/runtime
-information. Each control changes a different boundary; enabling one does not
-implicitly enable another.
+information. The post-4.8.2 build adds a separate `av history` grant. Each
+control changes a different boundary; enabling one does not implicitly enable
+another.
 
 Use Settings after reading the corresponding section below. Security-sensitive
 changes require Approval or system authentication where the control demands it.
@@ -539,6 +560,21 @@ This capability lists Secret Names only. It does not read, change, apply, or
 disclose Values and grants no Direct Access. Remove an app when its listing use
 ends; a similarly named or newly signed app does not inherit the exact rule.
 
+### Authorization History Access
+
+This grant was added after 4.8.2 and is not in that release.
+
+An exact Verified Launcher may read local Authorization History with
+`av history` without an Approval prompt only after you add it to the separate
+Authorization History Access row in Settings. Other Verified Launchers require
+Approval for each read; unverifiable Launchers also need Approval. The grant
+exposes cumulative request metadata, including Secret Names and software
+identities, but never Secret Values. It does not permit
+`av list`, and a Secret Name Access grant does not permit `av history`.
+
+The Mac records each successful history read before returning records. Remove
+the Launcher from this row when it no longer needs unattended access.
+
 ### About and menu bar
 
 About reports the running version and GUI PATH captured before shell startup.
@@ -563,9 +599,36 @@ av save --project-directory=/absolute/project AWS_PROFILE
 
 A Secret Name is a letter or underscore followed by letters, digits, or
 underscores. `av save` canonicalizes an existing Project Directory, rejects the
-filesystem root, reads one hidden non-empty Value from `/dev/tty`, trims its line
-ending, and restores terminal echo even on failure. It does not read stdin, so a
-pipeline neither supplies a Value nor provides a safe import mechanism.
+filesystem root, and requires Approval before creating or updating a Value.
+Without an input flag it reads one hidden line from `/dev/tty` and removes the
+terminal line ending.
+
+For multiline input, including a PEM:
+
+```sh
+av save --multiline --project-directory=. DEPLOY_PRIVATE_KEY
+```
+
+Input stays hidden. Press Ctrl-D after the final newline to finish, or Ctrl-D
+twice to finish without a final newline. Ctrl-C cancels without saving. This
+mode preserves received whitespace, but terminal line editing, line-length
+limits, and newline processing still apply.
+
+For exact bytes from a pipe or an existing readable descriptor:
+
+```sh
+av save --stdin DEPLOY_PRIVATE_KEY <&3
+```
+
+`--stdin` reads to EOF without trimming or newline conversion and refuses
+terminal stdin. Both flags work with Global Values and `--project-directory`;
+they cannot be combined. Input must be nonempty UTF-8 without NUL bytes, at most
+1 MiB. Keep the producer's Secret output out of arguments, environment variables,
+logs, and plaintext files. Review the destination: an approved save can replace
+an existing Global Value or the specified Project Value.
+
+See [copying selected v1 Values](/docs/workflows/#copy-selected-v1-secrets) for a
+manual legacy Keychain copy procedure and its limits.
 
 Save the replacement before deleting the old credential. Test a harmless read
 through the protected route, inspect History, then remove the plaintext source.
@@ -609,7 +672,8 @@ its first unlock after restarting.
 ### Direct Secret Access
 
 The Direct Secret Gate binds exact Secret Names to one Verified Launcher, but is
-broad with respect to Target and arguments. It permits Secret Application only;
+broad with respect to Target and arguments. Direct Access Rules authorize
+environment-mode injection; FD delivery requires fresh human Approval. They permit Secret Application only;
 it does not list, mutate, or disclose Values. Prefer a Tool-specific Gate whose
 classifier understands read, write, host, registry, or other operation semantics.
 
@@ -643,9 +707,10 @@ av hardeners --json
 av bless [--endorse-launcher] <path>
 av inject +KEY... [--] <command>
 av inject -- <command>
+av inject --mode=fd +KEY:FD... -- <command>
 av proxy +KEY... [--] <command>
 av list
-av save [--project-directory=DIR] KEY
+av save [--multiline | --stdin] [--project-directory=DIR] KEY
 av harden <tool> [-y|--yes]
 av unharden brew [-y|--yes]
 av gpg-sign [GPG options]
@@ -655,7 +720,10 @@ av --version
 ```
 
 Old v1 commands `install`, `contain`, `dotenv`, `credential-helper`, `gate`, and
-`trace` are not part of 3.16.0.
+`trace` are not part of 4.8.2.
+
+The source after 4.8.2 also adds `av history [--json] [--since <duration>]`.
+It is not available in the 4.8.2 release.
 
 ### `av scan`
 
@@ -697,41 +765,57 @@ av hardeners --json |
   }'
 ```
 
-These are authoritative for the installed build. 3.16.0 ships 157 detectors and
-50 hardeners. The `documentation` field contains the source-checked behavior and
+These are authoritative for the installed build. The `documentation` field
+contains the source-checked behavior and
 security model. Generated environment wrappers warn that the Target can read
 injected credentials; dedicated/native routes may provide narrower boundaries.
 
-<details>
-<summary>3.16.0 hardener names</summary>
-
-`akamai`, `algolia`, `argocd`, `ast-cli`, `aws`, `brew`, `buf`, `censys`,
-`checkov`, `circleci`, `civo`, `cloudsmith-cli`, `codex`, `composer`, `docker`,
-`doctl`, `flyctl`, `gh`, `glab`, `gotify`, `gptcommit`, `grafanactl`, `hcloud`,
-`heroku`, `huggingface-cli`, `jfrog-cli`, `k6`, `luarocks`, `minio-mc`,
-`netlify-cli`, `node`, `pnpm`, `pulumi`, `qwen-code`, `runpodctl`, `s3cmd`,
-`sentry-cli`, `snowflake-cli`, `snyk`, `stripe`, `sudo`, `supabase`,
-`transifex-cli`, `travis`, `twine`, `vagrant`, `vault`, `virustotal-cli`,
-`vultr`, `wsk`.
-
-</details>
+See the [hardener reference](/docs/hardeners/) for the rendered documentation.
 
 ### `av save` and `av list`
 
 ```text
-av save [--project-directory DIR] KEY
-av save [--project-directory=DIR] KEY
+av save [--multiline | --stdin] [--project-directory DIR] KEY
+av save [--multiline | --stdin] [--project-directory=DIR] KEY
 av list
 av ls
 ```
 
-`list` shows names, never Values, and accepts no arguments. A pipeline does not
-provide a Value to `save`:
+`list` shows names, never Values, and accepts no arguments. `save` defaults to a
+hidden single line; select `--multiline` for hidden multiline entry or `--stdin`
+for exact redirected input. Both modes require import Approval:
 
 ```sh
-# Wrong: save reads /dev/tty, not stdin.
-printf '%s\n' "$GH_TOKEN" | av save GH_TOKEN
+av save --multiline DEPLOY_PRIVATE_KEY
+av save --stdin --project-directory=. API_TOKEN <&3
 ```
+
+The second example assumes a trusted producer has supplied readable FD 3.
+Input is nonempty UTF-8 without NUL bytes, at most 1 MiB. See
+[saving safely](/docs/authority/#saving-safely) for EOF and replacement behavior.
+
+### `av history`
+
+This command was merged after 4.8.2 and is not part of that release.
+The menu bar app must be running; use `av open` before reading history.
+
+```sh
+av history
+av history --since 7d --json
+```
+
+The default table shows the newest 50 Authorization Records. `--since` accepts
+a positive whole number followed by `s`, `m`, `h`, `d`, or `w`, up to 30 days;
+`--json` emits machine-readable records with display-safe commands. The Mac
+filters the window before disclosure. A reply over 1 MiB fails instead of
+dropping records, so request a narrower window. The successful read appears
+in its own result.
+
+Each invocation requires Approval unless the exact Verified Launcher has
+Authorization History Access in Settings. This grant is independent of
+`av list`'s Secret Name Access. An unverifiable Launcher needs Approval. History
+contains request metadata and Secret
+Names, never Secret Values; it is not a tamper-proof audit trail.
 
 ### `av inject`
 
@@ -739,14 +823,46 @@ printf '%s\n' "$GH_TOKEN" | av save GH_TOKEN
 av inject [--replace-existing-env] [--allow-missing-keys] \
   +KEY [+KEY...] [--] COMMAND [args...]
 av inject -- COMMAND [args...]
+av inject --mode=fd +KEY:FD [+KEY:FD...] -- COMMAND [args...]
 ```
 
 Bare commands resolve through PATH; a Target containing `/` must be absolute.
-Existing environment values win with a warning unless
+In the default environment mode (`--mode=env`), existing environment values win with a warning unless
 `--replace-existing-env` is used. Missing requested Secrets fail unless
 `--allow-missing-keys` leaves them unset. Duplicate/invalid names and root are
 rejected. On success, `exec` replaces `av` with the Target. Legacy
 `--allow-existing-env`, `--force`, `--import`, and `--migrate` are rejected.
+
+#### File descriptor delivery
+
+Available since 4.6.0:
+
+```sh
+av inject --mode=fd +FOO:3 +BAR:4 -- /path/to/consumer
+```
+
+The consumer must read the indicated descriptors. Each Secret arrives through
+its own read-only anonymous pipe as exact stored UTF-8 bytes, then EOF. There
+is no bundle format, trimming, or added newline. Consumed bytes are not replayed.
+Automic Vault removes the requested Secret Names from the Target's environment,
+including existing values, and preserves stdin/stdout/stderr and unrelated
+environment entries.
+
+Every invocation requires fresh human Approval. Direct Access Rules,
+Blessings, Tool-specific policies, and Temporary Access Grants do not authorize
+FD delivery. Approval shows the mappings and selected Value sources;
+Authorization History records them before release. Update the app and CLI
+together: older apps reject this operation.
+
+Descriptors must be distinct, unused decimal integers of 3 or higher, without
+leading zeros. Every Secret requires a mapping. Duplicate names, missing
+Secrets, `--allow-missing-keys`, `--replace-existing-env`, and FD shebangs are
+rejected. If a Value exceeds available pipe capacity, the command fails before
+starting the Target; this ceiling can be smaller than the 1 MiB save limit.
+
+The Target can copy the bytes or pass descriptors to its children. FD delivery
+does not provide encrypted backup/recovery or restore whitespace lost during an
+earlier import. See the [repository guide](https://github.com/automic-vault/automic-vault/blob/main/docs/direct-secret-access.md#apply-secrets-through-file-descriptors).
 
 #### Shebang and Blessing workflow
 
@@ -764,6 +880,10 @@ A blessable script is a regular UTF-8 file up to 1 MiB with absolute `av` and
 interpreter paths. The optional manifest immediately follows the shebang.
 Capabilities are ceilings, not grants. Execution uses a verified `/dev/fd/N`
 snapshot; `AV_SCRIPT_PATH` and `AV_SCRIPT_DIR` identify its canonical source.
+
+FD mode in an `av inject` shebang is currently unsupported. A Blessed Script
+can invoke `av inject --mode=fd` as a command, but each invocation still needs
+fresh human Approval.
 
 ### `av proxy`
 
@@ -910,6 +1030,54 @@ Use `inject` when no narrower native or Tool-specific route exists. Inspect
 existing environment conflicts; by default an already exported value wins with
 a warning. `--replace-existing-env` is an explicit precedence decision, not a
 routine flag.
+
+### Exact bytes through file descriptors
+
+```sh
+av inject --mode=fd +DEPLOY_PRIVATE_KEY:3 +API_TOKEN:4 -- /path/to/consumer
+```
+
+Use a consumer that reads the private key from FD 3 and the token from FD 4.
+Approve the mappings and selected Value sources. Each read-only anonymous pipe
+delivers the stored bytes, then EOF. The requested names are removed from the
+consumer's environment. Keep both descriptors unused before starting `av`.
+
+This requires fresh Approval even inside a Blessed Script. Values must fit
+available pipe buffers; see [FD delivery](/docs/cli/#file-descriptor-delivery)
+for validation, inheritance, and failure behavior.
+
+### Copy selected v1 Secrets
+
+4.6.0's `av save --stdin` can import exact bytes from selected v1.25.0 legacy
+login-Keychain items. Review the [manual copy guide](https://github.com/automic-vault/automic-vault/blob/main/docs/migrating-from-v1.md)
+and save its [Swift script](https://github.com/automic-vault/automic-vault/blob/main/docs/examples/migrate-av-v1.swift)
+before running, using the Keychain file v1 used and your Secret Names:
+
+```sh
+xcrun swift migrate-av-v1.swift "$HOME/Library/Keychains/login.keychain-db" FOO BILLING_PEM
+```
+
+Run as your normal user with the current app open and Apple's Swift toolchain
+installed. The script reads ordinary v1 `av save` items from service
+`com.automicvault.isotope` through the Keychain API, then pipes them into the
+current app's import Approval. It leaves source items and access controls
+intact. A legacy Keychain prompt may need a one-time Allow.
+
+The script creates or updates Global Values under the same names. Check for
+existing destination names and review replacement Approvals. A failed or denied
+import stops before the next item; earlier successful imports remain. Test one
+item with its intended consumer before copying the rest.
+
+This copies stored Values only. It does not migrate credential gates,
+authorization rules, generation/history, or v1's separate Data Protection
+Keychain dotenv-key store, and does not provide a supported upgrade/rollback
+path. v1 trimmed surrounding whitespace when saving; copying cannot recover
+bytes already removed. The script rejects empty, non-UTF-8, NUL-containing, or
+larger-than-1-MiB Values. Do not replace the Keychain read with `security -w`,
+whose text/hex formatting and added newline can change multiline bytes.
+
+Encrypted backup and recovery remain tracked in
+[#317](https://github.com/automic-vault/automic-vault/issues/317).
 
 ### Proxy-only delivery
 
@@ -1344,10 +1512,23 @@ not establish selection. History records the source chosen for the request.
 
 ### An environment value wins
 
-`av inject` preserves an existing environment value by default and warns. Remove
+Environment-mode `av inject` preserves an existing environment value by default and warns. Remove
 the export at its source, or use `--replace-existing-env` only after confirming
 that Automic Vault should override it. Do not suppress the warning without
 understanding which credential the Target would otherwise receive.
+
+FD mode instead removes the requested names from the environment, including
+existing values, and delivers the stored Values on the specified descriptors.
+
+### FD delivery fails before the consumer starts
+
+Check that each mapping names a distinct, unused descriptor of 3 or higher.
+`av` refuses to overwrite inherited descriptors. Pick unused numbers that the
+consumer supports. A Value that exceeds available pipe capacity also fails
+before Target execution, even if it fits the separate 1 MiB save limit.
+
+FD delivery requires fresh human Approval. A Direct Access Rule or Blessing
+does not bypass that prompt, and an FD-mode shebang is unsupported.
 
 ### A Blessing stopped matching
 
@@ -1389,15 +1570,20 @@ the public issue tracker.
 
 ## Source of truth
 
-This manual was checked against the CLI parser, implementations, app UI,
-catalogs, tests, and canonical security documents for 3.16.0. For an installed
-build prefer `av --version`, `av help`, `av detectors --json`, and
-`av hardeners --json`.
+The saving and FD delivery sections were checked against the 4.6.0 source and
+tests. The `av history` command came from [PR #338](https://github.com/automic-vault/automic-vault/pull/338),
+and rolling retention and `--since` came from [PR #339](https://github.com/automic-vault/automic-vault/pull/339).
+Neither is part of 4.8.2.
+The linked v1 copy script was tested with disposable legacy Keychain
+fixtures and the actual save implementation using isolated test storage; it is
+not a full v1 upgrade test. UI screenshots come from 3.16.0. For your installed
+build, prefer `av --version`, `av help`, `av detectors --json`, and `av hardeners --json`.
 
-- [CLI source](https://github.com/automic-vault/automic-vault/blob/3.16.0/src/cli/mod.rs)
-- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/3.16.0/src)
-- [Detectors](https://github.com/automic-vault/automic-vault/tree/3.16.0/src/detectors)
-- [Hardeners](https://github.com/automic-vault/automic-vault/tree/3.16.0/src/isotopes)
+- [4.8.2 release](https://github.com/automic-vault/automic-vault/releases/tag/4.8.2)
+- [CLI source](https://github.com/automic-vault/automic-vault/blob/4.8.2/src/cli/mod.rs)
+- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/4.8.2/src)
+- [Detectors](https://github.com/automic-vault/automic-vault/tree/4.8.2/src/detectors)
+- [Hardeners](https://github.com/automic-vault/automic-vault/tree/4.8.2/src/isotopes)
 - [Domain Language](https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md)
 - [Architecture](https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md)
 

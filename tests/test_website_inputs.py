@@ -1,5 +1,6 @@
 import datetime
 import html.parser
+import json
 import pathlib
 import re
 import subprocess
@@ -91,6 +92,14 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertIn('AWS_REGION="us-east-1"', region_setup)
         self.assertNotIn("require_env AWS_REGION", deploy_script)
         self.assertNotIn(".envrc", deploy_script)
+
+    def test_static_sync_preserves_release_managed_artifacts(self):
+        deploy = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
+        static_sync = deploy.split("sync_site() {", 1)[1].split('log_step "Uploading social preview"', 1)[0]
+        self.assertIn("--delete", static_sync)
+        for name in ("Automic Vault.dmg", "install.sh", "scanner.gz", "scanner.tgz", "scanner.sh"):
+            with self.subTest(name=name):
+                self.assertIn(f'--exclude "{name}"', static_sync)
 
     def test_deploy_finds_certificate_for_both_aliases(self):
         deploy_script = (ROOT / "scripts" / "deploy-www.sh").read_text(encoding="utf-8")
@@ -224,7 +233,10 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                     "av open",
                 ):
                     self.assertIn(command, text)
-                self.assertIn("does not read standard input", text)
+                self.assertNotIn("does not read standard input", text)
+                self.assertIn("av save --stdin", text)
+                self.assertIn("av save --multiline", text)
+                self.assertIn("av inject --mode=fd", text)
                 self.assertIn("not part of", text)
                 self.assertIn("--project-directory", text)
                 self.assertIn("Launcher Bundle", text)
@@ -335,85 +347,20 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
 
     def test_secondary_formats_and_localized_llms_are_discoverable(self):
         home = (ROOT / "www" / "index.html").read_text(encoding="utf-8")
-        for claim in (
-            "Most secrets managers ask whether you can fetch a value.",
-            "Project Values",
-            "iPhone Approval",
-            "Launcher Bundles",
-        ):
-            self.assertIn(claim, home)
-
-        expected_alternates = {
+        for media_type, href in {
             "text/markdown": "/index.md",
             "text/plain": "/index.txt",
             "application/json": "/index.json",
-        }
-        for media_type, href in expected_alternates.items():
+        }.items():
             self.assertIn(f'type="{media_type}"', home)
             self.assertIn(f'href="{href}"', home)
 
-        current_statements = (
-            "The agents have…",
-            "Full access",
-            "The supply chain is…",
-            "Compromised",
-            "The apps are…",
-            "Vibe-coded",
-            "Embrace it.",
-            "Install Automic Vault",
-        )
-        for filename in ("index.html", "index.md", "index.txt", "index.json"):
+        overview = json.loads((ROOT / "www" / "index.json").read_text())
+        for filename in ("index.html", "index.md", "index.txt"):
             text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            searchable_text = re.sub(r"\s+", " ", text.replace("`", ""))
-            with self.subTest(filename=filename):
-                for statement in current_statements:
-                    self.assertIn(statement, searchable_text)
-
-        markdown = (ROOT / "www" / "index.md").read_text(encoding="utf-8")
-
-        for filename in ("index.html", "index.md", "index.txt", "index.json"):
-            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            with self.subTest(filename=filename):
-                self.assertIn("The missing secrets manager for developers.", text)
-
-        compatibility_line = "Any agent. Any CLI. Any app. No agent setup required."
-        for filename in ("index.html", "index.md", "index.txt", "index.json"):
-            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            searchable_text = re.sub(r"<[^>]+>", "", text.replace("**", ""))
-            with self.subTest(filename=filename):
-                self.assertIn(compatibility_line, searchable_text)
-
-        current_lede = "Give agents Read Only access to command-line tools like"
-        for filename in ("index.html", "index.md", "index.txt", "index.json"):
-            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            searchable_text = re.sub(r"\s+", " ", text.replace("`", ""))
-            with self.subTest(filename=filename):
-                self.assertIn(current_lede, searchable_text)
-
-        zeroconf_claim = "Zeroconf Above the Boundary"
-        for filename in ("index.html", "index.md", "index.txt", "index.json"):
-            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            with self.subTest(filename=filename):
-                self.assertIn(zeroconf_claim, text)
-
-        for filename in ("index.html", "index.md", "index.txt", "index.json"):
-            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            with self.subTest(filename=filename):
-                self.assertIn("credential-bearing Tool", text)
-
-        for filename in ("index.html", "index.md", "index.txt", "index.json", "llms.txt"):
-            text = (ROOT / "www" / filename).read_text(encoding="utf-8")
-            with self.subTest(filename=filename):
-                self.assertIn("iPhone Approval", text)
-
-        for claim in (
-            "same iCloud Keychain account",
-            "Face ID or Touch ID",
-            "iPhone Mirroring",
-            "no local allow action",
-        ):
-            self.assertIn(claim, home + markdown)
-
+            for section in overview["sections"][1:]:
+                with self.subTest(filename=filename, section=section["title"]):
+                    self.assertIn(section["title"], text)
         for locale in ("de", "fr", "ja", "zh-hans"):
             for page in sorted((ROOT / "www" / locale).rglob("*.html")):
                 with self.subTest(page=page.relative_to(ROOT)):
@@ -422,26 +369,27 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                         page.read_text(encoding="utf-8"),
                     )
 
-    def test_homepage_compares_secret_retrieval_with_operation_authorization(self):
-        home = (ROOT / "www" / "index.html").read_text(encoding="utf-8")
-        difference = home.split('<section class="brew-difference"', 1)[1].split('</section>', 1)[0]
-
-        self.assertRegex(home, r'class="brew-hero"[\s\S]*?</section>\s*<section class="brew-difference"')
-        self.assertNotIn("<img", difference)
-        for label in (
-            "Typical secrets manager",
-            "Unlocked and allowed?",
-            "Return the raw value",
-            "Verified Launcher",
-            "Tool and Target",
-            "Command and arguments",
-            "Working directory",
-            "Authorization Gate",
-            "Apply to Target",
-            "Ask for Approval",
-            "Deny",
-        ):
-            self.assertIn(label, home)
+    def test_homepages_use_screenshots_with_standalone_scanner_command(self):
+        subprocess.run(["node", "--test", str(ROOT / "tests" / "copy-command.test.mjs")], check=True)
+        section_ids = ("command-line", "controls", "reentrant-scripts", "projects", "iphone-approval")
+        for locale in ("", "de", "fr", "ja", "zh-hans"):
+            home = (ROOT / "www" / locale / "index.html").read_text(encoding="utf-8")
+            main = home.split('<main ', 1)[1].split('</main>', 1)[0]
+            with self.subTest(locale=locale):
+                self.assertIn('brand-landing.css?v=43', home)
+                ids = set(re.findall(r'\bid="([^"]+)"', home))
+                self.assertTrue(set(re.findall(r'href="#([^"]+)"', home)) <= ids)
+                self.assertEqual(re.findall(r'<code>(.*?)</code>', main), [
+                    'curl -fsSL https://www.automicvault.com/scanner.sh | bash',
+                ])
+                positions = [main.index(f'id="{section_id}"') for section_id in section_ids]
+                self.assertEqual(positions, sorted(positions))
+                for section_id in section_ids:
+                    section = main.split(f'id="{section_id}"', 1)[1].split('</section>', 1)[0]
+                    self.assertIn('<figure', section)
+                    self.assertRegex(section, r'<img[^>]+alt="[^"]+"')
+                self.assertNotIn('data-screenshot-needed=', main)
+                self.assertIn('id="terminal-security"', main)
 
     def test_crawler_and_security_metadata_are_current(self):
         robots = (ROOT / "www" / "robots.txt").read_text(encoding="utf-8")
@@ -475,16 +423,16 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             node.findtext("s:loc", namespaces=namespace): node.findtext("s:lastmod", namespaces=namespace)
             for node in sitemap.findall("s:url", namespace)
         }
-        self.assertEqual(lastmods["https://www.automicvault.com/docs/"], "2026-08-23")
+        self.assertEqual(lastmods["https://www.automicvault.com/docs/"], "2026-09-13")
         for route in ("security", "app", "authority", "cli", "troubleshooting", "hardeners"):
             self.assertEqual(
                 lastmods[f"https://www.automicvault.com/docs/{route}/"],
-                "2026-08-23",
+                "2026-09-13",
             )
-        self.assertEqual(lastmods["https://www.automicvault.com/docs/workflows/"], "2026-09-01")
-        self.assertEqual(lastmods["https://www.automicvault.com/docs/reentrant-scripts/"], "2026-09-02")
-        for url in ("https://www.automicvault.com/llms.txt", "https://www.automicvault.com/llms-full.txt"):
-            self.assertEqual(lastmods[url], "2026-09-01")
+        self.assertEqual(lastmods["https://www.automicvault.com/docs/workflows/"], "2026-09-13")
+        self.assertEqual(lastmods["https://www.automicvault.com/docs/reentrant-scripts/"], "2026-09-13")
+        self.assertEqual(lastmods["https://www.automicvault.com/llms.txt"], "2026-09-13")
+        self.assertEqual(lastmods["https://www.automicvault.com/llms-full.txt"], "2026-09-13")
         self.assertEqual(lastmods["https://www.automicvault.com/.well-known/security.txt"], "2026-07-28")
 
     def test_public_assets_and_frontend_files_are_referenced(self):
@@ -520,7 +468,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
     def test_local_html_references_resolve(self):
         site = ROOT / "www"
         missing = []
-        release_artifacts = {"/Automic Vault.dmg", "/install.sh", "/scanner.gz", "/scanner.sh"}
+        release_artifacts = {"/Automic Vault.dmg", "/install.sh", "/scanner.gz", "/scanner.tgz", "/scanner.sh"}
 
         for page in sorted(site.rglob("*.html")):
             parser = LocalReferenceParser()

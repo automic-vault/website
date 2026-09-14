@@ -5,8 +5,8 @@ The screenshots use a harmless sample Secret Name; stored Values remain hidden.
 ### Detectors
 
 Detectors inspect supported credential locations and configurations for
-**Exposures**, **Hazards**, and other security-relevant Findings. The catalog in
-3.16.0 contains 157 detectors. A selected detector explains its trigger
+**Exposures**, **Hazards**, and other security-relevant Findings. Run
+`av detectors --json` for the installed catalog. A selected detector explains its trigger
 conditions, sensitive files, current result, remediation, and source-linked
 rationale.
 
@@ -56,7 +56,8 @@ for `sudo`.
 
 **Limits and rollback.** Hardening protects the credential route, not the Tool's
 intent. A Tool can still disclose a Value after receiving it. Read each
-hardener's rollback notes. In 3.16.0, `av unharden` exists only for Homebrew.
+hardener's rollback notes. `av unharden` supports Homebrew; use the installed
+hardener documentation for other recovery procedures.
 
 ### Authorization Gates
 
@@ -151,7 +152,8 @@ authority without turning routine administration into Disclosure. Replace is a
 write-only operation: enter the new Value, but do not reveal the old one.
 
 **Workflow.** Search by Secret Name, verify the selected Value sources, inspect
-availability, and review Direct Secret Access. Use `av save` for terminal entry;
+availability, and review Direct Secret Access. Use `av save` for terminal entry,
+`--multiline` for hidden multiline input, or `--stdin` for exact redirected input;
 use the app to replace, delete, rename, or change availability. After renaming,
 recheck scripts, Gates, and integrations that requested the old name.
 
@@ -205,10 +207,23 @@ the **Decision source** and reason with current Gate policy. For a denial, fix t
 first mismatched invariant: Target, runtime, launcher, Value source, or operation.
 Do not widen every rule.
 
+**After 4.8.2:** `av history` reads the same local history
+through the signed CLI. It shows the newest 50 records by default; `--since 7d`
+selects a seven-day window. Each read requires Approval unless that exact
+Verified Launcher has Authorization History Access in its own Settings row.
+The `av list` grant does not apply. See the [CLI reference](/docs/cli/#av-history).
+An unverifiable Launcher cannot use the automatic grant and needs Approval.
+
 **Assurance boundary.** History is local and bounded. It is not append-only,
 tamper-proof, remotely replicated, or guaranteed to contain every event after an
-administrator changes local state. Export security evidence elsewhere when the
-audit requirement exceeds this local operator record.
+administrator changes local state. The post-4.8.2 rolling store makes
+separately encrypted rows in one SQLite file available for up to 30 days or
+25 MiB of encrypted payloads, whichever bound comes first. Expired ciphertext
+may remain in a dormant database until the next read or write prunes it.
+Older Keychain and UserDefaults copies remain after migration and can outlive
+those limits.
+Export security evidence elsewhere when the audit requirement exceeds this
+local operator record.
 
 ### Doctor
 
@@ -235,8 +250,9 @@ process on the Mac is healthy.
 
 Settings controls human Approval routes, feedback for automic authorization,
 retained launcher provenance, GPG Signing, `av list` policy, and version/runtime
-information. Each control changes a different boundary; enabling one does not
-implicitly enable another.
+information. The post-4.8.2 build adds a separate `av history` grant. Each
+control changes a different boundary; enabling one does not implicitly enable
+another.
 
 Use Settings after reading the corresponding section below. Security-sensitive
 changes require Approval or system authentication where the control demands it.

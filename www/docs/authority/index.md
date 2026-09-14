@@ -123,6 +123,21 @@ This capability lists Secret Names only. It does not read, change, apply, or
 disclose Values and grants no Direct Access. Remove an app when its listing use
 ends; a similarly named or newly signed app does not inherit the exact rule.
 
+### Authorization History Access
+
+This grant was added after 4.8.2 and is not in that release.
+
+An exact Verified Launcher may read local Authorization History with
+`av history` without an Approval prompt only after you add it to the separate
+Authorization History Access row in Settings. Other Verified Launchers require
+Approval for each read; unverifiable Launchers also need Approval. The grant
+exposes cumulative request metadata, including Secret Names and software
+identities, but never Secret Values. It does not permit
+`av list`, and a Secret Name Access grant does not permit `av history`.
+
+The Mac records each successful history read before returning records. Remove
+the Launcher from this row when it no longer needs unattended access.
+
 ### About and menu bar
 
 About reports the running version and GUI PATH captured before shell startup.
@@ -147,9 +162,36 @@ av save --project-directory=/absolute/project AWS_PROFILE
 
 A Secret Name is a letter or underscore followed by letters, digits, or
 underscores. `av save` canonicalizes an existing Project Directory, rejects the
-filesystem root, reads one hidden non-empty Value from `/dev/tty`, trims its line
-ending, and restores terminal echo even on failure. It does not read stdin, so a
-pipeline neither supplies a Value nor provides a safe import mechanism.
+filesystem root, and requires Approval before creating or updating a Value.
+Without an input flag it reads one hidden line from `/dev/tty` and removes the
+terminal line ending.
+
+For multiline input, including a PEM:
+
+```sh
+av save --multiline --project-directory=. DEPLOY_PRIVATE_KEY
+```
+
+Input stays hidden. Press Ctrl-D after the final newline to finish, or Ctrl-D
+twice to finish without a final newline. Ctrl-C cancels without saving. This
+mode preserves received whitespace, but terminal line editing, line-length
+limits, and newline processing still apply.
+
+For exact bytes from a pipe or an existing readable descriptor:
+
+```sh
+av save --stdin DEPLOY_PRIVATE_KEY <&3
+```
+
+`--stdin` reads to EOF without trimming or newline conversion and refuses
+terminal stdin. Both flags work with Global Values and `--project-directory`;
+they cannot be combined. Input must be nonempty UTF-8 without NUL bytes, at most
+1 MiB. Keep the producer's Secret output out of arguments, environment variables,
+logs, and plaintext files. Review the destination: an approved save can replace
+an existing Global Value or the specified Project Value.
+
+See [copying selected v1 Values](/docs/workflows/#copy-selected-v1-secrets) for a
+manual legacy Keychain copy procedure and its limits.
 
 Save the replacement before deleting the old credential. Test a harmless read
 through the protected route, inspect History, then remove the plaintext source.
@@ -193,7 +235,8 @@ its first unlock after restarting.
 ### Direct Secret Access
 
 The Direct Secret Gate binds exact Secret Names to one Verified Launcher, but is
-broad with respect to Target and arguments. It permits Secret Application only;
+broad with respect to Target and arguments. Direct Access Rules authorize
+environment-mode injection; FD delivery requires fresh human Approval. They permit Secret Application only;
 it does not list, mutate, or disclose Values. Prefer a Tool-specific Gate whose
 classifier understands read, write, host, registry, or other operation semantics.
 

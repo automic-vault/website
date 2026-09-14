@@ -74,3 +74,14 @@ tokens instead of introducing a second scale.
 - Content density and image placement within their declared macrostructure family.
 - About may use one supplied illustration; legal pages do not need one.
 - Incident articles may show one supplied incident image in the opening block.
+
+## Homepage narrative
+
+The landing page presents five outcomes: command-line protection, per-Launcher
+policy, reviewed agent capabilities, Project Values, and Approval across Macs.
+Use real screenshots for product proof, without drawn interface mockups. The
+command-line section uses a compact terminal card with a keyboard-accessible copy
+button, visible copy feedback, and a smaller, dimmer sandbox explanation. Preserve the
+security qualification beside each outcome and keep translated homepages and
+alternate text formats aligned. Japanese copy uses a plain polite register with
+Japanese-capable system fonts; canonical product terms remain recognizable.

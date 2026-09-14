@@ -77,6 +77,54 @@ existing environment conflicts; by default an already exported value wins with
 a warning. `--replace-existing-env` is an explicit precedence decision, not a
 routine flag.
 
+### Exact bytes through file descriptors
+
+```sh
+av inject --mode=fd +DEPLOY_PRIVATE_KEY:3 +API_TOKEN:4 -- /path/to/consumer
+```
+
+Use a consumer that reads the private key from FD 3 and the token from FD 4.
+Approve the mappings and selected Value sources. Each read-only anonymous pipe
+delivers the stored bytes, then EOF. The requested names are removed from the
+consumer's environment. Keep both descriptors unused before starting `av`.
+
+This requires fresh Approval even inside a Blessed Script. Values must fit
+available pipe buffers; see [FD delivery](/docs/cli/#file-descriptor-delivery)
+for validation, inheritance, and failure behavior.
+
+### Copy selected v1 Secrets
+
+4.6.0's `av save --stdin` can import exact bytes from selected v1.25.0 legacy
+login-Keychain items. Review the [manual copy guide](https://github.com/automic-vault/automic-vault/blob/main/docs/migrating-from-v1.md)
+and save its [Swift script](https://github.com/automic-vault/automic-vault/blob/main/docs/examples/migrate-av-v1.swift)
+before running, using the Keychain file v1 used and your Secret Names:
+
+```sh
+xcrun swift migrate-av-v1.swift "$HOME/Library/Keychains/login.keychain-db" FOO BILLING_PEM
+```
+
+Run as your normal user with the current app open and Apple's Swift toolchain
+installed. The script reads ordinary v1 `av save` items from service
+`com.automicvault.isotope` through the Keychain API, then pipes them into the
+current app's import Approval. It leaves source items and access controls
+intact. A legacy Keychain prompt may need a one-time Allow.
+
+The script creates or updates Global Values under the same names. Check for
+existing destination names and review replacement Approvals. A failed or denied
+import stops before the next item; earlier successful imports remain. Test one
+item with its intended consumer before copying the rest.
+
+This copies stored Values only. It does not migrate credential gates,
+authorization rules, generation/history, or v1's separate Data Protection
+Keychain dotenv-key store, and does not provide a supported upgrade/rollback
+path. v1 trimmed surrounding whitespace when saving; copying cannot recover
+bytes already removed. The script rejects empty, non-UTF-8, NUL-containing, or
+larger-than-1-MiB Values. Do not replace the Keychain read with `security -w`,
+whose text/hex formatting and added newline can change multiline bytes.
+
+Encrypted backup and recovery remain tracked in
+[#317](https://github.com/automic-vault/automic-vault/issues/317).
+
 ### Proxy-only delivery
 
 ```sh
