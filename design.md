@@ -126,6 +126,7 @@ Commands appear as tool invocations; the Terminal scene retains typed shell inpu
 
 The demo ends at its playback controls; omit the policy-scope and illustration captions.
 
-English hero experiment: three statements about the Agent, its Harness, and
-Automic Vault. The final statement uses the bright accent. Other languages retain
-the approved hero until this experiment is selected for translation.
+All five hero translations use three statements about the Agent, its Harness,
+and Automic Vault. Italicize the second statement and highlight the final one.
+The secrets-manager promise heads the operation comparison; the three-decision
+label introduces its table.
