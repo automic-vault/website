@@ -42,6 +42,7 @@ section[id] { scroll-margin-top: 95px; }
 .brew-hero h1 em { font-style: normal; }
 .brew-hero .trust-hero { max-width: 1040px; font-size: clamp(32px, 4.5vw, 58px); line-height: 1.16; }
 .trust-hero > span, .trust-hero > em { display: block; }
+.trust-hero > span:nth-child(2) { font-style: italic; }
 .trust-hero > em { color: var(--accent-bright); }
 .brew-hero-summary { max-width: 580px; margin: 30px auto 0; font-size: 18px; line-height: 1.55; text-wrap: pretty; }
 .brew-hero-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 28px; margin-top: 34px; }
