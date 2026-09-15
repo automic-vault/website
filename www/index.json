@@ -92,6 +92,10 @@
         {
           "label": "Set up iPhone and Touch ID Approval",
           "url": "https://www.automicvault.com/docs/authority/"
+        },
+        {
+          "label": "Join the public iPhone beta on TestFlight",
+          "url": "https://testflight.apple.com/join/cfnDU5kM"
         }
       ]
     },

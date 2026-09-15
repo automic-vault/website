@@ -68,7 +68,7 @@ Each Mac keeps its Secrets, policy, and Authorization History, and enforces the 
 
 iPhone Approval removes pointer- and keyboard-driven allow actions on the Mac. Disable iPhone Mirroring and Show on Mac, or require Face ID or Touch ID on every eligible iPhone. An unavailable relay never enables a fallback.
 
-[Set up iPhone and Touch ID Approval](https://www.automicvault.com/docs/authority/)
+[Set up iPhone and Touch ID Approval](https://www.automicvault.com/docs/authority/) · [Join the public iPhone beta on TestFlight](https://testflight.apple.com/join/cfnDU5kM)
 
 ## Know the boundary
 
