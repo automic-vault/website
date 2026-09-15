@@ -3,7 +3,7 @@
   "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "Your secrets manager should know what the secrets do.",
+  "title": "You can’t trust the Agent. You can’t trust its Harness either. Trust Automic Vault.",
   "description": "Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.",
   "security_boundaries": [
     "Automic Vault does not intercept every process or replace the shell.",
@@ -28,7 +28,7 @@
   "pricing": "The Mac app costs nothing and ships under Apache-2.0. Optional iPhone Approval requires an active subscription to send allow responses. Denying a request does not require a subscription.",
   "sections": [
     {
-      "title": "Your secrets manager should know what the secrets do.",
+      "title": "You can’t trust the Agent. You can’t trust its Harness either. Trust Automic Vault.",
       "description": "From the Creator of Homebrew\n\nSecure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.\n\nFree and open source. Your existing commands keep working. No agent plugin required.",
       "links": [
         {

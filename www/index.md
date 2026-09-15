@@ -1,6 +1,6 @@
 # Automic Vault
 
-> Your secrets manager should know what the secrets do.
+> You can’t trust the Agent. You can’t trust its Harness either. Trust Automic Vault.
 
 From the Creator of Homebrew
 

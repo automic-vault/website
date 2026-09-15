@@ -40,6 +40,9 @@ section[id] { scroll-margin-top: 95px; }
 .brew-hero .brew-eyebrow::before, .live-dot { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-right: 10px; vertical-align: middle; }
 .brew-hero h1 { max-width: 940px; margin: 26px auto 0; font-size: clamp(40px, 5.65vw, 72px); font-weight: 600; line-height: 1.04; letter-spacing: -.045em; text-wrap: balance; }
 .brew-hero h1 em { font-style: normal; }
+.brew-hero .trust-hero { max-width: 1040px; font-size: clamp(32px, 4.5vw, 58px); line-height: 1.16; }
+.trust-hero > span, .trust-hero > em { display: block; }
+.trust-hero > em { color: var(--accent-bright); }
 .brew-hero-summary { max-width: 580px; margin: 30px auto 0; font-size: 18px; line-height: 1.55; text-wrap: pretty; }
 .brew-hero-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 28px; margin-top: 34px; }
 .brew-text-link { display: inline-block; color: var(--muted); font-size: 14px; }

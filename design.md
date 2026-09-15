@@ -125,3 +125,7 @@ brief planning message, a Thinking state, and Bash tool calls with indented outp
 Commands appear as tool invocations; the Terminal scene retains typed shell input.
 
 The demo ends at its playback controls; omit the policy-scope and illustration captions.
+
+English hero experiment: three statements about the Agent, its Harness, and
+Automic Vault. The final statement uses the bright accent. Other languages retain
+the approved hero until this experiment is selected for translation.
