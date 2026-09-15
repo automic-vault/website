@@ -101,9 +101,12 @@ It replaces the older homepage stylesheets on the English route only.
 Keep the existing product explanations and security boundaries beneath the
 experimental headlines. “Full access” describes the agent's execution mode,
 not AV's Full Access preset. Keep that distinction next to the headline.
-The hero demonstration is explicitly illustrated HTML, plays once on arrival,
-and stops with Approval pending. It offers pause/replay and a complete static
-state for reduced motion or unavailable JavaScript. Actual product screenshots
+The hero demonstration is explicitly illustrated HTML, loops through Terminal/AWS and
+Claude Code/SSH/GitHub scenes, holding each pending Approval for five seconds.
+It pauses offscreen or in a hidden tab, offers pause/resume, and presents static
+scenes with a Next control for reduced motion. Without JavaScript the AWS
+Approval remains visible. SSH uses Allow Authentication policy, not Read Only;
+that policy does not restrict remote commands or destinations. Actual product screenshots
 follow in the gallery and remain available at their original size.
 The translated pages retain their existing copy and design pending review of
 this English direction; their links and existing assets remain valid.

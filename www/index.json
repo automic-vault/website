@@ -29,7 +29,7 @@
   "sections": [
     {
       "title": "Your secrets manager should know what the secrets do.",
-      "description": "From the Creator of Homebrew\n\nSecure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.\n\nFree and open source. Your existing commands keep working. No agent plugin required.\n\nIllustrated demo. With a hardened AWS CLI and a Verified Launcher on Read Only policy, aws s3 ls is automically authorized. Terminating an EC2 instance requires your Approval.",
+      "description": "From the Creator of Homebrew\n\nSecure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.\n\nFree and open source. Your existing commands keep working. No agent plugin required.\n\nIllustrated demo. With a hardened AWS CLI and a Verified Launcher on Read Only policy, aws s3 ls is automically authorized. Terminating an EC2 instance requires your Approval. With an enrolled Claude Code Launcher Bundle, Allow Authentication policy authorizes SSH authentication; it does not restrict remote commands or destinations. GitHub Read Only policy leaves merging a pull request behind Approval.",
       "links": [
         {
           "label": "Download for macOS",

@@ -134,7 +134,7 @@
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=3">
-  <link rel="stylesheet" href="./homepage.css?v=1">
+  <link rel="stylesheet" href="./homepage.css?v=2">
 </head>
 <body class="brew-home">
   <a class="brew-skip-link" href="#main-content">Skip to content</a>
@@ -169,30 +169,30 @@
     </section>
 
 
-    <section class="aws-demo" id="demo" aria-label="AWS authorization demonstration">
+    <section class="aws-demo" id="demo" aria-label="Terminal and Claude Code authorization demonstration">
       <div class="demo-desktop">
         <div class="demo-menubar" aria-hidden="true"><span>⌘ &nbsp; Terminal &nbsp; <span class="menu-extra">Shell &nbsp; Edit &nbsp; View</span></span><span>Automic Vault ◇</span></div>
         <div class="demo-terminal" aria-hidden="true">
-          <div class="window-bar"><span class="traffic-lights">● ● ●</span><span>Terminal — ~/projects/acme</span><span></span></div>
+          <div class="window-bar"><span class="traffic-lights">● ● ●</span><span class="demo-session"><img data-session-icon src="/assets/claude-icon.svg" width="16" height="16" alt="" hidden><span data-session>Terminal — ~/projects/acme</span></span><span></span></div>
           <div class="terminal-content"><p class="terminal-context">~/projects/acme <span>main</span></p>
             <p><span class="prompt">❯</span> <span data-read-command>aws s3 ls</span></p>
             <pre data-output>2026-09-15 09:41:00 acme-assets
 2026-09-15 09:41:00 acme-backups</pre>
-            <p class="write-command"><span class="prompt">❯</span> <span data-write-command>aws ec2 terminate-instances --instance-ids i-0123456789abcdef0</span></p>
+            <p class="write-command" data-write-line><span class="prompt">❯</span> <span data-write-command>aws ec2 terminate-instances --instance-ids i-0123456789abcdef0</span></p>
             <p class="terminal-wait" data-wait>Waiting for your Approval…</p>
           </div>
         </div>
-        <div class="demo-notification" data-notification hidden aria-hidden="true"><img src="/assets/icon@2x.webp?v=3" width="36" height="36" alt=""><div><strong>Automic Vault</strong><span>Authorized by Read Only policy</span><small>aws s3 ls · Terminal</small></div><span class="notification-check">✓</span></div>
+        <div class="demo-notification" data-notification hidden aria-hidden="true"><img src="/assets/icon@2x.webp?v=3" width="36" height="36" alt=""><div><strong>Automic Vault</strong><span data-policy>Authorized by Read Only policy</span><small data-notification-command>aws s3 ls · Terminal</small></div><span class="notification-check">✓</span></div>
         <div class="demo-approval" data-approval aria-hidden="true">
-          <img src="/assets/icon@2x.webp?v=3" width="48" height="48" alt="">
-          <h3>Terminal wants to use AWS</h3><p>This operation changes remote resources.</p>
-          <div class="approval-command">aws ec2 terminate-instances<br>--instance-ids i-0123456789abcdef0</div>
-          <dl><div><dt>Verified Launcher</dt><dd>Terminal · Apple</dd></div><div><dt>Operation</dt><dd>Remote Write</dd></div><div><dt>Working directory</dt><dd>~/projects/acme</dd></div><div><dt>Secret Names</dt><dd>AWS_ACCESS_KEY_ID<br>AWS_SECRET_ACCESS_KEY</dd></div></dl>
+          <img data-approval-icon src="/assets/icon@2x.webp?v=3" width="48" height="48" alt="">
+          <h3 data-approval-title>Terminal wants to use AWS</h3><p>Approval required. This operation changes remote resources.</p>
+          <div class="approval-command" data-approval-command>aws ec2 terminate-instances<br>--instance-ids i-0123456789abcdef0</div>
+          <dl><div><dt>Verified Launcher</dt><dd data-launcher>Terminal · Apple</dd></div><div><dt>Operation</dt><dd>Remote Write</dd></div><div><dt>Working directory</dt><dd>~/projects/acme</dd></div><div><dt>Secret Names</dt><dd data-secrets>AWS_ACCESS_KEY_ID<br>AWS_SECRET_ACCESS_KEY</dd></div></dl>
           <div class="approval-buttons"><span>Deny</span><span>Approve Once</span></div>
         </div>
       </div>
-      <div class="demo-controls"><span><span class="live-dot"></span> READS KEEP MOVING. WRITES WAIT FOR YOU.</span><button type="button" data-demo-play disabled>Play demo <span aria-hidden="true">↻</span></button></div>
-      <p class="demo-caption">Illustrated demo. With a hardened AWS CLI and a Verified Launcher on Read Only policy, <code>aws s3 ls</code> is automically authorized. Terminating an EC2 instance requires your Approval.</p>
+      <div class="demo-controls"><span><span class="live-dot"></span> POLICY HANDLES THE ROUTINE. YOU DECIDE THE REST.</span><button type="button" data-demo-play disabled>Play demo <span aria-hidden="true">↻</span></button></div>
+      <p class="demo-caption">Illustrated demo. With a hardened AWS CLI and a Verified Launcher on Read Only policy, <code>aws s3 ls</code> is automically authorized. Terminating an EC2 instance requires your Approval. With an enrolled Claude Code Launcher Bundle, Allow Authentication policy authorizes SSH authentication; it does not restrict remote commands or destinations. GitHub Read Only policy leaves merging a pull request behind Approval.</p>
     </section>
 
     <section class="approval-gallery" id="gallery" aria-labelledby="gallery-title">
@@ -349,7 +349,7 @@
   </footer>
 
   <script src="/app.js?v=2" defer></script>
-  <script src="/homepage.js?v=1" defer></script>
+  <script src="/homepage.js?v=2" defer></script>
   <script src="/i18n.js" defer></script>
 </body>
 </html>

@@ -14,7 +14,7 @@ Free and open source. Your existing commands keep working. No agent plugin requi
 
 See the software, command, arguments, working directory, and Secret Names before you allow an operation.
 
-Illustrated demo. With a hardened AWS CLI and a Verified Launcher on Read Only policy, aws s3 ls is automically authorized. Terminating an EC2 instance requires your Approval.
+Illustrated demo. With a hardened AWS CLI and a Verified Launcher on Read Only policy, aws s3 ls is automically authorized. Terminating an EC2 instance requires your Approval. With an enrolled Claude Code Launcher Bundle, Allow Authentication policy authorizes SSH authentication; it does not restrict remote commands or destinations. GitHub Read Only policy leaves merging a pull request behind Approval.
 
 ## Bringing macOS security to the command line.
 
