@@ -42,6 +42,28 @@
       ]
     },
     {
+      "title": "Deeper than guardrails.",
+      "description": "Automic Vault hardens supported Tools at the packaging layer: reconfiguring, wrapping, or patching how they use credentials. Their protected credential requests meet an Authorization Gate whether they come from Terminal, Claude Code, or another app.\n\nA retrieval-based secrets manager decides who may receive a credential. Automic Vault checks the complete operation before applying it.\n\nOne token. Three decisions. With a Verified Launcher on GitHub Read Only policy: gh issue list is authorized; gh issue create requires Approval for Remote Write; gh auth token requires Approval for Secret Disclosure.\n\nAWS: Short-lived credentials per invocation. Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.\n\nDocker: The process and registry matter. Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.\n\nHomebrew: Updates can run. Installs can ask. Read & Update policy allows recognized inspection commands and brew update. Installing or upgrading software still requires your Approval.",
+      "links": [
+        {
+          "label": "See how we harden your tools",
+          "url": "https://www.automicvault.com/docs/hardeners/"
+        },
+        {
+          "label": "How AWS hardening works",
+          "url": "https://www.automicvault.com/docs/hardeners/aws/"
+        },
+        {
+          "label": "How Docker hardening works",
+          "url": "https://www.automicvault.com/docs/hardeners/docker/"
+        },
+        {
+          "label": "How Homebrew hardening works",
+          "url": "https://www.automicvault.com/docs/hardeners/brew/"
+        }
+      ]
+    },
+    {
       "title": "All the info you need to make a decision.",
       "description": "See the software, command, arguments, working directory, and Secret Names before you allow an operation.",
       "links": []

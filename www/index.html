@@ -134,7 +134,7 @@
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=3">
-  <link rel="stylesheet" href="./homepage.css?v=2">
+  <link rel="stylesheet" href="./homepage.css?v=3">
 </head>
 <body class="brew-home">
   <a class="brew-skip-link" href="#main-content">Skip to content</a>
@@ -193,6 +193,36 @@
       </div>
       <div class="demo-controls"><span><span class="live-dot"></span> POLICY HANDLES THE ROUTINE. YOU DECIDE THE REST.</span><button type="button" data-demo-play disabled>Play demo <span aria-hidden="true">↻</span></button></div>
       <p class="demo-caption">Illustrated demo. With a hardened AWS CLI and a Verified Launcher on Read Only policy, <code>aws s3 ls</code> is automically authorized. Terminating an EC2 instance requires your Approval. With an enrolled Claude Code Launcher Bundle, Allow Authentication policy authorizes SSH authentication; it does not restrict remote commands or destinations. GitHub Read Only policy leaves merging a pull request behind Approval.</p>
+    </section>
+
+    <section class="tool-boundary" id="deeper-than-guardrails" aria-labelledby="tool-boundary-title">
+      <div class="boundary-intro">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">Below the agent harness</p>
+          <h2 id="tool-boundary-title">Deeper than guardrails.</h2>
+          <p>Automic Vault hardens supported Tools at the packaging layer: reconfiguring, wrapping, or patching how they use credentials. Their protected credential requests meet an Authorization Gate whether they come from Terminal, Claude Code, or another app.</p>
+          <a class="brew-text-link" href="/docs/hardeners/">See how we harden your tools <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="operation-example">
+          <h3>One token. Three decisions.</h3>
+          <p>A retrieval-based secrets manager decides who may receive a credential. Automic Vault checks the complete operation before applying it.</p>
+          <table>
+            <caption>GitHub · Verified Launcher with Read Only policy</caption>
+            <thead><tr><th scope="col">Command</th><th scope="col">Decision</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>gh issue list</code><small>Read issues</small></th><td><span class="decision-allowed">Authorized</span><small>Read Only</small></td></tr>
+              <tr><th scope="row"><code>gh issue create</code><small>Create an issue</small></th><td><span>Approval required</span><small>Remote Write</small></td></tr>
+              <tr><th scope="row"><code>gh auth token</code><small>Reveal the token</small></th><td><span>Approval required</span><small>Secret Disclosure</small></td></tr>
+            </tbody>
+          </table>
+          <p class="operation-note">Revealing a credential needs its own decision, even when nothing changes remotely.</p>
+        </div>
+      </div>
+      <div class="hardening-proof">
+        <article><p class="brew-eyebrow">AWS</p><h3>Short-lived credentials per invocation.</h3><p>Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.</p><a class="brew-text-link" href="/docs/hardeners/aws/">How AWS hardening works <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">Docker</p><h3>The process and registry matter.</h3><p>Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.</p><a class="brew-text-link" href="/docs/hardeners/docker/">How Docker hardening works <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">Homebrew</p><h3>Updates can run. Installs can ask.</h3><p>Read &amp; Update policy allows recognized inspection commands and brew update. Installing or upgrading software still requires your Approval.</p><a class="brew-text-link" href="/docs/hardeners/brew/">How Homebrew hardening works <span aria-hidden="true">↗</span></a></article>
+      </div>
     </section>
 
     <section class="approval-gallery" id="gallery" aria-labelledby="gallery-title">

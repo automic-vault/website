@@ -10,6 +10,44 @@ Free and open source. Your existing commands keep working. No agent plugin requi
 
 [Download for macOS](https://www.automicvault.com/Automic%20Vault.dmg) · [See it in action](https://www.automicvault.com/#demo)
 
+## Deeper than guardrails.
+
+Automic Vault hardens supported Tools at the packaging layer: reconfiguring, wrapping, or patching how they use credentials. Their protected credential requests meet an Authorization Gate whether they come from Terminal, Claude Code, or another app.
+
+[See how we harden your tools](https://www.automicvault.com/docs/hardeners/)
+
+### One token. Three decisions.
+
+A retrieval-based secrets manager decides who may receive a credential. Automic Vault checks the complete operation before applying it.
+
+GitHub · Verified Launcher with Read Only policy
+
+| Command | Decision | Reason |
+| --- | --- | --- |
+| `gh issue list` | Authorized | Read Only |
+| `gh issue create` | Approval required | Remote Write |
+| `gh auth token` | Approval required | Secret Disclosure |
+
+Revealing a credential needs its own decision, even when nothing changes remotely.
+
+### AWS: Short-lived credentials per invocation.
+
+Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.
+
+[How AWS hardening works](https://www.automicvault.com/docs/hardeners/aws/)
+
+### Docker: The process and registry matter.
+
+Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.
+
+[How Docker hardening works](https://www.automicvault.com/docs/hardeners/docker/)
+
+### Homebrew: Updates can run. Installs can ask.
+
+Read & Update policy allows recognized inspection commands and brew update. Installing or upgrading software still requires your Approval.
+
+[How Homebrew hardening works](https://www.automicvault.com/docs/hardeners/brew/)
+
 ## All the info you need to make a decision.
 
 See the software, command, arguments, working directory, and Secret Names before you allow an operation.

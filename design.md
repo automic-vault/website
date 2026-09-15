@@ -110,3 +110,10 @@ that policy does not restrict remote commands or destinations. Actual product sc
 follow in the gallery and remain available at their original size.
 The translated pages retain their existing copy and design pending review of
 this English direction; their links and existing assets remain valid.
+
+
+The section immediately after the demo explains enforcement below the harness.
+Pair the packaging-layer explanation with the same-token read/write/disclosure
+comparison; use three compact AWS, Docker, and Homebrew examples as proof.
+Hardening establishes the protected path; runtime Authorization Gates enforce
+credential requests. Do not imply every process execution is intercepted.

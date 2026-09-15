@@ -133,7 +133,33 @@ section[id] { scroll-margin-top: 95px; }
 .brew-footer-meta nav { display: flex; flex-wrap: wrap; gap: 20px; }
 .brew-footer-meta > span { margin-left: auto; }
 .brew-footer-meta .brew-languages { flex-basis: 100%; padding-top: 20px; border-top: 1px solid var(--rule); font-size: 11px; }
+
+.tool-boundary { padding: 64px 40px 80px; border-top: 1px solid var(--rule); }
+.tool-boundary .brew-eyebrow { font-size: 10px; }
+.boundary-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.operation-example { min-width: 0; padding: 24px; border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); }
+.operation-example > h3 { font-size: 23px; letter-spacing: -.025em; }
+.operation-example > p { margin-top: 12px; font-size: 14px; }
+.operation-example table { width: 100%; border-collapse: collapse; margin-top: 24px; text-align: left; font-size: 12px; }
+.operation-example caption { text-align: left; font: 9px/1.8 var(--mono); color: var(--muted); padding-bottom: 12px; }
+.operation-example thead { color: var(--muted); font-size: 10px; }
+.operation-example th, .operation-example td { padding: 12px 0; border-bottom: 1px solid var(--rule); font-weight: 400; }
+.operation-example th:first-child { padding-right: 16px; }
+.operation-example td { color: #d5c4f5; }
+.operation-example code { font: 12px var(--mono); color: var(--ink); }
+.operation-example small { display: block; font-size: 10px; color: var(--muted); margin-top: 5px; }
+.operation-example .decision-allowed { color: #a6dab0; }
+.operation-example .operation-note { font-size: 11px; margin-top: 16px; }
+.hardening-proof { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin-top: 48px; }
+.hardening-proof article { border-top: 1px solid var(--rule); padding-top: 24px; }
+.hardening-proof h3 { margin-top: 14px; font-size: 18px; }
+.hardening-proof article > p:not(.brew-eyebrow) { margin-top: 12px; font-size: 13px; }
+.hardening-proof a { margin-top: 16px; color: var(--accent-bright); font-size: 12px; }
+
 @media (max-width: 800px) {
+  .tool-boundary { padding: 64px 24px; }
+  .boundary-intro { grid-template-columns: 1fr; gap: 32px; }
+  .hardening-proof { gap: 24px; }
   .brew-nav { gap: 16px; }
   .brew-nav-links { gap: 14px; }
   .brew-github { display: none; }
@@ -145,6 +171,9 @@ section[id] { scroll-margin-top: 95px; }
   .demo-terminal { width: 90%; }
 }
 @media (max-width: 600px) {
+  .hardening-proof { grid-template-columns: 1fr; gap: 24px; margin-top: 32px; }
+  .operation-example { padding: 18px; }
+  .operation-example code { font-size: 11px; }
   .brew-nav { height: 64px; padding: 0 16px; }
   .brew-nav-links { display: none; }
   .brew-download { font-size: 10px; padding-inline: 12px; }
