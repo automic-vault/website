@@ -33,8 +33,6 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
-  <link rel="stylesheet" href="/styles.css?v=129">
-  <link rel="stylesheet" href="/brand-landing.css?v=43">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
   <script>
@@ -60,6 +58,7 @@
   }
 }
   </script>
+  <link rel="stylesheet" href="/homepage.css?v=9">
 </head>
 <body class="brew-home">
   <a class="brew-skip-link" href="#main-content">跳转到正文</a>
@@ -87,15 +86,70 @@
         <p class="brew-hero-summary">保护命令行凭据，为代理授予有限的能力，并审批多台 Mac 上的操作。</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">下载 macOS 版</a>
-          <a class="brew-text-link" href="/docs/">阅读文档 <span aria-hidden="true">→</span></a>
+          <a class="brew-text-link" href="#demo">观看演示 <span aria-hidden="true">↗</span></a>
         </div>
         <p class="brew-hero-note">免费且开源。继续使用熟悉的命令，无需代理插件。</p>
       </div>
     </section>
 
+    <section class="aws-demo" id="demo" aria-label="Terminal 和 Claude Code 授权演示">
+      <div class="demo-desktop">
+        <div class="demo-menubar" aria-hidden="true"><span>⌘ &nbsp; Terminal &nbsp; <span class="menu-extra">Shell &nbsp; Edit &nbsp; View</span></span><span>Automic Vault ◇</span></div>
+        <div class="demo-terminal" data-terminal data-agent="false" aria-hidden="true">
+          <div class="window-bar"><span class="traffic-lights">● ● ●</span><span class="demo-session"><img data-session-icon src="/assets/claude-icon.svg" width="16" height="16" alt="" hidden><span data-session>Terminal — ~/projects/acme</span></span><span></span></div>
+          <div class="terminal-content"><p class="terminal-context">~/projects/acme <span>main</span></p>
+            <div class="claude-intro" data-agent-intro hidden><div class="claude-brand"><img src="/assets/claude-icon.svg" width="24" height="24" alt=""><strong>Claude Code</strong><span>~/projects/acme</span></div><p class="claude-request">检查预发布环境，然后合并 PR #42。</p><p class="claude-plan">我会先通过 SSH 检查预发布环境，再合并拉取请求。</p></div>
+            <p class="claude-thinking" data-thinking hidden>✳ 思考中…</p>
+            <p data-read-line><span class="prompt">❯</span> <span data-read-command>aws s3 ls</span></p>
+            <pre data-output>2026-09-15 09:41:00 acme-assets
+2026-09-15 09:41:00 acme-backups</pre>
+            <p class="write-command" data-write-line><span class="prompt">❯</span> <span data-write-command>aws ec2 terminate-instances --instance-ids i-0123456789abcdef0</span></p>
+            <p class="terminal-wait" data-wait>等待你的批准…</p>
+          </div>
+        </div>
+        <div class="demo-notification" data-notification hidden aria-hidden="true"><img src="/assets/icon@2x.webp?v=3" width="36" height="36" alt=""><div><strong>Automic Vault</strong><span data-policy>已由 Read Only 策略授权</span><small data-notification-command>aws s3 ls · Terminal</small></div><span class="notification-check">✓</span></div>
+        <div class="demo-approval" data-approval aria-hidden="true">
+          <img data-approval-icon src="/assets/icon@2x.webp?v=3" width="48" height="48" alt="">
+          <h3 data-approval-title>Terminal 请求使用 AWS</h3><p>需要批准。此操作会修改远程资源。</p>
+          <div class="approval-command" data-approval-command>aws ec2 terminate-instances<br>--instance-ids i-0123456789abcdef0</div>
+          <dl><div><dt>Verified Launcher</dt><dd data-launcher>Terminal · Apple</dd></div><div><dt>操作</dt><dd>Remote Write</dd></div><div><dt>工作目录</dt><dd>~/projects/acme</dd></div><div><dt>Secret Names</dt><dd data-secrets>AWS_ACCESS_KEY_ID<br>AWS_SECRET_ACCESS_KEY</dd></div></dl>
+          <div class="approval-buttons"><span>拒绝</span><span>仅批准一次</span></div>
+        </div>
+      </div>
+      <div class="demo-controls"><span><span class="live-dot"></span> 常规操作由策略处理，其余由你决定。</span><button type="button" data-demo-play disabled>播放演示 <span aria-hidden="true">↻</span></button></div>
+      <script type="application/json" data-demo-copy>{"pause": "暂停 Ⅱ", "resume": "继续 ▶", "next": "下一个演示 →", "authorized": "已由 {policy} 策略授权", "approval": "{launcher} 请求使用 {tool}"}</script>
+    </section>
+
+    <section class="tool-boundary" id="deeper-than-guardrails" aria-labelledby="tool-boundary-title">
+      <div class="boundary-intro">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">深入智能体运行框架之下</p>
+          <h2 id="tool-boundary-title">比护栏更深一层的保护。</h2>
+          <p>我们分析了超过 10,000 个软件包对凭据的使用，并为支持的工具开发了加固器。</p>
+          <p>Automic Vault 在软件包层面加固支持的 Tool：通过重新配置、包装或打补丁来保护凭据的使用方式。无论请求来自 Terminal、Claude Code 还是其他应用，受保护的凭据请求都要经过 Authorization Gate。</p>
+          <a class="brew-text-link" href="/docs/hardeners/">了解工具加固方式 <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="operation-example">
+          <h3>一个令牌，三种决策。</h3>
+          <p>基于提取的秘密管理器决定谁能获取凭据。Automic Vault 则在应用凭据之前检查完整操作。</p>
+          <table>
+            <caption>GitHub · 使用 Read Only 策略的 Verified Launcher</caption>
+            <thead><tr><th scope="col">命令</th><th scope="col">决策</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>gh issue list</code><small>读取议题</small></th><td><span class="decision-allowed">已授权</span><small>Read Only</small></td></tr>
+              <tr><th scope="row"><code>gh issue create</code><small>创建议题</small></th><td><span>需要批准</span><small>Remote Write</small></td></tr>
+              <tr><th scope="row"><code>gh auth token</code><small>显示令牌</small></th><td><span>需要批准</span><small>Secret Disclosure</small></td></tr>
+            </tbody>
+          </table>
+          <p class="operation-note">即使不会更改远程资源，披露凭据也需要单独决策。</p>
+        </div>
+      </div>
+    </section>
+
     <section class="brew-feature" id="command-line" aria-labelledby="command-line-title">
       <div class="brew-copy">
-        <h2 id="command-line-title">保护你的命令行</h2>
+        <p class="brew-eyebrow">保护你的命令行</p>
+        <h2 id="command-line-title">把 macOS 安全机制带到命令行。</h2>
         <p>找出工具、依赖和代理能从文件或凭据助手中读取的凭据。每项 Finding 都说明问题和缓解方法。Hardener 会将支持的凭据移入 macOS 数据保护钥匙串，并在使用时通过 Authorization Gate 检查。</p>
         <a class="brew-text-link" href="/docs/hardeners/">查看支持的工具 <span aria-hidden="true">→</span></a>
         <div class="brew-scanner-terminal">
@@ -115,11 +169,18 @@
         <img src="/docs/assets/detectors.png" alt="查看 Detector 的检查内容和可用的 Hardener。" width="1440" height="900" decoding="async" fetchpriority="high">
         <figcaption>查看 Detector 的检查内容和可用的 Hardener。</figcaption>
       </figure>
+      <div class="hardening-proof">
+        <article><p class="brew-eyebrow">AWS</p><h3>每次调用使用短期凭据。</h3><p>普通 AWS 命令使用短期会话凭据。长期密钥从共享凭据文件中移除。AV 为每个 AWS 进程单独获取会话凭据。</p><a class="brew-text-link" href="/docs/hardeners/aws/">AWS 加固原理 <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">Docker</p><h3>进程和注册表都要检查。</h3><p>在释放注册表凭据之前，AV 会验证正在运行的 Docker Desktop 进程及其签名、运行时保护、进程祖先链、参数和请求的注册表。</p><a class="brew-text-link" href="/docs/hardeners/docker/">Docker 加固原理 <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">Homebrew</p><h3>允许更新索引，安装需要批准。</h3><p>Read &amp; Update 策略允许已识别的检查命令和 brew update。安装或升级软件仍需要你的 Approval。</p><a class="brew-text-link" href="/docs/hardeners/brew/">Homebrew 加固原理 <span aria-hidden="true">↗</span></a></article>
+      </div>
     </section>
 
     <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
-        <h2 id="controls-title">决定工具和代理可以做什么</h2>
+        <p class="brew-eyebrow">决定工具和智能体能做什么</p>
+        <h2 id="controls-title">让智能体全权限运行，凭据使用由你掌控。</h2>
+        <p>保留智能体的全权限执行模式，同时由 AV 单独控制它对受保护凭据的使用。AV 不会将智能体放入沙箱，也不会阻止任意本地文件修改。</p>
         <p>允许代理读取 GitHub issue，同时要求写入操作经过你的 Approval。终端可以使用不同规则。AV 按 Verified Launcher 检查完整操作。Write Access 仍要求密钥披露和使用更强大凭据的操作获得 Approval。Unknown 操作始终需要人工判断。符合条件的代理任务可在一个 Gate 获得十分钟有效时间的 Write Access，你可以延长、暂停或结束授权。</p>
         <a class="brew-text-link" href="/docs/authority/">设置授权范围 <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">代码签名证明身份和完整性，而非意图。任务标识符缩小临时授权范围，并不证明身份。</p>
@@ -130,15 +191,21 @@
       </figure>
     </section>
 
-    <section class="brew-feature" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
+    <section class="brew-feature script-proof" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
       <div class="brew-copy">
-        <h2 id="reentrant-scripts-title">赋予代理所需的能力</h2>
+        <p class="brew-eyebrow">给智能体所需的能力</p>
+        <h2 id="reentrant-scripts-title">把审核过的能力交给智能体。</h2>
         <p>让代理准备发布说明，由审核过的脚本发布到 GitHub 并更新 CDN。Blessed Script 将审核绑定到确切内容和声明的能力。可重入脚本通过固定入口提供上下文，等待代理输入后继续执行。AV 对每次调用分别授权；修改脚本会使 Blessing 失效。</p>
         <a class="brew-text-link" href="/docs/reentrant-scripts/">构建经过审核的工作流 <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">使用代理输出前必须验证。让 Secret Values 留在脚本执行范围内。Blessing 本身并不让代码变得可信。</p>
       </div>
+      <div class="approval-intro" id="gallery">
+        <p class="brew-eyebrow">实际效果</p>
+        <h2 id="gallery-title">决策所需的信息，一目了然。</h2>
+        <p>允许操作之前，先查看软件、命令、参数、工作目录和 Secret Names。</p>
+      </div>
       <figure class="brew-capture brew-capture-script">
-        <img src="/assets/blessed-script-agent-approval.png" alt="ChatGPT 调用发布脚本。AV 在 Approval 前展示声明的能力，并将 ChatGPT 识别为 Verified Launcher。" width="1452" height="1394" loading="lazy" decoding="async">
+        <a href="/assets/blessed-script-agent-approval.png" aria-label="放大批准窗口截图"><img src="/assets/blessed-script-agent-approval.png" alt="ChatGPT 调用发布脚本。AV 在 Approval 前展示声明的能力，并将 ChatGPT 识别为 Verified Launcher。" width="1452" height="1394" loading="lazy" decoding="async"></a>
         <figcaption>ChatGPT 调用发布脚本。AV 在 Approval 前展示声明的能力，并将 ChatGPT 识别为 Verified Launcher。</figcaption>
       </figure>
     </section>
@@ -148,6 +215,7 @@
         <h2 id="projects-title">让项目密钥远离明文文件</h2>
         <p>多个项目可以使用相同 Secret Name，但各自保存不同的 Project Value。AV 选择最近匹配的物理目录对应的值；没有匹配项时使用 Global Value。对于兼容的 HTTP 客户端，Secret Proxy 向应用提供临时引用，并仅向获批目的地应用真实凭据。</p>
         <a class="brew-text-link" href="/docs/authority/">了解 Project Values <span aria-hidden="true">→</span></a>
+        <a class="brew-text-link" href="/docs/workflows/">了解凭据代理 <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">目录选择 Values，不授予权限。同一 Secret Name 下的所有 Values 受相同策略约束。代理引用属于持有者凭据，可以使用会话已获准的访问权限。</p>
       </div>
       <figure class="brew-capture">
@@ -161,6 +229,7 @@
         <h2 id="iphone-approval-title">审批多台 Mac 上的操作</h2>
         <p>在同一 iCloud 钥匙串账户下符合条件的 iPhone 上查看已登记 Mac 的请求。每台 Mac 保留自己的 Secrets、策略和 Authorization History，并在本机执行决定。你也可以在某台 Mac 上启用 Touch ID Approval，通过生物识别允许操作。</p>
         <a class="brew-text-link" href="/docs/authority/">设置 iPhone 和 Touch ID Approval <span aria-hidden="true">→</span></a>
+        <a class="brew-text-link" href="https://testflight.apple.com/join/cfnDU5kM">通过 TestFlight 加入 iPhone 公测 <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">iPhone Approval 会移除 Mac 上通过鼠标和键盘允许操作的入口。请关闭 iPhone Mirroring 和 Show on Mac，或要求每台符合条件的 iPhone 使用 Face ID 或 Touch ID。中继不可用不会启用替代方式。</p>
       </div>
       <figure class="brew-capture brew-capture-phone">
@@ -191,8 +260,10 @@
   </main>
 
   <footer class="brew-footer">
-    <p class="brew-footer-statement">由 Homebrew 创始人打造。</p>
-    <a class="brew-cta" href="/Automic%20Vault.dmg">下载 macOS 版</a>
+    <div class="brew-footer-lead">
+      <p class="brew-footer-statement">你的工具，你来授权。</p>
+      <a class="brew-cta" href="/Automic%20Vault.dmg">下载 macOS 版</a>
+    </div>
     <div class="brew-footer-meta">
       <a class="brew-brand" href="#top">
         <img src="/assets/brand-shield-v2.webp?v=3" alt="" width="54" height="54">
@@ -220,5 +291,6 @@
 
   <script src="/app.js?v=2" defer></script>
   <script src="/i18n.js" defer></script>
+  <script src="/homepage.js?v=6" defer></script>
 </body>
 </html>

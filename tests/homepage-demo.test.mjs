@@ -85,3 +85,30 @@ test('loops AWS and Claude Code scenes, pauses without losing position, and offe
     assert.equal(field('approval').hidden, false);
   }
 });
+
+test('localized demo messages survive scene changes and reduced-motion navigation', () => {
+  for (const locale of ['ja', 'de', 'fr', 'zh-hans']) {
+    const page = readFileSync(new URL(`../www/${locale}/index.html`, import.meta.url), 'utf8');
+    const messages = page.match(/data-demo-copy>(.*?)<\/script>/s)[1];
+    const copy = JSON.parse(messages);
+    const fields = {};
+    let click, arrive;
+    const field = key => fields[key] ??= { hidden: false, textContent: '', dataset: {} };
+    field('demo-copy').textContent = messages;
+    field('demo-play').addEventListener = (_, handler) => { click = handler; };
+    runInNewContext(source, {
+      document: { hidden: false, querySelector: () => ({ querySelector: selector => field(selector.slice(6, -1)) }), addEventListener() {} },
+      matchMedia: () => ({ matches: true, addEventListener() {} }),
+      clearInterval() {},
+      setInterval() { assert.fail('reduced motion must stay static'); },
+      IntersectionObserver: class { constructor(handler) { arrive = handler; } observe() {} },
+    });
+    arrive([{ isIntersecting: true }]);
+    assert.equal(field('demo-play').textContent, copy.next);
+    assert.equal(field('policy').textContent, copy.authorized.replace('{policy}', 'Read Only'));
+    click();
+    assert.equal(field('policy').textContent, copy.authorized.replace('{policy}', 'Allow Authentication'));
+    assert.equal(field('approval-title').textContent, copy.approval.replace('{launcher}', 'Claude Code').replace('{tool}', 'GitHub'));
+    assert.equal(field('write-command').textContent, 'gh pr merge 42 --squash --repo acme/web');
+  }
+});

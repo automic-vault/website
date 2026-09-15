@@ -3,6 +3,7 @@ const demo = document.querySelector('.aws-demo');
 if (demo) {
   const field = name => demo.querySelector(`[data-${name}]`);
   const play = field('demo-play');
+  const copy = JSON.parse(field('demo-copy')?.textContent || '{}');
   const scenes = [
     {
       launcher: 'Terminal', identity: 'Terminal · Apple', tool: 'AWS',
@@ -49,10 +50,10 @@ if (demo) {
     field('output').hidden = tick < readDone + 6;
     field('write-line').hidden = tick < writeStart;
     field('notification').hidden = tick < readDone + 4 || tick >= writeStart + 6;
-    field('policy').textContent = `Authorized by ${current.policy} policy`;
+    field('policy').textContent = (copy.authorized || 'Authorized by {policy} policy').replace('{policy}', current.policy);
     field('notification-command').textContent = `${current.read} · ${current.launcher}`;
     field('approval-icon').src = current.icon;
-    field('approval-title').textContent = `${current.launcher} wants to use ${current.tool}`;
+    field('approval-title').textContent = (copy.approval || '{launcher} wants to use {tool}').replace('{launcher}', current.launcher).replace('{tool}', current.tool);
     field('approval-command').textContent = current.write;
     field('launcher').textContent = current.identity;
     field('secrets').textContent = current.secrets;
@@ -63,7 +64,7 @@ if (demo) {
   function stop() {
     clearInterval(timer);
     timer = undefined;
-    play.textContent = reducedMotion.matches ? 'Next demo →' : 'Resume demo ▶';
+    play.textContent = reducedMotion.matches ? (copy.next || 'Next demo →') : (copy.resume || 'Resume demo ▶');
   }
 
   function start() {
@@ -73,7 +74,7 @@ if (demo) {
       render();
       return;
     }
-    play.textContent = 'Pause demo Ⅱ';
+    play.textContent = copy.pause || 'Pause demo Ⅱ';
     render();
     timer = setInterval(() => {
       tick += 1;

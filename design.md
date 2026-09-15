@@ -1,8 +1,8 @@
 # Design — Automic Vault
 
 The shared system below remains the baseline for content and translated pages.
-The English homepage uses the explicitly requested Tinycast direction described
-at the end of this document while its new content direction is being evaluated.
+All five homepages use the explicitly requested Tinycast direction described
+at the end of this document.
 
 ## Genre
 
@@ -96,7 +96,7 @@ CTAs, restrained Geist typography, and rounded screenshot galleries.
 `www/homepage.css` owns its runtime tokens: canvas #040506, surface #0b0c0e,
 ink #f5f5f6, muted #a1a1a6, rule #242428, accent #803bfa, and bright accent #af85ff.
 Display type is Geist 600 with −0.045em tracking; utility labels use Geist Mono.
-It replaces the older homepage stylesheets on the English route only.
+It replaces the older homepage stylesheets on all five language routes.
 
 Keep the existing product explanations and security boundaries beneath the
 experimental headlines. “Full access” describes the agent's execution mode,
@@ -108,8 +108,9 @@ scenes with a Next control for reduced motion. Without JavaScript the AWS
 Approval remains visible. SSH uses Allow Authentication policy, not Read Only;
 that policy does not restrict remote commands or destinations. Each product screenshot appears once;
 the Approval capture is large and links to its original size.
-The translated pages retain their existing copy and design pending review of
-this English direction; their links and existing assets remain valid.
+Japanese, German, French, and Simplified Chinese homepages share this layout.
+Keep canonical product and policy names recognizable; translate demo narration,
+controls, and authorization messages. Commands and captured product UI stay verbatim.
 
 
 The section immediately after the demo explains enforcement below the harness.

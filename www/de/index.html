@@ -33,8 +33,6 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
-  <link rel="stylesheet" href="/styles.css?v=129">
-  <link rel="stylesheet" href="/brand-landing.css?v=43">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
   <script>
@@ -60,6 +58,7 @@
   }
 }
   </script>
+  <link rel="stylesheet" href="/homepage.css?v=9">
 </head>
 <body class="brew-home">
   <a class="brew-skip-link" href="#main-content">Zum Inhalt</a>
@@ -87,15 +86,70 @@
         <p class="brew-hero-summary">Schütze CLI-Credentials, gib Agents begrenzte Fähigkeiten und genehmige Operationen auf deinen Macs.</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">Für macOS herunterladen</a>
-          <a class="brew-text-link" href="/docs/">Dokumentation lesen <span aria-hidden="true">→</span></a>
+          <a class="brew-text-link" href="#demo">Demo ansehen <span aria-hidden="true">↗</span></a>
         </div>
         <p class="brew-hero-note">Kostenlos und Open Source. Deine gewohnten Befehle bleiben. Kein Agent-Plugin nötig.</p>
       </div>
     </section>
 
+    <section class="aws-demo" id="demo" aria-label="Autorisierungsdemo mit Terminal und Claude Code">
+      <div class="demo-desktop">
+        <div class="demo-menubar" aria-hidden="true"><span>⌘ &nbsp; Terminal &nbsp; <span class="menu-extra">Shell &nbsp; Edit &nbsp; View</span></span><span>Automic Vault ◇</span></div>
+        <div class="demo-terminal" data-terminal data-agent="false" aria-hidden="true">
+          <div class="window-bar"><span class="traffic-lights">● ● ●</span><span class="demo-session"><img data-session-icon src="/assets/claude-icon.svg" width="16" height="16" alt="" hidden><span data-session>Terminal — ~/projects/acme</span></span><span></span></div>
+          <div class="terminal-content"><p class="terminal-context">~/projects/acme <span>main</span></p>
+            <div class="claude-intro" data-agent-intro hidden><div class="claude-brand"><img src="/assets/claude-icon.svg" width="24" height="24" alt=""><strong>Claude Code</strong><span>~/projects/acme</span></div><p class="claude-request">Prüfe Staging und merge dann PR #42.</p><p class="claude-plan">Ich prüfe Staging per SSH und merge dann den Pull Request.</p></div>
+            <p class="claude-thinking" data-thinking hidden>✳ Denke nach…</p>
+            <p data-read-line><span class="prompt">❯</span> <span data-read-command>aws s3 ls</span></p>
+            <pre data-output>2026-09-15 09:41:00 acme-assets
+2026-09-15 09:41:00 acme-backups</pre>
+            <p class="write-command" data-write-line><span class="prompt">❯</span> <span data-write-command>aws ec2 terminate-instances --instance-ids i-0123456789abcdef0</span></p>
+            <p class="terminal-wait" data-wait>Warte auf deine Genehmigung…</p>
+          </div>
+        </div>
+        <div class="demo-notification" data-notification hidden aria-hidden="true"><img src="/assets/icon@2x.webp?v=3" width="36" height="36" alt=""><div><strong>Automic Vault</strong><span data-policy>Durch Read Only Policy autorisiert</span><small data-notification-command>aws s3 ls · Terminal</small></div><span class="notification-check">✓</span></div>
+        <div class="demo-approval" data-approval aria-hidden="true">
+          <img data-approval-icon src="/assets/icon@2x.webp?v=3" width="48" height="48" alt="">
+          <h3 data-approval-title>Terminal möchte AWS verwenden</h3><p>Genehmigung erforderlich. Diese Operation verändert Remote-Ressourcen.</p>
+          <div class="approval-command" data-approval-command>aws ec2 terminate-instances<br>--instance-ids i-0123456789abcdef0</div>
+          <dl><div><dt>Verified Launcher</dt><dd data-launcher>Terminal · Apple</dd></div><div><dt>Operation</dt><dd>Remote Write</dd></div><div><dt>Arbeitsverzeichnis</dt><dd>~/projects/acme</dd></div><div><dt>Secret Names</dt><dd data-secrets>AWS_ACCESS_KEY_ID<br>AWS_SECRET_ACCESS_KEY</dd></div></dl>
+          <div class="approval-buttons"><span>Ablehnen</span><span>Einmal genehmigen</span></div>
+        </div>
+      </div>
+      <div class="demo-controls"><span><span class="live-dot"></span> ROUTINE NACH POLICY. DEN REST ENTSCHEIDEST DU.</span><button type="button" data-demo-play disabled>Demo abspielen <span aria-hidden="true">↻</span></button></div>
+      <script type="application/json" data-demo-copy>{"pause": "Pausieren Ⅱ", "resume": "Fortsetzen ▶", "next": "Nächste Demo →", "authorized": "Durch {policy} Policy autorisiert", "approval": "{launcher} möchte {tool} verwenden"}</script>
+    </section>
+
+    <section class="tool-boundary" id="deeper-than-guardrails" aria-labelledby="tool-boundary-title">
+      <div class="boundary-intro">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">Unterhalb der Agentensteuerung</p>
+          <h2 id="tool-boundary-title">Schutz unterhalb der Guardrails.</h2>
+          <p>Wir haben über 10.000 Pakete auf die Verwendung von Zugangsdaten untersucht und Hardener für unterstützte Tools entwickelt.</p>
+          <p>Automic Vault härtet unterstützte Tools auf Paketebene: durch Konfiguration, Wrapper oder Patches für die Nutzung von Zugangsdaten. Anfragen für geschützte Zugangsdaten durchlaufen ein Authorization Gate – ob sie aus Terminal, Claude Code oder einer anderen App kommen.</p>
+          <a class="brew-text-link" href="/docs/hardeners/">So härten wir deine Tools <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="operation-example">
+          <h3>Ein Token. Drei Entscheidungen.</h3>
+          <p>Ein abrufbasierter Secrets-Manager entscheidet, wer Zugangsdaten erhalten darf. Automic Vault prüft die gesamte Operation, bevor es sie anwendet.</p>
+          <table>
+            <caption>GitHub · Verified Launcher mit Read Only Policy</caption>
+            <thead><tr><th scope="col">Befehl</th><th scope="col">Entscheidung</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>gh issue list</code><small>Issues lesen</small></th><td><span class="decision-allowed">Autorisiert</span><small>Read Only</small></td></tr>
+              <tr><th scope="row"><code>gh issue create</code><small>Issue erstellen</small></th><td><span>Genehmigung erforderlich</span><small>Remote Write</small></td></tr>
+              <tr><th scope="row"><code>gh auth token</code><small>Token offenlegen</small></th><td><span>Genehmigung erforderlich</span><small>Secret Disclosure</small></td></tr>
+            </tbody>
+          </table>
+          <p class="operation-note">Die Offenlegung von Zugangsdaten erfordert eine eigene Entscheidung, auch wenn sich remote nichts ändert.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="brew-feature" id="command-line" aria-labelledby="command-line-title">
       <div class="brew-copy">
-        <h2 id="command-line-title">Sichere deine Kommandozeile</h2>
+        <p class="brew-eyebrow">Schütze deine Kommandozeile</p>
+        <h2 id="command-line-title">macOS-Sicherheit für die Kommandozeile.</h2>
         <p>Finde Credentials, die Tools, Abhängigkeiten und Agents aus Dateien oder Credential-Helpern lesen können. Jedes Finding erklärt das Problem und eine mögliche Abhilfe. Ein Hardener verschiebt unterstützte Credentials in die macOS Data Protection Keychain und richtet ein Authorization Gate am Ort der Verwendung ein.</p>
         <a class="brew-text-link" href="/docs/hardeners/">Unterstützte Tools finden <span aria-hidden="true">→</span></a>
         <div class="brew-scanner-terminal">
@@ -115,11 +169,18 @@
         <img src="/docs/assets/detectors.png" alt="Detectors zeigen die Prüfungen und verfügbare Hardener." width="1440" height="900" decoding="async" fetchpriority="high">
         <figcaption>Detectors zeigen die Prüfungen und verfügbare Hardener.</figcaption>
       </figure>
+      <div class="hardening-proof">
+        <article><p class="brew-eyebrow">AWS</p><h3>Kurzlebige Zugangsdaten pro Aufruf.</h3><p>Normale AWS-Befehle erhalten kurzlebige Sitzungszugangsdaten. Langlebige Schlüssel werden aus der gemeinsamen Credentials-Datei entfernt. AV beschafft Sitzungszugangsdaten separat für jeden AWS-Prozess.</p><a class="brew-text-link" href="/docs/hardeners/aws/">So funktioniert AWS-Härtung <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">Docker</p><h3>Prozess und Registry zählen.</h3><p>Bevor AV Registry-Zugangsdaten freigibt, prüft es den laufenden Docker-Desktop-Prozess, seine Signatur, Laufzeitschutzmaßnahmen, Prozessabstammung, Argumente und die angeforderte Registry.</p><a class="brew-text-link" href="/docs/hardeners/docker/">So funktioniert Docker-Härtung <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">Homebrew</p><h3>Aktualisieren lassen. Installationen genehmigen.</h3><p>Die Read &amp; Update Policy erlaubt erkannte Abfragebefehle und brew update. Das Installieren oder Aktualisieren von Software erfordert weiterhin deine Approval.</p><a class="brew-text-link" href="/docs/hardeners/brew/">So funktioniert Homebrew-Härtung <span aria-hidden="true">↗</span></a></article>
+      </div>
     </section>
 
     <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
-        <h2 id="controls-title">Bestimme, was Tools und Agents tun dürfen</h2>
+        <p class="brew-eyebrow">Bestimme, was Tools und Agenten dürfen</p>
+        <h2 id="controls-title">Agenten mit vollem Zugriff. Zugangsdaten unter Kontrolle.</h2>
+        <p>Dein Agent kann im Ausführungsmodus mit vollem Zugriff bleiben, während AV die Nutzung geschützter Zugangsdaten separat kontrolliert. AV führt den Agenten nicht in einer Sandbox aus und verhindert keine beliebigen lokalen Dateiänderungen.</p>
         <p>Lass einen Agent GitHub-Issues lesen, während Schreibzugriffe deine Approval brauchen. Für dein Terminal gelten eigene Regeln. AV prüft die vollständige Operation für jeden Verified Launcher. Write Access umfasst weder die Offenlegung von Secrets noch die Anwendung mächtigerer Credentials; Unknown-Operationen brauchen immer Approval. Für eine geeignete Agent-Aufgabe kannst du zehn aktive Minuten Write Access an einem Gate gewähren, verlängern, pausieren oder beenden.</p>
         <a class="brew-text-link" href="/docs/authority/">Berechtigungen festlegen <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">Code Signing bestätigt Identität und Integrität, nicht die Absicht. Aufgabenkennungen grenzen temporäre Grants ein; sie sind keine Identität.</p>
@@ -130,15 +191,21 @@
       </figure>
     </section>
 
-    <section class="brew-feature" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
+    <section class="brew-feature script-proof" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
       <div class="brew-copy">
-        <h2 id="reentrant-scripts-title">Gib Agents die Fähigkeiten, die sie brauchen</h2>
+        <p class="brew-eyebrow">Gib Agenten die nötigen Fähigkeiten</p>
+        <h2 id="reentrant-scripts-title">Gib Agenten geprüfte Fähigkeiten.</h2>
         <p>Ein Agent schreibt Release Notes; ein geprüftes Skript veröffentlicht auf GitHub und aktualisiert das CDN. Ein Blessed Script bindet deine Prüfung an exakten Inhalt und deklarierte Fähigkeiten. Ein reentrantes Skript hält für Agent-Eingaben an und bietet feste Einstiegspunkte. AV autorisiert jeden Aufruf einzeln. Änderungen machen die Blessing ungültig.</p>
         <a class="brew-text-link" href="/docs/reentrant-scripts/">Geprüften Agent-Workflow bauen <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">Prüfe Agent-Ausgaben vor der Verwendung. Secret Values bleiben in der Skriptausführung. Eine Blessing macht Code nicht vertrauenswürdig.</p>
       </div>
+      <div class="approval-intro" id="gallery">
+        <p class="brew-eyebrow">In Aktion</p>
+        <h2 id="gallery-title">Alles für eine fundierte Entscheidung.</h2>
+        <p>Prüfe Software, Befehl, Argumente, Arbeitsverzeichnis und Secret Names, bevor du eine Operation erlaubst.</p>
+      </div>
       <figure class="brew-capture brew-capture-script">
-        <img src="/assets/blessed-script-agent-approval.png" alt="ChatGPT ruft das Veröffentlichungsskript auf. AV zeigt vor der Approval die deklarierten Fähigkeiten und ChatGPT als Verified Launcher." width="1452" height="1394" loading="lazy" decoding="async">
+        <a href="/assets/blessed-script-agent-approval.png" aria-label="Approval-Screenshot vergrößern"><img src="/assets/blessed-script-agent-approval.png" alt="ChatGPT ruft das Veröffentlichungsskript auf. AV zeigt vor der Approval die deklarierten Fähigkeiten und ChatGPT als Verified Launcher." width="1452" height="1394" loading="lazy" decoding="async"></a>
         <figcaption>ChatGPT ruft das Veröffentlichungsskript auf. AV zeigt vor der Approval die deklarierten Fähigkeiten und ChatGPT als Verified Launcher.</figcaption>
       </figure>
     </section>
@@ -148,6 +215,7 @@
         <h2 id="projects-title">Halte Projekt-Secrets aus Klartextdateien heraus</h2>
         <p>Nutze denselben Secret Name in mehreren Projekten mit jeweils einem Project Value. AV wählt das nächstgelegene passende physische Verzeichnis; ohne passenden Project Value gilt der Global Value. Für kompatible HTTP-Clients gibt der Secret Proxy der Anwendung eine temporäre Referenz und setzt das Credential nur für genehmigte Ziele ein.</p>
         <a class="brew-text-link" href="/docs/authority/">Project Values verstehen <span aria-hidden="true">→</span></a>
+        <a class="brew-text-link" href="/docs/workflows/">Credential-Proxy entdecken <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">Verzeichnisse wählen Values, gewähren aber keine Berechtigung. Eine Policy gilt für alle Values eines Secret Name. Proxy-Referenzen sind Bearer-Werte und können bereits gewährten Session-Zugriff ausüben.</p>
       </div>
       <figure class="brew-capture">
@@ -161,6 +229,7 @@
         <h2 id="iphone-approval-title">Genehmige Operationen auf deinen Macs</h2>
         <p>Prüfe Anfragen deiner registrierten Macs auf berechtigten iPhones im selben iCloud-Keychain-Konto. Jeder Mac behält seine Secrets, Policy und Authorization History und setzt die Entscheidung lokal durch. Zusätzlich kannst du Touch ID Approval für biometrische Freigaben auf einem Mac aktivieren.</p>
         <a class="brew-text-link" href="/docs/authority/">iPhone und Touch ID Approval einrichten <span aria-hidden="true">→</span></a>
+        <a class="brew-text-link" href="https://testflight.apple.com/join/cfnDU5kM">Zur öffentlichen iPhone-Beta auf TestFlight <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">iPhone Approval entfernt maus- und tastaturgesteuerte Freigaben auf dem Mac. Deaktiviere iPhone Mirroring und Show on Mac oder verlange Face ID oder Touch ID auf jedem berechtigten iPhone. Ein Relay-Ausfall aktiviert keine Ausweichmöglichkeit.</p>
       </div>
       <figure class="brew-capture brew-capture-phone">
@@ -191,8 +260,10 @@
   </main>
 
   <footer class="brew-footer">
-    <p class="brew-footer-statement">Vom Erfinder von Homebrew.</p>
-    <a class="brew-cta" href="/Automic%20Vault.dmg">Für macOS laden</a>
+    <div class="brew-footer-lead">
+      <p class="brew-footer-statement">Deine Tools. Deine Kontrolle.</p>
+      <a class="brew-cta" href="/Automic%20Vault.dmg">Für macOS laden</a>
+    </div>
     <div class="brew-footer-meta">
       <a class="brew-brand" href="#top">
         <img src="/assets/brand-shield-v2.webp?v=3" alt="" width="54" height="54">
@@ -220,5 +291,6 @@
 
   <script src="/app.js?v=2" defer></script>
   <script src="/i18n.js" defer></script>
+  <script src="/homepage.js?v=6" defer></script>
 </body>
 </html>

@@ -33,8 +33,6 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
-  <link rel="stylesheet" href="/styles.css?v=129">
-  <link rel="stylesheet" href="/brand-landing.css?v=43">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
   <script>
@@ -60,6 +58,7 @@
   }
 }
   </script>
+  <link rel="stylesheet" href="/homepage.css?v=9">
 </head>
 <body class="brew-home">
   <a class="brew-skip-link" href="#main-content">本文へ移動</a>
@@ -87,15 +86,70 @@
         <p class="brew-hero-summary">CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">macOS 版をダウンロード</a>
-          <a class="brew-text-link" href="/docs/">ドキュメントを読む <span aria-hidden="true">→</span></a>
+          <a class="brew-text-link" href="#demo">デモを見る <span aria-hidden="true">↗</span></a>
         </div>
         <p class="brew-hero-note">無料・オープンソース。普段のコマンドをそのまま使えます。エージェント用プラグインは不要です。</p>
       </div>
     </section>
 
+    <section class="aws-demo" id="demo" aria-label="Terminal と Claude Code の認可デモ">
+      <div class="demo-desktop">
+        <div class="demo-menubar" aria-hidden="true"><span>⌘ &nbsp; Terminal &nbsp; <span class="menu-extra">Shell &nbsp; Edit &nbsp; View</span></span><span>Automic Vault ◇</span></div>
+        <div class="demo-terminal" data-terminal data-agent="false" aria-hidden="true">
+          <div class="window-bar"><span class="traffic-lights">● ● ●</span><span class="demo-session"><img data-session-icon src="/assets/claude-icon.svg" width="16" height="16" alt="" hidden><span data-session>Terminal — ~/projects/acme</span></span><span></span></div>
+          <div class="terminal-content"><p class="terminal-context">~/projects/acme <span>main</span></p>
+            <div class="claude-intro" data-agent-intro hidden><div class="claude-brand"><img src="/assets/claude-icon.svg" width="24" height="24" alt=""><strong>Claude Code</strong><span>~/projects/acme</span></div><p class="claude-request">ステージング環境を確認してから PR #42 をマージして。</p><p class="claude-plan">SSH でステージング環境を確認してから、プルリクエストをマージします。</p></div>
+            <p class="claude-thinking" data-thinking hidden>✳ 考え中…</p>
+            <p data-read-line><span class="prompt">❯</span> <span data-read-command>aws s3 ls</span></p>
+            <pre data-output>2026-09-15 09:41:00 acme-assets
+2026-09-15 09:41:00 acme-backups</pre>
+            <p class="write-command" data-write-line><span class="prompt">❯</span> <span data-write-command>aws ec2 terminate-instances --instance-ids i-0123456789abcdef0</span></p>
+            <p class="terminal-wait" data-wait>承認を待っています…</p>
+          </div>
+        </div>
+        <div class="demo-notification" data-notification hidden aria-hidden="true"><img src="/assets/icon@2x.webp?v=3" width="36" height="36" alt=""><div><strong>Automic Vault</strong><span data-policy>Read Only ポリシーで許可済み</span><small data-notification-command>aws s3 ls · Terminal</small></div><span class="notification-check">✓</span></div>
+        <div class="demo-approval" data-approval aria-hidden="true">
+          <img data-approval-icon src="/assets/icon@2x.webp?v=3" width="48" height="48" alt="">
+          <h3 data-approval-title>Terminal が AWS を使用しようとしています</h3><p>承認が必要です。この操作はリモートのリソースを変更します。</p>
+          <div class="approval-command" data-approval-command>aws ec2 terminate-instances<br>--instance-ids i-0123456789abcdef0</div>
+          <dl><div><dt>Verified Launcher</dt><dd data-launcher>Terminal · Apple</dd></div><div><dt>操作</dt><dd>Remote Write</dd></div><div><dt>作業ディレクトリ</dt><dd>~/projects/acme</dd></div><div><dt>Secret Names</dt><dd data-secrets>AWS_ACCESS_KEY_ID<br>AWS_SECRET_ACCESS_KEY</dd></div></dl>
+          <div class="approval-buttons"><span>拒否</span><span>今回のみ承認</span></div>
+        </div>
+      </div>
+      <div class="demo-controls"><span><span class="live-dot"></span> 通常の操作はポリシーで。それ以外はあなたが判断。</span><button type="button" data-demo-play disabled>デモを再生 <span aria-hidden="true">↻</span></button></div>
+      <script type="application/json" data-demo-copy>{"pause": "一時停止 Ⅱ", "resume": "再開 ▶", "next": "次のデモ →", "authorized": "{policy} ポリシーで許可済み", "approval": "{launcher} が {tool} を使用しようとしています"}</script>
+    </section>
+
+    <section class="tool-boundary" id="deeper-than-guardrails" aria-labelledby="tool-boundary-title">
+      <div class="boundary-intro">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">エージェントの実行基盤より深い層で</p>
+          <h2 id="tool-boundary-title">ガードレールより深い層で保護。</h2>
+          <p>10,000 を超えるパッケージの認証情報の使い方を調べ、対応ツール向けに Hardener を開発しました。</p>
+          <p>Automic Vault は、対応する Tool の設定変更、ラッパーの追加、パッチの適用により、パッケージ層で認証情報の使い方を保護します。保護対象の認証情報へのリクエストは、Terminal、Claude Code、その他のアプリのどこから来ても Authorization Gate で確認されます。</p>
+          <a class="brew-text-link" href="/docs/hardeners/">ツールの保護の仕組みを見る <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="operation-example">
+          <h3>1 つのトークン。3 つの判断。</h3>
+          <p>取得時に判断するシークレットマネージャーは、誰に認証情報を渡すかを決めます。Automic Vault は、認証情報を適用する前に操作全体を確認します。</p>
+          <table>
+            <caption>GitHub · Read Only ポリシーの Verified Launcher</caption>
+            <thead><tr><th scope="col">コマンド</th><th scope="col">判断</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>gh issue list</code><small>Issue を読む</small></th><td><span class="decision-allowed">許可済み</span><small>Read Only</small></td></tr>
+              <tr><th scope="row"><code>gh issue create</code><small>Issue を作成</small></th><td><span>承認が必要</span><small>Remote Write</small></td></tr>
+              <tr><th scope="row"><code>gh auth token</code><small>トークンを開示</small></th><td><span>承認が必要</span><small>Secret Disclosure</small></td></tr>
+            </tbody>
+          </table>
+          <p class="operation-note">リモート側を変更しなくても、認証情報の開示には別の判断が必要です。</p>
+        </div>
+      </div>
+    </section>
+
     <section class="brew-feature" id="command-line" aria-labelledby="command-line-title">
       <div class="brew-copy">
-        <h2 id="command-line-title">コマンドラインを安全に使う</h2>
+        <p class="brew-eyebrow">コマンドラインを保護</p>
+        <h2 id="command-line-title">macOS のセキュリティをコマンドラインへ。</h2>
         <p>ツールや依存パッケージ、エージェントがファイルや認証情報ヘルパーから読み出せる認証情報を検出します。各 Finding には原因と対策を表示します。対応する Tool を Hardener で保護すると、認証情報を macOS の Data Protection Keychain に移し、使用時に Authorization Gate で確認します。</p>
         <a class="brew-text-link" href="/docs/hardeners/">対応するツールを見る <span aria-hidden="true">→</span></a>
         <div class="brew-scanner-terminal">
@@ -115,11 +169,18 @@
         <img src="/docs/assets/detectors.png" alt="Detector ごとの検査内容と、Hardener の対応状況を確認できます。" width="1440" height="900" decoding="async" fetchpriority="high">
         <figcaption>Detector ごとの検査内容と、Hardener の対応状況を確認できます。</figcaption>
       </figure>
+      <div class="hardening-proof">
+        <article><p class="brew-eyebrow">AWS</p><h3>呼び出しごとに短期認証情報を。</h3><p>通常の AWS コマンドには短期のセッション認証情報を渡します。長期キーは共有認証情報ファイルから取り除きます。AV は AWS プロセスごとにセッション認証情報を個別に取得します。</p><a class="brew-text-link" href="/docs/hardeners/aws/">AWS の保護の仕組み <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">Docker</p><h3>プロセスもレジストリも確認。</h3><p>レジストリの認証情報を渡す前に、AV は実行中の Docker Desktop プロセス、署名、ランタイム保護、起動元のプロセス階層、引数、要求されたレジストリを確認します。</p><a class="brew-text-link" href="/docs/hardeners/docker/">Docker の保護の仕組み <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">Homebrew</p><h3>更新チェックは実行。インストールは承認。</h3><p>Read &amp; Update ポリシーは、認識された確認用コマンドと brew update を許可します。ソフトウェアのインストールやアップグレードには、引き続き Approval が必要です。</p><a class="brew-text-link" href="/docs/hardeners/brew/">Homebrew の保護の仕組み <span aria-hidden="true">↗</span></a></article>
+      </div>
     </section>
 
     <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
-        <h2 id="controls-title">ツールやエージェントに許可する操作を選ぶ</h2>
+        <p class="brew-eyebrow">ツールとエージェントに許可する操作を選ぶ</p>
+        <h2 id="controls-title">エージェントはフルアクセスで。認証情報の使用は管理下に。</h2>
+        <p>エージェントのフルアクセス実行モードを維持したまま、AV が保護対象の認証情報の使用を別途管理します。AV はエージェントをサンドボックス化せず、任意のローカルファイル変更を防ぐものでもありません。</p>
         <p>エージェントには GitHub の Issue 閲覧を許可し、書き込みは承認が必要な設定にできます。ターミナルには別のルールを設定できます。AV は Verified Launcher ごとに操作全体を確認します。Write Access でも、Secret の開示や強力な認証情報の使用には Approval が必要です。Unknown の操作は人が判断します。対象のエージェントタスクには、1 つの Gate で有効時間 10 分の Write Access を付与し、延長・一時停止・終了できます。</p>
         <a class="brew-text-link" href="/docs/authority/">権限の設定を読む <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">コード署名が示すのは識別情報と完全性であり、意図ではありません。タスク ID は一時的な権限の対象を絞るための情報で、本人性を証明しません。</p>
@@ -130,15 +191,21 @@
       </figure>
     </section>
 
-    <section class="brew-feature" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
+    <section class="brew-feature script-proof" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
       <div class="brew-copy">
-        <h2 id="reentrant-scripts-title">エージェントに必要な能力を渡す</h2>
+        <p class="brew-eyebrow">必要な機能をエージェントへ</p>
+        <h2 id="reentrant-scripts-title">確認した機能をエージェントへ。</h2>
         <p>エージェントがリリースノートを作成し、レビュー済みスクリプトが GitHub への公開と CDN の更新を行います。Blessed Script は、確認した正確な内容と宣言済みの権限に結び付きます。再入可能なスクリプトは、決められた入口からエージェントに情報を渡し、入力を待って処理を再開します。AV は呼び出しごとに認可します。編集すると Blessing は無効になります。</p>
         <a class="brew-text-link" href="/docs/reentrant-scripts/">レビュー済みワークフローを作る <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">エージェントの出力は使用前に検証してください。Secret Values はスクリプトの実行内に留めます。Blessing 自体がコードの安全性を保証するわけではありません。</p>
       </div>
+      <div class="approval-intro" id="gallery">
+        <p class="brew-eyebrow">実際の画面</p>
+        <h2 id="gallery-title">判断に必要な情報を、ひと目で。</h2>
+        <p>操作を許可する前に、ソフトウェア、コマンド、引数、作業ディレクトリ、Secret Names を確認できます。</p>
+      </div>
       <figure class="brew-capture brew-capture-script">
-        <img src="/assets/blessed-script-agent-approval.png" alt="ChatGPT が公開スクリプトを起動。AV は Approval の前に宣言済みの権限を表示し、ChatGPT を Verified Launcher として識別します。" width="1452" height="1394" loading="lazy" decoding="async">
+        <a href="/assets/blessed-script-agent-approval.png" aria-label="承認画面を拡大"><img src="/assets/blessed-script-agent-approval.png" alt="ChatGPT が公開スクリプトを起動。AV は Approval の前に宣言済みの権限を表示し、ChatGPT を Verified Launcher として識別します。" width="1452" height="1394" loading="lazy" decoding="async"></a>
         <figcaption>ChatGPT が公開スクリプトを起動。AV は Approval の前に宣言済みの権限を表示し、ChatGPT を Verified Launcher として識別します。</figcaption>
       </figure>
     </section>
@@ -148,6 +215,7 @@
         <h2 id="projects-title">プロジェクトの秘密情報を平文ファイルに置かない</h2>
         <p>複数のプロジェクトで同じ Secret Name を使い、プロジェクトごとに異なる Project Value を保存できます。AV は物理ディレクトリをたどって最も近い値を選び、該当する値がなければ Global Value を使います。対応する HTTP クライアントでは、Secret Proxy が一時参照をアプリに渡し、承認済みの宛先にだけ実際の認証情報を適用します。</p>
         <a class="brew-text-link" href="/docs/authority/">Project Values の仕組みを読む <span aria-hidden="true">→</span></a>
+        <a class="brew-text-link" href="/docs/workflows/">認証情報プロキシの仕組みを見る <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">ディレクトリは値の選択に使い、権限は付与しません。ポリシーは同じ Secret Name の全 Values に適用されます。プロキシの参照は所持者が使用でき、セッションで付与済みの宛先へのアクセスに使えます。</p>
       </div>
       <figure class="brew-capture">
@@ -161,6 +229,7 @@
         <h2 id="iphone-approval-title">複数の Mac の操作を承認する</h2>
         <p>同じ iCloud キーチェーンのアカウントに属する対象の iPhone から、登録済み Mac のリクエストを確認できます。各 Mac は Secrets、ポリシー、Authorization History を保持し、その Mac 上で判断を適用します。Mac ごとに Touch ID Approval を有効にして、生体認証による承認を使うこともできます。</p>
         <a class="brew-text-link" href="/docs/authority/">iPhone と Touch ID Approval を設定する <span aria-hidden="true">→</span></a>
+        <a class="brew-text-link" href="https://testflight.apple.com/join/cfnDU5kM">TestFlight で iPhone 公開ベータに参加 <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">iPhone Approval を有効にすると、Mac 上のマウスやキーボードによる許可操作はなくなります。iPhone Mirroring と Show on Mac を無効にするか、対象の全 iPhone で Face ID または Touch ID を必須にしてください。リレー障害で代替手段が有効になることはありません。</p>
       </div>
       <figure class="brew-capture brew-capture-phone">
@@ -191,8 +260,10 @@
   </main>
 
   <footer class="brew-footer">
-    <p class="brew-footer-statement">Homebrew の開発者が提供。</p>
-    <a class="brew-cta" href="/Automic%20Vault.dmg">macOS 版をダウンロード</a>
+    <div class="brew-footer-lead">
+      <p class="brew-footer-statement">あなたのツール。あなたが決める権限。</p>
+      <a class="brew-cta" href="/Automic%20Vault.dmg">macOS 版をダウンロード</a>
+    </div>
     <div class="brew-footer-meta">
       <a class="brew-brand" href="#top">
         <img src="/assets/brand-shield-v2.webp?v=3" alt="" width="54" height="54">
@@ -220,5 +291,6 @@
 
   <script src="/app.js?v=2" defer></script>
   <script src="/i18n.js" defer></script>
+  <script src="/homepage.js?v=6" defer></script>
 </body>
 </html>

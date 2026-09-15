@@ -376,11 +376,11 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             home = (ROOT / "www" / locale / "index.html").read_text(encoding="utf-8")
             main = home.split('<main ', 1)[1].split('</main>', 1)[0]
             with self.subTest(locale=locale):
-                self.assertIn('brand-landing.css?v=43' if locale else 'homepage.css?v=8', home)
+                self.assertIn('homepage.css?v=9', home)
                 ids = set(re.findall(r'\bid="([^"]+)"', home))
                 self.assertTrue(set(re.findall(r'href="#([^"]+)"', home)) <= ids)
                 self.assertEqual(re.findall(r'<code>(.*?)</code>', main),
-                    ([] if locale else ['gh issue list', 'gh issue create', 'gh auth token']) + [
+                    ['gh issue list', 'gh issue create', 'gh auth token'] + [
                         'curl -fsSL https://www.automicvault.com/scanner.sh | bash',
                     ])
                 positions = [main.index(f'id="{section_id}"') for section_id in section_ids]
