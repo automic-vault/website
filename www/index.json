@@ -29,7 +29,7 @@
   "sections": [
     {
       "title": "Your secrets manager should know what the secrets do.",
-      "description": "From the Creator of Homebrew\n\nSecure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.\n\nFree and open source. Your existing commands keep working. No agent plugin required.\n\nIllustrated demo. With a hardened AWS CLI and a Verified Launcher on Read Only policy, aws s3 ls is automically authorized. Terminating an EC2 instance requires your Approval. With an enrolled Claude Code Launcher Bundle, Allow Authentication policy authorizes SSH authentication; it does not restrict remote commands or destinations. GitHub Read Only policy leaves merging a pull request behind Approval.",
+      "description": "From the Creator of Homebrew\n\nSecure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.\n\nFree and open source. Your existing commands keep working. No agent plugin required.\n\nIllustrated demo with hardened Tools and verified Launchers. The AWS termination and GitHub merge shown here wait for your Approval.\n\nAWS · Read Only policy authorizes listing buckets. Terminating an instance requires Approval.\n\nClaude Code · SSH Allow Authentication does not restrict remote commands or destinations. GitHub Read Only policy requires Approval to merge a pull request.",
       "links": [
         {
           "label": "Download for macOS",
@@ -43,10 +43,20 @@
     },
     {
       "title": "Deeper than guardrails.",
-      "description": "Automic Vault hardens supported Tools at the packaging layer: reconfiguring, wrapping, or patching how they use credentials. Their protected credential requests meet an Authorization Gate whether they come from Terminal, Claude Code, or another app.\n\nA retrieval-based secrets manager decides who may receive a credential. Automic Vault checks the complete operation before applying it.\n\nOne token. Three decisions. With a Verified Launcher on GitHub Read Only policy: gh issue list is authorized; gh issue create requires Approval for Remote Write; gh auth token requires Approval for Secret Disclosure.\n\nAWS: Short-lived credentials per invocation. Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.\n\nDocker: The process and registry matter. Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.\n\nHomebrew: Updates can run. Installs can ask. Read & Update policy allows recognized inspection commands and brew update. Installing or upgrading software still requires your Approval.",
+      "description": "Automic Vault hardens supported Tools at the packaging layer: reconfiguring, wrapping, or patching how they use credentials. Their protected credential requests meet an Authorization Gate whether they come from Terminal, Claude Code, or another app.\n\nA retrieval-based secrets manager decides who may receive a credential. Automic Vault checks the complete operation before applying it.\n\nOne token. Three decisions. With a Verified Launcher on GitHub Read Only policy: gh issue list is authorized; gh issue create requires Approval for Remote Write; gh auth token requires Approval for Secret Disclosure.",
       "links": [
         {
           "label": "See how we harden your tools",
+          "url": "https://www.automicvault.com/docs/hardeners/"
+        }
+      ]
+    },
+    {
+      "title": "Bringing macOS security to the command line.",
+      "description": "Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.\n\nHarden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.\n\nA clean Scan covers the checks AV supports. It does not certify your whole machine as secure.\n\nScan without installing:\ncurl -fsSL https://www.automicvault.com/scanner.sh | bash\n\nDownloads a small standalone scanner built from the latest release sources, verifies its signature, and runs it in a read-only sandbox with no network access.\n\nAWS: Short-lived credentials per invocation. Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.\n\nDocker: The process and registry matter. Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.\n\nHomebrew: Updates can run. Installs can ask. Read & Update policy allows recognized inspection commands and brew update. Installing or upgrading software still requires your Approval.",
+      "links": [
+        {
+          "label": "Find your tools",
           "url": "https://www.automicvault.com/docs/hardeners/"
         },
         {
@@ -61,26 +71,11 @@
           "label": "How Homebrew hardening works",
           "url": "https://www.automicvault.com/docs/hardeners/brew/"
         }
-      ]
-    },
-    {
-      "title": "All the info you need to make a decision.",
-      "description": "See the software, command, arguments, working directory, and Secret Names before you allow an operation.",
-      "links": []
-    },
-    {
-      "title": "Bringing macOS security to the command line.",
-      "description": "Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.\n\nHarden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.\n\nA clean Scan covers the checks AV supports. It does not certify your whole machine as secure.\n\nScan without installing:\ncurl -fsSL https://www.automicvault.com/scanner.sh | bash\n\nDownloads a small standalone scanner built from the latest release sources, verifies its signature, and runs it in a read-only sandbox with no network access.",
-      "links": [
-        {
-          "label": "Find your tools",
-          "url": "https://www.automicvault.com/docs/hardeners/"
-        }
       ],
       "eyebrow": "Secure your command line"
     },
     {
-      "title": "Run agents full access. Don’t lose sleep.",
+      "title": "Run agents full access. Control their credentials.",
       "description": "Keep your agent’s full-access execution mode while AV separately controls its use of protected credentials. AV does not sandbox your agent or prevent arbitrary local file changes.\n\nLet your agent read GitHub issues while writes need your Approval. Give your terminal a different policy. Each Authorization Gate applies the rules you choose for each Verified Launcher.\n\nAV checks the complete operation before applying a credential. Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.\n\nFor an eligible agent task, grant ten active minutes of Write Access at one gate. You can extend, suspend, or end that grant from its visible controls.\n\nCode signing establishes software identity and integrity, not intent. Task identifiers narrow temporary grants; they do not establish identity.",
       "links": [
         {
@@ -91,7 +86,7 @@
       "eyebrow": "Decide what your tools and agents can do"
     },
     {
-      "title": "The missing secrets manager for developers.",
+      "title": "Give agents capabilities you’ve reviewed.",
       "description": "Let an agent prepare release notes while a reviewed script publishes to GitHub and updates your CDN. A Blessed Script binds exact contents and declared capabilities to your review.\n\nA reentrant script pauses for agent input, exposes fixed entry points for context, then continues the deterministic work. AV authorizes each invocation. Editing the script invalidates its Blessing.\n\nValidate agent output before using it. Keep Secret Values within the script’s execution; a Blessing does not make its code trustworthy.",
       "links": [
         {
@@ -100,6 +95,11 @@
         }
       ],
       "eyebrow": "Give agents the capabilities they need"
+    },
+    {
+      "title": "All the info you need to make a decision.",
+      "description": "See the software, command, arguments, working directory, and Secret Names before you allow an operation.",
+      "links": []
     },
     {
       "title": "Keep project secrets out of plaintext files",

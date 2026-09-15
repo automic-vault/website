@@ -106,14 +106,15 @@ Claude Code/SSH/GitHub scenes, holding each pending Approval for five seconds.
 It pauses offscreen or in a hidden tab, offers pause/resume, and presents static
 scenes with a Next control for reduced motion. Without JavaScript the AWS
 Approval remains visible. SSH uses Allow Authentication policy, not Read Only;
-that policy does not restrict remote commands or destinations. Actual product screenshots
-follow in the gallery and remain available at their original size.
+that policy does not restrict remote commands or destinations. The policy scope stays visible beneath each scene. Each product screenshot appears once;
+the Approval capture is large and links to its original size.
 The translated pages retain their existing copy and design pending review of
 this English direction; their links and existing assets remain valid.
 
 
 The section immediately after the demo explains enforcement below the harness.
 Pair the packaging-layer explanation with the same-token read/write/disclosure
-comparison; use three compact AWS, Docker, and Homebrew examples as proof.
+comparison. Follow immediately with the scanner; place AWS, Docker, and Homebrew
+proof beneath it. Pair one large Approval capture with the Blessed Scripts explanation.
 Hardening establishes the protected path; runtime Authorization Gates enforce
 credential requests. Do not imply every process execution is intercepted.

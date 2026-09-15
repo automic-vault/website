@@ -10,11 +10,17 @@ Free and open source. Your existing commands keep working. No agent plugin requi
 
 Download for macOS: https://www.automicvault.com/Automic%20Vault.dmg · See it in action: https://www.automicvault.com/#demo
 
+Illustrated demo with hardened Tools and verified Launchers. The AWS termination and GitHub merge shown here wait for your Approval.
+
+AWS · Read Only policy authorizes listing buckets. Terminating an instance requires Approval.
+
+Claude Code · SSH Allow Authentication does not restrict remote commands or destinations. GitHub Read Only policy requires Approval to merge a pull request.
+
 ## Deeper than guardrails.
 
 Automic Vault hardens supported Tools at the packaging layer: reconfiguring, wrapping, or patching how they use credentials. Their protected credential requests meet an Authorization Gate whether they come from Terminal, Claude Code, or another app.
 
-[See how we harden your tools](https://www.automicvault.com/docs/hardeners/)
+See how we harden your tools: https://www.automicvault.com/docs/hardeners/
 
 ### One token. Three decisions.
 
@@ -29,30 +35,6 @@ GitHub · Verified Launcher with Read Only policy
 | `gh auth token` | Approval required | Secret Disclosure |
 
 Revealing a credential needs its own decision, even when nothing changes remotely.
-
-### AWS: Short-lived credentials per invocation.
-
-Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.
-
-[How AWS hardening works](https://www.automicvault.com/docs/hardeners/aws/)
-
-### Docker: The process and registry matter.
-
-Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.
-
-[How Docker hardening works](https://www.automicvault.com/docs/hardeners/docker/)
-
-### Homebrew: Updates can run. Installs can ask.
-
-Read & Update policy allows recognized inspection commands and brew update. Installing or upgrading software still requires your Approval.
-
-[How Homebrew hardening works](https://www.automicvault.com/docs/hardeners/brew/)
-
-## All the info you need to make a decision.
-
-See the software, command, arguments, working directory, and Secret Names before you allow an operation.
-
-Illustrated demo. With a hardened AWS CLI and a Verified Launcher on Read Only policy, aws s3 ls is automically authorized. Terminating an EC2 instance requires your Approval. With an enrolled Claude Code Launcher Bundle, Allow Authentication policy authorizes SSH authentication; it does not restrict remote commands or destinations. GitHub Read Only policy leaves merging a pull request behind Approval.
 
 ## Bringing macOS security to the command line.
 
@@ -74,7 +56,25 @@ A clean Scan covers the checks AV supports. It does not certify your whole machi
 
 Find your tools: https://www.automicvault.com/docs/hardeners/
 
-## Run agents full access. Don’t lose sleep.
+### AWS: Short-lived credentials per invocation.
+
+Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.
+
+How AWS hardening works: https://www.automicvault.com/docs/hardeners/aws/
+
+### Docker: The process and registry matter.
+
+Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.
+
+How Docker hardening works: https://www.automicvault.com/docs/hardeners/docker/
+
+### Homebrew: Updates can run. Installs can ask.
+
+Read & Update policy allows recognized inspection commands and brew update. Installing or upgrading software still requires your Approval.
+
+How Homebrew hardening works: https://www.automicvault.com/docs/hardeners/brew/
+
+## Run agents full access. Control their credentials.
 
 Decide what your tools and agents can do
 
@@ -90,7 +90,7 @@ Code signing establishes software identity and integrity, not intent. Task ident
 
 Choose how much authority to give: https://www.automicvault.com/docs/authority/
 
-## The missing secrets manager for developers.
+## Give agents capabilities you’ve reviewed.
 
 Give agents the capabilities they need
 
@@ -101,6 +101,10 @@ A reentrant script pauses for agent input, exposes fixed entry points for contex
 Validate agent output before using it. Keep Secret Values within the script’s execution; a Blessing does not make its code trustworthy.
 
 Build a reviewed agent workflow: https://www.automicvault.com/docs/reentrant-scripts/
+
+## All the info you need to make a decision.
+
+See the software, command, arguments, working directory, and Secret Names before you allow an operation.
 
 ## Keep project secrets out of plaintext files
 
