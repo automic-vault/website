@@ -1,4 +1,4 @@
-/* Homepage direction: Tinycast's centered, violet-on-black visual language. */
+/* Centered homepage layout with Automic Vault’s original lilac accent. */
 :root {
   color-scheme: dark;
   --canvas: #040506;
@@ -6,8 +6,8 @@
   --ink: #f5f5f6;
   --muted: #a1a1a6;
   --rule: #242428;
-  --accent: #803bfa;
-  --accent-bright: #af85ff;
+  --accent: oklch(78% 0.105 297);
+  --accent-bright: var(--accent);
   --mono: 'Geist Mono', monospace;
 }
 * { box-sizing: border-box; }
@@ -30,9 +30,9 @@ section[id] { scroll-margin-top: 95px; }
 .brew-nav-links, .brew-nav-actions { display: flex; align-items: center; gap: 28px; font-size: 13px; }
 .brew-nav-actions { margin-left: auto; gap: 20px; }
 .brew-nav a:hover, .brew-text-link:hover, .brew-footer a:hover { color: white; }
-.brew-download, .brew-cta { display: inline-flex; justify-content: center; align-items: center; min-height: 44px; padding: 10px 24px; border-radius: 999px; background: var(--accent); color: white; font-size: 14px; font-weight: 500; white-space: nowrap; transition: background .2s; }
+.brew-download, .brew-cta { display: inline-flex; justify-content: center; align-items: center; min-height: 44px; padding: 10px 24px; border-radius: 999px; background: var(--accent); color: var(--canvas); font-size: 14px; font-weight: 500; white-space: nowrap; transition: background .2s; }
 .brew-download { min-height: 32px; padding: 5px 16px; font-size: 12px; }
-.brew-download:hover, .brew-cta:hover { background: #7130e5; }
+.brew-nav a.brew-download:hover, .brew-cta:hover, .brew-footer a.brew-cta:hover { background: oklch(84% 0.08 297); color: var(--canvas); }
 .brew-usecases { max-width: 1152px; margin: auto; }
 .brew-hero { position: relative; padding: 94px 40px 88px; text-align: center; isolation: isolate; }
 .brew-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(#72707d55 .8px, transparent 1px) 0 0 / 24px 24px; mask-image: radial-gradient(ellipse at 50% 25%, black, transparent 72%); }
