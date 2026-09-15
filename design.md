@@ -91,11 +91,10 @@ Japanese-capable system fonts; canonical product terms remain recognizable.
 ## English homepage direction · September 2026
 
 Reference: <https://abue-ammar.github.io/tinycast/#gallery>.
-The requested redesign uses a centered hero, a dotted black canvas, lilac pill
+The requested redesign uses a centered hero, a dotted black canvas, purple pill
 CTAs, restrained Geist typography, and rounded screenshot galleries.
 `www/homepage.css` owns its runtime tokens: canvas #040506, surface #0b0c0e,
-ink #f5f5f6, muted #a1a1a6, rule #242428, accent oklch(78% 0.105 297), restored from the original brand landing page.
-Use dark text on filled lilac buttons and a lighter lilac hover; avoid saturated purple.
+ink #f5f5f6, muted #a1a1a6, rule #242428, accent #803bfa, and bright accent #af85ff.
 Display type is Geist 600 with −0.045em tracking; utility labels use Geist Mono.
 It replaces the older homepage stylesheets on the English route only.
 
@@ -123,3 +122,5 @@ credential requests. Do not imply every process execution is intercepted.
 Claude Code’s illustrated scene uses a warm terminal palette, a user request, a
 brief planning message, a Thinking state, and Bash tool calls with indented output.
 Commands appear as tool invocations; the Terminal scene retains typed shell input.
+
+The demo policy scope uses the same muted gray and 12px body type as its caption.

@@ -1,4 +1,4 @@
-/* Centered homepage layout with Automic Vault’s original lilac accent. */
+/* Homepage direction: Tinycast's centered, violet-on-black visual language. */
 :root {
   color-scheme: dark;
   --canvas: #040506;
@@ -6,8 +6,8 @@
   --ink: #f5f5f6;
   --muted: #a1a1a6;
   --rule: #242428;
-  --accent: oklch(78% 0.105 297);
-  --accent-bright: var(--accent);
+  --accent: #803bfa;
+  --accent-bright: #af85ff;
   --mono: 'Geist Mono', monospace;
 }
 * { box-sizing: border-box; }
@@ -30,9 +30,9 @@ section[id] { scroll-margin-top: 95px; }
 .brew-nav-links, .brew-nav-actions { display: flex; align-items: center; gap: 28px; font-size: 13px; }
 .brew-nav-actions { margin-left: auto; gap: 20px; }
 .brew-nav a:hover, .brew-text-link:hover, .brew-footer a:hover { color: white; }
-.brew-download, .brew-cta { display: inline-flex; justify-content: center; align-items: center; min-height: 44px; padding: 10px 24px; border-radius: 999px; background: var(--accent); color: var(--canvas); font-size: 14px; font-weight: 500; white-space: nowrap; transition: background .2s; }
+.brew-download, .brew-cta { display: inline-flex; justify-content: center; align-items: center; min-height: 44px; padding: 10px 24px; border-radius: 999px; background: var(--accent); color: white; font-size: 14px; font-weight: 500; white-space: nowrap; transition: background .2s; }
 .brew-download { min-height: 32px; padding: 5px 16px; font-size: 12px; }
-.brew-nav a.brew-download:hover, .brew-cta:hover, .brew-footer a.brew-cta:hover { background: oklch(84% 0.08 297); color: var(--canvas); }
+.brew-download:hover, .brew-cta:hover { background: #7130e5; }
 .brew-usecases { max-width: 1152px; margin: auto; }
 .brew-hero { position: relative; padding: 94px 40px 88px; text-align: center; isolation: isolate; }
 .brew-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(#72707d55 .8px, transparent 1px) 0 0 / 24px 24px; mask-image: radial-gradient(ellipse at 50% 25%, black, transparent 72%); }
@@ -97,7 +97,7 @@ section[id] { scroll-margin-top: 95px; }
 .demo-controls { padding: 16px 4px; }
 .demo-controls button { border: 1px solid var(--rule); border-radius: 999px; background: var(--surface); padding: 9px 15px; font: 11px var(--mono); letter-spacing: 0; white-space: nowrap; }
 .demo-controls button:disabled { display: none; }
-.demo-scope { max-width: 760px; margin: 0 auto 12px; font-size: 14px; text-align: center; color: #d5c4f5; }
+.demo-scope { max-width: 760px; margin: 0 auto 12px; font-size: 12px; text-align: center; }
 .demo-caption { max-width: 720px; margin: 0 auto; text-align: center; font-size: 12px; }
 .demo-desktop [hidden] { display: none; }
 .brew-feature { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 64px; padding: 96px 40px; border-top: 1px solid #ffffff0b; }
