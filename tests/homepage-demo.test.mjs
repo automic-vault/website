@@ -63,8 +63,6 @@ test('loops AWS and Claude Code scenes, pauses without losing position, and offe
     assert.equal(field('policy').textContent, 'Authorized by Allow Authentication policy');
     assert.equal(field('thinking').hidden, true);
     assert.equal(field('read-line').hidden, false);
-    assert.match(field('scope').textContent, /does not restrict remote commands or destinations/);
-    assert.match(field('scope').textContent, /GitHub Read Only policy requires Approval/);
     assert.equal(field('approval-icon').src, '/assets/claude-icon.svg');
     while (field('approval').hidden) advance(1);
     assert.equal(field('write-command').textContent, 'gh pr merge 42 --squash --repo acme/web');

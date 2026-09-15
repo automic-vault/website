@@ -106,7 +106,7 @@ Claude Code/SSH/GitHub scenes, holding each pending Approval for five seconds.
 It pauses offscreen or in a hidden tab, offers pause/resume, and presents static
 scenes with a Next control for reduced motion. Without JavaScript the AWS
 Approval remains visible. SSH uses Allow Authentication policy, not Read Only;
-that policy does not restrict remote commands or destinations. The policy scope stays visible beneath each scene. Each product screenshot appears once;
+that policy does not restrict remote commands or destinations. Each product screenshot appears once;
 the Approval capture is large and links to its original size.
 The translated pages retain their existing copy and design pending review of
 this English direction; their links and existing assets remain valid.
@@ -123,4 +123,4 @@ Claude Code’s illustrated scene uses a warm terminal palette, a user request, 
 brief planning message, a Thinking state, and Bash tool calls with indented output.
 Commands appear as tool invocations; the Terminal scene retains typed shell input.
 
-The demo policy scope uses the same muted gray and 12px body type as its caption.
+The demo ends at its playback controls; omit the policy-scope and illustration captions.

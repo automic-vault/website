@@ -29,7 +29,7 @@
   "sections": [
     {
       "title": "Your secrets manager should know what the secrets do.",
-      "description": "From the Creator of Homebrew\n\nSecure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.\n\nFree and open source. Your existing commands keep working. No agent plugin required.\n\nIllustrated demo with hardened Tools and verified Launchers. The AWS termination and GitHub merge shown here wait for your Approval.\n\nAWS · Read Only policy authorizes listing buckets. Terminating an instance requires Approval.\n\nClaude Code · SSH Allow Authentication does not restrict remote commands or destinations. GitHub Read Only policy requires Approval to merge a pull request.",
+      "description": "From the Creator of Homebrew\n\nSecure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.\n\nFree and open source. Your existing commands keep working. No agent plugin required.",
       "links": [
         {
           "label": "Download for macOS",

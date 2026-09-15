@@ -10,12 +10,6 @@ Free and open source. Your existing commands keep working. No agent plugin requi
 
 Download for macOS: https://www.automicvault.com/Automic%20Vault.dmg · See it in action: https://www.automicvault.com/#demo
 
-Illustrated demo with hardened Tools and verified Launchers. The AWS termination and GitHub merge shown here wait for your Approval.
-
-AWS · Read Only policy authorizes listing buckets. Terminating an instance requires Approval.
-
-Claude Code · SSH Allow Authentication does not restrict remote commands or destinations. GitHub Read Only policy requires Approval to merge a pull request.
-
 ## Deeper than guardrails.
 
 Automic Vault hardens supported Tools at the packaging layer: reconfiguring, wrapping, or patching how they use credentials. Their protected credential requests meet an Authorization Gate whether they come from Terminal, Claude Code, or another app.

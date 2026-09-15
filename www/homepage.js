@@ -7,7 +7,6 @@ if (demo) {
     {
       launcher: 'Terminal', identity: 'Terminal · Apple', tool: 'AWS',
       icon: '/assets/icon@2x.webp?v=3', policy: 'Read Only',
-      scope: 'AWS · Read Only policy authorizes listing buckets. Terminating an instance requires Approval.',
       read: 'aws s3 ls', output: '2026-09-15 09:41:00 acme-assets\n2026-09-15 09:41:00 acme-backups',
       write: 'aws ec2 terminate-instances --instance-ids i-0123456789abcdef0',
       secrets: 'AWS_ACCESS_KEY_ID\nAWS_SECRET_ACCESS_KEY',
@@ -15,7 +14,6 @@ if (demo) {
     {
       launcher: 'Claude Code', identity: 'Claude Code · Launcher Bundle', tool: 'GitHub',
       icon: '/assets/claude-icon.svg', policy: 'Allow Authentication',
-      scope: 'Claude Code · SSH Allow Authentication does not restrict remote commands or destinations. GitHub Read Only policy requires Approval to merge a pull request.',
       read: 'ssh deploy@staging.example.com uptime', output: '09:41:00 up 12 days, 3 users\nload average: 0.12, 0.08, 0.06',
       write: 'gh pr merge 42 --squash --repo acme/web', secrets: 'GH_TOKEN',
     },
@@ -42,7 +40,6 @@ if (demo) {
     field('agent-intro').hidden = !agent;
     field('thinking').hidden = !agent || tick >= readStart;
     field('read-line').hidden = agent && tick < readStart;
-    field('scope').textContent = current.scope;
     field('session').textContent = `${current.launcher} — ~/projects/acme`;
     field('session-icon').src = current.icon;
     field('session-icon').hidden = scene === 0;
