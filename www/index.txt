@@ -18,9 +18,11 @@ Automic Vault hardens supported Tools at the packaging layer: reconfiguring, wra
 
 See how we harden your tools: https://www.automicvault.com/docs/hardeners/
 
-### One token. Three decisions.
+### Your secrets manager should know what the secrets do.
 
 A retrieval-based secrets manager decides who may receive a credential. Automic Vault checks the complete operation before applying it.
+
+One token. Three decisions.
 
 GitHub · Verified Launcher with Read Only policy
 
