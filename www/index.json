@@ -43,7 +43,7 @@
     },
     {
       "title": "Deeper than guardrails.",
-      "description": "Automic Vault hardens supported Tools at the packaging layer: reconfiguring, wrapping, or patching how they use credentials. Their protected credential requests meet an Authorization Gate whether they come from Terminal, Claude Code, or another app.\n\nA retrieval-based secrets manager decides who may receive a credential. Automic Vault checks the complete operation before applying it.\n\nOne token. Three decisions. With a Verified Launcher on GitHub Read Only policy: gh issue list is authorized; gh issue create requires Approval for Remote Write; gh auth token requires Approval for Secret Disclosure.",
+      "description": "We scanned over 10,000 packages for credential use, then built hardeners for supported tools.\n\nAutomic Vault hardens supported Tools at the packaging layer: reconfiguring, wrapping, or patching how they use credentials. Their protected credential requests meet an Authorization Gate whether they come from Terminal, Claude Code, or another app.\n\nA retrieval-based secrets manager decides who may receive a credential. Automic Vault checks the complete operation before applying it.\n\nOne token. Three decisions. With a Verified Launcher on GitHub Read Only policy: gh issue list is authorized; gh issue create requires Approval for Remote Write; gh auth token requires Approval for Secret Disclosure.",
       "links": [
         {
           "label": "See how we harden your tools",

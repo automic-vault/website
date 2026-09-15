@@ -12,6 +12,8 @@ Free and open source. Your existing commands keep working. No agent plugin requi
 
 ## Deeper than guardrails.
 
+We scanned over 10,000 packages for credential use, then built hardeners for supported tools.
+
 Automic Vault hardens supported Tools at the packaging layer: reconfiguring, wrapping, or patching how they use credentials. Their protected credential requests meet an Authorization Gate whether they come from Terminal, Claude Code, or another app.
 
 [See how we harden your tools](https://www.automicvault.com/docs/hardeners/)
