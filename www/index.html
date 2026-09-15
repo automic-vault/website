@@ -116,7 +116,7 @@
         "headline": "Your secrets manager should know what the secrets do.",
         "description": "Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.",
         "datePublished": "2026-05-15",
-        "dateModified": "2026-09-07",
+        "dateModified": "2026-09-15",
         "image": "https://www.automicvault.com/preview.jpg",
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "isPartOf": {"@id": "https://www.automicvault.com/#website"},
@@ -134,8 +134,7 @@
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=3">
-  <link rel="stylesheet" href="./styles.css?v=129">
-  <link rel="stylesheet" href="./brand-landing.css?v=43">
+  <link rel="stylesheet" href="./homepage.css?v=1">
 </head>
 <body class="brew-home">
   <a class="brew-skip-link" href="#main-content">Skip to content</a>
@@ -163,15 +162,57 @@
         <p class="brew-hero-summary">Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">Download for macOS</a>
-          <a class="brew-text-link" href="/docs/">Read the docs <span aria-hidden="true">→</span></a>
+          <a class="brew-text-link" href="#demo">See it in action <span aria-hidden="true">↗</span></a>
         </div>
         <p class="brew-hero-note">Free and open source. Your existing commands keep working. No agent plugin required.</p>
       </div>
     </section>
 
+
+    <section class="aws-demo" id="demo" aria-label="AWS authorization demonstration">
+      <div class="demo-desktop">
+        <div class="demo-menubar" aria-hidden="true"><span>⌘ &nbsp; Terminal &nbsp; <span class="menu-extra">Shell &nbsp; Edit &nbsp; View</span></span><span>Automic Vault ◇</span></div>
+        <div class="demo-terminal" aria-hidden="true">
+          <div class="window-bar"><span class="traffic-lights">● ● ●</span><span>Terminal — ~/projects/acme</span><span></span></div>
+          <div class="terminal-content"><p class="terminal-context">~/projects/acme <span>main</span></p>
+            <p><span class="prompt">❯</span> <span data-read-command>aws s3 ls</span></p>
+            <pre data-output>2026-09-15 09:41:00 acme-assets
+2026-09-15 09:41:00 acme-backups</pre>
+            <p class="write-command"><span class="prompt">❯</span> <span data-write-command>aws ec2 terminate-instances --instance-ids i-0123456789abcdef0</span></p>
+            <p class="terminal-wait" data-wait>Waiting for your Approval…</p>
+          </div>
+        </div>
+        <div class="demo-notification" data-notification hidden aria-hidden="true"><img src="/assets/icon@2x.webp?v=3" width="36" height="36" alt=""><div><strong>Automic Vault</strong><span>Authorized by Read Only policy</span><small>aws s3 ls · Terminal</small></div><span class="notification-check">✓</span></div>
+        <div class="demo-approval" data-approval aria-hidden="true">
+          <img src="/assets/icon@2x.webp?v=3" width="48" height="48" alt="">
+          <h3>Terminal wants to use AWS</h3><p>This operation changes remote resources.</p>
+          <div class="approval-command">aws ec2 terminate-instances<br>--instance-ids i-0123456789abcdef0</div>
+          <dl><div><dt>Verified Launcher</dt><dd>Terminal · Apple</dd></div><div><dt>Operation</dt><dd>Remote Write</dd></div><div><dt>Working directory</dt><dd>~/projects/acme</dd></div><div><dt>Secret Names</dt><dd>AWS_ACCESS_KEY_ID<br>AWS_SECRET_ACCESS_KEY</dd></div></dl>
+          <div class="approval-buttons"><span>Deny</span><span>Approve Once</span></div>
+        </div>
+      </div>
+      <div class="demo-controls"><span><span class="live-dot"></span> READS KEEP MOVING. WRITES WAIT FOR YOU.</span><button type="button" data-demo-play disabled>Play demo <span aria-hidden="true">↻</span></button></div>
+      <p class="demo-caption">Illustrated demo. With a hardened AWS CLI and a Verified Launcher on Read Only policy, <code>aws s3 ls</code> is automically authorized. Terminating an EC2 instance requires your Approval.</p>
+    </section>
+
+    <section class="approval-gallery" id="gallery" aria-labelledby="gallery-title">
+      <p class="brew-eyebrow">In action</p>
+      <h2 id="gallery-title">All the info you need to make a decision.</h2>
+      <p>See the software, command, arguments, working directory, and Secret Names before you allow an operation.</p>
+      <div class="gallery-shell">
+        <div class="gallery-toolbar"><span><span class="live-dot"></span> CAPTURED IN AUTOMIC VAULT</span><span>SELECT TO ENLARGE ↗</span></div>
+        <div class="gallery-grid">
+          <a class="gallery-primary" href="/assets/blessed-script-agent-approval.png"><img src="/assets/blessed-script-agent-approval.png" width="1452" height="1394" alt="Approval showing the exact publication script, its capabilities, and ChatGPT as the Verified Launcher" loading="lazy"><h3>Review the complete request</h3><p>Your Approval applies to this operation.</p></a>
+          <a href="/docs/assets/authorization-gates.png"><img src="/docs/assets/authorization-gates.png" width="1440" height="900" alt="Authorization Gate with a policy for each Verified Launcher" loading="lazy"><h3>Choose what can run</h3><p>Give each Launcher its own policy.</p></a>
+          <a href="/assets/project-values.png"><img src="/assets/project-values.png" width="1944" height="1380" alt="Secret Names with Global and Project Values" loading="lazy"><h3>Keep credentials in Keychain</h3><p>Project Values under one Secret Name.</p></a>
+        </div>
+      </div>
+    </section>
+
     <section class="brew-feature" id="command-line" aria-labelledby="command-line-title">
       <div class="brew-copy">
-        <h2 id="command-line-title">Secure your command line</h2>
+        <p class="brew-eyebrow">Secure your command line</p>
+        <h2 id="command-line-title">Bringing macOS security to the command line.</h2>
         <p>Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.</p>
         <p>Harden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.</p>
         <a class="brew-text-link" href="/docs/hardeners/">Find your tools <span aria-hidden="true">→</span></a>
@@ -196,7 +237,9 @@
 
     <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
-        <h2 id="controls-title">Decide what your tools and agents can do</h2>
+        <p class="brew-eyebrow">Decide what your tools and agents can do</p>
+        <h2 id="controls-title">Run agents full access. Don’t lose sleep.</h2>
+        <p>Keep your agent’s full-access execution mode while AV separately controls its use of protected credentials. AV does not sandbox your agent or prevent arbitrary local file changes.</p>
         <p>Let your agent read GitHub issues while writes need your Approval. Give your terminal a different policy. Each Authorization Gate applies the rules you choose for each Verified Launcher.</p>
         <p>AV checks the complete operation before applying a credential. Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.</p>
         <p>For an eligible agent task, grant ten active minutes of Write Access at one gate. You can extend, suspend, or end that grant from its visible controls.</p>
@@ -211,7 +254,8 @@
 
     <section class="brew-feature" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
       <div class="brew-copy">
-        <h2 id="reentrant-scripts-title">Give agents the capabilities they need</h2>
+        <p class="brew-eyebrow">Give agents the capabilities they need</p>
+        <h2 id="reentrant-scripts-title">The missing secrets manager for developers.</h2>
         <p>Let an agent prepare release notes while a reviewed script publishes to GitHub and updates your CDN. A Blessed Script binds exact contents and declared capabilities to your review.</p>
         <p>A reentrant script pauses for agent input, exposes fixed entry points for context, then continues the deterministic work. AV authorizes each invocation. Editing the script invalidates its Blessing.</p>
         <a class="brew-text-link" href="/docs/reentrant-scripts/">Build a reviewed agent workflow <span aria-hidden="true">→</span></a>
@@ -305,6 +349,7 @@
   </footer>
 
   <script src="/app.js?v=2" defer></script>
+  <script src="/homepage.js?v=1" defer></script>
   <script src="/i18n.js" defer></script>
 </body>
 </html>

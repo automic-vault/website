@@ -8,9 +8,17 @@ Secure your command-line credentials, give agents bounded capabilities, and appr
 
 Free and open source. Your existing commands keep working. No agent plugin required.
 
-Download for macOS: https://www.automicvault.com/Automic%20Vault.dmg · Read the docs: https://www.automicvault.com/docs/
+Download for macOS: https://www.automicvault.com/Automic%20Vault.dmg · See it in action: https://www.automicvault.com/#demo
 
-## Secure your command line
+## All the info you need to make a decision.
+
+See the software, command, arguments, working directory, and Secret Names before you allow an operation.
+
+Illustrated demo. With a hardened AWS CLI and a Verified Launcher on Read Only policy, aws s3 ls is automically authorized. Terminating an EC2 instance requires your Approval.
+
+## Bringing macOS security to the command line.
+
+Secure your command line
 
 Scan without installing:
 
@@ -28,7 +36,11 @@ A clean Scan covers the checks AV supports. It does not certify your whole machi
 
 Find your tools: https://www.automicvault.com/docs/hardeners/
 
-## Decide what your tools and agents can do
+## Run agents full access. Don’t lose sleep.
+
+Decide what your tools and agents can do
+
+Keep your agent’s full-access execution mode while AV separately controls its use of protected credentials. AV does not sandbox your agent or prevent arbitrary local file changes.
 
 Let your agent read GitHub issues while writes need your Approval. Give your terminal a different policy. Each Authorization Gate applies the rules you choose for each Verified Launcher.
 
@@ -40,7 +52,9 @@ Code signing establishes software identity and integrity, not intent. Task ident
 
 Choose how much authority to give: https://www.automicvault.com/docs/authority/
 
-## Give agents the capabilities they need
+## The missing secrets manager for developers.
+
+Give agents the capabilities they need
 
 Let an agent prepare release notes while a reviewed script publishes to GitHub and updates your CDN. A Blessed Script binds exact contents and declared capabilities to your review.
 

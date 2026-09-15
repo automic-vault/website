@@ -28,7 +28,9 @@ CloudFront routes. The static sync never uploads product release artifacts.
 
 ## Homepage screenshots
 
-The landing pages use real product captures, with no CLI examples. All five
+The English landing page uses the Tinycast-inspired direction in `www/homepage.css`,
+with an illustrated AWS demo in `www/homepage.js` and real product captures.
+Translated landing pages retain the prior design while the English direction is reviewed. All five
 sections have screenshots, including Project Values and pending iPhone requests
 from two Macs. Keep captures, intrinsic dimensions, alt descriptions, and captions
 aligned across all five languages. New Japanese acquisition copy still needs

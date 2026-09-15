@@ -370,18 +370,19 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
                     )
 
     def test_homepages_use_screenshots_with_standalone_scanner_command(self):
-        subprocess.run(["node", "--test", str(ROOT / "tests" / "copy-command.test.mjs")], check=True)
+        subprocess.run(["node", "--test", str(ROOT / "tests" / "copy-command.test.mjs"), str(ROOT / "tests" / "homepage-demo.test.mjs")], check=True)
         section_ids = ("command-line", "controls", "reentrant-scripts", "projects", "iphone-approval")
         for locale in ("", "de", "fr", "ja", "zh-hans"):
             home = (ROOT / "www" / locale / "index.html").read_text(encoding="utf-8")
             main = home.split('<main ', 1)[1].split('</main>', 1)[0]
             with self.subTest(locale=locale):
-                self.assertIn('brand-landing.css?v=43', home)
+                self.assertIn('brand-landing.css?v=43' if locale else 'homepage.css?v=1', home)
                 ids = set(re.findall(r'\bid="([^"]+)"', home))
                 self.assertTrue(set(re.findall(r'href="#([^"]+)"', home)) <= ids)
-                self.assertEqual(re.findall(r'<code>(.*?)</code>', main), [
-                    'curl -fsSL https://www.automicvault.com/scanner.sh | bash',
-                ])
+                self.assertEqual(re.findall(r'<code>(.*?)</code>', main),
+                    ([] if locale else ['aws s3 ls']) + [
+                        'curl -fsSL https://www.automicvault.com/scanner.sh | bash',
+                    ])
                 positions = [main.index(f'id="{section_id}"') for section_id in section_ids]
                 self.assertEqual(positions, sorted(positions))
                 for section_id in section_ids:

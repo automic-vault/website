@@ -29,47 +29,55 @@
   "sections": [
     {
       "title": "Your secrets manager should know what the secrets do.",
-      "description": "From the Creator of Homebrew\n\nSecure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.\n\nFree and open source. Your existing commands keep working. No agent plugin required.",
+      "description": "From the Creator of Homebrew\n\nSecure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.\n\nFree and open source. Your existing commands keep working. No agent plugin required.\n\nIllustrated demo. With a hardened AWS CLI and a Verified Launcher on Read Only policy, aws s3 ls is automically authorized. Terminating an EC2 instance requires your Approval.",
       "links": [
         {
           "label": "Download for macOS",
           "url": "https://www.automicvault.com/Automic%20Vault.dmg"
         },
         {
-          "label": "Read the docs",
-          "url": "https://www.automicvault.com/docs/"
+          "label": "See it in action",
+          "url": "https://www.automicvault.com/#demo"
         }
       ]
     },
     {
-      "title": "Secure your command line",
+      "title": "All the info you need to make a decision.",
+      "description": "See the software, command, arguments, working directory, and Secret Names before you allow an operation.",
+      "links": []
+    },
+    {
+      "title": "Bringing macOS security to the command line.",
       "description": "Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.\n\nHarden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.\n\nA clean Scan covers the checks AV supports. It does not certify your whole machine as secure.\n\nScan without installing:\ncurl -fsSL https://www.automicvault.com/scanner.sh | bash\n\nDownloads a small standalone scanner built from the latest release sources, verifies its signature, and runs it in a read-only sandbox with no network access.",
       "links": [
         {
           "label": "Find your tools",
           "url": "https://www.automicvault.com/docs/hardeners/"
         }
-      ]
+      ],
+      "eyebrow": "Secure your command line"
     },
     {
-      "title": "Decide what your tools and agents can do",
-      "description": "Let your agent read GitHub issues while writes need your Approval. Give your terminal a different policy. Each Authorization Gate applies the rules you choose for each Verified Launcher.\n\nAV checks the complete operation before applying a credential. Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.\n\nFor an eligible agent task, grant ten active minutes of Write Access at one gate. You can extend, suspend, or end that grant from its visible controls.\n\nCode signing establishes software identity and integrity, not intent. Task identifiers narrow temporary grants; they do not establish identity.",
+      "title": "Run agents full access. Don’t lose sleep.",
+      "description": "Keep your agent’s full-access execution mode while AV separately controls its use of protected credentials. AV does not sandbox your agent or prevent arbitrary local file changes.\n\nLet your agent read GitHub issues while writes need your Approval. Give your terminal a different policy. Each Authorization Gate applies the rules you choose for each Verified Launcher.\n\nAV checks the complete operation before applying a credential. Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.\n\nFor an eligible agent task, grant ten active minutes of Write Access at one gate. You can extend, suspend, or end that grant from its visible controls.\n\nCode signing establishes software identity and integrity, not intent. Task identifiers narrow temporary grants; they do not establish identity.",
       "links": [
         {
           "label": "Choose how much authority to give",
           "url": "https://www.automicvault.com/docs/authority/"
         }
-      ]
+      ],
+      "eyebrow": "Decide what your tools and agents can do"
     },
     {
-      "title": "Give agents the capabilities they need",
+      "title": "The missing secrets manager for developers.",
       "description": "Let an agent prepare release notes while a reviewed script publishes to GitHub and updates your CDN. A Blessed Script binds exact contents and declared capabilities to your review.\n\nA reentrant script pauses for agent input, exposes fixed entry points for context, then continues the deterministic work. AV authorizes each invocation. Editing the script invalidates its Blessing.\n\nValidate agent output before using it. Keep Secret Values within the script’s execution; a Blessing does not make its code trustworthy.",
       "links": [
         {
           "label": "Build a reviewed agent workflow",
           "url": "https://www.automicvault.com/docs/reentrant-scripts/"
         }
-      ]
+      ],
+      "eyebrow": "Give agents the capabilities they need"
     },
     {
       "title": "Keep project secrets out of plaintext files",

@@ -1,7 +1,8 @@
 # Design — Automic Vault
 
-A locked design system for the website. Page redesigns extend this system; they
-do not invent route-specific themes.
+The shared system below remains the baseline for content and translated pages.
+The English homepage uses the explicitly requested Tinycast direction described
+at the end of this document while its new content direction is being evaluated.
 
 ## Genre
 
@@ -85,3 +86,24 @@ button, visible copy feedback, and a smaller, dimmer sandbox explanation. Preser
 security qualification beside each outcome and keep translated homepages and
 alternate text formats aligned. Japanese copy uses a plain polite register with
 Japanese-capable system fonts; canonical product terms remain recognizable.
+
+
+## English homepage direction · September 2026
+
+Reference: <https://abue-ammar.github.io/tinycast/#gallery>.
+The requested redesign uses a centered hero, a dotted black canvas, purple pill
+CTAs, restrained Geist typography, and rounded screenshot galleries.
+`www/homepage.css` owns its runtime tokens: canvas #040506, surface #0b0c0e,
+ink #f5f5f6, muted #a1a1a6, rule #242428, accent #803bfa, and bright accent #af85ff.
+Display type is Geist 600 with −0.045em tracking; utility labels use Geist Mono.
+It replaces the older homepage stylesheets on the English route only.
+
+Keep the existing product explanations and security boundaries beneath the
+experimental headlines. “Full access” describes the agent's execution mode,
+not AV's Full Access preset. Keep that distinction next to the headline.
+The hero demonstration is explicitly illustrated HTML, plays once on arrival,
+and stops with Approval pending. It offers pause/replay and a complete static
+state for reduced motion or unavailable JavaScript. Actual product screenshots
+follow in the gallery and remain available at their original size.
+The translated pages retain their existing copy and design pending review of
+this English direction; their links and existing assets remain valid.
