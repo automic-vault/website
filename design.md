@@ -118,3 +118,7 @@ comparison. Follow immediately with the scanner; place AWS, Docker, and Homebrew
 proof beneath it. Pair one large Approval capture with the Blessed Scripts explanation.
 Hardening establishes the protected path; runtime Authorization Gates enforce
 credential requests. Do not imply every process execution is intercepted.
+
+Claude Code’s illustrated scene uses a warm terminal palette, a user request, a
+brief planning message, a Thinking state, and Bash tool calls with indented output.
+Commands appear as tool invocations; the Terminal scene retains typed shell input.

@@ -134,7 +134,7 @@
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
   <link rel="mask-icon" href="./safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=3">
-  <link rel="stylesheet" href="./homepage.css?v=4">
+  <link rel="stylesheet" href="./homepage.css?v=5">
 </head>
 <body class="brew-home">
   <a class="brew-skip-link" href="#main-content">Skip to content</a>
@@ -172,10 +172,12 @@
     <section class="aws-demo" id="demo" aria-label="Terminal and Claude Code authorization demonstration">
       <div class="demo-desktop">
         <div class="demo-menubar" aria-hidden="true"><span>⌘ &nbsp; Terminal &nbsp; <span class="menu-extra">Shell &nbsp; Edit &nbsp; View</span></span><span>Automic Vault ◇</span></div>
-        <div class="demo-terminal" aria-hidden="true">
+        <div class="demo-terminal" data-terminal data-agent="false" aria-hidden="true">
           <div class="window-bar"><span class="traffic-lights">● ● ●</span><span class="demo-session"><img data-session-icon src="/assets/claude-icon.svg" width="16" height="16" alt="" hidden><span data-session>Terminal — ~/projects/acme</span></span><span></span></div>
           <div class="terminal-content"><p class="terminal-context">~/projects/acme <span>main</span></p>
-            <p><span class="prompt">❯</span> <span data-read-command>aws s3 ls</span></p>
+            <div class="claude-intro" data-agent-intro hidden><div class="claude-brand"><img src="/assets/claude-icon.svg" width="24" height="24" alt=""><strong>Claude Code</strong><span>~/projects/acme</span></div><p class="claude-request">Check staging, then merge PR #42.</p><p class="claude-plan">I’ll check staging over SSH, then merge the pull request.</p></div>
+            <p class="claude-thinking" data-thinking hidden>✳ Thinking…</p>
+            <p data-read-line><span class="prompt">❯</span> <span data-read-command>aws s3 ls</span></p>
             <pre data-output>2026-09-15 09:41:00 acme-assets
 2026-09-15 09:41:00 acme-backups</pre>
             <p class="write-command" data-write-line><span class="prompt">❯</span> <span data-write-command>aws ec2 terminate-instances --instance-ids i-0123456789abcdef0</span></p>
@@ -371,7 +373,7 @@
   </footer>
 
   <script src="/app.js?v=2" defer></script>
-  <script src="/homepage.js?v=3" defer></script>
+  <script src="/homepage.js?v=4" defer></script>
   <script src="/i18n.js" defer></script>
 </body>
 </html>

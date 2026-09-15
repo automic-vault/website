@@ -28,20 +28,26 @@ if (demo) {
   let paused = false;
 
   function timing() {
-    const readDone = scenes[scene].read.length + 4;
+    const readStart = scene === 1 ? 32 : 4;
+    const readDone = readStart + scenes[scene].read.length;
     const writeStart = readDone + 40;
-    return { readDone, writeStart, approvalAt: writeStart + scenes[scene].write.length + 6 };
+    return { readStart, readDone, writeStart, approvalAt: writeStart + scenes[scene].write.length + 6 };
   }
 
   function render() {
     const current = scenes[scene];
-    const { readDone, writeStart, approvalAt } = timing();
+    const { readStart, readDone, writeStart, approvalAt } = timing();
+    const agent = scene === 1;
+    field('terminal').dataset.agent = String(agent);
+    field('agent-intro').hidden = !agent;
+    field('thinking').hidden = !agent || tick >= readStart;
+    field('read-line').hidden = agent && tick < readStart;
     field('scope').textContent = current.scope;
     field('session').textContent = `${current.launcher} — ~/projects/acme`;
     field('session-icon').src = current.icon;
     field('session-icon').hidden = scene === 0;
-    field('read-command').textContent = current.read.slice(0, Math.max(0, tick - 4));
-    field('write-command').textContent = current.write.slice(0, Math.max(0, tick - writeStart));
+    field('read-command').textContent = agent ? current.read : current.read.slice(0, Math.max(0, tick - readStart));
+    field('write-command').textContent = agent ? current.write : current.write.slice(0, Math.max(0, tick - writeStart));
     field('output').textContent = current.output;
     field('output').hidden = tick < readDone + 6;
     field('write-line').hidden = tick < writeStart;
