@@ -2,7 +2,7 @@
 
 > CLI security is broken. The packaging layer is where we fix it.
 
-Max Howell · Creator of Homebrew
+Max Howell
 
 I created Homebrew. Now I’m fixing what happens when agents use it.
 
@@ -16,11 +16,11 @@ Free and open source. Your existing commands keep working. No agent plugin requi
 
 You install a CLI to do a job. Its credentials often end up in files or helpers that any code running as you can read. Agents inherit that mess.
 
-We reconfigure, wrap, or patch supported tools so their protected credential requests reach an Authorization Gate. That gives you a place to control credential use beneath your terminal, editor, or agent harness.
+For GitHub, av harden gh installs our signed, patched CLI and migrates its credentials into Automic Vault custody. You still run gh. Authenticated operations now reach its Authorization Gate.
 
 [See how we harden your tools](https://www.automicvault.com/docs/hardeners/)
 
-### A token should not be a blank cheque.
+### Your secrets manager should know what the secrets do.
 
 Reading an issue, publishing a release, and revealing a token need different authority. AV checks the complete operation before applying the credential.
 
@@ -36,6 +36,24 @@ GitHub · Verified Launcher with Read Only policy
 
 Revealing a credential needs its own decision, even when nothing changes remotely.
 
+### Homebrew: Updates can run. Installs can ask.
+
+Homebrew hardening protects /opt/homebrew from changes by other code running as you. At Read & Update, recognized inspection commands and brew update can run; installs and upgrades need Approval. This targets Apple Silicon Homebrew; services and shell completions are incompatible while hardened.
+
+[How Homebrew hardening works](https://www.automicvault.com/docs/hardeners/brew/)
+
+### AWS: Short-lived credentials per invocation.
+
+Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.
+
+[How AWS hardening works](https://www.automicvault.com/docs/hardeners/aws/)
+
+### Docker: The process and registry matter.
+
+Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.
+
+[How Docker hardening works](https://www.automicvault.com/docs/hardeners/docker/)
+
 ## Start with the credentials sitting on your Mac.
 
 Secure your command line
@@ -50,39 +68,21 @@ Downloads a small standalone scanner built from the latest release sources, veri
 
 Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.
 
-Harden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.
+Choose a supported Hardener for a Finding, then use av doctor to verify the installed protection.
 
 A clean Scan covers the checks AV supports. It does not certify your whole machine as secure.
 
 [Find your tools](https://www.automicvault.com/docs/hardeners/)
 
-### AWS: Short-lived credentials per invocation.
-
-Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.
-
-[How AWS hardening works](https://www.automicvault.com/docs/hardeners/aws/)
-
-### Docker: The process and registry matter.
-
-Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.
-
-[How Docker hardening works](https://www.automicvault.com/docs/hardeners/docker/)
-
-### Homebrew: Updates can run. Installs can ask.
-
-Read & Update policy allows recognized inspection commands and brew update. Installing or upgrading software still requires your Approval.
-
-[How Homebrew hardening works](https://www.automicvault.com/docs/hardeners/brew/)
-
-## Let your agent read. Make it ask to write.
+## Let your agent read GitHub. Make it ask to write.
 
 Decide what your tools and agents can do
 
-A GitHub token can carry more authority than your agent needs for the job. Set Read Only at its GitHub gate, then approve writes as they come up. AV does not sandbox your agent or prevent arbitrary local file changes.
+Choose Read Only for your agent’s GitHub gate and a different policy for your terminal. AV verifies each Launcher’s live software identity before applying its policy.
 
-Give your terminal a different policy if you want. Each Authorization Gate applies the rules you choose for each Verified Launcher.
+AV does not sandbox your agent or prevent arbitrary local file changes.
 
-AV checks the complete operation before applying a credential. Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.
+Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.
 
 For an eligible agent task, grant ten active minutes of Write Access at one gate. You can extend, suspend, or end that grant from its visible controls.
 

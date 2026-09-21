@@ -157,7 +157,7 @@
   <main class="brew-usecases" id="main-content">
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
-        <p class="brew-eyebrow">Max Howell · Creator of Homebrew</p>
+        <p class="brew-eyebrow"><a href="/about/">Max Howell</a></p>
         <h1 class="trust-hero" id="hero-title"><span>CLI security is broken.</span> <em>The packaging layer is where we fix it.</em></h1>
         <p class="brew-hero-summary">I created Homebrew. Now I’m fixing what happens when agents use it.</p>
         <p class="brew-hero-summary">Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.</p>
@@ -169,6 +169,37 @@
       </div>
     </section>
 
+
+    <section class="tool-boundary" id="deeper-than-guardrails" aria-labelledby="tool-boundary-title">
+      <div class="boundary-intro">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">The packaging layer</p>
+          <h2 id="tool-boundary-title">Fix the tools where you install them.</h2>
+          <p>You install a CLI to do a job. Its credentials often end up in files or helpers that any code running as you can read. Agents inherit that mess.</p>
+          <p>For GitHub, av harden gh installs our signed, patched CLI and migrates its credentials into Automic Vault custody. You still run gh. Authenticated operations now reach its Authorization Gate.</p>
+          <a class="brew-text-link" href="/docs/hardeners/">See how we harden your tools <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="operation-example">
+          <h3>Your secrets manager should know what the secrets <em>do</em>.</h3>
+          <p>Reading an issue, publishing a release, and revealing a token need different authority. AV checks the complete operation before applying the credential.</p>
+          <table>
+            <caption><strong>One token. Three decisions.</strong><br>GitHub · Verified Launcher with Read Only policy</caption>
+            <thead><tr><th scope="col">Command</th><th scope="col">Decision</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>gh issue list</code><small>Read issues</small></th><td><span class="decision-allowed">Authorized</span><small>Read Only</small></td></tr>
+              <tr><th scope="row"><code>gh issue create</code><small>Create an issue</small></th><td><span>Approval required</span><small>Remote Write</small></td></tr>
+              <tr><th scope="row"><code>gh auth token</code><small>Reveal the token</small></th><td><span>Approval required</span><small>Secret Disclosure</small></td></tr>
+            </tbody>
+          </table>
+          <p class="operation-note">Revealing a credential needs its own decision, even when nothing changes remotely.</p>
+        </div>
+        <div class="hardening-proof">
+        <article><p class="brew-eyebrow">Homebrew</p><h3>Updates can run. Installs can ask.</h3><p>Homebrew hardening protects /opt/homebrew from changes by other code running as you. At Read &amp; Update, recognized inspection commands and brew update can run; installs and upgrades need Approval. This targets Apple Silicon Homebrew; services and shell completions are incompatible while hardened.</p><a class="brew-text-link" href="/docs/hardeners/brew/">How Homebrew hardening works <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">AWS</p><h3>Short-lived credentials per invocation.</h3><p>Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.</p><a class="brew-text-link" href="/docs/hardeners/aws/">How AWS hardening works <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">Docker</p><h3>The process and registry matter.</h3><p>Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.</p><a class="brew-text-link" href="/docs/hardeners/docker/">How Docker hardening works <span aria-hidden="true">↗</span></a></article>
+        </div>
+      </div>
+    </section>
 
     <section class="aws-demo" id="demo" aria-label="Terminal and Claude Code authorization demonstration">
       <div class="demo-desktop">
@@ -197,38 +228,14 @@
       <div class="demo-controls"><span><span class="live-dot"></span> POLICY HANDLES THE ROUTINE. YOU DECIDE THE REST.</span><button type="button" data-demo-play disabled>Play demo <span aria-hidden="true">↻</span></button></div>
     </section>
 
-    <section class="tool-boundary" id="deeper-than-guardrails" aria-labelledby="tool-boundary-title">
-      <div class="boundary-intro">
-        <div class="brew-copy">
-          <p class="brew-eyebrow">The packaging layer</p>
-          <h2 id="tool-boundary-title">Fix the tools where you install them.</h2>
-          <p>You install a CLI to do a job. Its credentials often end up in files or helpers that any code running as you can read. Agents inherit that mess.</p>
-          <p>We reconfigure, wrap, or patch supported tools so their protected credential requests reach an Authorization Gate. That gives you a place to control credential use beneath your terminal, editor, or agent harness.</p>
-          <a class="brew-text-link" href="/docs/hardeners/">See how we harden your tools <span aria-hidden="true">→</span></a>
-        </div>
-        <div class="operation-example">
-          <h3>A token should not be a blank cheque.</h3>
-          <p>Reading an issue, publishing a release, and revealing a token need different authority. AV checks the complete operation before applying the credential.</p>
-          <table>
-            <caption><strong>One token. Three decisions.</strong><br>GitHub · Verified Launcher with Read Only policy</caption>
-            <thead><tr><th scope="col">Command</th><th scope="col">Decision</th></tr></thead>
-            <tbody>
-              <tr><th scope="row"><code>gh issue list</code><small>Read issues</small></th><td><span class="decision-allowed">Authorized</span><small>Read Only</small></td></tr>
-              <tr><th scope="row"><code>gh issue create</code><small>Create an issue</small></th><td><span>Approval required</span><small>Remote Write</small></td></tr>
-              <tr><th scope="row"><code>gh auth token</code><small>Reveal the token</small></th><td><span>Approval required</span><small>Secret Disclosure</small></td></tr>
-            </tbody>
-          </table>
-          <p class="operation-note">Revealing a credential needs its own decision, even when nothing changes remotely.</p>
-        </div>
-      </div>
-    </section>
+
 
     <section class="brew-feature" id="command-line" aria-labelledby="command-line-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">Secure your command line</p>
         <h2 id="command-line-title">Start with the credentials sitting on your Mac.</h2>
         <p>Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.</p>
-        <p>Harden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.</p>
+        <p>Choose a supported Hardener for a Finding, then use av doctor to verify the installed protection.</p>
         <a class="brew-text-link" href="/docs/hardeners/">Find your tools <span aria-hidden="true">→</span></a>
         <div class="brew-scanner-terminal">
           <div class="brew-scanner-toolbar">
@@ -247,20 +254,15 @@
         <img src="/docs/assets/detectors.png" alt="Automic Vault Detectors showing supported tools, hardener availability, and the selected detector’s trigger conditions" width="1440" height="900" decoding="async" fetchpriority="high">
         <figcaption>See what AV checks and which tools have a Hardener.</figcaption>
       </figure>
-      <div class="hardening-proof">
-        <article><p class="brew-eyebrow">AWS</p><h3>Short-lived credentials per invocation.</h3><p>Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.</p><a class="brew-text-link" href="/docs/hardeners/aws/">How AWS hardening works <span aria-hidden="true">↗</span></a></article>
-        <article><p class="brew-eyebrow">Docker</p><h3>The process and registry matter.</h3><p>Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.</p><a class="brew-text-link" href="/docs/hardeners/docker/">How Docker hardening works <span aria-hidden="true">↗</span></a></article>
-        <article><p class="brew-eyebrow">Homebrew</p><h3>Updates can run. Installs can ask.</h3><p>Read &amp; Update policy allows recognized inspection commands and brew update. Installing or upgrading software still requires your Approval.</p><a class="brew-text-link" href="/docs/hardeners/brew/">How Homebrew hardening works <span aria-hidden="true">↗</span></a></article>
-      </div>
     </section>
 
     <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">Decide what your tools and agents can do</p>
-        <h2 id="controls-title">Let your agent read. Make it ask to write.</h2>
-        <p>A GitHub token can carry more authority than your agent needs for the job. Set Read Only at its GitHub gate, then approve writes as they come up. AV does not sandbox your agent or prevent arbitrary local file changes.</p>
-        <p>Give your terminal a different policy if you want. Each Authorization Gate applies the rules you choose for each Verified Launcher.</p>
-        <p>AV checks the complete operation before applying a credential. Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.</p>
+        <h2 id="controls-title">Let your agent read GitHub. Make it ask to write.</h2>
+        <p>Choose Read Only for your agent’s GitHub gate and a different policy for your terminal. AV verifies each Launcher’s live software identity before applying its policy.</p>
+        <p>AV does not sandbox your agent or prevent arbitrary local file changes.</p>
+        <p>Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.</p>
         <p>For an eligible agent task, grant ten active minutes of Write Access at one gate. You can extend, suspend, or end that grant from its visible controls.</p>
         <a class="brew-text-link" href="/docs/authority/">Choose how much authority to give <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">Code signing establishes software identity and integrity, not intent. Task identifiers narrow temporary grants; they do not establish identity.</p>

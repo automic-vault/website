@@ -113,10 +113,10 @@ Keep canonical product and policy names recognizable; translate demo narration,
 controls, and authorization messages. Commands and captured product UI stay verbatim.
 
 
-The section immediately after the demo explains enforcement below the harness.
-Pair the packaging-layer explanation with the same-token read/write/disclosure
-comparison. Follow immediately with the scanner; place AWS, Docker, and Homebrew
-proof beneath it. Pair one large Approval capture with the Blessed Scripts explanation.
+The English section before the demo shows the GitHub hardening transformation
+and pairs it with the same-token read/write/disclosure comparison. Place the
+Homebrew proof first in the supporting row, followed by AWS and Docker. The
+scanner follows the demo. Translated pages retain their previous order. Pair one large Approval capture with the Blessed Scripts explanation.
 Hardening establishes the protected path; runtime Authorization Gates enforce
 credential requests. Do not imply every process execution is intercepted.
 
@@ -128,7 +128,8 @@ The demo ends at its playback controls; omit the policy-scope and illustration c
 
 The English homepage is trying a packaging-led positioning draft: “CLI security
 is broken. The packaging layer is where we fix it.” Pair it with Max Howell’s
-first-person Homebrew founder line and concrete supported-tool coverage.
+first-person Homebrew founder line and concrete supported-tool coverage. Link his
+name to About, which explains how installation connects to inherited authority.
 Highlight the second headline sentence using the existing hero treatment.
 The operation comparison shows why the same token needs separate decisions.
 Translated homepages retain their previous copy pending review of this English

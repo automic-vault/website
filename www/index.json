@@ -29,7 +29,7 @@
   "sections": [
     {
       "title": "CLI security is broken. The packaging layer is where we fix it.",
-      "description": "Max Howell · Creator of Homebrew\n\nI created Homebrew. Now I’m fixing what happens when agents use it.\n\nAutomic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.\n\nFree and open source. Your existing commands keep working. No agent plugin required.",
+      "description": "Max Howell\n\nI created Homebrew. Now I’m fixing what happens when agents use it.\n\nAutomic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.\n\nFree and open source. Your existing commands keep working. No agent plugin required.",
       "links": [
         {
           "label": "Download for macOS",
@@ -43,20 +43,10 @@
     },
     {
       "title": "Fix the tools where you install them.",
-      "description": "You install a CLI to do a job. Its credentials often end up in files or helpers that any code running as you can read. Agents inherit that mess.\n\nWe reconfigure, wrap, or patch supported tools so their protected credential requests reach an Authorization Gate. That gives you a place to control credential use beneath your terminal, editor, or agent harness.\n\nA token should not be a blank cheque.\n\nReading an issue, publishing a release, and revealing a token need different authority. AV checks the complete operation before applying the credential.\n\nOne token. Three decisions. With a Verified Launcher on GitHub Read Only policy: gh issue list is authorized; gh issue create requires Approval for Remote Write; gh auth token requires Approval for Secret Disclosure.",
+      "description": "You install a CLI to do a job. Its credentials often end up in files or helpers that any code running as you can read. Agents inherit that mess.\n\nFor GitHub, av harden gh installs our signed, patched CLI and migrates its credentials into Automic Vault custody. You still run gh. Authenticated operations now reach its Authorization Gate.\n\nYour secrets manager should know what the secrets do.\n\nReading an issue, publishing a release, and revealing a token need different authority. AV checks the complete operation before applying the credential.\n\nOne token. Three decisions. With a Verified Launcher on GitHub Read Only policy: gh issue list is authorized; gh issue create requires Approval for Remote Write; gh auth token requires Approval for Secret Disclosure.\n\nHomebrew: Updates can run. Installs can ask. Homebrew hardening protects /opt/homebrew from changes by other code running as you. At Read & Update, recognized inspection commands and brew update can run; installs and upgrades need Approval. This targets Apple Silicon Homebrew; services and shell completions are incompatible while hardened.\n\nAWS: Short-lived credentials per invocation. Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.\n\nDocker: The process and registry matter. Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.",
       "links": [
         {
           "label": "See how we harden your tools",
-          "url": "https://www.automicvault.com/docs/hardeners/"
-        }
-      ]
-    },
-    {
-      "title": "Start with the credentials sitting on your Mac.",
-      "description": "Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.\n\nHarden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.\n\nA clean Scan covers the checks AV supports. It does not certify your whole machine as secure.\n\nScan without installing:\ncurl -fsSL https://www.automicvault.com/scanner.sh | bash\n\nDownloads a small standalone scanner built from the latest release sources, verifies its signature, and runs it in a read-only sandbox with no network access.\n\nAWS: Short-lived credentials per invocation. Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.\n\nDocker: The process and registry matter. Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.\n\nHomebrew: Updates can run. Installs can ask. Read & Update policy allows recognized inspection commands and brew update. Installing or upgrading software still requires your Approval.",
-      "links": [
-        {
-          "label": "Find your tools",
           "url": "https://www.automicvault.com/docs/hardeners/"
         },
         {
@@ -70,13 +60,27 @@
         {
           "label": "How Homebrew hardening works",
           "url": "https://www.automicvault.com/docs/hardeners/brew/"
+        },
+        {
+          "label": "The Homebrew founder story",
+          "url": "https://www.automicvault.com/about/"
+        }
+      ]
+    },
+    {
+      "title": "Start with the credentials sitting on your Mac.",
+      "description": "Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.\n\nChoose a supported Hardener for a Finding, then use av doctor to verify the installed protection.\n\nA clean Scan covers the checks AV supports. It does not certify your whole machine as secure.\n\nScan without installing:\ncurl -fsSL https://www.automicvault.com/scanner.sh | bash\n\nDownloads a small standalone scanner built from the latest release sources, verifies its signature, and runs it in a read-only sandbox with no network access.",
+      "links": [
+        {
+          "label": "Find your tools",
+          "url": "https://www.automicvault.com/docs/hardeners/"
         }
       ],
       "eyebrow": "Secure your command line"
     },
     {
-      "title": "Let your agent read. Make it ask to write.",
-      "description": "A GitHub token can carry more authority than your agent needs for the job. Set Read Only at its GitHub gate, then approve writes as they come up. AV does not sandbox your agent or prevent arbitrary local file changes.\n\nGive your terminal a different policy if you want. Each Authorization Gate applies the rules you choose for each Verified Launcher.\n\nAV checks the complete operation before applying a credential. Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.\n\nFor an eligible agent task, grant ten active minutes of Write Access at one gate. You can extend, suspend, or end that grant from its visible controls.\n\nCode signing establishes software identity and integrity, not intent. Task identifiers narrow temporary grants; they do not establish identity.",
+      "title": "Let your agent read GitHub. Make it ask to write.",
+      "description": "Choose Read Only for your agent’s GitHub gate and a different policy for your terminal. AV verifies each Launcher’s live software identity before applying its policy.\n\nAV does not sandbox your agent or prevent arbitrary local file changes.\n\nWrite Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.\n\nFor an eligible agent task, grant ten active minutes of Write Access at one gate. You can extend, suspend, or end that grant from its visible controls.\n\nCode signing establishes software identity and integrity, not intent. Task identifiers narrow temporary grants; they do not establish identity.",
       "links": [
         {
           "label": "Choose how much authority to give",
