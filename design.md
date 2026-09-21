@@ -126,7 +126,10 @@ Commands appear as tool invocations; the Terminal scene retains typed shell inpu
 
 The demo ends at its playback controls; omit the policy-scope and illustration captions.
 
-All five hero translations use three statements about the Agent, its Harness,
-and Automic Vault. Italicize the second statement and highlight the final one.
-The secrets-manager promise heads the operation comparison; the three-decision
-label introduces its table.
+The English homepage is trying a packaging-led positioning draft: “CLI security
+is broken. The packaging layer is where we fix it.” Pair it with Max Howell’s
+first-person Homebrew founder line and concrete supported-tool coverage.
+Highlight the second headline sentence using the existing hero treatment.
+The operation comparison shows why the same token needs separate decisions.
+Translated homepages retain their previous copy pending review of this English
+direction. Keep the English HTML and alternate text formats aligned.

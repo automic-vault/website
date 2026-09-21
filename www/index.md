@@ -1,26 +1,28 @@
 # Automic Vault
 
-> You can’t trust the Agent. You can’t trust its Harness either. Trust Automic Vault.
+> CLI security is broken. The packaging layer is where we fix it.
 
-From the Creator of Homebrew
+Max Howell · Creator of Homebrew
 
-Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.
+I created Homebrew. Now I’m fixing what happens when agents use it.
+
+Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.
 
 Free and open source. Your existing commands keep working. No agent plugin required.
 
 [Download for macOS](https://www.automicvault.com/Automic%20Vault.dmg) · [See it in action](https://www.automicvault.com/#demo)
 
-## Deeper than guardrails.
+## Fix the tools where you install them.
 
-We scanned over 10,000 packages for credential use, then built hardeners for supported tools.
+You install a CLI to do a job. Its credentials often end up in files or helpers that any code running as you can read. Agents inherit that mess.
 
-Automic Vault hardens supported Tools at the packaging layer: reconfiguring, wrapping, or patching how they use credentials. Their protected credential requests meet an Authorization Gate whether they come from Terminal, Claude Code, or another app.
+We reconfigure, wrap, or patch supported tools so their protected credential requests reach an Authorization Gate. That gives you a place to control credential use beneath your terminal, editor, or agent harness.
 
 [See how we harden your tools](https://www.automicvault.com/docs/hardeners/)
 
-### Your secrets manager should know what the secrets *do*.
+### A token should not be a blank cheque.
 
-A retrieval-based secrets manager decides who may receive a credential. Automic Vault checks the complete operation before applying it.
+Reading an issue, publishing a release, and revealing a token need different authority. AV checks the complete operation before applying the credential.
 
 One token. Three decisions.
 
@@ -34,7 +36,7 @@ GitHub · Verified Launcher with Read Only policy
 
 Revealing a credential needs its own decision, even when nothing changes remotely.
 
-## Bringing macOS security to the command line.
+## Start with the credentials sitting on your Mac.
 
 Secure your command line
 
@@ -72,13 +74,13 @@ Read & Update policy allows recognized inspection commands and brew update. Inst
 
 [How Homebrew hardening works](https://www.automicvault.com/docs/hardeners/brew/)
 
-## Run agents full access. Control their credentials.
+## Let your agent read. Make it ask to write.
 
 Decide what your tools and agents can do
 
-Keep your agent’s full-access execution mode while AV separately controls its use of protected credentials. AV does not sandbox your agent or prevent arbitrary local file changes.
+A GitHub token can carry more authority than your agent needs for the job. Set Read Only at its GitHub gate, then approve writes as they come up. AV does not sandbox your agent or prevent arbitrary local file changes.
 
-Let your agent read GitHub issues while writes need your Approval. Give your terminal a different policy. Each Authorization Gate applies the rules you choose for each Verified Launcher.
+Give your terminal a different policy if you want. Each Authorization Gate applies the rules you choose for each Verified Launcher.
 
 AV checks the complete operation before applying a credential. Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.
 
@@ -88,7 +90,7 @@ Code signing establishes software identity and integrity, not intent. Task ident
 
 [Choose how much authority to give](https://www.automicvault.com/docs/authority/)
 
-## Give agents capabilities you’ve reviewed.
+## Review the release script once.
 
 Give agents the capabilities they need
 
@@ -100,7 +102,7 @@ Validate agent output before using it. Keep Secret Values within the script’s 
 
 [Build a reviewed agent workflow](https://www.automicvault.com/docs/reentrant-scripts/)
 
-## All the info you need to make a decision.
+## See what you’re being asked to allow.
 
 See the software, command, arguments, working directory, and Secret Names before you allow an operation.
 
@@ -124,9 +126,9 @@ iPhone Approval removes pointer- and keyboard-driven allow actions on the Mac. D
 
 [Set up iPhone and Touch ID Approval](https://www.automicvault.com/docs/authority/) · [Join the public iPhone beta on TestFlight](https://testflight.apple.com/join/cfnDU5kM)
 
-## Know the boundary
+## Where this stops
 
-AV protects supported credentials and sensitive Tool operations against code running with your normal user privileges. Root or kernel compromise, arbitrary local destruction, and a Target’s behavior after receiving a Secret remain outside that boundary.
+AV protects supported credentials and gates supported Tool operations against code running as you. Wrappers do not intercept every command, and installing a package does not make it safe. Root or kernel compromise, arbitrary local destruction, and a Target’s behavior after receiving a Secret remain outside this boundary.
 
 Authorization History keeps local records of allowed and denied requests. AV persists and verifies the record of an allowed Secret Use before releasing the Secret. History is bounded; it is not a tamper-resistant or complete forensic log.
 

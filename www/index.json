@@ -3,8 +3,8 @@
   "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "You can’t trust the Agent. You can’t trust its Harness either. Trust Automic Vault.",
-  "description": "Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.",
+  "title": "CLI security is broken. The packaging layer is where we fix it.",
+  "description": "Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.",
   "security_boundaries": [
     "Automic Vault does not intercept every process or replace the shell.",
     "Automic Vault does not prevent arbitrary local destruction.",
@@ -28,8 +28,8 @@
   "pricing": "The Mac app costs nothing and ships under Apache-2.0. Optional iPhone Approval requires an active subscription to send allow responses. Denying a request does not require a subscription.",
   "sections": [
     {
-      "title": "You can’t trust the Agent. You can’t trust its Harness either. Trust Automic Vault.",
-      "description": "From the Creator of Homebrew\n\nSecure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.\n\nFree and open source. Your existing commands keep working. No agent plugin required.",
+      "title": "CLI security is broken. The packaging layer is where we fix it.",
+      "description": "Max Howell · Creator of Homebrew\n\nI created Homebrew. Now I’m fixing what happens when agents use it.\n\nAutomic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.\n\nFree and open source. Your existing commands keep working. No agent plugin required.",
       "links": [
         {
           "label": "Download for macOS",
@@ -42,8 +42,8 @@
       ]
     },
     {
-      "title": "Deeper than guardrails.",
-      "description": "We scanned over 10,000 packages for credential use, then built hardeners for supported tools.\n\nAutomic Vault hardens supported Tools at the packaging layer: reconfiguring, wrapping, or patching how they use credentials. Their protected credential requests meet an Authorization Gate whether they come from Terminal, Claude Code, or another app.\n\nYour secrets manager should know what the secrets do.\n\nA retrieval-based secrets manager decides who may receive a credential. Automic Vault checks the complete operation before applying it.\n\nOne token. Three decisions. With a Verified Launcher on GitHub Read Only policy: gh issue list is authorized; gh issue create requires Approval for Remote Write; gh auth token requires Approval for Secret Disclosure.",
+      "title": "Fix the tools where you install them.",
+      "description": "You install a CLI to do a job. Its credentials often end up in files or helpers that any code running as you can read. Agents inherit that mess.\n\nWe reconfigure, wrap, or patch supported tools so their protected credential requests reach an Authorization Gate. That gives you a place to control credential use beneath your terminal, editor, or agent harness.\n\nA token should not be a blank cheque.\n\nReading an issue, publishing a release, and revealing a token need different authority. AV checks the complete operation before applying the credential.\n\nOne token. Three decisions. With a Verified Launcher on GitHub Read Only policy: gh issue list is authorized; gh issue create requires Approval for Remote Write; gh auth token requires Approval for Secret Disclosure.",
       "links": [
         {
           "label": "See how we harden your tools",
@@ -52,7 +52,7 @@
       ]
     },
     {
-      "title": "Bringing macOS security to the command line.",
+      "title": "Start with the credentials sitting on your Mac.",
       "description": "Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.\n\nHarden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.\n\nA clean Scan covers the checks AV supports. It does not certify your whole machine as secure.\n\nScan without installing:\ncurl -fsSL https://www.automicvault.com/scanner.sh | bash\n\nDownloads a small standalone scanner built from the latest release sources, verifies its signature, and runs it in a read-only sandbox with no network access.\n\nAWS: Short-lived credentials per invocation. Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.\n\nDocker: The process and registry matter. Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.\n\nHomebrew: Updates can run. Installs can ask. Read & Update policy allows recognized inspection commands and brew update. Installing or upgrading software still requires your Approval.",
       "links": [
         {
@@ -75,8 +75,8 @@
       "eyebrow": "Secure your command line"
     },
     {
-      "title": "Run agents full access. Control their credentials.",
-      "description": "Keep your agent’s full-access execution mode while AV separately controls its use of protected credentials. AV does not sandbox your agent or prevent arbitrary local file changes.\n\nLet your agent read GitHub issues while writes need your Approval. Give your terminal a different policy. Each Authorization Gate applies the rules you choose for each Verified Launcher.\n\nAV checks the complete operation before applying a credential. Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.\n\nFor an eligible agent task, grant ten active minutes of Write Access at one gate. You can extend, suspend, or end that grant from its visible controls.\n\nCode signing establishes software identity and integrity, not intent. Task identifiers narrow temporary grants; they do not establish identity.",
+      "title": "Let your agent read. Make it ask to write.",
+      "description": "A GitHub token can carry more authority than your agent needs for the job. Set Read Only at its GitHub gate, then approve writes as they come up. AV does not sandbox your agent or prevent arbitrary local file changes.\n\nGive your terminal a different policy if you want. Each Authorization Gate applies the rules you choose for each Verified Launcher.\n\nAV checks the complete operation before applying a credential. Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.\n\nFor an eligible agent task, grant ten active minutes of Write Access at one gate. You can extend, suspend, or end that grant from its visible controls.\n\nCode signing establishes software identity and integrity, not intent. Task identifiers narrow temporary grants; they do not establish identity.",
       "links": [
         {
           "label": "Choose how much authority to give",
@@ -86,7 +86,7 @@
       "eyebrow": "Decide what your tools and agents can do"
     },
     {
-      "title": "Give agents capabilities you’ve reviewed.",
+      "title": "Review the release script once.",
       "description": "Let an agent prepare release notes while a reviewed script publishes to GitHub and updates your CDN. A Blessed Script binds exact contents and declared capabilities to your review.\n\nA reentrant script pauses for agent input, exposes fixed entry points for context, then continues the deterministic work. AV authorizes each invocation. Editing the script invalidates its Blessing.\n\nValidate agent output before using it. Keep Secret Values within the script’s execution; a Blessing does not make its code trustworthy.",
       "links": [
         {
@@ -97,7 +97,7 @@
       "eyebrow": "Give agents the capabilities they need"
     },
     {
-      "title": "All the info you need to make a decision.",
+      "title": "See what you’re being asked to allow.",
       "description": "See the software, command, arguments, working directory, and Secret Names before you allow an operation.",
       "links": []
     },
@@ -130,8 +130,8 @@
       ]
     },
     {
-      "title": "Know the boundary",
-      "description": "AV protects supported credentials and sensitive Tool operations against code running with your normal user privileges. Root or kernel compromise, arbitrary local destruction, and a Target’s behavior after receiving a Secret remain outside that boundary.\n\nAuthorization History keeps local records of allowed and denied requests. AV persists and verifies the record of an allowed Secret Use before releasing the Secret. History is bounded; it is not a tamper-resistant or complete forensic log.",
+      "title": "Where this stops",
+      "description": "AV protects supported credentials and gates supported Tool operations against code running as you. Wrappers do not intercept every command, and installing a package does not make it safe. Root or kernel compromise, arbitrary local destruction, and a Target’s behavior after receiving a Secret remain outside this boundary.\n\nAuthorization History keeps local records of allowed and denied requests. AV persists and verifies the record of an allowed Secret Use before releasing the Secret. History is bounded; it is not a tamper-resistant or complete forensic log.",
       "links": [
         {
           "label": "Read the security model",

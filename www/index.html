@@ -11,18 +11,18 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | You can’t trust the Agent. You can’t trust its Harness either. Trust Automic Vault.</title>
-  <meta name="description" content="Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.">
+  <title>Automic Vault | CLI security is broken. The packaging layer is where we fix it.</title>
+  <meta name="description" content="Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="You can’t trust the Agent. You can’t trust its Harness either. Trust Automic Vault.">
-  <meta property="og:description" content="Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.">
+  <meta property="og:title" content="CLI security is broken. The packaging layer is where we fix it.">
+  <meta property="og:description" content="Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.">
   <meta property="og:url" content="https://www.automicvault.com/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
-  <meta name="twitter:title" content="You can’t trust the Agent. You can’t trust its Harness either. Trust Automic Vault.">
-  <meta name="twitter:description" content="Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.">
+  <meta name="twitter:title" content="CLI security is broken. The packaging layer is where we fix it.">
+  <meta name="twitter:description" content="Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.">
   <link rel="canonical" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/">
@@ -105,7 +105,7 @@
           "availability": "https://schema.org/InStock",
           "url": "https://www.automicvault.com/#pricing"
         },
-        "description": "Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.",
+        "description": "Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.",
         "publisher": {"@id": "https://www.automicvault.com/#organization"}
       },
       {
@@ -113,10 +113,10 @@
         "@id": "https://www.automicvault.com/#webpage",
         "url": "https://www.automicvault.com/",
         "name": "Automic Vault",
-        "headline": "You can’t trust the Agent. You can’t trust its Harness either. Trust Automic Vault.",
-        "description": "Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.",
+        "headline": "CLI security is broken. The packaging layer is where we fix it.",
+        "description": "Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.",
         "datePublished": "2026-05-15",
-        "dateModified": "2026-09-15",
+        "dateModified": "2026-09-21",
         "image": "https://www.automicvault.com/preview.jpg",
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "isPartOf": {"@id": "https://www.automicvault.com/#website"},
@@ -157,9 +157,10 @@
   <main class="brew-usecases" id="main-content">
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
-        <p class="brew-eyebrow">From the Creator of Homebrew</p>
-        <h1 class="trust-hero" id="hero-title"><span>You can’t trust the Agent.</span> <span>You can’t trust its Harness either.</span> <em>Trust Automic Vault.</em></h1>
-        <p class="brew-hero-summary">Secure your command-line credentials, give agents bounded capabilities, and approve operations across your Macs.</p>
+        <p class="brew-eyebrow">Max Howell · Creator of Homebrew</p>
+        <h1 class="trust-hero" id="hero-title"><span>CLI security is broken.</span> <em>The packaging layer is where we fix it.</em></h1>
+        <p class="brew-hero-summary">I created Homebrew. Now I’m fixing what happens when agents use it.</p>
+        <p class="brew-hero-summary">Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">Download for macOS</a>
           <a class="brew-text-link" href="#demo">See it in action <span aria-hidden="true">↗</span></a>
@@ -199,15 +200,15 @@
     <section class="tool-boundary" id="deeper-than-guardrails" aria-labelledby="tool-boundary-title">
       <div class="boundary-intro">
         <div class="brew-copy">
-          <p class="brew-eyebrow">Below the agent harness</p>
-          <h2 id="tool-boundary-title">Deeper than guardrails.</h2>
-          <p>We scanned over 10,000 packages for credential use, then built hardeners for supported tools.</p>
-          <p>Automic Vault hardens supported Tools at the packaging layer: reconfiguring, wrapping, or patching how they use credentials. Their protected credential requests meet an Authorization Gate whether they come from Terminal, Claude Code, or another app.</p>
+          <p class="brew-eyebrow">The packaging layer</p>
+          <h2 id="tool-boundary-title">Fix the tools where you install them.</h2>
+          <p>You install a CLI to do a job. Its credentials often end up in files or helpers that any code running as you can read. Agents inherit that mess.</p>
+          <p>We reconfigure, wrap, or patch supported tools so their protected credential requests reach an Authorization Gate. That gives you a place to control credential use beneath your terminal, editor, or agent harness.</p>
           <a class="brew-text-link" href="/docs/hardeners/">See how we harden your tools <span aria-hidden="true">→</span></a>
         </div>
         <div class="operation-example">
-          <h3>Your secrets manager should know what the secrets <em>do</em>.</h3>
-          <p>A retrieval-based secrets manager decides who may receive a credential. Automic Vault checks the complete operation before applying it.</p>
+          <h3>A token should not be a blank cheque.</h3>
+          <p>Reading an issue, publishing a release, and revealing a token need different authority. AV checks the complete operation before applying the credential.</p>
           <table>
             <caption><strong>One token. Three decisions.</strong><br>GitHub · Verified Launcher with Read Only policy</caption>
             <thead><tr><th scope="col">Command</th><th scope="col">Decision</th></tr></thead>
@@ -225,7 +226,7 @@
     <section class="brew-feature" id="command-line" aria-labelledby="command-line-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">Secure your command line</p>
-        <h2 id="command-line-title">Bringing macOS security to the command line.</h2>
+        <h2 id="command-line-title">Start with the credentials sitting on your Mac.</h2>
         <p>Find credentials that tools, dependencies, and agents can read from your files or credential helpers. Each Finding explains the exposure and what you can do about it.</p>
         <p>Harden a supported Tool to move its credentials into the macOS Data Protection Keychain and put an Authorization Gate at the point of use. Keep using your usual terminal and commands.</p>
         <a class="brew-text-link" href="/docs/hardeners/">Find your tools <span aria-hidden="true">→</span></a>
@@ -256,9 +257,9 @@
     <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">Decide what your tools and agents can do</p>
-        <h2 id="controls-title">Run agents full access. Control their credentials.</h2>
-        <p>Keep your agent’s full-access execution mode while AV separately controls its use of protected credentials. AV does not sandbox your agent or prevent arbitrary local file changes.</p>
-        <p>Let your agent read GitHub issues while writes need your Approval. Give your terminal a different policy. Each Authorization Gate applies the rules you choose for each Verified Launcher.</p>
+        <h2 id="controls-title">Let your agent read. Make it ask to write.</h2>
+        <p>A GitHub token can carry more authority than your agent needs for the job. Set Read Only at its GitHub gate, then approve writes as they come up. AV does not sandbox your agent or prevent arbitrary local file changes.</p>
+        <p>Give your terminal a different policy if you want. Each Authorization Gate applies the rules you choose for each Verified Launcher.</p>
         <p>AV checks the complete operation before applying a credential. Write Access still leaves disclosure and elevated credential use behind Approval. Unknown operations always need a human decision.</p>
         <p>For an eligible agent task, grant ten active minutes of Write Access at one gate. You can extend, suspend, or end that grant from its visible controls.</p>
         <a class="brew-text-link" href="/docs/authority/">Choose how much authority to give <span aria-hidden="true">→</span></a>
@@ -273,7 +274,7 @@
     <section class="brew-feature script-proof" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">Give agents the capabilities they need</p>
-        <h2 id="reentrant-scripts-title">Give agents capabilities you’ve reviewed.</h2>
+        <h2 id="reentrant-scripts-title">Review the release script once.</h2>
         <p>Let an agent prepare release notes while a reviewed script publishes to GitHub and updates your CDN. A Blessed Script binds exact contents and declared capabilities to your review.</p>
         <p>A reentrant script pauses for agent input, exposes fixed entry points for context, then continues the deterministic work. AV authorizes each invocation. Editing the script invalidates its Blessing.</p>
         <a class="brew-text-link" href="/docs/reentrant-scripts/">Build a reviewed agent workflow <span aria-hidden="true">→</span></a>
@@ -281,7 +282,7 @@
       </div>
       <div class="approval-intro" id="gallery">
         <p class="brew-eyebrow">In action</p>
-        <h2 id="gallery-title">All the info you need to make a decision.</h2>
+        <h2 id="gallery-title">See what you’re being asked to allow.</h2>
         <p>See the software, command, arguments, working directory, and Secret Names before you allow an operation.</p>
       </div>
       <figure class="brew-capture brew-capture-script">
@@ -324,8 +325,8 @@
 
     <section class="brew-feature brew-security" id="terminal-security" aria-labelledby="terminal-security-title">
       <div class="brew-copy">
-        <h2 id="terminal-security-title">Know the boundary</h2>
-        <p>AV protects supported credentials and sensitive Tool operations against code running with your normal user privileges. Root or kernel compromise, arbitrary local destruction, and a Target’s behavior after receiving a Secret remain outside that boundary.</p>
+        <h2 id="terminal-security-title">Where this stops</h2>
+        <p>AV protects supported credentials and gates supported Tool operations against code running as you. Wrappers do not intercept every command, and installing a package does not make it safe. Root or kernel compromise, arbitrary local destruction, and a Target’s behavior after receiving a Secret remain outside this boundary.</p>
         <a class="brew-text-link" href="/docs/security/">Read the security model <span aria-hidden="true">→</span></a>
       </div>
       <div class="brew-copy">
@@ -343,7 +344,7 @@
 
   <footer class="brew-footer">
     <div class="brew-footer-lead">
-      <p class="brew-footer-statement">Your tools. Your authority.</p>
+      <p class="brew-footer-statement">Keep your commands. Control their credential use.</p>
       <a class="brew-cta" href="/Automic%20Vault.dmg">Download for macOS</a>
     </div>
     <div class="brew-footer-meta">

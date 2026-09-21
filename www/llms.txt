@@ -1,10 +1,10 @@
 # Automic Vault
 
-> Automic Vault checks the complete Tool operation before applying developer credentials at the Local Execution Boundary.
+> Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.
 
 ## Product
 
-- [Homepage](https://www.automicvault.com/): Shows how to secure command-line credentials, set per-Launcher policies, give agents reviewed capabilities, use Project Values, and approve operations across enrolled Macs.
+- [Homepage](https://www.automicvault.com/): Explains how Max Howell, creator of Homebrew, is addressing CLI credential use through supported tool hardening at the packaging layer. Shows operation-level policy, reviewed scripts, and Approval.
 - [Download](https://www.automicvault.com/download/): Provides the signed macOS disk image, installation details, included components, and first steps after setup.
 - [Documentation](https://www.automicvault.com/docs/): Automic Vault 4.8.2 manual, with separately noted 4.6.0 checks and post-release additions.
 - [Security foundations](https://www.automicvault.com/docs/security/): Defines request, identity, authority, Secret delivery, secure defaults, and product boundaries.
