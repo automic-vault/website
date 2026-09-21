@@ -113,10 +113,10 @@ Keep canonical product and policy names recognizable; translate demo narration,
 controls, and authorization messages. Commands and captured product UI stay verbatim.
 
 
-The English section before the demo shows the GitHub hardening transformation
+The section before the demo on all five homepages shows the GitHub hardening transformation
 and pairs it with the same-token read/write/disclosure comparison. Place the
 Homebrew proof first in the supporting row, followed by AWS and Docker. The
-scanner follows the demo. Translated pages retain their previous order. Pair one large Approval capture with the Blessed Scripts explanation.
+scanner follows the demo. Pair one large Approval capture with the Blessed Scripts explanation.
 Hardening establishes the protected path; runtime Authorization Gates enforce
 credential requests. Do not imply every process execution is intercepted.
 
@@ -126,11 +126,16 @@ Commands appear as tool invocations; the Terminal scene retains typed shell inpu
 
 The demo ends at its playback controls; omit the policy-scope and illustration captions.
 
-The English homepage is trying a packaging-led positioning draft: “CLI security
+All five homepages use the packaging-led positioning: “CLI security
 is broken. The packaging layer is where we fix it.” Pair it with Max Howell’s
 first-person Homebrew founder line and concrete supported-tool coverage. Link his
 name to About, which explains how installation connects to inherited authority.
 Highlight the second headline sentence using the existing hero treatment.
 The operation comparison shows why the same token needs separate decisions.
-Translated homepages retain their previous copy pending review of this English
-direction. Keep the English HTML and alternate text formats aligned.
+Translated homepages and About pages follow the English narrative. Keep curated
+headlines aligned with the localization data and section order aligned with English.
+Japanese uses a polite register for a global developer audience; native editorial
+review of the September 21 acquisition copy remains outstanding.
+
+Homepage Japanese and Simplified Chinese use platform sans-serif fallbacks;
+Japanese emphasis uses color or weight, without synthetic italics.

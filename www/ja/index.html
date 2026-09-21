@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | エージェントは信用できません。 その実行基盤も信用できません。 Automic Vault を信頼してください。</title>
-  <meta name="description" content="CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。">
+  <title>Automic Vault | CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。</title>
+  <meta name="description" content="Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="エージェントは信用できません。 その実行基盤も信用できません。 Automic Vault を信頼してください。">
-  <meta property="og:description" content="CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。">
+  <meta property="og:title" content="CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。">
+  <meta property="og:description" content="Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。">
   <meta property="og:url" content="https://www.automicvault.com/ja/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="エージェントは信用できません。 その実行基盤も信用できません。 Automic Vault を信頼してください。">
-  <meta name="twitter:description" content="CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。">
+  <meta name="twitter:title" content="CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。">
+  <meta name="twitter:description" content="Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/ja/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -46,9 +46,9 @@
   "@context": "https://schema.org",
   "@type": "WebPage",
   "url": "https://www.automicvault.com/ja/",
-  "name": "Automic Vault | エージェントは信用できません。 その実行基盤も信用できません。 Automic Vault を信頼してください。",
-  "headline": "エージェントは信用できません。 その実行基盤も信用できません。 Automic Vault を信頼してください。",
-  "description": "CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。",
+  "name": "Automic Vault | CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。",
+  "headline": "CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。",
+  "description": "Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。",
   "inLanguage": "ja",
   "image": "https://www.automicvault.com/preview.jpg",
   "isPartOf": {
@@ -58,7 +58,7 @@
   }
 }
   </script>
-  <link rel="stylesheet" href="/homepage.css?v=11">
+  <link rel="stylesheet" href="/homepage.css?v=12">
 </head>
 <body class="brew-home">
   <a class="brew-skip-link" href="#main-content">本文へ移動</a>
@@ -81,14 +81,46 @@
   <main class="brew-usecases" id="main-content">
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
-        <p class="brew-eyebrow">Homebrew 開発者が提供</p>
-        <h1 class="trust-hero" id="hero-title"><span>エージェントは信用できません。</span> <span>その実行基盤も信用できません。</span> <em>Automic Vault を信頼してください。</em></h1>
-        <p class="brew-hero-summary">CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。</p>
+        <p class="brew-eyebrow"><a href="/ja/about/">Max Howell</a></p>
+        <h1 class="trust-hero" id="hero-title"><span>CLI のセキュリティには欠陥があります。</span> <em>パッケージの仕組みから直します。</em></h1>
+        <p class="brew-hero-summary">私は Homebrew を作りました。今は、エージェントがそれを使うときに起きる問題に取り組んでいます。</p>
+        <p class="brew-hero-summary">Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">macOS 版をダウンロード</a>
           <a class="brew-text-link" href="#demo">デモを見る <span aria-hidden="true">↗</span></a>
         </div>
         <p class="brew-hero-note">無料・オープンソース。普段のコマンドをそのまま使えます。エージェント用プラグインは不要です。</p>
+      </div>
+    </section>
+
+    <section class="tool-boundary" id="deeper-than-guardrails" aria-labelledby="tool-boundary-title">
+      <div class="boundary-intro">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">パッケージの仕組みから</p>
+          <h2 id="tool-boundary-title">ツールをインストールする場所で、対策する。</h2>
+          <p>作業のために CLI ツールをインストールすると、認証情報がファイルやヘルパーに保存されることがあります。同じユーザー権限で動く別のコードも、それを読み出せる場合があります。エージェントもそのアクセスを引き継ぎます。</p>
+          <p>GitHub の場合、av harden gh で署名済みの改修版 CLI をインストールし、既存の認証情報を Automic Vault の管理下に移します。使うコマンドは引き続き gh です。認証が必要な操作は Authorization Gate を通るようになります。</p>
+          <a class="brew-text-link" href="/docs/hardeners/">ツールの保護の仕組みを見る <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="operation-example">
+          <h3>シークレットの<em>用途</em>まで確認する、シークレットマネージャー。</h3>
+          <p>Issue の閲覧、リリースの公開、トークンの表示には、それぞれ異なる権限が必要です。AV は操作全体を確認してから認証情報を適用します。</p>
+          <table>
+            <caption><strong>1 つのトークン。3 つの判断。</strong><br>GitHub · Read Only ポリシーの Verified Launcher</caption>
+            <thead><tr><th scope="col">コマンド</th><th scope="col">判断</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>gh issue list</code><small>Issue を読む</small></th><td><span class="decision-allowed">許可済み</span><small>Read Only</small></td></tr>
+              <tr><th scope="row"><code>gh issue create</code><small>Issue を作成</small></th><td><span>承認が必要</span><small>Remote Write</small></td></tr>
+              <tr><th scope="row"><code>gh auth token</code><small>トークンを開示</small></th><td><span>承認が必要</span><small>Secret Disclosure</small></td></tr>
+            </tbody>
+          </table>
+          <p class="operation-note">リモート側を変更しなくても、認証情報の開示には別の判断が必要です。</p>
+        </div>
+        <div class="hardening-proof">
+        <article><p class="brew-eyebrow">Homebrew</p><h3>更新チェックは実行。インストールは承認。</h3><p>Homebrew のハードニングは、同じユーザー権限で動く別のコードによる /opt/homebrew の変更を防ぎます。Read &amp; Update では、認識済みの確認コマンドと brew update を実行でき、インストールやアップグレードには Approval が必要です。対象は Apple Silicon の Homebrew です。ハードニング中はサービスとシェル補完を利用できません。</p><a class="brew-text-link" href="/docs/hardeners/brew/">Homebrew の保護の仕組み <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">AWS</p><h3>呼び出しごとに短期認証情報を。</h3><p>通常の AWS コマンドには短期のセッション認証情報を渡します。長期キーは共有認証情報ファイルから取り除きます。AV は AWS プロセスごとにセッション認証情報を個別に取得します。</p><a class="brew-text-link" href="/docs/hardeners/aws/">AWS の保護の仕組み <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">Docker</p><h3>プロセスもレジストリも確認。</h3><p>レジストリの認証情報を渡す前に、AV は実行中の Docker Desktop プロセス、署名、ランタイム保護、起動元のプロセス階層、引数、要求されたレジストリを確認します。</p><a class="brew-text-link" href="/docs/hardeners/docker/">Docker の保護の仕組み <span aria-hidden="true">↗</span></a></article>
+        </div>
       </div>
     </section>
 
@@ -120,37 +152,14 @@
       <script type="application/json" data-demo-copy>{"pause": "一時停止 Ⅱ", "resume": "再開 ▶", "next": "次のデモ →", "authorized": "{policy} ポリシーで許可済み", "approval": "{launcher} が {tool} を使用しようとしています"}</script>
     </section>
 
-    <section class="tool-boundary" id="deeper-than-guardrails" aria-labelledby="tool-boundary-title">
-      <div class="boundary-intro">
-        <div class="brew-copy">
-          <p class="brew-eyebrow">エージェントの実行基盤より深い層で</p>
-          <h2 id="tool-boundary-title">ガードレールより深い層で保護。</h2>
-          <p>10,000 を超えるパッケージの認証情報の使い方を調べ、対応ツール向けに Hardener を開発しました。</p>
-          <p>Automic Vault は、対応する Tool の設定変更、ラッパーの追加、パッチの適用により、パッケージ層で認証情報の使い方を保護します。保護対象の認証情報へのリクエストは、Terminal、Claude Code、その他のアプリのどこから来ても Authorization Gate で確認されます。</p>
-          <a class="brew-text-link" href="/docs/hardeners/">ツールの保護の仕組みを見る <span aria-hidden="true">→</span></a>
-        </div>
-        <div class="operation-example">
-          <h3>シークレットの<em>用途</em>まで確認する、シークレットマネージャー。</h3>
-          <p>取得時に判断するシークレットマネージャーは、誰に認証情報を渡すかを決めます。Automic Vault は、認証情報を適用する前に操作全体を確認します。</p>
-          <table>
-            <caption><strong>1 つのトークン。3 つの判断。</strong><br>GitHub · Read Only ポリシーの Verified Launcher</caption>
-            <thead><tr><th scope="col">コマンド</th><th scope="col">判断</th></tr></thead>
-            <tbody>
-              <tr><th scope="row"><code>gh issue list</code><small>Issue を読む</small></th><td><span class="decision-allowed">許可済み</span><small>Read Only</small></td></tr>
-              <tr><th scope="row"><code>gh issue create</code><small>Issue を作成</small></th><td><span>承認が必要</span><small>Remote Write</small></td></tr>
-              <tr><th scope="row"><code>gh auth token</code><small>トークンを開示</small></th><td><span>承認が必要</span><small>Secret Disclosure</small></td></tr>
-            </tbody>
-          </table>
-          <p class="operation-note">リモート側を変更しなくても、認証情報の開示には別の判断が必要です。</p>
-        </div>
-      </div>
-    </section>
+
 
     <section class="brew-feature" id="command-line" aria-labelledby="command-line-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">コマンドラインを保護</p>
-        <h2 id="command-line-title">macOS のセキュリティをコマンドラインへ。</h2>
-        <p>ツールや依存パッケージ、エージェントがファイルや認証情報ヘルパーから読み出せる認証情報を検出します。各 Finding には原因と対策を表示します。対応する Tool を Hardener で保護すると、認証情報を macOS の Data Protection Keychain に移し、使用時に Authorization Gate で確認します。</p>
+        <h2 id="command-line-title">Mac に保存された認証情報から始めましょう。</h2>
+        <p>ツール、依存パッケージ、エージェントがファイルや認証情報ヘルパーから読み出せる認証情報を検出します。各 Finding で、露出の内容と対策を確認できます。</p>
+        <p>Finding に対応する Hardener を選び、導入後は av doctor で保護の状態を検証します。</p>
         <a class="brew-text-link" href="/docs/hardeners/">対応するツールを見る <span aria-hidden="true">→</span></a>
         <div class="brew-scanner-terminal">
           <div class="brew-scanner-toolbar">
@@ -169,19 +178,16 @@
         <img src="/docs/assets/detectors.png" alt="Detector ごとの検査内容と、Hardener の対応状況を確認できます。" width="1440" height="900" decoding="async" fetchpriority="high">
         <figcaption>Detector ごとの検査内容と、Hardener の対応状況を確認できます。</figcaption>
       </figure>
-      <div class="hardening-proof">
-        <article><p class="brew-eyebrow">AWS</p><h3>呼び出しごとに短期認証情報を。</h3><p>通常の AWS コマンドには短期のセッション認証情報を渡します。長期キーは共有認証情報ファイルから取り除きます。AV は AWS プロセスごとにセッション認証情報を個別に取得します。</p><a class="brew-text-link" href="/docs/hardeners/aws/">AWS の保護の仕組み <span aria-hidden="true">↗</span></a></article>
-        <article><p class="brew-eyebrow">Docker</p><h3>プロセスもレジストリも確認。</h3><p>レジストリの認証情報を渡す前に、AV は実行中の Docker Desktop プロセス、署名、ランタイム保護、起動元のプロセス階層、引数、要求されたレジストリを確認します。</p><a class="brew-text-link" href="/docs/hardeners/docker/">Docker の保護の仕組み <span aria-hidden="true">↗</span></a></article>
-        <article><p class="brew-eyebrow">Homebrew</p><h3>更新チェックは実行。インストールは承認。</h3><p>Read &amp; Update ポリシーは、認識された確認用コマンドと brew update を許可します。ソフトウェアのインストールやアップグレードには、引き続き Approval が必要です。</p><a class="brew-text-link" href="/docs/hardeners/brew/">Homebrew の保護の仕組み <span aria-hidden="true">↗</span></a></article>
-      </div>
     </section>
 
     <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">ツールとエージェントに許可する操作を選ぶ</p>
-        <h2 id="controls-title">エージェントはフルアクセスで。認証情報の使用は管理下に。</h2>
-        <p>エージェントのフルアクセス実行モードを維持したまま、AV が保護対象の認証情報の使用を別途管理します。AV はエージェントをサンドボックス化せず、任意のローカルファイル変更を防ぐものでもありません。</p>
-        <p>エージェントには GitHub の Issue 閲覧を許可し、書き込みは承認が必要な設定にできます。ターミナルには別のルールを設定できます。AV は Verified Launcher ごとに操作全体を確認します。Write Access でも、Secret の開示や強力な認証情報の使用には Approval が必要です。Unknown の操作は人が判断します。対象のエージェントタスクには、1 つの Gate で有効時間 10 分の Write Access を付与し、延長・一時停止・終了できます。</p>
+        <h2 id="controls-title">GitHub の閲覧は許可。書き込みは承認してから。</h2>
+        <p>エージェントの GitHub Gate は Read Only に設定し、ターミナルには別のポリシーを選べます。AV は各 Launcher の実行中のソフトウェアの識別情報を検証してから、ポリシーを適用します。</p>
+        <p>AV はエージェントをサンドボックス化せず、任意のローカルファイル変更も防ぎません。</p>
+        <p>Write Access でも、Secret の開示や、より強力な認証情報の使用には Approval が必要です。Unknown の操作は常に人が判断します。</p>
+        <p>対象となるエージェントタスクには、1 つの Gate で有効時間 10 分の Write Access を付与できます。表示される操作部から延長、一時停止、終了ができます。</p>
         <a class="brew-text-link" href="/docs/authority/">権限の設定を読む <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">コード署名が示すのは識別情報と完全性であり、意図ではありません。タスク ID は一時的な権限の対象を絞るための情報で、本人性を証明しません。</p>
       </div>
@@ -194,14 +200,14 @@
     <section class="brew-feature script-proof" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">必要な機能をエージェントへ</p>
-        <h2 id="reentrant-scripts-title">確認した機能をエージェントへ。</h2>
+        <h2 id="reentrant-scripts-title">リリーススクリプトを一度レビューする。</h2>
         <p>エージェントがリリースノートを作成し、レビュー済みスクリプトが GitHub への公開と CDN の更新を行います。Blessed Script は、確認した正確な内容と宣言済みの権限に結び付きます。再入可能なスクリプトは、決められた入口からエージェントに情報を渡し、入力を待って処理を再開します。AV は呼び出しごとに認可します。編集すると Blessing は無効になります。</p>
         <a class="brew-text-link" href="/docs/reentrant-scripts/">レビュー済みワークフローを作る <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">エージェントの出力は使用前に検証してください。Secret Values はスクリプトの実行内に留めます。Blessing 自体がコードの安全性を保証するわけではありません。</p>
       </div>
       <div class="approval-intro" id="gallery">
         <p class="brew-eyebrow">実際の画面</p>
-        <h2 id="gallery-title">判断に必要な情報を、ひと目で。</h2>
+        <h2 id="gallery-title">許可する操作の内容を確認できます。</h2>
         <p>操作を許可する前に、ソフトウェア、コマンド、引数、作業ディレクトリ、Secret Names を確認できます。</p>
       </div>
       <figure class="brew-capture brew-capture-script">
@@ -242,8 +248,8 @@
 
     <section class="brew-feature brew-security" id="terminal-security" aria-labelledby="terminal-security-title">
       <div class="brew-copy">
-        <h2 id="terminal-security-title">保護できる範囲を知る</h2>
-        <p>AV は、通常のユーザー権限で動くコードから、対応する認証情報と機密性の高い Tool 操作を保護します。root やカーネルの侵害、任意のローカル破壊、Secret を受け取った後の Target の動作は保護範囲外です。</p>
+        <h2 id="terminal-security-title">保護の範囲と限界</h2>
+        <p>AV は、通常のユーザー権限で動くコードに対して、対応する認証情報を保護し、対応する Tool 操作を制御します。ラッパーはすべてのコマンドを捕捉するものではなく、パッケージをインストールしても安全性は保証されません。root やカーネルの侵害、任意のローカル破壊、Secret を受け取った後の Target の動作は保護範囲外です。</p>
         <a class="brew-text-link" href="/docs/security/">セキュリティモデルを読む <span aria-hidden="true">→</span></a>
       </div>
       <div class="brew-copy">
@@ -261,7 +267,7 @@
 
   <footer class="brew-footer">
     <div class="brew-footer-lead">
-      <p class="brew-footer-statement">あなたのツール。あなたが決める権限。</p>
+      <p class="brew-footer-statement">コマンドはそのまま。認証情報の使用を制御。</p>
       <a class="brew-cta" href="/Automic%20Vault.dmg">macOS 版をダウンロード</a>
     </div>
     <div class="brew-footer-meta">

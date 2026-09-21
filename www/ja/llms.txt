@@ -4,7 +4,7 @@
 
 ## 主要ページ
 
-- [Automic Vault | シークレットの用途まで確認する、シークレットマネージャー。](https://www.automicvault.com/ja/): CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。
+- [Automic Vault | CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。](https://www.automicvault.com/ja/): Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。
 
 - [Automic Vault ダウンロード](https://www.automicvault.com/ja/download/): macOS 用 Automic Vault を入手し、開発者の認証情報がどう使われるかを制御します。
 
@@ -14,7 +14,7 @@
 
 - [Blog](https://www.automicvault.com/blog/): パッケージ、エディタ拡張、認証情報、ローカル実行のインシデント分析と開発者向けセキュリティガイドです。
 
-- [Automic Vault について | brew install したツールを安全に](https://www.automicvault.com/ja/about/): Automic Vault は、AI エージェントが使う前に、Homebrew ツール、CLI シークレット、コマンド承認ゲートを Mac 上でローカルに保護します。
+- [Automic Vault について | Homebrew から CLI のセキュリティへ](https://www.automicvault.com/ja/about/): Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。
 
 - [Automic Vault プライバシー](https://www.automicvault.com/ja/privacy/): Automic Vault の Mac アプリとウェブサイトが送信するデータ、ローカルに残るデータ、利用する解析サービス。
 

@@ -745,7 +745,7 @@ def patch_english_page(path: str, locales: list[Locale], check: bool, failures: 
         file.write_text(text, encoding="utf-8")
 
 
-def check_curated_home_page(output: Path, locale: Locale, locales: list[Locale], failures: list[str]) -> None:
+def check_curated_home_page(output: Path, locale: Locale, locales: list[Locale], failures: list[str], copy: dict[str, Any]) -> None:
     if not output.exists():
         failures.append(f"missing curated localized homepage: {output}")
         return
@@ -766,6 +766,16 @@ def check_curated_home_page(output: Path, locale: Locale, locales: list[Locale],
     missing = [snippet for snippet in required if snippet not in text]
     if missing:
         failures.append(f"stale curated localized homepage metadata: {output}")
+
+    heading = re.search(r'<h1\b[^>]*>(.*?)</h1>', text, re.S)
+    heading_text = html.unescape(re.sub(r'<[^>]+>', '', heading.group(1))) if heading else ''
+    if ' '.join(heading_text.split()) != ' '.join(copy['h1'].split()):
+        failures.append(f"stale curated localized homepage headline: {output}")
+    section_pattern = r'<section\b[^>]*\bid="([^"]+)"'
+    english = (SITE_DIR / "index.html").read_text(encoding="utf-8")
+    if re.findall(section_pattern, text) != re.findall(section_pattern, english):
+        failures.append(f"stale curated localized homepage section order: {output}")
+
 
 
 def sitemap_entry(loc: str, lastmod: str, path: str | None, locales: list[Locale]) -> str:
@@ -852,7 +862,7 @@ def generate(check: bool = False) -> int:
         for locale in non_default_locales():
             output = route_file(record["path"], locale)
             if record["path"] == "/":
-                check_curated_home_page(output, locale, locales, failures)
+                check_curated_home_page(output, locale, locales, failures, record["translations"][locale.code])
                 continue
             expected = render_page(record, locale, locales)
             if check:

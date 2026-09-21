@@ -3,6 +3,8 @@ import html.parser
 import json
 import pathlib
 import re
+import runpy
+import tempfile
 import subprocess
 import sys
 import unittest
@@ -27,6 +29,28 @@ class LocalReferenceParser(html.parser.HTMLParser):
 
 
 class StaticHtmlAnalyticsTests(unittest.TestCase):
+    def test_curated_homepage_check_rejects_stale_copy_and_order(self):
+        generator = runpy.run_path(str(ROOT / "scripts" / "generate-www-i18n.py"))
+        locales = generator["enabled_locales"]()
+        locale = next(item for item in locales if item.code == "de")
+        copy = generator["translated_page_records"]()[0]["translations"]["de"]
+        current = (ROOT / "www/de/index.html").read_text(encoding="utf-8")
+        with tempfile.TemporaryDirectory() as directory:
+            page = pathlib.Path(directory) / "index.html"
+            for text, expected in (
+                (current, None),
+                (re.sub(r'(<h1[^>]*>).*?(</h1>)', r'\1Old headline\2', current), "headline"),
+                (current.replace('id="demo"', 'id="old-demo"'), "section order"),
+            ):
+                with self.subTest(expected=expected):
+                    page.write_text(text, encoding="utf-8")
+                    failures = []
+                    generator["check_curated_home_page"](page, locale, locales, failures, copy)
+                    if expected:
+                        self.assertTrue(any(expected in failure for failure in failures), failures)
+                    else:
+                        self.assertEqual(failures, [])
+
     def test_all_pages_use_the_transparent_safari_favicon(self):
         for page in sorted((ROOT / "www").rglob("*.html")):
             text = page.read_text(encoding="utf-8")
@@ -376,7 +400,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             home = (ROOT / "www" / locale / "index.html").read_text(encoding="utf-8")
             main = home.split('<main ', 1)[1].split('</main>', 1)[0]
             with self.subTest(locale=locale):
-                self.assertIn('homepage.css?v=11', home)
+                self.assertIn('homepage.css?v=12', home)
                 ids = set(re.findall(r'\bid="([^"]+)"', home))
                 self.assertTrue(set(re.findall(r'href="#([^"]+)"', home)) <= ids)
                 self.assertEqual(re.findall(r'<code>(.*?)</code>', main),

@@ -4,7 +4,7 @@
 
 ## Wichtige Seiten
 
-- [Automic Vault | Dein Secrets Manager sollte wissen, was die Secrets tun.](https://www.automicvault.com/de/): Schütze CLI-Credentials, gib Agents begrenzte Fähigkeiten und genehmige Operationen auf deinen Macs.
+- [Automic Vault | CLI-Sicherheit ist kaputt. Wir setzen bei der Paketverwaltung an.](https://www.automicvault.com/de/): Automic Vault härtet unterstützte CLI-Tools auf macOS, verschiebt offengelegte Zugangsdaten in die Keychain und kontrolliert ihre Nutzung. Deine gewohnten Befehle bleiben.
 
 - [Automic Vault herunterladen](https://www.automicvault.com/de/download/): Lade Automic Vault für macOS herunter und kontrolliere die Verwendung von Entwickler-Credentials.
 
@@ -14,7 +14,7 @@
 
 - [Blog](https://www.automicvault.com/blog/): Sicherheitsleitfäden und Analysen zu Paket-, Erweiterungs-, Credential- und lokalen Ausführungsvorfällen.
 
-- [Über Automic Vault | Sichere die Tools, die du mit brew install installierst](https://www.automicvault.com/de/about/): Automic Vault sichert Homebrew-Tools, CLI-Secrets und Command-Approval-Gates lokal auf deinem Mac, bevor AI-Agents sie verwenden.
+- [Über Automic Vault | Von Homebrew zur CLI-Sicherheit](https://www.automicvault.com/de/about/): Automic Vault härtet unterstützte CLI-Tools auf macOS, verschiebt offengelegte Zugangsdaten in die Keychain und kontrolliert ihre Nutzung. Deine gewohnten Befehle bleiben.
 
 - [Automic Vault Datenschutz](https://www.automicvault.com/de/privacy/): Welche Daten die Automic-Vault-App und Website senden, was lokal bleibt und welche Analysedienste Daten erhalten.
 

@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | 你不能信任智能体。 也不能信任它的运行框架。 信任 Automic Vault。</title>
-  <meta name="description" content="保护命令行凭据，为代理授予有限的能力，并审批多台 Mac 上的操作。">
+  <title>Automic Vault | CLI 安全出了问题。 我们从软件包这一层着手修复。</title>
+  <meta name="description" content="Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="你不能信任智能体。 也不能信任它的运行框架。 信任 Automic Vault。">
-  <meta property="og:description" content="保护命令行凭据，为代理授予有限的能力，并审批多台 Mac 上的操作。">
+  <meta property="og:title" content="CLI 安全出了问题。 我们从软件包这一层着手修复。">
+  <meta property="og:description" content="Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。">
   <meta property="og:url" content="https://www.automicvault.com/zh-hans/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="你不能信任智能体。 也不能信任它的运行框架。 信任 Automic Vault。">
-  <meta name="twitter:description" content="保护命令行凭据，为代理授予有限的能力，并审批多台 Mac 上的操作。">
+  <meta name="twitter:title" content="CLI 安全出了问题。 我们从软件包这一层着手修复。">
+  <meta name="twitter:description" content="Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/zh-hans/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -46,9 +46,9 @@
   "@context": "https://schema.org",
   "@type": "WebPage",
   "url": "https://www.automicvault.com/zh-hans/",
-  "name": "Automic Vault | 你不能信任智能体。 也不能信任它的运行框架。 信任 Automic Vault。",
-  "headline": "你不能信任智能体。 也不能信任它的运行框架。 信任 Automic Vault。",
-  "description": "保护命令行凭据，为代理授予有限的能力，并审批多台 Mac 上的操作。",
+  "name": "Automic Vault | CLI 安全出了问题。 我们从软件包这一层着手修复。",
+  "headline": "CLI 安全出了问题。 我们从软件包这一层着手修复。",
+  "description": "Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。",
   "inLanguage": "zh-Hans",
   "image": "https://www.automicvault.com/preview.jpg",
   "isPartOf": {
@@ -58,7 +58,7 @@
   }
 }
   </script>
-  <link rel="stylesheet" href="/homepage.css?v=11">
+  <link rel="stylesheet" href="/homepage.css?v=12">
 </head>
 <body class="brew-home">
   <a class="brew-skip-link" href="#main-content">跳转到正文</a>
@@ -81,14 +81,46 @@
   <main class="brew-usecases" id="main-content">
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
-        <p class="brew-eyebrow">由 Homebrew 创始人打造</p>
-        <h1 class="trust-hero" id="hero-title"><span>你不能信任智能体。</span> <span>也不能信任它的运行框架。</span> <em>信任 Automic Vault。</em></h1>
-        <p class="brew-hero-summary">保护命令行凭据，为代理授予有限的能力，并审批多台 Mac 上的操作。</p>
+        <p class="brew-eyebrow"><a href="/zh-hans/about/">Max Howell</a></p>
+        <h1 class="trust-hero" id="hero-title"><span>CLI 安全出了问题。</span> <em>我们从软件包这一层着手修复。</em></h1>
+        <p class="brew-hero-summary">我创建了 Homebrew。现在，我正在解决智能体使用它时带来的问题。</p>
+        <p class="brew-hero-summary">Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">下载 macOS 版</a>
           <a class="brew-text-link" href="#demo">观看演示 <span aria-hidden="true">↗</span></a>
         </div>
         <p class="brew-hero-note">免费且开源。继续使用熟悉的命令，无需代理插件。</p>
+      </div>
+    </section>
+
+    <section class="tool-boundary" id="deeper-than-guardrails" aria-labelledby="tool-boundary-title">
+      <div class="boundary-intro">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">软件包这一层</p>
+          <h2 id="tool-boundary-title">在安装工具的地方，把安全补上。</h2>
+          <p>你安装 CLI 工具来完成任务，它的凭据却常常留在文件或辅助程序中，其他以你的用户权限运行的代码也能读取。智能体会继承这些访问权限。</p>
+          <p>对于 GitHub，av harden gh 会安装我们签名并修改过的 CLI，将现有凭据迁移到 Automic Vault 管理之下。你仍然运行 gh，需要身份验证的操作则会经过它的 Authorization Gate。</p>
+          <a class="brew-text-link" href="/docs/hardeners/">了解工具加固方式 <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="operation-example">
+          <h3>秘密管理器应该知道秘密<em>用来做什么</em>。</h3>
+          <p>读取 Issue、发布版本和显示令牌需要不同的权限。AV 会检查完整操作，再应用凭据。</p>
+          <table>
+            <caption><strong>一个令牌，三种决策。</strong><br>GitHub · 使用 Read Only 策略的 Verified Launcher</caption>
+            <thead><tr><th scope="col">命令</th><th scope="col">决策</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>gh issue list</code><small>读取议题</small></th><td><span class="decision-allowed">已授权</span><small>Read Only</small></td></tr>
+              <tr><th scope="row"><code>gh issue create</code><small>创建议题</small></th><td><span>需要批准</span><small>Remote Write</small></td></tr>
+              <tr><th scope="row"><code>gh auth token</code><small>显示令牌</small></th><td><span>需要批准</span><small>Secret Disclosure</small></td></tr>
+            </tbody>
+          </table>
+          <p class="operation-note">即使不会更改远程资源，披露凭据也需要单独决策。</p>
+        </div>
+        <div class="hardening-proof">
+        <article><p class="brew-eyebrow">Homebrew</p><h3>允许更新索引，安装需要批准。</h3><p>Homebrew 加固可防止其他以你的用户权限运行的代码修改 /opt/homebrew。在 Read &amp; Update 下，已识别的查询命令和 brew update 可以运行；安装和升级需要你的 Approval。该功能适用于 Apple Silicon 上的 Homebrew。加固期间不支持服务和 shell 补全。</p><a class="brew-text-link" href="/docs/hardeners/brew/">Homebrew 加固原理 <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">AWS</p><h3>每次调用使用短期凭据。</h3><p>普通 AWS 命令使用短期会话凭据。长期密钥从共享凭据文件中移除。AV 为每个 AWS 进程单独获取会话凭据。</p><a class="brew-text-link" href="/docs/hardeners/aws/">AWS 加固原理 <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">Docker</p><h3>进程和注册表都要检查。</h3><p>在释放注册表凭据之前，AV 会验证正在运行的 Docker Desktop 进程及其签名、运行时保护、进程祖先链、参数和请求的注册表。</p><a class="brew-text-link" href="/docs/hardeners/docker/">Docker 加固原理 <span aria-hidden="true">↗</span></a></article>
+        </div>
       </div>
     </section>
 
@@ -120,37 +152,14 @@
       <script type="application/json" data-demo-copy>{"pause": "暂停 Ⅱ", "resume": "继续 ▶", "next": "下一个演示 →", "authorized": "已由 {policy} 策略授权", "approval": "{launcher} 请求使用 {tool}"}</script>
     </section>
 
-    <section class="tool-boundary" id="deeper-than-guardrails" aria-labelledby="tool-boundary-title">
-      <div class="boundary-intro">
-        <div class="brew-copy">
-          <p class="brew-eyebrow">深入智能体运行框架之下</p>
-          <h2 id="tool-boundary-title">比护栏更深一层的保护。</h2>
-          <p>我们分析了超过 10,000 个软件包对凭据的使用，并为支持的工具开发了加固器。</p>
-          <p>Automic Vault 在软件包层面加固支持的 Tool：通过重新配置、包装或打补丁来保护凭据的使用方式。无论请求来自 Terminal、Claude Code 还是其他应用，受保护的凭据请求都要经过 Authorization Gate。</p>
-          <a class="brew-text-link" href="/docs/hardeners/">了解工具加固方式 <span aria-hidden="true">→</span></a>
-        </div>
-        <div class="operation-example">
-          <h3>秘密管理器应该知道秘密<em>用来做什么</em>。</h3>
-          <p>基于提取的秘密管理器决定谁能获取凭据。Automic Vault 则在应用凭据之前检查完整操作。</p>
-          <table>
-            <caption><strong>一个令牌，三种决策。</strong><br>GitHub · 使用 Read Only 策略的 Verified Launcher</caption>
-            <thead><tr><th scope="col">命令</th><th scope="col">决策</th></tr></thead>
-            <tbody>
-              <tr><th scope="row"><code>gh issue list</code><small>读取议题</small></th><td><span class="decision-allowed">已授权</span><small>Read Only</small></td></tr>
-              <tr><th scope="row"><code>gh issue create</code><small>创建议题</small></th><td><span>需要批准</span><small>Remote Write</small></td></tr>
-              <tr><th scope="row"><code>gh auth token</code><small>显示令牌</small></th><td><span>需要批准</span><small>Secret Disclosure</small></td></tr>
-            </tbody>
-          </table>
-          <p class="operation-note">即使不会更改远程资源，披露凭据也需要单独决策。</p>
-        </div>
-      </div>
-    </section>
+
 
     <section class="brew-feature" id="command-line" aria-labelledby="command-line-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">保护你的命令行</p>
-        <h2 id="command-line-title">把 macOS 安全机制带到命令行。</h2>
-        <p>找出工具、依赖和代理能从文件或凭据助手中读取的凭据。每项 Finding 都说明问题和缓解方法。Hardener 会将支持的凭据移入 macOS 数据保护钥匙串，并在使用时通过 Authorization Gate 检查。</p>
+        <h2 id="command-line-title">从 Mac 上已有的凭据开始。</h2>
+        <p>找出工具、依赖项和智能体能够从文件或凭据辅助程序中读取的凭据。每项 Finding 都会说明暴露情况和可采取的措施。</p>
+        <p>为 Finding 选择支持的 Hardener，再用 av doctor 验证已安装的保护措施。</p>
         <a class="brew-text-link" href="/docs/hardeners/">查看支持的工具 <span aria-hidden="true">→</span></a>
         <div class="brew-scanner-terminal">
           <div class="brew-scanner-toolbar">
@@ -169,19 +178,16 @@
         <img src="/docs/assets/detectors.png" alt="查看 Detector 的检查内容和可用的 Hardener。" width="1440" height="900" decoding="async" fetchpriority="high">
         <figcaption>查看 Detector 的检查内容和可用的 Hardener。</figcaption>
       </figure>
-      <div class="hardening-proof">
-        <article><p class="brew-eyebrow">AWS</p><h3>每次调用使用短期凭据。</h3><p>普通 AWS 命令使用短期会话凭据。长期密钥从共享凭据文件中移除。AV 为每个 AWS 进程单独获取会话凭据。</p><a class="brew-text-link" href="/docs/hardeners/aws/">AWS 加固原理 <span aria-hidden="true">↗</span></a></article>
-        <article><p class="brew-eyebrow">Docker</p><h3>进程和注册表都要检查。</h3><p>在释放注册表凭据之前，AV 会验证正在运行的 Docker Desktop 进程及其签名、运行时保护、进程祖先链、参数和请求的注册表。</p><a class="brew-text-link" href="/docs/hardeners/docker/">Docker 加固原理 <span aria-hidden="true">↗</span></a></article>
-        <article><p class="brew-eyebrow">Homebrew</p><h3>允许更新索引，安装需要批准。</h3><p>Read &amp; Update 策略允许已识别的检查命令和 brew update。安装或升级软件仍需要你的 Approval。</p><a class="brew-text-link" href="/docs/hardeners/brew/">Homebrew 加固原理 <span aria-hidden="true">↗</span></a></article>
-      </div>
     </section>
 
     <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">决定工具和智能体能做什么</p>
-        <h2 id="controls-title">让智能体全权限运行，凭据使用由你掌控。</h2>
-        <p>保留智能体的全权限执行模式，同时由 AV 单独控制它对受保护凭据的使用。AV 不会将智能体放入沙箱，也不会阻止任意本地文件修改。</p>
-        <p>允许代理读取 GitHub issue，同时要求写入操作经过你的 Approval。终端可以使用不同规则。AV 按 Verified Launcher 检查完整操作。Write Access 仍要求密钥披露和使用更强大凭据的操作获得 Approval。Unknown 操作始终需要人工判断。符合条件的代理任务可在一个 Gate 获得十分钟有效时间的 Write Access，你可以延长、暂停或结束授权。</p>
+        <h2 id="controls-title">让智能体读取 GitHub，写入前先请求审批。</h2>
+        <p>将智能体的 GitHub Gate 设为 Read Only，也可以为终端选择不同的策略。AV 会验证每个 Launcher 正在运行的软件身份，再应用相应策略。</p>
+        <p>AV 不会将智能体放入沙箱，也不会阻止任意本地文件修改。</p>
+        <p>在 Write Access 下，凭据披露和使用权限更高的凭据仍需 Approval。Unknown 操作始终需要人工决定。</p>
+        <p>对于符合条件的智能体任务，可以在一个 Gate 上授予十分钟有效时间的 Write Access。通过可见的控件，你可以延长、暂停或结束授权。</p>
         <a class="brew-text-link" href="/docs/authority/">设置授权范围 <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">代码签名证明身份和完整性，而非意图。任务标识符缩小临时授权范围，并不证明身份。</p>
       </div>
@@ -194,14 +200,14 @@
     <section class="brew-feature script-proof" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">给智能体所需的能力</p>
-        <h2 id="reentrant-scripts-title">把审核过的能力交给智能体。</h2>
+        <h2 id="reentrant-scripts-title">审核一次发布脚本。</h2>
         <p>让代理准备发布说明，由审核过的脚本发布到 GitHub 并更新 CDN。Blessed Script 将审核绑定到确切内容和声明的能力。可重入脚本通过固定入口提供上下文，等待代理输入后继续执行。AV 对每次调用分别授权；修改脚本会使 Blessing 失效。</p>
         <a class="brew-text-link" href="/docs/reentrant-scripts/">构建经过审核的工作流 <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">使用代理输出前必须验证。让 Secret Values 留在脚本执行范围内。Blessing 本身并不让代码变得可信。</p>
       </div>
       <div class="approval-intro" id="gallery">
         <p class="brew-eyebrow">实际效果</p>
-        <h2 id="gallery-title">决策所需的信息，一目了然。</h2>
+        <h2 id="gallery-title">看清你将要允许的操作。</h2>
         <p>允许操作之前，先查看软件、命令、参数、工作目录和 Secret Names。</p>
       </div>
       <figure class="brew-capture brew-capture-script">
@@ -242,8 +248,8 @@
 
     <section class="brew-feature brew-security" id="terminal-security" aria-labelledby="terminal-security-title">
       <div class="brew-copy">
-        <h2 id="terminal-security-title">了解保护边界</h2>
-        <p>AV 保护支持的凭据和敏感 Tool 操作，应对以普通用户权限运行的代码。root 或内核失陷、任意本地破坏，以及 Target 收到 Secret 后的行为，不在保护范围内。</p>
+        <h2 id="terminal-security-title">保护的边界</h2>
+        <p>AV 针对以你的用户权限运行的代码，保护支持的凭据，并控制支持的 Tool 操作。包装程序不会拦截每条命令，安装软件包也不意味着它是安全的。root 或内核被攻破、任意本地破坏，以及 Target 收到 Secret 后的行为，均不在保护范围内。</p>
         <a class="brew-text-link" href="/docs/security/">阅读安全模型 <span aria-hidden="true">→</span></a>
       </div>
       <div class="brew-copy">
@@ -261,7 +267,7 @@
 
   <footer class="brew-footer">
     <div class="brew-footer-lead">
-      <p class="brew-footer-statement">你的工具，你来授权。</p>
+      <p class="brew-footer-statement">保留熟悉的命令，控制它们如何使用凭据。</p>
       <a class="brew-cta" href="/Automic%20Vault.dmg">下载 macOS 版</a>
     </div>
     <div class="brew-footer-meta">

@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Automic Vault | Vous ne pouvez pas faire confiance à l’agent. Ni à son cadre d’exécution. Faites confiance à Automic Vault.</title>
-  <meta name="description" content="Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.">
+  <title>Automic Vault | La sécurité des CLI est défaillante. Nous la corrigeons au niveau des paquets.</title>
+  <meta name="description" content="Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
-  <meta property="og:title" content="Vous ne pouvez pas faire confiance à l’agent. Ni à son cadre d’exécution. Faites confiance à Automic Vault.">
-  <meta property="og:description" content="Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.">
+  <meta property="og:title" content="La sécurité des CLI est défaillante. Nous la corrigeons au niveau des paquets.">
+  <meta property="og:description" content="Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.">
   <meta property="og:url" content="https://www.automicvault.com/fr/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Vous ne pouvez pas faire confiance à l’agent. Ni à son cadre d’exécution. Faites confiance à Automic Vault.">
-  <meta name="twitter:description" content="Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.">
+  <meta name="twitter:title" content="La sécurité des CLI est défaillante. Nous la corrigeons au niveau des paquets.">
+  <meta name="twitter:description" content="Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/fr/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/">
@@ -46,9 +46,9 @@
   "@context": "https://schema.org",
   "@type": "WebPage",
   "url": "https://www.automicvault.com/fr/",
-  "name": "Automic Vault | Vous ne pouvez pas faire confiance à l’agent. Ni à son cadre d’exécution. Faites confiance à Automic Vault.",
-  "headline": "Vous ne pouvez pas faire confiance à l’agent. Ni à son cadre d’exécution. Faites confiance à Automic Vault.",
-  "description": "Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.",
+  "name": "Automic Vault | La sécurité des CLI est défaillante. Nous la corrigeons au niveau des paquets.",
+  "headline": "La sécurité des CLI est défaillante. Nous la corrigeons au niveau des paquets.",
+  "description": "Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.",
   "inLanguage": "fr",
   "image": "https://www.automicvault.com/preview.jpg",
   "isPartOf": {
@@ -58,7 +58,7 @@
   }
 }
   </script>
-  <link rel="stylesheet" href="/homepage.css?v=11">
+  <link rel="stylesheet" href="/homepage.css?v=12">
 </head>
 <body class="brew-home">
   <a class="brew-skip-link" href="#main-content">Aller au contenu</a>
@@ -81,14 +81,46 @@
   <main class="brew-usecases" id="main-content">
     <section class="brew-hero" id="top" aria-labelledby="hero-title">
       <div class="brew-hero-title">
-        <p class="brew-eyebrow">Par le créateur de Homebrew</p>
-        <h1 class="trust-hero" id="hero-title"><span>Vous ne pouvez pas faire confiance à l’agent.</span> <span>Ni à son cadre d’exécution.</span> <em>Faites confiance à Automic Vault.</em></h1>
-        <p class="brew-hero-summary">Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.</p>
+        <p class="brew-eyebrow"><a href="/fr/about/">Max Howell</a></p>
+        <h1 class="trust-hero" id="hero-title"><span>La sécurité des CLI est défaillante.</span> <em>Nous la corrigeons au niveau des paquets.</em></h1>
+        <p class="brew-hero-summary">J’ai créé Homebrew. Aujourd’hui, je m’attaque à ce qui se passe quand les agents l’utilisent.</p>
+        <p class="brew-hero-summary">Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.</p>
         <div class="brew-hero-actions">
           <a class="brew-cta" href="/Automic%20Vault.dmg">Télécharger pour macOS</a>
           <a class="brew-text-link" href="#demo">Voir la démo <span aria-hidden="true">↗</span></a>
         </div>
         <p class="brew-hero-note">Gratuit et open source. Gardez vos commandes habituelles. Aucun plugin pour agent requis.</p>
+      </div>
+    </section>
+
+    <section class="tool-boundary" id="deeper-than-guardrails" aria-labelledby="tool-boundary-title">
+      <div class="boundary-intro">
+        <div class="brew-copy">
+          <p class="brew-eyebrow">La gestion des paquets</p>
+          <h2 id="tool-boundary-title">Sécuriser les outils là où vous les installez.</h2>
+          <p>Vous installez un outil CLI pour accomplir une tâche. Ses identifiants se retrouvent souvent dans des fichiers ou des assistants accessibles à tout code exécuté avec vos droits. Les agents héritent de cet accès.</p>
+          <p>Pour GitHub, av harden gh installe notre CLI signée et modifiée, puis transfère ses identifiants sous la garde d’Automic Vault. Vous utilisez toujours gh. Les opérations authentifiées passent désormais par son Authorization Gate.</p>
+          <a class="brew-text-link" href="/docs/hardeners/">Comment nous durcissons vos outils <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="operation-example">
+          <h3>Votre gestionnaire de secrets devrait savoir <em>à quoi ils servent</em>.</h3>
+          <p>Lire une issue, publier une version et révéler un jeton nécessitent des droits différents. AV vérifie l’opération complète avant d’appliquer l’identifiant.</p>
+          <table>
+            <caption><strong>Un jeton. Trois décisions.</strong><br>GitHub · Verified Launcher avec la policy Read Only</caption>
+            <thead><tr><th scope="col">Commande</th><th scope="col">Décision</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>gh issue list</code><small>Lire les tickets</small></th><td><span class="decision-allowed">Autorisé</span><small>Read Only</small></td></tr>
+              <tr><th scope="row"><code>gh issue create</code><small>Créer un ticket</small></th><td><span>Approbation requise</span><small>Remote Write</small></td></tr>
+              <tr><th scope="row"><code>gh auth token</code><small>Révéler le jeton</small></th><td><span>Approbation requise</span><small>Secret Disclosure</small></td></tr>
+            </tbody>
+          </table>
+          <p class="operation-note">Révéler un identifiant nécessite une décision distincte, même sans modification à distance.</p>
+        </div>
+        <div class="hardening-proof">
+        <article><p class="brew-eyebrow">Homebrew</p><h3>Actualisez l’index. Approuvez les installations.</h3><p>Le durcissement de Homebrew protège /opt/homebrew contre les modifications par d’autres programmes exécutés avec vos droits. Read &amp; Update autorise les commandes d’inspection reconnues et brew update ; les installations et mises à niveau nécessitent votre Approval. Ce mécanisme vise Homebrew sur Apple Silicon. Les services et la complétion du shell sont incompatibles avec ce mode.</p><a class="brew-text-link" href="/docs/hardeners/brew/">Le durcissement de Homebrew <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">AWS</p><h3>Des identifiants temporaires à chaque appel.</h3><p>Les commandes AWS ordinaires reçoivent des identifiants de session temporaires. Les clés durables sont retirées du fichier d’identifiants partagé. AV obtient des identifiants de session distincts pour chaque processus AWS.</p><a class="brew-text-link" href="/docs/hardeners/aws/">Le durcissement d’AWS <span aria-hidden="true">↗</span></a></article>
+        <article><p class="brew-eyebrow">Docker</p><h3>Le processus et le registre comptent.</h3><p>Avant de fournir un identifiant de registre, AV vérifie le processus Docker Desktop en cours, sa signature, ses protections d’exécution, sa filiation, ses arguments et le registre demandé.</p><a class="brew-text-link" href="/docs/hardeners/docker/">Le durcissement de Docker <span aria-hidden="true">↗</span></a></article>
+        </div>
       </div>
     </section>
 
@@ -120,37 +152,14 @@
       <script type="application/json" data-demo-copy>{"pause": "Pause Ⅱ", "resume": "Reprendre ▶", "next": "Démo suivante →", "authorized": "Autorisé par la policy {policy}", "approval": "{launcher} souhaite utiliser {tool}"}</script>
     </section>
 
-    <section class="tool-boundary" id="deeper-than-guardrails" aria-labelledby="tool-boundary-title">
-      <div class="boundary-intro">
-        <div class="brew-copy">
-          <p class="brew-eyebrow">Sous la couche d’exécution des agents</p>
-          <h2 id="tool-boundary-title">Une protection plus profonde que les garde-fous.</h2>
-          <p>Nous avons analysé l’utilisation des identifiants dans plus de 10 000 paquets, puis créé des outils de durcissement pour les outils pris en charge.</p>
-          <p>Automic Vault durcit les Tools pris en charge au niveau des paquets : configuration, wrappers ou correctifs modifient leur utilisation des identifiants. Leurs demandes d’identifiants protégés passent par une Authorization Gate, qu’elles viennent de Terminal, de Claude Code ou d’une autre app.</p>
-          <a class="brew-text-link" href="/docs/hardeners/">Comment nous durcissons vos outils <span aria-hidden="true">→</span></a>
-        </div>
-        <div class="operation-example">
-          <h3>Votre gestionnaire de secrets devrait savoir <em>à quoi ils servent</em>.</h3>
-          <p>Un gestionnaire de secrets fondé sur la récupération décide qui peut recevoir un identifiant. Automic Vault vérifie l’opération complète avant de l’appliquer.</p>
-          <table>
-            <caption><strong>Un jeton. Trois décisions.</strong><br>GitHub · Verified Launcher avec la policy Read Only</caption>
-            <thead><tr><th scope="col">Commande</th><th scope="col">Décision</th></tr></thead>
-            <tbody>
-              <tr><th scope="row"><code>gh issue list</code><small>Lire les tickets</small></th><td><span class="decision-allowed">Autorisé</span><small>Read Only</small></td></tr>
-              <tr><th scope="row"><code>gh issue create</code><small>Créer un ticket</small></th><td><span>Approbation requise</span><small>Remote Write</small></td></tr>
-              <tr><th scope="row"><code>gh auth token</code><small>Révéler le jeton</small></th><td><span>Approbation requise</span><small>Secret Disclosure</small></td></tr>
-            </tbody>
-          </table>
-          <p class="operation-note">Révéler un identifiant nécessite une décision distincte, même sans modification à distance.</p>
-        </div>
-      </div>
-    </section>
+
 
     <section class="brew-feature" id="command-line" aria-labelledby="command-line-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">Protégez votre ligne de commande</p>
-        <h2 id="command-line-title">La sécurité de macOS en ligne de commande.</h2>
-        <p>Repérez les identifiants que les outils, dépendances et agents peuvent lire dans vos fichiers ou assistants d’identification. Chaque Finding explique le problème et une solution. Un Hardener place les identifiants pris en charge dans le trousseau de protection des données de macOS et installe un Authorization Gate au point d’utilisation.</p>
+        <h2 id="command-line-title">Commencez par les identifiants présents sur votre Mac.</h2>
+        <p>Repérez les identifiants que les outils, dépendances et agents peuvent lire dans vos fichiers ou assistants d’identification. Chaque Finding explique l’exposition et les mesures possibles.</p>
+        <p>Choisissez un Hardener pris en charge pour un Finding, puis vérifiez la protection installée avec av doctor.</p>
         <a class="brew-text-link" href="/docs/hardeners/">Trouver vos outils <span aria-hidden="true">→</span></a>
         <div class="brew-scanner-terminal">
           <div class="brew-scanner-toolbar">
@@ -169,19 +178,16 @@
         <img src="/docs/assets/detectors.png" alt="Les Detectors indiquent les vérifications et les Hardeners disponibles." width="1440" height="900" decoding="async" fetchpriority="high">
         <figcaption>Les Detectors indiquent les vérifications et les Hardeners disponibles.</figcaption>
       </figure>
-      <div class="hardening-proof">
-        <article><p class="brew-eyebrow">AWS</p><h3>Des identifiants temporaires à chaque appel.</h3><p>Les commandes AWS ordinaires reçoivent des identifiants de session temporaires. Les clés durables sont retirées du fichier d’identifiants partagé. AV obtient des identifiants de session distincts pour chaque processus AWS.</p><a class="brew-text-link" href="/docs/hardeners/aws/">Le durcissement d’AWS <span aria-hidden="true">↗</span></a></article>
-        <article><p class="brew-eyebrow">Docker</p><h3>Le processus et le registre comptent.</h3><p>Avant de fournir un identifiant de registre, AV vérifie le processus Docker Desktop en cours, sa signature, ses protections d’exécution, sa filiation, ses arguments et le registre demandé.</p><a class="brew-text-link" href="/docs/hardeners/docker/">Le durcissement de Docker <span aria-hidden="true">↗</span></a></article>
-        <article><p class="brew-eyebrow">Homebrew</p><h3>Actualisez l’index. Approuvez les installations.</h3><p>La policy Read &amp; Update autorise les commandes d’inspection reconnues et brew update. Installer ou mettre à niveau un logiciel nécessite toujours votre Approval.</p><a class="brew-text-link" href="/docs/hardeners/brew/">Le durcissement de Homebrew <span aria-hidden="true">↗</span></a></article>
-      </div>
     </section>
 
     <section class="brew-feature brew-feature-reverse" id="controls" aria-labelledby="controls-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">Décidez ce que vos outils et agents peuvent faire</p>
-        <h2 id="controls-title">Des agents en accès complet. Des identifiants sous contrôle.</h2>
-        <p>Gardez le mode d’exécution en accès complet de votre agent : AV contrôle séparément son utilisation des identifiants protégés. AV ne place pas l’agent dans un bac à sable et n’empêche pas les modifications arbitraires de fichiers locaux.</p>
-        <p>Laissez un agent lire les issues GitHub, tout en exigeant votre Approval pour écrire. Votre terminal peut avoir d’autres règles. AV vérifie l’opération complète pour chaque Verified Launcher. Write Access exige toujours une Approval pour divulguer un Secret ou utiliser un identifiant plus puissant. Les opérations Unknown exigent une décision humaine. Pour une tâche éligible, accordez dix minutes actives de Write Access sur un gate, puis prolongez, suspendez ou terminez cet accès.</p>
+        <h2 id="controls-title">Laissez votre agent lire GitHub. Faites-lui demander pour écrire.</h2>
+        <p>Choisissez Read Only pour le gate GitHub de votre agent et une autre politique pour votre terminal. AV vérifie l’identité du logiciel en cours d’exécution pour chaque Launcher avant d’appliquer sa politique.</p>
+        <p>AV ne place pas votre agent dans une sandbox et n’empêche pas les modifications arbitraires de fichiers locaux.</p>
+        <p>Avec Write Access, la divulgation et l’utilisation d’identifiants plus puissants nécessitent toujours une Approval. Les opérations Unknown exigent toujours une décision humaine.</p>
+        <p>Pour une tâche d’agent éligible, accordez dix minutes actives de Write Access sur un gate. Les commandes visibles permettent de prolonger, suspendre ou terminer cet accès.</p>
         <a class="brew-text-link" href="/docs/authority/">Choisir les autorisations <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">La signature du code établit l’identité et l’intégrité, pas l’intention. L’identifiant de tâche limite un accès temporaire sans constituer une identité.</p>
       </div>
@@ -194,14 +200,14 @@
     <section class="brew-feature script-proof" id="reentrant-scripts" aria-labelledby="reentrant-scripts-title">
       <div class="brew-copy">
         <p class="brew-eyebrow">Donnez aux agents les capacités nécessaires</p>
-        <h2 id="reentrant-scripts-title">Donnez aux agents des capacités vérifiées.</h2>
+        <h2 id="reentrant-scripts-title">Vérifiez le script de publication une fois.</h2>
         <p>Un agent prépare les notes de version ; un script vérifié publie sur GitHub et actualise votre CDN. Un Blessed Script lie votre revue au contenu exact et aux capacités déclarées. Un script réentrant attend une contribution de l’agent et expose des points d’entrée fixes. AV autorise chaque invocation. Toute modification invalide la Blessing.</p>
         <a class="brew-text-link" href="/docs/reentrant-scripts/">Créer un workflow vérifié <span aria-hidden="true">→</span></a>
         <p class="brew-boundary">Validez les résultats de l’agent avant de les utiliser. Gardez les Secret Values dans l’exécution du script. Une Blessing ne rend pas le code digne de confiance.</p>
       </div>
       <div class="approval-intro" id="gallery">
         <p class="brew-eyebrow">En pratique</p>
-        <h2 id="gallery-title">Toutes les informations pour décider.</h2>
+        <h2 id="gallery-title">Voyez l’opération que vous allez autoriser.</h2>
         <p>Vérifiez le logiciel, la commande, les arguments, le répertoire de travail et les Secret Names avant d’autoriser une opération.</p>
       </div>
       <figure class="brew-capture brew-capture-script">
@@ -242,8 +248,8 @@
 
     <section class="brew-feature brew-security" id="terminal-security" aria-labelledby="terminal-security-title">
       <div class="brew-copy">
-        <h2 id="terminal-security-title">Comprenez les limites</h2>
-        <p>AV protège les identifiants pris en charge et les opérations sensibles des outils contre le code exécuté avec vos droits habituels. La compromission root ou du noyau, la destruction locale arbitraire et le comportement d’un Target après réception d’un Secret restent hors de cette protection.</p>
+        <h2 id="terminal-security-title">Les limites de la protection</h2>
+        <p>AV protège les identifiants pris en charge et contrôle les opérations prises en charge face au code exécuté avec vos droits. Les wrappers n’interceptent pas toutes les commandes, et installer un paquet ne le rend pas sûr. Une compromission de root ou du noyau, les destructions locales arbitraires et le comportement d’un Target après réception d’un Secret restent hors de cette limite.</p>
         <a class="brew-text-link" href="/docs/security/">Lire le modèle de sécurité <span aria-hidden="true">→</span></a>
       </div>
       <div class="brew-copy">
@@ -261,7 +267,7 @@
 
   <footer class="brew-footer">
     <div class="brew-footer-lead">
-      <p class="brew-footer-statement">Vos outils. Votre autorité.</p>
+      <p class="brew-footer-statement">Gardez vos commandes. Contrôlez leur utilisation des identifiants.</p>
       <a class="brew-cta" href="/Automic%20Vault.dmg">Télécharger pour macOS</a>
     </div>
     <div class="brew-footer-meta">

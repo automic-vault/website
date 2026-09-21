@@ -3,121 +3,169 @@
     {
       "path": "/",
       "source": "index.html",
-      "dateModified": "2026-09-07",
+      "dateModified": "2026-09-21",
       "translations": {
         "ja": {
-          "title": "Automic Vault | シークレットの用途まで確認する、シークレットマネージャー。",
-          "description": "CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。",
-          "kicker": "Homebrew 開発者が提供",
-          "h1": "シークレットの用途まで確認する、シークレットマネージャー。",
-          "lede": "CLI の認証情報を保護し、エージェントに必要な権限を渡し、複数の Mac の操作を承認できます。",
+          "title": "Automic Vault | CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。",
+          "description": "Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。",
+          "kicker": "Max Howell",
+          "h1": "CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。",
+          "lede": "Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。",
           "sections": [
             [
-              "コマンドラインを安全に使う",
-              "ツールや依存パッケージ、エージェントがファイルや認証情報ヘルパーから読み出せる認証情報を検出します。各 Finding には原因と対策を表示します。対応する Tool を Hardener で保護すると、認証情報を macOS の Data Protection Keychain に移し、使用時に Authorization Gate で確認します。 Scan で問題が見つからなくても、確認できたのは対応する検査項目だけです。Mac 全体の安全を保証するものではありません。"
+              "ツールをインストールする場所で、対策する。",
+              "パッケージの仕組みから\n\n作業のために CLI ツールをインストールすると、認証情報がファイルやヘルパーに保存されることがあります。同じユーザー権限で動く別のコードも、それを読み出せる場合があります。エージェントもそのアクセスを引き継ぎます。\n\nGitHub の場合、av harden gh で署名済みの改修版 CLI をインストールし、既存の認証情報を Automic Vault の管理下に移します。使うコマンドは引き続き gh です。認証が必要な操作は Authorization Gate を通るようになります。\n\nIssue の閲覧、リリースの公開、トークンの表示には、それぞれ異なる権限が必要です。AV は操作全体を確認してから認証情報を適用します。\n\nリモート側を変更しなくても、認証情報の開示には別の判断が必要です。\n\nHomebrew\n\nHomebrew のハードニングは、同じユーザー権限で動く別のコードによる /opt/homebrew の変更を防ぎます。Read & Update では、認識済みの確認コマンドと brew update を実行でき、インストールやアップグレードには Approval が必要です。対象は Apple Silicon の Homebrew です。ハードニング中はサービスとシェル補完を利用できません。\n\nAWS\n\n通常の AWS コマンドには短期のセッション認証情報を渡します。長期キーは共有認証情報ファイルから取り除きます。AV は AWS プロセスごとにセッション認証情報を個別に取得します。\n\nDocker\n\nレジストリの認証情報を渡す前に、AV は実行中の Docker Desktop プロセス、署名、ランタイム保護、起動元のプロセス階層、引数、要求されたレジストリを確認します。"
             ],
             [
-              "ツールやエージェントに許可する操作を選ぶ",
-              "エージェントには GitHub の Issue 閲覧を許可し、書き込みは承認が必要な設定にできます。ターミナルには別のルールを設定できます。AV は Verified Launcher ごとに操作全体を確認します。Write Access でも、Secret の開示や強力な認証情報の使用には Approval が必要です。Unknown の操作は人が判断します。対象のエージェントタスクには、1 つの Gate で有効時間 10 分の Write Access を付与し、延長・一時停止・終了できます。 コード署名が示すのは識別情報と完全性であり、意図ではありません。タスク ID は一時的な権限の対象を絞るための情報で、本人性を証明しません。"
+              "Mac に保存された認証情報から始めましょう。",
+              "コマンドラインを保護\n\nツール、依存パッケージ、エージェントがファイルや認証情報ヘルパーから読み出せる認証情報を検出します。各 Finding で、露出の内容と対策を確認できます。\n\nFinding に対応する Hardener を選び、導入後は av doctor で保護の状態を検証します。\n\n最新リリースのソースからビルドした小さな単体スキャナーをダウンロードし、署名を検証してから、ネットワークにアクセスできない読み取り専用のサンドボックス内で実行します。\n\nScan で問題が見つからなくても、確認できたのは対応する検査項目だけです。Mac 全体の安全を保証するものではありません。"
             ],
             [
-              "エージェントに必要な能力を渡す",
-              "エージェントがリリースノートを作成し、レビュー済みスクリプトが GitHub への公開と CDN の更新を行います。Blessed Script は、確認した正確な内容と宣言済みの権限に結び付きます。再入可能なスクリプトは、決められた入口からエージェントに情報を渡し、入力を待って処理を再開します。AV は呼び出しごとに認可します。編集すると Blessing は無効になります。 エージェントの出力は使用前に検証してください。Secret Values はスクリプトの実行内に留めます。Blessing 自体がコードの安全性を保証するわけではありません。"
+              "GitHub の閲覧は許可。書き込みは承認してから。",
+              "ツールとエージェントに許可する操作を選ぶ\n\nエージェントの GitHub Gate は Read Only に設定し、ターミナルには別のポリシーを選べます。AV は各 Launcher の実行中のソフトウェアの識別情報を検証してから、ポリシーを適用します。\n\nAV はエージェントをサンドボックス化せず、任意のローカルファイル変更も防ぎません。\n\nWrite Access でも、Secret の開示や、より強力な認証情報の使用には Approval が必要です。Unknown の操作は常に人が判断します。\n\n対象となるエージェントタスクには、1 つの Gate で有効時間 10 分の Write Access を付与できます。表示される操作部から延長、一時停止、終了ができます。\n\nコード署名が示すのは識別情報と完全性であり、意図ではありません。タスク ID は一時的な権限の対象を絞るための情報で、本人性を証明しません。"
+            ],
+            [
+              "リリーススクリプトを一度レビューする。",
+              "必要な機能をエージェントへ\n\nエージェントがリリースノートを作成し、レビュー済みスクリプトが GitHub への公開と CDN の更新を行います。Blessed Script は、確認した正確な内容と宣言済みの権限に結び付きます。再入可能なスクリプトは、決められた入口からエージェントに情報を渡し、入力を待って処理を再開します。AV は呼び出しごとに認可します。編集すると Blessing は無効になります。\n\nエージェントの出力は使用前に検証してください。Secret Values はスクリプトの実行内に留めます。Blessing 自体がコードの安全性を保証するわけではありません。\n\n実際の画面\n\n操作を許可する前に、ソフトウェア、コマンド、引数、作業ディレクトリ、Secret Names を確認できます。"
             ],
             [
               "プロジェクトの秘密情報を平文ファイルに置かない",
-              "複数のプロジェクトで同じ Secret Name を使い、プロジェクトごとに異なる Project Value を保存できます。AV は物理ディレクトリをたどって最も近い値を選び、該当する値がなければ Global Value を使います。対応する HTTP クライアントでは、Secret Proxy が一時参照をアプリに渡し、承認済みの宛先にだけ実際の認証情報を適用します。 ディレクトリは値の選択に使い、権限は付与しません。ポリシーは同じ Secret Name の全 Values に適用されます。プロキシの参照は所持者が使用でき、セッションで付与済みの宛先へのアクセスに使えます。"
+              "複数のプロジェクトで同じ Secret Name を使い、プロジェクトごとに異なる Project Value を保存できます。AV は物理ディレクトリをたどって最も近い値を選び、該当する値がなければ Global Value を使います。対応する HTTP クライアントでは、Secret Proxy が一時参照をアプリに渡し、承認済みの宛先にだけ実際の認証情報を適用します。\n\nディレクトリは値の選択に使い、権限は付与しません。ポリシーは同じ Secret Name の全 Values に適用されます。プロキシの参照は所持者が使用でき、セッションで付与済みの宛先へのアクセスに使えます。"
             ],
             [
               "複数の Mac の操作を承認する",
-              "同じ iCloud キーチェーンのアカウントに属する対象の iPhone から、登録済み Mac のリクエストを確認できます。各 Mac は Secrets、ポリシー、Authorization History を保持し、その Mac 上で判断を適用します。Mac ごとに Touch ID Approval を有効にして、生体認証による承認を使うこともできます。 iPhone Approval を有効にすると、Mac 上のマウスやキーボードによる許可操作はなくなります。iPhone Mirroring と Show on Mac を無効にするか、対象の全 iPhone で Face ID または Touch ID を必須にしてください。リレー障害で代替手段が有効になることはありません。"
+              "同じ iCloud キーチェーンのアカウントに属する対象の iPhone から、登録済み Mac のリクエストを確認できます。各 Mac は Secrets、ポリシー、Authorization History を保持し、その Mac 上で判断を適用します。Mac ごとに Touch ID Approval を有効にして、生体認証による承認を使うこともできます。\n\niPhone Approval を有効にすると、Mac 上のマウスやキーボードによる許可操作はなくなります。iPhone Mirroring と Show on Mac を無効にするか、対象の全 iPhone で Face ID または Touch ID を必須にしてください。リレー障害で代替手段が有効になることはありません。"
+            ],
+            [
+              "保護の範囲と限界",
+              "AV は、通常のユーザー権限で動くコードに対して、対応する認証情報を保護し、対応する Tool 操作を制御します。ラッパーはすべてのコマンドを捕捉するものではなく、パッケージをインストールしても安全性は保証されません。root やカーネルの侵害、任意のローカル破壊、Secret を受け取った後の Target の動作は保護範囲外です。\n\nAuthorization History は、許可・拒否されたリクエストをローカルに記録します。AV は許可された Secret Use の記録を保存・検証してから Secret を渡します。履歴には保存上限があり、改ざん耐性や完全なフォレンジック記録は保証しません。"
+            ],
+            [
+              "無料。オープンソース。macOS。",
+              "Mac アプリは無料で、Apache-2.0 ライセンスで公開しています。オプションの iPhone Approval で許可応答を送信するには、有効なサブスクリプションが必要です。拒否にはサブスクリプションは不要です。"
             ]
           ]
         },
         "de": {
-          "title": "Automic Vault | Dein Secrets Manager sollte wissen, was die Secrets tun.",
-          "description": "Schütze CLI-Credentials, gib Agents begrenzte Fähigkeiten und genehmige Operationen auf deinen Macs.",
-          "kicker": "Vom Erfinder von Homebrew",
-          "h1": "Dein Secrets Manager sollte wissen, was die Secrets tun.",
-          "lede": "Schütze CLI-Credentials, gib Agents begrenzte Fähigkeiten und genehmige Operationen auf deinen Macs.",
+          "title": "Automic Vault | CLI-Sicherheit ist kaputt. Wir setzen bei der Paketverwaltung an.",
+          "description": "Automic Vault härtet unterstützte CLI-Tools auf macOS, verschiebt offengelegte Zugangsdaten in die Keychain und kontrolliert ihre Nutzung. Deine gewohnten Befehle bleiben.",
+          "kicker": "Max Howell",
+          "h1": "CLI-Sicherheit ist kaputt. Wir setzen bei der Paketverwaltung an.",
+          "lede": "Automic Vault härtet unterstützte CLI-Tools auf macOS, verschiebt offengelegte Zugangsdaten in die Keychain und kontrolliert ihre Nutzung. Deine gewohnten Befehle bleiben.",
           "sections": [
             [
-              "Sichere deine Kommandozeile",
-              "Finde Credentials, die Tools, Abhängigkeiten und Agents aus Dateien oder Credential-Helpern lesen können. Jedes Finding erklärt das Problem und eine mögliche Abhilfe. Ein Hardener verschiebt unterstützte Credentials in die macOS Data Protection Keychain und richtet ein Authorization Gate am Ort der Verwendung ein. Ein sauberer Scan deckt nur die unterstützten Prüfungen ab. Er bestätigt nicht, dass der ganze Mac sicher ist."
+              "Tools dort absichern, wo du sie installierst.",
+              "Die Paketverwaltung\n\nDu installierst ein CLI-Tool für eine Aufgabe. Seine Zugangsdaten landen oft in Dateien oder Hilfsprogrammen, auf die anderer Code mit deinen Benutzerrechten zugreifen kann. Agenten erben diesen Zugriff.\n\nFür GitHub installiert av harden gh unsere signierte, gepatchte CLI und überführt ihre Zugangsdaten in die Obhut von Automic Vault. Du nutzt weiterhin gh. Authentifizierte Operationen durchlaufen jetzt sein Authorization Gate.\n\nEin Issue lesen, ein Release veröffentlichen und einen Token offenlegen erfordern unterschiedliche Berechtigungen. AV prüft die gesamte Operation, bevor es die Zugangsdaten anwendet.\n\nDie Offenlegung von Zugangsdaten erfordert eine eigene Entscheidung, auch wenn sich remote nichts ändert.\n\nHomebrew\n\nHomebrew-Härtung schützt /opt/homebrew vor Änderungen durch anderen Code mit deinen Benutzerrechten. Read & Update erlaubt erkannte Abfragebefehle und brew update; Installationen und Upgrades brauchen deine Approval. Dies gilt für Apple-Silicon-Homebrew. Services und Shell-Vervollständigungen sind im gehärteten Zustand inkompatibel.\n\nAWS\n\nNormale AWS-Befehle erhalten kurzlebige Sitzungszugangsdaten. Langlebige Schlüssel werden aus der gemeinsamen Credentials-Datei entfernt. AV beschafft Sitzungszugangsdaten separat für jeden AWS-Prozess.\n\nDocker\n\nBevor AV Registry-Zugangsdaten freigibt, prüft es den laufenden Docker-Desktop-Prozess, seine Signatur, Laufzeitschutzmaßnahmen, Prozessabstammung, Argumente und die angeforderte Registry."
             ],
             [
-              "Bestimme, was Tools und Agents tun dürfen",
-              "Lass einen Agent GitHub-Issues lesen, während Schreibzugriffe deine Approval brauchen. Für dein Terminal gelten eigene Regeln. AV prüft die vollständige Operation für jeden Verified Launcher. Write Access umfasst weder die Offenlegung von Secrets noch die Anwendung mächtigerer Credentials; Unknown-Operationen brauchen immer Approval. Für eine geeignete Agent-Aufgabe kannst du zehn aktive Minuten Write Access an einem Gate gewähren, verlängern, pausieren oder beenden. Code Signing bestätigt Identität und Integrität, nicht die Absicht. Aufgabenkennungen grenzen temporäre Grants ein; sie sind keine Identität."
+              "Beginne mit den Zugangsdaten auf deinem Mac.",
+              "Schütze deine Kommandozeile\n\nFinde Zugangsdaten, die Tools, Abhängigkeiten und Agenten aus deinen Dateien oder Credential-Helpern lesen können. Jedes Finding erklärt den Zugriff und mögliche Gegenmaßnahmen.\n\nWähle einen unterstützten Hardener für ein Finding. Prüfe danach mit av doctor die installierten Schutzmaßnahmen.\n\nLädt einen kleinen eigenständigen Scanner aus dem Quellcode der neuesten Veröffentlichung herunter, prüft seine Signatur und führt ihn in einer Sandbox mit reinem Lesezugriff und ohne Netzwerkzugriff aus.\n\nEin sauberer Scan deckt nur die unterstützten Prüfungen ab. Er bestätigt nicht, dass der ganze Mac sicher ist."
             ],
             [
-              "Gib Agents die Fähigkeiten, die sie brauchen",
-              "Ein Agent schreibt Release Notes; ein geprüftes Skript veröffentlicht auf GitHub und aktualisiert das CDN. Ein Blessed Script bindet deine Prüfung an exakten Inhalt und deklarierte Fähigkeiten. Ein reentrantes Skript hält für Agent-Eingaben an und bietet feste Einstiegspunkte. AV autorisiert jeden Aufruf einzeln. Änderungen machen die Blessing ungültig. Prüfe Agent-Ausgaben vor der Verwendung. Secret Values bleiben in der Skriptausführung. Eine Blessing macht Code nicht vertrauenswürdig."
+              "Lass deinen Agenten GitHub lesen. Schreiben muss er anfragen.",
+              "Bestimme, was Tools und Agenten dürfen\n\nWähle Read Only am GitHub-Gate deines Agenten und eine andere Policy für dein Terminal. AV prüft die laufende Softwareidentität jedes Launchers, bevor dessen Policy gilt.\n\nAV führt deinen Agenten nicht in einer Sandbox aus und verhindert keine beliebigen lokalen Dateiänderungen.\n\nBei Write Access benötigen Offenlegung und die Verwendung mächtigerer Zugangsdaten weiterhin Approval. Unknown-Operationen erfordern immer eine menschliche Entscheidung.\n\nFür eine geeignete Agent-Aufgabe kannst du zehn aktive Minuten Write Access an einem Gate gewähren. Über die sichtbaren Bedienelemente kannst du die Freigabe verlängern, aussetzen oder beenden.\n\nCode Signing bestätigt Identität und Integrität, nicht die Absicht. Aufgabenkennungen grenzen temporäre Grants ein; sie sind keine Identität."
+            ],
+            [
+              "Prüfe das Release-Skript einmal.",
+              "Gib Agenten die nötigen Fähigkeiten\n\nEin Agent schreibt Release Notes; ein geprüftes Skript veröffentlicht auf GitHub und aktualisiert das CDN. Ein Blessed Script bindet deine Prüfung an exakten Inhalt und deklarierte Fähigkeiten. Ein reentrantes Skript hält für Agent-Eingaben an und bietet feste Einstiegspunkte. AV autorisiert jeden Aufruf einzeln. Änderungen machen die Blessing ungültig.\n\nPrüfe Agent-Ausgaben vor der Verwendung. Secret Values bleiben in der Skriptausführung. Eine Blessing macht Code nicht vertrauenswürdig.\n\nIn Aktion\n\nPrüfe Software, Befehl, Argumente, Arbeitsverzeichnis und Secret Names, bevor du eine Operation erlaubst."
             ],
             [
               "Halte Projekt-Secrets aus Klartextdateien heraus",
-              "Nutze denselben Secret Name in mehreren Projekten mit jeweils einem Project Value. AV wählt das nächstgelegene passende physische Verzeichnis; ohne passenden Project Value gilt der Global Value. Für kompatible HTTP-Clients gibt der Secret Proxy der Anwendung eine temporäre Referenz und setzt das Credential nur für genehmigte Ziele ein. Verzeichnisse wählen Values, gewähren aber keine Berechtigung. Eine Policy gilt für alle Values eines Secret Name. Proxy-Referenzen sind Bearer-Werte und können bereits gewährten Session-Zugriff ausüben."
+              "Nutze denselben Secret Name in mehreren Projekten mit jeweils einem Project Value. AV wählt das nächstgelegene passende physische Verzeichnis; ohne passenden Project Value gilt der Global Value. Für kompatible HTTP-Clients gibt der Secret Proxy der Anwendung eine temporäre Referenz und setzt das Credential nur für genehmigte Ziele ein.\n\nVerzeichnisse wählen Values, gewähren aber keine Berechtigung. Eine Policy gilt für alle Values eines Secret Name. Proxy-Referenzen sind Bearer-Werte und können bereits gewährten Session-Zugriff ausüben."
             ],
             [
               "Genehmige Operationen auf deinen Macs",
-              "Prüfe Anfragen deiner registrierten Macs auf berechtigten iPhones im selben iCloud-Keychain-Konto. Jeder Mac behält seine Secrets, Policy und Authorization History und setzt die Entscheidung lokal durch. Zusätzlich kannst du Touch ID Approval für biometrische Freigaben auf einem Mac aktivieren. iPhone Approval entfernt maus- und tastaturgesteuerte Freigaben auf dem Mac. Deaktiviere iPhone Mirroring und Show on Mac oder verlange Face ID oder Touch ID auf jedem berechtigten iPhone. Ein Relay-Ausfall aktiviert keine Ausweichmöglichkeit."
+              "Prüfe Anfragen deiner registrierten Macs auf berechtigten iPhones im selben iCloud-Keychain-Konto. Jeder Mac behält seine Secrets, Policy und Authorization History und setzt die Entscheidung lokal durch. Zusätzlich kannst du Touch ID Approval für biometrische Freigaben auf einem Mac aktivieren.\n\niPhone Approval entfernt maus- und tastaturgesteuerte Freigaben auf dem Mac. Deaktiviere iPhone Mirroring und Show on Mac oder verlange Face ID oder Touch ID auf jedem berechtigten iPhone. Ein Relay-Ausfall aktiviert keine Ausweichmöglichkeit."
+            ],
+            [
+              "Wo der Schutz endet",
+              "AV schützt unterstützte Zugangsdaten und kontrolliert unterstützte Tool-Operationen gegenüber Code mit deinen Benutzerrechten. Wrapper erfassen nicht jeden Befehl, und die Installation eines Pakets macht es nicht sicher. Root- oder Kernel-Kompromittierung, beliebige lokale Zerstörung und das Verhalten eines Targets nach Erhalt eines Secrets liegen außerhalb dieser Grenze.\n\nAuthorization History speichert erlaubte und abgelehnte Anfragen lokal. Vor der Freigabe eines Secrets speichert und verifiziert AV den Record des erlaubten Secret Use. Die History ist begrenzt und weder manipulationssicher noch ein vollständiges forensisches Protokoll."
+            ],
+            [
+              "Kostenlos. Open Source. macOS.",
+              "Die Mac-App ist kostenlos und steht unter Apache-2.0. Für erlaubende Antworten über die optionale iPhone Approval ist ein aktives Abonnement nötig. Ablehnen erfordert kein Abonnement."
             ]
           ]
         },
         "fr": {
-          "title": "Automic Vault | Votre gestionnaire de secrets devrait savoir à quoi ils servent.",
-          "description": "Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.",
-          "kicker": "Par le créateur de Homebrew",
-          "h1": "Votre gestionnaire de secrets devrait savoir à quoi ils servent.",
-          "lede": "Protégez vos identifiants CLI, donnez des capacités limitées aux agents et approuvez les opérations de vos Macs.",
+          "title": "Automic Vault | La sécurité des CLI est défaillante. Nous la corrigeons au niveau des paquets.",
+          "description": "Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.",
+          "kicker": "Max Howell",
+          "h1": "La sécurité des CLI est défaillante. Nous la corrigeons au niveau des paquets.",
+          "lede": "Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.",
           "sections": [
             [
-              "Sécurisez votre ligne de commande",
-              "Repérez les identifiants que les outils, dépendances et agents peuvent lire dans vos fichiers ou assistants d’identification. Chaque Finding explique le problème et une solution. Un Hardener place les identifiants pris en charge dans le trousseau de protection des données de macOS et installe un Authorization Gate au point d’utilisation. Un Scan sans Finding couvre seulement les vérifications prises en charge. Il ne certifie pas la sécurité de tout votre Mac."
+              "Sécuriser les outils là où vous les installez.",
+              "La gestion des paquets\n\nVous installez un outil CLI pour accomplir une tâche. Ses identifiants se retrouvent souvent dans des fichiers ou des assistants accessibles à tout code exécuté avec vos droits. Les agents héritent de cet accès.\n\nPour GitHub, av harden gh installe notre CLI signée et modifiée, puis transfère ses identifiants sous la garde d’Automic Vault. Vous utilisez toujours gh. Les opérations authentifiées passent désormais par son Authorization Gate.\n\nLire une issue, publier une version et révéler un jeton nécessitent des droits différents. AV vérifie l’opération complète avant d’appliquer l’identifiant.\n\nRévéler un identifiant nécessite une décision distincte, même sans modification à distance.\n\nHomebrew\n\nLe durcissement de Homebrew protège /opt/homebrew contre les modifications par d’autres programmes exécutés avec vos droits. Read & Update autorise les commandes d’inspection reconnues et brew update ; les installations et mises à niveau nécessitent votre Approval. Ce mécanisme vise Homebrew sur Apple Silicon. Les services et la complétion du shell sont incompatibles avec ce mode.\n\nAWS\n\nLes commandes AWS ordinaires reçoivent des identifiants de session temporaires. Les clés durables sont retirées du fichier d’identifiants partagé. AV obtient des identifiants de session distincts pour chaque processus AWS.\n\nDocker\n\nAvant de fournir un identifiant de registre, AV vérifie le processus Docker Desktop en cours, sa signature, ses protections d’exécution, sa filiation, ses arguments et le registre demandé."
             ],
             [
-              "Décidez de ce que vos outils et agents peuvent faire",
-              "Laissez un agent lire les issues GitHub, tout en exigeant votre Approval pour écrire. Votre terminal peut avoir d’autres règles. AV vérifie l’opération complète pour chaque Verified Launcher. Write Access exige toujours une Approval pour divulguer un Secret ou utiliser un identifiant plus puissant. Les opérations Unknown exigent une décision humaine. Pour une tâche éligible, accordez dix minutes actives de Write Access sur un gate, puis prolongez, suspendez ou terminez cet accès. La signature du code établit l’identité et l’intégrité, pas l’intention. L’identifiant de tâche limite un accès temporaire sans constituer une identité."
+              "Commencez par les identifiants présents sur votre Mac.",
+              "Protégez votre ligne de commande\n\nRepérez les identifiants que les outils, dépendances et agents peuvent lire dans vos fichiers ou assistants d’identification. Chaque Finding explique l’exposition et les mesures possibles.\n\nChoisissez un Hardener pris en charge pour un Finding, puis vérifiez la protection installée avec av doctor.\n\nTélécharge un petit scanner autonome compilé à partir des sources de la dernière version, vérifie sa signature et l’exécute dans un bac à sable en lecture seule, sans accès réseau.\n\nUn Scan sans Finding couvre seulement les vérifications prises en charge. Il ne certifie pas la sécurité de tout votre Mac."
             ],
             [
-              "Donnez aux agents les capacités nécessaires",
-              "Un agent prépare les notes de version ; un script vérifié publie sur GitHub et actualise votre CDN. Un Blessed Script lie votre revue au contenu exact et aux capacités déclarées. Un script réentrant attend une contribution de l’agent et expose des points d’entrée fixes. AV autorise chaque invocation. Toute modification invalide la Blessing. Validez les résultats de l’agent avant de les utiliser. Gardez les Secret Values dans l’exécution du script. Une Blessing ne rend pas le code digne de confiance."
+              "Laissez votre agent lire GitHub. Faites-lui demander pour écrire.",
+              "Décidez ce que vos outils et agents peuvent faire\n\nChoisissez Read Only pour le gate GitHub de votre agent et une autre politique pour votre terminal. AV vérifie l’identité du logiciel en cours d’exécution pour chaque Launcher avant d’appliquer sa politique.\n\nAV ne place pas votre agent dans une sandbox et n’empêche pas les modifications arbitraires de fichiers locaux.\n\nAvec Write Access, la divulgation et l’utilisation d’identifiants plus puissants nécessitent toujours une Approval. Les opérations Unknown exigent toujours une décision humaine.\n\nPour une tâche d’agent éligible, accordez dix minutes actives de Write Access sur un gate. Les commandes visibles permettent de prolonger, suspendre ou terminer cet accès.\n\nLa signature du code établit l’identité et l’intégrité, pas l’intention. L’identifiant de tâche limite un accès temporaire sans constituer une identité."
+            ],
+            [
+              "Vérifiez le script de publication une fois.",
+              "Donnez aux agents les capacités nécessaires\n\nUn agent prépare les notes de version ; un script vérifié publie sur GitHub et actualise votre CDN. Un Blessed Script lie votre revue au contenu exact et aux capacités déclarées. Un script réentrant attend une contribution de l’agent et expose des points d’entrée fixes. AV autorise chaque invocation. Toute modification invalide la Blessing.\n\nValidez les résultats de l’agent avant de les utiliser. Gardez les Secret Values dans l’exécution du script. Une Blessing ne rend pas le code digne de confiance.\n\nEn pratique\n\nVérifiez le logiciel, la commande, les arguments, le répertoire de travail et les Secret Names avant d’autoriser une opération."
             ],
             [
               "Gardez les secrets des projets hors des fichiers en clair",
-              "Utilisez le même Secret Name dans plusieurs projets avec un Project Value différent pour chacun. AV choisit le dossier physique correspondant le plus proche, ou le Global Value si aucun Project Value ne correspond. Pour les clients HTTP compatibles, le Secret Proxy fournit une référence temporaire à l’application et applique l’identifiant réel uniquement aux destinations approuvées. Les dossiers sélectionnent les Values sans accorder d’autorité. La même policy couvre toutes les Values d’un Secret Name. Les références du proxy sont des valeurs au porteur permettant l’accès déjà accordé à la session."
+              "Utilisez le même Secret Name dans plusieurs projets avec un Project Value différent pour chacun. AV choisit le dossier physique correspondant le plus proche, ou le Global Value si aucun Project Value ne correspond. Pour les clients HTTP compatibles, le Secret Proxy fournit une référence temporaire à l’application et applique l’identifiant réel uniquement aux destinations approuvées.\n\nLes dossiers sélectionnent les Values sans accorder d’autorité. La même policy couvre toutes les Values d’un Secret Name. Les références du proxy sont des valeurs au porteur permettant l’accès déjà accordé à la session."
             ],
             [
               "Approuvez les opérations de vos Macs",
-              "Examinez les demandes de vos Macs inscrits sur les iPhones éligibles du même compte de trousseau iCloud. Chaque Mac conserve ses Secrets, sa policy et son Authorization History, et applique la décision localement. Vous pouvez aussi activer Touch ID Approval sur un Mac pour autoriser uniquement par biométrie. iPhone Approval retire les actions d’autorisation par souris et clavier sur le Mac. Désactivez iPhone Mirroring et Show on Mac, ou exigez Face ID ou Touch ID sur chaque iPhone éligible. Une panne du relais n’active aucun mode de secours."
+              "Examinez les demandes de vos Macs inscrits sur les iPhones éligibles du même compte de trousseau iCloud. Chaque Mac conserve ses Secrets, sa policy et son Authorization History, et applique la décision localement. Vous pouvez aussi activer Touch ID Approval sur un Mac pour autoriser uniquement par biométrie.\n\niPhone Approval retire les actions d’autorisation par souris et clavier sur le Mac. Désactivez iPhone Mirroring et Show on Mac, ou exigez Face ID ou Touch ID sur chaque iPhone éligible. Une panne du relais n’active aucun mode de secours."
+            ],
+            [
+              "Les limites de la protection",
+              "AV protège les identifiants pris en charge et contrôle les opérations prises en charge face au code exécuté avec vos droits. Les wrappers n’interceptent pas toutes les commandes, et installer un paquet ne le rend pas sûr. Une compromission de root ou du noyau, les destructions locales arbitraires et le comportement d’un Target après réception d’un Secret restent hors de cette limite.\n\nAuthorization History conserve localement les demandes autorisées et refusées. AV enregistre et vérifie le Record d’un Secret Use autorisé avant de transmettre le Secret. Cet historique est limité, sans garantie de résistance aux altérations ni d’exhaustivité forensique."
+            ],
+            [
+              "Gratuit. Open source. macOS.",
+              "L’app Mac est gratuite sous Apache-2.0. L’option iPhone Approval nécessite un abonnement actif pour envoyer une réponse d’autorisation. Refuser ne nécessite aucun abonnement."
             ]
           ]
         },
         "zh-Hans": {
-          "title": "Automic Vault | 你的密钥管理器应该了解密钥的用途。",
-          "description": "保护命令行凭据，为代理授予有限的能力，并审批多台 Mac 上的操作。",
-          "kicker": "由 Homebrew 创始人打造",
-          "h1": "你的密钥管理器应该了解密钥的用途。",
-          "lede": "保护命令行凭据，为代理授予有限的能力，并审批多台 Mac 上的操作。",
+          "title": "Automic Vault | CLI 安全出了问题。 我们从软件包这一层着手修复。",
+          "description": "Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。",
+          "kicker": "Max Howell",
+          "h1": "CLI 安全出了问题。 我们从软件包这一层着手修复。",
+          "lede": "Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。",
           "sections": [
             [
-              "保护你的命令行",
-              "找出工具、依赖和代理能从文件或凭据助手中读取的凭据。每项 Finding 都说明问题和缓解方法。Hardener 会将支持的凭据移入 macOS 数据保护钥匙串，并在使用时通过 Authorization Gate 检查。 干净的 Scan 仅表示支持的检查没有发现问题，并不保证整台 Mac 安全。"
+              "在安装工具的地方，把安全补上。",
+              "软件包这一层\n\n你安装 CLI 工具来完成任务，它的凭据却常常留在文件或辅助程序中，其他以你的用户权限运行的代码也能读取。智能体会继承这些访问权限。\n\n对于 GitHub，av harden gh 会安装我们签名并修改过的 CLI，将现有凭据迁移到 Automic Vault 管理之下。你仍然运行 gh，需要身份验证的操作则会经过它的 Authorization Gate。\n\n读取 Issue、发布版本和显示令牌需要不同的权限。AV 会检查完整操作，再应用凭据。\n\n即使不会更改远程资源，披露凭据也需要单独决策。\n\nHomebrew\n\nHomebrew 加固可防止其他以你的用户权限运行的代码修改 /opt/homebrew。在 Read & Update 下，已识别的查询命令和 brew update 可以运行；安装和升级需要你的 Approval。该功能适用于 Apple Silicon 上的 Homebrew。加固期间不支持服务和 shell 补全。\n\nAWS\n\n普通 AWS 命令使用短期会话凭据。长期密钥从共享凭据文件中移除。AV 为每个 AWS 进程单独获取会话凭据。\n\nDocker\n\n在释放注册表凭据之前，AV 会验证正在运行的 Docker Desktop 进程及其签名、运行时保护、进程祖先链、参数和请求的注册表。"
             ],
             [
-              "决定工具和代理可以做什么",
-              "允许代理读取 GitHub issue，同时要求写入操作经过你的 Approval。终端可以使用不同规则。AV 按 Verified Launcher 检查完整操作。Write Access 仍要求密钥披露和使用更强大凭据的操作获得 Approval。Unknown 操作始终需要人工判断。符合条件的代理任务可在一个 Gate 获得十分钟有效时间的 Write Access，你可以延长、暂停或结束授权。 代码签名证明身份和完整性，而非意图。任务标识符缩小临时授权范围，并不证明身份。"
+              "从 Mac 上已有的凭据开始。",
+              "保护你的命令行\n\n找出工具、依赖项和智能体能够从文件或凭据辅助程序中读取的凭据。每项 Finding 都会说明暴露情况和可采取的措施。\n\n为 Finding 选择支持的 Hardener，再用 av doctor 验证已安装的保护措施。\n\n下载基于最新发布版本源码构建的小型独立扫描器，验证签名后，在只读且无法访问网络的沙盒中运行。\n\n干净的 Scan 仅表示支持的检查没有发现问题，并不保证整台 Mac 安全。"
             ],
             [
-              "赋予代理所需的能力",
-              "让代理准备发布说明，由审核过的脚本发布到 GitHub 并更新 CDN。Blessed Script 将审核绑定到确切内容和声明的能力。可重入脚本通过固定入口提供上下文，等待代理输入后继续执行。AV 对每次调用分别授权；修改脚本会使 Blessing 失效。 使用代理输出前必须验证。让 Secret Values 留在脚本执行范围内。Blessing 本身并不让代码变得可信。"
+              "让智能体读取 GitHub，写入前先请求审批。",
+              "决定工具和智能体能做什么\n\n将智能体的 GitHub Gate 设为 Read Only，也可以为终端选择不同的策略。AV 会验证每个 Launcher 正在运行的软件身份，再应用相应策略。\n\nAV 不会将智能体放入沙箱，也不会阻止任意本地文件修改。\n\n在 Write Access 下，凭据披露和使用权限更高的凭据仍需 Approval。Unknown 操作始终需要人工决定。\n\n对于符合条件的智能体任务，可以在一个 Gate 上授予十分钟有效时间的 Write Access。通过可见的控件，你可以延长、暂停或结束授权。\n\n代码签名证明身份和完整性，而非意图。任务标识符缩小临时授权范围，并不证明身份。"
+            ],
+            [
+              "审核一次发布脚本。",
+              "给智能体所需的能力\n\n让代理准备发布说明，由审核过的脚本发布到 GitHub 并更新 CDN。Blessed Script 将审核绑定到确切内容和声明的能力。可重入脚本通过固定入口提供上下文，等待代理输入后继续执行。AV 对每次调用分别授权；修改脚本会使 Blessing 失效。\n\n使用代理输出前必须验证。让 Secret Values 留在脚本执行范围内。Blessing 本身并不让代码变得可信。\n\n实际效果\n\n允许操作之前，先查看软件、命令、参数、工作目录和 Secret Names。"
             ],
             [
               "让项目密钥远离明文文件",
-              "多个项目可以使用相同 Secret Name，但各自保存不同的 Project Value。AV 选择最近匹配的物理目录对应的值；没有匹配项时使用 Global Value。对于兼容的 HTTP 客户端，Secret Proxy 向应用提供临时引用，并仅向获批目的地应用真实凭据。 目录选择 Values，不授予权限。同一 Secret Name 下的所有 Values 受相同策略约束。代理引用属于持有者凭据，可以使用会话已获准的访问权限。"
+              "多个项目可以使用相同 Secret Name，但各自保存不同的 Project Value。AV 选择最近匹配的物理目录对应的值；没有匹配项时使用 Global Value。对于兼容的 HTTP 客户端，Secret Proxy 向应用提供临时引用，并仅向获批目的地应用真实凭据。\n\n目录选择 Values，不授予权限。同一 Secret Name 下的所有 Values 受相同策略约束。代理引用属于持有者凭据，可以使用会话已获准的访问权限。"
             ],
             [
               "审批多台 Mac 上的操作",
-              "在同一 iCloud 钥匙串账户下符合条件的 iPhone 上查看已登记 Mac 的请求。每台 Mac 保留自己的 Secrets、策略和 Authorization History，并在本机执行决定。你也可以在某台 Mac 上启用 Touch ID Approval，通过生物识别允许操作。 iPhone Approval 会移除 Mac 上通过鼠标和键盘允许操作的入口。请关闭 iPhone Mirroring 和 Show on Mac，或要求每台符合条件的 iPhone 使用 Face ID 或 Touch ID。中继不可用不会启用替代方式。"
+              "在同一 iCloud 钥匙串账户下符合条件的 iPhone 上查看已登记 Mac 的请求。每台 Mac 保留自己的 Secrets、策略和 Authorization History，并在本机执行决定。你也可以在某台 Mac 上启用 Touch ID Approval，通过生物识别允许操作。\n\niPhone Approval 会移除 Mac 上通过鼠标和键盘允许操作的入口。请关闭 iPhone Mirroring 和 Show on Mac，或要求每台符合条件的 iPhone 使用 Face ID 或 Touch ID。中继不可用不会启用替代方式。"
+            ],
+            [
+              "保护的边界",
+              "AV 针对以你的用户权限运行的代码，保护支持的凭据，并控制支持的 Tool 操作。包装程序不会拦截每条命令，安装软件包也不意味着它是安全的。root 或内核被攻破、任意本地破坏，以及 Target 收到 Secret 后的行为，均不在保护范围内。\n\nAuthorization History 在本地保存允许和拒绝的请求。AV 在释放 Secret 前保存并验证获准 Secret Use 的记录。历史记录有容量限制，不保证防篡改，也不是完整的取证日志。"
+            ],
+            [
+              "免费。开源。macOS。",
+              "Mac 应用免费，并采用 Apache-2.0 许可证。可选的 iPhone Approval 需要有效订阅才能发送允许响应。拒绝请求不需要订阅。"
             ]
           ]
         }
@@ -126,73 +174,89 @@
     {
       "path": "/about/",
       "source": "about/index.html",
-      "dateModified": "2026-07-28",
+      "dateModified": "2026-09-21",
       "translations": {
         "ja": {
-          "title": "Automic Vault について | brew install したツールを安全に",
-          "description": "Automic Vault は、AI エージェントが使う前に、Homebrew ツール、CLI シークレット、コマンド承認ゲートを Mac 上でローカルに保護します。",
-          "kicker": "背景",
-          "h1": "brew install したツールを安全に。Homebrew 作者によるローカル制御です。",
-          "lede": "Automic Vault は、macOS 開発者の実際の端末、パッケージ、認証情報の使い方を前提に設計されています。",
+          "title": "Automic Vault について | Homebrew から CLI のセキュリティへ",
+          "description": "Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。",
+          "kicker": "Max Howell",
+          "h1": "私は Homebrew を作りました。今は、エージェントがそれを使うときに起きる問題に取り組んでいます。",
+          "lede": "Homebrew によって、コマンドラインツールのインストールは手軽になりました。それらのツールには認証情報と、それを使う権限も伴います。エージェントがコマンドを実行すると、そのアクセスを引き継ぐことがあります。",
           "sections": [
             [
-              "Max Howell",
-              "Max Howell は 2009 年に Homebrew を作り、macOS 開発者向けツールを長く作ってきました。"
+              "CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。",
+              "私は、開発者がツールをインストールする仕組みを知っています。その仕組みに手を入れることで、ツールが認証情報を保存し、使う方法を変えられます。Automic Vault では対応ツールをそこでハードニングし、保護対象の操作を実行時に認可します。ターミナル、エディタ、エージェントでは、いつものコマンドを使い続けられます。"
             ],
             [
-              "なぜ今か",
-              "AI エージェントはローカル環境の権限を広げるため、シークレットとコマンドの境界が必要です。"
+              "Mac 上で何が変わるか",
+              "GitHub の場合、av harden gh で署名済みの改修版 CLI をインストールし、既存の認証情報を Automic Vault の管理下に移します。使うコマンドは引き続き gh です。認証が必要な操作は Authorization Gate を通るようになります。 GitHub の Authorization Gate では、Issue の閲覧を許可しながら、書き込みやトークンの開示には Approval を求められます。Homebrew のハードニングは別途パッケージの変更を制御し、同じユーザー権限でのインストール領域の改変を防ぎます。保護の範囲は対応する Tool ごとに決まります。AV はすべてのコマンドをサンドボックス化したり、インストールしたパッケージの信頼性を保証したりするものではありません。"
+            ],
+            [
+              "保護の範囲と限界",
+              "AV は、通常のユーザー権限で動くコードに対して、対応する認証情報を保護し、対応する Tool 操作を制御します。ラッパーはすべてのコマンドを捕捉するものではなく、パッケージをインストールしても安全性は保証されません。root やカーネルの侵害、任意のローカル破壊、Secret を受け取った後の Target の動作は保護範囲外です。"
             ]
           ]
         },
         "de": {
-          "title": "Über Automic Vault | Sichere die Tools, die du mit brew install installierst",
-          "description": "Automic Vault sichert Homebrew-Tools, CLI-Secrets und Command-Approval-Gates lokal auf deinem Mac, bevor AI-Agents sie verwenden.",
-          "kicker": "Hintergrund",
-          "h1": "Sichere die Tools, die du mit brew install installierst, vom Homebrew-Erfinder.",
-          "lede": "Automic Vault ist für die realen Terminals, Pakete und Credentials von macOS-Entwicklern entworfen.",
+          "title": "Über Automic Vault | Von Homebrew zur CLI-Sicherheit",
+          "description": "Automic Vault härtet unterstützte CLI-Tools auf macOS, verschiebt offengelegte Zugangsdaten in die Keychain und kontrolliert ihre Nutzung. Deine gewohnten Befehle bleiben.",
+          "kicker": "Max Howell",
+          "h1": "Ich habe Homebrew entwickelt. Jetzt kümmere ich mich darum, was passiert, wenn Agenten es nutzen.",
+          "lede": "Homebrew hat die Installation von Kommandozeilenwerkzeugen vereinfacht. Diese Tools bringen auch Zugangsdaten und die Berechtigung zu ihrer Nutzung mit. Agenten können diesen Zugriff erben, wenn sie einen Befehl ausführen.",
           "sections": [
             [
-              "Max Howell",
-              "Max Howell hat Homebrew 2009 erstellt und baut seit langem Entwicklerwerkzeuge für macOS."
+              "CLI-Sicherheit ist kaputt. Wir setzen bei der Paketverwaltung an.",
+              "Ich kenne die Ebene, auf der Entwickler ihre Tools installieren. Dort können wir praktisch ansetzen und ändern, wie Tools Zugangsdaten speichern und nutzen. Mit Automic Vault härten wir unterstützte Tools an dieser Stelle und autorisieren geschützte Operationen zur Laufzeit. Terminal, Editor und Agent verwenden weiter deine gewohnten Befehle."
             ],
             [
-              "Warum jetzt",
-              "AI-Agents erweitern lokale Berechtigungen; Secrets und Befehle brauchen deshalb klare Grenzen."
+              "Was sich auf deinem Mac ändert",
+              "Für GitHub installiert av harden gh unsere signierte, gepatchte CLI und überführt ihre Zugangsdaten in die Obhut von Automic Vault. Du nutzt weiterhin gh. Authentifizierte Operationen durchlaufen jetzt sein Authorization Gate. Am GitHub Authorization Gate können Issue-Abfragen erlaubt sein, während Schreibzugriffe und Token-Offenlegung Approval erfordern. Homebrew-Härtung kontrolliert Paketänderungen separat und schützt die Installation vor Änderungen durch Code mit denselben Benutzerrechten. Der Schutz gilt pro unterstütztem Tool; AV führt nicht jeden Befehl in einer Sandbox aus und macht installierte Pakete nicht vertrauenswürdig."
+            ],
+            [
+              "Wo der Schutz endet",
+              "AV schützt unterstützte Zugangsdaten und kontrolliert unterstützte Tool-Operationen gegenüber Code mit deinen Benutzerrechten. Wrapper erfassen nicht jeden Befehl, und die Installation eines Pakets macht es nicht sicher. Root- oder Kernel-Kompromittierung, beliebige lokale Zerstörung und das Verhalten eines Targets nach Erhalt eines Secrets liegen außerhalb dieser Grenze."
             ]
           ]
         },
         "fr": {
-          "title": "À propos d'Automic Vault | Sécurisez les outils que vous installez avec brew",
-          "description": "Automic Vault sécurise localement sur votre Mac les outils Homebrew, les secrets CLI et les portes d'approbation des commandes avant que les agents IA les utilisent.",
-          "kicker": "Contexte",
-          "h1": "Sécurisez les outils que vous installez avec brew, par le créateur de Homebrew.",
-          "lede": "Automic Vault est conçu pour les vrais terminaux, paquets et identifiants utilisés par les développeurs macOS.",
+          "title": "À propos d’Automic Vault | De Homebrew à la sécurité des CLI",
+          "description": "Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.",
+          "kicker": "Max Howell",
+          "h1": "J’ai créé Homebrew. Aujourd’hui, je m’attaque à ce qui se passe quand les agents l’utilisent.",
+          "lede": "Homebrew a facilité l’installation des outils en ligne de commande. Ces outils apportent aussi des identifiants et le droit de les utiliser. Les agents peuvent hériter de cet accès chaque fois qu’ils exécutent une commande.",
           "sections": [
             [
-              "Max Howell",
-              "Max Howell a créé Homebrew en 2009 et construit depuis longtemps des outils pour développeurs macOS."
+              "La sécurité des CLI est défaillante. Nous la corrigeons au niveau des paquets.",
+              "Je connais le niveau auquel les développeurs installent leurs outils. C’est un point d’intervention concret pour changer la façon dont ces outils conservent et utilisent les identifiants. Avec Automic Vault, nous sécurisons les outils pris en charge à ce niveau, puis autorisons les opérations protégées à l’exécution. Votre terminal, votre éditeur et votre agent gardent leurs commandes habituelles."
             ],
             [
-              "Pourquoi maintenant",
-              "Les agents IA étendent l'autorité locale; les secrets et les commandes ont donc besoin de limites nettes."
+              "Ce qui change sur votre Mac",
+              "Pour GitHub, av harden gh installe notre CLI signée et modifiée, puis transfère ses identifiants sous la garde d’Automic Vault. Vous utilisez toujours gh. Les opérations authentifiées passent désormais par son Authorization Gate. Le gate GitHub peut autoriser la lecture des issues tout en exigeant une Approval pour écrire ou révéler le jeton. Le durcissement de Homebrew contrôle séparément les modifications de paquets et protège l’installation contre les modifications avec les mêmes droits utilisateur. La couverture dépend de chaque outil pris en charge ; AV ne place pas toutes les commandes dans une sandbox et ne rend pas les paquets installés dignes de confiance."
+            ],
+            [
+              "Les limites de la protection",
+              "AV protège les identifiants pris en charge et contrôle les opérations prises en charge face au code exécuté avec vos droits. Les wrappers n’interceptent pas toutes les commandes, et installer un paquet ne le rend pas sûr. Une compromission de root ou du noyau, les destructions locales arbitraires et le comportement d’un Target après réception d’un Secret restent hors de cette limite."
             ]
           ]
         },
         "zh-Hans": {
-          "title": "关于 Automic Vault | 保护你用 brew install 装上的工具",
-          "description": "Automic Vault 在 AI 代理使用之前，在你的 Mac 本地保护 Homebrew 工具、CLI 密钥和命令审批门。",
-          "kicker": "背景",
-          "h1": "保护你用 brew install 装上的工具。由 Homebrew 作者打造。",
-          "lede": "Automic Vault 按照 macOS 开发者真实使用终端、软件包和凭据的方式设计。",
+          "title": "关于 Automic Vault | 从 Homebrew 到 CLI 安全",
+          "description": "Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。",
+          "kicker": "Max Howell",
+          "h1": "我创建了 Homebrew。现在，我正在解决智能体使用它时带来的问题。",
+          "lede": "Homebrew 让安装命令行工具变得更容易。这些工具也带来了凭据以及使用凭据的权限。智能体每次执行命令时，都可能继承这些访问权限。",
           "sections": [
             [
-              "Max Howell",
-              "Max Howell 于 2009 年创建 Homebrew，长期构建面向 macOS 开发者的工具。"
+              "CLI 安全出了问题。 我们从软件包这一层着手修复。",
+              "我熟悉开发者安装工具的这一层。在这里，我们可以切实改变工具保存和使用凭据的方式。Automic Vault 在这一层加固支持的工具，再在运行时对受保护的操作进行授权。你的终端、编辑器和智能体仍然使用原来的命令。"
             ],
             [
-              "为什么是现在",
-              "AI 代理扩大了本地权限，因此密钥和命令需要清晰边界。"
+              "你的 Mac 上会发生什么变化",
+              "对于 GitHub，av harden gh 会安装我们签名并修改过的 CLI，将现有凭据迁移到 Automic Vault 管理之下。你仍然运行 gh，需要身份验证的操作则会经过它的 Authorization Gate。 GitHub Authorization Gate 可以允许读取 Issue，同时要求写入和令牌披露经过 Approval。Homebrew 加固则单独控制软件包变更，防止以相同用户权限运行的代码修改安装目录。保护范围取决于具体支持的 Tool；AV 不会将每条命令放进沙箱，也不会让已安装的软件包自动变得可信。"
+            ],
+            [
+              "保护的边界",
+              "AV 针对以你的用户权限运行的代码，保护支持的凭据，并控制支持的 Tool 操作。包装程序不会拦截每条命令，安装软件包也不意味着它是安全的。root 或内核被攻破、任意本地破坏，以及 Target 收到 Secret 后的行为，均不在保护范围内。"
             ]
           ]
         }
