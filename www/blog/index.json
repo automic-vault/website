@@ -1,0 +1,110 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "Automic Vault Blog",
+  "home_page_url": "https://www.automicvault.com/blog/",
+  "feed_url": "https://www.automicvault.com/blog/index.json",
+  "items": [
+    {
+      "id": "https://www.automicvault.com/blog/automic-vault-vs-aws-secrets-manager/",
+      "url": "https://www.automicvault.com/blog/automic-vault-vs-aws-secrets-manager/",
+      "title": "Automic Vault vs AWS Secrets Manager",
+      "content_text": "Automic Vault vs AWS Secrets Manager"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/automic-vault-vs-hashicorp-vault/",
+      "url": "https://www.automicvault.com/blog/automic-vault-vs-hashicorp-vault/",
+      "title": "Automic Vault vs HashiCorp Vault",
+      "content_text": "Automic Vault vs HashiCorp Vault"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/automic-vault-vs-infisical/",
+      "url": "https://www.automicvault.com/blog/automic-vault-vs-infisical/",
+      "title": "Automic Vault vs Infisical for developer secrets",
+      "content_text": "Automic Vault vs Infisical for developer secrets"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/automic-vault-vs-doppler/",
+      "url": "https://www.automicvault.com/blog/automic-vault-vs-doppler/",
+      "title": "Automic Vault vs Doppler for developer secrets",
+      "content_text": "Automic Vault vs Doppler for developer secrets"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/automic-vault-vs-bitwarden/",
+      "url": "https://www.automicvault.com/blog/automic-vault-vs-bitwarden/",
+      "title": "Automic Vault vs Bitwarden for developer secrets",
+      "content_text": "Automic Vault vs Bitwarden for developer secrets"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/automic-vault-vs-1password/",
+      "url": "https://www.automicvault.com/blog/automic-vault-vs-1password/",
+      "title": "Automic Vault vs 1Password for developer secrets",
+      "content_text": "Automic Vault vs 1Password for developer secrets"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/best-aws-credential-manager/",
+      "url": "https://www.automicvault.com/blog/best-aws-credential-manager/",
+      "title": "The best fricking AWS credential manager in the world",
+      "content_text": "The best fricking AWS credential manager in the world"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/prevent-keyv-npm-worm/",
+      "url": "https://www.automicvault.com/blog/prevent-keyv-npm-worm/",
+      "title": "Preventing the Keyv npm credential theft",
+      "content_text": "Preventing the Keyv npm credential theft"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/mac-security-best-practices-for-agents/",
+      "url": "https://www.automicvault.com/blog/mac-security-best-practices-for-agents/",
+      "title": "Best practices for using a Mac with agents",
+      "content_text": "Best practices for using a Mac with agents"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/",
+      "url": "https://www.automicvault.com/blog/bringing-macos-security-to-the-terminal/",
+      "title": "Bringing macOS security to the terminal",
+      "content_text": "Bringing macOS security to the terminal"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/prevent-nx-console-vscode-compromise/",
+      "url": "https://www.automicvault.com/blog/prevent-nx-console-vscode-compromise/",
+      "title": "Preventing the Nx Console extension compromise",
+      "content_text": "Preventing the Nx Console extension compromise"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/prevent-github-vscode-extension-breach/",
+      "url": "https://www.automicvault.com/blog/prevent-github-vscode-extension-breach/",
+      "title": "Preventing the GitHub employee device breach",
+      "content_text": "Preventing the GitHub employee device breach"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/prevent-durabletask-pypi-compromise/",
+      "url": "https://www.automicvault.com/blog/prevent-durabletask-pypi-compromise/",
+      "title": "Preventing the durabletask PyPI compromise",
+      "content_text": "Preventing the durabletask PyPI compromise"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/prevent-tanstack-npm-compromise/",
+      "url": "https://www.automicvault.com/blog/prevent-tanstack-npm-compromise/",
+      "title": "Preventing the TanStack npm credential theft",
+      "content_text": "Preventing the TanStack npm credential theft"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/prevent-node-ipc-npm-backdoor/",
+      "url": "https://www.automicvault.com/blog/prevent-node-ipc-npm-backdoor/",
+      "title": "Preventing the node-ipc npm backdoor",
+      "content_text": "Preventing the node-ipc npm backdoor"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/prevent-bitwarden-cli-npm-compromise/",
+      "url": "https://www.automicvault.com/blog/prevent-bitwarden-cli-npm-compromise/",
+      "title": "Preventing the Bitwarden CLI npm compromise",
+      "content_text": "Preventing the Bitwarden CLI npm compromise"
+    },
+    {
+      "id": "https://www.automicvault.com/blog/prevent-litellm-pypi-compromise/",
+      "url": "https://www.automicvault.com/blog/prevent-litellm-pypi-compromise/",
+      "title": "Preventing the LiteLLM PyPI compromise",
+      "content_text": "Preventing the LiteLLM PyPI compromise"
+    }
+  ]
+}

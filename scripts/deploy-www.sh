@@ -1464,6 +1464,7 @@ ensure_certificate_issued() {
 }
 
 log_header
+python3 "${script_dir}/generate-blog-feed.py"
 assert_www_i18n_current
 prepare_site_for_upload
 if [[ "${prepare_only}" == true ]]; then
