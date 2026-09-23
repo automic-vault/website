@@ -174,14 +174,14 @@
     {
       "path": "/about/",
       "source": "about/index.html",
-      "dateModified": "2026-09-21",
+      "dateModified": "2026-09-23",
       "translations": {
         "ja": {
           "title": "Automic Vault について | Homebrew から CLI のセキュリティへ",
           "description": "Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。",
           "kicker": "Max Howell",
           "h1": "私は Homebrew を作りました。今は、エージェントがそれを使うときに起きる問題に取り組んでいます。",
-          "lede": "Homebrew によって、コマンドラインツールのインストールは手軽になりました。それらのツールには認証情報と、それを使う権限も伴います。エージェントがコマンドを実行すると、そのアクセスを引き継ぐことがあります。",
+          "lede": "Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。",
           "sections": [
             [
               "CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。",
@@ -190,6 +190,30 @@
             [
               "Mac 上で何が変わるか",
               "GitHub の場合、av harden gh で署名済みの改修版 CLI をインストールし、既存の認証情報を Automic Vault の管理下に移します。使うコマンドは引き続き gh です。認証が必要な操作は Authorization Gate を通るようになります。 GitHub の Authorization Gate では、Issue の閲覧を許可しながら、書き込みやトークンの開示には Approval を求められます。Homebrew のハードニングは別途パッケージの変更を制御し、同じユーザー権限でのインストール領域の改変を防ぎます。保護の範囲は対応する Tool ごとに決まります。AV はすべてのコマンドをサンドボックス化したり、インストールしたパッケージの信頼性を保証したりするものではありません。"
+            ],
+            [
+              "対象となる開発者",
+              "Automic Vault は、macOS のターミナル、エディタ、コーディングエージェントで CLI ツールを使う開発者向けです。対応する操作のうち、許可するものと承認が必要なものを選べます。"
+            ],
+            [
+              "Automic Vault を作っている人",
+              "私は Max Howell です。開発ツールのインストールを簡単にするため、2009 年に Homebrew を作りました。Automic Vault では、特にエージェントが代わりにコマンドを実行する場合に、ツールが持つ認証情報と権限を制御する仕組みに取り組んでいます。"
+            ],
+            [
+              "基本情報",
+              "製品: Automic Vault。開発者: Max Howell。対応環境: macOS。主な機能: 対応 CLI ツールのハードニング、認証情報の保護、使用時の認可。ソースコードは GitHub で公開しており、ライセンスは Apache-2.0 です。セットアップと保護範囲はドキュメントで確認できます。"
+            ],
+            [
+              "いつものコマンドは変わりますか？",
+              "対応ツールをハードニングした後も、いつものコマンドを使えます。ツールに応じて設定の変更、ラッパーの導入、改修版のインストールを行い、保護対象の操作が認可を要求するようにします。"
+            ],
+            [
+              "すべてのツールを保護しますか？",
+              "いいえ。保護範囲は対応するツールと操作によって異なります。各連携が保護する内容は Hardener のドキュメントで確認してください。"
+            ],
+            [
+              "エージェントをサンドボックス化しますか？",
+              "いいえ。Automic Vault は保護された認証情報と対応操作を制御しますが、すべてのコマンドを捕捉したり、任意のローカル破壊を防いだりはしません。認可された実行ファイルも、受け取った認証情報を漏えいさせる可能性があります。"
             ],
             [
               "保護の範囲と限界",
@@ -202,7 +226,7 @@
           "description": "Automic Vault härtet unterstützte CLI-Tools auf macOS, verschiebt offengelegte Zugangsdaten in die Keychain und kontrolliert ihre Nutzung. Deine gewohnten Befehle bleiben.",
           "kicker": "Max Howell",
           "h1": "Ich habe Homebrew entwickelt. Jetzt kümmere ich mich darum, was passiert, wenn Agenten es nutzen.",
-          "lede": "Homebrew hat die Installation von Kommandozeilenwerkzeugen vereinfacht. Diese Tools bringen auch Zugangsdaten und die Berechtigung zu ihrer Nutzung mit. Agenten können diesen Zugriff erben, wenn sie einen Befehl ausführen.",
+          "lede": "Automic Vault härtet unterstützte CLI-Tools auf macOS, verschiebt offengelegte Zugangsdaten in die Keychain und kontrolliert ihre Nutzung. Deine gewohnten Befehle bleiben.",
           "sections": [
             [
               "CLI-Sicherheit ist kaputt. Wir setzen bei der Paketverwaltung an.",
@@ -211,6 +235,30 @@
             [
               "Was sich auf deinem Mac ändert",
               "Für GitHub installiert av harden gh unsere signierte, gepatchte CLI und überführt ihre Zugangsdaten in die Obhut von Automic Vault. Du nutzt weiterhin gh. Authentifizierte Operationen durchlaufen jetzt sein Authorization Gate. Am GitHub Authorization Gate können Issue-Abfragen erlaubt sein, während Schreibzugriffe und Token-Offenlegung Approval erfordern. Homebrew-Härtung kontrolliert Paketänderungen separat und schützt die Installation vor Änderungen durch Code mit denselben Benutzerrechten. Der Schutz gilt pro unterstütztem Tool; AV führt nicht jeden Befehl in einer Sandbox aus und macht installierte Pakete nicht vertrauenswürdig."
+            ],
+            [
+              "Für wen Automic Vault gedacht ist",
+              "Automic Vault richtet sich an Entwickler, die CLI-Tools auf macOS in Terminals, Editoren oder Coding-Agenten verwenden. Du entscheidest, welche unterstützten Operationen erlaubt sind und welche deine Zustimmung benötigen."
+            ],
+            [
+              "Die Person hinter Automic Vault",
+              "Ich bin Max Howell. 2009 habe ich Homebrew entwickelt, um die Installation von Entwicklerwerkzeugen zu vereinfachen. Mit Automic Vault kümmere ich mich um die Zugangsdaten und Berechtigungen dieser Tools, besonders wenn ein Coding-Agent sie für dich ausführt."
+            ],
+            [
+              "Die wichtigsten Fakten",
+              "Produkt: Automic Vault. Entwickler: Max Howell. Plattform: macOS. Kernfunktionen: unterstützte CLI-Tools härten, Zugangsdaten schützen und ihre Nutzung autorisieren. Der Quellcode ist auf GitHub unter Apache-2.0 verfügbar. Einrichtung und Schutzgrenzen stehen in der Dokumentation."
+            ],
+            [
+              "Ersetzt Automic Vault meine Befehle?",
+              "Nach dem Härten eines unterstützten Tools nutzt du deine gewohnten Befehle weiter. Je nach Tool ändert Automic Vault die Konfiguration oder installiert einen Wrapper oder eine gepatchte Version, damit geschützte Operationen eine Autorisierung anfordern."
+            ],
+            [
+              "Schützt es jedes Tool?",
+              "Nein. Der Schutz hängt vom unterstützten Tool und der Operation ab. Die Hardener-Dokumentation beschreibt den Schutz jeder Integration."
+            ],
+            [
+              "Führt es meinen Agenten in einer Sandbox aus?",
+              "Nein. Automic Vault kontrolliert geschützte Zugangsdaten und unterstützte Operationen, erfasst aber nicht jeden Befehl und verhindert keine beliebige lokale Zerstörung. Ein autorisiertes Programm kann Zugangsdaten nach dem Empfang weiterhin offenlegen."
             ],
             [
               "Wo der Schutz endet",
@@ -223,7 +271,7 @@
           "description": "Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.",
           "kicker": "Max Howell",
           "h1": "J’ai créé Homebrew. Aujourd’hui, je m’attaque à ce qui se passe quand les agents l’utilisent.",
-          "lede": "Homebrew a facilité l’installation des outils en ligne de commande. Ces outils apportent aussi des identifiants et le droit de les utiliser. Les agents peuvent hériter de cet accès chaque fois qu’ils exécutent une commande.",
+          "lede": "Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.",
           "sections": [
             [
               "La sécurité des CLI est défaillante. Nous la corrigeons au niveau des paquets.",
@@ -232,6 +280,30 @@
             [
               "Ce qui change sur votre Mac",
               "Pour GitHub, av harden gh installe notre CLI signée et modifiée, puis transfère ses identifiants sous la garde d’Automic Vault. Vous utilisez toujours gh. Les opérations authentifiées passent désormais par son Authorization Gate. Le gate GitHub peut autoriser la lecture des issues tout en exigeant une Approval pour écrire ou révéler le jeton. Le durcissement de Homebrew contrôle séparément les modifications de paquets et protège l’installation contre les modifications avec les mêmes droits utilisateur. La couverture dépend de chaque outil pris en charge ; AV ne place pas toutes les commandes dans une sandbox et ne rend pas les paquets installés dignes de confiance."
+            ],
+            [
+              "À qui s’adresse Automic Vault",
+              "Automic Vault s’adresse aux développeurs qui utilisent des outils CLI sur macOS depuis un terminal, un éditeur ou un agent de programmation. Vous choisissez les opérations prises en charge qui sont autorisées et celles qui nécessitent votre approbation."
+            ],
+            [
+              "La personne derrière Automic Vault",
+              "Je suis Max Howell. J’ai créé Homebrew en 2009 pour faciliter l’installation des outils de développement. Avec Automic Vault, je travaille sur les identifiants et les permissions de ces outils, en particulier lorsqu’un agent de programmation les exécute pour vous."
+            ],
+            [
+              "Informations clés",
+              "Produit : Automic Vault. Créateur : Max Howell. Plateforme : macOS. Fonctions principales : durcir les outils CLI pris en charge, protéger les identifiants et autoriser leur utilisation. Le code source est disponible sur GitHub sous licence Apache-2.0. La documentation explique l’installation et les limites de la protection."
+            ],
+            [
+              "Automic Vault remplace-t-il mes commandes ?",
+              "Vous gardez vos commandes habituelles après le durcissement d’un outil pris en charge. Selon l’outil, Automic Vault modifie sa configuration ou installe un wrapper ou une version modifiée pour que les opérations protégées demandent une autorisation."
+            ],
+            [
+              "Protège-t-il tous les outils ?",
+              "Non. La couverture dépend de l’outil et de l’opération pris en charge. Consultez la documentation des Hardeners pour connaître la protection de chaque intégration."
+            ],
+            [
+              "Place-t-il mon agent dans une sandbox ?",
+              "Non. Automic Vault contrôle les identifiants protégés et les opérations prises en charge ; il n’intercepte pas toutes les commandes et n’empêche pas toute destruction locale. Un exécutable autorisé peut encore divulguer un identifiant après l’avoir reçu."
             ],
             [
               "Les limites de la protection",
@@ -244,7 +316,7 @@
           "description": "Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。",
           "kicker": "Max Howell",
           "h1": "我创建了 Homebrew。现在，我正在解决智能体使用它时带来的问题。",
-          "lede": "Homebrew 让安装命令行工具变得更容易。这些工具也带来了凭据以及使用凭据的权限。智能体每次执行命令时，都可能继承这些访问权限。",
+          "lede": "Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。",
           "sections": [
             [
               "CLI 安全出了问题。 我们从软件包这一层着手修复。",
@@ -253,6 +325,30 @@
             [
               "你的 Mac 上会发生什么变化",
               "对于 GitHub，av harden gh 会安装我们签名并修改过的 CLI，将现有凭据迁移到 Automic Vault 管理之下。你仍然运行 gh，需要身份验证的操作则会经过它的 Authorization Gate。 GitHub Authorization Gate 可以允许读取 Issue，同时要求写入和令牌披露经过 Approval。Homebrew 加固则单独控制软件包变更，防止以相同用户权限运行的代码修改安装目录。保护范围取决于具体支持的 Tool；AV 不会将每条命令放进沙箱，也不会让已安装的软件包自动变得可信。"
+            ],
+            [
+              "适用人群",
+              "Automic Vault 面向在 macOS 上通过终端、编辑器或编程智能体使用 CLI 工具的开发者。你可以决定哪些受支持的操作可以执行，哪些需要你的批准。"
+            ],
+            [
+              "Automic Vault 背后的开发者",
+              "我是 Max Howell。2009 年，我创建了 Homebrew，让开发工具的安装更简单。通过 Automic Vault，我正在解决这些工具所持有的凭据和权限问题，尤其是编程智能体代表你运行工具时的问题。"
+            ],
+            [
+              "基本信息",
+              "产品：Automic Vault。创建者：Max Howell。平台：macOS。核心功能：加固受支持的 CLI 工具、保护开发者凭据并授权其使用。源代码在 GitHub 上公开，采用 Apache-2.0 许可证。安装步骤和安全边界详见文档。"
+            ],
+            [
+              "Automic Vault 会替换我的命令吗？",
+              "加固受支持的工具后，你仍然使用原来的命令。根据工具的不同，Automic Vault 会修改配置、安装包装程序或安装修改版，使受保护的操作请求授权。"
+            ],
+            [
+              "它会保护所有工具吗？",
+              "不会。保护范围取决于受支持的工具和操作。请查阅 Hardener 文档，了解每项集成保护的内容。"
+            ],
+            [
+              "它会将智能体放进沙箱吗？",
+              "不会。Automic Vault 控制受保护的凭据和受支持的操作，但不会拦截每条命令，也不会防止任意本地破坏。获准运行的程序在收到凭据后仍可能泄露它。"
             ],
             [
               "保护的边界",

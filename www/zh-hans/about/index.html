@@ -79,7 +79,7 @@
         <div class="poster-hero-copy">
           <p class="eyebrow">Max Howell</p>
           <h1 id="hero-title">我创建了 Homebrew。现在，我正在解决智能体使用它时带来的问题。</h1>
-          <p class="poster-lede">Homebrew 让安装命令行工具变得更容易。这些工具也带来了凭据以及使用凭据的权限。智能体每次执行命令时，都可能继承这些访问权限。</p>
+          <p class="poster-lede">Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。</p>
         </div>
 
         <div class="poster-hero-foot">
@@ -99,40 +99,40 @@
         <p>对于 GitHub，av harden gh 会安装我们签名并修改过的 CLI，将现有凭据迁移到 Automic Vault 管理之下。你仍然运行 gh，需要身份验证的操作则会经过它的 Authorization Gate。 GitHub Authorization Gate 可以允许读取 Issue，同时要求写入和令牌披露经过 Approval。Homebrew 加固则单独控制软件包变更，防止以相同用户权限运行的代码修改安装目录。保护范围取决于具体支持的 Tool；AV 不会将每条命令放进沙箱，也不会让已安装的软件包自动变得可信。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-3">
-        <h2 id="section-3">保护的边界</h2>
-        <p>AV 针对以你的用户权限运行的代码，保护支持的凭据，并控制支持的 Tool 操作。包装程序不会拦截每条命令，安装软件包也不意味着它是安全的。root 或内核被攻破、任意本地破坏，以及 Target 收到 Secret 后的行为，均不在保护范围内。</p>
+        <h2 id="section-3">适用人群</h2>
+        <p>Automic Vault 面向在 macOS 上通过终端、编辑器或编程智能体使用 CLI 工具的开发者。你可以决定哪些受支持的操作可以执行，哪些需要你的批准。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-4">
-        <h2 id="section-4">本地运行边界</h2>
-        <p>Automic Vault 将代理可读取的文件与只提供给已批准工具的凭据分开。控制发生在 Mac 的执行路径上，而不是只依赖代理提示词。</p>
+        <h2 id="section-4">Automic Vault 背后的开发者</h2>
+        <p>我是 Max Howell。2009 年，我创建了 Homebrew，让开发工具的安装更简单。通过 Automic Vault，我正在解决这些工具所持有的凭据和权限问题，尤其是编程智能体代表你运行工具时的问题。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-5">
-        <h2 id="section-5">Homebrew 与 CLI</h2>
-        <p>许多开发工具来自 Homebrew、npm、PyPI 和云 CLI。Vault 会检测这些工具留下的凭据文件和高风险操作，并把审批放到实际执行位置。</p>
+        <h2 id="section-5">基本信息</h2>
+        <p>产品：Automic Vault。创建者：Max Howell。平台：macOS。核心功能：加固受支持的 CLI 工具、保护开发者凭据并授权其使用。源代码在 GitHub 上公开，采用 Apache-2.0 许可证。安装步骤和安全边界详见文档。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-6">
-        <h2 id="section-6">下一步</h2>
-        <p>先运行扫描器检查明文暴露，将支持的密钥移入受保护的本地存储，并保持 Automic Vault 运行，以便及时收到新的 hazard 通知。</p>
+        <h2 id="section-6">Automic Vault 会替换我的命令吗？</h2>
+        <p>加固受支持的工具后，你仍然使用原来的命令。根据工具的不同，Automic Vault 会修改配置、安装包装程序或安装修改版，使受保护的操作请求授权。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-7">
-        <h2 id="section-7">安装后的变化</h2>
-        <p>熟悉的 CLI 仍可继续使用。区别在于密钥不再作为容易读取的配置文件留在磁盘上，而是只交给真正需要它的已批准执行。</p>
+        <h2 id="section-7">它会保护所有工具吗？</h2>
+        <p>不会。保护范围取决于受支持的工具和操作。请查阅 Hardener 文档，了解每项集成保护的内容。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-8">
-        <h2 id="section-8">与中心化 vault 配合</h2>
-        <p>1Password、HashiCorp Vault 和云端密钥系统仍可作为真实来源。Automic Vault 保护的是本地 Mac 工具使用这些值的那一刻。</p>
+        <h2 id="section-8">它会将智能体放进沙箱吗？</h2>
+        <p>不会。Automic Vault 控制受保护的凭据和受支持的操作，但不会拦截每条命令，也不会防止任意本地破坏。获准运行的程序在收到凭据后仍可能泄露它。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-9">
-        <h2 id="section-9">相关页面</h2>
-        <p>文档、下载、密钥扫描器和软件包目录展示完整流程：发现暴露、加固工具、加入审批门，并持续监控开发机器。</p>
+        <h2 id="section-9">保护的边界</h2>
+        <p>AV 针对以你的用户权限运行的代码，保护支持的凭据，并控制支持的 Tool 操作。包装程序不会拦截每条命令，安装软件包也不意味着它是安全的。root 或内核被攻破、任意本地破坏，以及 Target 收到 Secret 后的行为，均不在保护范围内。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-10">
-        <h2 id="section-10">持续监控</h2>
-        <p>新的软件包、过时工具和重新生成的配置文件可能在首次修复后重新带来风险。Automic Vault 会保持运行并提示新的 hazard。</p>
+        <h2 id="section-10">本地运行边界</h2>
+        <p>Automic Vault 将代理可读取的文件与只提供给已批准工具的凭据分开。控制发生在 Mac 的执行路径上，而不是只依赖代理提示词。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-11">
-        <h2 id="section-11">可信线索</h2>
-        <p>公开仓库、安全页面、许可证以及 Max Howell 的 Homebrew 背景都可查看。本地安全边界应该能够被验证。</p>
+        <h2 id="section-11">Homebrew 与 CLI</h2>
+        <p>许多开发工具来自 Homebrew、npm、PyPI 和云 CLI。Vault 会检测这些工具留下的凭据文件和高风险操作，并把审批放到实际执行位置。</p>
       </section>
 
       <section class="closing-cta landing-page-cta" aria-labelledby="final-title">

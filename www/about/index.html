@@ -13,7 +13,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Automic Vault | From Homebrew to CLI security</title>
-  <meta name="description" content="Automic Vault checks the complete Tool operation before applying a developer credential on your Mac.">
+  <meta name="description" content="Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.">
   <link rel="canonical" href="https://www.automicvault.com/about/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/about/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/about/">
@@ -43,7 +43,7 @@
                   "slogan": "The missing security layer for CLI tools on Mac",
                   "url": "https://www.automicvault.com/",
                   "logo": "https://www.automicvault.com/assets/icon@2x.webp?v=3",
-                  "description": "Automic Vault checks the complete Tool operation before applying a developer credential on your Mac.",
+                  "description": "Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.",
                   "founder": {
                         "@id": "https://www.automicvault.com/about/#max-howell"
                   },
@@ -109,7 +109,7 @@
                         "availability": "https://schema.org/InStock",
                         "url": "https://www.automicvault.com/#pricing"
                   },
-                  "description": "Automic Vault checks the complete Tool operation before applying a developer credential on your Mac.",
+                  "description": "Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.",
                   "publisher": {
                         "@id": "https://www.automicvault.com/#organization"
                   }
@@ -120,9 +120,9 @@
                   "url": "https://www.automicvault.com/about/",
                   "name": "About Automic Vault | From Homebrew to CLI security",
                   "headline": "About Automic Vault | From Homebrew to CLI security",
-                  "description": "Automic Vault checks the complete Tool operation before applying a developer credential on your Mac.",
+                  "description": "Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.",
                   "datePublished": "2026-05-15",
-                  "dateModified": "2026-09-21",
+                  "dateModified": "2026-09-23",
                   "image": "https://www.automicvault.com/preview.jpg",
                   "author": {
                         "@id": "https://www.automicvault.com/about/#max-howell"
@@ -196,8 +196,8 @@
         <div>
           <p class="kicker">Max Howell</p>
           <h1>I created Homebrew. Now I’m fixing what happens when agents use it.</h1>
-          <p class="lede">Homebrew made it easier to install command-line tools. Those tools also bring credentials and the authority to use them. Agents can inherit that access whenever they run a command.</p>
-          <p class="updated">Last updated: September 21, 2026</p>
+          <p class="lede">Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.</p>
+          <p class="updated">Last updated: September 23, 2026</p>
           <div class="hero-actions">
             <a class="button primary" href="/docs/">Read the docs <span aria-hidden="true">›</span></a>
             <a class="button" href="https://github.com/automic-vault/automic-vault">View source <span aria-hidden="true">›</span></a>
@@ -209,40 +209,67 @@
       </section>
       <section class="seo-section seo-split">
         <div class="section-heading">
-          <p class="kicker">Who builds it</p>
+          <p class="kicker">Why we built it</p>
           <h2>CLI security is broken. The packaging layer is where we fix it.</h2>
-          <p>I know the layer where developers install their tools. It gives us a practical place to change how those tools keep and use credentials. With Automic Vault, we harden supported tools there, then authorize protected operations when they run. Your terminal, editor, and agent keep using their usual commands.</p>
+          <p>Homebrew made it easier to install command-line tools. Those tools also bring credentials and the authority to use them. Agents can inherit that access whenever they run a command. We harden supported tools where you install and configure them, then authorize protected operations when they run.</p>
         </div>
         <div class="proof-list">
-          <article><span>Credential storage</span><h3>Move credentials out of plaintext files</h3><p>Automic Vault stores CLI Credentials in the macOS Keychain and applies them to an authorized Target for one run.</p></article>
-          <article><span>Runtime authority</span><h3>Check each operation before use</h3><p>Automic Vault checks the Target, Verified Launcher, command, working directory, and Secret Names before applying a Credential.</p></article>
+          <article><span>Credential storage</span><h3>Move credentials out of plaintext files</h3><p>Automic Vault moves supported credentials into the macOS Keychain as protected Secrets. It applies them to an authorized tool operation when needed.</p></article>
+          <article><span>Runtime authority</span><h3>Check each operation before use</h3><p>Automic Vault checks the executable, command, arguments, working directory, and requested Secrets. It also verifies the app or executable that launched the operation: the Verified Launcher.</p></article>
           <article><span>Open source</span><h3>Inspect the Apache-2.0 source</h3><p>The public GitHub repository shows how Automic Vault implements local control.</p></article>
           <article><span>macOS first</span><h3>Enforce policy where the command runs</h3><p>Automic Vault enforces policy on the Mac where the Tool operation runs.</p></article>
         </div>
       </section>
-      <section class="seo-section seo-split">
-        <div class="section-heading">
-          <p class="kicker">Public references</p>
-          <h2>Public references for the product and founder.</h2>
-          <p>These links connect Automic Vault, Max Howell, and Homebrew to public developer-tooling history.</p>
-        </div>
-        <div class="resource-list">
-          <a href="https://mxcl.dev/"><strong>mxcl.dev</strong><p>Max Howell's public site.</p></a>
-          <a href="https://brew.sh/"><strong>Homebrew</strong><p>The macOS package manager project Max Howell created in 2009.</p></a>
-          <a href="https://en.wikipedia.org/wiki/Homebrew_(package_manager)"><strong>Homebrew on Wikipedia</strong><p>Independent entity reference for Homebrew and its creation history.</p></a>
-          <a href="https://github.com/automic-vault/automic-vault"><strong>Automic Vault source</strong><p>The public repository for the product.</p></a>
-        </div>
-      </section>
       <section class="seo-section">
         <div class="section-heading">
-          <p class="kicker">Project position</p>
+          <p class="kicker">What Automic Vault does</p>
           <h2>What that changes on your Mac.</h2>
-          <p>For GitHub, av harden gh installs our signed, patched CLI and migrates its credentials into Automic Vault custody. Its Authorization Gate can allow issue reads while requiring Approval for writes or token disclosure. Homebrew hardening separately gates package changes and protects its installation against same-user modification. Coverage is per supported Tool; AV does not sandbox every command or make an installed package trustworthy.</p>
+          <p>For GitHub, <code>av harden gh</code> installs our signed, patched CLI and moves its credentials into Automic Vault custody. You still run <code>gh</code>. Its Authorization Gate checks whether an operation may proceed: your policy can allow issue reads while requiring your approval for writes or token disclosure.</p>
+          <p>Homebrew hardening gates supported package-management operations and protects its installation against modification by other code running as you. Read &amp; Update access allows recognized reads and updates; installing a new package requires approval. <a href="/docs/hardeners/">See supported tools and their protection.</a></p>
         </div>
         <div class="link-grid">
           <a href="../"><span>Secrets</span><strong>Remove plaintext credentials</strong><p>Move supported credentials into protected storage.</p></a>
           <a href="../#controls"><span>Policy</span><strong>Gate and Launcher rules</strong><p>Choose how each Verified Launcher can use each Tool and Credential.</p></a>
           <a href="../#terminal-security"><span>History</span><strong>Review Authorization Decisions</strong><p>Keep bounded local history of allowed and denied requests.</p></a>
+        </div>
+      </section>
+      <section class="seo-section">
+        <div class="section-heading">
+          <h2>Who it’s for</h2>
+          <p>Automic Vault is for developers on macOS who use command-line tools from terminals, editors, or coding agents.</p>
+          <p>If you let an agent work with GitHub or manage packages, you can choose which supported operations it may perform and which need your approval. You can also protect supported CLI credentials during your own terminal work.</p>
+        </div>
+      </section>
+      <section class="seo-section" id="max-howell">
+        <div class="section-heading">
+          <h2>The person behind Automic Vault</h2>
+          <p>I’m <a href="https://mxcl.dev/">Max Howell</a>. I created <a href="https://brew.sh/">Homebrew</a> in 2009 to make installing developer tools easier.</p>
+          <p>With Automic Vault, I’m working on the credentials and authority those tools bring with them, especially when a coding agent runs them on your behalf. You should be able to keep your commands and choose what they’re allowed to do.</p>
+        </div>
+      </section>
+      <section class="seo-section" aria-labelledby="key-facts">
+        <div class="section-heading">
+          <h2 id="key-facts">Key facts</h2>
+        </div>
+        <table class="comparison-table" aria-labelledby="key-facts">
+          <tbody>
+            <tr><th scope="row">Product</th><td>Automic Vault</td></tr>
+            <tr><th scope="row">Creator</th><td><a href="https://mxcl.dev/">Max Howell</a>, creator of Homebrew</td></tr>
+            <tr><th scope="row">Platform</th><td>macOS</td></tr>
+            <tr><th scope="row">Core offering</th><td>Hardening supported CLI tools, protecting developer credentials, and authorizing their use</td></tr>
+            <tr><th scope="row">Source and license</th><td><a href="https://github.com/automic-vault/automic-vault">Open source on GitHub</a>, Apache-2.0</td></tr>
+            <tr><th scope="row">Documentation</th><td><a href="/docs/">Setup, supported tools, and security boundaries</a></td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="seo-section">
+        <div class="section-heading">
+          <h2>Frequently asked questions</h2>
+        </div>
+        <div class="proof-list">
+          <article><h3>Does Automic Vault replace my commands?</h3><p>You keep using your usual commands after hardening a supported tool. Depending on the tool, Automic Vault changes its configuration, installs a wrapper, or installs a patched version so protected operations request authorization.</p></article>
+          <article><h3>Does it protect every tool?</h3><p>No. Coverage depends on the supported tool and operation. Check the <a href="/docs/hardeners/">hardener documentation</a> for what each integration protects.</p></article>
+          <article><h3>Does it sandbox my agent?</h3><p>No. Automic Vault controls protected credentials and supported operations; it does not intercept every command or prevent arbitrary local destruction. An authorized executable can still expose a credential after receiving it. Read the <a href="/docs/security/">security boundaries</a> before choosing its access.</p></article>
         </div>
       </section>
     </main>

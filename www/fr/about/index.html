@@ -79,7 +79,7 @@
         <div class="poster-hero-copy">
           <p class="eyebrow">Max Howell</p>
           <h1 id="hero-title">J’ai créé Homebrew. Aujourd’hui, je m’attaque à ce qui se passe quand les agents l’utilisent.</h1>
-          <p class="poster-lede">Homebrew a facilité l’installation des outils en ligne de commande. Ces outils apportent aussi des identifiants et le droit de les utiliser. Les agents peuvent hériter de cet accès chaque fois qu’ils exécutent une commande.</p>
+          <p class="poster-lede">Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.</p>
         </div>
 
         <div class="poster-hero-foot">
@@ -99,40 +99,40 @@
         <p>Pour GitHub, av harden gh installe notre CLI signée et modifiée, puis transfère ses identifiants sous la garde d’Automic Vault. Vous utilisez toujours gh. Les opérations authentifiées passent désormais par son Authorization Gate. Le gate GitHub peut autoriser la lecture des issues tout en exigeant une Approval pour écrire ou révéler le jeton. Le durcissement de Homebrew contrôle séparément les modifications de paquets et protège l’installation contre les modifications avec les mêmes droits utilisateur. La couverture dépend de chaque outil pris en charge ; AV ne place pas toutes les commandes dans une sandbox et ne rend pas les paquets installés dignes de confiance.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-3">
-        <h2 id="section-3">Les limites de la protection</h2>
-        <p>AV protège les identifiants pris en charge et contrôle les opérations prises en charge face au code exécuté avec vos droits. Les wrappers n’interceptent pas toutes les commandes, et installer un paquet ne le rend pas sûr. Une compromission de root ou du noyau, les destructions locales arbitraires et le comportement d’un Target après réception d’un Secret restent hors de cette limite.</p>
+        <h2 id="section-3">À qui s’adresse Automic Vault</h2>
+        <p>Automic Vault s’adresse aux développeurs qui utilisent des outils CLI sur macOS depuis un terminal, un éditeur ou un agent de programmation. Vous choisissez les opérations prises en charge qui sont autorisées et celles qui nécessitent votre approbation.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-4">
-        <h2 id="section-4">Limite d&#x27;exécution locale</h2>
-        <p>Automic Vault sépare les fichiers lisibles par un agent des identifiants transmis uniquement aux outils approuvés. Le contrôle vit dans le chemin d&#x27;exécution sur Mac, pas seulement dans une consigne d&#x27;agent.</p>
+        <h2 id="section-4">La personne derrière Automic Vault</h2>
+        <p>Je suis Max Howell. J’ai créé Homebrew en 2009 pour faciliter l’installation des outils de développement. Avec Automic Vault, je travaille sur les identifiants et les permissions de ces outils, en particulier lorsqu’un agent de programmation les exécute pour vous.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-5">
-        <h2 id="section-5">Homebrew et CLI</h2>
-        <p>Beaucoup d&#x27;outils développeur arrivent par Homebrew, npm, PyPI et les CLI cloud. Vault détecte les fichiers d&#x27;identifiants et les actions risquées laissés par ces outils, puis place l&#x27;approbation au bon endroit.</p>
+        <h2 id="section-5">Informations clés</h2>
+        <p>Produit : Automic Vault. Créateur : Max Howell. Plateforme : macOS. Fonctions principales : durcir les outils CLI pris en charge, protéger les identifiants et autoriser leur utilisation. Le code source est disponible sur GitHub sous licence Apache-2.0. La documentation explique l’installation et les limites de la protection.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-6">
-        <h2 id="section-6">Étapes suivantes</h2>
-        <p>Lancez d&#x27;abord le scanner, déplacez les secrets pris en charge vers un stockage local protégé et gardez Automic Vault actif pour recevoir les nouveaux avis de danger.</p>
+        <h2 id="section-6">Automic Vault remplace-t-il mes commandes ?</h2>
+        <p>Vous gardez vos commandes habituelles après le durcissement d’un outil pris en charge. Selon l’outil, Automic Vault modifie sa configuration ou installe un wrapper ou une version modifiée pour que les opérations protégées demandent une autorisation.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-7">
-        <h2 id="section-7">Ce qui change après installation</h2>
-        <p>Les CLI habituelles continuent de fonctionner. La différence est que les secrets ne restent pas dans de simples fichiers de configuration; ils sont transmis seulement à l&#x27;exécution approuvée qui en a besoin.</p>
+        <h2 id="section-7">Protège-t-il tous les outils ?</h2>
+        <p>Non. La couverture dépend de l’outil et de l’opération pris en charge. Consultez la documentation des Hardeners pour connaître la protection de chaque intégration.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-8">
-        <h2 id="section-8">Avec un coffre central</h2>
-        <p>1Password, HashiCorp Vault et les systèmes cloud peuvent rester la source de vérité. Automic Vault protège le moment local où un outil Mac veut utiliser ces valeurs.</p>
+        <h2 id="section-8">Place-t-il mon agent dans une sandbox ?</h2>
+        <p>Non. Automic Vault contrôle les identifiants protégés et les opérations prises en charge ; il n’intercepte pas toutes les commandes et n’empêche pas toute destruction locale. Un exécutable autorisé peut encore divulguer un identifiant après l’avoir reçu.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-9">
-        <h2 id="section-9">Pages liées</h2>
-        <p>Documentation, téléchargement, scanner de secrets et catalogue de paquets montrent le parcours complet: détection, durcissement, approbation et surveillance continue du poste développeur.</p>
+        <h2 id="section-9">Les limites de la protection</h2>
+        <p>AV protège les identifiants pris en charge et contrôle les opérations prises en charge face au code exécuté avec vos droits. Les wrappers n’interceptent pas toutes les commandes, et installer un paquet ne le rend pas sûr. Une compromission de root ou du noyau, les destructions locales arbitraires et le comportement d’un Target après réception d’un Secret restent hors de cette limite.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-10">
-        <h2 id="section-10">Surveillance continue</h2>
-        <p>Nouveaux paquets, outils obsolètes et fichiers de configuration recréés peuvent ramener des risques après la première correction. Automic Vault reste actif et signale les nouveaux dangers.</p>
+        <h2 id="section-10">Limite d&#x27;exécution locale</h2>
+        <p>Automic Vault sépare les fichiers lisibles par un agent des identifiants transmis uniquement aux outils approuvés. Le contrôle vit dans le chemin d&#x27;exécution sur Mac, pas seulement dans une consigne d&#x27;agent.</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-11">
-        <h2 id="section-11">Signaux de confiance</h2>
-        <p>Le dépôt public, la page sécurité, la licence et le contexte Homebrew de Max Howell sont liés. Une limite de sécurité locale doit pouvoir être vérifiée.</p>
+        <h2 id="section-11">Homebrew et CLI</h2>
+        <p>Beaucoup d&#x27;outils développeur arrivent par Homebrew, npm, PyPI et les CLI cloud. Vault détecte les fichiers d&#x27;identifiants et les actions risquées laissés par ces outils, puis place l&#x27;approbation au bon endroit.</p>
       </section>
 
       <section class="closing-cta landing-page-cta" aria-labelledby="final-title">
