@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quickstart to Launcher Bundles | Automic Vault Blog</title>
+  <meta name="description" content="Give an unsigned native CLI a verified identity on macOS. Create a Launcher Bundle, check its command, and choose the operations it may perform.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="Quickstart to Launcher Bundles">
+  <meta property="og:description" content="Give an unsigned native CLI a verified identity on macOS. Create a Launcher Bundle, check its command, and choose the operations it may perform.">
+  <meta property="og:url" content="https://www.automicvault.com/blog/quickstart-to-launcher-bundles/">
+  <meta property="og:image" content="https://www.automicvault.com/assets/blog/quickstart-to-launcher-bundles/enrolled.jpg">
+  <meta property="article:published_time" content="2026-09-23">
+  <meta property="article:modified_time" content="2026-09-23">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.automicvault.com/assets/blog/quickstart-to-launcher-bundles/enrolled.jpg">
+  <meta name="twitter:title" content="Quickstart to Launcher Bundles">
+  <meta name="twitter:description" content="Give an unsigned native CLI a verified identity on macOS. Create a Launcher Bundle, check its command, and choose the operations it may perform.">
+  <link rel="canonical" href="https://www.automicvault.com/blog/quickstart-to-launcher-bundles/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.automicvault.com/#organization",
+        "name": "Automic Vault",
+        "url": "https://www.automicvault.com/",
+        "logo": "https://www.automicvault.com/assets/icon@2x.webp?v=3",
+        "sameAs": [
+          "https://github.com/automic-vault/automic-vault",
+          "https://github.com/automic-vault/automic-vault",
+          "https://mxcl.dev/",
+          "https://brew.sh/"
+        ]
+      },
+      {
+        "@type": "BlogPosting",
+        "@id": "https://www.automicvault.com/blog/quickstart-to-launcher-bundles/#article",
+        "headline": "Quickstart to Launcher Bundles",
+        "description": "Give an unsigned native CLI a verified identity on macOS. Create a Launcher Bundle, check its command, and choose the operations it may perform.",
+        "image": "https://www.automicvault.com/assets/blog/quickstart-to-launcher-bundles/enrolled.jpg",
+        "datePublished": "2026-09-23",
+        "dateModified": "2026-09-23",
+        "author": {"@id": "https://www.automicvault.com/#organization"},
+        "publisher": {"@id": "https://www.automicvault.com/#organization"},
+        "mainEntityOfPage": {"@id": "https://www.automicvault.com/blog/quickstart-to-launcher-bundles/#webpage"},
+        "about": [
+          "macOS security",
+          "command-line tool security",
+          "AI agent security",
+          "Automic Vault"
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.automicvault.com/blog/quickstart-to-launcher-bundles/#webpage",
+        "url": "https://www.automicvault.com/blog/quickstart-to-launcher-bundles/",
+        "name": "Quickstart to Launcher Bundles",
+        "description": "Give an unsigned native CLI a verified identity on macOS. Create a Launcher Bundle, check its command, and choose the operations it may perform.",
+        "isPartOf": {"@id": "https://www.automicvault.com/blog/#blog"},
+        "breadcrumb": {"@id": "https://www.automicvault.com/blog/quickstart-to-launcher-bundles/#breadcrumb"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.automicvault.com/blog/quickstart-to-launcher-bundles/#breadcrumb",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Automic Vault", "item": "https://www.automicvault.com/"},
+          {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.automicvault.com/blog/"},
+          {"@type": "ListItem", "position": 3, "name": "Quickstart to Launcher Bundles", "item": "https://www.automicvault.com/blog/quickstart-to-launcher-bundles/"}
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico?v=5" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+</head>
+<body>
+  <div class="scroll-meter" aria-hidden="true"><span></span></div>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home">
+        <img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="Automic Vault" width="54" height="54">
+        <span class="brand-type">Automic Vault</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="https://pkg.so/">Packages</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/docs/">Docs</a>
+        <a href="/Automic%20Vault.dmg">Download</a>
+        <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <header class="article-hero">
+          <div class="article-hero-copy">
+            <p class="eyebrow">CLI identity · Quickstart</p>
+            <h1>Quickstart to Launcher Bundles</h1>
+            <p class="lede">Give an unsigned command-line tool an identity you can use in Automic Vault policy, while keeping its ordinary command.</p>
+          </div>
+        </header>
+        <div class="incident-body">
+          <p class="story-kicker">September 23, 2026</p>
+          <p>You have a CLI harness that starts agents, runs developer tools, and needs access to protected credentials. You want to let it read from GitHub without letting it push changes or print your token. Automic Vault can make those distinctions, but first it needs to verify which software initiated the operation.</p>
+          <p>An unsigned executable at a familiar path cannot provide that identity. Other code running as you may be able to replace the file. If we trusted its filename, the replacement would inherit the same authority.</p>
+          <p>With a <strong>Launcher Bundle</strong>, we package one fixed native executable in a signed macOS app, enable Hardened Runtime, and enroll that exact generation. You review the artifact once. Automic Vault rechecks its identity and integrity whenever it requests a gated operation.</p>
+
+          <section class="incident-section" aria-labelledby="need">
+            <div class="section-label"><h2 id="need">Do you need one?</h2></div>
+            <p>Use a Launcher Bundle for an unsigned native CLI that you want to treat as a Launcher: the software at the root of an operation’s verified launch chain. Agent harnesses and long-running command-line automation are useful examples.</p>
+            <p>An eligible vendor-signed app or standalone CLI can already qualify as a Verified Launcher. Check the executable with <code>av doctor &lt;command&gt;</code> before bundling it.</p>
+            <p>The bundle creator accepts <strong>one Mach-O executable</strong>, the native macOS binary format. It does not package shell scripts, JavaScript or Python source, or a directory of dependencies. Bundling an interpreter would identify the interpreter, without authenticating the mutable code it loads.</p>
+            <p>You need Automic Vault and its installed <code>av</code> CLI. Creating a bundle requires no Apple Developer account or signing certificate. Installation requires administrator authorization.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="create">
+            <div class="section-label"><h2 id="create">1. Choose the executable</h2></div>
+            <p>Open <strong>Launcher Bundles</strong> in the Automic Vault sidebar and click <strong>+</strong> to create one. Choose the native CLI executable, then enter its <strong>Name</strong> and <strong>Command</strong>. The name labels the bundle; the command is what you will type in your shell.</p>
+            <p>These captures use <code>herdr</code>. Substitute your own executable. In the file picker, Command-Shift-G lets you enter a path such as <code>/opt/homebrew/bin/herdr</code>; Automic Vault resolves the symlink to its underlying executable.</p>
+            <figure>
+              <img src="/assets/blog/quickstart-to-launcher-bundles/create.jpg" alt="Create Launcher Bundle with herdr selected as the executable, name, and command; compatibility exceptions remain closed" width="500" height="377" loading="lazy" decoding="async">
+              <figcaption>Choose the executable and command name. Leave compatibility exceptions off unless your CLI needs them.</figcaption>
+            </figure>
+            <p>The compatibility options allow JIT compilation, unsigned executable memory, or disabled library validation. Enable an exception only when the CLI requires it. Disabling library validation lets third-party libraries and plug-ins run inside the Launcher and inherit its authority.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="review">
+            <div class="section-label"><h2 id="review">2. Prepare, review, and enroll</h2></div>
+            <p>Click <strong>Prepare</strong>. Automic Vault snapshots the executable and signs the payload and generated app with Hardened Runtime. Review the command, installation location, runtime settings, and entitlements before continuing.</p>
+            <figure>
+              <img src="/assets/blog/quickstart-to-launcher-bundles/review.jpg" alt="Bundle review showing herdr, its install location, Ad Hoc signing, Hardened Runtime, no entitlements, and source and final signed payload SHA-256 hashes" width="500" height="476" loading="lazy" decoding="async">
+              <figcaption>Review the completed candidate before choosing Install &amp; Enroll.</figcaption>
+            </figure>
+            <p>The two SHA-256 hashes describe different artifacts: your selected source and the final signed payload. Signing changes the executable, so different hashes are expected. Automic Vault pins the final payload as part of enrollment.</p>
+            <p>Click <strong>Install &amp; Enroll</strong> and complete administrator authorization. Automic Vault installs the bundle under <code>/Applications/Automic Vault/</code> and its command link under <code>/usr/local/bin/</code>. Both are root-owned, with protection against ordinary user writes. If an unrelated command already occupies the link path, installation refuses to overwrite it.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="run">
+            <div class="section-label"><h2 id="run">3. Verify the command you will run</h2></div>
+            <p>Check the installed command from your shell:</p>
+            <pre><code>av doctor herdr</code></pre>
+            <p>Doctor checks the command link and its position in <code>PATH</code>. Another installation, such as the Homebrew original, might still resolve first. Correct that ordering before using the command, then run Doctor again.</p>
+            <p>Invoke <code>herdr</code> with its usual arguments. The command link starts the bundle’s launcher, which runs the fixed payload inside the app and forwards the arguments and exit result.</p>
+            <figure>
+              <img src="/assets/blog/quickstart-to-launcher-bundles/enrolled.jpg" alt="Launcher Bundles sidebar showing an enrolled herdr bundle, Ad Hoc signing, managed installation path, command link, and pinned hashes" width="860" height="578" loading="lazy" decoding="async">
+              <figcaption>An existing enrolled herdr generation. Its hashes differ from the newer candidate shown above.</figcaption>
+            </figure>
+            <p>The original executable remains separate. Updating or invoking that original does not update the bundle or give it the bundle’s identity.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="policy">
+            <div class="section-label"><h2 id="policy">4. Choose its access at each gate</h2></div>
+            <p>Enrollment lets the running bundle qualify as a <strong>Verified Launcher</strong>. Automic Vault then applies each Authorization Gate’s existing default, or a matching Launcher-specific rule. Enrollment does not grant unrestricted credential access.</p>
+            <p>Open <strong>Authorization Gates</strong>, select the relevant Tool, and add the installed bundle from <code>/Applications/Automic Vault/</code> to its Launcher-specific policy. Choose the narrowest Access Level that covers the work.</p>
+            <p>For example, after hardening <code>gh</code>, give the bundle <strong>Read Only</strong> access at the GitHub gate. Recognized reads can proceed under policy; writes and raw token disclosure still require Approval. Choose <strong>Approval Required</strong> if you want a human decision for each request. Unknown operations require Approval at every Access Level.</p>
+            <p>Bundling the harness and hardening the tools it invokes address different parts of the workflow. The bundle gives the harness a verifiable identity. Tool hardening brings supported credential use through an Authorization Gate.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="mechanics">
+            <div class="section-label"><h2 id="mechanics">What we check under the hood</h2></div>
+            <p>Automic Vault uses ad-hoc signing to seal this exact build and enable Hardened Runtime. Hardened Runtime reduces code-injection risk through macOS runtime protections, subject to the compatibility exceptions you accepted. The signature does not establish a publisher identity. We keep separate enrollment evidence in the app’s Data Protection Keychain, binding the bundle generation, signed code identities, final payload digest, and accepted runtime protections.</p>
+            <p>At launch, the small runner starts its fixed payload suspended. It checks the child’s live code identity against the identity sealed into the runner, then allows execution. It never searches <code>PATH</code> for a replacement payload.</p>
+            <p>At authorization time, Automic Vault checks the live process, nested signatures, enrolled generation, payload digest, managed location, and runtime protections again. A changed, moved, re-signed, or unenrolled bundle fails these checks. Automic Vault denies its request instead of falling back to an Approval prompt.</p>
+            <p>After verification, Automic Vault evaluates the complete operation: the Launcher, Gate Client, Target, command, arguments, working directory, requested Secret Names, and selected Secret Value sources. Before releasing a protected Secret, it persists and verifies an Authorization Record.</p>
+            <p>A payload that daemonizes can continue representing its own enrolled bundle after the runner exits, provided its exact live identity still verifies. You do not need to enable detached-process access for this.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="updates">
+            <div class="section-label"><h2 id="updates">Update through a new generation</h2></div>
+            <p>To update, create a bundle with the same name from the new executable and review it again. After successful replacement, Automic Vault revokes the old enrollment and its Launcher-specific rules, and moves the old bundle to Trash. Gate defaults apply to the new generation until you set its Launcher-specific rules.</p>
+            <p>We require that review because you are delegating authority to a particular artifact. An upstream update should not inherit the old generation’s exceptions and grants without your decision.</p>
+            <p>Code signing establishes identity and integrity, not intent. You still need to trust the executable, its configuration, plug-ins, and the work you ask it to do. A Launcher Bundle does not sandbox every command or make a Target keep a Secret confidential after receiving it.</p>
+            <p>For the exact requirements, see <a href="https://github.com/automic-vault/automic-vault/blob/main/docs/signed-cli-launchers.md">Signed CLI Launchers</a>, the canonical <a href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md#launcher-bundle">Launcher Bundle definition</a>, and the <a href="https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md#launcher-packaging">Launcher Packaging architecture</a>.</p>
+          </section>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; 2026 Automic Vault.</p>
+      <div class="footer-links">
+        <a href="/about/">About</a>
+        <a href="https://github.com/automic-vault/automic-vault/security">Security</a>
+        <a href="/blog/">Blog</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/app.js?v=26"></script>
+</body>
+</html>

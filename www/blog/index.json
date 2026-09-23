@@ -5,6 +5,12 @@
   "feed_url": "https://www.automicvault.com/blog/index.json",
   "items": [
     {
+      "id": "https://www.automicvault.com/blog/quickstart-to-launcher-bundles/",
+      "url": "https://www.automicvault.com/blog/quickstart-to-launcher-bundles/",
+      "title": "Quickstart to Launcher Bundles",
+      "content_text": "Quickstart to Launcher Bundles"
+    },
+    {
       "id": "https://www.automicvault.com/blog/automic-vault-vs-aws-secrets-manager/",
       "url": "https://www.automicvault.com/blog/automic-vault-vs-aws-secrets-manager/",
       "title": "Automic Vault vs AWS Secrets Manager",
