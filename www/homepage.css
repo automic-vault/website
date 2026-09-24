@@ -54,7 +54,7 @@ section[id] { scroll-margin-top: 95px; }
 .brew-hero-note { margin-top: 22px; font: 10px/1.8 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
 .brew-hero-proof { margin: 24px auto 0; }
 .brew-hero-proof .brew-hero-summary { margin-top: 0; }
-.brew-hero-preview { display: block; width: min(100%, 520px); margin: 24px auto 0; }
+.brew-hero-preview { display: block; width: min(100%, 624px); margin: 24px auto 0; }
 .aws-demo { padding: 0 64px 80px; }
 .demo-desktop { position: relative; height: 540px; overflow: hidden; border: 1px solid #4a4850; border-radius: 26px; background: radial-gradient(ellipse at 10% 100%, #302244, transparent 60%), radial-gradient(ellipse at 90% 0%, #393440, transparent 60%), #121216; box-shadow: 0 32px 80px #0008; }
 .demo-menubar { display: flex; justify-content: space-between; padding: 10px 20px; background: #ffffff06; border-bottom: 1px solid #ffffff0a; font-size: 11px; color: #d5d3da; }

@@ -141,5 +141,5 @@ Homepage Japanese and Simplified Chinese use platform sans-serif fallbacks;
 Japanese emphasis uses color or weight, without synthetic italics.
 
 The hero keeps its headline, supporting copy, and actions on one central axis.
-A centered overview screenshot sits underneath at up to 520px wide, linked to the
+A centered overview screenshot sits underneath at up to 624px wide, linked to the
 original lossless WebP. Reduced top spacing brings the preview into the first screen.
