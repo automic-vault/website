@@ -400,7 +400,9 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             home = (ROOT / "www" / locale / "index.html").read_text(encoding="utf-8")
             main = home.split('<main ', 1)[1].split('</main>', 1)[0]
             with self.subTest(locale=locale):
-                self.assertIn('homepage.css?v=12', home)
+                self.assertIn('homepage.css?v=13', home)
+                hero = main.split('</section>', 1)[0]
+                self.assertIn('src="/assets/overview-light.webp"', hero)
                 ids = set(re.findall(r'\bid="([^"]+)"', home))
                 self.assertTrue(set(re.findall(r'href="#([^"]+)"', home)) <= ids)
                 self.assertEqual(re.findall(r'<code>(.*?)</code>', main),
