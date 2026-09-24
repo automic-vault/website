@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>uv hardener — Automic Vault</title>
+  <meta name="description" content="How Automic Vault 4.12.1 hardens uv.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="uv hardener">
+  <meta property="og:description" content="How Automic Vault 4.12.1 hardens uv.">
+  <meta property="og:url" content="https://www.automicvault.com/docs/hardeners/uv/">
+  <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="uv hardener">
+  <meta name="twitter:description" content="How Automic Vault 4.12.1 hardens uv.">
+  <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
+  <link rel="canonical" href="https://www.automicvault.com/docs/hardeners/uv/">
+  <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/hardeners/uv/index.md">
+  <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/uv/","headline":"uv hardener","description":"How Automic Vault 4.12.1 hardens uv.","dateModified":"2026-09-13","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.12.1","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico?v=5" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+  <link rel="stylesheet" href="/docs/styles.css?v=5">
+</head>
+<body>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home"><img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54"><span class="brand-type">Automic Vault</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span></button>
+      <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
+    </header>
+    <main>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.12.1 · macOS</p><h1>uv hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the uv hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/hardeners/uv/index.md">Markdown</a></li></ul></div></header>
+      <div class="docs-layout">
+        <nav class="docs-toc" aria-label="Documentation sections">
+          <a class="docs-toc-title" href="/docs/">Manual</a>
+          <section class="docs-nav-group">
+            <h2>Documentation</h2>
+            <ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/security/">Security foundations</a></li><li><a href="/docs/app/">App guide</a></li><li><a href="/docs/authority/">Approval and authority</a></li><li><a href="/docs/cli/">CLI reference</a></li><li><a href="/docs/workflows/">Workflows</a></li><li><a href="/docs/reentrant-scripts/">Reentrant scripts</a></li><li><a href="/docs/troubleshooting/">Troubleshooting</a></li><li><a href="/docs/hardeners/" aria-current="page">Hardeners</a></li></ul>
+          </section>
+          <section class="docs-nav-group">
+            <h2>On this page</h2>
+            <ul><li class="docs-nav-depth-2"><a href="#reviewed-credential-consuming-commands">Reviewed
+credential-consuming commands</a></li></ul>
+          </section>
+        </nav>
+        <article class="docs-content"><h1 id="uv-hardener">uv hardener</h1>
+<p>Run <code>av harden uv</code> to apply this hardener and
+<code>av doctor uv</code> to verify it.</p>
+<p><code>av harden uv</code> installs the reviewed official
+<code>uv 0.12.12</code> executable under
+<code>/opt/av/uv/0.12.12</code>, preserving its Developer ID signature
+and Hardened Runtime. It installs root-owned <code>uv</code> and
+<code>uvx</code> launchers and a private <code>keyring</code> helper. AV
+pins both the upstream archive and executable SHA-256 for arm64 and
+x86_64. Updating the supported release requires another command-surface
+review.</p>
+<p>The Hardener imports the selected plaintext
+<code>credentials.toml</code> into the protected
+<code>UV_CREDENTIALS</code> Secret. This contains HTTP Basic
+credentials, including tokens with the <code>__token__</code> username.
+Service paths and usernames remain distinct. Unknown formats, HTTP
+services, bearer authentication, and duplicate entries are rejected
+before migration. Existing AV values must match exactly; AV never
+silently replaces them. The plaintext source is removed only after the
+official installation verifies and the source still matches the imported
+snapshot.</p>
+<p>Native Keychain credentials, <code>.netrc</code>, URL credentials,
+environment credentials, and other stores are not migrated. Those remain
+independent Exposures and must be removed or migrated separately.
+Hardening this store does not certify the absence of ambient
+credentials. <code>uv auth login</code> still manages upstream stores;
+it does not add credentials to AV custody.</p>
+<p>Private indexes must provide a username (including
+<code>__token__</code> for token credentials), or set
+<code>authenticate = "always"</code> on the index. For example:</p>
+<pre class="toml"><code>[[tool.uv.index]]
+name = &quot;private&quot;
+url = &quot;https://packages.example.com/simple/&quot;
+authenticate = &quot;always&quot;</code></pre>
+<p>The launcher enables <code>UV_KEYRING_PROVIDER=subprocess</code>. uv
+otherwise skips subprocess lookup when no username is known. An explicit
+CLI provider override can disable this integration. Registry URLs and
+usernames are configuration; passwords remain in AV custody. No Python
+keyring installation is required.</p>
+<p>The launcher registers the complete arguments, initial working
+directory, and live process with the menu app. Registration returns a
+random nonce and grants no Secret Use. When uv requests a credential,
+the menu app verifies the helper's original parent, registered PID/start
+time/user/audit session, exact arguments, pinned live code identity,
+Hardened Runtime, and current working directory. It binds the first
+helper request to the Target's PID version, so another <code>exec</code>
+cannot reuse the registration. Every credential request then goes
+through the uv Authorization Gate and recording before release. The
+nonce alone grants no authority. Unregistered and sibling processes
+cannot use the registration. A direct child of uv can replace itself
+with the signed helper and preserve its parent relationship. The nonce
+binds the full operation; it does not isolate Python or package code
+inside that operation. Even <code>pip list</code> can execute a selected
+Python interpreter, so these command families are Unknown and require
+Approval.</p>
+<p>The keyring helper receives only the selected username/password,
+never the credential bundle. Selection requires HTTPS, the same host and
+port, a service path prefix at a segment boundary, and a matching
+username when specified. The most specific path wins; ambiguous
+usernames fail closed. Scheme-less host fallback is rejected to prevent
+an HTTP request from obtaining an HTTPS Secret.</p>
+<p>The uv Gate defaults to Approval Required. No Python-capable
+operation can be automically authorized, even under Full Access.
+<code>publish</code> can be authorized by a Write Access policy because
+it uploads existing distributions without running a selected Python
+interpreter.</p>
+<h2 id="reviewed-credential-consuming-commands">Reviewed
+credential-consuming commands</h2>
+<p>Reviewed against <a
+href="https://github.com/astral-sh/uv/tree/0.12.12">uv 0.12.12</a>: the
+<a
+href="https://github.com/astral-sh/uv/blob/0.12.12/crates/uv-cli/src/lib.rs">command
+surface</a>, <a
+href="https://github.com/astral-sh/uv/blob/0.12.12/crates/uv-auth/src/keyring.rs">keyring
+protocol</a>, and <a
+href="https://github.com/astral-sh/uv/blob/0.12.12/crates/uv-python/src/interpreter.rs">Python
+interpreter execution</a>. Registration occurs only for these command
+families. A command that does not actually request keyring credentials
+produces no Secret Use or Approval.</p>
+<table>
+<thead>
+<tr>
+<th>Commands</th>
+<th>Classification</th>
+<th>Credential use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add</code>, <code>remove</code>, <code>sync</code>,
+<code>lock</code>, <code>upgrade</code>, <code>tree</code>,
+<code>export</code>, <code>audit</code></td>
+<td>Unknown; Approval Required</td>
+<td>Resolve dependencies and update project/lock state</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>Unknown; Approval Required</td>
+<td>Version changes may re-lock and sync</td>
+</tr>
+<tr>
+<td><code>venv</code> / <code>virtualenv</code> / <code>v</code></td>
+<td>Unknown; Approval Required</td>
+<td>Install seed packages</td>
+</tr>
+<tr>
+<td><code>pip compile</code>, <code>pip install</code>,
+<code>pip sync</code>, <code>pip uninstall</code></td>
+<td>Unknown; Approval Required</td>
+<td>Resolve/install packages or fetch remote requirements</td>
+</tr>
+<tr>
+<td><code>pip list</code> / <code>pip ls</code>, <code>pip tree</code>,
+<code>tool list</code> / <code>tool ls</code></td>
+<td>Unknown; Approval Required</td>
+<td>Look up outdated package versions</td>
+</tr>
+<tr>
+<td><code>tool install</code>, <code>tool upgrade</code> /
+<code>tool update</code></td>
+<td>Unknown; Approval Required</td>
+<td>Resolve and install tools</td>
+</tr>
+<tr>
+<td><code>run</code>, <code>tool run</code> / <code>uvx</code>,
+<code>check</code>, <code>build</code></td>
+<td>Unknown; Approval Required</td>
+<td>Resolve dependencies before running arbitrary code</td>
+</tr>
+<tr>
+<td><code>publish</code></td>
+<td>Remote Write</td>
+<td>Upload packages</td>
+</tr>
+</tbody>
+</table>
+<p>Help, version display, auth commands, cache, Python management,
+workspace inspection, local pip inspection, <code>init</code>,
+<code>format</code>, tool removal, and unknown commands receive no
+registration. Unknown leading global options fail without AV
+credentials. CLI options and alternate providers may disable the helper,
+but cannot retrieve the protected Secret. <code>uv auth token</code> has
+no AV credential store to dump. AV does not constrain a Target after it
+receives a credential. uv's mutable configuration, TLS exceptions,
+custom certificate roots, and proxies remain under its control. HTTPS
+scope matching does not independently verify its TLS connection. See <a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/adr/0046-uv-registered-keyring-helper.md">ADR
+0046</a>.</p>
+<p><code>av doctor uv</code> verifies the pinned executable, protected
+installation paths, exact launchers, and private helper. Other
+installations remain callable, but cannot use this credential helper
+without a registered operation.</p>
+<p>The <a
+href="https://github.com/automic-vault/automic-vault/blob/main/scripts/check-uv-keyring.py">dummy-only
+keyring probe</a> verifies both upstream response formats, direct parent
+identity, plaintext schema, and <code>auth token</code> exclusion. It
+does not exercise AV's signed XPC boundary.</p>
+<p class="docs-source-link"><a href="/docs/hardeners/uv/index.md">Read this page as Markdown</a></p></article>
+      </div>
+    </main>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/uv/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.12.1 manual</span></div></footer>
+  </div>
+  <script src="/app.js?v=26"></script>
+</body>
+</html>

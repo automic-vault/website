@@ -278,6 +278,10 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         sources = sorted((ROOT.parent / "av" / "src" / "isotopes" / "hardeners").glob("*.md"))
 
         self.assertEqual(len(pages), len(sources))
+        uv = (hardeners / "uv" / "index.md").read_text(encoding="utf-8")
+        self.assertIn("`av harden uv`", uv)
+        self.assertIn("`av doctor uv`", uv)
+        self.assertNotIn("av harden uv-cli", uv)
         catalog = (hardeners / "index.html").read_text(encoding="utf-8")
         for page in pages:
             name = page.name

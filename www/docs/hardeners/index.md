@@ -33,5 +33,6 @@ av doctor TOOL
 - [Supabase](./supabase/) — `av harden supabase`
 - [Terraform](./terraform/) — `av harden terraform`
 - [Uaa Cli](./uaa-cli/) — `av harden uaa-cli`
+- [uv](./uv/) — `av harden uv`
 - [Wakatime Cli](./wakatime-cli/) — `av harden wakatime-cli`
 - [Wrangler](./wrangler/) — `av harden wrangler`

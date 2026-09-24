@@ -9,16 +9,22 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const avRoot = path.resolve(root, "../av");
 const docsDir = path.join(root, "www", "docs");
 const manual = readFileSync(path.join(root, "scripts", "docs-manual.md"), "utf8");
-const version = manual.match(/Automic Vault ([\d.]+) on/)?.[1];
+let version = manual.match(/Automic Vault ([\d.]+) on/)?.[1];
 
 if (!version) throw new Error("Could not read the documented version");
 
 const manifest = path.join(avRoot, "Cargo.toml");
 const sourceVersion = readFileSync(manifest, "utf8").match(/^version = "([\d.]+)"/m)?.[1];
+const args = process.argv.slice(2);
+if (args.length && (args.length !== 2 || args[0] !== "--hardener")) {
+  throw new Error("Usage: generate-docs.mjs [--hardener NAME]");
+}
+const selectedHardener = args[1];
+if (selectedHardener) version = sourceVersion;
 if (sourceVersion !== version) throw new Error(`Manual is ${version}, but sibling checkout is ${sourceVersion}`);
 
 const hardenerSourceDir = path.join(avRoot, "src", "isotopes", "hardeners");
-const sourceNames = { aws_cli: "aws", gh_cli: "gh", homebrew: "brew", oxide_cli: "oxide-cli", stripe_cli: "stripe" };
+const sourceNames = { aws_cli: "aws", gh_cli: "gh", homebrew: "brew", oxide_cli: "oxide-cli", stripe_cli: "stripe", uv_cli: "uv" };
 const hardeners = readdirSync(hardenerSourceDir)
   .filter(filename => filename.endsWith(".md"))
   .sort()
@@ -31,6 +37,10 @@ const hardeners = readdirSync(hardenerSourceDir)
           `](${new URL(href, "https://github.com/automic-vault/automic-vault/blob/main/src/isotopes/hardeners/")})`),
     };
   });
+
+if (selectedHardener && !hardeners.some(({ name }) => name === selectedHardener)) {
+  throw new Error(`Unknown hardener: ${selectedHardener}`);
+}
 
 const pages = [
   {
@@ -139,7 +149,7 @@ function titleCase(name) {
     "netlify-cli": "Netlify CLI", node: "npm", pnpm: "pnpm", "qwen-code": "Qwen Code",
     "runpodctl": "RunPod CLI", s3cmd: "s3cmd", "sentry-cli": "Sentry CLI", goat: "goat",
     "snowflake-cli": "Snowflake CLI", stripe: "Stripe CLI", sudo: "sudo", supabase: "Supabase",
-    "transifex-cli": "Transifex CLI", vault: "HashiCorp Vault", ordercli: "ordercli",
+    "transifex-cli": "Transifex CLI", vault: "HashiCorp Vault", uv: "uv", ordercli: "ordercli",
     "oxide-cli": "Oxide CLI", opentofu: "OpenTofu",
     "virustotal-cli": "VirusTotal CLI", vultr: "Vultr CLI", wsk: "OpenWhisk",
   };
@@ -246,9 +256,9 @@ function htmlPage({ slug, title, lede, description, markdown, dateModified = "20
 `;
 }
 
-rmSync(path.join(docsDir, "hardeners"), { recursive: true, force: true });
+if (!selectedHardener) rmSync(path.join(docsDir, "hardeners"), { recursive: true, force: true });
 
-for (const page of pages) {
+for (const page of selectedHardener ? [] : pages) {
   const dir = path.join(docsDir, page.slug);
   const markdown = section(page.start, page.end);
   mkdirSync(dir, { recursive: true });
@@ -284,6 +294,7 @@ writeFileSync(path.join(hardenerIndex, "index.html"), htmlPage({
 }));
 
 for (const hardener of hardeners) {
+  if (selectedHardener && hardener.name !== selectedHardener) continue;
   const slug = `hardeners/${hardener.name}`;
   const dir = path.join(docsDir, slug);
   const documentation = hardener.documentation.trim().replace(/^# [^\n]+\n+/, "");
@@ -304,4 +315,4 @@ ${documentation}
   }));
 }
 
-console.log(`Generated ${pages.length} manual pages and ${hardeners.length} hardener pages.`);
+console.log(`Generated ${selectedHardener ? 0 : pages.length} manual pages and ${selectedHardener ? 1 : hardeners.length} hardener pages.`);
