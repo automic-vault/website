@@ -37,7 +37,7 @@ section[id] { scroll-margin-top: 95px; }
 .brew-download { min-height: 32px; padding: 5px 16px; font-size: 12px; }
 .brew-download:hover, .brew-cta:hover { background: #7130e5; }
 .brew-usecases { max-width: 1152px; margin: auto; }
-.brew-hero { position: relative; padding: 94px 40px 88px; text-align: center; isolation: isolate; }
+.brew-hero { position: relative; padding: 48px 40px 64px; text-align: center; isolation: isolate; }
 .brew-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(#72707d55 .8px, transparent 1px) 0 0 / 24px 24px; mask-image: radial-gradient(ellipse at 50% 25%, black, transparent 72%); }
 .brew-eyebrow { font: 10px/1.6 var(--mono); letter-spacing: .13em; text-transform: uppercase; color: var(--muted); }
 .brew-hero .brew-eyebrow::before, .live-dot { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-right: 10px; vertical-align: middle; }
@@ -52,9 +52,9 @@ section[id] { scroll-margin-top: 95px; }
 .brew-text-link { display: inline-block; color: var(--muted); font-size: 14px; }
 .brew-text-link span { margin-left: 6px; }
 .brew-hero-note { margin-top: 22px; font: 10px/1.8 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
-.brew-hero-proof { display: grid; grid-template-columns: minmax(0, 580px) 280px; align-items: center; gap: 40px; max-width: 900px; margin: 30px auto 0; }
+.brew-hero-proof { margin: 24px auto 0; }
 .brew-hero-proof .brew-hero-summary { margin-top: 0; }
-.brew-hero-preview { display: block; }
+.brew-hero-preview { display: block; width: min(100%, 520px); margin: 24px auto 0; }
 .aws-demo { padding: 0 64px 80px; }
 .demo-desktop { position: relative; height: 540px; overflow: hidden; border: 1px solid #4a4850; border-radius: 26px; background: radial-gradient(ellipse at 10% 100%, #302244, transparent 60%), radial-gradient(ellipse at 90% 0%, #393440, transparent 60%), #121216; box-shadow: 0 32px 80px #0008; }
 .demo-menubar { display: flex; justify-content: space-between; padding: 10px 20px; background: #ffffff06; border-bottom: 1px solid #ffffff0a; font-size: 11px; color: #d5d3da; }
@@ -182,9 +182,7 @@ section[id] { scroll-margin-top: 95px; }
   .brew-github { display: none; }
   .brew-feature { gap: 32px; padding: 64px 24px; }
   .aws-demo { padding: 0 24px 48px; }
-  .brew-hero { padding: 72px 24px 64px; }
-  .brew-hero-proof { grid-template-columns: 1fr; gap: 24px; }
-  .brew-hero-preview { order: -1; width: 200px; justify-self: center; }
+  .brew-hero { padding: 40px 24px 48px; }
   .brew-footer { margin: 0 24px; }
   .demo-terminal { width: 90%; }
 }
@@ -196,7 +194,7 @@ section[id] { scroll-margin-top: 95px; }
   .brew-nav-links { display: none; }
   .brew-download { font-size: 10px; padding-inline: 12px; }
   .brew-brand { font-size: 13px; gap: 6px; }
-  .brew-hero { padding-top: 56px; }
+  .brew-hero { padding-top: 32px; }
   .brew-hero h1 { font-size: 42px; }
   .brew-hero-summary { font-size: 16px; }
   .brew-hero-note { font-size: 9px; }
