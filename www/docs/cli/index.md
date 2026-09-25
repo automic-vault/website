@@ -11,6 +11,8 @@ av inject -- <command>
 av inject --mode=fd +KEY:FD... -- <command>
 av proxy +KEY... [--] <command>
 av list
+av history [--json] [--since <duration>]
+av git <clone|fetch|pull|push> <URL> [DIRECTORY]
 av save [--multiline | --stdin] [--project-directory=DIR] KEY
 av harden <tool> [-y|--yes]
 av unharden brew [-y|--yes]
@@ -21,10 +23,7 @@ av --version
 ```
 
 Old v1 commands `install`, `contain`, `dotenv`, `credential-helper`, `gate`, and
-`trace` are not part of 4.8.2.
-
-The source after 4.8.2 also adds `av history [--json] [--since <duration>]`.
-It is not available in the 4.8.2 release.
+`trace` are not part of the current CLI.
 
 ### `av scan`
 
@@ -97,7 +96,6 @@ Input is nonempty UTF-8 without NUL bytes, at most 1 MiB. See
 
 ### `av history`
 
-This command was merged after 4.8.2 and is not part of that release.
 The menu bar app must be running; use `av open` before reading history.
 
 ```sh
@@ -117,6 +115,28 @@ Authorization History Access in Settings. This grant is independent of
 `av list`'s Secret Name Access. An unverifiable Launcher needs Approval. History
 contains request metadata and Secret
 Names, never Secret Values; it is not a tamper-proof audit trail.
+
+### `av git`
+
+```sh
+av git clone https://github.com/OWNER/REPO.git DIRECTORY
+av git fetch https://github.com/OWNER/REPO.git
+av git pull https://github.com/OWNER/REPO.git
+av git push https://github.com/OWNER/REPO.git
+```
+
+This constrained transport accepts exact GitHub HTTPS URLs ending in `.git` and
+operates on `main`. Only `clone` takes a destination argument; extra options and
+refspecs are rejected. It requires the protected Git runtime and hardened GitHub
+credential route. Its credential-bearing network phase uses protected
+configuration and the existing `gh` Secret Gate, separately from local
+repository work. Registration alone grants no credential authority.
+
+The architecture marks this transport as under validation. It is not a general
+replacement for Git. See the
+[Git transport design](https://github.com/automic-vault/automic-vault/blob/main/docs/adr/0047-protected-git-https-transport.md)
+and [workflow validation](https://github.com/automic-vault/automic-vault/blob/main/docs/git-workflow-testing.md)
+for the separate native remote-helper path and its supported surface.
 
 ### `av inject`
 
@@ -179,8 +199,10 @@ gh release create "$1"
 
 A blessable script is a regular UTF-8 file up to 1 MiB with absolute `av` and
 interpreter paths. The optional manifest immediately follows the shebang.
-Capabilities are ceilings, not grants. Execution uses a verified `/dev/fd/N`
-snapshot; `AV_SCRIPT_PATH` and `AV_SCRIPT_DIR` identify its canonical source.
+Capabilities are ceilings, not grants. Execution normally uses a verified
+`/dev/fd/N` snapshot; a separately reviewed canonical-path exception is described
+in the [Blessed Scripts guide](/docs/app/#blessed-scripts).
+`AV_SCRIPT_PATH` and `AV_SCRIPT_DIR` identify the canonical source.
 
 FD mode in an `av inject` shebang is currently unsupported. A Blessed Script
 can invoke `av inject --mode=fd` as a command, but each invocation still needs
@@ -209,8 +231,10 @@ av bless --endorse-launcher ./release.sh
 ```
 
 Approval binds the complete reviewed script. An endorsement allows only that
-Verified Launcher to use automic authorization; without it every run needs
-Approval. `--endorse-caller` is a compatibility alias. The UI inspects, narrows,
+Verified Launcher to use the Blessing's automic authority. Without an endorsement,
+the Blessing itself grants that Launcher no automic authority; any applicable
+inherited authority still follows the script's declaration. `--endorse-caller`
+is a compatibility alias. The UI inspects, narrows,
 replaces, and revokes Blessings.
 
 ### `av harden` and `av unharden brew`

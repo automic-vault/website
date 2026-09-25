@@ -1,10 +1,9 @@
 # Automic Vault manual
 
-This is the user and operator manual for Automic Vault 4.8.2 on macOS. The
-multiline input, exact-input saving, and FD delivery sections were checked
-against the 4.6.0 source on September 8, 2026. UI screenshots show 3.16.0;
-use the installed build's help and catalogs for its current command surface.
-The `av history` sections describe code merged after 4.8.2, not that release.
+This is the user and operator manual for Automic Vault 4.12.2 on macOS,
+checked against the source on September 25, 2026. UI screenshots show 3.16.0
+and illustrate older layouts; follow the text for current behavior. Use your
+installed build's help and catalogs to check its command surface.
 
 Automic Vault does more than store a Secret. It authorizes a complete operation:
 the Verified Launcher, Gate Client, Target, command and arguments, working
@@ -29,7 +28,9 @@ av help
 You may instead use the [latest release](https://github.com/automic-vault/automic-vault/releases/latest)
 or review the [website installer](https://www.automicvault.com/install.sh). The
 menu bar app owns Approval UI and Authorization Policy. Open it before an
-operation that needs Approval: `av open`.
+operation that needs Approval: `av open`. Complete the app's attended CLI
+installation when prompted; installing the protected CLI requires administrator
+authentication.
 
 ## Start here
 
@@ -58,7 +59,8 @@ av doctor gh
 
 The main window is an operator console for exposure, authority, live use, and
 evidence. Global search filters the selected destination; Refresh recomputes
-live state. The sidebar separates four jobs:
+live state. The Overview summarizes Findings, hardening, recent activity, and available
+updates. The sidebar separates four jobs:
 
 | Job | Destinations | Question answered |
 | --- | --- | --- |
@@ -116,11 +118,11 @@ transmit, or disclose that Value. Automic Vault narrows who may receive a Value
 and for which operation; it cannot retract a Value already delivered or promise
 that an authorized Target behaves well.
 
-An **Execution Gate** can authorize a privileged operation without releasing an
-ordinary Secret. GPG Signing is the clearest example: the private key stays in
-Custody and the caller receives a detached signature. A **Secret Gate** controls
-Secret Application and, only at stronger levels where defined, Disclosure or
-elevated use.
+An **Execution Gate** controls an operation without requiring a Secret;
+Homebrew is the current example. A **Secret Gate** controls Secret Application
+or Disclosure. GPG Signing is a Tool-specific Secret Gate: the signed `av gpg-sign`
+Target receives the private key, while Git and `av-gpg` receive only the detached
+signature.
 
 ### Identity and provenance
 
@@ -133,6 +135,13 @@ interpreter, replaced binary, incompatible entitlement, lost execution ancestry,
 or changed script can invalidate the route. A native Target or exact reviewed
 snapshot gives policy a stable object to revalidate. A shell leaves every child
 behind a broad interpreter boundary.
+
+When adding a Verified Launcher, Automic Vault may discover signed helpers sealed
+inside its app. Approving an association lets that exact helper represent the
+app wherever current or future Gate policy names the app. Discovery, a shared
+Team ID, or bundle containment alone grants no association. Review the
+cross-gate warning before enabling a helper; disable it to remove that
+association without changing the app's rules.
 
 ### Authority and decision sources
 
@@ -151,7 +160,8 @@ iPhone does not move execution or Custody to the phone.
 Defaults trade convenience for narrow authority:
 
 - new Secret Gates begin at **Read Only**;
-- GPG Signing begins at **Approval Required**;
+- GPG Signing and the optional SSH Agent Gate begin at **Approval Required**;
+- Homebrew begins at **Read & Update**, which excludes installs and upgrades;
 - Direct Secret Access begins at **Approval Required**;
 - Detached Processes is off;
 - proxy sessions always require Approval and keep rules only in memory;
@@ -258,8 +268,10 @@ inspect Authorization History to confirm the matching rule.
 
 **Failure modes.** A denial after an app or Tool update can mean the selected
 binary, code signature, runtime, or enrolled generation changed. A missing Gate
-can mean the Tool is not installed or its hardener has not established the route.
-Fix the Tool-specific Gate mismatch instead of substituting broad Direct Access.
+may reflect the installed build's catalog or UI state. Runtime Gate definitions
+come from the signed app's static catalog; a failed hardener diagnostic never
+moves a Tool-specific request to the Direct Secret Gate. Fix the Tool-specific
+mismatch instead of substituting broad Direct Access.
 
 ### Blessed Scripts
 
@@ -272,9 +284,12 @@ revoke or replace it.
 
 **Security basis.** Scripts are mutable text and usually run through a powerful
 interpreter. Automic Vault therefore approves a verified snapshot rather than
-trusting the filename. Execution uses a checked `/dev/fd/N` snapshot so a file
-cannot be swapped between verification and execution. `AV_SCRIPT_PATH` and
-`AV_SCRIPT_DIR` identify the canonical source.
+trusting the filename. Execution normally uses a checked `/dev/fd/N` snapshot.
+If the interpreter cannot execute that snapshot, you may accept canonical-path
+execution during Blessing review. That exception warns on every run because
+same-user code can edit the file between verification and execution. Existing
+Blessings need a new review to acquire it. `AV_SCRIPT_PATH` and `AV_SCRIPT_DIR`
+identify the canonical source.
 
 **Workflow.** Put the absolute `av inject` shebang first, place the optional
 Script Declaration immediately after it, review requested Secret Names and
@@ -289,6 +304,14 @@ Revocation removes policy but does not undo external actions from earlier runs.
 misuse every operation inside its approved ceiling, and an interpreter remains a
 large Target. Keep scripts short, deterministic, and narrow.
 
+Without a capabilities manifest, a script inherits its execution context's
+automic authority. `capabilities: { inherit: true }` makes this explicit.
+`capabilities: {}` instead blocks inherited automic authority, including Launcher
+policy, Direct Access Rules, outer Blessings, and Temporary Access Grants, for
+later gated operations attributable to that live execution. The script's own
+requested Secrets still need separate authorization. This ceiling does not
+sandbox ungated commands or survive loss of observable script ancestry.
+
 ### Launcher Bundles
 
 A Launcher Bundle packages one regular, single-file Mach-O CLI into a signed,
@@ -299,7 +322,7 @@ and signed-payload hashes, entitlements, and enrolled generation.
 [![Enrolled Launcher Bundle with installed command, pinned hashes, signing, and entitlements](/docs/assets/launcher-bundles.png)](/docs/assets/launcher-bundles.png)
 
 **Security basis.** A mutable developer CLI often lacks the stable app identity
-needed for launcher policy. Bundling creates an exact signed snapshot, installs
+needed for launcher policy. Bundling creates an exact ad-hoc-signed snapshot, installs
 it under protected ownership, and enrolls that generation. Automic Vault verifies
 the digest, signature, enrollment, and runtime again when it is used.
 
@@ -385,7 +408,7 @@ the **Decision source** and reason with current Gate policy. For a denial, fix t
 first mismatched invariant: Target, runtime, launcher, Value source, or operation.
 Do not widen every rule.
 
-**After 4.8.2:** `av history` reads the same local history
+`av history` reads the same local history
 through the signed CLI. It shows the newest 50 records by default; `--since 7d`
 selects a seven-day window. Each read requires Approval unless that exact
 Verified Launcher has Authorization History Access in its own Settings row.
@@ -393,13 +416,14 @@ The `av list` grant does not apply. See the [CLI reference](/docs/cli/#av-histor
 An unverifiable Launcher cannot use the automatic grant and needs Approval.
 
 **Assurance boundary.** History is local and bounded. It is not append-only,
-tamper-proof, remotely replicated, or guaranteed to contain every event after an
-administrator changes local state. The post-4.8.2 rolling store makes
-separately encrypted rows in one SQLite file available for up to 30 days or
-25 MiB of encrypted payloads, whichever bound comes first. Expired ciphertext
-may remain in a dormant database until the next read or write prunes it.
-Older Keychain and UserDefaults copies remain after migration and can outlive
-those limits.
+tamper-proof, remotely replicated, or guaranteed to contain every event after
+same-user code damages local state. The rolling store retains encrypted record
+payloads for up to 30 days and a configurable size limit of 1–1024 MiB
+(default 25 MiB), whichever bound comes first. SQLite overhead is additional.
+Change the payload limit in Settings; it applies transactionally on the next
+history access. The app browses retained records by day. Reads exclude expired
+records immediately; writes and background maintenance after reads prune them.
+An unused database may retain expired ciphertext until its next access.
 Export security evidence elsewhere when the audit requirement exceeds this
 local operator record.
 
@@ -427,8 +451,8 @@ process on the Mac is healthy.
 ### Settings
 
 Settings controls human Approval routes, feedback for automic authorization,
-retained launcher provenance, GPG Signing, `av list` policy, and version/runtime
-information. The post-4.8.2 build adds a separate `av history` grant. Each
+retained launcher provenance, GPG Signing, SSH Agent, `av list` policy, the
+separate `av history` grant, history payload size, and version/runtime information. Each
 control changes a different boundary; enabling one does not implicitly enable
 another.
 
@@ -449,6 +473,13 @@ keyboard automation cannot activate the allow action.
 agent. Fresh Touch ID supplies a human gesture the agent cannot synthesize while
 keeping the decision at the Local Execution Boundary.
 
+Enabling Touch ID Approval requires the current human Approval surface and
+Touch ID on this Mac. The choice is Keychain-protected. By default, the Approval
+window starts a fresh biometric evaluation when displayed; a successful touch
+approves once. A separate presentation setting restores click-then-system-prompt
+behavior. Broader Approval scopes use their own fresh evaluation.
+Touch ID may coexist with iPhone Approval; the first valid result wins.
+
 **Failure modes.** Touch ID availability, enrollment, lockout, and hardware state
 can make Approval unavailable. Disabling the setting returns to the configured
 non-biometric route; it does not create a password fallback inside Touch ID
@@ -462,13 +493,28 @@ while the Mac remains the Local Execution Boundary.
 [![iPhone Approval disabled with physical-separation guidance](/docs/assets/iphone-approval.png)](/docs/assets/iphone-approval.png)
 
 **Security basis.** When an eligible phone route is enabled, the Mac exposes no
-local pointer or keyboard allow action. The phone requires Face ID or Touch ID.
-iPhone Mirroring and Show on Mac are treated as paths that can expose controls to
-an agent; Approval is unavailable through those surfaces.
+local pointer or keyboard allow action. Separately enabled Touch ID Approval
+remains available on the Mac. Phone biometric protection is optional and set
+independently on each iPhone. When enabled, Approval requires Face ID or Touch ID
+on that physical phone, with no passcode fallback; Apple Watch Approval is
+unavailable. Without it, actionable notifications may appear on Apple Watch.
+iPhone Mirroring and Show on Mac can weaken physical separation: enable
+biometric protection on every eligible iPhone to retain that boundary.
+
+An allow response requires an active, App Store-verified iPhone Approval
+subscription. Denial does not. A subscription never grants operation authority.
+Unknown operations, Secret Disclosure, Unconstrained Secret Application, and
+requests with security warnings require review in the full iPhone app.
+
+The phone's Request History holds at most 50 protected local summaries of sent
+responses and received cancellations. It does not establish that the Mac
+accepted a response or allowed an operation and does not replace Authorization
+History on the Mac. Background cancellation delivery may be delayed or lost.
 
 **Recovery.** Recovery uses system authentication, rotates the account key, and
-invalidates registered phones and Macs. Treat recovery as a security event and
-re-enroll only devices you control.
+invalidates all prior phone registrations across the account. Recovery disables
+iPhone Approval and cancels pending requests. Re-enrollment is account-wide;
+ordinary disable and re-enable does not rotate the key.
 
 **Availability.** Network, relay, iCloud Keychain, device lock, and biometric
 state can prevent the phone from carrying Approval. Unavailability is not a
@@ -504,9 +550,16 @@ Disclosure, elevated operations, and unknown operations. The task label narrows
 matching but is forgeable context, not identity. The Verified Launcher and live
 request checks remain essential.
 
-End a grant from the menu bar when the task finishes. Grants expire after ten
-minutes and disappear on app restart. A grant cannot retroactively authorize a
-request outside its captured scope.
+The initial budget is ten active minutes. A persistent strip shows remaining
+time, successful-use count, last use, and actions to add ten minutes, suspend or
+resume the countdown, or end the grant. Suspension also suspends authority.
+An optional setting collapses the strip after five seconds into a visible warning
+tab; the menu-bar shield stays orange and the menu retains the End action.
+
+Grants are revoked when the user session becomes inactive, displays sleep, an
+update begins, or the service exits. A queued request may match a grant at its
+decision point only after fresh live checks and within that exact scope.
+An explicit empty script capability ceiling blocks grant matching.
 
 ### Detached Processes
 
@@ -518,7 +571,8 @@ exits.
 
 **Security tradeoff.** Enabling extends authority after the observed parent
 chain disappears. Same-user code injection can pass that retained authority to
-injected code. An enrolled Launcher Bundle payload is one unit for this setting.
+injected code. An exact live enrolled Launcher Bundle payload can represent its
+own bundle after the launcher exits without enabling this setting.
 
 **Scope.** Retention is execution-scoped. It keeps neither an old authorization
 decision nor blanket authority for new processes or Gates. Enabling requires
@@ -531,7 +585,7 @@ GPG Signing stores an armored OpenPGP private key in Secret Custody and routes
 Git through `av-gpg` and `av gpg-sign`. Git receives a detached signature, never
 the private key.
 
-[![GPG Signing Execution Gate with exact launcher overrides set to Allow Signing](/docs/assets/gpg-signing.png)](/docs/assets/gpg-signing.png)
+[![GPG Signing Secret Gate with exact launcher overrides set to Allow Signing](/docs/assets/gpg-signing.png)](/docs/assets/gpg-signing.png)
 
 ```sh
 git config --global gpg.program av-gpg
@@ -541,13 +595,37 @@ git config --global commit.gpgSign true
 
 Settings can import a key or generate an alternate EdDSA key. The private key is
 never displayed; the public key can be copied. Alternate access can be limited
-to exact Verified Launchers. The Execution Gate offers **Approval Required** and
+to exact Verified Launchers. The Secret Gate offers **Approval Required** and
 **Allow Signing**. Approval binds to the payload SHA-256; `av gpg-sign` reads at
 most 16 MiB and returns GnuPG-compatible status plus the detached signature.
 
 **Limits.** A valid signature proves possession of the signing authority for
 that payload, not that the commit is safe or reviewed. Protect Git configuration
 and verify the repository and payload shown by the workflow.
+
+### SSH Agent
+
+The optional SSH Agent Gate stores one OpenSSH private key and optional
+passphrase in `AV_SSH_CREDENTIAL`. Settings lets you configure the credential
+and enable the agent. Use the socket configuration shown there for your SSH
+client. Every Verified Launcher uses the same credential; Project Values and
+Launcher-specific credential selection do not apply.
+
+SSH clients receive authentication signatures, never the private key. The gate
+defaults to **Approval Required** and offers **Allow Authentication**, which can
+permit remote writes. It does not restrict destinations. Public-key enumeration
+requires no Secret Use; adding agent keys and arbitrary signing are unsupported.
+
+Each signature requires a verified local socket peer and its live original
+Launcher ancestry. Missing or changed ancestry denies use. The gate has no
+Temporary Access Grants, retained provenance, or decision reuse. A Blessed Script
+may authorize authentication with an explicit `ssh-agent: trusted` Capability
+only while its exact execution remains in the SSH client's verified ancestor
+chain. An empty capability ceiling blocks inherited automic authority.
+
+Existing private-key files and keys in other agents remain separate access
+paths. A forwarded or shared connection can carry other software's requests
+under the local client's Launcher attribution.
 
 ### Secret Name Access
 
@@ -561,8 +639,6 @@ disclose Values and grants no Direct Access. Remove an app when its listing use
 ends; a similarly named or newly signed app does not inherit the exact rule.
 
 ### Authorization History Access
-
-This grant was added after 4.8.2 and is not in that release.
 
 An exact Verified Launcher may read local Authorization History with
 `av history` without an Approval prompt only after you add it to the separate
@@ -695,7 +771,9 @@ different classifiers. Unknown operations fail closed or require Approval rather
 than inheriting the nearest-sounding label.
 
 New Secret Gates default to Read Only; GPG Signing to Approval Required;
-Homebrew to Read & Update; Direct access to Approval Required.
+SSH Agent to Approval Required; Homebrew to Read & Update; Direct Access to
+Approval Required. GPG Signing offers Allow Signing, and SSH Agent offers
+Allow Authentication, rather than the general-purpose presets.
 
 ## Command reference
 
@@ -710,6 +788,8 @@ av inject -- <command>
 av inject --mode=fd +KEY:FD... -- <command>
 av proxy +KEY... [--] <command>
 av list
+av history [--json] [--since <duration>]
+av git <clone|fetch|pull|push> <URL> [DIRECTORY]
 av save [--multiline | --stdin] [--project-directory=DIR] KEY
 av harden <tool> [-y|--yes]
 av unharden brew [-y|--yes]
@@ -720,10 +800,7 @@ av --version
 ```
 
 Old v1 commands `install`, `contain`, `dotenv`, `credential-helper`, `gate`, and
-`trace` are not part of 4.8.2.
-
-The source after 4.8.2 also adds `av history [--json] [--since <duration>]`.
-It is not available in the 4.8.2 release.
+`trace` are not part of the current CLI.
 
 ### `av scan`
 
@@ -796,7 +873,6 @@ Input is nonempty UTF-8 without NUL bytes, at most 1 MiB. See
 
 ### `av history`
 
-This command was merged after 4.8.2 and is not part of that release.
 The menu bar app must be running; use `av open` before reading history.
 
 ```sh
@@ -816,6 +892,28 @@ Authorization History Access in Settings. This grant is independent of
 `av list`'s Secret Name Access. An unverifiable Launcher needs Approval. History
 contains request metadata and Secret
 Names, never Secret Values; it is not a tamper-proof audit trail.
+
+### `av git`
+
+```sh
+av git clone https://github.com/OWNER/REPO.git DIRECTORY
+av git fetch https://github.com/OWNER/REPO.git
+av git pull https://github.com/OWNER/REPO.git
+av git push https://github.com/OWNER/REPO.git
+```
+
+This constrained transport accepts exact GitHub HTTPS URLs ending in `.git` and
+operates on `main`. Only `clone` takes a destination argument; extra options and
+refspecs are rejected. It requires the protected Git runtime and hardened GitHub
+credential route. Its credential-bearing network phase uses protected
+configuration and the existing `gh` Secret Gate, separately from local
+repository work. Registration alone grants no credential authority.
+
+The architecture marks this transport as under validation. It is not a general
+replacement for Git. See the
+[Git transport design](https://github.com/automic-vault/automic-vault/blob/main/docs/adr/0047-protected-git-https-transport.md)
+and [workflow validation](https://github.com/automic-vault/automic-vault/blob/main/docs/git-workflow-testing.md)
+for the separate native remote-helper path and its supported surface.
 
 ### `av inject`
 
@@ -878,8 +976,10 @@ gh release create "$1"
 
 A blessable script is a regular UTF-8 file up to 1 MiB with absolute `av` and
 interpreter paths. The optional manifest immediately follows the shebang.
-Capabilities are ceilings, not grants. Execution uses a verified `/dev/fd/N`
-snapshot; `AV_SCRIPT_PATH` and `AV_SCRIPT_DIR` identify its canonical source.
+Capabilities are ceilings, not grants. Execution normally uses a verified
+`/dev/fd/N` snapshot; a separately reviewed canonical-path exception is described
+in the [Blessed Scripts guide](/docs/app/#blessed-scripts).
+`AV_SCRIPT_PATH` and `AV_SCRIPT_DIR` identify the canonical source.
 
 FD mode in an `av inject` shebang is currently unsupported. A Blessed Script
 can invoke `av inject --mode=fd` as a command, but each invocation still needs
@@ -908,8 +1008,10 @@ av bless --endorse-launcher ./release.sh
 ```
 
 Approval binds the complete reviewed script. An endorsement allows only that
-Verified Launcher to use automic authorization; without it every run needs
-Approval. `--endorse-caller` is a compatibility alias. The UI inspects, narrows,
+Verified Launcher to use the Blessing's automic authority. Without an endorsement,
+the Blessing itself grants that Launcher no automic authority; any applicable
+inherited authority still follows the script's declaration. `--endorse-caller`
+is a compatibility alias. The UI inspects, narrows,
 replaces, and revokes Blessings.
 
 ### `av harden` and `av unharden brew`
@@ -1048,7 +1150,7 @@ for validation, inheritance, and failure behavior.
 
 ### Copy selected v1 Secrets
 
-4.6.0's `av save --stdin` can import exact bytes from selected v1.25.0 legacy
+`av save --stdin` can import exact bytes from selected v1.25.0 legacy
 login-Keychain items. Review the [manual copy guide](https://github.com/automic-vault/automic-vault/blob/main/docs/migrating-from-v1.md)
 and save its [Swift script](https://github.com/automic-vault/automic-vault/blob/main/docs/examples/migrate-av-v1.swift)
 before running, using the Keychain file v1 used and your Secret Names:
@@ -1570,20 +1672,19 @@ the public issue tracker.
 
 ## Source of truth
 
-The saving and FD delivery sections were checked against the 4.6.0 source and
-tests. The `av history` command came from [PR #338](https://github.com/automic-vault/automic-vault/pull/338),
-and rolling retention and `--since` came from [PR #339](https://github.com/automic-vault/automic-vault/pull/339).
-Neither is part of 4.8.2.
+This manual was checked against the 4.12.2 source, canonical Domain Language,
+and Architecture on September 25, 2026. Hardener pages are generated from that
+checkout's hardener references.
 The linked v1 copy script was tested with disposable legacy Keychain
 fixtures and the actual save implementation using isolated test storage; it is
 not a full v1 upgrade test. UI screenshots come from 3.16.0. For your installed
 build, prefer `av --version`, `av help`, `av detectors --json`, and `av hardeners --json`.
 
-- [4.8.2 release](https://github.com/automic-vault/automic-vault/releases/tag/4.8.2)
-- [CLI source](https://github.com/automic-vault/automic-vault/blob/4.8.2/src/cli/mod.rs)
-- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/4.8.2/src)
-- [Detectors](https://github.com/automic-vault/automic-vault/tree/4.8.2/src/detectors)
-- [Hardeners](https://github.com/automic-vault/automic-vault/tree/4.8.2/src/isotopes)
+- [4.12.2 release](https://github.com/automic-vault/automic-vault/releases/tag/4.12.2)
+- [CLI source](https://github.com/automic-vault/automic-vault/blob/4.12.2/src/cli/mod.rs)
+- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/4.12.2/src)
+- [Detectors](https://github.com/automic-vault/automic-vault/tree/4.12.2/src/isotopes/detectors)
+- [Hardeners](https://github.com/automic-vault/automic-vault/tree/4.12.2/src/isotopes)
 - [Domain Language](https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md)
 - [Architecture](https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md)
 

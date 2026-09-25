@@ -42,11 +42,11 @@ transmit, or disclose that Value. Automic Vault narrows who may receive a Value
 and for which operation; it cannot retract a Value already delivered or promise
 that an authorized Target behaves well.
 
-An **Execution Gate** can authorize a privileged operation without releasing an
-ordinary Secret. GPG Signing is the clearest example: the private key stays in
-Custody and the caller receives a detached signature. A **Secret Gate** controls
-Secret Application and, only at stronger levels where defined, Disclosure or
-elevated use.
+An **Execution Gate** controls an operation without requiring a Secret;
+Homebrew is the current example. A **Secret Gate** controls Secret Application
+or Disclosure. GPG Signing is a Tool-specific Secret Gate: the signed `av gpg-sign`
+Target receives the private key, while Git and `av-gpg` receive only the detached
+signature.
 
 ### Identity and provenance
 
@@ -59,6 +59,13 @@ interpreter, replaced binary, incompatible entitlement, lost execution ancestry,
 or changed script can invalidate the route. A native Target or exact reviewed
 snapshot gives policy a stable object to revalidate. A shell leaves every child
 behind a broad interpreter boundary.
+
+When adding a Verified Launcher, Automic Vault may discover signed helpers sealed
+inside its app. Approving an association lets that exact helper represent the
+app wherever current or future Gate policy names the app. Discovery, a shared
+Team ID, or bundle containment alone grants no association. Review the
+cross-gate warning before enabling a helper; disable it to remove that
+association without changing the app's rules.
 
 ### Authority and decision sources
 
@@ -77,7 +84,8 @@ iPhone does not move execution or Custody to the phone.
 Defaults trade convenience for narrow authority:
 
 - new Secret Gates begin at **Read Only**;
-- GPG Signing begins at **Approval Required**;
+- GPG Signing and the optional SSH Agent Gate begin at **Approval Required**;
+- Homebrew begins at **Read & Update**, which excludes installs and upgrades;
 - Direct Secret Access begins at **Approval Required**;
 - Detached Processes is off;
 - proxy sessions always require Approval and keep rules only in memory;

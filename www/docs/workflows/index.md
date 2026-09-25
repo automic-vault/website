@@ -94,7 +94,7 @@ for validation, inheritance, and failure behavior.
 
 ### Copy selected v1 Secrets
 
-4.6.0's `av save --stdin` can import exact bytes from selected v1.25.0 legacy
+`av save --stdin` can import exact bytes from selected v1.25.0 legacy
 login-Keychain items. Review the [manual copy guide](https://github.com/automic-vault/automic-vault/blob/main/docs/migrating-from-v1.md)
 and save its [Swift script](https://github.com/automic-vault/automic-vault/blob/main/docs/examples/migrate-av-v1.swift)
 before running, using the Keychain file v1 used and your Secret Names:

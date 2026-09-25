@@ -12,22 +12,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Automic Vault manual — Automic Vault</title>
-  <meta name="description" content="Automic Vault 4.8.2 manual for macOS, with selected source checks from 4.6.0 and marked post-release features.">
+  <meta name="description" content="Automic Vault 4.12.2 manual for macOS, checked against the current source and canonical security model.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Automic Vault manual">
-  <meta property="og:description" content="Automic Vault 4.8.2 manual for macOS, with selected source checks from 4.6.0 and marked post-release features.">
+  <meta property="og:description" content="Automic Vault 4.12.2 manual for macOS, checked against the current source and canonical security model.">
   <meta property="og:url" content="https://www.automicvault.com/docs/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Automic Vault manual">
-  <meta name="twitter:description" content="Automic Vault 4.8.2 manual for macOS, with selected source checks from 4.6.0 and marked post-release features.">
+  <meta name="twitter:description" content="Automic Vault 4.12.2 manual for macOS, checked against the current source and canonical security model.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/">
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/","headline":"Automic Vault manual","description":"Automic Vault 4.8.2 manual for macOS, with selected source checks from 4.6.0 and marked post-release features.","dateModified":"2026-09-13","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.8.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/","headline":"Automic Vault manual","description":"Automic Vault 4.12.2 manual for macOS, checked against the current source and canonical security model.","dateModified":"2026-09-25","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.12.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.8.2 · macOS</p><h1>Automic Vault manual</h1><p class="lede">Install Automic Vault, understand the operator console, and find the right reference.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.12.2 · macOS</p><h1>Automic Vault manual</h1><p class="lede">Install Automic Vault, understand the operator console, and find the right reference.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -63,12 +63,11 @@
           </section>
         </nav>
         <article class="docs-content"><h1 id="automic-vault-manual">Automic Vault manual</h1>
-<p>This is the user and operator manual for Automic Vault 4.8.2 on
-macOS. The multiline input, exact-input saving, and FD delivery sections
-were checked against the 4.6.0 source on September 8, 2026. UI
-screenshots show 3.16.0; use the installed build's help and catalogs for
-its current command surface. The <code>av history</code> sections
-describe code merged after 4.8.2, not that release.</p>
+<p>This is the user and operator manual for Automic Vault 4.12.2 on
+macOS, checked against the source on September 25, 2026. UI screenshots
+show 3.16.0 and illustrate older layouts; follow the text for current
+behavior. Use your installed build's help and catalogs to check its
+command surface.</p>
 <p>Automic Vault does more than store a Secret. It authorizes a complete
 operation: the Verified Launcher, Gate Client, Target, command and
 arguments, working directory, requested Secret Names, and selected Value
@@ -98,7 +97,9 @@ href="https://github.com/automic-vault/automic-vault/releases/latest">latest
 release</a> or review the <a
 href="https://www.automicvault.com/install.sh">website installer</a>.
 The menu bar app owns Approval UI and Authorization Policy. Open it
-before an operation that needs Approval: <code>av open</code>.</p>
+before an operation that needs Approval: <code>av open</code>. Complete
+the app's attended CLI installation when prompted; installing the
+protected CLI requires administrator authentication.</p>
 <h2 id="start-here">Start here</h2>
 <p>Scan the Mac, save one Value through the hidden terminal prompt, and
 apply it only to the Target that needs it:</p>
@@ -117,7 +118,9 @@ av doctor gh</code></pre>
 <h2 id="interface-map">Interface map</h2>
 <p>The main window is an operator console for exposure, authority, live
 use, and evidence. Global search filters the selected destination;
-Refresh recomputes live state. The sidebar separates four jobs:</p>
+Refresh recomputes live state. The Overview summarizes Findings,
+hardening, recent activity, and available updates. The sidebar separates
+four jobs:</p>
 <table>
 <thead>
 <tr>
@@ -160,7 +163,7 @@ is not a whole-machine attestation.</p>
 <p class="docs-source-link"><a href="/docs/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.8.2 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.12.2 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

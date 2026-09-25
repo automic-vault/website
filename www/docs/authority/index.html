@@ -27,7 +27,7 @@
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/authority/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/authority/","headline":"Approval, authority, and secrets","description":"Automic Vault Approval, authorization, Secret Values, and Access Levels.","dateModified":"2026-09-13","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.8.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/authority/","headline":"Approval, authority, and secrets","description":"Automic Vault Approval, authorization, Secret Values, and Access Levels.","dateModified":"2026-09-25","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.12.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.8.2 · macOS</p><h1>Approval, authority, and secrets</h1><p class="lede">Approval routes, temporary authority, Secret Value selection, and Access Levels.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/authority/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.12.2 · macOS</p><h1>Approval, authority, and secrets</h1><p class="lede">Approval routes, temporary authority, Secret Value selection, and Access Levels.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/authority/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -60,7 +60,7 @@
           <section class="docs-nav-group">
             <h2>On this page</h2>
             <ul><li class="docs-nav-depth-2"><a href="#approval-and-authority">Approval and authority</a></li><li class="docs-nav-depth-3"><a href="#touch-id-approval">Touch ID Approval</a></li><li class="docs-nav-depth-3"><a href="#iphone-approval">iPhone Approval</a></li><li class="docs-nav-depth-3"><a href="#automic-authorization-feedback">Automic Authorization
-feedback</a></li><li class="docs-nav-depth-3"><a href="#temporary-access-grants">Temporary Access Grants</a></li><li class="docs-nav-depth-3"><a href="#detached-processes">Detached Processes</a></li><li class="docs-nav-depth-3"><a href="#gpg-signing">GPG Signing</a></li><li class="docs-nav-depth-3"><a href="#secret-name-access">Secret Name Access</a></li><li class="docs-nav-depth-3"><a href="#authorization-history-access">Authorization History Access</a></li><li class="docs-nav-depth-3"><a href="#about-and-menu-bar">About and menu bar</a></li><li class="docs-nav-depth-2"><a href="#secrets-values-and-selection">Secrets, Values, and
+feedback</a></li><li class="docs-nav-depth-3"><a href="#temporary-access-grants">Temporary Access Grants</a></li><li class="docs-nav-depth-3"><a href="#detached-processes">Detached Processes</a></li><li class="docs-nav-depth-3"><a href="#gpg-signing">GPG Signing</a></li><li class="docs-nav-depth-3"><a href="#ssh-agent">SSH Agent</a></li><li class="docs-nav-depth-3"><a href="#secret-name-access">Secret Name Access</a></li><li class="docs-nav-depth-3"><a href="#authorization-history-access">Authorization History Access</a></li><li class="docs-nav-depth-3"><a href="#about-and-menu-bar">About and menu bar</a></li><li class="docs-nav-depth-2"><a href="#secrets-values-and-selection">Secrets, Values, and
 selection</a></li><li class="docs-nav-depth-3"><a href="#saving-safely">Saving safely</a></li><li class="docs-nav-depth-3"><a href="#value-selection">Value selection</a></li><li class="docs-nav-depth-3"><a href="#availability">Availability</a></li><li class="docs-nav-depth-3"><a href="#direct-secret-access">Direct Secret Access</a></li><li class="docs-nav-depth-2"><a href="#access-levels">Access Levels</a></li></ul>
           </section>
         </nav>
@@ -77,6 +77,13 @@ alt="Touch ID Approval disabled, with its explicit local-authority guarantee" />
 same input surface as an agent. Fresh Touch ID supplies a human gesture
 the agent cannot synthesize while keeping the decision at the Local
 Execution Boundary.</p>
+<p>Enabling Touch ID Approval requires the current human Approval
+surface and Touch ID on this Mac. The choice is Keychain-protected. By
+default, the Approval window starts a fresh biometric evaluation when
+displayed; a successful touch approves once. A separate presentation
+setting restores click-then-system-prompt behavior. Broader Approval
+scopes use their own fresh evaluation. Touch ID may coexist with iPhone
+Approval; the first valid result wins.</p>
 <p><strong>Failure modes.</strong> Touch ID availability, enrollment,
 lockout, and hardware state can make Approval unavailable. Disabling the
 setting returns to the configured non-biometric route; it does not
@@ -88,14 +95,30 @@ human Approval while the Mac remains the Local Execution Boundary.</p>
 src="/docs/assets/iphone-approval.png"
 alt="iPhone Approval disabled with physical-separation guidance" /></a></p>
 <p><strong>Security basis.</strong> When an eligible phone route is
-enabled, the Mac exposes no local pointer or keyboard allow action. The
-phone requires Face ID or Touch ID. iPhone Mirroring and Show on Mac are
-treated as paths that can expose controls to an agent; Approval is
-unavailable through those surfaces.</p>
+enabled, the Mac exposes no local pointer or keyboard allow action.
+Separately enabled Touch ID Approval remains available on the Mac. Phone
+biometric protection is optional and set independently on each iPhone.
+When enabled, Approval requires Face ID or Touch ID on that physical
+phone, with no passcode fallback; Apple Watch Approval is unavailable.
+Without it, actionable notifications may appear on Apple Watch. iPhone
+Mirroring and Show on Mac can weaken physical separation: enable
+biometric protection on every eligible iPhone to retain that
+boundary.</p>
+<p>An allow response requires an active, App Store-verified iPhone
+Approval subscription. Denial does not. A subscription never grants
+operation authority. Unknown operations, Secret Disclosure,
+Unconstrained Secret Application, and requests with security warnings
+require review in the full iPhone app.</p>
+<p>The phone's Request History holds at most 50 protected local
+summaries of sent responses and received cancellations. It does not
+establish that the Mac accepted a response or allowed an operation and
+does not replace Authorization History on the Mac. Background
+cancellation delivery may be delayed or lost.</p>
 <p><strong>Recovery.</strong> Recovery uses system authentication,
-rotates the account key, and invalidates registered phones and Macs.
-Treat recovery as a security event and re-enroll only devices you
-control.</p>
+rotates the account key, and invalidates all prior phone registrations
+across the account. Recovery disables iPhone Approval and cancels
+pending requests. Re-enrollment is account-wide; ordinary disable and
+re-enable does not rotate the key.</p>
 <p><strong>Availability.</strong> Network, relay, iCloud Keychain,
 device lock, and biometric state can prevent the phone from carrying
 Approval. Unavailability is not a reason for the Mac to manufacture a
@@ -129,9 +152,17 @@ Secret mutation, Disclosure, elevated operations, and unknown
 operations. The task label narrows matching but is forgeable context,
 not identity. The Verified Launcher and live request checks remain
 essential.</p>
-<p>End a grant from the menu bar when the task finishes. Grants expire
-after ten minutes and disappear on app restart. A grant cannot
-retroactively authorize a request outside its captured scope.</p>
+<p>The initial budget is ten active minutes. A persistent strip shows
+remaining time, successful-use count, last use, and actions to add ten
+minutes, suspend or resume the countdown, or end the grant. Suspension
+also suspends authority. An optional setting collapses the strip after
+five seconds into a visible warning tab; the menu-bar shield stays
+orange and the menu retains the End action.</p>
+<p>Grants are revoked when the user session becomes inactive, displays
+sleep, an update begins, or the service exits. A queued request may
+match a grant at its decision point only after fresh live checks and
+within that exact scope. An explicit empty script capability ceiling
+blocks grant matching.</p>
 <h3 id="detached-processes">Detached Processes</h3>
 <p>Detached Processes controls <strong>Retained Launcher
 Provenance</strong>: whether an eligible live descendant may keep the
@@ -141,8 +172,9 @@ src="/docs/assets/detached-processes.png"
 alt="Detached Processes off by default with the authority-extension warning" /></a></p>
 <p><strong>Security tradeoff.</strong> Enabling extends authority after
 the observed parent chain disappears. Same-user code injection can pass
-that retained authority to injected code. An enrolled Launcher Bundle
-payload is one unit for this setting.</p>
+that retained authority to injected code. An exact live enrolled
+Launcher Bundle payload can represent its own bundle after the launcher
+exits without enabling this setting.</p>
 <p><strong>Scope.</strong> Retention is execution-scoped. It keeps
 neither an old authorization decision nor blanket authority for new
 processes or Gates. Enabling requires Approval; disabling is immediate.
@@ -154,13 +186,13 @@ and routes Git through <code>av-gpg</code> and <code>av gpg-sign</code>.
 Git receives a detached signature, never the private key.</p>
 <p><a href="/docs/assets/gpg-signing.png"><img
 src="/docs/assets/gpg-signing.png"
-alt="GPG Signing Execution Gate with exact launcher overrides set to Allow Signing" /></a></p>
+alt="GPG Signing Secret Gate with exact launcher overrides set to Allow Signing" /></a></p>
 <pre class="sh"><code>git config --global gpg.program av-gpg
 git config --global gpg.format openpgp
 git config --global commit.gpgSign true</code></pre>
 <p>Settings can import a key or generate an alternate EdDSA key. The
 private key is never displayed; the public key can be copied. Alternate
-access can be limited to exact Verified Launchers. The Execution Gate
+access can be limited to exact Verified Launchers. The Secret Gate
 offers <strong>Approval Required</strong> and <strong>Allow
 Signing</strong>. Approval binds to the payload SHA-256;
 <code>av gpg-sign</code> reads at most 16 MiB and returns
@@ -169,6 +201,28 @@ GnuPG-compatible status plus the detached signature.</p>
 signing authority for that payload, not that the commit is safe or
 reviewed. Protect Git configuration and verify the repository and
 payload shown by the workflow.</p>
+<h3 id="ssh-agent">SSH Agent</h3>
+<p>The optional SSH Agent Gate stores one OpenSSH private key and
+optional passphrase in <code>AV_SSH_CREDENTIAL</code>. Settings lets you
+configure the credential and enable the agent. Use the socket
+configuration shown there for your SSH client. Every Verified Launcher
+uses the same credential; Project Values and Launcher-specific
+credential selection do not apply.</p>
+<p>SSH clients receive authentication signatures, never the private key.
+The gate defaults to <strong>Approval Required</strong> and offers
+<strong>Allow Authentication</strong>, which can permit remote writes.
+It does not restrict destinations. Public-key enumeration requires no
+Secret Use; adding agent keys and arbitrary signing are unsupported.</p>
+<p>Each signature requires a verified local socket peer and its live
+original Launcher ancestry. Missing or changed ancestry denies use. The
+gate has no Temporary Access Grants, retained provenance, or decision
+reuse. A Blessed Script may authorize authentication with an explicit
+<code>ssh-agent: trusted</code> Capability only while its exact
+execution remains in the SSH client's verified ancestor chain. An empty
+capability ceiling blocks inherited automic authority.</p>
+<p>Existing private-key files and keys in other agents remain separate
+access paths. A forwarded or shared connection can carry other
+software's requests under the local client's Launcher attribution.</p>
 <h3 id="secret-name-access">Secret Name Access</h3>
 <p>Exact Verified Apps may run <code>av list</code> without an Approval
 window; all other apps require Approval.</p>
@@ -180,7 +234,6 @@ apply, or disclose Values and grants no Direct Access. Remove an app
 when its listing use ends; a similarly named or newly signed app does
 not inherit the exact rule.</p>
 <h3 id="authorization-history-access">Authorization History Access</h3>
-<p>This grant was added after 4.8.2 and is not in that release.</p>
 <p>An exact Verified Launcher may read local Authorization History with
 <code>av history</code> without an Approval prompt only after you add it
 to the separate Authorization History Access row in Settings. Other
@@ -329,12 +382,14 @@ Access</strong> for another Tool are evaluated by different classifiers.
 Unknown operations fail closed or require Approval rather than
 inheriting the nearest-sounding label.</p>
 <p>New Secret Gates default to Read Only; GPG Signing to Approval
-Required; Homebrew to Read &amp; Update; Direct access to Approval
-Required.</p>
+Required; SSH Agent to Approval Required; Homebrew to Read &amp; Update;
+Direct Access to Approval Required. GPG Signing offers Allow Signing,
+and SSH Agent offers Allow Authentication, rather than the
+general-purpose presets.</p>
 <p class="docs-source-link"><a href="/docs/authority/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/authority/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.8.2 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/authority/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.12.2 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

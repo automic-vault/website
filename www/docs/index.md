@@ -1,10 +1,9 @@
 # Automic Vault manual
 
-This is the user and operator manual for Automic Vault 4.8.2 on macOS. The
-multiline input, exact-input saving, and FD delivery sections were checked
-against the 4.6.0 source on September 8, 2026. UI screenshots show 3.16.0;
-use the installed build's help and catalogs for its current command surface.
-The `av history` sections describe code merged after 4.8.2, not that release.
+This is the user and operator manual for Automic Vault 4.12.2 on macOS,
+checked against the source on September 25, 2026. UI screenshots show 3.16.0
+and illustrate older layouts; follow the text for current behavior. Use your
+installed build's help and catalogs to check its command surface.
 
 Automic Vault does more than store a Secret. It authorizes a complete operation:
 the Verified Launcher, Gate Client, Target, command and arguments, working
@@ -29,7 +28,9 @@ av help
 You may instead use the [latest release](https://github.com/automic-vault/automic-vault/releases/latest)
 or review the [website installer](https://www.automicvault.com/install.sh). The
 menu bar app owns Approval UI and Authorization Policy. Open it before an
-operation that needs Approval: `av open`.
+operation that needs Approval: `av open`. Complete the app's attended CLI
+installation when prompted; installing the protected CLI requires administrator
+authentication.
 
 ## Start here
 
@@ -58,7 +59,8 @@ av doctor gh
 
 The main window is an operator console for exposure, authority, live use, and
 evidence. Global search filters the selected destination; Refresh recomputes
-live state. The sidebar separates four jobs:
+live state. The Overview summarizes Findings, hardening, recent activity, and available
+updates. The sidebar separates four jobs:
 
 | Job | Destinations | Question answered |
 | --- | --- | --- |

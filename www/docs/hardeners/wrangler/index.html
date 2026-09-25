@@ -12,22 +12,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Wrangler hardener — Automic Vault</title>
-  <meta name="description" content="How Automic Vault 4.8.2 hardens Wrangler.">
+  <meta name="description" content="How Automic Vault 4.12.2 hardens Wrangler.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Wrangler hardener">
-  <meta property="og:description" content="How Automic Vault 4.8.2 hardens Wrangler.">
+  <meta property="og:description" content="How Automic Vault 4.12.2 hardens Wrangler.">
   <meta property="og:url" content="https://www.automicvault.com/docs/hardeners/wrangler/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Wrangler hardener">
-  <meta name="twitter:description" content="How Automic Vault 4.8.2 hardens Wrangler.">
+  <meta name="twitter:description" content="How Automic Vault 4.12.2 hardens Wrangler.">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/docs/hardeners/wrangler/">
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/hardeners/wrangler/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/wrangler/","headline":"Wrangler hardener","description":"How Automic Vault 4.8.2 hardens Wrangler.","dateModified":"2026-09-13","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.8.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/hardeners/wrangler/","headline":"Wrangler hardener","description":"How Automic Vault 4.12.2 hardens Wrangler.","dateModified":"2026-09-25","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.12.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.8.2 · macOS</p><h1>Wrangler hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the wrangler hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/hardeners/wrangler/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.12.2 · macOS</p><h1>Wrangler hardener</h1><p class="lede">The changes, security properties, caveats, and verification path for the wrangler hardener.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/hardeners/wrangler/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -62,11 +62,12 @@
         <article class="docs-content"><h1 id="wrangler-hardener">Wrangler hardener</h1>
 <p>Run <code>av harden wrangler</code> to apply this hardener and
 <code>av doctor wrangler</code> to verify it.</p>
-<p>Installs the signed Wrangler Isotope from
-<code>automic-vault/isotopes/wrangler-isotope</code> and verifies its
-complete runtime before placing it under <code>/opt/av/wrangler</code>.
-The protected runtime is required because ordinary Node processes cannot
-be Gate Clients for Wrangler Credentials.</p>
+<p>Uses the <code>automic-vault/isotopes/wrangler-isotope</code> formula
+as a constrained update manifest, then downloads and verifies the signed
+Wrangler Isotope before placing its complete runtime under
+<code>/opt/av/wrangler</code>. It does not install a Homebrew keg. The
+protected runtime is required because ordinary Node processes cannot be
+Gate Clients for Wrangler Credentials.</p>
 <p>Before switching, use upstream Wrangler to log out of every auth
 profile. Then run <code>av harden wrangler</code> and
 <code>wrangler login</code>. Login stores the complete OAuth Credential
@@ -77,7 +78,7 @@ the Isotope's credential authority.</p>
 <p class="docs-source-link"><a href="/docs/hardeners/wrangler/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/wrangler/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.8.2 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/hardeners/wrangler/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.12.2 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

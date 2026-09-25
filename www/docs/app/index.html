@@ -27,7 +27,7 @@
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/app/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/app/","headline":"App guide","description":"A guide to every destination in the Automic Vault macOS app.","dateModified":"2026-09-13","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.8.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/app/","headline":"App guide","description":"A guide to every destination in the Automic Vault macOS app.","dateModified":"2026-09-25","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.12.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.8.2 · macOS</p><h1>App guide</h1><p class="lede">What every destination in the Automic Vault operator console shows and controls.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/app/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.12.2 · macOS</p><h1>App guide</h1><p class="lede">What every destination in the Automic Vault operator console shows and controls.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/app/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -143,9 +143,11 @@ supports the workflow. Trigger a harmless read and inspect Authorization
 History to confirm the matching rule.</p>
 <p><strong>Failure modes.</strong> A denial after an app or Tool update
 can mean the selected binary, code signature, runtime, or enrolled
-generation changed. A missing Gate can mean the Tool is not installed or
-its hardener has not established the route. Fix the Tool-specific Gate
-mismatch instead of substituting broad Direct Access.</p>
+generation changed. A missing Gate may reflect the installed build's
+catalog or UI state. Runtime Gate definitions come from the signed app's
+static catalog; a failed hardener diagnostic never moves a Tool-specific
+request to the Direct Secret Gate. Fix the Tool-specific mismatch
+instead of substituting broad Direct Access.</p>
 <h3 id="blessed-scripts">Blessed Scripts</h3>
 <p>A Blessing binds a reviewed script to its canonical path, SHA-256
 digest, interpreter, Script Declaration, Secret Names, declared
@@ -156,10 +158,14 @@ src="/docs/assets/blessed-scripts.png"
 alt="Blessed deployment script with digest, Secret Names, capabilities, and calling-app policy" /></a></p>
 <p><strong>Security basis.</strong> Scripts are mutable text and usually
 run through a powerful interpreter. Automic Vault therefore approves a
-verified snapshot rather than trusting the filename. Execution uses a
-checked <code>/dev/fd/N</code> snapshot so a file cannot be swapped
-between verification and execution. <code>AV_SCRIPT_PATH</code> and
-<code>AV_SCRIPT_DIR</code> identify the canonical source.</p>
+verified snapshot rather than trusting the filename. Execution normally
+uses a checked <code>/dev/fd/N</code> snapshot. If the interpreter
+cannot execute that snapshot, you may accept canonical-path execution
+during Blessing review. That exception warns on every run because
+same-user code can edit the file between verification and execution.
+Existing Blessings need a new review to acquire it.
+<code>AV_SCRIPT_PATH</code> and <code>AV_SCRIPT_DIR</code> identify the
+canonical source.</p>
 <p><strong>Workflow.</strong> Put the absolute <code>av inject</code>
 shebang first, place the optional Script Declaration immediately after
 it, review requested Secret Names and capability ceilings, then run
@@ -174,6 +180,15 @@ but does not undo external actions from earlier runs.</p>
 blessed script can still misuse every operation inside its approved
 ceiling, and an interpreter remains a large Target. Keep scripts short,
 deterministic, and narrow.</p>
+<p>Without a capabilities manifest, a script inherits its execution
+context's automic authority.
+<code>capabilities: { inherit: true }</code> makes this explicit.
+<code>capabilities: {}</code> instead blocks inherited automic
+authority, including Launcher policy, Direct Access Rules, outer
+Blessings, and Temporary Access Grants, for later gated operations
+attributable to that live execution. The script's own requested Secrets
+still need separate authorization. This ceiling does not sandbox ungated
+commands or survive loss of observable script ancestry.</p>
 <h3 id="launcher-bundles">Launcher Bundles</h3>
 <p>A Launcher Bundle packages one regular, single-file Mach-O CLI into a
 signed, Hardened Runtime app and installs a command link for it. The
@@ -185,7 +200,7 @@ src="/docs/assets/launcher-bundles.png"
 alt="Enrolled Launcher Bundle with installed command, pinned hashes, signing, and entitlements" /></a></p>
 <p><strong>Security basis.</strong> A mutable developer CLI often lacks
 the stable app identity needed for launcher policy. Bundling creates an
-exact signed snapshot, installs it under protected ownership, and
+exact ad-hoc-signed snapshot, installs it under protected ownership, and
 enrolls that generation. Automic Vault verifies the digest, signature,
 enrollment, and runtime again when it is used.</p>
 <p><strong>Workflow.</strong> Choose the actual Mach-O executable, name
@@ -268,22 +283,24 @@ Name, or decision. Compare the <strong>Decision source</strong> and
 reason with current Gate policy. For a denial, fix the first mismatched
 invariant: Target, runtime, launcher, Value source, or operation. Do not
 widen every rule.</p>
-<p><strong>After 4.8.2:</strong> <code>av history</code> reads the same
-local history through the signed CLI. It shows the newest 50 records by
-default; <code>--since 7d</code> selects a seven-day window. Each read
-requires Approval unless that exact Verified Launcher has Authorization
-History Access in its own Settings row. The <code>av list</code> grant
-does not apply. See the <a href="/docs/cli/#av-history">CLI
-reference</a>. An unverifiable Launcher cannot use the automatic grant
-and needs Approval.</p>
+<p><code>av history</code> reads the same local history through the
+signed CLI. It shows the newest 50 records by default;
+<code>--since 7d</code> selects a seven-day window. Each read requires
+Approval unless that exact Verified Launcher has Authorization History
+Access in its own Settings row. The <code>av list</code> grant does not
+apply. See the <a href="/docs/cli/#av-history">CLI reference</a>. An
+unverifiable Launcher cannot use the automatic grant and needs
+Approval.</p>
 <p><strong>Assurance boundary.</strong> History is local and bounded. It
 is not append-only, tamper-proof, remotely replicated, or guaranteed to
-contain every event after an administrator changes local state. The
-post-4.8.2 rolling store makes separately encrypted rows in one SQLite
-file available for up to 30 days or 25 MiB of encrypted payloads,
-whichever bound comes first. Expired ciphertext may remain in a dormant
-database until the next read or write prunes it. Older Keychain and
-UserDefaults copies remain after migration and can outlive those limits.
+contain every event after same-user code damages local state. The
+rolling store retains encrypted record payloads for up to 30 days and a
+configurable size limit of 1–1024 MiB (default 25 MiB), whichever bound
+comes first. SQLite overhead is additional. Change the payload limit in
+Settings; it applies transactionally on the next history access. The app
+browses retained records by day. Reads exclude expired records
+immediately; writes and background maintenance after reads prune them.
+An unused database may retain expired ciphertext until its next access.
 Export security evidence elsewhere when the audit requirement exceeds
 this local operator record.</p>
 <h3 id="doctor">Doctor</h3>
@@ -306,18 +323,18 @@ Tools. It is not a malware scan, filesystem integrity monitor, code
 review, or proof that every process on the Mac is healthy.</p>
 <h3 id="settings">Settings</h3>
 <p>Settings controls human Approval routes, feedback for automic
-authorization, retained launcher provenance, GPG Signing,
-<code>av list</code> policy, and version/runtime information. The
-post-4.8.2 build adds a separate <code>av history</code> grant. Each
-control changes a different boundary; enabling one does not implicitly
-enable another.</p>
+authorization, retained launcher provenance, GPG Signing, SSH Agent,
+<code>av list</code> policy, the separate <code>av history</code> grant,
+history payload size, and version/runtime information. Each control
+changes a different boundary; enabling one does not implicitly enable
+another.</p>
 <p>Use Settings after reading the corresponding section below.
 Security-sensitive changes require Approval or system authentication
 where the control demands it.</p>
 <p class="docs-source-link"><a href="/docs/app/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/app/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.8.2 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/app/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.12.2 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

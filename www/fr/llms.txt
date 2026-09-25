@@ -8,7 +8,7 @@
 
 - [Télécharger Automic Vault](https://www.automicvault.com/fr/download/): Téléchargez Automic Vault pour macOS et contrôlez l’utilisation des identifiants de développement.
 
-- [Documentation](https://www.automicvault.com/docs/): Manuel anglais d’Automic Vault 4.8.2 ; certaines sections ont été vérifiées sur le code source de 4.6.0.
+- [Documentation](https://www.automicvault.com/docs/): Manuel anglais d’Automic Vault 4.12.2 ; vérifié sur le code source actuel.
 
 - [Paquets](https://pkg.so/fr/): Catalogue consultable de paquets développeur, dépendances, commandes d’installation, risques et couverture de durcissement Automic Vault.
 
@@ -28,7 +28,7 @@
 
 - Plateforme : macOS
 
-- Version actuellement documentée : Automic Vault 4.8.2
+- Version actuellement documentée : Automic Vault 4.12.2
 
 - Licence : Apache License 2.0
 

@@ -27,7 +27,7 @@
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/security/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/security/","headline":"Security foundations","description":"How Automic Vault authorizes complete operations and where its security boundary ends.","dateModified":"2026-09-13","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.8.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/security/","headline":"Security foundations","description":"How Automic Vault authorizes complete operations and where its security boundary ends.","dateModified":"2026-09-25","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.12.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.8.2 · macOS</p><h1>Security foundations</h1><p class="lede">The request, identity, authority, delivery, and evidence boundaries behind every decision.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/security/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.12.2 · macOS</p><h1>Security foundations</h1><p class="lede">The request, identity, authority, delivery, and evidence boundaries behind every decision.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/security/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -110,12 +110,12 @@ These are different capabilities.</p>
 transform, transmit, or disclose that Value. Automic Vault narrows who
 may receive a Value and for which operation; it cannot retract a Value
 already delivered or promise that an authorized Target behaves well.</p>
-<p>An <strong>Execution Gate</strong> can authorize a privileged
-operation without releasing an ordinary Secret. GPG Signing is the
-clearest example: the private key stays in Custody and the caller
-receives a detached signature. A <strong>Secret Gate</strong> controls
-Secret Application and, only at stronger levels where defined,
-Disclosure or elevated use.</p>
+<p>An <strong>Execution Gate</strong> controls an operation without
+requiring a Secret; Homebrew is the current example. A <strong>Secret
+Gate</strong> controls Secret Application or Disclosure. GPG Signing is
+a Tool-specific Secret Gate: the signed <code>av gpg-sign</code> Target
+receives the private key, while Git and <code>av-gpg</code> receive only
+the detached signature.</p>
 <h3 id="identity-and-provenance">Identity and provenance</h3>
 <p>A <strong>Verified Launcher</strong> is a live, revalidated code
 identity used as an input to policy. Code signing, a Launcher Bundle, a
@@ -127,6 +127,13 @@ execution ancestry, or changed script can invalidate the route. A native
 Target or exact reviewed snapshot gives policy a stable object to
 revalidate. A shell leaves every child behind a broad interpreter
 boundary.</p>
+<p>When adding a Verified Launcher, Automic Vault may discover signed
+helpers sealed inside its app. Approving an association lets that exact
+helper represent the app wherever current or future Gate policy names
+the app. Discovery, a shared Team ID, or bundle containment alone grants
+no association. Review the cross-gate warning before enabling a helper;
+disable it to remove that association without changing the app's
+rules.</p>
 <h3 id="authority-and-decision-sources">Authority and decision
 sources</h3>
 <p>An operation can be allowed by <strong>Human</strong>,
@@ -143,7 +150,10 @@ execution or Custody to the phone.</p>
 <p>Defaults trade convenience for narrow authority:</p>
 <ul>
 <li>new Secret Gates begin at <strong>Read Only</strong>;</li>
-<li>GPG Signing begins at <strong>Approval Required</strong>;</li>
+<li>GPG Signing and the optional SSH Agent Gate begin at
+<strong>Approval Required</strong>;</li>
+<li>Homebrew begins at <strong>Read &amp; Update</strong>, which
+excludes installs and upgrades;</li>
 <li>Direct Secret Access begins at <strong>Approval
 Required</strong>;</li>
 <li>Detached Processes is off;</li>
@@ -174,7 +184,7 @@ threat model requires it.</p>
 <p class="docs-source-link"><a href="/docs/security/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/security/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.8.2 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/security/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.12.2 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

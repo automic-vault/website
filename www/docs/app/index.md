@@ -80,8 +80,10 @@ inspect Authorization History to confirm the matching rule.
 
 **Failure modes.** A denial after an app or Tool update can mean the selected
 binary, code signature, runtime, or enrolled generation changed. A missing Gate
-can mean the Tool is not installed or its hardener has not established the route.
-Fix the Tool-specific Gate mismatch instead of substituting broad Direct Access.
+may reflect the installed build's catalog or UI state. Runtime Gate definitions
+come from the signed app's static catalog; a failed hardener diagnostic never
+moves a Tool-specific request to the Direct Secret Gate. Fix the Tool-specific
+mismatch instead of substituting broad Direct Access.
 
 ### Blessed Scripts
 
@@ -94,9 +96,12 @@ revoke or replace it.
 
 **Security basis.** Scripts are mutable text and usually run through a powerful
 interpreter. Automic Vault therefore approves a verified snapshot rather than
-trusting the filename. Execution uses a checked `/dev/fd/N` snapshot so a file
-cannot be swapped between verification and execution. `AV_SCRIPT_PATH` and
-`AV_SCRIPT_DIR` identify the canonical source.
+trusting the filename. Execution normally uses a checked `/dev/fd/N` snapshot.
+If the interpreter cannot execute that snapshot, you may accept canonical-path
+execution during Blessing review. That exception warns on every run because
+same-user code can edit the file between verification and execution. Existing
+Blessings need a new review to acquire it. `AV_SCRIPT_PATH` and `AV_SCRIPT_DIR`
+identify the canonical source.
 
 **Workflow.** Put the absolute `av inject` shebang first, place the optional
 Script Declaration immediately after it, review requested Secret Names and
@@ -111,6 +116,14 @@ Revocation removes policy but does not undo external actions from earlier runs.
 misuse every operation inside its approved ceiling, and an interpreter remains a
 large Target. Keep scripts short, deterministic, and narrow.
 
+Without a capabilities manifest, a script inherits its execution context's
+automic authority. `capabilities: { inherit: true }` makes this explicit.
+`capabilities: {}` instead blocks inherited automic authority, including Launcher
+policy, Direct Access Rules, outer Blessings, and Temporary Access Grants, for
+later gated operations attributable to that live execution. The script's own
+requested Secrets still need separate authorization. This ceiling does not
+sandbox ungated commands or survive loss of observable script ancestry.
+
 ### Launcher Bundles
 
 A Launcher Bundle packages one regular, single-file Mach-O CLI into a signed,
@@ -121,7 +134,7 @@ and signed-payload hashes, entitlements, and enrolled generation.
 [![Enrolled Launcher Bundle with installed command, pinned hashes, signing, and entitlements](/docs/assets/launcher-bundles.png)](/docs/assets/launcher-bundles.png)
 
 **Security basis.** A mutable developer CLI often lacks the stable app identity
-needed for launcher policy. Bundling creates an exact signed snapshot, installs
+needed for launcher policy. Bundling creates an exact ad-hoc-signed snapshot, installs
 it under protected ownership, and enrolls that generation. Automic Vault verifies
 the digest, signature, enrollment, and runtime again when it is used.
 
@@ -207,7 +220,7 @@ the **Decision source** and reason with current Gate policy. For a denial, fix t
 first mismatched invariant: Target, runtime, launcher, Value source, or operation.
 Do not widen every rule.
 
-**After 4.8.2:** `av history` reads the same local history
+`av history` reads the same local history
 through the signed CLI. It shows the newest 50 records by default; `--since 7d`
 selects a seven-day window. Each read requires Approval unless that exact
 Verified Launcher has Authorization History Access in its own Settings row.
@@ -215,13 +228,14 @@ The `av list` grant does not apply. See the [CLI reference](/docs/cli/#av-histor
 An unverifiable Launcher cannot use the automatic grant and needs Approval.
 
 **Assurance boundary.** History is local and bounded. It is not append-only,
-tamper-proof, remotely replicated, or guaranteed to contain every event after an
-administrator changes local state. The post-4.8.2 rolling store makes
-separately encrypted rows in one SQLite file available for up to 30 days or
-25 MiB of encrypted payloads, whichever bound comes first. Expired ciphertext
-may remain in a dormant database until the next read or write prunes it.
-Older Keychain and UserDefaults copies remain after migration and can outlive
-those limits.
+tamper-proof, remotely replicated, or guaranteed to contain every event after
+same-user code damages local state. The rolling store retains encrypted record
+payloads for up to 30 days and a configurable size limit of 1–1024 MiB
+(default 25 MiB), whichever bound comes first. SQLite overhead is additional.
+Change the payload limit in Settings; it applies transactionally on the next
+history access. The app browses retained records by day. Reads exclude expired
+records immediately; writes and background maintenance after reads prune them.
+An unused database may retain expired ciphertext until its next access.
 Export security evidence elsewhere when the audit requirement exceeds this
 local operator record.
 
@@ -249,8 +263,8 @@ process on the Mac is healthy.
 ### Settings
 
 Settings controls human Approval routes, feedback for automic authorization,
-retained launcher provenance, GPG Signing, `av list` policy, and version/runtime
-information. The post-4.8.2 build adds a separate `av history` grant. Each
+retained launcher provenance, GPG Signing, SSH Agent, `av list` policy, the
+separate `av history` grant, history payload size, and version/runtime information. Each
 control changes a different boundary; enabling one does not implicitly enable
 another.
 

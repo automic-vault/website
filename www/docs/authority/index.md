@@ -12,6 +12,13 @@ keyboard automation cannot activate the allow action.
 agent. Fresh Touch ID supplies a human gesture the agent cannot synthesize while
 keeping the decision at the Local Execution Boundary.
 
+Enabling Touch ID Approval requires the current human Approval surface and
+Touch ID on this Mac. The choice is Keychain-protected. By default, the Approval
+window starts a fresh biometric evaluation when displayed; a successful touch
+approves once. A separate presentation setting restores click-then-system-prompt
+behavior. Broader Approval scopes use their own fresh evaluation.
+Touch ID may coexist with iPhone Approval; the first valid result wins.
+
 **Failure modes.** Touch ID availability, enrollment, lockout, and hardware state
 can make Approval unavailable. Disabling the setting returns to the configured
 non-biometric route; it does not create a password fallback inside Touch ID
@@ -25,13 +32,28 @@ while the Mac remains the Local Execution Boundary.
 [![iPhone Approval disabled with physical-separation guidance](/docs/assets/iphone-approval.png)](/docs/assets/iphone-approval.png)
 
 **Security basis.** When an eligible phone route is enabled, the Mac exposes no
-local pointer or keyboard allow action. The phone requires Face ID or Touch ID.
-iPhone Mirroring and Show on Mac are treated as paths that can expose controls to
-an agent; Approval is unavailable through those surfaces.
+local pointer or keyboard allow action. Separately enabled Touch ID Approval
+remains available on the Mac. Phone biometric protection is optional and set
+independently on each iPhone. When enabled, Approval requires Face ID or Touch ID
+on that physical phone, with no passcode fallback; Apple Watch Approval is
+unavailable. Without it, actionable notifications may appear on Apple Watch.
+iPhone Mirroring and Show on Mac can weaken physical separation: enable
+biometric protection on every eligible iPhone to retain that boundary.
+
+An allow response requires an active, App Store-verified iPhone Approval
+subscription. Denial does not. A subscription never grants operation authority.
+Unknown operations, Secret Disclosure, Unconstrained Secret Application, and
+requests with security warnings require review in the full iPhone app.
+
+The phone's Request History holds at most 50 protected local summaries of sent
+responses and received cancellations. It does not establish that the Mac
+accepted a response or allowed an operation and does not replace Authorization
+History on the Mac. Background cancellation delivery may be delayed or lost.
 
 **Recovery.** Recovery uses system authentication, rotates the account key, and
-invalidates registered phones and Macs. Treat recovery as a security event and
-re-enroll only devices you control.
+invalidates all prior phone registrations across the account. Recovery disables
+iPhone Approval and cancels pending requests. Re-enrollment is account-wide;
+ordinary disable and re-enable does not rotate the key.
 
 **Availability.** Network, relay, iCloud Keychain, device lock, and biometric
 state can prevent the phone from carrying Approval. Unavailability is not a
@@ -67,9 +89,16 @@ Disclosure, elevated operations, and unknown operations. The task label narrows
 matching but is forgeable context, not identity. The Verified Launcher and live
 request checks remain essential.
 
-End a grant from the menu bar when the task finishes. Grants expire after ten
-minutes and disappear on app restart. A grant cannot retroactively authorize a
-request outside its captured scope.
+The initial budget is ten active minutes. A persistent strip shows remaining
+time, successful-use count, last use, and actions to add ten minutes, suspend or
+resume the countdown, or end the grant. Suspension also suspends authority.
+An optional setting collapses the strip after five seconds into a visible warning
+tab; the menu-bar shield stays orange and the menu retains the End action.
+
+Grants are revoked when the user session becomes inactive, displays sleep, an
+update begins, or the service exits. A queued request may match a grant at its
+decision point only after fresh live checks and within that exact scope.
+An explicit empty script capability ceiling blocks grant matching.
 
 ### Detached Processes
 
@@ -81,7 +110,8 @@ exits.
 
 **Security tradeoff.** Enabling extends authority after the observed parent
 chain disappears. Same-user code injection can pass that retained authority to
-injected code. An enrolled Launcher Bundle payload is one unit for this setting.
+injected code. An exact live enrolled Launcher Bundle payload can represent its
+own bundle after the launcher exits without enabling this setting.
 
 **Scope.** Retention is execution-scoped. It keeps neither an old authorization
 decision nor blanket authority for new processes or Gates. Enabling requires
@@ -94,7 +124,7 @@ GPG Signing stores an armored OpenPGP private key in Secret Custody and routes
 Git through `av-gpg` and `av gpg-sign`. Git receives a detached signature, never
 the private key.
 
-[![GPG Signing Execution Gate with exact launcher overrides set to Allow Signing](/docs/assets/gpg-signing.png)](/docs/assets/gpg-signing.png)
+[![GPG Signing Secret Gate with exact launcher overrides set to Allow Signing](/docs/assets/gpg-signing.png)](/docs/assets/gpg-signing.png)
 
 ```sh
 git config --global gpg.program av-gpg
@@ -104,13 +134,37 @@ git config --global commit.gpgSign true
 
 Settings can import a key or generate an alternate EdDSA key. The private key is
 never displayed; the public key can be copied. Alternate access can be limited
-to exact Verified Launchers. The Execution Gate offers **Approval Required** and
+to exact Verified Launchers. The Secret Gate offers **Approval Required** and
 **Allow Signing**. Approval binds to the payload SHA-256; `av gpg-sign` reads at
 most 16 MiB and returns GnuPG-compatible status plus the detached signature.
 
 **Limits.** A valid signature proves possession of the signing authority for
 that payload, not that the commit is safe or reviewed. Protect Git configuration
 and verify the repository and payload shown by the workflow.
+
+### SSH Agent
+
+The optional SSH Agent Gate stores one OpenSSH private key and optional
+passphrase in `AV_SSH_CREDENTIAL`. Settings lets you configure the credential
+and enable the agent. Use the socket configuration shown there for your SSH
+client. Every Verified Launcher uses the same credential; Project Values and
+Launcher-specific credential selection do not apply.
+
+SSH clients receive authentication signatures, never the private key. The gate
+defaults to **Approval Required** and offers **Allow Authentication**, which can
+permit remote writes. It does not restrict destinations. Public-key enumeration
+requires no Secret Use; adding agent keys and arbitrary signing are unsupported.
+
+Each signature requires a verified local socket peer and its live original
+Launcher ancestry. Missing or changed ancestry denies use. The gate has no
+Temporary Access Grants, retained provenance, or decision reuse. A Blessed Script
+may authorize authentication with an explicit `ssh-agent: trusted` Capability
+only while its exact execution remains in the SSH client's verified ancestor
+chain. An empty capability ceiling blocks inherited automic authority.
+
+Existing private-key files and keys in other agents remain separate access
+paths. A forwarded or shared connection can carry other software's requests
+under the local client's Launcher attribution.
 
 ### Secret Name Access
 
@@ -124,8 +178,6 @@ disclose Values and grants no Direct Access. Remove an app when its listing use
 ends; a similarly named or newly signed app does not inherit the exact rule.
 
 ### Authorization History Access
-
-This grant was added after 4.8.2 and is not in that release.
 
 An exact Verified Launcher may read local Authorization History with
 `av history` without an Approval prompt only after you add it to the separate
@@ -258,4 +310,6 @@ different classifiers. Unknown operations fail closed or require Approval rather
 than inheriting the nearest-sounding label.
 
 New Secret Gates default to Read Only; GPG Signing to Approval Required;
-Homebrew to Read & Update; Direct access to Approval Required.
+SSH Agent to Approval Required; Homebrew to Read & Update; Direct Access to
+Approval Required. GPG Signing offers Allow Signing, and SSH Agent offers
+Allow Authentication, rather than the general-purpose presets.

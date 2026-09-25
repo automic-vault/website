@@ -47,7 +47,7 @@ const pages = [
     slug: "",
     title: "Automic Vault manual",
     lede: "Install Automic Vault, understand the operator console, and find the right reference.",
-    description: `Automic Vault ${version} manual for macOS, with selected source checks from 4.6.0 and marked post-release features.`,
+    description: `Automic Vault ${version} manual for macOS, checked against the current source and canonical security model.`,
     start: 0,
     end: "## Security foundations",
   },
@@ -90,7 +90,7 @@ const pages = [
     description: "Common Automic Vault workflows for protected developer credentials.",
     start: "## Common workflows",
     end: "## Reentrant Blessed Scripts",
-    dateModified: "2026-09-13",
+    dateModified: "2026-09-25",
   },
   {
     slug: "reentrant-scripts",
@@ -99,7 +99,7 @@ const pages = [
     description: "How to design reentrant Automic Vault Blessed Scripts for agent handoffs, least authority, Secret safety, and resumable operations.",
     start: "## Reentrant Blessed Scripts",
     end: "## Troubleshooting",
-    dateModified: "2026-09-13",
+    dateModified: "2026-09-25",
   },
   {
     slug: "troubleshooting",
@@ -186,7 +186,7 @@ ${headings ? `          <section class="docs-nav-group">
         </nav>`;
 }
 
-function htmlPage({ slug, title, lede, description, markdown, dateModified = "2026-09-13" }) {
+function htmlPage({ slug, title, lede, description, markdown, dateModified = "2026-09-25" }) {
   const pageRoute = route(slug);
   const markdownRoute = `${pageRoute}index.md`;
   const article = renderMarkdown(markdown);
