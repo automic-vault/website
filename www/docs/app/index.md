@@ -10,7 +10,7 @@ Detectors inspect supported credential locations and configurations for
 conditions, sensitive files, current result, remediation, and source-linked
 rationale.
 
-[![Detector catalog with a passing plaintext-credential check and its source-linked rationale](/docs/assets/detectors.png?v=4.14.0)](/docs/assets/detectors.png?v=4.14.0)
+[![Detector catalog with a passing plaintext-credential check and its source-linked rationale](/docs/assets/detectors.png)](/docs/assets/detectors.png)
 
 **Security basis.** Detection and remediation are separate operations. A Finding
 records evidence about known state. The operator reviews any credential move,
@@ -33,7 +33,7 @@ Hardened Tools shows installed hardeners and native protected routes. A detail
 view identifies the current launcher or Target, current result, what the hardener
 changes, why that design was chosen, caveats, and recent use.
 
-[![AWS hardener status with installed Target and embedded security reference](/docs/assets/hardened-tools.png?v=4.14.0)](/docs/assets/hardened-tools.png?v=4.14.0)
+[![AWS hardener status with installed Target and embedded security reference](/docs/assets/hardened-tools.png)](/docs/assets/hardened-tools.png)
 
 **Security basis.** A hardener removes a known plaintext or ambient-credential
 path and replaces it with a route Automic Vault can identify and authorize. The
@@ -65,7 +65,7 @@ Authorization Gates are the operator's view of policy. Each Gate identifies the
 request type, protected Secret patterns, allowed Targets, the default rule for
 all other apps, Hardened Runtime requirements, and exact per-launcher overrides.
 
-[![GitHub Secret Gate with default policy and a verified ChatGPT override](/docs/assets/authorization-gates.png?v=4.14.0)](/docs/assets/authorization-gates.png?v=4.14.0)
+[![GitHub Secret Gate with default policy and a verified ChatGPT override](/docs/assets/authorization-gates.png)](/docs/assets/authorization-gates.png)
 
 **Security basis.** A Gate evaluates the complete request envelope. The same
 Secret Name can therefore be Read Only for one Verified Launcher, Approval
@@ -92,7 +92,7 @@ interpreter, Script Declaration, Secret Names, declared Capabilities, and
 optional Launcher Endorsements. The app shows the exact enrolled state and can
 revoke or replace it.
 
-[![Blessed deployment script with its digest, AWS capability, and Launcher Endorsement](/docs/assets/blessed-scripts.png?v=4.14.0)](/docs/assets/blessed-scripts.png?v=4.14.0)
+[![Blessed deployment script with digest, Secret Names, capabilities, and calling-app policy](/docs/assets/blessed-scripts.png)](/docs/assets/blessed-scripts.png)
 
 **Security basis.** Scripts are mutable text and usually run through a powerful
 interpreter. Automic Vault therefore approves a verified snapshot rather than
@@ -131,7 +131,7 @@ Hardened Runtime app and installs a command link for it. The detail view exposes
 the bundle identifier, signing mode, installed location, command, selected-source
 and signed-payload hashes, entitlements, and enrolled generation.
 
-[![Enrolled Launcher Bundle with installed command, pinned hashes, signing, and entitlements](/docs/assets/launcher-bundles.png?v=4.14.0)](/docs/assets/launcher-bundles.png?v=4.14.0)
+[![Enrolled Launcher Bundle with installed command, pinned hashes, signing, and entitlements](/docs/assets/launcher-bundles.png)](/docs/assets/launcher-bundles.png)
 
 **Security basis.** A mutable developer CLI often lacks the stable app identity
 needed for launcher policy. Bundling creates an exact ad-hoc-signed snapshot, installs
@@ -158,7 +158,7 @@ Secrets is the inventory of Secret Names and their Value sources. The app shows
 availability and source labels, but never redisplays stored Values. One Secret
 Name can have a Global Value and multiple Project Values.
 
-[![A harmless sample Secret with its hidden Global Value, availability, and Direct Access state](/docs/assets/secrets.png?v=4.14.0)](/docs/assets/secrets.png?v=4.14.0)
+[![A harmless sample Secret with its hidden Global Value, availability, and Direct Access state](/docs/assets/secrets.png)](/docs/assets/secrets.png)
 
 **Security basis.** Operators can reason about names, sources, selection, and
 authority without turning routine administration into Disclosure. Replace is a
@@ -208,7 +208,7 @@ Authorization History records recent allowed and denied requests with decision,
 decision source, command, reason, Verified Launcher, Secret Names and selected
 sources, Gate Client, Target, runtime, and working directory.
 
-[![Authorization History showing the denied request for a harmless sample Secret](/docs/assets/authorization-history.png?v=4.14.0)](/docs/assets/authorization-history.png?v=4.14.0)
+[![Authorization History filtered to a complete sample proxy decision](/docs/assets/authorization-history.png)](/docs/assets/authorization-history.png)
 
 **Security basis.** A decision without its inputs is not explainable. History
 keeps enough of the request envelope to answer why a rule matched, why a human
@@ -246,7 +246,7 @@ dependencies, Target selection, exact file content, permissions, configuration,
 and PATH precedence. Healthy Tools disappear from the problem list; failures
 include a reason and remediation.
 
-[![Doctor with no unresolved installation problems](/docs/assets/doctor.png?v=4.14.0)](/docs/assets/doctor.png?v=4.14.0)
+[![Doctor with no unresolved installation problems](/docs/assets/doctor.png)](/docs/assets/doctor.png)
 
 **Security basis.** Policy is only as strong as the route that reaches it. A
 correct Gate cannot protect a command if PATH resolves to an unprotected binary,

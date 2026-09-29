@@ -6,7 +6,7 @@ Touch ID Approval authorizes an exact request on the Mac with a fresh biometric.
 It accepts neither the login password nor Apple Watch fallback, and pointer or
 keyboard automation cannot activate the allow action.
 
-[![Touch ID Approval enabled, with embedded biometric approval and its local-authority guarantee](/docs/assets/touch-id-approval.png?v=4.14.0)](/docs/assets/touch-id-approval.png?v=4.14.0)
+[![Touch ID Approval disabled, with its explicit local-authority guarantee](/docs/assets/touch-id-approval.png)](/docs/assets/touch-id-approval.png)
 
 **Why it exists.** A local approval button can share the same input surface as an
 agent. Fresh Touch ID supplies a human gesture the agent cannot synthesize while
@@ -29,7 +29,7 @@ Approval.
 An eligible iPhone on the same iCloud Keychain account can carry human Approval
 while the Mac remains the Local Execution Boundary.
 
-[![iPhone Approval disabled with physical-separation guidance](/docs/assets/iphone-approval.png?v=4.14.0)](/docs/assets/iphone-approval.png?v=4.14.0)
+[![iPhone Approval disabled with physical-separation guidance](/docs/assets/iphone-approval.png)](/docs/assets/iphone-approval.png)
 
 **Security basis.** When an eligible phone route is enabled, the Mac exposes no
 local pointer or keyboard allow action. Separately enabled Touch ID Approval
@@ -70,7 +70,7 @@ no phone notification.
 Policy-authorized operations can show a notification, flash the menu bar, or
 show nothing. This controls feedback, not authority.
 
-[![Automic Authorization feedback options with Flash Menu Bar selected](/docs/assets/automic-authorization.png?v=4.14.0)](/docs/assets/automic-authorization.png?v=4.14.0)
+[![Automic Authorization feedback options with Flash Menu Bar selected](/docs/assets/automic-authorization.png)](/docs/assets/automic-authorization.png)
 
 Authorization History remains populated in every mode. Approval prompts and
 policy-denial notices are unaffected. Choose quieter feedback only after the
@@ -106,7 +106,7 @@ Detached Processes controls **Retained Launcher Provenance**: whether an eligibl
 live descendant may keep the verified launcher chain after its original parent
 exits.
 
-[![Detached Processes off by default with the authority-extension warning](/docs/assets/detached-processes.png?v=4.14.0)](/docs/assets/detached-processes.png?v=4.14.0)
+[![Detached Processes off by default with the authority-extension warning](/docs/assets/detached-processes.png)](/docs/assets/detached-processes.png)
 
 **Security tradeoff.** Enabling extends authority after the observed parent
 chain disappears. Same-user code injection can pass that retained authority to
@@ -124,7 +124,7 @@ GPG Signing stores an armored OpenPGP private key in Secret Custody and routes
 Git through `av-gpg` and `av gpg-sign`. Git receives a detached signature, never
 the private key.
 
-[![GPG Signing Secret Gate with exact launcher overrides set to Allow Signing](/docs/assets/gpg-signing.png?v=4.14.0)](/docs/assets/gpg-signing.png?v=4.14.0)
+[![GPG Signing Secret Gate with exact launcher overrides set to Allow Signing](/docs/assets/gpg-signing.png)](/docs/assets/gpg-signing.png)
 
 ```sh
 git config --global gpg.program av-gpg
@@ -171,7 +171,7 @@ under the local client's Launcher attribution.
 Exact Verified Apps may run `av list` without an Approval window; all other apps
 require Approval.
 
-[![Secret Name Access with ChatGPT allowed to run av list](/docs/assets/secret-name-access.png?v=4.14.0)](/docs/assets/secret-name-access.png?v=4.14.0)
+[![Secret Name Access with two exact verified apps allowed to run av list](/docs/assets/secret-name-access.png)](/docs/assets/secret-name-access.png)
 
 This capability lists Secret Names only. It does not read, change, apply, or
 disclose Values and grants no Direct Access. Remove an app when its listing use
@@ -195,7 +195,7 @@ the Launcher from this row when it no longer needs unattended access.
 About reports the running version and GUI PATH captured before shell startup.
 Use both when diagnosing a mismatch between the app and an interactive shell.
 
-[![About showing Automic Vault 4.14.0 and the pre-shell GUI PATH](/docs/assets/about.png?v=4.14.0)](/docs/assets/about.png?v=4.14.0)
+[![About showing Automic Vault 3.16.0 and the pre-shell GUI PATH](/docs/assets/about.png)](/docs/assets/about.png)
 
 The menu bar opens the main window, checks for updates, quits the service, and
 surfaces live Secret Uses and Temporary Access Grants without displaying Values.

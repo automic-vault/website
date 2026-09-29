@@ -22,7 +22,7 @@ Value source, launcher generation, or relevant runtime fact creates a different
 request. A label such as “ChatGPT,” “gh,” or “read only” is useful UI shorthand,
 but is not the complete security decision.
 
-[![Mac Approval showing a sample command, Secret Name, working directory, Target, Verified Launcher, execution chain, and Touch ID](/docs/assets/approval-request.png?v=4.14.0)](/docs/assets/approval-request.png?v=4.14.0)
+[![Mac Approval showing command, Secret Names, working directory, Target, Verified Launcher, execution chain, and warnings](/docs/assets/approval-request.png)](/docs/assets/approval-request.png)
 
 Before approving, read the request from top to bottom. Confirm the command is the
 operation you intended, the Secret Names are the minimum required, the working
