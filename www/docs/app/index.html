@@ -72,8 +72,8 @@ security-relevant Findings. Run <code>av detectors --json</code> for the
 installed catalog. A selected detector explains its trigger conditions,
 sensitive files, current result, remediation, and source-linked
 rationale.</p>
-<p><a href="/docs/assets/detectors.png"><img
-src="/docs/assets/detectors.png"
+<p><a href="/docs/assets/detectors.png?v=4.14.0"><img
+src="/docs/assets/detectors.png?v=4.14.0"
 alt="Detector catalog with a passing plaintext-credential check and its source-linked rationale" /></a></p>
 <p><strong>Security basis.</strong> Detection and remediation are
 separate operations. A Finding records evidence about known state. The
@@ -95,8 +95,8 @@ versions must be interpreted from the Finding, not collapsed into
 A detail view identifies the current launcher or Target, current result,
 what the hardener changes, why that design was chosen, caveats, and
 recent use.</p>
-<p><a href="/docs/assets/hardened-tools.png"><img
-src="/docs/assets/hardened-tools.png"
+<p><a href="/docs/assets/hardened-tools.png?v=4.14.0"><img
+src="/docs/assets/hardened-tools.png?v=4.14.0"
 alt="AWS hardener status with installed Target and embedded security reference" /></a></p>
 <p><strong>Security basis.</strong> A hardener removes a known plaintext
 or ambient-credential path and replaces it with a route Automic Vault
@@ -127,8 +127,8 @@ documentation for other recovery procedures.</p>
 identifies the request type, protected Secret patterns, allowed Targets,
 the default rule for all other apps, Hardened Runtime requirements, and
 exact per-launcher overrides.</p>
-<p><a href="/docs/assets/authorization-gates.png"><img
-src="/docs/assets/authorization-gates.png"
+<p><a href="/docs/assets/authorization-gates.png?v=4.14.0"><img
+src="/docs/assets/authorization-gates.png?v=4.14.0"
 alt="GitHub Secret Gate with default policy and a verified ChatGPT override" /></a></p>
 <p><strong>Security basis.</strong> A Gate evaluates the complete
 request envelope. The same Secret Name can therefore be Read Only for
@@ -153,8 +153,8 @@ instead of substituting broad Direct Access.</p>
 digest, interpreter, Script Declaration, Secret Names, declared
 Capabilities, and optional Launcher Endorsements. The app shows the
 exact enrolled state and can revoke or replace it.</p>
-<p><a href="/docs/assets/blessed-scripts.png"><img
-src="/docs/assets/blessed-scripts.png"
+<p><a href="/docs/assets/blessed-scripts.png?v=4.14.0"><img
+src="/docs/assets/blessed-scripts.png?v=4.14.0"
 alt="Blessed deployment script with its digest, AWS capability, and Launcher Endorsement" /></a></p>
 <p><strong>Security basis.</strong> Scripts are mutable text and usually
 run through a powerful interpreter. Automic Vault therefore approves a
@@ -195,8 +195,8 @@ signed, Hardened Runtime app and installs a command link for it. The
 detail view exposes the bundle identifier, signing mode, installed
 location, command, selected-source and signed-payload hashes,
 entitlements, and enrolled generation.</p>
-<p><a href="/docs/assets/launcher-bundles.png"><img
-src="/docs/assets/launcher-bundles.png"
+<p><a href="/docs/assets/launcher-bundles.png?v=4.14.0"><img
+src="/docs/assets/launcher-bundles.png?v=4.14.0"
 alt="Enrolled Launcher Bundle with installed command, pinned hashes, signing, and entitlements" /></a></p>
 <p><strong>Security basis.</strong> A mutable developer CLI often lacks
 the stable app identity needed for launcher policy. Bundling creates an
@@ -221,8 +221,8 @@ judgment, safety review, or sandbox.</p>
 app shows availability and source labels, but never redisplays stored
 Values. One Secret Name can have a Global Value and multiple Project
 Values.</p>
-<p><a href="/docs/assets/secrets.png"><img
-src="/docs/assets/secrets.png"
+<p><a href="/docs/assets/secrets.png?v=4.14.0"><img
+src="/docs/assets/secrets.png?v=4.14.0"
 alt="A harmless sample Secret with its hidden Global Value, availability, and Direct Access state" /></a></p>
 <p><strong>Security basis.</strong> Operators can reason about names,
 sources, selection, and authority without turning routine administration
@@ -270,8 +270,8 @@ origin-specific decisions; it is not network containment.</p>
 decision, decision source, command, reason, Verified Launcher, Secret
 Names and selected sources, Gate Client, Target, runtime, and working
 directory.</p>
-<p><a href="/docs/assets/authorization-history.png"><img
-src="/docs/assets/authorization-history.png"
+<p><a href="/docs/assets/authorization-history.png?v=4.14.0"><img
+src="/docs/assets/authorization-history.png?v=4.14.0"
 alt="Authorization History showing the denied request for a harmless sample Secret" /></a></p>
 <p><strong>Security basis.</strong> A decision without its inputs is not
 explainable. History keeps enough of the request envelope to answer why
@@ -308,7 +308,7 @@ this local operator record.</p>
 dependencies, Target selection, exact file content, permissions,
 configuration, and PATH precedence. Healthy Tools disappear from the
 problem list; failures include a reason and remediation.</p>
-<p><a href="/docs/assets/doctor.png"><img src="/docs/assets/doctor.png"
+<p><a href="/docs/assets/doctor.png?v=4.14.0"><img src="/docs/assets/doctor.png?v=4.14.0"
 alt="Doctor with no unresolved installation problems" /></a></p>
 <p><strong>Security basis.</strong> Policy is only as strong as the
 route that reaches it. A correct Gate cannot protect a command if PATH

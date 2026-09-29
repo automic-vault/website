@@ -99,7 +99,7 @@ Value source, launcher generation, or relevant runtime fact creates a different
 request. A label such as “ChatGPT,” “gh,” or “read only” is useful UI shorthand,
 but is not the complete security decision.
 
-[![Mac Approval showing a sample command, Secret Name, working directory, Target, Verified Launcher, execution chain, and Touch ID](/docs/assets/approval-request.png)](/docs/assets/approval-request.png)
+[![Mac Approval showing a sample command, Secret Name, working directory, Target, Verified Launcher, execution chain, and Touch ID](/docs/assets/approval-request.png?v=4.14.0)](/docs/assets/approval-request.png?v=4.14.0)
 
 Before approving, read the request from top to bottom. Confirm the command is the
 operation you intended, the Secret Names are the minimum required, the working
@@ -199,7 +199,7 @@ Detectors inspect supported credential locations and configurations for
 conditions, sensitive files, current result, remediation, and source-linked
 rationale.
 
-[![Detector catalog with a passing plaintext-credential check and its source-linked rationale](/docs/assets/detectors.png)](/docs/assets/detectors.png)
+[![Detector catalog with a passing plaintext-credential check and its source-linked rationale](/docs/assets/detectors.png?v=4.14.0)](/docs/assets/detectors.png?v=4.14.0)
 
 **Security basis.** Detection and remediation are separate operations. A Finding
 records evidence about known state. The operator reviews any credential move,
@@ -222,7 +222,7 @@ Hardened Tools shows installed hardeners and native protected routes. A detail
 view identifies the current launcher or Target, current result, what the hardener
 changes, why that design was chosen, caveats, and recent use.
 
-[![AWS hardener status with installed Target and embedded security reference](/docs/assets/hardened-tools.png)](/docs/assets/hardened-tools.png)
+[![AWS hardener status with installed Target and embedded security reference](/docs/assets/hardened-tools.png?v=4.14.0)](/docs/assets/hardened-tools.png?v=4.14.0)
 
 **Security basis.** A hardener removes a known plaintext or ambient-credential
 path and replaces it with a route Automic Vault can identify and authorize. The
@@ -254,7 +254,7 @@ Authorization Gates are the operator's view of policy. Each Gate identifies the
 request type, protected Secret patterns, allowed Targets, the default rule for
 all other apps, Hardened Runtime requirements, and exact per-launcher overrides.
 
-[![GitHub Secret Gate with default policy and a verified ChatGPT override](/docs/assets/authorization-gates.png)](/docs/assets/authorization-gates.png)
+[![GitHub Secret Gate with default policy and a verified ChatGPT override](/docs/assets/authorization-gates.png?v=4.14.0)](/docs/assets/authorization-gates.png?v=4.14.0)
 
 **Security basis.** A Gate evaluates the complete request envelope. The same
 Secret Name can therefore be Read Only for one Verified Launcher, Approval
@@ -281,7 +281,7 @@ interpreter, Script Declaration, Secret Names, declared Capabilities, and
 optional Launcher Endorsements. The app shows the exact enrolled state and can
 revoke or replace it.
 
-[![Blessed deployment script with its digest, AWS capability, and Launcher Endorsement](/docs/assets/blessed-scripts.png)](/docs/assets/blessed-scripts.png)
+[![Blessed deployment script with its digest, AWS capability, and Launcher Endorsement](/docs/assets/blessed-scripts.png?v=4.14.0)](/docs/assets/blessed-scripts.png?v=4.14.0)
 
 **Security basis.** Scripts are mutable text and usually run through a powerful
 interpreter. Automic Vault therefore approves a verified snapshot rather than
@@ -320,7 +320,7 @@ Hardened Runtime app and installs a command link for it. The detail view exposes
 the bundle identifier, signing mode, installed location, command, selected-source
 and signed-payload hashes, entitlements, and enrolled generation.
 
-[![Enrolled Launcher Bundle with installed command, pinned hashes, signing, and entitlements](/docs/assets/launcher-bundles.png)](/docs/assets/launcher-bundles.png)
+[![Enrolled Launcher Bundle with installed command, pinned hashes, signing, and entitlements](/docs/assets/launcher-bundles.png?v=4.14.0)](/docs/assets/launcher-bundles.png?v=4.14.0)
 
 **Security basis.** A mutable developer CLI often lacks the stable app identity
 needed for launcher policy. Bundling creates an exact ad-hoc-signed snapshot, installs
@@ -347,7 +347,7 @@ Secrets is the inventory of Secret Names and their Value sources. The app shows
 availability and source labels, but never redisplays stored Values. One Secret
 Name can have a Global Value and multiple Project Values.
 
-[![A harmless sample Secret with its hidden Global Value, availability, and Direct Access state](/docs/assets/secrets.png)](/docs/assets/secrets.png)
+[![A harmless sample Secret with its hidden Global Value, availability, and Direct Access state](/docs/assets/secrets.png?v=4.14.0)](/docs/assets/secrets.png?v=4.14.0)
 
 **Security basis.** Operators can reason about names, sources, selection, and
 authority without turning routine administration into Disclosure. Replace is a
@@ -397,7 +397,7 @@ Authorization History records recent allowed and denied requests with decision,
 decision source, command, reason, Verified Launcher, Secret Names and selected
 sources, Gate Client, Target, runtime, and working directory.
 
-[![Authorization History showing the denied request for a harmless sample Secret](/docs/assets/authorization-history.png)](/docs/assets/authorization-history.png)
+[![Authorization History showing the denied request for a harmless sample Secret](/docs/assets/authorization-history.png?v=4.14.0)](/docs/assets/authorization-history.png?v=4.14.0)
 
 **Security basis.** A decision without its inputs is not explainable. History
 keeps enough of the request envelope to answer why a rule matched, why a human
@@ -435,7 +435,7 @@ dependencies, Target selection, exact file content, permissions, configuration,
 and PATH precedence. Healthy Tools disappear from the problem list; failures
 include a reason and remediation.
 
-[![Doctor with no unresolved installation problems](/docs/assets/doctor.png)](/docs/assets/doctor.png)
+[![Doctor with no unresolved installation problems](/docs/assets/doctor.png?v=4.14.0)](/docs/assets/doctor.png?v=4.14.0)
 
 **Security basis.** Policy is only as strong as the route that reaches it. A
 correct Gate cannot protect a command if PATH resolves to an unprotected binary,
@@ -468,7 +468,7 @@ Touch ID Approval authorizes an exact request on the Mac with a fresh biometric.
 It accepts neither the login password nor Apple Watch fallback, and pointer or
 keyboard automation cannot activate the allow action.
 
-[![Touch ID Approval enabled, with embedded biometric approval and its local-authority guarantee](/docs/assets/touch-id-approval.png)](/docs/assets/touch-id-approval.png)
+[![Touch ID Approval enabled, with embedded biometric approval and its local-authority guarantee](/docs/assets/touch-id-approval.png?v=4.14.0)](/docs/assets/touch-id-approval.png?v=4.14.0)
 
 **Why it exists.** A local approval button can share the same input surface as an
 agent. Fresh Touch ID supplies a human gesture the agent cannot synthesize while
@@ -491,7 +491,7 @@ Approval.
 An eligible iPhone on the same iCloud Keychain account can carry human Approval
 while the Mac remains the Local Execution Boundary.
 
-[![iPhone Approval disabled with physical-separation guidance](/docs/assets/iphone-approval.png)](/docs/assets/iphone-approval.png)
+[![iPhone Approval disabled with physical-separation guidance](/docs/assets/iphone-approval.png?v=4.14.0)](/docs/assets/iphone-approval.png?v=4.14.0)
 
 **Security basis.** When an eligible phone route is enabled, the Mac exposes no
 local pointer or keyboard allow action. Separately enabled Touch ID Approval
@@ -532,7 +532,7 @@ no phone notification.
 Policy-authorized operations can show a notification, flash the menu bar, or
 show nothing. This controls feedback, not authority.
 
-[![Automic Authorization feedback options with Flash Menu Bar selected](/docs/assets/automic-authorization.png)](/docs/assets/automic-authorization.png)
+[![Automic Authorization feedback options with Flash Menu Bar selected](/docs/assets/automic-authorization.png?v=4.14.0)](/docs/assets/automic-authorization.png?v=4.14.0)
 
 Authorization History remains populated in every mode. Approval prompts and
 policy-denial notices are unaffected. Choose quieter feedback only after the
@@ -568,7 +568,7 @@ Detached Processes controls **Retained Launcher Provenance**: whether an eligibl
 live descendant may keep the verified launcher chain after its original parent
 exits.
 
-[![Detached Processes off by default with the authority-extension warning](/docs/assets/detached-processes.png)](/docs/assets/detached-processes.png)
+[![Detached Processes off by default with the authority-extension warning](/docs/assets/detached-processes.png?v=4.14.0)](/docs/assets/detached-processes.png?v=4.14.0)
 
 **Security tradeoff.** Enabling extends authority after the observed parent
 chain disappears. Same-user code injection can pass that retained authority to
@@ -586,7 +586,7 @@ GPG Signing stores an armored OpenPGP private key in Secret Custody and routes
 Git through `av-gpg` and `av gpg-sign`. Git receives a detached signature, never
 the private key.
 
-[![GPG Signing Secret Gate with exact launcher overrides set to Allow Signing](/docs/assets/gpg-signing.png)](/docs/assets/gpg-signing.png)
+[![GPG Signing Secret Gate with exact launcher overrides set to Allow Signing](/docs/assets/gpg-signing.png?v=4.14.0)](/docs/assets/gpg-signing.png?v=4.14.0)
 
 ```sh
 git config --global gpg.program av-gpg
@@ -633,7 +633,7 @@ under the local client's Launcher attribution.
 Exact Verified Apps may run `av list` without an Approval window; all other apps
 require Approval.
 
-[![Secret Name Access with ChatGPT allowed to run av list](/docs/assets/secret-name-access.png)](/docs/assets/secret-name-access.png)
+[![Secret Name Access with ChatGPT allowed to run av list](/docs/assets/secret-name-access.png?v=4.14.0)](/docs/assets/secret-name-access.png?v=4.14.0)
 
 This capability lists Secret Names only. It does not read, change, apply, or
 disclose Values and grants no Direct Access. Remove an app when its listing use
@@ -657,7 +657,7 @@ the Launcher from this row when it no longer needs unattended access.
 About reports the running version and GUI PATH captured before shell startup.
 Use both when diagnosing a mismatch between the app and an interactive shell.
 
-[![About showing Automic Vault 4.14.0 and the pre-shell GUI PATH](/docs/assets/about.png)](/docs/assets/about.png)
+[![About showing Automic Vault 4.14.0 and the pre-shell GUI PATH](/docs/assets/about.png?v=4.14.0)](/docs/assets/about.png?v=4.14.0)
 
 The menu bar opens the main window, checks for updates, quits the service, and
 surfaces live Secret Uses and Temporary Access Grants without displaying Values.

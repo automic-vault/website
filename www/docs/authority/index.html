@@ -70,8 +70,8 @@ selection</a></li><li class="docs-nav-depth-3"><a href="#saving-safely">Saving s
 biometric. It accepts neither the login password nor Apple Watch
 fallback, and pointer or keyboard automation cannot activate the allow
 action.</p>
-<p><a href="/docs/assets/touch-id-approval.png"><img
-src="/docs/assets/touch-id-approval.png"
+<p><a href="/docs/assets/touch-id-approval.png?v=4.14.0"><img
+src="/docs/assets/touch-id-approval.png?v=4.14.0"
 alt="Touch ID Approval enabled, with embedded biometric approval and its local-authority guarantee" /></a></p>
 <p><strong>Why it exists.</strong> A local approval button can share the
 same input surface as an agent. Fresh Touch ID supplies a human gesture
@@ -91,8 +91,8 @@ create a password fallback inside Touch ID Approval.</p>
 <h3 id="iphone-approval">iPhone Approval</h3>
 <p>An eligible iPhone on the same iCloud Keychain account can carry
 human Approval while the Mac remains the Local Execution Boundary.</p>
-<p><a href="/docs/assets/iphone-approval.png"><img
-src="/docs/assets/iphone-approval.png"
+<p><a href="/docs/assets/iphone-approval.png?v=4.14.0"><img
+src="/docs/assets/iphone-approval.png?v=4.14.0"
 alt="iPhone Approval disabled with physical-separation guidance" /></a></p>
 <p><strong>Security basis.</strong> When an eligible phone route is
 enabled, the Mac exposes no local pointer or keyboard allow action.
@@ -132,8 +132,8 @@ request before Approval, so you receive no phone notification.</p>
 feedback</h3>
 <p>Policy-authorized operations can show a notification, flash the menu
 bar, or show nothing. This controls feedback, not authority.</p>
-<p><a href="/docs/assets/automic-authorization.png"><img
-src="/docs/assets/automic-authorization.png"
+<p><a href="/docs/assets/automic-authorization.png?v=4.14.0"><img
+src="/docs/assets/automic-authorization.png?v=4.14.0"
 alt="Automic Authorization feedback options with Flash Menu Bar selected" /></a></p>
 <p>Authorization History remains populated in every mode. Approval
 prompts and policy-denial notices are unaffected. Choose quieter
@@ -167,8 +167,8 @@ blocks grant matching.</p>
 <p>Detached Processes controls <strong>Retained Launcher
 Provenance</strong>: whether an eligible live descendant may keep the
 verified launcher chain after its original parent exits.</p>
-<p><a href="/docs/assets/detached-processes.png"><img
-src="/docs/assets/detached-processes.png"
+<p><a href="/docs/assets/detached-processes.png?v=4.14.0"><img
+src="/docs/assets/detached-processes.png?v=4.14.0"
 alt="Detached Processes off by default with the authority-extension warning" /></a></p>
 <p><strong>Security tradeoff.</strong> Enabling extends authority after
 the observed parent chain disappears. Same-user code injection can pass
@@ -184,8 +184,8 @@ original launcher chain another way.</p>
 <p>GPG Signing stores an armored OpenPGP private key in Secret Custody
 and routes Git through <code>av-gpg</code> and <code>av gpg-sign</code>.
 Git receives a detached signature, never the private key.</p>
-<p><a href="/docs/assets/gpg-signing.png"><img
-src="/docs/assets/gpg-signing.png"
+<p><a href="/docs/assets/gpg-signing.png?v=4.14.0"><img
+src="/docs/assets/gpg-signing.png?v=4.14.0"
 alt="GPG Signing Secret Gate with exact launcher overrides set to Allow Signing" /></a></p>
 <pre class="sh"><code>git config --global gpg.program av-gpg
 git config --global gpg.format openpgp
@@ -226,8 +226,8 @@ software's requests under the local client's Launcher attribution.</p>
 <h3 id="secret-name-access">Secret Name Access</h3>
 <p>Exact Verified Apps may run <code>av list</code> without an Approval
 window; all other apps require Approval.</p>
-<p><a href="/docs/assets/secret-name-access.png"><img
-src="/docs/assets/secret-name-access.png"
+<p><a href="/docs/assets/secret-name-access.png?v=4.14.0"><img
+src="/docs/assets/secret-name-access.png?v=4.14.0"
 alt="Secret Name Access with ChatGPT allowed to run av list" /></a></p>
 <p>This capability lists Secret Names only. It does not read, change,
 apply, or disclose Values and grants no Direct Access. Remove an app
@@ -249,7 +249,7 @@ unattended access.</p>
 <p>About reports the running version and GUI PATH captured before shell
 startup. Use both when diagnosing a mismatch between the app and an
 interactive shell.</p>
-<p><a href="/docs/assets/about.png"><img src="/docs/assets/about.png"
+<p><a href="/docs/assets/about.png?v=4.14.0"><img src="/docs/assets/about.png?v=4.14.0"
 alt="About showing Automic Vault 4.14.0 and the pre-shell GUI PATH" /></a></p>
 <p>The menu bar opens the main window, checks for updates, quits the
 service, and surfaces live Secret Uses and Temporary Access Grants

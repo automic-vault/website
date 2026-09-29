@@ -411,7 +411,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             with self.subTest(locale=locale):
                 self.assertIn('homepage.css?v=15', home)
                 hero = main.split('</section>', 1)[0]
-                self.assertIn('src="/assets/overview-light.webp"', hero)
+                self.assertRegex(hero, r'src="/assets/overview-light\.webp(?:\?[^"]+)?"')
                 ids = set(re.findall(r'\bid="([^"]+)"', home))
                 self.assertTrue(set(re.findall(r'href="#([^"]+)"', home)) <= ids)
                 self.assertEqual(re.findall(r'<code>(.*?)</code>', main),
