@@ -1,9 +1,10 @@
 # Automic Vault manual
 
 This is the user and operator manual for Automic Vault 4.12.2 on macOS,
-checked against the source on September 25, 2026. UI screenshots show 3.16.0
-and illustrate older layouts; follow the text for current behavior. Use your
-installed build's help and catalogs to check its command surface.
+checked against the source on September 25, 2026. UI screenshots show 4.14.0,
+except the Proxy Session and Temporary Access Grant examples, which retain
+3.16.0 captures. Follow the text for current behavior. Use your installed
+build's help and catalogs to check its command surface.
 
 Automic Vault does more than store a Secret. It authorizes a complete operation:
 the Verified Launcher, Gate Client, Target, command and arguments, working
@@ -98,7 +99,7 @@ Value source, launcher generation, or relevant runtime fact creates a different
 request. A label such as “ChatGPT,” “gh,” or “read only” is useful UI shorthand,
 but is not the complete security decision.
 
-[![Mac Approval showing command, Secret Names, working directory, Target, Verified Launcher, execution chain, and warnings](/docs/assets/approval-request.png)](/docs/assets/approval-request.png)
+[![Mac Approval showing a sample command, Secret Name, working directory, Target, Verified Launcher, execution chain, and Touch ID](/docs/assets/approval-request.png)](/docs/assets/approval-request.png)
 
 Before approving, read the request from top to bottom. Confirm the command is the
 operation you intended, the Secret Names are the minimum required, the working
@@ -280,7 +281,7 @@ interpreter, Script Declaration, Secret Names, declared Capabilities, and
 optional Launcher Endorsements. The app shows the exact enrolled state and can
 revoke or replace it.
 
-[![Blessed deployment script with digest, Secret Names, capabilities, and calling-app policy](/docs/assets/blessed-scripts.png)](/docs/assets/blessed-scripts.png)
+[![Blessed deployment script with its digest, AWS capability, and Launcher Endorsement](/docs/assets/blessed-scripts.png)](/docs/assets/blessed-scripts.png)
 
 **Security basis.** Scripts are mutable text and usually run through a powerful
 interpreter. Automic Vault therefore approves a verified snapshot rather than
@@ -396,7 +397,7 @@ Authorization History records recent allowed and denied requests with decision,
 decision source, command, reason, Verified Launcher, Secret Names and selected
 sources, Gate Client, Target, runtime, and working directory.
 
-[![Authorization History filtered to a complete sample proxy decision](/docs/assets/authorization-history.png)](/docs/assets/authorization-history.png)
+[![Authorization History showing the denied request for a harmless sample Secret](/docs/assets/authorization-history.png)](/docs/assets/authorization-history.png)
 
 **Security basis.** A decision without its inputs is not explainable. History
 keeps enough of the request envelope to answer why a rule matched, why a human
@@ -467,7 +468,7 @@ Touch ID Approval authorizes an exact request on the Mac with a fresh biometric.
 It accepts neither the login password nor Apple Watch fallback, and pointer or
 keyboard automation cannot activate the allow action.
 
-[![Touch ID Approval disabled, with its explicit local-authority guarantee](/docs/assets/touch-id-approval.png)](/docs/assets/touch-id-approval.png)
+[![Touch ID Approval enabled, with embedded biometric approval and its local-authority guarantee](/docs/assets/touch-id-approval.png)](/docs/assets/touch-id-approval.png)
 
 **Why it exists.** A local approval button can share the same input surface as an
 agent. Fresh Touch ID supplies a human gesture the agent cannot synthesize while
@@ -632,7 +633,7 @@ under the local client's Launcher attribution.
 Exact Verified Apps may run `av list` without an Approval window; all other apps
 require Approval.
 
-[![Secret Name Access with two exact verified apps allowed to run av list](/docs/assets/secret-name-access.png)](/docs/assets/secret-name-access.png)
+[![Secret Name Access with ChatGPT allowed to run av list](/docs/assets/secret-name-access.png)](/docs/assets/secret-name-access.png)
 
 This capability lists Secret Names only. It does not read, change, apply, or
 disclose Values and grants no Direct Access. Remove an app when its listing use
@@ -656,7 +657,7 @@ the Launcher from this row when it no longer needs unattended access.
 About reports the running version and GUI PATH captured before shell startup.
 Use both when diagnosing a mismatch between the app and an interactive shell.
 
-[![About showing Automic Vault 3.16.0 and the pre-shell GUI PATH](/docs/assets/about.png)](/docs/assets/about.png)
+[![About showing Automic Vault 4.14.0 and the pre-shell GUI PATH](/docs/assets/about.png)](/docs/assets/about.png)
 
 The menu bar opens the main window, checks for updates, quits the service, and
 surfaces live Secret Uses and Temporary Access Grants without displaying Values.
@@ -1677,7 +1678,7 @@ and Architecture on September 25, 2026. Hardener pages are generated from that
 checkout's hardener references.
 The linked v1 copy script was tested with disposable legacy Keychain
 fixtures and the actual save implementation using isolated test storage; it is
-not a full v1 upgrade test. UI screenshots come from 3.16.0. For your installed
+not a full v1 upgrade test. UI screenshots show 4.14.0, except the Proxy Session and Temporary Access Grant examples from 3.16.0. For your installed
 build, prefer `av --version`, `av help`, `av detectors --json`, and `av hardeners --json`.
 
 - [4.12.2 release](https://github.com/automic-vault/automic-vault/releases/tag/4.12.2)

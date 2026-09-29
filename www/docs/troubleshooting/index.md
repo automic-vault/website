@@ -109,7 +109,7 @@ and Architecture on September 25, 2026. Hardener pages are generated from that
 checkout's hardener references.
 The linked v1 copy script was tested with disposable legacy Keychain
 fixtures and the actual save implementation using isolated test storage; it is
-not a full v1 upgrade test. UI screenshots come from 3.16.0. For your installed
+not a full v1 upgrade test. UI screenshots show 4.14.0, except the Proxy Session and Temporary Access Grant examples from 3.16.0. For your installed
 build, prefer `av --version`, `av help`, `av detectors --json`, and `av hardeners --json`.
 
 - [4.12.2 release](https://github.com/automic-vault/automic-vault/releases/tag/4.12.2)

@@ -6,7 +6,7 @@ Touch ID Approval authorizes an exact request on the Mac with a fresh biometric.
 It accepts neither the login password nor Apple Watch fallback, and pointer or
 keyboard automation cannot activate the allow action.
 
-[![Touch ID Approval disabled, with its explicit local-authority guarantee](/docs/assets/touch-id-approval.png)](/docs/assets/touch-id-approval.png)
+[![Touch ID Approval enabled, with embedded biometric approval and its local-authority guarantee](/docs/assets/touch-id-approval.png)](/docs/assets/touch-id-approval.png)
 
 **Why it exists.** A local approval button can share the same input surface as an
 agent. Fresh Touch ID supplies a human gesture the agent cannot synthesize while
@@ -171,7 +171,7 @@ under the local client's Launcher attribution.
 Exact Verified Apps may run `av list` without an Approval window; all other apps
 require Approval.
 
-[![Secret Name Access with two exact verified apps allowed to run av list](/docs/assets/secret-name-access.png)](/docs/assets/secret-name-access.png)
+[![Secret Name Access with ChatGPT allowed to run av list](/docs/assets/secret-name-access.png)](/docs/assets/secret-name-access.png)
 
 This capability lists Secret Names only. It does not read, change, apply, or
 disclose Values and grants no Direct Access. Remove an app when its listing use
@@ -195,7 +195,7 @@ the Launcher from this row when it no longer needs unattended access.
 About reports the running version and GUI PATH captured before shell startup.
 Use both when diagnosing a mismatch between the app and an interactive shell.
 
-[![About showing Automic Vault 3.16.0 and the pre-shell GUI PATH](/docs/assets/about.png)](/docs/assets/about.png)
+[![About showing Automic Vault 4.14.0 and the pre-shell GUI PATH](/docs/assets/about.png)](/docs/assets/about.png)
 
 The menu bar opens the main window, checks for updates, quits the service, and
 surfaces live Secret Uses and Temporary Access Grants without displaying Values.

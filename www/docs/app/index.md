@@ -92,7 +92,7 @@ interpreter, Script Declaration, Secret Names, declared Capabilities, and
 optional Launcher Endorsements. The app shows the exact enrolled state and can
 revoke or replace it.
 
-[![Blessed deployment script with digest, Secret Names, capabilities, and calling-app policy](/docs/assets/blessed-scripts.png)](/docs/assets/blessed-scripts.png)
+[![Blessed deployment script with its digest, AWS capability, and Launcher Endorsement](/docs/assets/blessed-scripts.png)](/docs/assets/blessed-scripts.png)
 
 **Security basis.** Scripts are mutable text and usually run through a powerful
 interpreter. Automic Vault therefore approves a verified snapshot rather than
@@ -208,7 +208,7 @@ Authorization History records recent allowed and denied requests with decision,
 decision source, command, reason, Verified Launcher, Secret Names and selected
 sources, Gate Client, Target, runtime, and working directory.
 
-[![Authorization History filtered to a complete sample proxy decision](/docs/assets/authorization-history.png)](/docs/assets/authorization-history.png)
+[![Authorization History showing the denied request for a harmless sample Secret](/docs/assets/authorization-history.png)](/docs/assets/authorization-history.png)
 
 **Security basis.** A decision without its inputs is not explainable. History
 keeps enough of the request envelope to answer why a rule matched, why a human

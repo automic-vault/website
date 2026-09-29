@@ -35,3 +35,9 @@ sections have screenshots, including Project Values and pending iPhone requests
 from two Macs. Keep captures, intrinsic dimensions, alt descriptions, and captions
 aligned across all five languages. New Japanese acquisition copy still needs
 native-language review before publication.
+
+September 29, 2026: refreshed Overview, Detectors, Authorization Gates, and
+Project Values on the homepage, plus 16 manual captures, from Automic Vault
+4.14.0 in light appearance. The homepage script Approval and iPhone captures,
+and the manual Proxy Session and Temporary Access Grant captures, still need
+replacement. The sample proxy Target ran, but the app showed no active session.
