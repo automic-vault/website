@@ -3,18 +3,18 @@
     {
       "path": "/",
       "source": "index.html",
-      "dateModified": "2026-09-21",
+      "dateModified": "2026-10-03",
       "translations": {
         "ja": {
-          "title": "Automic Vault | CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。",
-          "description": "Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。",
+          "title": "Automic Vault | macOS はアプリを守ります。 私たちはコマンドラインを守ります。",
+          "description": "Automic Vault は対応 CLI ツールの認証情報を保護し、操作ごとに使用を認可することで、macOS のセキュリティを補完します。いつものコマンドはそのまま使えます。",
           "kicker": "Max Howell",
-          "h1": "CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。",
-          "lede": "Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。",
+          "h1": "macOS はアプリを守ります。 私たちはコマンドラインを守ります。",
+          "lede": "Automic Vault は対応 CLI ツールの認証情報を保護し、操作ごとに使用を認可することで、macOS のセキュリティを補完します。いつものコマンドはそのまま使えます。",
           "sections": [
             [
-              "ツールをインストールする場所で、対策する。",
-              "パッケージの仕組みから\n\n作業のために CLI ツールをインストールすると、認証情報がファイルやヘルパーに保存されることがあります。同じユーザー権限で動く別のコードも、それを読み出せる場合があります。エージェントもそのアクセスを引き継ぎます。\n\nGitHub の場合、av harden gh で署名済みの改修版 CLI をインストールし、既存の認証情報を Automic Vault の管理下に移します。使うコマンドは引き続き gh です。認証が必要な操作は Authorization Gate を通るようになります。\n\nIssue の閲覧、リリースの公開、トークンの表示には、それぞれ異なる権限が必要です。AV は操作全体を確認してから認証情報を適用します。\n\nリモート側を変更しなくても、認証情報の開示には別の判断が必要です。\n\nHomebrew\n\nHomebrew のハードニングは、同じユーザー権限で動く別のコードによる /opt/homebrew の変更を防ぎます。Read & Update では、認識済みの確認コマンドと brew update を実行でき、インストールやアップグレードには Approval が必要です。対象は Apple Silicon の Homebrew です。ハードニング中はサービスとシェル補完を利用できません。\n\nAWS\n\n通常の AWS コマンドには短期のセッション認証情報を渡します。長期キーは共有認証情報ファイルから取り除きます。AV は AWS プロセスごとにセッション認証情報を個別に取得します。\n\nDocker\n\nレジストリの認証情報を渡す前に、AV は実行中の Docker Desktop プロセス、署名、ランタイム保護、起動元のプロセス階層、引数、要求されたレジストリを確認します。"
+              "ターミナルの認証情報を保護する。",
+              "macOS のセキュリティを基盤に\n\nApple は長年にわたり、Gatekeeper、公証、マルウェア検査、機密データへのアクセス許可によって Mac アプリのセキュリティを強化してきました。\n\nコマンドラインツールは今も、同じユーザー権限で動く別のコードが読めるファイルやヘルパーに認証情報を保存することがあります。エージェントや依存パッケージが、そのアクセスを使って確認なしにリリースを公開したり、クラウド環境を変更したりできてしまいます。\n\nAutomic Vault は macOS のコード署名、Hardened Runtime、キーチェーンを基盤に、開発者の認証情報を保護し、対応するコマンドライン操作を認可します。\n\nGitHub の場合、av harden gh で署名済みの改修版 CLI をインストールし、既存の認証情報を Automic Vault の管理下に移します。使うコマンドは引き続き gh です。認証が必要な操作は Authorization Gate を通るようになります。\n\nIssue の閲覧、リリースの公開、トークンの表示には、それぞれ異なる権限が必要です。AV は操作全体を確認してから認証情報を適用します。\n\nリモート側を変更しなくても、認証情報の開示には別の判断が必要です。\n\nHomebrew\n\nHomebrew のハードニングは、同じユーザー権限で動く別のコードによる /opt/homebrew の変更を防ぎます。Read & Update では、認識済みの確認コマンドと brew update を実行でき、インストールやアップグレードには Approval が必要です。対象は Apple Silicon の Homebrew です。ハードニング中はサービスとシェル補完を利用できません。\n\nAWS\n\n通常の AWS コマンドには短期のセッション認証情報を渡します。長期キーは共有認証情報ファイルから取り除きます。AV は AWS プロセスごとにセッション認証情報を個別に取得します。\n\nDocker\n\nレジストリの認証情報を渡す前に、AV は実行中の Docker Desktop プロセス、署名、ランタイム保護、起動元のプロセス階層、引数、要求されたレジストリを確認します。"
             ],
             [
               "Mac に保存された認証情報から始めましょう。",
@@ -47,15 +47,15 @@
           ]
         },
         "de": {
-          "title": "Automic Vault | CLI-Sicherheit ist kaputt. Wir setzen bei der Paketverwaltung an.",
-          "description": "Automic Vault härtet unterstützte CLI-Tools auf macOS, verschiebt offengelegte Zugangsdaten in die Keychain und kontrolliert ihre Nutzung. Deine gewohnten Befehle bleiben.",
+          "title": "Automic Vault | macOS schützt deine Apps. Wir schützen deine Kommandozeile.",
+          "description": "Automic Vault ergänzt die macOS-Sicherheit für unterstützte CLI-Tools: geschützte Zugangsdaten, Autorisierung einzelner Operationen und deine gewohnten Befehle.",
           "kicker": "Max Howell",
-          "h1": "CLI-Sicherheit ist kaputt. Wir setzen bei der Paketverwaltung an.",
-          "lede": "Automic Vault härtet unterstützte CLI-Tools auf macOS, verschiebt offengelegte Zugangsdaten in die Keychain und kontrolliert ihre Nutzung. Deine gewohnten Befehle bleiben.",
+          "h1": "macOS schützt deine Apps. Wir schützen deine Kommandozeile.",
+          "lede": "Automic Vault ergänzt die macOS-Sicherheit für unterstützte CLI-Tools: geschützte Zugangsdaten, Autorisierung einzelner Operationen und deine gewohnten Befehle.",
           "sections": [
             [
-              "Tools dort absichern, wo du sie installierst.",
-              "Die Paketverwaltung\n\nDu installierst ein CLI-Tool für eine Aufgabe. Seine Zugangsdaten landen oft in Dateien oder Hilfsprogrammen, auf die anderer Code mit deinen Benutzerrechten zugreifen kann. Agenten erben diesen Zugriff.\n\nFür GitHub installiert av harden gh unsere signierte, gepatchte CLI und überführt ihre Zugangsdaten in die Obhut von Automic Vault. Du nutzt weiterhin gh. Authentifizierte Operationen durchlaufen jetzt sein Authorization Gate.\n\nEin Issue lesen, ein Release veröffentlichen und einen Token offenlegen erfordern unterschiedliche Berechtigungen. AV prüft die gesamte Operation, bevor es die Zugangsdaten anwendet.\n\nDie Offenlegung von Zugangsdaten erfordert eine eigene Entscheidung, auch wenn sich remote nichts ändert.\n\nHomebrew\n\nHomebrew-Härtung schützt /opt/homebrew vor Änderungen durch anderen Code mit deinen Benutzerrechten. Read & Update erlaubt erkannte Abfragebefehle und brew update; Installationen und Upgrades brauchen deine Approval. Dies gilt für Apple-Silicon-Homebrew. Services und Shell-Vervollständigungen sind im gehärteten Zustand inkompatibel.\n\nAWS\n\nNormale AWS-Befehle erhalten kurzlebige Sitzungszugangsdaten. Langlebige Schlüssel werden aus der gemeinsamen Credentials-Datei entfernt. AV beschafft Sitzungszugangsdaten separat für jeden AWS-Prozess.\n\nDocker\n\nBevor AV Registry-Zugangsdaten freigibt, prüft es den laufenden Docker-Desktop-Prozess, seine Signatur, Laufzeitschutzmaßnahmen, Prozessabstammung, Argumente und die angeforderte Registry."
+              "Die Lücke bei CLI-Zugangsdaten schließen.",
+              "Auf macOS-Sicherheit aufgebaut\n\nApple hat die Sicherheit von Mac-Apps über Jahre mit Gatekeeper, Notarisierung, Malware-Prüfungen und Berechtigungen für sensible Daten gestärkt.\n\nCLI-Tools speichern Zugangsdaten noch häufig in Dateien oder Hilfsprogrammen, auf die anderer Code mit deinen Benutzerrechten zugreifen kann. Ein Agent oder eine Abhängigkeit kann damit ohne deine Zustimmung Releases veröffentlichen oder deine Cloud-Infrastruktur ändern.\n\nAutomic Vault baut auf macOS-Codesignierung, Hardened Runtime und der Keychain auf, um Entwickler-Zugangsdaten zu schützen und unterstützte CLI-Operationen zu autorisieren.\n\nFür GitHub installiert av harden gh unsere signierte, gepatchte CLI und überführt ihre Zugangsdaten in die Obhut von Automic Vault. Du nutzt weiterhin gh. Authentifizierte Operationen durchlaufen jetzt sein Authorization Gate.\n\nEin Issue lesen, ein Release veröffentlichen und einen Token offenlegen erfordern unterschiedliche Berechtigungen. AV prüft die gesamte Operation, bevor es die Zugangsdaten anwendet.\n\nDie Offenlegung von Zugangsdaten erfordert eine eigene Entscheidung, auch wenn sich remote nichts ändert.\n\nHomebrew\n\nHomebrew-Härtung schützt /opt/homebrew vor Änderungen durch anderen Code mit deinen Benutzerrechten. Read & Update erlaubt erkannte Abfragebefehle und brew update; Installationen und Upgrades brauchen deine Approval. Dies gilt für Apple-Silicon-Homebrew. Services und Shell-Vervollständigungen sind im gehärteten Zustand inkompatibel.\n\nAWS\n\nNormale AWS-Befehle erhalten kurzlebige Sitzungszugangsdaten. Langlebige Schlüssel werden aus der gemeinsamen Credentials-Datei entfernt. AV beschafft Sitzungszugangsdaten separat für jeden AWS-Prozess.\n\nDocker\n\nBevor AV Registry-Zugangsdaten freigibt, prüft es den laufenden Docker-Desktop-Prozess, seine Signatur, Laufzeitschutzmaßnahmen, Prozessabstammung, Argumente und die angeforderte Registry."
             ],
             [
               "Beginne mit den Zugangsdaten auf deinem Mac.",
@@ -88,15 +88,15 @@
           ]
         },
         "fr": {
-          "title": "Automic Vault | La sécurité des CLI est défaillante. Nous la corrigeons au niveau des paquets.",
-          "description": "Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.",
+          "title": "Automic Vault | macOS protège vos apps. Nous protégeons votre ligne de commande.",
+          "description": "Automic Vault complète la sécurité de macOS pour les outils CLI pris en charge : identifiants protégés, autorisation de chaque opération et commandes habituelles.",
           "kicker": "Max Howell",
-          "h1": "La sécurité des CLI est défaillante. Nous la corrigeons au niveau des paquets.",
-          "lede": "Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.",
+          "h1": "macOS protège vos apps. Nous protégeons votre ligne de commande.",
+          "lede": "Automic Vault complète la sécurité de macOS pour les outils CLI pris en charge : identifiants protégés, autorisation de chaque opération et commandes habituelles.",
           "sections": [
             [
-              "Sécuriser les outils là où vous les installez.",
-              "La gestion des paquets\n\nVous installez un outil CLI pour accomplir une tâche. Ses identifiants se retrouvent souvent dans des fichiers ou des assistants accessibles à tout code exécuté avec vos droits. Les agents héritent de cet accès.\n\nPour GitHub, av harden gh installe notre CLI signée et modifiée, puis transfère ses identifiants sous la garde d’Automic Vault. Vous utilisez toujours gh. Les opérations authentifiées passent désormais par son Authorization Gate.\n\nLire une issue, publier une version et révéler un jeton nécessitent des droits différents. AV vérifie l’opération complète avant d’appliquer l’identifiant.\n\nRévéler un identifiant nécessite une décision distincte, même sans modification à distance.\n\nHomebrew\n\nLe durcissement de Homebrew protège /opt/homebrew contre les modifications par d’autres programmes exécutés avec vos droits. Read & Update autorise les commandes d’inspection reconnues et brew update ; les installations et mises à niveau nécessitent votre Approval. Ce mécanisme vise Homebrew sur Apple Silicon. Les services et la complétion du shell sont incompatibles avec ce mode.\n\nAWS\n\nLes commandes AWS ordinaires reçoivent des identifiants de session temporaires. Les clés durables sont retirées du fichier d’identifiants partagé. AV obtient des identifiants de session distincts pour chaque processus AWS.\n\nDocker\n\nAvant de fournir un identifiant de registre, AV vérifie le processus Docker Desktop en cours, sa signature, ses protections d’exécution, sa filiation, ses arguments et le registre demandé."
+              "Protéger les identifiants de votre terminal.",
+              "Construit sur la sécurité de macOS\n\nApple renforce depuis des années la sécurité des apps Mac avec Gatekeeper, la notarisation, les contrôles contre les logiciels malveillants et les permissions d’accès aux données sensibles.\n\nLes outils CLI conservent encore souvent leurs identifiants dans des fichiers ou des auxiliaires accessibles à d’autres programmes exécutés avec vos droits. Un agent ou une dépendance peut ainsi publier une version ou modifier votre infrastructure cloud sans vous demander votre accord.\n\nAutomic Vault s’appuie sur la signature de code de macOS, Hardened Runtime et le Trousseau pour protéger les identifiants de développement et autoriser les opérations CLI prises en charge.\n\nPour GitHub, av harden gh installe notre CLI signée et modifiée, puis transfère ses identifiants sous la garde d’Automic Vault. Vous utilisez toujours gh. Les opérations authentifiées passent désormais par son Authorization Gate.\n\nLire une issue, publier une version et révéler un jeton nécessitent des droits différents. AV vérifie l’opération complète avant d’appliquer l’identifiant.\n\nRévéler un identifiant nécessite une décision distincte, même sans modification à distance.\n\nHomebrew\n\nLe durcissement de Homebrew protège /opt/homebrew contre les modifications par d’autres programmes exécutés avec vos droits. Read & Update autorise les commandes d’inspection reconnues et brew update ; les installations et mises à niveau nécessitent votre Approval. Ce mécanisme vise Homebrew sur Apple Silicon. Les services et la complétion du shell sont incompatibles avec ce mode.\n\nAWS\n\nLes commandes AWS ordinaires reçoivent des identifiants de session temporaires. Les clés durables sont retirées du fichier d’identifiants partagé. AV obtient des identifiants de session distincts pour chaque processus AWS.\n\nDocker\n\nAvant de fournir un identifiant de registre, AV vérifie le processus Docker Desktop en cours, sa signature, ses protections d’exécution, sa filiation, ses arguments et le registre demandé."
             ],
             [
               "Commencez par les identifiants présents sur votre Mac.",
@@ -129,15 +129,15 @@
           ]
         },
         "zh-Hans": {
-          "title": "Automic Vault | CLI 安全出了问题。 我们从软件包这一层着手修复。",
-          "description": "Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。",
+          "title": "Automic Vault | macOS 保护你的应用。 我们保护你的命令行。",
+          "description": "Automic Vault 为受支持的 CLI 工具补充 macOS 安全保护：保护凭据，逐项授权操作，同时保留你熟悉的命令。",
           "kicker": "Max Howell",
-          "h1": "CLI 安全出了问题。 我们从软件包这一层着手修复。",
-          "lede": "Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。",
+          "h1": "macOS 保护你的应用。 我们保护你的命令行。",
+          "lede": "Automic Vault 为受支持的 CLI 工具补充 macOS 安全保护：保护凭据，逐项授权操作，同时保留你熟悉的命令。",
           "sections": [
             [
-              "在安装工具的地方，把安全补上。",
-              "软件包这一层\n\n你安装 CLI 工具来完成任务，它的凭据却常常留在文件或辅助程序中，其他以你的用户权限运行的代码也能读取。智能体会继承这些访问权限。\n\n对于 GitHub，av harden gh 会安装我们签名并修改过的 CLI，将现有凭据迁移到 Automic Vault 管理之下。你仍然运行 gh，需要身份验证的操作则会经过它的 Authorization Gate。\n\n读取 Issue、发布版本和显示令牌需要不同的权限。AV 会检查完整操作，再应用凭据。\n\n即使不会更改远程资源，披露凭据也需要单独决策。\n\nHomebrew\n\nHomebrew 加固可防止其他以你的用户权限运行的代码修改 /opt/homebrew。在 Read & Update 下，已识别的查询命令和 brew update 可以运行；安装和升级需要你的 Approval。该功能适用于 Apple Silicon 上的 Homebrew。加固期间不支持服务和 shell 补全。\n\nAWS\n\n普通 AWS 命令使用短期会话凭据。长期密钥从共享凭据文件中移除。AV 为每个 AWS 进程单独获取会话凭据。\n\nDocker\n\n在释放注册表凭据之前，AV 会验证正在运行的 Docker Desktop 进程及其签名、运行时保护、进程祖先链、参数和请求的注册表。"
+              "补上终端中的凭据保护。",
+              "以 macOS 安全机制为基础\n\n多年来，Apple 通过 Gatekeeper、公证、恶意软件检查和敏感数据访问权限，不断加强 Mac 应用的安全性。\n\n命令行工具仍常将凭据保存在其他以你的用户权限运行的代码能够读取的文件或辅助程序中。智能体或依赖项可能因此无需询问你，就能发布版本或修改云基础设施。\n\nAutomic Vault 基于 macOS 代码签名、Hardened Runtime 和钥匙串，保护开发者凭据，并授权受支持的命令行操作。\n\n对于 GitHub，av harden gh 会安装我们签名并修改过的 CLI，将现有凭据迁移到 Automic Vault 管理之下。你仍然运行 gh，需要身份验证的操作则会经过它的 Authorization Gate。\n\n读取 Issue、发布版本和显示令牌需要不同的权限。AV 会检查完整操作，再应用凭据。\n\n即使不会更改远程资源，披露凭据也需要单独决策。\n\nHomebrew\n\nHomebrew 加固可防止其他以你的用户权限运行的代码修改 /opt/homebrew。在 Read & Update 下，已识别的查询命令和 brew update 可以运行；安装和升级需要你的 Approval。该功能适用于 Apple Silicon 上的 Homebrew。加固期间不支持服务和 shell 补全。\n\nAWS\n\n普通 AWS 命令使用短期会话凭据。长期密钥从共享凭据文件中移除。AV 为每个 AWS 进程单独获取会话凭据。\n\nDocker\n\n在释放注册表凭据之前，AV 会验证正在运行的 Docker Desktop 进程及其签名、运行时保护、进程祖先链、参数和请求的注册表。"
             ],
             [
               "从 Mac 上已有的凭据开始。",
@@ -174,18 +174,18 @@
     {
       "path": "/about/",
       "source": "about/index.html",
-      "dateModified": "2026-09-23",
+      "dateModified": "2026-10-03",
       "translations": {
         "ja": {
           "title": "Automic Vault について | Homebrew から CLI のセキュリティへ",
-          "description": "Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。",
+          "description": "Automic Vault は対応 CLI ツールの認証情報を保護し、操作ごとに使用を認可することで、macOS のセキュリティを補完します。いつものコマンドはそのまま使えます。",
           "kicker": "Max Howell",
-          "h1": "私は Homebrew を作りました。今は、エージェントがそれを使うときに起きる問題に取り組んでいます。",
-          "lede": "Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。",
+          "h1": "私が Homebrew を作ってから、Apple は Mac アプリのセキュリティを大きく進化させました。私はコマンドラインにも同じように取り組んでいます。",
+          "lede": "Automic Vault は対応 CLI ツールの認証情報を保護し、操作ごとに使用を認可することで、macOS のセキュリティを補完します。いつものコマンドはそのまま使えます。",
           "sections": [
             [
-              "CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。",
-              "私は、開発者がツールをインストールする仕組みを知っています。その仕組みに手を入れることで、ツールが認証情報を保存し、使う方法を変えられます。Automic Vault では対応ツールをそこでハードニングし、保護対象の操作を実行時に認可します。ターミナル、エディタ、エージェントでは、いつものコマンドを使い続けられます。"
+              "macOS はアプリを守ります。 私たちはコマンドラインを守ります。",
+              "私が Homebrew を作ってから、Apple は Mac アプリのセキュリティを大きく進化させました。私はコマンドラインにも同じように取り組んでいます。\n\nApple は長年にわたり、Gatekeeper、公証、マルウェア検査、機密データへのアクセス許可によって Mac アプリのセキュリティを強化してきました。\n\nコマンドラインツールは今も、同じユーザー権限で動く別のコードが読めるファイルやヘルパーに認証情報を保存することがあります。エージェントや依存パッケージが、そのアクセスを使って確認なしにリリースを公開したり、クラウド環境を変更したりできてしまいます。\n\nAutomic Vault は macOS のコード署名、Hardened Runtime、キーチェーンを基盤に、開発者の認証情報を保護し、対応するコマンドライン操作を認可します。"
             ],
             [
               "Mac 上で何が変わるか",
@@ -223,14 +223,14 @@
         },
         "de": {
           "title": "Über Automic Vault | Von Homebrew zur CLI-Sicherheit",
-          "description": "Automic Vault härtet unterstützte CLI-Tools auf macOS, verschiebt offengelegte Zugangsdaten in die Keychain und kontrolliert ihre Nutzung. Deine gewohnten Befehle bleiben.",
+          "description": "Automic Vault ergänzt die macOS-Sicherheit für unterstützte CLI-Tools: geschützte Zugangsdaten, Autorisierung einzelner Operationen und deine gewohnten Befehle.",
           "kicker": "Max Howell",
-          "h1": "Ich habe Homebrew entwickelt. Jetzt kümmere ich mich darum, was passiert, wenn Agenten es nutzen.",
-          "lede": "Automic Vault härtet unterstützte CLI-Tools auf macOS, verschiebt offengelegte Zugangsdaten in die Keychain und kontrolliert ihre Nutzung. Deine gewohnten Befehle bleiben.",
+          "h1": "Seit ich Homebrew entwickelt habe, hat Apple die Sicherheit von Mac-Apps grundlegend verbessert. Mit derselben Sorgfalt kümmere ich mich jetzt um die Kommandozeile.",
+          "lede": "Automic Vault ergänzt die macOS-Sicherheit für unterstützte CLI-Tools: geschützte Zugangsdaten, Autorisierung einzelner Operationen und deine gewohnten Befehle.",
           "sections": [
             [
-              "CLI-Sicherheit ist kaputt. Wir setzen bei der Paketverwaltung an.",
-              "Ich kenne die Ebene, auf der Entwickler ihre Tools installieren. Dort können wir praktisch ansetzen und ändern, wie Tools Zugangsdaten speichern und nutzen. Mit Automic Vault härten wir unterstützte Tools an dieser Stelle und autorisieren geschützte Operationen zur Laufzeit. Terminal, Editor und Agent verwenden weiter deine gewohnten Befehle."
+              "macOS schützt deine Apps. Wir schützen deine Kommandozeile.",
+              "Seit ich Homebrew entwickelt habe, hat Apple die Sicherheit von Mac-Apps grundlegend verbessert. Mit derselben Sorgfalt kümmere ich mich jetzt um die Kommandozeile.\n\nApple hat die Sicherheit von Mac-Apps über Jahre mit Gatekeeper, Notarisierung, Malware-Prüfungen und Berechtigungen für sensible Daten gestärkt.\n\nCLI-Tools speichern Zugangsdaten noch häufig in Dateien oder Hilfsprogrammen, auf die anderer Code mit deinen Benutzerrechten zugreifen kann. Ein Agent oder eine Abhängigkeit kann damit ohne deine Zustimmung Releases veröffentlichen oder deine Cloud-Infrastruktur ändern.\n\nAutomic Vault baut auf macOS-Codesignierung, Hardened Runtime und der Keychain auf, um Entwickler-Zugangsdaten zu schützen und unterstützte CLI-Operationen zu autorisieren."
             ],
             [
               "Was sich auf deinem Mac ändert",
@@ -268,14 +268,14 @@
         },
         "fr": {
           "title": "À propos d’Automic Vault | De Homebrew à la sécurité des CLI",
-          "description": "Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.",
+          "description": "Automic Vault complète la sécurité de macOS pour les outils CLI pris en charge : identifiants protégés, autorisation de chaque opération et commandes habituelles.",
           "kicker": "Max Howell",
-          "h1": "J’ai créé Homebrew. Aujourd’hui, je m’attaque à ce qui se passe quand les agents l’utilisent.",
-          "lede": "Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.",
+          "h1": "Depuis que j’ai créé Homebrew, Apple a transformé la sécurité des apps Mac. J’apporte le même soin à la ligne de commande.",
+          "lede": "Automic Vault complète la sécurité de macOS pour les outils CLI pris en charge : identifiants protégés, autorisation de chaque opération et commandes habituelles.",
           "sections": [
             [
-              "La sécurité des CLI est défaillante. Nous la corrigeons au niveau des paquets.",
-              "Je connais le niveau auquel les développeurs installent leurs outils. C’est un point d’intervention concret pour changer la façon dont ces outils conservent et utilisent les identifiants. Avec Automic Vault, nous sécurisons les outils pris en charge à ce niveau, puis autorisons les opérations protégées à l’exécution. Votre terminal, votre éditeur et votre agent gardent leurs commandes habituelles."
+              "macOS protège vos apps. Nous protégeons votre ligne de commande.",
+              "Depuis que j’ai créé Homebrew, Apple a transformé la sécurité des apps Mac. J’apporte le même soin à la ligne de commande.\n\nApple renforce depuis des années la sécurité des apps Mac avec Gatekeeper, la notarisation, les contrôles contre les logiciels malveillants et les permissions d’accès aux données sensibles.\n\nLes outils CLI conservent encore souvent leurs identifiants dans des fichiers ou des auxiliaires accessibles à d’autres programmes exécutés avec vos droits. Un agent ou une dépendance peut ainsi publier une version ou modifier votre infrastructure cloud sans vous demander votre accord.\n\nAutomic Vault s’appuie sur la signature de code de macOS, Hardened Runtime et le Trousseau pour protéger les identifiants de développement et autoriser les opérations CLI prises en charge."
             ],
             [
               "Ce qui change sur votre Mac",
@@ -313,14 +313,14 @@
         },
         "zh-Hans": {
           "title": "关于 Automic Vault | 从 Homebrew 到 CLI 安全",
-          "description": "Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。",
+          "description": "Automic Vault 为受支持的 CLI 工具补充 macOS 安全保护：保护凭据，逐项授权操作，同时保留你熟悉的命令。",
           "kicker": "Max Howell",
-          "h1": "我创建了 Homebrew。现在，我正在解决智能体使用它时带来的问题。",
-          "lede": "Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。",
+          "h1": "自从我创建 Homebrew 以来，Apple 大幅提升了 Mac 应用的安全性。现在，我正以同样的用心保护命令行。",
+          "lede": "Automic Vault 为受支持的 CLI 工具补充 macOS 安全保护：保护凭据，逐项授权操作，同时保留你熟悉的命令。",
           "sections": [
             [
-              "CLI 安全出了问题。 我们从软件包这一层着手修复。",
-              "我熟悉开发者安装工具的这一层。在这里，我们可以切实改变工具保存和使用凭据的方式。Automic Vault 在这一层加固支持的工具，再在运行时对受保护的操作进行授权。你的终端、编辑器和智能体仍然使用原来的命令。"
+              "macOS 保护你的应用。 我们保护你的命令行。",
+              "自从我创建 Homebrew 以来，Apple 大幅提升了 Mac 应用的安全性。现在，我正以同样的用心保护命令行。\n\n多年来，Apple 通过 Gatekeeper、公证、恶意软件检查和敏感数据访问权限，不断加强 Mac 应用的安全性。\n\n命令行工具仍常将凭据保存在其他以你的用户权限运行的代码能够读取的文件或辅助程序中。智能体或依赖项可能因此无需询问你，就能发布版本或修改云基础设施。\n\nAutomic Vault 基于 macOS 代码签名、Hardened Runtime 和钥匙串，保护开发者凭据，并授权受支持的命令行操作。"
             ],
             [
               "你的 Mac 上会发生什么变化",

@@ -4,7 +4,7 @@
 
 ## Pages principales
 
-- [Automic Vault | La sécurité des CLI est défaillante. Nous la corrigeons au niveau des paquets.](https://www.automicvault.com/fr/): Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.
+- [Automic Vault | macOS protège vos apps. Nous protégeons votre ligne de commande.](https://www.automicvault.com/fr/): Automic Vault complète la sécurité de macOS pour les outils CLI pris en charge : identifiants protégés, autorisation de chaque opération et commandes habituelles.
 
 - [Télécharger Automic Vault](https://www.automicvault.com/fr/download/): Téléchargez Automic Vault pour macOS et contrôlez l’utilisation des identifiants de développement.
 
@@ -14,7 +14,7 @@
 
 - [Blog](https://www.automicvault.com/blog/): Guides et analyses d’incidents liés aux paquets, extensions, identifiants et exécutions locales.
 
-- [À propos d’Automic Vault | De Homebrew à la sécurité des CLI](https://www.automicvault.com/fr/about/): Automic Vault sécurise les outils CLI pris en charge sur macOS, déplace les identifiants exposés dans le Trousseau et contrôle leur utilisation. Vous gardez vos commandes habituelles.
+- [À propos d’Automic Vault | De Homebrew à la sécurité des CLI](https://www.automicvault.com/fr/about/): Automic Vault complète la sécurité de macOS pour les outils CLI pris en charge : identifiants protégés, autorisation de chaque opération et commandes habituelles.
 
 - [Confidentialité Automic Vault](https://www.automicvault.com/fr/privacy/): Les données envoyées par l’app Mac et le site Automic Vault, celles qui restent locales et les services d’analyse utilisés.
 

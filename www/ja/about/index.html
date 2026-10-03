@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Automic Vault について | Homebrew から CLI のセキュリティへ</title>
-  <meta name="description" content="Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。 Homebrew ツール、CLI シークレット、承認ゲートを Mac 上でローカルに制御します。">
+  <meta name="description" content="Automic Vault は対応 CLI ツールの認証情報を保護し、操作ごとに使用を認可することで、macOS のセキュリティを補完します。いつものコマンドはそのまま使えます。 Homebrew ツール、CLI シークレット、承認ゲートを Mac 上でローカルに制御します。">
   <meta name="robots" content="index,follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Automic Vault">
   <meta property="og:title" content="Automic Vault について | Homebrew から CLI のセキュリティへ">
-  <meta property="og:description" content="Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。 Homebrew ツール、CLI シークレット、承認ゲートを Mac 上でローカルに制御します。">
+  <meta property="og:description" content="Automic Vault は対応 CLI ツールの認証情報を保護し、操作ごとに使用を認可することで、macOS のセキュリティを補完します。いつものコマンドはそのまま使えます。 Homebrew ツール、CLI シークレット、承認ゲートを Mac 上でローカルに制御します。">
   <meta property="og:url" content="https://www.automicvault.com/ja/about/">
   <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Automic Vault について | Homebrew から CLI のセキュリティへ">
-  <meta name="twitter:description" content="Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。 Homebrew ツール、CLI シークレット、承認ゲートを Mac 上でローカルに制御します。">
+  <meta name="twitter:description" content="Automic Vault は対応 CLI ツールの認証情報を保護し、操作ごとに使用を認可することで、macOS のセキュリティを補完します。いつものコマンドはそのまま使えます。 Homebrew ツール、CLI シークレット、承認ゲートを Mac 上でローカルに制御します。">
   <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
   <link rel="canonical" href="https://www.automicvault.com/ja/about/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/about/">
@@ -49,8 +49,8 @@
     "@type": "WebPage",
     "url": "https://www.automicvault.com/ja/about/",
     "name": "Automic Vault について | Homebrew から CLI のセキュリティへ",
-    "headline": "私は Homebrew を作りました。今は、エージェントがそれを使うときに起きる問題に取り組んでいます。",
-    "description": "Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。 Homebrew ツール、CLI シークレット、承認ゲートを Mac 上でローカルに制御します。",
+    "headline": "私が Homebrew を作ってから、Apple は Mac アプリのセキュリティを大きく進化させました。私はコマンドラインにも同じように取り組んでいます。",
+    "description": "Automic Vault は対応 CLI ツールの認証情報を保護し、操作ごとに使用を認可することで、macOS のセキュリティを補完します。いつものコマンドはそのまま使えます。 Homebrew ツール、CLI シークレット、承認ゲートを Mac 上でローカルに制御します。",
     "inLanguage": "ja",
     "image": "https://www.automicvault.com/preview.jpg",
     "isPartOf": {"@type": "WebSite", "name": "Automic Vault", "url": "https://www.automicvault.com/"}
@@ -78,8 +78,8 @@
       <section class="poster-hero landing-page-hero" aria-labelledby="hero-title">
         <div class="poster-hero-copy">
           <p class="eyebrow">Max Howell</p>
-          <h1 id="hero-title">私は Homebrew を作りました。今は、エージェントがそれを使うときに起きる問題に取り組んでいます。</h1>
-          <p class="poster-lede">Automic Vault は macOS の対応 CLI ツールをハードニングし、露出した認証情報をキーチェーンに移して、その使用を制御します。いつものコマンドはそのまま使えます。</p>
+          <h1 id="hero-title">私が Homebrew を作ってから、Apple は Mac アプリのセキュリティを大きく進化させました。私はコマンドラインにも同じように取り組んでいます。</h1>
+          <p class="poster-lede">Automic Vault は対応 CLI ツールの認証情報を保護し、操作ごとに使用を認可することで、macOS のセキュリティを補完します。いつものコマンドはそのまま使えます。</p>
         </div>
 
         <div class="poster-hero-foot">
@@ -91,8 +91,14 @@
       </section>
 
       <section class="i18n-section" aria-labelledby="section-1">
-        <h2 id="section-1">CLI のセキュリティには欠陥があります。 パッケージの仕組みから直します。</h2>
-        <p>私は、開発者がツールをインストールする仕組みを知っています。その仕組みに手を入れることで、ツールが認証情報を保存し、使う方法を変えられます。Automic Vault では対応ツールをそこでハードニングし、保護対象の操作を実行時に認可します。ターミナル、エディタ、エージェントでは、いつものコマンドを使い続けられます。</p>
+        <h2 id="section-1">macOS はアプリを守ります。 私たちはコマンドラインを守ります。</h2>
+        <p>私が Homebrew を作ってから、Apple は Mac アプリのセキュリティを大きく進化させました。私はコマンドラインにも同じように取り組んでいます。
+
+Apple は長年にわたり、Gatekeeper、公証、マルウェア検査、機密データへのアクセス許可によって Mac アプリのセキュリティを強化してきました。
+
+コマンドラインツールは今も、同じユーザー権限で動く別のコードが読めるファイルやヘルパーに認証情報を保存することがあります。エージェントや依存パッケージが、そのアクセスを使って確認なしにリリースを公開したり、クラウド環境を変更したりできてしまいます。
+
+Automic Vault は macOS のコード署名、Hardened Runtime、キーチェーンを基盤に、開発者の認証情報を保護し、対応するコマンドライン操作を認可します。</p>
       </section>
       <section class="i18n-section" aria-labelledby="section-2">
         <h2 id="section-2">Mac 上で何が変わるか</h2>

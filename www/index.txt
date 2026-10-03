@@ -1,20 +1,24 @@
 # Automic Vault
 
-> CLI security is broken. The packaging layer is where we fix it.
+> macOS protects your apps. We protect your command line.
 
 Max Howell
 
-I created Homebrew. Now I’m fixing what happens when agents use it.
+Since I created Homebrew, Apple has transformed Mac app security. I’m bringing that same care to the command line.
 
-Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.
+Automic Vault complements macOS security for supported CLI tools: protected credentials, operation-level authorization, and your usual commands.
 
 Free and open source. Your existing commands keep working. No agent plugin required.
 
 Download for macOS: https://www.automicvault.com/Automic%20Vault.dmg · See it in action: https://www.automicvault.com/#demo
 
-## Fix the tools where you install them.
+## Close the credential gap in your terminal.
 
-You install a CLI to do a job. Its credentials often end up in files or helpers that any code running as you can read. Agents inherit that mess.
+Apple has spent years strengthening Mac app security with Gatekeeper, notarization, malware checks, and permissions for sensitive data.
+
+Command-line tools still often leave credentials in files or helpers that other code running as you can read. An agent or dependency can inherit the power to publish a release or change your cloud infrastructure without asking you.
+
+Automic Vault builds on macOS code signing, Hardened Runtime, and the Keychain to protect developer credentials and authorize supported command-line operations.
 
 For GitHub, av harden gh installs our signed, patched CLI and migrates its credentials into Automic Vault custody. You still run gh. Authenticated operations now reach its Authorization Gate.
 

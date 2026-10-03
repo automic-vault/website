@@ -3,8 +3,8 @@
   "category": "Local execution security and secrets management",
   "platform": "macOS",
   "license": "Apache License 2.0",
-  "title": "CLI security is broken. The packaging layer is where we fix it.",
-  "description": "Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.",
+  "title": "macOS protects your apps. We protect your command line.",
+  "description": "Automic Vault complements macOS security for supported CLI tools: protected credentials, operation-level authorization, and your usual commands.",
   "security_boundaries": [
     "Automic Vault does not intercept every process or replace the shell.",
     "Automic Vault does not prevent arbitrary local destruction.",
@@ -28,8 +28,8 @@
   "pricing": "The Mac app costs nothing and ships under Apache-2.0. Optional iPhone Approval requires an active subscription to send allow responses. Denying a request does not require a subscription.",
   "sections": [
     {
-      "title": "CLI security is broken. The packaging layer is where we fix it.",
-      "description": "Max Howell\n\nI created Homebrew. Now I’m fixing what happens when agents use it.\n\nAutomic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.\n\nFree and open source. Your existing commands keep working. No agent plugin required.",
+      "title": "macOS protects your apps. We protect your command line.",
+      "description": "Max Howell\n\nSince I created Homebrew, Apple has transformed Mac app security. I’m bringing that same care to the command line.\n\nAutomic Vault complements macOS security for supported CLI tools: protected credentials, operation-level authorization, and your usual commands.\n\nFree and open source. Your existing commands keep working. No agent plugin required.",
       "links": [
         {
           "label": "Download for macOS",
@@ -42,8 +42,8 @@
       ]
     },
     {
-      "title": "Fix the tools where you install them.",
-      "description": "You install a CLI to do a job. Its credentials often end up in files or helpers that any code running as you can read. Agents inherit that mess.\n\nFor GitHub, av harden gh installs our signed, patched CLI and migrates its credentials into Automic Vault custody. You still run gh. Authenticated operations now reach its Authorization Gate.\n\nYour secrets manager should know what the secrets do.\n\nReading an issue, publishing a release, and revealing a token need different authority. AV checks the complete operation before applying the credential.\n\nOne token. Three decisions. With a Verified Launcher on GitHub Read Only policy: gh issue list is authorized; gh issue create requires Approval for Remote Write; gh auth token requires Approval for Secret Disclosure.\n\nHomebrew: Updates can run. Installs can ask. Homebrew hardening protects /opt/homebrew from changes by other code running as you. At Read & Update, recognized inspection commands and brew update can run; installs and upgrades need Approval. This targets Apple Silicon Homebrew; services and shell completions are incompatible while hardened.\n\nAWS: Short-lived credentials per invocation. Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.\n\nDocker: The process and registry matter. Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.",
+      "title": "Close the credential gap in your terminal.",
+      "description": "Apple has spent years strengthening Mac app security with Gatekeeper, notarization, malware checks, and permissions for sensitive data.\n\nCommand-line tools still often leave credentials in files or helpers that other code running as you can read. An agent or dependency can inherit the power to publish a release or change your cloud infrastructure without asking you.\n\nAutomic Vault builds on macOS code signing, Hardened Runtime, and the Keychain to protect developer credentials and authorize supported command-line operations.\n\nFor GitHub, av harden gh installs our signed, patched CLI and migrates its credentials into Automic Vault custody. You still run gh. Authenticated operations now reach its Authorization Gate.\n\nYour secrets manager should know what the secrets do.\n\nReading an issue, publishing a release, and revealing a token need different authority. AV checks the complete operation before applying the credential.\n\nOne token. Three decisions. With a Verified Launcher on GitHub Read Only policy: gh issue list is authorized; gh issue create requires Approval for Remote Write; gh auth token requires Approval for Secret Disclosure.\n\nHomebrew: Updates can run. Installs can ask. Homebrew hardening protects /opt/homebrew from changes by other code running as you. At Read & Update, recognized inspection commands and brew update can run; installs and upgrades need Approval. This targets Apple Silicon Homebrew; services and shell completions are incompatible while hardened.\n\nAWS: Short-lived credentials per invocation. Normal AWS commands receive short-lived session credentials. Long-lived keys leave the shared credentials file. AV obtains session credentials separately for each AWS process.\n\nDocker: The process and registry matter. Before releasing a registry credential, AV verifies the live Docker Desktop process, its signature, runtime protections, ancestry, arguments, and requested registry.",
       "links": [
         {
           "label": "See how we harden your tools",

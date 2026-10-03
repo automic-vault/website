@@ -4,7 +4,7 @@
 
 ## Product
 
-- [Homepage](https://www.automicvault.com/): Explains how Max Howell, creator of Homebrew, is addressing CLI credential use through supported tool hardening at the packaging layer. Shows operation-level policy, reviewed scripts, and Approval.
+- [Homepage](https://www.automicvault.com/): Explains how Automic Vault complements Apple’s macOS app security with protected credentials and authorization for supported command-line operations. Connects Max Howell’s Homebrew history to the remaining CLI credential gap. Shows operation-level policy, reviewed scripts, and Approval.
 - [Download](https://www.automicvault.com/download/): Provides the signed macOS disk image, installation details, included components, and first steps after setup.
 - [Documentation](https://www.automicvault.com/docs/): Automic Vault 4.12.2 manual, checked against the source and canonical security model.
 - [Security foundations](https://www.automicvault.com/docs/security/): Defines request, identity, authority, Secret delivery, secure defaults, and product boundaries.

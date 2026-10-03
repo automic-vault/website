@@ -126,10 +126,12 @@ Commands appear as tool invocations; the Terminal scene retains typed shell inpu
 
 The demo ends at its playback controls; omit the policy-scope and illustration captions.
 
-All five homepages use the packaging-led positioning: “CLI security
-is broken. The packaging layer is where we fix it.” Pair it with Max Howell’s
+All five homepages use the macOS-complement positioning: “macOS protects your
+apps. We protect your command line.” Pair it with Max Howell’s
 first-person Homebrew founder line and concrete supported-tool coverage. Link his
-name to About, which explains how installation connects to inherited authority.
+name to About, which connects his Homebrew history to Apple’s app security
+progress and the remaining CLI credential and operation gap. Describe our use
+of macOS security foundations and scope protection to supported tools.
 Highlight the second headline sentence using the existing hero treatment.
 The operation comparison shows why the same token needs separate decisions.
 Translated homepages and About pages follow the English narrative. Keep curated

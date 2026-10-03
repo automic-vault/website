@@ -4,7 +4,7 @@
 
 ## 主要页面
 
-- [Automic Vault | CLI 安全出了问题。 我们从软件包这一层着手修复。](https://www.automicvault.com/zh-hans/): Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。
+- [Automic Vault | macOS 保护你的应用。 我们保护你的命令行。](https://www.automicvault.com/zh-hans/): Automic Vault 为受支持的 CLI 工具补充 macOS 安全保护：保护凭据，逐项授权操作，同时保留你熟悉的命令。
 
 - [下载 Automic Vault](https://www.automicvault.com/zh-hans/download/): 下载 macOS 版 Automic Vault，控制开发者凭据的使用方式。
 
@@ -14,7 +14,7 @@
 
 - [Blog](https://www.automicvault.com/blog/): 关于软件包、扩展、凭据和本地执行事件的开发者安全指南与分析。
 
-- [关于 Automic Vault | 从 Homebrew 到 CLI 安全](https://www.automicvault.com/zh-hans/about/): Automic Vault 加固 macOS 上支持的 CLI 工具，将暴露的凭据移入钥匙串，并控制凭据的使用。你仍然使用熟悉的命令。
+- [关于 Automic Vault | 从 Homebrew 到 CLI 安全](https://www.automicvault.com/zh-hans/about/): Automic Vault 为受支持的 CLI 工具补充 macOS 安全保护：保护凭据，逐项授权操作，同时保留你熟悉的命令。
 
 - [Automic Vault 隐私](https://www.automicvault.com/zh-hans/privacy/): Automic Vault Mac 应用和网站发送哪些数据、哪些数据留在本地，以及哪些分析服务会接收数据。
 

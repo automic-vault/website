@@ -13,7 +13,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Automic Vault | From Homebrew to CLI security</title>
-  <meta name="description" content="Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.">
+  <meta name="description" content="Automic Vault complements macOS security for supported CLI tools: protected credentials, operation-level authorization, and your usual commands.">
   <link rel="canonical" href="https://www.automicvault.com/about/">
   <link rel="alternate" hreflang="en" href="https://www.automicvault.com/about/">
   <link rel="alternate" hreflang="ja" href="https://www.automicvault.com/ja/about/">
@@ -43,7 +43,7 @@
                   "slogan": "The missing security layer for CLI tools on Mac",
                   "url": "https://www.automicvault.com/",
                   "logo": "https://www.automicvault.com/assets/icon@2x.webp?v=3",
-                  "description": "Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.",
+                  "description": "Automic Vault complements macOS security for supported CLI tools: protected credentials, operation-level authorization, and your usual commands.",
                   "founder": {
                         "@id": "https://www.automicvault.com/about/#max-howell"
                   },
@@ -109,7 +109,7 @@
                         "availability": "https://schema.org/InStock",
                         "url": "https://www.automicvault.com/#pricing"
                   },
-                  "description": "Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.",
+                  "description": "Automic Vault complements macOS security for supported CLI tools: protected credentials, operation-level authorization, and your usual commands.",
                   "publisher": {
                         "@id": "https://www.automicvault.com/#organization"
                   }
@@ -120,9 +120,9 @@
                   "url": "https://www.automicvault.com/about/",
                   "name": "About Automic Vault | From Homebrew to CLI security",
                   "headline": "About Automic Vault | From Homebrew to CLI security",
-                  "description": "Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.",
+                  "description": "Automic Vault complements macOS security for supported CLI tools: protected credentials, operation-level authorization, and your usual commands.",
                   "datePublished": "2026-05-15",
-                  "dateModified": "2026-09-23",
+                  "dateModified": "2026-10-03",
                   "image": "https://www.automicvault.com/preview.jpg",
                   "author": {
                         "@id": "https://www.automicvault.com/about/#max-howell"
@@ -195,9 +195,9 @@
       <section class="seo-hero">
         <div>
           <p class="kicker">Max Howell</p>
-          <h1>I created Homebrew. Now I’m fixing what happens when agents use it.</h1>
-          <p class="lede">Automic Vault hardens supported CLI tools on macOS, moves exposed credentials into the Keychain, and gates their use while you keep your usual commands.</p>
-          <p class="updated">Last updated: September 23, 2026</p>
+          <h1>Since I created Homebrew, Apple has transformed Mac app security. I’m bringing that same care to the command line.</h1>
+          <p class="lede">Automic Vault complements macOS security for supported CLI tools: protected credentials, operation-level authorization, and your usual commands.</p>
+          <p class="updated">Last updated: October 3, 2026</p>
           <div class="hero-actions">
             <a class="button primary" href="/docs/">Read the docs <span aria-hidden="true">›</span></a>
             <a class="button" href="https://github.com/automic-vault/automic-vault">View source <span aria-hidden="true">›</span></a>
@@ -210,8 +210,10 @@
       <section class="seo-section seo-split">
         <div class="section-heading">
           <p class="kicker">Why we built it</p>
-          <h2>CLI security is broken. The packaging layer is where we fix it.</h2>
-          <p>Homebrew made it easier to install command-line tools. Those tools also bring credentials and the authority to use them. Agents can inherit that access whenever they run a command. We harden supported tools where you install and configure them, then authorize protected operations when they run.</p>
+          <h2>macOS protects your apps. We protect your command line.</h2>
+          <p>I created Homebrew in 2009 to make developer tools easier to install. In the years since, Apple has built excellent layers of protection around Mac apps. Gatekeeper, notarization, malware checks, and privacy permissions help you control the software you run and the data it can access.</p>
+          <p>Command-line tools still often leave credentials in files or helpers that other code running as you can read. An agent or dependency can inherit the power to publish a release or change your cloud infrastructure without asking you.</p>
+          <p>Automic Vault builds on macOS code signing, Hardened Runtime, and the Keychain to protect developer credentials and authorize supported command-line operations. We harden tools where you install and configure them, then check protected operations when they run.</p>
         </div>
         <div class="proof-list">
           <article><span>Credential storage</span><h3>Move credentials out of plaintext files</h3><p>Automic Vault moves supported credentials into the macOS Keychain as protected Secrets. It applies them to an authorized tool operation when needed.</p></article>
