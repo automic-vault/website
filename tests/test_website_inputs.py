@@ -62,7 +62,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
 
     def test_release_download_uses_private_cloudfront_lambda_origin(self):
         subprocess.run(
-            ["node", "--test", str(ROOT / "lambda" / "release-redirect" / "index.test.mjs")],
+            ["node", "--test", str(ROOT / "lambda" / "release-redirect" / "index.test.mjs"), str(ROOT / "lambda" / "release-redirect" / "downloads.test.mjs")],
             cwd=ROOT,
             check=True,
         )
@@ -70,6 +70,8 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         self.assertIn('OriginAccessControlOriginType: "lambda"', deploy_script)
         self.assertIn('--auth-type AWS_IAM', deploy_script)
         self.assertNotIn('--auth-type NONE', deploy_script)
+        self.assertEqual(deploy_script.count('release_behavior("downloads.json")'), 2)
+        self.assertIn('zip -q release-redirect.zip index.mjs downloads.mjs', deploy_script)
         self.assertIn('release_behavior("av.dmg")', deploy_script)
         self.assertIn('release_behavior("Automic*Vault.dmg")', deploy_script)
         self.assertEqual(deploy_script.count("CustomHeaders: {Quantity: 0}"), 4)
@@ -409,7 +411,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
             home = (ROOT / "www" / locale / "index.html").read_text(encoding="utf-8")
             main = home.split('<main ', 1)[1].split('</main>', 1)[0]
             with self.subTest(locale=locale):
-                self.assertIn('homepage.css?v=15', home)
+                self.assertIn('homepage.css?v=16', home)
                 hero = main.split('</section>', 1)[0]
                 self.assertIn('src="/assets/overview-light.webp"', hero)
                 ids = set(re.findall(r'\bid="([^"]+)"', home))

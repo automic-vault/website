@@ -12,7 +12,7 @@ test('loops AWS and Claude Code scenes, pauses without losing position, and offe
     field('demo-play').addEventListener = (_, handler) => { click = handler; };
     const document = {
       hidden: false,
-      querySelector: () => ({ querySelector: selector => field(selector.slice(6, -1)) }),
+      querySelector: selector => selector === '.aws-demo' ? ({ querySelector: selector => field(selector.slice(6, -1)) }) : null,
       addEventListener: (_, handler) => { document.visibilityChanged = handler; },
     };
     const motion = { matches: reduced, addEventListener: (_, handler) => { motion.changed = handler; } };
@@ -97,7 +97,7 @@ test('localized demo messages survive scene changes and reduced-motion navigatio
     field('demo-copy').textContent = messages;
     field('demo-play').addEventListener = (_, handler) => { click = handler; };
     runInNewContext(source, {
-      document: { hidden: false, querySelector: () => ({ querySelector: selector => field(selector.slice(6, -1)) }), addEventListener() {} },
+      document: { hidden: false, querySelector: selector => selector === '.aws-demo' ? ({ querySelector: selector => field(selector.slice(6, -1)) }) : null, addEventListener() {} },
       matchMedia: () => ({ matches: true, addEventListener() {} }),
       clearInterval() {},
       setInterval() { assert.fail('reduced motion must stay static'); },

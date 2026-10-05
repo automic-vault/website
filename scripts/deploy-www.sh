@@ -439,7 +439,8 @@ ensure_release_redirect() {
 
   make_temp_dir archive_dir
   cp "${release_redirect_source}" "${archive_dir}/index.mjs"
-  (cd "${archive_dir}" && zip -q release-redirect.zip index.mjs)
+  cp "${repo_root}/lambda/release-redirect/downloads.mjs" "${archive_dir}/downloads.mjs"
+  (cd "${archive_dir}" && zip -q release-redirect.zip index.mjs downloads.mjs)
   if aws lambda get-function --function-name "${release_redirect_function_name}" >/dev/null 2>&1; then
     aws lambda update-function-configuration \
       --function-name "${release_redirect_function_name}" \
@@ -1100,8 +1101,8 @@ build_distribution_config() {
         FieldLevelEncryptionId: ""
         },
         CacheBehaviors: {
-          Quantity: 2,
-          Items: [release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg")]
+          Quantity: 3,
+          Items: [release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg"), release_behavior("downloads.json")]
         },
       CustomErrorResponses: {
         Quantity: 1,
@@ -1260,8 +1261,8 @@ upsert_distribution() {
           .DistributionConfig.DefaultCacheBehavior.MaxTTL
         )
         | .DistributionConfig.CacheBehaviors = {
-            Quantity: 2,
-            Items: [release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg")]
+            Quantity: 3,
+            Items: [release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg"), release_behavior("downloads.json")]
           }
       | .DistributionConfig.CustomErrorResponses = {
           Quantity: 1,

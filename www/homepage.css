@@ -51,6 +51,8 @@ section[id] { scroll-margin-top: 95px; }
 .brew-hero-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 28px; margin-top: 34px; }
 .brew-text-link { display: inline-block; color: var(--muted); font-size: 14px; }
 .brew-text-link span { margin-left: 6px; }
+.brew-download-count { min-height: 1.65em; margin-top: 16px; color: var(--muted); font-size: 14px; }
+.brew-download-count strong { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .brew-hero-note { margin-top: 22px; font: 10px/1.8 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
 .brew-hero-proof { margin: 24px auto 0; }
 .brew-hero-proof .brew-hero-summary { margin-top: 0; }

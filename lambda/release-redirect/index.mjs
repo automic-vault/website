@@ -1,3 +1,5 @@
+import { downloadTotal } from "./downloads.mjs";
+
 const repository = "automic-vault/automic-vault";
 const apiUrl = `https://api.github.com/repos/${repository}/releases/latest`;
 const versionPattern = /^\d+\.\d+\.\d+$/;
@@ -22,8 +24,19 @@ export function releaseAssetUrl(release) {
   return url.href;
 }
 
-export async function handler() {
+export async function handler(event = {}) {
+  const isCount = event.rawPath === "/downloads.json";
   try {
+    if (isCount) {
+      return {
+        statusCode: 200,
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "public, max-age=3600, s-maxage=3600",
+        },
+        body: JSON.stringify({ total: await downloadTotal() }),
+      };
+    }
     const response = await fetch(apiUrl, {
       headers: {
         accept: "application/vnd.github+json",
@@ -49,7 +62,7 @@ export async function handler() {
     return {
       statusCode: 502,
       headers: { "cache-control": "no-store" },
-      body: "Release download is temporarily unavailable.\n",
+      body: isCount ? "Download count is temporarily unavailable.\n" : "Release download is temporarily unavailable.\n",
     };
   }
 }

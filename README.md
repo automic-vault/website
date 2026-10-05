@@ -4,7 +4,14 @@ Source and deployment configuration for <https://www.automicvault.com/>.
 
 The site is static HTML and CSS in `www/`, with generated localization,
 S3/CloudFront deployment, and a Lambda that redirects download URLs to the
-latest GitHub release.
+latest GitHub release and serves the all-time installer download count.
+
+`/downloads.json` sums stable-release DMG downloads, including legacy `v` tags,
+across GitHub release pages. CloudFront caches the response for one hour. The
+homepage omits the statistic if it cannot load a valid count. This is a count of
+downloads, including repeat downloads and upgrades, not unique users; deleted
+GitHub assets are unavailable to the total. The Lambda needs no GitHub token
+or additional AWS permissions.
 
 ## Checks
 
