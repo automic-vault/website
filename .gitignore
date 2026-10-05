@@ -4,3 +4,5 @@
 /www/llms-full.txt
 __pycache__
 /.env
+/.playwright-cli/
+/output/
