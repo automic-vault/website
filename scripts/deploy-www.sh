@@ -440,14 +440,15 @@ ensure_release_redirect() {
   make_temp_dir archive_dir
   cp "${release_redirect_source}" "${archive_dir}/index.mjs"
   cp "${repo_root}/lambda/release-redirect/downloads.mjs" "${archive_dir}/downloads.mjs"
-  (cd "${archive_dir}" && zip -q release-redirect.zip index.mjs downloads.mjs)
+  cp "${repo_root}/lambda/release-redirect/approvals.mjs" "${archive_dir}/approvals.mjs"
+  (cd "${archive_dir}" && zip -q release-redirect.zip index.mjs downloads.mjs approvals.mjs)
   if aws lambda get-function --function-name "${release_redirect_function_name}" >/dev/null 2>&1; then
     aws lambda update-function-configuration \
       --function-name "${release_redirect_function_name}" \
       --runtime nodejs24.x \
       --handler index.handler \
       --role "${role_arn}" \
-      --timeout 10 \
+      --timeout 30 \
       --memory-size 128 >/dev/null
     aws lambda wait function-updated --function-name "${release_redirect_function_name}"
     aws lambda update-function-code \
@@ -461,7 +462,7 @@ ensure_release_redirect() {
       --handler index.handler \
       --role "${role_arn}" \
       --architectures arm64 \
-      --timeout 10 \
+      --timeout 30 \
       --memory-size 128 \
       --zip-file "fileb://${archive_dir}/release-redirect.zip" >/dev/null
   fi
@@ -1056,7 +1057,7 @@ build_distribution_config() {
             HTTPSPort: 443,
             OriginProtocolPolicy: "https-only",
             OriginSslProtocols: {Quantity: 1, Items: ["TLSv1.2"]},
-            OriginReadTimeout: 10,
+            OriginReadTimeout: 30,
             OriginKeepaliveTimeout: 5
           }
         }]
@@ -1101,8 +1102,8 @@ build_distribution_config() {
         FieldLevelEncryptionId: ""
         },
         CacheBehaviors: {
-          Quantity: 3,
-          Items: [release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg"), release_behavior("downloads.json")]
+          Quantity: 4,
+          Items: [release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg"), release_behavior("downloads.json"), release_behavior("approvals.json")]
         },
       CustomErrorResponses: {
         Quantity: 1,
@@ -1213,7 +1214,7 @@ upsert_distribution() {
             HTTPSPort: 443,
             OriginProtocolPolicy: "https-only",
             OriginSslProtocols: {Quantity: 1, Items: ["TLSv1.2"]},
-            OriginReadTimeout: 10,
+            OriginReadTimeout: 30,
             OriginKeepaliveTimeout: 5
           }
         }]
@@ -1261,8 +1262,8 @@ upsert_distribution() {
           .DistributionConfig.DefaultCacheBehavior.MaxTTL
         )
         | .DistributionConfig.CacheBehaviors = {
-            Quantity: 3,
-            Items: [release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg"), release_behavior("downloads.json")]
+            Quantity: 4,
+            Items: [release_behavior("av.dmg"), release_behavior("Automic*Vault.dmg"), release_behavior("downloads.json"), release_behavior("approvals.json")]
           }
       | .DistributionConfig.CustomErrorResponses = {
           Quantity: 1,

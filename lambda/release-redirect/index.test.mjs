@@ -45,3 +45,20 @@ try {
 } finally {
   globalThis.fetch = originalFetch;
 }
+
+const originalKey = process.env.POSTHOG_RO_API_KEY;
+try {
+  process.env.POSTHOG_RO_API_KEY = 'test-key';
+  globalThis.fetch = async (_url, options) => {
+    assert.equal(options.headers.authorization, 'Bearer test-key');
+    return { ok: true, json: async () => ({ results: [[79894]], private_data: 'must not escape' }) };
+  };
+  const approvals = await handler({ rawPath: '/approvals.json', queryStringParameters: { query: 'SELECT * FROM events' } });
+  assert.equal(approvals.statusCode, 200);
+  assert.deepEqual(JSON.parse(approvals.body), { total: 79894 });
+  assert.equal(approvals.body.includes('private_data'), false);
+} finally {
+  globalThis.fetch = originalFetch;
+  if (originalKey === undefined) delete process.env.POSTHOG_RO_API_KEY;
+  else process.env.POSTHOG_RO_API_KEY = originalKey;
+}

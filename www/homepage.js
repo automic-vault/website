@@ -116,20 +116,19 @@ if (demo) {
 }
 
 
-// Keep this secondary statistic quiet if GitHub is unavailable.
-const downloadCount = document.querySelector('.brew-download-count');
-if (downloadCount) {
-  fetch('/downloads.json', { signal: AbortSignal.timeout(10000), credentials: 'omit' })
+// Each aggregate loads independently; unavailable statistics stay quiet.
+for (const statistic of document.querySelectorAll('[data-statistic]')) {
+  fetch(statistic.dataset.statistic, { signal: AbortSignal.timeout(25000), credentials: 'omit' })
     .then(response => {
-      if (!response.ok) throw new Error('Download count unavailable');
+      if (!response.ok) throw new Error('Statistic unavailable');
       return response.json();
     })
     .then(({ total }) => {
       if (!Number.isSafeInteger(total) || total < 0) return;
       const number = document.createElement('strong');
       number.textContent = new Intl.NumberFormat(document.documentElement.lang || 'en').format(total);
-      const [before, after] = downloadCount.dataset.countLabel.split('{count}');
-      downloadCount.replaceChildren(before, number, after);
+      const [before, after] = statistic.dataset.countLabel.split('{count}');
+      statistic.replaceChildren(before, number, after);
     })
     .catch(() => {});
 }

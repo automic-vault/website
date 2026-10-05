@@ -58,7 +58,7 @@
   }
 }
   </script>
-  <link rel="stylesheet" href="/homepage.css?v=16">
+  <link rel="stylesheet" href="/homepage.css?v=17">
 </head>
 <body class="brew-home">
   <a class="brew-skip-link" href="#main-content">Aller au contenu</a>
@@ -91,7 +91,10 @@
               <a class="brew-cta" href="/Automic%20Vault.dmg">Télécharger pour macOS</a>
               <a class="brew-text-link" href="#demo">Voir la démo <span aria-hidden="true">↗</span></a>
             </div>
-            <p class="brew-download-count" data-count-label="{count} téléchargements au total" aria-live="polite"></p>
+            <div class="brew-stats">
+              <p class="brew-statistic" data-statistic="/downloads.json" data-count-label="{count} téléchargements au total" aria-live="polite"></p>
+              <p class="brew-statistic" data-statistic="/approvals.json" data-count-label="{count} approbations humaines enregistrées" aria-live="polite"></p>
+            </div>
             <p class="brew-hero-note">Gratuit et open source. Gardez vos commandes habituelles. Aucun plugin pour agent requis.</p>
           </div>
           <a class="brew-hero-preview" href="/assets/overview-light.webp">
@@ -307,6 +310,6 @@
 
   <script src="/app.js?v=2" defer></script>
   <script src="/i18n.js" defer></script>
-  <script src="/homepage.js?v=7" defer></script>
+  <script src="/homepage.js?v=8" defer></script>
 </body>
 </html>

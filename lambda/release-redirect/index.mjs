@@ -1,4 +1,5 @@
 import { downloadTotal } from "./downloads.mjs";
+import { approvalTotal } from "./approvals.mjs";
 
 const repository = "automic-vault/automic-vault";
 const apiUrl = `https://api.github.com/repos/${repository}/releases/latest`;
@@ -25,7 +26,8 @@ export function releaseAssetUrl(release) {
 }
 
 export async function handler(event = {}) {
-  const isCount = event.rawPath === "/downloads.json";
+  const isApprovalCount = event.rawPath === "/approvals.json";
+  const isCount = isApprovalCount || event.rawPath === "/downloads.json";
   try {
     if (isCount) {
       return {
@@ -34,7 +36,7 @@ export async function handler(event = {}) {
           "content-type": "application/json; charset=utf-8",
           "cache-control": "public, max-age=3600, s-maxage=3600",
         },
-        body: JSON.stringify({ total: await downloadTotal() }),
+        body: JSON.stringify({ total: await (isApprovalCount ? approvalTotal() : downloadTotal()) }),
       };
     }
     const response = await fetch(apiUrl, {
@@ -58,11 +60,12 @@ export async function handler(event = {}) {
       body: "",
     };
   } catch (error) {
-    console.error(error);
+    // Do not log upstream exceptions: they may include request credentials.
+    console.error(isCount ? "Statistics request failed" : "Release request failed");
     return {
       statusCode: 502,
       headers: { "cache-control": "no-store" },
-      body: isCount ? "Download count is temporarily unavailable.\n" : "Release download is temporarily unavailable.\n",
+      body: isCount ? "Count is temporarily unavailable.\n" : "Release download is temporarily unavailable.\n",
     };
   }
 }

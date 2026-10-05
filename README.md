@@ -42,3 +42,15 @@ sections have screenshots, including Project Values and pending iPhone requests
 from two Macs. Keep captures, intrinsic dimensions, alt descriptions, and captions
 aligned across all five languages. New Japanese acquisition copy still needs
 native-language review before publication.
+
+`/approvals.json` publishes only the all-time count of PostHog `approve` events
+for `app_name = Automic Vault` in project 417890. These are recorded explicit
+human Approvals, not automatic policy decisions or proof of completed Secret
+Use. Telemetry delivery and retention limit the count. It is cached for one hour
+and loads independently of downloads.
+
+Configure `POSTHOG_RO_API_KEY` in the release redirect Lambda's encrypted
+environment, using a project-restricted key with query read access. Never put it
+in `www/`, a committed file, or browser code. Routine deployments preserve the
+Lambda environment; they do not need the key locally. The public endpoint accepts
+no query parameters or SQL and returns only `{ "total": number }`.
