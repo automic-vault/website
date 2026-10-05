@@ -50,7 +50,10 @@ Use. Telemetry delivery and retention limit the count. It is cached for one hour
 and loads independently of downloads.
 
 Configure `POSTHOG_RO_API_KEY` in the release redirect Lambda's encrypted
-environment, using a project-restricted key with query read access. Never put it
+environment in the region named by CloudFront's Lambda origin (`us-east-2`
+for the production distribution). An older same-named function exists in
+`us-east-1`; it does not serve the website. Use an explicit `--region` when
+configuring the key. Configure the environment using a project-restricted key with query read access. Never put it
 in `www/`, a committed file, or browser code. Routine deployments preserve the
 Lambda environment; they do not need the key locally. The public endpoint accepts
 no query parameters or SQL and returns only `{ "total": number }`.
