@@ -1,7 +1,9 @@
 # Automic Vault manual
 
-This is the user and operator manual for Automic Vault 4.12.2 on macOS,
-checked against the source on September 25, 2026. UI screenshots show 3.16.0
+This is the user and operator manual for Automic Vault 4.17.1 on macOS, with policy documentation updated against
+source commit `530e7f3e` on October 7, 2026. Descendant Launcher rule overrides
+and per-key SSH policies landed after the 4.17.1 release; use a build containing
+those changes to follow those sections. UI screenshots show 3.16.0
 and illustrate older layouts; follow the text for current behavior. Use your
 installed build's help and catalogs to check its command surface.
 
@@ -143,6 +145,15 @@ Team ID, or bundle containment alone grants no association. Review the
 cross-gate warning before enabling a helper; disable it to remove that
 association without changing the app's rules.
 
+The built-in Claude Code association allows its exact signed helper to represent
+verified Claude.app outside the parent bundle by default, including separately
+installed copies with that identity. Its Tool-specific gate rules also accept
+Claude Code's disabled library validation, including existing strict Claude.app
+rules. Third-party code loaded into that helper can exercise those permissions.
+Review the warning and opt-out in Verified Launcher Helpers. Direct Access Rules,
+Temporary Access Grants, other helpers, and Claude.app itself retain their
+recorded runtime requirements. See [the canonical helper rules](https://github.com/automic-vault/automic-vault/blob/main/docs/signed-cli-launchers.md#claude-desktop-and-claude-code).
+
 ### Authority and decision sources
 
 An operation can be allowed by **Human**, **Policy**, or a narrowly scoped
@@ -262,7 +273,7 @@ does not match. Per-launcher policy narrows authority while live identity and
 request validation remain in force.
 
 **Workflow.** Select the Gate for the Tool, inspect Targets and Secret patterns,
-then review **All Other Apps** before adding an override. Begin at the least
+then review **Default Policy** before adding a Launcher rule. Begin at the least
 powerful Access Level that supports the workflow. Trigger a harmless read and
 inspect Authorization History to confirm the matching rule.
 
@@ -272,6 +283,69 @@ may reflect the installed build's catalog or UI state. Runtime Gate definitions
 come from the signed app's static catalog; a failed hardener diagnostic never
 moves a Tool-specific request to the Direct Secret Gate. Fix the Tool-specific
 mismatch instead of substituting broad Direct Access.
+
+### Descendant Launcher rule overrides
+
+The nearest Verified Launcher with an explicit Access Level normally supplies
+policy. At the GitHub gate, Terminal with Write Access does not displace a nearer
+agent's Read Only rule. Intermediaries with no explicit Access Level are transparent.
+
+To let a harness supply policy for Launchers it starts, open **Authorization
+Gates**, select a gate, and add or select the harness's explicit rule. Choose its
+Access Level, enable **Override descendant Launcher rules**, then choose
+**Review Changes** and approve. The option defaults off, including existing rules.
+It applies to that Launcher at that gate; the outermost eligible override wins.
+
+| Harness with override enabled | Child agent | Recognized GitHub write under Launcher policy |
+| --- | --- | --- |
+| Read Only | Write Access | Requires Approval |
+| Write Access | Read Only | Automic authorization with an override warning |
+| Write Access | Deny | Denied |
+
+These examples assume verified live identities, accepted runtime protections,
+and no other denial or independent authority source. Direct Access, Blessings,
+and Temporary Access Grants retain their own semantics; this setting is not a
+ceiling over all authority or an execution sandbox.
+
+The Mac verifies live original-parent links between the ancestor and descendant.
+Helper aliases for one process and Retained Launcher Provenance alone cannot
+prove that relationship. Missing override evidence requires Approval rather than
+falling back to a potentially broader child rule. Runtime requirements on
+superseded explicit rules still apply. Explicit Deny remains a veto, and Unknown
+operations still need Approval unless denied.
+
+Disabling the option or removing an enabled override rule also requires Approval:
+a child may have broader access. Launcher Bundle cleanup cannot remove an enabled
+override unattended; remove its rule through the reviewed gate flow first.
+History and automic notifications warn when an override permits an operation
+that a child's explicit rule would have sent to Approval.
+
+SSH retains its nearest-Launcher boundary: ordinary ancestor rules do not supply
+fallback access, and an ancestor override cannot suppress default Deny when the
+nearest Verified Launcher has no explicit rule. Each SSH key has its own gate.
+
+See the canonical [Descendant Launcher Rule Override](https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md#descendant-launcher-rule-override)
+and [ADR 0065](https://github.com/automic-vault/automic-vault/blob/main/docs/adr/0065-descendant-launcher-rule-overrides.md).
+
+### Denial controls
+
+**Default Policy** combines the default Access Level and an optional Denial
+Threshold. A threshold denies its selected level and above without Approval;
+**Unknown only**, where supported, denies only unclassified operations. A matching
+Launcher rule uses its own denial boundary. Denial-only rows inherit the default
+allow level. Weakening denial requires Approval.
+
+Explicit matching denials win over allow rules, Blessings, Temporary Access
+Grants, and decision reuse. Default denial applies without a matching Launcher
+record, even when no Launcher can be verified. SSH checks for a record on the
+nearest Verified Launcher when deciding whether default denial applies.
+
+After two eligible Approval presentations for the same Launcher and gate within
+thirty seconds, the Mac Deny menu and full iPhone app offer a two-minute denial
+at the requested operation level and above. You must select it; prompt frequency
+never activates it. Unknown operations do not offer this action. End it from
+the Mac menu bar or let it expire to return to ordinary policy. It cannot revoke
+Secrets already released and expiry never approves an operation.
 
 ### Blessed Scripts
 
@@ -406,7 +480,9 @@ and verified before release.
 **Workflow.** Filter by Tool, launcher, command, Secret Name, or decision. Compare
 the **Decision source** and reason with current Gate policy. For a denial, fix the
 first mismatched invariant: Target, runtime, launcher, Value source, or operation.
-Do not widen every rule.
+Do not widen every rule. Records with the required metadata offer **Configure
+Launcher…**, which reverifies the installed Launcher before opening its exact
+gate rule or the reviewed rule-creation flow. Opening the editor grants no authority.
 
 `av history` reads the same local history
 through the signed CLI. It shows the newest 50 records by default; `--since 7d`
@@ -460,6 +536,11 @@ Use Settings after reading the corresponding section below. Security-sensitive
 changes require Approval or system authentication where the control demands it.
 
 ## Approval and authority
+
+The Approval window includes an Execution Chain with available code-signing and
+runtime posture. Observed ancestors above the selected Launcher supply diagnostic
+context, not authority merely by appearing there. Signing an interpreter does
+not authenticate the scripts, dependencies, or plug-ins it loads.
 
 ### Touch ID Approval
 
@@ -595,8 +676,8 @@ git config --global commit.gpgSign true
 
 Settings can import a key or generate an alternate EdDSA key. The private key is
 never displayed; the public key can be copied. Alternate access can be limited
-to exact Verified Launchers. The Secret Gate offers **Approval Required** and
-**Allow Signing**. Approval binds to the payload SHA-256; `av gpg-sign` reads at
+to exact Verified Launchers. The Secret Gate offers **Approval Required**,
+**Allow Signing**, and **Deny**. Approval binds to the payload SHA-256; `av gpg-sign` reads at
 most 16 MiB and returns GnuPG-compatible status plus the detached signature.
 
 **Limits.** A valid signature proves possession of the signing authority for
@@ -605,27 +686,40 @@ and verify the repository and payload shown by the workflow.
 
 ### SSH Agent
 
-The optional SSH Agent Gate stores one OpenSSH private key and optional
-passphrase in `AV_SSH_CREDENTIAL`. Settings lets you configure the credential
-and enable the agent. Use the socket configuration shown there for your SSH
-client. Every Verified Launcher uses the same credential; Project Values and
-Launcher-specific credential selection do not apply.
+Open **Settings → SSH Agent** and choose **Add SSH Key…** to import an OpenSSH
+private key or generate an Ed25519 key. Register the displayed public key with
+your service, enable the agent, and choose **Configure OpenSSH**. The agent
+supports up to 32 named credentials, each with its own Default Policy and
+Verified Launcher rules, also available in **Authorization Gates**.
 
-SSH clients receive authentication signatures, never the private key. The gate
-defaults to **Approval Required** and offers **Allow Authentication**, which can
-permit remote writes. It does not restrict destinations. Public-key enumeration
-requires no Secret Use; adding agent keys and arbitrary signing are unsupported.
+New keys start at **Approval Required**. The original credential retains
+`AV_SSH_CREDENTIAL` and its existing policy. Each gate offers **Approval Required**,
+**Allow Authentication**, and **Deny**. Rename changes only the label; replacing a
+key means adding a fresh credential and reviewing fresh policy.
 
-Each signature requires a verified local socket peer and its live original
-Launcher ancestry. Missing or changed ancestry denies use. The gate has no
-Temporary Access Grants, retained provenance, or decision reuse. A Blessed Script
-may authorize authentication with an explicit `ssh-agent: trusted` Capability
-only while its exact execution remains in the SSH client's verified ancestor
-chain. An empty capability ceiling blocks inherited automic authority.
+You can allow an agent to use a GitHub key while requiring Approval for a separate
+homelab key. Names do not restrict destinations: use distinct keys at those
+services. Allow Authentication can permit remote writes and is not Read Only.
 
-Existing private-key files and keys in other agents remain separate access
-paths. A forwarded or shared connection can carry other software's requests
-under the local client's Launcher attribution.
+SSH clients receive authentication signatures, never private keys. Each request
+binds the exact public-key digest to that credential's policy and Global Value;
+Project Values do not apply. Public-key enumeration needs no Secret Use. OpenSSH
+may try more than one key; each Approval covers only the selected credential.
+Key mutation through the agent protocol and arbitrary signing are unsupported.
+
+Each signature requires a verified local socket peer and live original Launcher
+ancestry. Missing or changed ancestry denies use. There is no credential fallback,
+Temporary Access Grant, retained provenance, or decision reuse. An explicit
+`ssh-agent: trusted` Blessed Script Capability covers only the original credential,
+while its exact execution remains in the client's verified ancestor chain. It
+grants no access to new keys. An empty capability ceiling blocks inherited
+automic authority.
+
+Imports leave existing private-key files, Keychain passphrases, and other agents'
+keys intact. Verify the protected route before removing these separate access
+paths. A forwarded or shared connection can carry other software's requests under
+the local client's Launcher attribution. See
+[ADR 0064](https://github.com/automic-vault/automic-vault/blob/main/docs/adr/0064-per-credential-ssh-authority.md).
 
 ### Secret Name Access
 
@@ -769,6 +863,10 @@ Access Levels are Gate vocabulary, not interchangeable global roles. **Write
 Access** for GitHub and **Write Access** for another Tool are evaluated by
 different classifiers. Unknown operations fail closed or require Approval rather
 than inheriting the nearest-sounding label.
+
+The strongest Secret Gate preset appears as **Secret Disclosure**, including
+Write Access; AWS uses **Elevated Secret Application**. Execution Gates retain
+**Full Access**. These labels do not change authority or Blessed Script syntax.
 
 New Secret Gates default to Read Only; GPG Signing to Approval Required;
 SSH Agent to Approval Required; Homebrew to Read & Update; Direct Access to
@@ -1672,19 +1770,21 @@ the public issue tracker.
 
 ## Source of truth
 
-This manual was checked against the 4.12.2 source, canonical Domain Language,
-and Architecture on September 25, 2026. Hardener pages are generated from that
-checkout's hardener references.
+The policy, SSH, and Launcher sections were refreshed against source commit
+`530e7f3e`, canonical Domain Language, and Architecture on October 7, 2026.
+The checkout reports 4.17.1 but includes changes after that release. Descendant
+rule overrides and per-key SSH policies require a build containing those changes.
+Hardener pages are generated from that checkout's hardener references.
 The linked v1 copy script was tested with disposable legacy Keychain
 fixtures and the actual save implementation using isolated test storage; it is
 not a full v1 upgrade test. UI screenshots come from 3.16.0. For your installed
 build, prefer `av --version`, `av help`, `av detectors --json`, and `av hardeners --json`.
 
-- [4.12.2 release](https://github.com/automic-vault/automic-vault/releases/tag/4.12.2)
-- [CLI source](https://github.com/automic-vault/automic-vault/blob/4.12.2/src/cli/mod.rs)
-- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/4.12.2/src)
-- [Detectors](https://github.com/automic-vault/automic-vault/tree/4.12.2/src/isotopes/detectors)
-- [Hardeners](https://github.com/automic-vault/automic-vault/tree/4.12.2/src/isotopes)
+- [4.17.1 release](https://github.com/automic-vault/automic-vault/releases/tag/4.17.1)
+- [CLI source](https://github.com/automic-vault/automic-vault/blob/530e7f3e/src/cli/mod.rs)
+- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/530e7f3e/src)
+- [Detectors](https://github.com/automic-vault/automic-vault/tree/530e7f3e/src/isotopes/detectors)
+- [Hardeners](https://github.com/automic-vault/automic-vault/tree/530e7f3e/src/isotopes)
 - [Domain Language](https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md)
 - [Architecture](https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md)
 

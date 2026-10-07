@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose whose Launcher rule applies | Automic Vault Blog</title>
+  <meta name="description" content="Keep an agent’s own rule by default, or explicitly let its harness supply policy. Descendant Launcher overrides can narrow or broaden access at one gate.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="Choose whose Launcher rule applies">
+  <meta property="og:description" content="Keep an agent’s own rule by default, or explicitly let its harness supply policy. Descendant Launcher overrides can narrow or broaden access at one gate.">
+  <meta property="og:url" content="https://www.automicvault.com/blog/descendant-launcher-policies/">
+  <meta property="og:image" content="https://www.automicvault.com/assets/brand-shield-v2.webp">
+  <meta property="article:published_time" content="2026-10-07">
+  <meta property="article:modified_time" content="2026-10-07">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.automicvault.com/assets/brand-shield-v2.webp">
+  <meta name="twitter:title" content="Choose whose Launcher rule applies">
+  <meta name="twitter:description" content="Keep an agent’s own rule by default, or explicitly let its harness supply policy. Descendant Launcher overrides can narrow or broaden access at one gate.">
+  <link rel="canonical" href="https://www.automicvault.com/blog/descendant-launcher-policies/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.automicvault.com/#organization",
+        "name": "Automic Vault",
+        "url": "https://www.automicvault.com/",
+        "logo": "https://www.automicvault.com/assets/icon@2x.webp?v=3",
+        "sameAs": [
+          "https://github.com/automic-vault/automic-vault",
+          "https://github.com/automic-vault/automic-vault",
+          "https://mxcl.dev/",
+          "https://brew.sh/"
+        ]
+      },
+      {
+        "@type": "BlogPosting",
+        "@id": "https://www.automicvault.com/blog/descendant-launcher-policies/#article",
+        "headline": "Choose whose Launcher rule applies",
+        "description": "Keep an agent’s own rule by default, or explicitly let its harness supply policy. Descendant Launcher overrides can narrow or broaden access at one gate.",
+        "image": "https://www.automicvault.com/assets/brand-shield-v2.webp",
+        "datePublished": "2026-10-07",
+        "dateModified": "2026-10-07",
+        "author": {"@id": "https://www.automicvault.com/#organization"},
+        "publisher": {"@id": "https://www.automicvault.com/#organization"},
+        "mainEntityOfPage": {"@id": "https://www.automicvault.com/blog/descendant-launcher-policies/#webpage"},
+        "about": [
+          "macOS security",
+          "command-line tool security",
+          "AI agent security",
+          "Automic Vault"
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.automicvault.com/blog/descendant-launcher-policies/#webpage",
+        "url": "https://www.automicvault.com/blog/descendant-launcher-policies/",
+        "name": "Choose whose Launcher rule applies",
+        "description": "Keep an agent’s own rule by default, or explicitly let its harness supply policy. Descendant Launcher overrides can narrow or broaden access at one gate.",
+        "isPartOf": {"@id": "https://www.automicvault.com/blog/#blog"},
+        "breadcrumb": {"@id": "https://www.automicvault.com/blog/descendant-launcher-policies/#breadcrumb"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.automicvault.com/blog/descendant-launcher-policies/#breadcrumb",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Automic Vault", "item": "https://www.automicvault.com/"},
+          {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.automicvault.com/blog/"},
+          {"@type": "ListItem", "position": 3, "name": "Choose whose Launcher rule applies", "item": "https://www.automicvault.com/blog/descendant-launcher-policies/"}
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico?v=5" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+</head>
+<body>
+  <div class="scroll-meter" aria-hidden="true"><span></span></div>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home">
+        <img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="Automic Vault" width="54" height="54">
+        <span class="brand-type">Automic Vault</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="https://pkg.so/">Packages</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/docs/">Docs</a>
+        <a href="/Automic%20Vault.dmg">Download</a>
+        <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <header class="article-hero">
+          <div class="article-hero-copy">
+            <p class="eyebrow">Launcher policy</p>
+            <h1>Choose whose Launcher rule applies</h1>
+            <p class="lede">Keep an agent’s own rule by default, or choose a harness to supply policy for the Launchers it starts.</p>
+          </div>
+        </header>
+        <div class="incident-body">
+          <p class="story-kicker">October 7, 2026</p>
+          <p>You give Terminal Write Access at the GitHub gate and your agent Read Only. Then you start the agent from Terminal. If it runs <code>gh issue create</code>, whose rule should apply?</p>
+          <p>The agent’s. Starting it from a more privileged terminal should not silently erase the rule you chose for it.</p>
+          <p>But you may also run agents through a dedicated harness. You might want that harness to keep its children at Read Only, even when those agents have Write Access elsewhere. Or you might give a deployment harness Write Access and want the agents it starts to use that rule for the deployment.</p>
+          <p>We’ve added <strong>Override descendant Launcher rules</strong> for that choice. You enable it on one Verified Launcher’s rule at one Authorization Gate, then approve the change.</p>
+          <p><strong>Availability:</strong> this post describes the implementation merged after 4.17.1. Use a build containing that change; 4.17.1 itself does not include the option.</p>
+
+          <section class="incident-section" aria-labelledby="nearest">
+            <div class="section-label"><h2 id="nearest">The nearest explicit rule remains the default</h2></div>
+            <pre><code>Terminal: Write Access
+  └─ agent: Read Only
+       └─ gh issue create → Approval required</code></pre>
+            <p>Automic Vault normally uses the nearest Verified Launcher with an explicit Access Level. An intermediary without one does not displace that rule. A shell between your agent and <code>gh</code> therefore does not, by itself, change which rule applies.</p>
+            <p>The override option defaults off for both new and existing rules. Upgrading does not opt your terminal into overriding agents.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="harness">
+            <div class="section-label"><h2 id="harness">Let a harness supply policy</h2></div>
+            <p>Suppose you use a verified harness for research. Give it Read Only at the GitHub gate and enable its override:</p>
+            <pre><code>harness: Read Only + override
+  └─ agent: Write Access
+       └─ gh issue create → Approval required</code></pre>
+            <p>The harness’s rule now takes precedence over the agent’s Write Access. That same agent can still use its own rule when you run it outside this ancestry.</p>
+            <p>You can also choose the reverse:</p>
+            <pre><code>harness: Write Access + override
+  └─ agent: Read Only
+       └─ gh issue create → automically authorized</code></pre>
+            <p>This grants broader access for that operation. Automic Vault records an override warning in Authorization History and shows it in automic notifications when a child’s explicit rule would have required Approval.</p>
+            <p>These examples assume valid live identities, accepted runtime protections, a recognized operation, and no other denial or independent authority source. If several ancestors have eligible overrides, the outermost one supplies the rule. Check the whole verified chain before enabling an override on a terminal you use for many unrelated tasks.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="configure">
+            <div class="section-label"><h2 id="configure">Configure it at the gate</h2></div>
+            <ol>
+              <li>Open <strong>Authorization Gates</strong> and choose the Tool’s gate.</li>
+              <li>Add or select the harness’s Verified Launcher rule and choose its Access Level.</li>
+              <li>Enable <strong>Override descendant Launcher rules</strong>.</li>
+              <li>Choose <strong>Review Changes</strong>, inspect the change, and approve it.</li>
+            </ol>
+            <p>The setting affects only that Launcher at that gate. It does not change the harness’s access to other Tools. A denial-only row cannot supply an override.</p>
+            <p>Your harness needs a verifiable identity first. An eligible vendor-signed executable can qualify on its own. For an unsigned single-file native CLI, see our <a href="/blog/quickstart-to-launcher-bundles/">Launcher Bundle quickstart</a>. Packaging establishes an identity for the artifact; it does not make the code trustworthy.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="denial">
+            <div class="section-label"><h2 id="denial">Explicit Deny still wins</h2></div>
+            <pre><code>harness: Write Access + override
+  └─ agent: Deny
+       └─ gh issue create → denied</code></pre>
+            <p>An override cannot bypass a matching explicit denial. Automic Vault also keeps the runtime requirements on the explicit rules it overrides. Unknown operations still require Approval unless policy denies them.</p>
+            <p>The Mac verifies live original-parent execution links between the overriding ancestor and the nearer Launcher. A helper association for the same process, or retained attribution after a parent exits, cannot prove that relationship. If the required override evidence is missing, Automic Vault requires Approval rather than falling back to a child rule that might allow more.</p>
+            <p>This changes precedence among Launcher Access Levels. Direct Access, Blessings, and Temporary Access Grants keep their own authority rules. A restrictive override is not a universal authority ceiling, and it does not sandbox commands that never reach an Automic Vault gate.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="remove">
+            <div class="section-label"><h2 id="remove">Turning it off also needs Approval</h2></div>
+            <p>Return to the research harness: Read Only on the parent, Write Access on the child. Disable the parent’s override and the child can write under its own rule again. That change broadens authority.</p>
+            <p>We therefore require Approval in both directions, including when you remove an enabled override rule. Launcher Bundle replacement and removal cannot silently delete these rules during cleanup. Remove the rule through the gate’s reviewed flow first.</p>
+          </section>
+
+          <section class="incident-section" aria-labelledby="ssh">
+            <div class="section-label"><h2 id="ssh">SSH keeps its credential boundary</h2></div>
+            <p>Each SSH key now has its own Authorization Gate and policy. You can allow an agent to authenticate with a GitHub key while requiring Approval for a separate homelab key. A key’s name does not restrict destinations; register distinct keys with those services.</p>
+            <p>SSH still uses the nearest Verified Launcher for its default-denial check. If that Launcher has no explicit rule and the key’s Default Policy denies access, an upper ancestor’s override cannot bypass it. Ordinary ancestor rules do not supply SSH fallback access either.</p>
+            <p>Choose the Launcher that should supply policy, scope the choice to the gate, and inspect History to confirm the result. The <a href="/docs/app/#descendant-launcher-rule-overrides">manual</a> covers setup, and <a href="https://github.com/automic-vault/automic-vault/blob/main/docs/adr/0065-descendant-launcher-rule-overrides.md">ADR 0065</a> records the security decisions. The canonical <a href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md#descendant-launcher-rule-override">domain definition</a> and <a href="https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md#descendant-launcher-rule-overrides">architecture</a> define the policy semantics.</p>
+          </section>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; 2026 Automic Vault.</p>
+      <div class="footer-links">
+        <a href="/about/">About</a>
+        <a href="https://github.com/automic-vault/automic-vault/security">Security</a>
+        <a href="/blog/">Blog</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="https://github.com/automic-vault/automic-vault">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/app.js?v=26"></script>
+</body>
+</html>

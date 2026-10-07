@@ -14,9 +14,11 @@ av doctor TOOL
 - [AWS](./aws/) — `av harden aws`
 - [Codex](./codex/) — `av harden codex`
 - [Docker](./docker/) — `av harden docker`
+- [doctl](./doctl/) — `av harden doctl`
 - [Fastly Cli](./fastly-cli/) — `av harden fastly-cli`
 - [GitHub CLI](./gh/) — `av harden gh`
 - [goat](./goat/) — `av harden goat`
+- [Hetzner Cloud](./hcloud/) — `av harden hcloud`
 - [Homebrew](./brew/) — `av harden brew`
 - [Kubectl](./kubectl/) — `av harden kubectl`
 - [Openhue Cli](./openhue-cli/) — `av harden openhue-cli`

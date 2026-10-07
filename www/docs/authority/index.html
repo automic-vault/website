@@ -27,7 +27,7 @@
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/authority/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/authority/","headline":"Approval, authority, and secrets","description":"Automic Vault Approval, authorization, Secret Values, and Access Levels.","dateModified":"2026-09-25","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.12.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/authority/","headline":"Approval, authority, and secrets","description":"Automic Vault Approval, authorization, Secret Values, and Access Levels.","dateModified":"2026-10-07","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.17.1","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.12.2 · macOS</p><h1>Approval, authority, and secrets</h1><p class="lede">Approval routes, temporary authority, Secret Value selection, and Access Levels.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/authority/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.17.1 · macOS</p><h1>Approval, authority, and secrets</h1><p class="lede">Approval routes, temporary authority, Secret Value selection, and Access Levels.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/authority/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -65,6 +65,11 @@ selection</a></li><li class="docs-nav-depth-3"><a href="#saving-safely">Saving s
           </section>
         </nav>
         <article class="docs-content"><h2 id="approval-and-authority">Approval and authority</h2>
+<p>The Approval window includes an Execution Chain with available
+code-signing and runtime posture. Observed ancestors above the selected
+Launcher supply diagnostic context, not authority merely by appearing
+there. Signing an interpreter does not authenticate the scripts,
+dependencies, or plug-ins it loads.</p>
 <h3 id="touch-id-approval">Touch ID Approval</h3>
 <p>Touch ID Approval authorizes an exact request on the Mac with a fresh
 biometric. It accepts neither the login password nor Apple Watch
@@ -193,36 +198,53 @@ git config --global commit.gpgSign true</code></pre>
 <p>Settings can import a key or generate an alternate EdDSA key. The
 private key is never displayed; the public key can be copied. Alternate
 access can be limited to exact Verified Launchers. The Secret Gate
-offers <strong>Approval Required</strong> and <strong>Allow
-Signing</strong>. Approval binds to the payload SHA-256;
-<code>av gpg-sign</code> reads at most 16 MiB and returns
-GnuPG-compatible status plus the detached signature.</p>
+offers <strong>Approval Required</strong>, <strong>Allow
+Signing</strong>, and <strong>Deny</strong>. Approval binds to the
+payload SHA-256; <code>av gpg-sign</code> reads at most 16 MiB and
+returns GnuPG-compatible status plus the detached signature.</p>
 <p><strong>Limits.</strong> A valid signature proves possession of the
 signing authority for that payload, not that the commit is safe or
 reviewed. Protect Git configuration and verify the repository and
 payload shown by the workflow.</p>
 <h3 id="ssh-agent">SSH Agent</h3>
-<p>The optional SSH Agent Gate stores one OpenSSH private key and
-optional passphrase in <code>AV_SSH_CREDENTIAL</code>. Settings lets you
-configure the credential and enable the agent. Use the socket
-configuration shown there for your SSH client. Every Verified Launcher
-uses the same credential; Project Values and Launcher-specific
-credential selection do not apply.</p>
-<p>SSH clients receive authentication signatures, never the private key.
-The gate defaults to <strong>Approval Required</strong> and offers
-<strong>Allow Authentication</strong>, which can permit remote writes.
-It does not restrict destinations. Public-key enumeration requires no
-Secret Use; adding agent keys and arbitrary signing are unsupported.</p>
-<p>Each signature requires a verified local socket peer and its live
-original Launcher ancestry. Missing or changed ancestry denies use. The
-gate has no Temporary Access Grants, retained provenance, or decision
-reuse. A Blessed Script may authorize authentication with an explicit
-<code>ssh-agent: trusted</code> Capability only while its exact
-execution remains in the SSH client's verified ancestor chain. An empty
-capability ceiling blocks inherited automic authority.</p>
-<p>Existing private-key files and keys in other agents remain separate
-access paths. A forwarded or shared connection can carry other
-software's requests under the local client's Launcher attribution.</p>
+<p>Open <strong>Settings → SSH Agent</strong> and choose <strong>Add SSH
+Key…</strong> to import an OpenSSH private key or generate an Ed25519
+key. Register the displayed public key with your service, enable the
+agent, and choose <strong>Configure OpenSSH</strong>. The agent supports
+up to 32 named credentials, each with its own Default Policy and
+Verified Launcher rules, also available in <strong>Authorization
+Gates</strong>.</p>
+<p>New keys start at <strong>Approval Required</strong>. The original
+credential retains <code>AV_SSH_CREDENTIAL</code> and its existing
+policy. Each gate offers <strong>Approval Required</strong>,
+<strong>Allow Authentication</strong>, and <strong>Deny</strong>. Rename
+changes only the label; replacing a key means adding a fresh credential
+and reviewing fresh policy.</p>
+<p>You can allow an agent to use a GitHub key while requiring Approval
+for a separate homelab key. Names do not restrict destinations: use
+distinct keys at those services. Allow Authentication can permit remote
+writes and is not Read Only.</p>
+<p>SSH clients receive authentication signatures, never private keys.
+Each request binds the exact public-key digest to that credential's
+policy and Global Value; Project Values do not apply. Public-key
+enumeration needs no Secret Use. OpenSSH may try more than one key; each
+Approval covers only the selected credential. Key mutation through the
+agent protocol and arbitrary signing are unsupported.</p>
+<p>Each signature requires a verified local socket peer and live
+original Launcher ancestry. Missing or changed ancestry denies use.
+There is no credential fallback, Temporary Access Grant, retained
+provenance, or decision reuse. An explicit
+<code>ssh-agent: trusted</code> Blessed Script Capability covers only
+the original credential, while its exact execution remains in the
+client's verified ancestor chain. It grants no access to new keys. An
+empty capability ceiling blocks inherited automic authority.</p>
+<p>Imports leave existing private-key files, Keychain passphrases, and
+other agents' keys intact. Verify the protected route before removing
+these separate access paths. A forwarded or shared connection can carry
+other software's requests under the local client's Launcher attribution.
+See <a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/adr/0064-per-credential-ssh-authority.md">ADR
+0064</a>.</p>
 <h3 id="secret-name-access">Secret Name Access</h3>
 <p>Exact Verified Apps may run <code>av list</code> without an Approval
 window; all other apps require Approval.</p>
@@ -381,6 +403,11 @@ no Target or argument classifier.</td>
 Access</strong> for another Tool are evaluated by different classifiers.
 Unknown operations fail closed or require Approval rather than
 inheriting the nearest-sounding label.</p>
+<p>The strongest Secret Gate preset appears as <strong>Secret
+Disclosure</strong>, including Write Access; AWS uses <strong>Elevated
+Secret Application</strong>. Execution Gates retain <strong>Full
+Access</strong>. These labels do not change authority or Blessed Script
+syntax.</p>
 <p>New Secret Gates default to Read Only; GPG Signing to Approval
 Required; SSH Agent to Approval Required; Homebrew to Read &amp; Update;
 Direct Access to Approval Required. GPG Signing offers Allow Signing,
@@ -389,7 +416,7 @@ general-purpose presets.</p>
 <p class="docs-source-link"><a href="/docs/authority/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/authority/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.12.2 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/authority/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.17.1 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

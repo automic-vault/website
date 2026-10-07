@@ -20,7 +20,7 @@
   <meta property="og:url" content="https://www.automicvault.com/blog/quickstart-to-launcher-bundles/">
   <meta property="og:image" content="https://www.automicvault.com/assets/blog/quickstart-to-launcher-bundles/enrolled.jpg">
   <meta property="article:published_time" content="2026-09-23">
-  <meta property="article:modified_time" content="2026-09-23">
+  <meta property="article:modified_time" content="2026-10-07">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.automicvault.com/assets/blog/quickstart-to-launcher-bundles/enrolled.jpg">
   <meta name="twitter:title" content="Quickstart to Launcher Bundles">
@@ -50,7 +50,7 @@
         "description": "Give an unsigned native CLI a verified identity on macOS. Create a Launcher Bundle, check its command, and choose the operations it may perform.",
         "image": "https://www.automicvault.com/assets/blog/quickstart-to-launcher-bundles/enrolled.jpg",
         "datePublished": "2026-09-23",
-        "dateModified": "2026-09-23",
+        "dateModified": "2026-10-07",
         "author": {"@id": "https://www.automicvault.com/#organization"},
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "mainEntityOfPage": {"@id": "https://www.automicvault.com/blog/quickstart-to-launcher-bundles/#webpage"},
@@ -193,6 +193,7 @@
           <section class="incident-section" aria-labelledby="updates">
             <div class="section-label"><h2 id="updates">Update through a new generation</h2></div>
             <p>To update, create a bundle with the same name from the new executable and review it again. After successful replacement, Automic Vault revokes the old enrollment and its Launcher-specific rules, and moves the old bundle to Trash. Gate defaults apply to the new generation until you set its Launcher-specific rules.</p>
+            <p>If an existing rule has <strong>Override descendant Launcher rules</strong> enabled, remove it through the gate’s reviewed Approval flow before replacing the bundle. Cleanup refuses to remove that rule unattended because doing so could expose broader descendant access.</p>
             <p>We require that review because you are delegating authority to a particular artifact. An upstream update should not inherit the old generation’s exceptions and grants without your decision.</p>
             <p>Code signing establishes identity and integrity, not intent. You still need to trust the executable, its configuration, plug-ins, and the work you ask it to do. A Launcher Bundle does not sandbox every command or make a Target keep a Secret confidential after receiving it.</p>
             <p>For the exact requirements, see <a href="https://github.com/automic-vault/automic-vault/blob/main/docs/signed-cli-launchers.md">Signed CLI Launchers</a>, the canonical <a href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md#launcher-bundle">Launcher Bundle definition</a>, and the <a href="https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md#launcher-packaging">Launcher Packaging architecture</a>.</p>

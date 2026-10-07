@@ -27,7 +27,7 @@
   <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/app/index.md">
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/app/","headline":"App guide","description":"A guide to every destination in the Automic Vault macOS app.","dateModified":"2026-09-25","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.12.2","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/app/","headline":"App guide","description":"A guide to every destination in the Automic Vault macOS app.","dateModified":"2026-10-07","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.17.1","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
       <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
     </header>
     <main>
-      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.12.2 · macOS</p><h1>App guide</h1><p class="lede">What every destination in the Automic Vault operator console shows and controls.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/app/index.md">Markdown</a></li></ul></div></header>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.17.1 · macOS</p><h1>App guide</h1><p class="lede">What every destination in the Automic Vault operator console shows and controls.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/app/index.md">Markdown</a></li></ul></div></header>
       <div class="docs-layout">
         <nav class="docs-toc" aria-label="Documentation sections">
           <a class="docs-toc-title" href="/docs/">Manual</a>
@@ -59,7 +59,8 @@
           </section>
           <section class="docs-nav-group">
             <h2>On this page</h2>
-            <ul><li class="docs-nav-depth-3"><a href="#detectors">Detectors</a></li><li class="docs-nav-depth-3"><a href="#hardened-tools">Hardened Tools</a></li><li class="docs-nav-depth-3"><a href="#authorization-gates">Authorization Gates</a></li><li class="docs-nav-depth-3"><a href="#blessed-scripts">Blessed Scripts</a></li><li class="docs-nav-depth-3"><a href="#launcher-bundles">Launcher Bundles</a></li><li class="docs-nav-depth-3"><a href="#secrets">Secrets</a></li><li class="docs-nav-depth-3"><a href="#active-proxies">Active Proxies</a></li><li class="docs-nav-depth-3"><a href="#authorization-history">Authorization History</a></li><li class="docs-nav-depth-3"><a href="#doctor">Doctor</a></li><li class="docs-nav-depth-3"><a href="#settings">Settings</a></li></ul>
+            <ul><li class="docs-nav-depth-3"><a href="#detectors">Detectors</a></li><li class="docs-nav-depth-3"><a href="#hardened-tools">Hardened Tools</a></li><li class="docs-nav-depth-3"><a href="#authorization-gates">Authorization Gates</a></li><li class="docs-nav-depth-3"><a href="#descendant-launcher-rule-overrides">Descendant Launcher rule
+overrides</a></li><li class="docs-nav-depth-3"><a href="#denial-controls">Denial controls</a></li><li class="docs-nav-depth-3"><a href="#blessed-scripts">Blessed Scripts</a></li><li class="docs-nav-depth-3"><a href="#launcher-bundles">Launcher Bundles</a></li><li class="docs-nav-depth-3"><a href="#secrets">Secrets</a></li><li class="docs-nav-depth-3"><a href="#active-proxies">Active Proxies</a></li><li class="docs-nav-depth-3"><a href="#authorization-history">Authorization History</a></li><li class="docs-nav-depth-3"><a href="#doctor">Doctor</a></li><li class="docs-nav-depth-3"><a href="#settings">Settings</a></li></ul>
           </section>
         </nav>
         <article class="docs-content"><h2 id="app-guide">App guide</h2>
@@ -137,10 +138,10 @@ unavailable to a Target whose runtime or path does not match.
 Per-launcher policy narrows authority while live identity and request
 validation remain in force.</p>
 <p><strong>Workflow.</strong> Select the Gate for the Tool, inspect
-Targets and Secret patterns, then review <strong>All Other Apps</strong>
-before adding an override. Begin at the least powerful Access Level that
-supports the workflow. Trigger a harmless read and inspect Authorization
-History to confirm the matching rule.</p>
+Targets and Secret patterns, then review <strong>Default Policy</strong>
+before adding a Launcher rule. Begin at the least powerful Access Level
+that supports the workflow. Trigger a harmless read and inspect
+Authorization History to confirm the matching rule.</p>
 <p><strong>Failure modes.</strong> A denial after an app or Tool update
 can mean the selected binary, code signature, runtime, or enrolled
 generation changed. A missing Gate may reflect the installed build's
@@ -148,6 +149,91 @@ catalog or UI state. Runtime Gate definitions come from the signed app's
 static catalog; a failed hardener diagnostic never moves a Tool-specific
 request to the Direct Secret Gate. Fix the Tool-specific mismatch
 instead of substituting broad Direct Access.</p>
+<h3 id="descendant-launcher-rule-overrides">Descendant Launcher rule
+overrides</h3>
+<p>The nearest Verified Launcher with an explicit Access Level normally
+supplies policy. At the GitHub gate, Terminal with Write Access does not
+displace a nearer agent's Read Only rule. Intermediaries with no
+explicit Access Level are transparent.</p>
+<p>To let a harness supply policy for Launchers it starts, open
+<strong>Authorization Gates</strong>, select a gate, and add or select
+the harness's explicit rule. Choose its Access Level, enable
+<strong>Override descendant Launcher rules</strong>, then choose
+<strong>Review Changes</strong> and approve. The option defaults off,
+including existing rules. It applies to that Launcher at that gate; the
+outermost eligible override wins.</p>
+<table>
+<thead>
+<tr>
+<th>Harness with override enabled</th>
+<th>Child agent</th>
+<th>Recognized GitHub write under Launcher policy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read Only</td>
+<td>Write Access</td>
+<td>Requires Approval</td>
+</tr>
+<tr>
+<td>Write Access</td>
+<td>Read Only</td>
+<td>Automic authorization with an override warning</td>
+</tr>
+<tr>
+<td>Write Access</td>
+<td>Deny</td>
+<td>Denied</td>
+</tr>
+</tbody>
+</table>
+<p>These examples assume verified live identities, accepted runtime
+protections, and no other denial or independent authority source. Direct
+Access, Blessings, and Temporary Access Grants retain their own
+semantics; this setting is not a ceiling over all authority or an
+execution sandbox.</p>
+<p>The Mac verifies live original-parent links between the ancestor and
+descendant. Helper aliases for one process and Retained Launcher
+Provenance alone cannot prove that relationship. Missing override
+evidence requires Approval rather than falling back to a potentially
+broader child rule. Runtime requirements on superseded explicit rules
+still apply. Explicit Deny remains a veto, and Unknown operations still
+need Approval unless denied.</p>
+<p>Disabling the option or removing an enabled override rule also
+requires Approval: a child may have broader access. Launcher Bundle
+cleanup cannot remove an enabled override unattended; remove its rule
+through the reviewed gate flow first. History and automic notifications
+warn when an override permits an operation that a child's explicit rule
+would have sent to Approval.</p>
+<p>SSH retains its nearest-Launcher boundary: ordinary ancestor rules do
+not supply fallback access, and an ancestor override cannot suppress
+default Deny when the nearest Verified Launcher has no explicit rule.
+Each SSH key has its own gate.</p>
+<p>See the canonical <a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md#descendant-launcher-rule-override">Descendant
+Launcher Rule Override</a> and <a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/adr/0065-descendant-launcher-rule-overrides.md">ADR
+0065</a>.</p>
+<h3 id="denial-controls">Denial controls</h3>
+<p><strong>Default Policy</strong> combines the default Access Level and
+an optional Denial Threshold. A threshold denies its selected level and
+above without Approval; <strong>Unknown only</strong>, where supported,
+denies only unclassified operations. A matching Launcher rule uses its
+own denial boundary. Denial-only rows inherit the default allow level.
+Weakening denial requires Approval.</p>
+<p>Explicit matching denials win over allow rules, Blessings, Temporary
+Access Grants, and decision reuse. Default denial applies without a
+matching Launcher record, even when no Launcher can be verified. SSH
+checks for a record on the nearest Verified Launcher when deciding
+whether default denial applies.</p>
+<p>After two eligible Approval presentations for the same Launcher and
+gate within thirty seconds, the Mac Deny menu and full iPhone app offer
+a two-minute denial at the requested operation level and above. You must
+select it; prompt frequency never activates it. Unknown operations do
+not offer this action. End it from the Mac menu bar or let it expire to
+return to ordinary policy. It cannot revoke Secrets already released and
+expiry never approves an operation.</p>
 <h3 id="blessed-scripts">Blessed Scripts</h3>
 <p>A Blessing binds a reviewed script to its canonical path, SHA-256
 digest, interpreter, Script Declaration, Secret Names, declared
@@ -282,7 +368,10 @@ release.</p>
 Name, or decision. Compare the <strong>Decision source</strong> and
 reason with current Gate policy. For a denial, fix the first mismatched
 invariant: Target, runtime, launcher, Value source, or operation. Do not
-widen every rule.</p>
+widen every rule. Records with the required metadata offer
+<strong>Configure Launcher…</strong>, which reverifies the installed
+Launcher before opening its exact gate rule or the reviewed
+rule-creation flow. Opening the editor grants no authority.</p>
 <p><code>av history</code> reads the same local history through the
 signed CLI. It shows the newest 50 records by default;
 <code>--since 7d</code> selects a seven-day window. Each read requires
@@ -334,7 +423,7 @@ where the control demands it.</p>
 <p class="docs-source-link"><a href="/docs/app/index.md">Read this page as Markdown</a></p></article>
       </div>
     </main>
-    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/app/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.12.2 manual</span></div></footer>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/app/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.17.1 manual</span></div></footer>
   </div>
   <script src="/app.js?v=26"></script>
 </body>

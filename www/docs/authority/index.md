@@ -1,5 +1,10 @@
 ## Approval and authority
 
+The Approval window includes an Execution Chain with available code-signing and
+runtime posture. Observed ancestors above the selected Launcher supply diagnostic
+context, not authority merely by appearing there. Signing an interpreter does
+not authenticate the scripts, dependencies, or plug-ins it loads.
+
 ### Touch ID Approval
 
 Touch ID Approval authorizes an exact request on the Mac with a fresh biometric.
@@ -134,8 +139,8 @@ git config --global commit.gpgSign true
 
 Settings can import a key or generate an alternate EdDSA key. The private key is
 never displayed; the public key can be copied. Alternate access can be limited
-to exact Verified Launchers. The Secret Gate offers **Approval Required** and
-**Allow Signing**. Approval binds to the payload SHA-256; `av gpg-sign` reads at
+to exact Verified Launchers. The Secret Gate offers **Approval Required**,
+**Allow Signing**, and **Deny**. Approval binds to the payload SHA-256; `av gpg-sign` reads at
 most 16 MiB and returns GnuPG-compatible status plus the detached signature.
 
 **Limits.** A valid signature proves possession of the signing authority for
@@ -144,27 +149,40 @@ and verify the repository and payload shown by the workflow.
 
 ### SSH Agent
 
-The optional SSH Agent Gate stores one OpenSSH private key and optional
-passphrase in `AV_SSH_CREDENTIAL`. Settings lets you configure the credential
-and enable the agent. Use the socket configuration shown there for your SSH
-client. Every Verified Launcher uses the same credential; Project Values and
-Launcher-specific credential selection do not apply.
+Open **Settings → SSH Agent** and choose **Add SSH Key…** to import an OpenSSH
+private key or generate an Ed25519 key. Register the displayed public key with
+your service, enable the agent, and choose **Configure OpenSSH**. The agent
+supports up to 32 named credentials, each with its own Default Policy and
+Verified Launcher rules, also available in **Authorization Gates**.
 
-SSH clients receive authentication signatures, never the private key. The gate
-defaults to **Approval Required** and offers **Allow Authentication**, which can
-permit remote writes. It does not restrict destinations. Public-key enumeration
-requires no Secret Use; adding agent keys and arbitrary signing are unsupported.
+New keys start at **Approval Required**. The original credential retains
+`AV_SSH_CREDENTIAL` and its existing policy. Each gate offers **Approval Required**,
+**Allow Authentication**, and **Deny**. Rename changes only the label; replacing a
+key means adding a fresh credential and reviewing fresh policy.
 
-Each signature requires a verified local socket peer and its live original
-Launcher ancestry. Missing or changed ancestry denies use. The gate has no
-Temporary Access Grants, retained provenance, or decision reuse. A Blessed Script
-may authorize authentication with an explicit `ssh-agent: trusted` Capability
-only while its exact execution remains in the SSH client's verified ancestor
-chain. An empty capability ceiling blocks inherited automic authority.
+You can allow an agent to use a GitHub key while requiring Approval for a separate
+homelab key. Names do not restrict destinations: use distinct keys at those
+services. Allow Authentication can permit remote writes and is not Read Only.
 
-Existing private-key files and keys in other agents remain separate access
-paths. A forwarded or shared connection can carry other software's requests
-under the local client's Launcher attribution.
+SSH clients receive authentication signatures, never private keys. Each request
+binds the exact public-key digest to that credential's policy and Global Value;
+Project Values do not apply. Public-key enumeration needs no Secret Use. OpenSSH
+may try more than one key; each Approval covers only the selected credential.
+Key mutation through the agent protocol and arbitrary signing are unsupported.
+
+Each signature requires a verified local socket peer and live original Launcher
+ancestry. Missing or changed ancestry denies use. There is no credential fallback,
+Temporary Access Grant, retained provenance, or decision reuse. An explicit
+`ssh-agent: trusted` Blessed Script Capability covers only the original credential,
+while its exact execution remains in the client's verified ancestor chain. It
+grants no access to new keys. An empty capability ceiling blocks inherited
+automic authority.
+
+Imports leave existing private-key files, Keychain passphrases, and other agents'
+keys intact. Verify the protected route before removing these separate access
+paths. A forwarded or shared connection can carry other software's requests under
+the local client's Launcher attribution. See
+[ADR 0064](https://github.com/automic-vault/automic-vault/blob/main/docs/adr/0064-per-credential-ssh-authority.md).
 
 ### Secret Name Access
 
@@ -308,6 +326,10 @@ Access Levels are Gate vocabulary, not interchangeable global roles. **Write
 Access** for GitHub and **Write Access** for another Tool are evaluated by
 different classifiers. Unknown operations fail closed or require Approval rather
 than inheriting the nearest-sounding label.
+
+The strongest Secret Gate preset appears as **Secret Disclosure**, including
+Write Access; AWS uses **Elevated Secret Application**. Execution Gates retain
+**Full Access**. These labels do not change authority or Blessed Script syntax.
 
 New Secret Gates default to Read Only; GPG Signing to Approval Required;
 SSH Agent to Approval Required; Homebrew to Read & Update; Direct Access to

@@ -67,6 +67,15 @@ Team ID, or bundle containment alone grants no association. Review the
 cross-gate warning before enabling a helper; disable it to remove that
 association without changing the app's rules.
 
+The built-in Claude Code association allows its exact signed helper to represent
+verified Claude.app outside the parent bundle by default, including separately
+installed copies with that identity. Its Tool-specific gate rules also accept
+Claude Code's disabled library validation, including existing strict Claude.app
+rules. Third-party code loaded into that helper can exercise those permissions.
+Review the warning and opt-out in Verified Launcher Helpers. Direct Access Rules,
+Temporary Access Grants, other helpers, and Claude.app itself retain their
+recorded runtime requirements. See [the canonical helper rules](https://github.com/automic-vault/automic-vault/blob/main/docs/signed-cli-launchers.md#claude-desktop-and-claude-code).
+
 ### Authority and decision sources
 
 An operation can be allowed by **Human**, **Policy**, or a narrowly scoped

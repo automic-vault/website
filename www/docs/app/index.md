@@ -74,7 +74,7 @@ does not match. Per-launcher policy narrows authority while live identity and
 request validation remain in force.
 
 **Workflow.** Select the Gate for the Tool, inspect Targets and Secret patterns,
-then review **All Other Apps** before adding an override. Begin at the least
+then review **Default Policy** before adding a Launcher rule. Begin at the least
 powerful Access Level that supports the workflow. Trigger a harmless read and
 inspect Authorization History to confirm the matching rule.
 
@@ -84,6 +84,69 @@ may reflect the installed build's catalog or UI state. Runtime Gate definitions
 come from the signed app's static catalog; a failed hardener diagnostic never
 moves a Tool-specific request to the Direct Secret Gate. Fix the Tool-specific
 mismatch instead of substituting broad Direct Access.
+
+### Descendant Launcher rule overrides
+
+The nearest Verified Launcher with an explicit Access Level normally supplies
+policy. At the GitHub gate, Terminal with Write Access does not displace a nearer
+agent's Read Only rule. Intermediaries with no explicit Access Level are transparent.
+
+To let a harness supply policy for Launchers it starts, open **Authorization
+Gates**, select a gate, and add or select the harness's explicit rule. Choose its
+Access Level, enable **Override descendant Launcher rules**, then choose
+**Review Changes** and approve. The option defaults off, including existing rules.
+It applies to that Launcher at that gate; the outermost eligible override wins.
+
+| Harness with override enabled | Child agent | Recognized GitHub write under Launcher policy |
+| --- | --- | --- |
+| Read Only | Write Access | Requires Approval |
+| Write Access | Read Only | Automic authorization with an override warning |
+| Write Access | Deny | Denied |
+
+These examples assume verified live identities, accepted runtime protections,
+and no other denial or independent authority source. Direct Access, Blessings,
+and Temporary Access Grants retain their own semantics; this setting is not a
+ceiling over all authority or an execution sandbox.
+
+The Mac verifies live original-parent links between the ancestor and descendant.
+Helper aliases for one process and Retained Launcher Provenance alone cannot
+prove that relationship. Missing override evidence requires Approval rather than
+falling back to a potentially broader child rule. Runtime requirements on
+superseded explicit rules still apply. Explicit Deny remains a veto, and Unknown
+operations still need Approval unless denied.
+
+Disabling the option or removing an enabled override rule also requires Approval:
+a child may have broader access. Launcher Bundle cleanup cannot remove an enabled
+override unattended; remove its rule through the reviewed gate flow first.
+History and automic notifications warn when an override permits an operation
+that a child's explicit rule would have sent to Approval.
+
+SSH retains its nearest-Launcher boundary: ordinary ancestor rules do not supply
+fallback access, and an ancestor override cannot suppress default Deny when the
+nearest Verified Launcher has no explicit rule. Each SSH key has its own gate.
+
+See the canonical [Descendant Launcher Rule Override](https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md#descendant-launcher-rule-override)
+and [ADR 0065](https://github.com/automic-vault/automic-vault/blob/main/docs/adr/0065-descendant-launcher-rule-overrides.md).
+
+### Denial controls
+
+**Default Policy** combines the default Access Level and an optional Denial
+Threshold. A threshold denies its selected level and above without Approval;
+**Unknown only**, where supported, denies only unclassified operations. A matching
+Launcher rule uses its own denial boundary. Denial-only rows inherit the default
+allow level. Weakening denial requires Approval.
+
+Explicit matching denials win over allow rules, Blessings, Temporary Access
+Grants, and decision reuse. Default denial applies without a matching Launcher
+record, even when no Launcher can be verified. SSH checks for a record on the
+nearest Verified Launcher when deciding whether default denial applies.
+
+After two eligible Approval presentations for the same Launcher and gate within
+thirty seconds, the Mac Deny menu and full iPhone app offer a two-minute denial
+at the requested operation level and above. You must select it; prompt frequency
+never activates it. Unknown operations do not offer this action. End it from
+the Mac menu bar or let it expire to return to ordinary policy. It cannot revoke
+Secrets already released and expiry never approves an operation.
 
 ### Blessed Scripts
 
@@ -218,7 +281,9 @@ and verified before release.
 **Workflow.** Filter by Tool, launcher, command, Secret Name, or decision. Compare
 the **Decision source** and reason with current Gate policy. For a denial, fix the
 first mismatched invariant: Target, runtime, launcher, Value source, or operation.
-Do not widen every rule.
+Do not widen every rule. Records with the required metadata offer **Configure
+Launcher…**, which reverifies the installed Launcher before opening its exact
+gate rule or the reviewed rule-creation flow. Opening the editor grants no authority.
 
 `av history` reads the same local history
 through the signed CLI. It shows the newest 50 records by default; `--since 7d`
