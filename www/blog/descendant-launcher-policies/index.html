@@ -20,7 +20,7 @@
   <meta property="og:url" content="https://www.automicvault.com/blog/descendant-launcher-policies/">
   <meta property="og:image" content="https://www.automicvault.com/assets/brand-shield-v2.webp">
   <meta property="article:published_time" content="2026-10-07">
-  <meta property="article:modified_time" content="2026-10-07">
+  <meta property="article:modified_time" content="2026-10-08">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.automicvault.com/assets/brand-shield-v2.webp">
   <meta name="twitter:title" content="Choose whose Launcher rule applies">
@@ -50,7 +50,7 @@
         "description": "Keep an agent’s own rule by default, or explicitly let its harness supply policy. Descendant Launcher overrides can narrow or broaden access at one gate.",
         "image": "https://www.automicvault.com/assets/brand-shield-v2.webp",
         "datePublished": "2026-10-07",
-        "dateModified": "2026-10-07",
+        "dateModified": "2026-10-08",
         "author": {"@id": "https://www.automicvault.com/#organization"},
         "publisher": {"@id": "https://www.automicvault.com/#organization"},
         "mainEntityOfPage": {"@id": "https://www.automicvault.com/blog/descendant-launcher-policies/#webpage"},
@@ -130,7 +130,7 @@
           <p>The agent’s. Starting it from a more privileged terminal should not silently erase the rule you chose for it.</p>
           <p>But you may also run agents through a dedicated harness. You might want that harness to keep its children at Read Only, even when those agents have Write Access elsewhere. Or you might give a deployment harness Write Access and want the agents it starts to use that rule for the deployment.</p>
           <p>We’ve added <strong>Override descendant Launcher rules</strong> for that choice. You enable it on one Verified Launcher’s rule at one Authorization Gate, then approve the change.</p>
-          <p><strong>Availability:</strong> this post describes the implementation merged after 4.17.1. Use a build containing that change; 4.17.1 itself does not include the option.</p>
+          <p><strong>Availability:</strong> descendant Launcher rule overrides and per-key SSH policies are available in <a href="https://github.com/automic-vault/automic-vault/releases/tag/4.18.0">Automic Vault 4.18.0</a>.</p>
 
           <section class="incident-section" aria-labelledby="nearest">
             <div class="section-label"><h2 id="nearest">The nearest explicit rule remains the default</h2></div>

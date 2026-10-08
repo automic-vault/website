@@ -1,9 +1,8 @@
 # Automic Vault manual
 
-This is the user and operator manual for Automic Vault 4.17.1 on macOS, with policy documentation updated against
-source commit `530e7f3e` on October 7, 2026. Descendant Launcher rule overrides
-and per-key SSH policies landed after the 4.17.1 release; use a build containing
-those changes to follow those sections. UI screenshots show 3.16.0
+This is the user and operator manual for Automic Vault 4.18.0 on macOS,
+checked against the release source on October 8, 2026. This release includes
+descendant Launcher rule overrides and per-key SSH policies. UI screenshots show 3.16.0
 and illustrate older layouts; follow the text for current behavior. Use your
 installed build's help and catalogs to check its command surface.
 

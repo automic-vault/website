@@ -104,21 +104,20 @@ the public issue tracker.
 
 ## Source of truth
 
-The policy, SSH, and Launcher sections were refreshed against source commit
-`530e7f3e`, canonical Domain Language, and Architecture on October 7, 2026.
-The checkout reports 4.17.1 but includes changes after that release. Descendant
-rule overrides and per-key SSH policies require a build containing those changes.
-Hardener pages are generated from that checkout's hardener references.
+The policy, SSH, and Launcher sections were checked against the 4.18.0 release,
+canonical Domain Language, and Architecture on October 8, 2026. Descendant
+Launcher rule overrides and per-key SSH policies are available in 4.18.0.
+Hardener pages are generated from that release's hardener references.
 The linked v1 copy script was tested with disposable legacy Keychain
 fixtures and the actual save implementation using isolated test storage; it is
 not a full v1 upgrade test. UI screenshots come from 3.16.0. For your installed
 build, prefer `av --version`, `av help`, `av detectors --json`, and `av hardeners --json`.
 
-- [4.17.1 release](https://github.com/automic-vault/automic-vault/releases/tag/4.17.1)
-- [CLI source](https://github.com/automic-vault/automic-vault/blob/530e7f3e/src/cli/mod.rs)
-- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/530e7f3e/src)
-- [Detectors](https://github.com/automic-vault/automic-vault/tree/530e7f3e/src/isotopes/detectors)
-- [Hardeners](https://github.com/automic-vault/automic-vault/tree/530e7f3e/src/isotopes)
+- [4.18.0 release](https://github.com/automic-vault/automic-vault/releases/tag/4.18.0)
+- [CLI source](https://github.com/automic-vault/automic-vault/blob/4.18.0/src/cli/mod.rs)
+- [App and CLI source](https://github.com/automic-vault/automic-vault/tree/4.18.0/src)
+- [Detectors](https://github.com/automic-vault/automic-vault/tree/4.18.0/src/isotopes/detectors)
+- [Hardeners](https://github.com/automic-vault/automic-vault/tree/4.18.0/src/isotopes)
 - [Domain Language](https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md)
 - [Architecture](https://github.com/automic-vault/automic-vault/blob/main/docs/architecture.md)
 

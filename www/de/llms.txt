@@ -8,7 +8,7 @@
 
 - [Automic Vault herunterladen](https://www.automicvault.com/de/download/): Lade Automic Vault für macOS herunter und kontrolliere die Verwendung von Entwickler-Credentials.
 
-- [Dokumentation](https://www.automicvault.com/docs/): Englisches Handbuch für Automic Vault 4.17.1 mit Änderungen nach diesem Release.
+- [Dokumentation](https://www.automicvault.com/docs/): Englisches Handbuch für Automic Vault 4.18.0; anhand des Release-Quellcodes geprüft.
 
 - [Pakete](https://pkg.so/de/): Durchsuchbarer Katalog mit Entwicklerpaketen, Abhängigkeiten, Installationsbefehlen, Risikoinformationen und Automic-Vault-Härtung.
 
@@ -28,7 +28,7 @@
 
 - Plattform: macOS
 
-- Aktuell dokumentiertes Release: Automic Vault 4.17.1
+- Aktuell dokumentiertes Release: Automic Vault 4.18.0
 
 - Lizenz: Apache License 2.0
 
