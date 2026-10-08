@@ -89,8 +89,16 @@ const pages = [
     lede: "Known-good paths for GitHub, AWS, Docker, Project Values, proxying, scripts, and signing.",
     description: "Common Automic Vault workflows for protected developer credentials.",
     start: "## Common workflows",
-    end: "## Reentrant Blessed Scripts",
+    end: "## Blessed Scripts",
     dateModified: "2026-10-08",
+  },
+  {
+    slug: "blessed-scripts",
+    title: "Blessed Scripts",
+    lede: "Review exact script contents, declare capability ceilings, and choose which Launchers may use the Blessing.",
+    description: "Create, review, run, and revoke Automic Vault Blessed Scripts.",
+    start: "## Blessed Scripts",
+    end: "## Reentrant Blessed Scripts",
   },
   {
     slug: "reentrant-scripts",
@@ -118,7 +126,8 @@ const manualLinks = [
   ["authority", "Approval and authority"],
   ["cli", "CLI reference"],
   ["workflows", "Workflows"],
-  ["reentrant-scripts", "Reentrant scripts"],
+  ["blessed-scripts", "Blessed Scripts"],
+  ["reentrant-scripts", "Reentrant Blessed Scripts"],
   ["troubleshooting", "Troubleshooting"],
   ["hardeners", "Hardeners"],
 ];

@@ -55,7 +55,7 @@
           <a class="docs-toc-title" href="/docs/">Manual</a>
           <section class="docs-nav-group">
             <h2>Documentation</h2>
-            <ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/security/">Security foundations</a></li><li><a href="/docs/app/">App guide</a></li><li><a href="/docs/authority/">Approval and authority</a></li><li><a href="/docs/cli/" aria-current="page">CLI reference</a></li><li><a href="/docs/workflows/">Workflows</a></li><li><a href="/docs/reentrant-scripts/">Reentrant scripts</a></li><li><a href="/docs/troubleshooting/">Troubleshooting</a></li><li><a href="/docs/hardeners/">Hardeners</a></li></ul>
+            <ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/security/">Security foundations</a></li><li><a href="/docs/app/">App guide</a></li><li><a href="/docs/authority/">Approval and authority</a></li><li><a href="/docs/cli/" aria-current="page">CLI reference</a></li><li><a href="/docs/workflows/">Workflows</a></li><li><a href="/docs/blessed-scripts/">Blessed Scripts</a></li><li><a href="/docs/reentrant-scripts/">Reentrant Blessed Scripts</a></li><li><a href="/docs/troubleshooting/">Troubleshooting</a></li><li><a href="/docs/hardeners/">Hardeners</a></li></ul>
           </section>
           <section class="docs-nav-group">
             <h2>On this page</h2>
@@ -232,7 +232,7 @@ gh release create &quot;$1&quot;</code></pre>
 follows the shebang. Capabilities are ceilings, not grants. Execution
 normally uses a verified <code>/dev/fd/N</code> snapshot; a separately
 reviewed canonical-path exception is described in the <a
-href="/docs/app/#blessed-scripts">Blessed Scripts guide</a>.
+href="/docs/blessed-scripts/">Blessed Scripts guide</a>.
 <code>AV_SCRIPT_PATH</code> and <code>AV_SCRIPT_DIR</code> identify the
 canonical source.</p>
 <p>FD mode in an <code>av inject</code> shebang is currently

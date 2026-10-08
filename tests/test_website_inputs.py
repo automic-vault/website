@@ -29,6 +29,10 @@ class LocalReferenceParser(html.parser.HTMLParser):
 
 
 class StaticHtmlAnalyticsTests(unittest.TestCase):
+    def test_content_negotiation_and_generated_formats(self):
+        subprocess.run(["node", "--test", str(ROOT / "tests/content-negotiation.test.mjs")], check=True, capture_output=True, text=True)
+
+
     def test_curated_homepage_check_rejects_stale_copy_and_order(self):
         generator = runpy.run_path(str(ROOT / "scripts" / "generate-www-i18n.py"))
         locales = generator["enabled_locales"]()
@@ -240,7 +244,7 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
     def test_docs_match_the_current_cli_surface(self):
         page_dirs = [
             ROOT / "www" / "docs" / slug
-            for slug in ("", "security", "app", "authority", "cli", "workflows", "reentrant-scripts", "troubleshooting")
+            for slug in ("", "security", "app", "authority", "cli", "workflows", "blessed-scripts", "reentrant-scripts", "troubleshooting")
         ]
         html = "\n".join((page / "index.html").read_text(encoding="utf-8") for page in page_dirs)
         markdown = "\n".join((page / "index.md").read_text(encoding="utf-8") for page in page_dirs)
@@ -319,11 +323,12 @@ class StaticHtmlAnalyticsTests(unittest.TestCase):
         reentrant_markdown = (ROOT / "www" / "docs" / "reentrant-scripts" / "index.md").read_text(encoding="utf-8")
 
         self.assertIn('<a href="/docs/app/" aria-current="page">App guide</a>', app)
-        self.assertIn('<a href="/docs/reentrant-scripts/">Reentrant scripts</a>', app)
+        self.assertIn('<a href="/docs/reentrant-scripts/">Reentrant Blessed Scripts</a>', app)
+        self.assertIn('<a href="/docs/blessed-scripts/">Blessed Scripts</a>', app)
         self.assertIn("On this page", app)
         self.assertIn('<a href="#detectors">Detectors</a>', app)
         self.assertIn('<a href="#settings">Settings</a>', app)
-        self.assertIn('<a href="/docs/reentrant-scripts/" aria-current="page">Reentrant scripts</a>', reentrant)
+        self.assertIn('<a href="/docs/reentrant-scripts/" aria-current="page">Reentrant Blessed Scripts</a>', reentrant)
         self.assertIn('<a href="#return-the-prompt-to-the-agent">', reentrant)
         self.assertIn("How does this differ from telling the agent to call a sequence of scripts?", reentrant_markdown)
         self.assertTrue(reentrant_markdown.startswith("## Reentrant Blessed Scripts\n"))

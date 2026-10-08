@@ -808,6 +808,7 @@ def render_sitemap(records: list[dict[str, Any]], locales: list[Locale]) -> str:
         ("https://www.automicvault.com/docs/authority/", "2026-10-08"),
         ("https://www.automicvault.com/docs/cli/", "2026-10-08"),
         ("https://www.automicvault.com/docs/workflows/", "2026-10-08"),
+        ("https://www.automicvault.com/docs/blessed-scripts/", "2026-10-08"),
         ("https://www.automicvault.com/docs/reentrant-scripts/", "2026-10-08"),
         ("https://www.automicvault.com/docs/troubleshooting/", "2026-10-08"),
         ("https://www.automicvault.com/docs/hardeners/", "2026-10-08"),

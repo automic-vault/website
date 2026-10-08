@@ -201,7 +201,7 @@ A blessable script is a regular UTF-8 file up to 1 MiB with absolute `av` and
 interpreter paths. The optional manifest immediately follows the shebang.
 Capabilities are ceilings, not grants. Execution normally uses a verified
 `/dev/fd/N` snapshot; a separately reviewed canonical-path exception is described
-in the [Blessed Scripts guide](/docs/app/#blessed-scripts).
+in the [Blessed Scripts guide](/docs/blessed-scripts/).
 `AV_SCRIPT_PATH` and `AV_SCRIPT_DIR` identify the canonical source.
 
 FD mode in an `av inject` shebang is currently unsupported. A Blessed Script

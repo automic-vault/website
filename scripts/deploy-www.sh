@@ -117,7 +117,7 @@ require_env() {
   fi
 }
 
-required_tools=(node python3)
+required_tools=(node python3 pandoc)
 if [[ "${prepare_only}" != true ]]; then
   required_tools+=(aws)
 fi
@@ -248,6 +248,7 @@ prepare_site_for_upload() {
   log_step "Preparing site content"
   make_temp_dir prepared_site_dir
   rsync -a "${site_dir}/" "${prepared_site_dir}/"
+  node "${script_dir}/generate-page-formats.mjs" "${prepared_site_dir}"
   node "${llms_full_generator}" "${prepared_site_dir}" "${prepared_site_dir}/llms-full.txt"
   log_ok "Site content prepared"
 }
@@ -521,58 +522,35 @@ function handler(event) {
     var bestType = "text/html";
     var bestQ = -1;
     var bestOrder = 999999;
-    var bestSpecificity = -1;
-
-    if (!header) {
-      return bestType;
-    }
-
-    var ranges = header.split(",");
-    for (var order = 0; order < ranges.length; order++) {
-      var range = ranges[order].replace(/^\s+|\s+$/g, "");
-      if (!range) {
-        continue;
+    if (!header) return bestType;
+    var ranges = header.toLowerCase().split(",");
+    for (var t = 0; t < supported.length; t++) {
+      var candidate = supported[t];
+      var quality = 0;
+      var specificity = -1;
+      var candidateOrder = 999999;
+      for (var i = 0; i < ranges.length; i++) {
+        var parts = ranges[i].trim().split(";");
+        var media = parts[0].trim();
+        var rank = media === candidate ? 2 :
+          media === candidate.split("/")[0] + "/*" ? 1 : media === "*/*" ? 0 : -1;
+        if (rank < 0 || rank <= specificity) continue;
+        var q = 1;
+        for (var p = 1; p < parts.length; p++) {
+          var parameter = parts[p].trim();
+          if (parameter.slice(0, 2) === "q=") {
+            q = Number(parameter.slice(2));
+            if (!isFinite(q) || q < 0 || q > 1) q = 0;
+          }
+        }
+        specificity = rank;
+        quality = q;
+        candidateOrder = i;
       }
-      var parts = range.split(";");
-      var media = parts[0].replace(/^\s+|\s+$/g, "").toLowerCase();
-      var q = 1;
-
-      for (var paramIndex = 1; paramIndex < parts.length; paramIndex++) {
-        var param = parts[paramIndex].replace(/^\s+|\s+$/g, "").toLowerCase();
-        if (param.slice(0, 2) === "q=") {
-          var parsedQ = parseFloat(param.slice(2));
-          q = isNaN(parsedQ) ? 0 : parsedQ;
-        }
-      }
-
-      if (q <= 0) {
-        continue;
-      }
-
-      for (var typeIndex = 0; typeIndex < supported.length; typeIndex++) {
-        var candidate = supported[typeIndex];
-        var specificity = -1;
-        if (media === candidate) {
-          specificity = 2;
-        } else if (media.slice(-2) === "/*" && candidate.indexOf(media.slice(0, media.length - 1)) === 0) {
-          specificity = 1;
-        } else if (media === "*/*") {
-          specificity = 0;
-        }
-
-        if (specificity < 0) {
-          continue;
-        }
-        if (
-          q > bestQ ||
-          (q === bestQ && order < bestOrder) ||
-          (q === bestQ && order === bestOrder && specificity > bestSpecificity)
-        ) {
-          bestType = candidate;
-          bestQ = q;
-          bestOrder = order;
-          bestSpecificity = specificity;
-        }
+      if (quality > 0 && (quality > bestQ || (quality === bestQ && candidateOrder < bestOrder))) {
+        bestType = candidate;
+        bestQ = quality;
+        bestOrder = candidateOrder;
       }
     }
 
@@ -751,6 +729,17 @@ function handler(event) {
     }
     return request;
   }
+  if (preferredType === "text/markdown" || preferredType === "text/plain") {
+    var extension = preferredType === "text/markdown" ? ".md" : ".txt";
+    if (request.uri.slice(-5) === ".html") {
+      request.uri = request.uri.slice(0, -5) + extension;
+    } else if (request.uri.slice(-1) === "/") {
+      request.uri += "index" + extension;
+    } else if (request.uri.indexOf(".") === -1) {
+      request.uri += "/index" + extension;
+    }
+    return request;
+  }
   if (preferredType === "application/json" && request.uri.indexOf(".") === -1 && !isKnownRoute(request.uri)) {
     return jsonNotFound();
   }
@@ -856,8 +845,13 @@ ensure_response_headers_policy() {
         }
       },
       CustomHeadersConfig: {
-        Quantity: 1,
+        Quantity: 2,
         Items: [
+          {
+            Header: "Vary",
+            Value: "Accept, Accept-Encoding",
+            Override: true
+          },
           {
             Header: "Permissions-Policy",
             Value: "camera=(), microphone=(), geolocation=(), payment=()",

@@ -150,6 +150,8 @@ Secrets already released and expiry never approves an operation.
 
 ### Blessed Scripts
 
+See the [Blessed Scripts guide](/docs/blessed-scripts/) for a complete example.
+
 A Blessing binds a reviewed script to its canonical path, SHA-256 digest,
 interpreter, Script Declaration, Secret Names, declared Capabilities, and
 optional Launcher Endorsements. The app shows the exact enrolled state and can

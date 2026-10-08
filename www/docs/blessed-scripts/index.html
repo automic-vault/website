@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QKG1T9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y78QKG1T9Y');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Blessed Scripts — Automic Vault</title>
+  <meta name="description" content="Create, review, run, and revoke Automic Vault Blessed Scripts.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Automic Vault">
+  <meta property="og:title" content="Blessed Scripts">
+  <meta property="og:description" content="Create, review, run, and revoke Automic Vault Blessed Scripts.">
+  <meta property="og:url" content="https://www.automicvault.com/docs/blessed-scripts/">
+  <meta property="og:image" content="https://www.automicvault.com/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blessed Scripts">
+  <meta name="twitter:description" content="Create, review, run, and revoke Automic Vault Blessed Scripts.">
+  <meta name="twitter:image" content="https://www.automicvault.com/preview.jpg">
+  <link rel="canonical" href="https://www.automicvault.com/docs/blessed-scripts/">
+  <link rel="alternate" type="text/markdown" title="Markdown" href="/docs/blessed-scripts/index.md">
+  <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TechArticle","url":"https://www.automicvault.com/docs/blessed-scripts/","headline":"Blessed Scripts","description":"Create, review, run, and revoke Automic Vault Blessed Scripts.","dateModified":"2026-10-08","author":{"@id":"https://www.automicvault.com/#organization"},"publisher":{"@id":"https://www.automicvault.com/#organization"},"about":{"@type":"SoftwareApplication","name":"Automic Vault","softwareVersion": "4.18.0","operatingSystem":"macOS","codeRepository":"https://github.com/automic-vault/automic-vault"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico?v=5" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-dark.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#ffffff" media="(prefers-color-scheme: dark)">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=5" color="#111111" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <link rel="stylesheet" href="/styles.css?v=128">
+  <link rel="stylesheet" href="/docs/styles.css?v=5">
+</head>
+<body>
+  <div class="site-shell" id="top">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Automic Vault home"><img class="brand-mark" src="/assets/icon@2x.webp?v=3" alt="" width="54" height="54"><span class="brand-type">Automic Vault</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span></button>
+      <nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="https://pkg.so/">Packages</a><a href="/blog/">Blog</a><a href="/docs/" aria-current="page">Docs</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">GitHub</a></nav>
+    </header>
+    <main>
+      <header class="docs-hero"><div class="docs-hero-inner"><p class="eyebrow">Automic Vault 4.18.0 · macOS</p><h1>Blessed Scripts</h1><p class="lede">Review exact script contents, declare capability ceilings, and choose which Launchers may use the Blessing.</p><ul class="docs-provenance" aria-label="Page formats"><li>Source linked</li><li><a href="/docs/blessed-scripts/index.md">Markdown</a></li></ul></div></header>
+      <div class="docs-layout">
+        <nav class="docs-toc" aria-label="Documentation sections">
+          <a class="docs-toc-title" href="/docs/">Manual</a>
+          <section class="docs-nav-group">
+            <h2>Documentation</h2>
+            <ul><li><a href="/docs/">Overview</a></li><li><a href="/docs/security/">Security foundations</a></li><li><a href="/docs/app/">App guide</a></li><li><a href="/docs/authority/">Approval and authority</a></li><li><a href="/docs/cli/">CLI reference</a></li><li><a href="/docs/workflows/">Workflows</a></li><li><a href="/docs/blessed-scripts/" aria-current="page">Blessed Scripts</a></li><li><a href="/docs/reentrant-scripts/">Reentrant Blessed Scripts</a></li><li><a href="/docs/troubleshooting/">Troubleshooting</a></li><li><a href="/docs/hardeners/">Hardeners</a></li></ul>
+          </section>
+          <section class="docs-nav-group">
+            <h2>On this page</h2>
+            <ul><li class="docs-nav-depth-3"><a href="#verified-execution">Verified execution</a></li><li class="docs-nav-depth-3"><a href="#create-and-review">Create and review</a></li><li class="docs-nav-depth-3"><a href="#changes-and-revocation">Changes and revocation</a></li><li class="docs-nav-depth-3"><a href="#capability-ceilings">Capability ceilings</a></li><li class="docs-nav-depth-3"><a href="#agent-workflows">Agent workflows</a></li></ul>
+          </section>
+        </nav>
+        <article class="docs-content"><h2 id="blessed-scripts">Blessed Scripts</h2>
+<p>A Blessing binds a reviewed script to its canonical path, SHA-256
+digest, interpreter, Script Declaration, Secret Names, declared
+Capabilities, and optional Launcher Endorsements. The app shows the
+exact enrolled state and can revoke or replace it.</p>
+<p><a href="/docs/assets/blessed-scripts.png"><img
+src="/docs/assets/blessed-scripts.png"
+alt="Blessed deployment script with digest, Secret Names, capabilities, and calling-app policy" /></a></p>
+<h3 id="verified-execution">Verified execution</h3>
+<p>Scripts are mutable text and usually run through a powerful
+interpreter. Automic Vault therefore approves a verified snapshot rather
+than trusting the filename. Execution normally uses a checked
+<code>/dev/fd/N</code> snapshot. If the interpreter cannot execute that
+snapshot, you may accept canonical-path execution during Blessing
+review. That exception warns on every run because same-user code can
+edit the file between verification and execution. Existing Blessings
+need a new review to acquire it. <code>AV_SCRIPT_PATH</code> and
+<code>AV_SCRIPT_DIR</code> identify the canonical source.</p>
+<h3 id="create-and-review">Create and review</h3>
+<p>Put the absolute <code>av inject</code> shebang first, place the
+optional Script Declaration immediately after it, review requested
+Secret Names and capability ceilings, then run
+<code>av bless PATH</code>. Use <code>--endorse-launcher</code> only
+when the exact Verified Launcher should receive automic authorization
+for the script.</p>
+<p>Use the installed absolute path to <code>av</code> in the shebang.
+For a script that calls hardened GitHub commands, request the
+Tool-specific capability without injecting a raw token into the
+shell:</p>
+<pre class="sh"><code>#!/usr/local/bin/av inject -- /bin/sh
+# --- automic-vault
+# capabilities:
+#   gh: read-only
+# ---
+set -eu
+gh repo view automic-vault/automic-vault --json name,url</code></pre>
+<p>Save it as <code>repo-info.sh</code>, review every command and
+dependency, then run:</p>
+<pre class="sh"><code>chmod +x ./repo-info.sh
+av bless ./repo-info.sh
+./repo-info.sh</code></pre>
+<p>To let the current Verified Launcher use the reviewed Blessing's
+automic authority, review
+<code>av bless --endorse-launcher ./repo-info.sh</code>. Without a
+Launcher Endorsement, the Blessing itself grants that Launcher no
+automic authority. Existing inherited authority still follows the
+declaration.</p>
+<h3 id="changes-and-revocation">Changes and revocation</h3>
+<p>Editing, replacing, or moving the script invalidates the Blessing.
+Re-blessing is a new security decision; review the displayed diff.
+Revocation removes policy but does not undo external actions from
+earlier runs.</p>
+<h3 id="capability-ceilings">Capability ceilings</h3>
+<p>A capability is a ceiling, not a grant. A blessed script can still
+misuse every operation inside its approved ceiling, and an interpreter
+remains a large Target. Keep scripts short, deterministic, and
+narrow.</p>
+<p>Without a capabilities manifest, a script inherits its execution
+context's automic authority.
+<code>capabilities: { inherit: true }</code> makes this explicit.
+<code>capabilities: {}</code> instead blocks inherited automic
+authority, including Launcher policy, Direct Access Rules, outer
+Blessings, and Temporary Access Grants, for later gated operations
+attributable to that live execution. The script's own requested Secrets
+still need separate authorization. This ceiling does not sandbox ungated
+commands or survive loss of observable script ancestry.</p>
+<h3 id="agent-workflows">Agent workflows</h3>
+<p>For a workflow that pauses for agent judgment and resumes
+deterministic work, see <a href="/docs/reentrant-scripts/">Reentrant
+Blessed Scripts</a>. Keep agent output as validated data and keep Secret
+Values out of handoff prompts and state files.</p>
+<p>See also the <a href="/docs/cli/#av-bless">CLI reference</a>, <a
+href="/docs/app/#blessed-scripts">app controls</a>, and the canonical <a
+href="https://github.com/automic-vault/automic-vault/blob/main/docs/domain-language.md#reviewed-automation">reviewed
+automation definitions</a>.</p>
+<p class="docs-source-link"><a href="/docs/blessed-scripts/index.md">Read this page as Markdown</a></p></article>
+      </div>
+    </main>
+    <footer class="docs-footer"><p class="docs-footer-line">Authorize the operation, not just the identity.</p><div class="docs-footer-meta"><div class="docs-footer-links"><a href="#top">Back to top</a><a href="/docs/">Docs</a><a href="/docs/blessed-scripts/index.md">Markdown</a><a href="/download/">Download</a><a href="https://github.com/automic-vault/automic-vault">Source</a></div><span>Automic Vault 4.18.0 manual</span></div></footer>
+  </div>
+  <script src="/app.js?v=26"></script>
+</body>
+</html>

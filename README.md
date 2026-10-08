@@ -23,6 +23,15 @@ scripts/deploy-www.sh --prepare-only
 Regenerate the versioned manual and hardener pages from the sibling
 `../av/src/isotopes/hardeners/*.md` files with `node scripts/generate-docs.mjs`.
 
+All public HTML pages support `Accept: text/markdown` and `Accept: text/plain`
+at their normal URL, including `/docs/` and nested guides. Browser requests
+continue to receive HTML. Deployment preserves authored `.md` and `.txt` files
+and uses Pandoc to generate missing formats in the staged upload directory.
+CloudFront rewrites to the selected static object before cache lookup and sends
+`Vary: Accept, Accept-Encoding` for downstream caches. Explicit file URLs retain
+their format; installer and download routes retain their existing behavior.
+Pandoc must be installed for preparation and deployment.
+
 ## Deploy
 
 ```sh
